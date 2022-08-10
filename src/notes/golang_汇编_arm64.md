@@ -65,7 +65,7 @@ https://pkg.go.dev/cmd/internal/obj/arm64#pkg-overview
 比如异常发生在EL0, 一般会在EL1处理. 那PSTATE会保存在SPSR_EL1
 * 更新PSTATE以反映新的CPU状态, 比如已经进入EL1
 * 硬件会将返回地址保存在ELR_Eln.
-还是比如异常发生在EL0, 但在EL1处理, 那返回地址保存在ELR_EL1
+还是比如异常发生在EL0, 但在EL1处理, 那返回地址保存在ELR_EL1  
 ![](img/golang_汇编_arm64_20220810232527.png)  
 
 > The processor has to be told when to return from an exception by software. This is done by executing the ERET instruction. This restores the pre-exception PSTATE from SPSR_ELn and returns program execution back to the original location by restoring the PC from ELR_ELn.
