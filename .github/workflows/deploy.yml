@@ -21,16 +21,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      - name: Setup mdBook
-        uses: peaceiris/actions-mdbook@v1.1.13
-        
-      - run: mdbook build
+      - name: Checkout
+        uses: actions/checkout@v3
       
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Publish Gitbook
+        uses: tuliren/publish-gitbook@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./book
