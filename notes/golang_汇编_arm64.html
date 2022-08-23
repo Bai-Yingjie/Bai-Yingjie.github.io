@@ -222,60 +222,57 @@
 <li>NEEDCTXT: &#x9700;&#x8981;&#x4E0A;&#x4E0B;&#x6587;&#x53C2;&#x6570;, &#x4E00;&#x822C;&#x7528;&#x4E8E;&#x95ED;&#x5305;</li>
 </ul>
 </li>
-<li>$framesize: &#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x5927;&#x5C0F;, &#x5305;&#x542B;&#x8981;&#x4F20;&#x7ED9;&#x5B50;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x90E8;&#x5206;</li>
-<li>-argsize: &#x53C2;&#x6570;+&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x5927;&#x5C0F;, &#x53EF;&#x4EE5;&#x7701;&#x7565;&#x7531;&#x7F16;&#x8BD1;&#x5668;&#x81EA;&#x5DF1;&#x63A8;&#x5BFC;</li>
+<li>framesize: &#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x5927;&#x5C0F;, &#x5305;&#x542B;&#x8981;&#x4F20;&#x7ED9;&#x5B50;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x90E8;&#x5206;</li>
+<li>argsize: &#x53C2;&#x6570;+&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x5927;&#x5C0F;, &#x53EF;&#x4EE5;&#x7701;&#x7565;&#x7531;&#x7F16;&#x8BD1;&#x5668;&#x81EA;&#x5DF1;&#x63A8;&#x5BFC;</li>
 </ul>
 <p>&#x6BD4;&#x5982;</p>
-<pre><code>//go:nosplit
-func swap(a, b int) (int, int)
-</code></pre><p>&#x53EF;&#x4EE5;&#x5199;&#x4E3A;:</p>
-<pre><code>TEXT &#xB7;swap(SB), NOSPLIT, $0-32
+<pre><code class="lang-go"><span class="hljs-comment">//go:nosplit</span>
+<span class="hljs-keyword">func</span> swap(a, b <span class="hljs-keyword">int</span>) (<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>)
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x5199;&#x4E3A;:</p>
+<pre><code class="lang-go">TEXT &#xB7;swap(SB), NOSPLIT, $<span class="hljs-number">0</span><span class="hljs-number">-32</span>
 &#x6216;&#x8005;
-TEXT &#xB7;swap(SB), NOSPLIT, $0
-</code></pre><p>&#x8FD9;&#x91CC;<code>-32</code>&#x662F;4&#x4E2A;8&#x5B57;&#x8282;&#x7684;int, &#x5373;&#x5165;&#x53C2;a, b&#x548C;&#x4E24;&#x4E2A;&#x51FA;&#x53C2;.
-&#x6CE8;&#x610F;go&#x5E76;&#x4E0D;&#x533A;&#x5206;&#x5165;&#x53C2;&#x548C;&#x51FA;&#x53C2;</p>
-<pre><code>func swap(a, b int) (int, int)
+TEXT &#xB7;swap(SB), NOSPLIT, $<span class="hljs-number">0</span>
+</code></pre>
+<p>&#x8FD9;&#x91CC;<code>-32</code>&#x662F;4&#x4E2A;8&#x5B57;&#x8282;&#x7684;int, &#x5373;&#x5165;&#x53C2;a, b&#x548C;&#x4E24;&#x4E2A;&#x51FA;&#x53C2;.<br>&#x6CE8;&#x610F;go&#x5E76;&#x4E0D;&#x533A;&#x5206;&#x5165;&#x53C2;&#x548C;&#x51FA;&#x53C2;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> swap(a, b <span class="hljs-keyword">int</span>) (<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>)
 &#x6216;
-func swap(a, b, c, d int)
+<span class="hljs-keyword">func</span> swap(a, b, c, d <span class="hljs-keyword">int</span>)
 &#x6216;
-func swap() (a, b, c, d int)
+<span class="hljs-keyword">func</span> swap() (a, b, c, d <span class="hljs-keyword">int</span>)
 &#x6216;
-func swap() (a, []int, d int)
-</code></pre><p>&#x6C47;&#x7F16;&#x90FD;&#x4E00;&#x6837;</p>
+<span class="hljs-keyword">func</span> swap() (a, []<span class="hljs-keyword">int</span>, d <span class="hljs-keyword">int</span>)
+</code></pre>
+<p>&#x6C47;&#x7F16;&#x90FD;&#x4E00;&#x6837;</p>
 <h1 id="arm64&#x6C47;&#x7F16;"><a name="arm64&#x6C47;&#x7F16;" class="anchor-navigation-ex-anchor" href="#arm64&#x6C47;&#x7F16;"><i class="fa fa-link" aria-hidden="true"></i></a>3. arm64&#x6C47;&#x7F16;</h1>
 <p><a href="https://pkg.go.dev/cmd/internal/obj/arm64#pkg-overview" target="_blank">https://pkg.go.dev/cmd/internal/obj/arm64#pkg-overview</a></p>
 <h2 id="Register_mapping_rules"><a name="Register_mapping_rules" class="anchor-navigation-ex-anchor" href="#Register_mapping_rules"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. 1. Register mapping rules</h2>
 <ol>
-<li><p>All basic register names are written as Rn.</p>
-</li>
-<li><p>Go uses ZR as the zero register and RSP as the stack pointer.</p>
-</li>
-<li><p>Bn, Hn, Dn, Sn and Qn instructions are written as Fn in floating-point instructions and as Vn in SIMD instructions.</p>
-</li>
+<li>All basic register names are written as Rn.</li>
+<li>Go uses ZR as the zero register and RSP as the stack pointer.</li>
+<li>Bn, Hn, Dn, Sn and Qn instructions are written as Fn in floating-point instructions and as Vn in SIMD instructions.</li>
 </ol>
 <h1 id="ARM64&#x5F02;&#x5E38;&#x5904;&#x7406;&#x8FC7;&#x7A0B;"><a name="ARM64&#x5F02;&#x5E38;&#x5904;&#x7406;&#x8FC7;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#ARM64&#x5F02;&#x5E38;&#x5904;&#x7406;&#x8FC7;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>4. ARM64&#x5F02;&#x5E38;&#x5904;&#x7406;&#x8FC7;&#x7A0B;</h1>
 <blockquote>
-<p>When an event which causes an exception occurs, the processor hardware automatically performs certain actions. The SPSR_ELn is updated, (where n is the Exception level where the exception is taken), to store the PSTATE information required to correctly return at the end of the exception. PSTATE is updated to reflect the new processor status (and this may mean that the Exception level is raised, or it may stay the same). The return address to be used at the end of the exception is stored in ELR_ELn.</p>
+<p>When an event which causes an exception occurs, the processor hardware automatically performs certain actions. The <code>SPSR_ELn</code> is updated, (where n is the Exception level where the exception is taken), to store the <code>PSTATE</code> information required to correctly return at the end of the exception. <code>PSTATE</code> is updated to reflect the new processor status (and this may mean that the Exception level is raised, or it may stay the same). The return address to be used at the end of the exception is stored in <code>ELR_ELn</code>.</p>
 </blockquote>
 <p>&#x5F02;&#x5E38;&#x53D1;&#x751F;&#x7684;&#x65F6;&#x5019;, CPU&#x4F1A;&#x81EA;&#x52A8;&#x7684;&#x5B9E;&#x65BD;&#x5982;&#x4E0B;&#x52A8;&#x4F5C;:</p>
 <ul>
-<li>&#x5C06;PSTATE&#x4FDD;&#x5B58;&#x5230;SPSR_ELn
-&#x6BD4;&#x5982;&#x5F02;&#x5E38;&#x53D1;&#x751F;&#x5728;EL0, &#x4E00;&#x822C;&#x4F1A;&#x5728;EL1&#x5904;&#x7406;. &#x90A3;PSTATE&#x4F1A;&#x4FDD;&#x5B58;&#x5728;SPSR_EL1</li>
-<li>&#x66F4;&#x65B0;PSTATE&#x4EE5;&#x53CD;&#x6620;&#x65B0;&#x7684;CPU&#x72B6;&#x6001;, &#x6BD4;&#x5982;&#x5DF2;&#x7ECF;&#x8FDB;&#x5165;EL1</li>
-<li>&#x786C;&#x4EF6;&#x4F1A;&#x5C06;&#x8FD4;&#x56DE;&#x5730;&#x5740;&#x4FDD;&#x5B58;&#x5728;ELR<em>Eln.
-&#x8FD8;&#x662F;&#x6BD4;&#x5982;&#x5F02;&#x5E38;&#x53D1;&#x751F;&#x5728;EL0, &#x4F46;&#x5728;EL1&#x5904;&#x7406;, &#x90A3;&#x8FD4;&#x56DE;&#x5730;&#x5740;&#x4FDD;&#x5B58;&#x5728;ELR_EL1<br>![](img/golang</em>&#x6C47;&#x7F16;_arm64_20220810232527.png)  </li>
+<li>&#x5C06;<code>PSTATE</code>&#x4FDD;&#x5B58;&#x5230;<code>SPSR_ELn</code><br>&#x6BD4;&#x5982;&#x5F02;&#x5E38;&#x53D1;&#x751F;&#x5728;EL0, &#x4E00;&#x822C;&#x4F1A;&#x5728;EL1&#x5904;&#x7406;. &#x90A3;<code>PSTATE</code>&#x4F1A;&#x4FDD;&#x5B58;&#x5728;<code>SPSR_EL1</code></li>
+<li>&#x66F4;&#x65B0;<code>PSTATE</code>&#x4EE5;&#x53CD;&#x6620;&#x65B0;&#x7684;CPU&#x72B6;&#x6001;, &#x6BD4;&#x5982;&#x5DF2;&#x7ECF;&#x8FDB;&#x5165;EL1</li>
+<li>&#x786C;&#x4EF6;&#x4F1A;&#x5C06;&#x8FD4;&#x56DE;&#x5730;&#x5740;&#x4FDD;&#x5B58;&#x5728;<code>ELR_Eln</code>.<br>&#x8FD8;&#x662F;&#x6BD4;&#x5982;&#x5F02;&#x5E38;&#x53D1;&#x751F;&#x5728;EL0, &#x4F46;&#x5728;EL1&#x5904;&#x7406;, &#x90A3;&#x8FD4;&#x56DE;&#x5730;&#x5740;&#x4FDD;&#x5B58;&#x5728;<code>ELR_EL1</code><br><img src="img/golang_&#x6C47;&#x7F16;_arm64_20220810232527.png" alt="">  </li>
 </ul>
 <blockquote>
-<p>The processor has to be told when to return from an exception by software. This is done by executing the ERET instruction. This restores the pre-exception PSTATE from SPSR_ELn and returns program execution back to the original location by restoring the PC from ELR_ELn.</p>
+<p>The processor has to be told when to return from an exception by software. This is done by executing the ERET instruction. This restores the pre-exception <code>PSTATE</code> from <code>SPSR_ELn</code> and returns program execution back to the original location by restoring the PC from <code>ELR_ELn</code>.</p>
 </blockquote>
 <p>eret&#x6307;&#x4EE4;&#x7528;&#x6765;&#x4ECE;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x8FD4;&#x56DE;:</p>
 <ul>
-<li>&#x4ECE;SPSR_ELn&#x6062;&#x590D;&#x5F02;&#x5E38;&#x524D;&#x7684;PSTATE</li>
-<li>&#x4ECE;ELR_ELn&#x6062;&#x590D;PC</li>
-<li>&#x5F02;&#x5E38;&#x8FD4;&#x56DE;, &#x4ECE;&#x6062;&#x590D;&#x7684;PC&#x548C;PSTATE&#x7EE7;&#x7EED;&#x6267;&#x884C;</li>
+<li>&#x4ECE;<code>SPSR_ELn</code>&#x6062;&#x590D;&#x5F02;&#x5E38;&#x524D;&#x7684;<code>PSTATE</code></li>
+<li>&#x4ECE;<code>ELR_ELn</code>&#x6062;&#x590D;PC</li>
+<li>&#x5F02;&#x5E38;&#x8FD4;&#x56DE;, &#x4ECE;&#x6062;&#x590D;&#x7684;PC&#x548C;<code>PSTATE</code>&#x7EE7;&#x7EED;&#x6267;&#x884C;</li>
 </ul>
 <blockquote>
-<p>ELR_ELn contains the return address which is preferred for the specific exception type. For some exceptions, this is the address of the next instruction after the one which generated the exception. For example, when an SVC (system call) instruction is executed, we simply wish to return to the following instruction in the application. In other cases, we may wish to re-execute the instruction that generated the exception.</p>
+<p><code>ELR_ELn</code> contains the return address which is preferred for the specific exception type. For some exceptions, this is the address of the next instruction after the one which generated the exception. For example, when an SVC (system call) instruction is executed, we simply wish to return to the following instruction in the application. In other cases, we may wish to re-execute the instruction that generated the exception.</p>
 </blockquote>
 <p>&#x5728;&#x53D1;&#x751F;&#x5F02;&#x5E38;&#x65F6;, &#x786C;&#x4EF6;&#x4F1A;&#x81EA;&#x52A8;&#x66F4;&#x65B0;ELR, &#x6839;&#x636E;&#x60C5;&#x51B5;, &#x8FD4;&#x56DE;&#x5730;&#x5740;&#x6709;&#x51E0;&#x79CD;&#x53EF;&#x80FD;:</p>
 <ul>
@@ -284,12 +281,13 @@ func swap() (a, []int, d int)
 </ul>
 <p>ELR&#x53EF;&#x4EE5;&#x5728;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x91CC;&#x9762;&#x88AB;&#x66F4;&#x6539;.</p>
 <blockquote>
-<p>In addition to the SPSR and ELR registers, each Exception level has its own dedicated Stack Pointer register. These are named SP_EL0, SP_EL1, SP_EL2 and SP_EL3. These registers are used to point to a dedicated stack that can, for example, be used to store registers which are corrupted by the exception handler, so that they can be restored to their original value before returning to the original code.</p>
-<p>Handler code may switch from using SP_ELn to SP_EL0. For example, it may be that SP_EL1 points to a piece of memory which holds a small stack that the kernel can guarantee to always be valid. SP_EL0 might point to a kernel task stack which is larger, but not guaranteed to be safe from overflow. This switching is controlled by writing to the [SPSel] bit, as shown in the following code:</p>
-<pre><code>  MSR SPSel, #0  // switch to SP_EL0
-  MSR SPSel, #1  // switch to SP_ELn
-</code></pre></blockquote>
-<p>&#x6BCF;&#x4E2A;EL&#x90FD;&#x6709;&#x72EC;&#x7ACB;&#x7684;SP, &#x5E76;&#x4E14;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x5207;&#x6362;&#x4F7F;&#x7528;SP_EL0&#x548C;SP_ELn.</p>
+<p>In addition to the <code>SPSR</code> and <code>ELR</code> registers, each Exception level has its own dedicated Stack Pointer register. These are named <code>SP_EL0</code>, <code>SP_EL1</code>, <code>SP_EL2</code> and <code>SP_EL3</code>. These registers are used to point to a dedicated stack that can, for example, be used to store registers which are corrupted by the exception handler, so that they can be restored to their original value before returning to the original code.</p>
+<p>Handler code may switch from using <code>SP_ELn</code> to <code>SP_EL0</code>. For example, it may be that <code>SP_EL1</code> points to a piece of memory which holds a small stack that the kernel can guarantee to always be valid. <code>SP_EL0</code> might point to a kernel task stack which is larger, but not guaranteed to be safe from overflow. This switching is controlled by writing to the <code>[SPSel]</code> bit, as shown in the following code:</p>
+<pre><code class="lang-go">  MSR SPSel, #<span class="hljs-number">0</span>  <span class="hljs-comment">// switch to SP_EL0</span>
+  MSR SPSel, #<span class="hljs-number">1</span>  <span class="hljs-comment">// switch to SP_ELn</span>
+</code></pre>
+</blockquote>
+<p>&#x6BCF;&#x4E2A;EL&#x90FD;&#x6709;&#x72EC;&#x7ACB;&#x7684;SP, &#x5E76;&#x4E14;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x5207;&#x6362;&#x4F7F;&#x7528;<code>SP_EL0</code>&#x548C;<code>SP_ELn</code>.</p>
 <h1 id="ARM64&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;"><a name="ARM64&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;" class="anchor-navigation-ex-anchor" href="#ARM64&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;"><i class="fa fa-link" aria-hidden="true"></i></a>5. ARM64&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</h1>
 <blockquote>
 <p>Processors that implement the ARMv8-A Architecture are typically used in systems running a complex operating system with many applications or tasks that run concurrently. Each process has its own unique translation tables residing in physical memory. When an application starts, the operating system allocates it a set of translation table entries that map both the code and data used by the application to physical memory. These tables can subsequently be modified by the kernel, for example, to map in extra space, and are removed when the application is no longer running.</p>
@@ -301,14 +299,14 @@ func swap() (a, []int, d int)
 <li>general-purpose registers X0-X30.</li>
 <li>Advanced SIMD and Floating-point registers V0 - V31.</li>
 <li>Some status registers.</li>
-<li>TTBR0_EL1 and TTBR0.</li>
-<li>Thread Process ID (TPIDxxx) Registers.</li>
-<li>Address Space ID (ASID).</li>
+<li><code>TTBR0_EL1</code> and <code>TTBR0</code>.</li>
+<li>Thread Process ID (<code>TPIDxxx</code>) Registers.</li>
+<li>Address Space ID (<code>ASID</code>).</li>
 </ul>
 <blockquote>
-<p>For EL0 and EL1, there are two translation tables. TTBR0_EL1 provides translations for the bottom of Virtual Address space, which is typically application space and TTBR1_EL1 covers the top of Virtual Address space, typically kernel space. This split means that the OS mappings do not have to be replicated in the translation tables of each task.</p>
+<p>For EL0 and EL1, there are two translation tables. <code>TTBR0_EL1</code> provides translations for the bottom of Virtual Address space, which is typically application space and <code>TTBR1_EL1</code> covers the top of Virtual Address space, typically kernel space. This split means that the OS mappings do not have to be replicated in the translation tables of each task.</p>
 </blockquote>
-<p>EL0&#x548C;EL1&#x6709;&#x4E24;&#x4E2A;translation table, TTBR0_EL1&#x8D1F;&#x8D23;bottom&#x7A7A;&#x95F4;(&#x7528;&#x6237;&#x7A7A;&#x95F4;), TTBR1_EL1&#x8D1F;&#x8D23;top&#x7A7A;&#x95F4;(kernel&#x7A7A;&#x95F4;). &#x5927;&#x5BB6;&#x90FD;&#x7528;TTBR1_EL1&#x505A;kernel&#x7A7A;&#x95F4;, &#x6240;&#x4EE5;&#x8FDB;&#x7A0B;&#x5207;&#x6362;&#x7684;&#x65F6;&#x5019;, TTBR1_EL1&#x4E0D;&#x7528;&#x53D8;, &#x6240;&#x4EE5;kernel&#x7684;&#x6620;&#x5C04;&#x4E0D;&#x7528;&#x53D8;.</p>
+<p>EL0&#x548C;EL1&#x6709;&#x4E24;&#x4E2A;translation table, <code>TTBR0_EL1</code>&#x8D1F;&#x8D23;bottom&#x7A7A;&#x95F4;(&#x7528;&#x6237;&#x7A7A;&#x95F4;), <code>TTBR1_EL1</code>&#x8D1F;&#x8D23;top&#x7A7A;&#x95F4;(kernel&#x7A7A;&#x95F4;). &#x5927;&#x5BB6;&#x90FD;&#x7528;<code>TTBR1_EL1</code>&#x505A;kernel&#x7A7A;&#x95F4;, &#x6240;&#x4EE5;&#x8FDB;&#x7A0B;&#x5207;&#x6362;&#x7684;&#x65F6;&#x5019;, <code>TTBR1_EL1</code>&#x4E0D;&#x7528;&#x53D8;, &#x6240;&#x4EE5;kernel&#x7684;&#x6620;&#x5C04;&#x4E0D;&#x7528;&#x53D8;.</p>
 <blockquote>
 <p>Translation table entries contain a non-global (nG) bit. If the nG bit is set for a particular page, it is associated with a specific task or application. If the bit is marked as 0, then the entry is global and applies to all tasks.</p>
 </blockquote>
@@ -318,30 +316,30 @@ func swap() (a, []int, d int)
 </blockquote>
 <p>ASID(<em>Address Space ID</em>)&#x5BC4;&#x5B58;&#x5668;&#x7528;&#x6765;&#x6807;&#x8BB0;&#x9875;&#x8868;entry&#x6240;&#x5C5E;&#x7684;task, &#x7531;kernel&#x5206;&#x914D;. &#x5F53;TLB&#x66F4;&#x65B0;&#x7684;&#x65F6;&#x5019;, TLB entry&#x9664;&#x4E86;&#x4FDD;&#x5B58;&#x5730;&#x5740;&#x7FFB;&#x8BD1;&#x4FE1;&#x606F;, &#x8FD8;&#x4F1A;&#x5305;&#x62EC;&#x8FD9;&#x4E2A;ASID. TLB&#x67E5;&#x8BE2;&#x7684;&#x65F6;&#x5019;, &#x53EA;&#x6709;&#x5F53;&#x524D;&#x7684;ASID&#x548C;TLB entry&#x4FDD;&#x5B58;&#x7684;ASID&#x5339;&#x914D;&#x7684;&#x65F6;&#x5019;, &#x624D;&#x7B97;TLB&#x547D;&#x4E2D;. &#x6240;&#x4EE5;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x7684;&#x65F6;&#x5019;&#x4E0D;&#x9700;&#x8981;flush TLB.</p>
 <blockquote>
-<p>In AArch64, this ASID value can be specified as either an 8-bit or 16-bit value, controlled by the TCR_EL1.AS bit. The current ASID value is specified in either TTBR0_EL1 or TTBR1_EL1. TCR_EL1 controls which TTBR holds the ASID, but it is normally TTBR0_EL1, as this corresponds to application space.</p>
+<p>In AArch64, this ASID value can be specified as either an 8-bit or 16-bit value, controlled by the <code>TCR_EL1</code>.AS bit. The current ASID value is specified in either <code>TTBR0_EL1</code> or TTBR1_EL1. <code>TCR_EL1</code> controls which TTBR holds the ASID, but it is normally <code>TTBR0_EL1</code>, as this corresponds to application space.</p>
 </blockquote>
-<p>ASID&#x53EF;&#x4EE5;8&#x4F4D;&#x6216;16&#x4F4D;. &#x4E00;&#x822C;&#x914D;&#x7F6E;&#x5728;TTBR0_EL1&#x4E2D;.</p>
+<p>ASID&#x53EF;&#x4EE5;8&#x4F4D;&#x6216;16&#x4F4D;. &#x4E00;&#x822C;&#x914D;&#x7F6E;&#x5728;<code>TTBR0_EL1</code>&#x4E2D;.</p>
 <blockquote>
 <p>Having the current value of the ASID stored in the translation table register means that you can atomically modify both the translation tables as well as the ASID in a single instruction. This simplifies the process of changing the table and ASID when compared with the ARMv7-A Architecture.</p>
 </blockquote>
-<p>&#x628A;ASID&#x503C;&#x653E;&#x5728;TTBR0_EL1&#x91CC;&#x7684;&#x597D;&#x5904;&#x662F;, &#x4E00;&#x4E2A;&#x6307;&#x4EE4;&#x5C31;&#x53EF;&#x4EE5;&#x539F;&#x5B50;&#x7684;&#x66F4;&#x6539;ASID&#x548C;&#x9875;&#x8868;.</p>
+<p>&#x628A;ASID&#x503C;&#x653E;&#x5728;<code>TTBR0_EL1</code>&#x91CC;&#x7684;&#x597D;&#x5904;&#x662F;, &#x4E00;&#x4E2A;&#x6307;&#x4EE4;&#x5C31;&#x53EF;&#x4EE5;&#x539F;&#x5B50;&#x7684;&#x66F4;&#x6539;ASID&#x548C;&#x9875;&#x8868;.</p>
 <blockquote>
 <p>Additionally, the ARMv8-A Architecture provides Thread ID registers for use by operating system software. These have no hardware significance and are typically used by threading libraries as a base pointer to per-thread data. This is often referred to as Thread Local Storage (TLS). For example, the pthreads library uses this feature and includes the following registers:</p>
 <ul>
-<li>User Read and Write Thread ID Register (TPIDR_EL0).</li>
-<li>User Read-Only Thread ID Register (TPIDRRO_EL0).</li>
-<li>Thread ID Register, privileged accesses only (TPIDR_EL1).</li>
+<li>User Read and Write Thread ID Register (<code>TPIDR_EL0</code>).</li>
+<li>User Read-Only Thread ID Register (<code>TPIDRRO_EL0</code>).</li>
+<li>Thread ID Register, privileged accesses only (<code>TPIDR_EL1</code>).</li>
 </ul>
 </blockquote>
 <p>TPIDR(Thread ID registers)&#x662F;&#x7ED9;&#x7CFB;&#x7EDF;&#x8F6F;&#x4EF6;&#x4FDD;&#x5B58;Thread Local Storage (TLS)&#x7528;&#x7684;.
-EL0&#x53EF;&#x4EE5;&#x7528;TPIDR_EL0
-EL1&#x8FD8;&#x6709;TPIDR_EL1</p>
+EL0&#x53EF;&#x4EE5;&#x7528;<code>TPIDR_EL0</code>
+EL1&#x8FD8;&#x6709;<code>TPIDR_EL1</code></p>
 <h1 id="&#x4EC0;&#x4E48;&#x662F;VHE"><a name="&#x4EC0;&#x4E48;&#x662F;VHE" class="anchor-navigation-ex-anchor" href="#&#x4EC0;&#x4E48;&#x662F;VHE"><i class="fa fa-link" aria-hidden="true"></i></a>6. &#x4EC0;&#x4E48;&#x662F;VHE</h1>
 <p><strong>Note</strong>: The DynamIQ processors (Cortex-A55, Cortex-A75 and Cortex-A76) support Virtualization Host Extensions (VHEs).</p>
 <p>&#x901A;&#x5E38;kernel&#x8FD0;&#x884C;&#x5728;EL1, &#x4E00;&#x4E2A;&#x540C;&#x6837;&#x7684;kernel, &#x5982;&#x679C;&#x8FD0;&#x884C;&#x5728;VHE&#x4F7F;&#x80FD;&#x4E86;, &#x786C;&#x4EF6;&#x4F1A;&#x91CD;&#x5B9A;&#x5411;&#x5BC4;&#x5B58;&#x5668;&#x8BBF;&#x95EE;:</p>
 <blockquote>
-<p>We saw in the section on Virtualizing generic timers that enabling VHE changes the layout of the EL2 virtual address space. However, we still have a problem with the configuration of the MMU. This is because our kernel will try to access _EL1 registers, such as <code>TTBR0_EL1</code>, rather than _EL2 registers such as <code>TTBR0_EL2</code>.</p>
-<p>To run the same binary at EL2, we need to redirect the accesses from the EL1 registers to the EL2 equivalents. Setting E2H will do this, so that accesses to _EL1 system registers are redirected to their EL2 equivalents. This redirection illustrated in the following diagram:</p>
+<p>We saw in the section on Virtualizing generic timers that enabling VHE changes the layout of the EL2 virtual address space. However, we still have a problem with the configuration of the MMU. This is because our kernel will try to access _EL1 registers, such as <code>TTBR0_EL1</code>, rather than <code>_EL2</code> registers such as <code>TTBR0_EL2</code>.</p>
+<p>To run the same binary at EL2, we need to redirect the accesses from the EL1 registers to the EL2 equivalents. Setting E2H will do this, so that accesses to <code>_EL1</code> system registers are redirected to their EL2 equivalents. This redirection illustrated in the following diagram:</p>
 </blockquote>
 <p><img src="img/golang_&#x6C47;&#x7F16;_arm64_20220810232622.png" alt="">  </p>
 <div id="anchors-navbar"><i class="fa fa-anchor"></i><ul><p><a href="#&#x4EC0;&#x4E48;&#x662F;VHE">&#x4EC0;&#x4E48;&#x662F;VHE</a></p><li><a href="#Register_mapping_rules">1. Register mapping rules</a></li></ul></div><a href="#Register_mapping_rules" id="goTop"><i class="fa fa-arrow-up"></i></a>
@@ -379,7 +377,7 @@ EL1&#x8FD8;&#x6709;TPIDR_EL1</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"go汇编语法和arm64小知识","level":"1.2.1","depth":2,"previous":{"title":"golang","level":"1.2","depth":1,"ref":"","articles":[{"title":"go汇编语法和arm64小知识","level":"1.2.1","depth":2,"path":"notes/golang_汇编_arm64.md","ref":"notes/golang_汇编_arm64.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","-livereload","search-plus","navigator","github","anchors","splitter","toggle-chapters","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"navigator":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"toggle-chapters":{},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_汇编_arm64.md","mtime":"2022-08-23T11:04:12.419Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-23T11:04:49.787Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"go汇编语法和arm64小知识","level":"1.2.1","depth":2,"previous":{"title":"golang","level":"1.2","depth":1,"ref":"","articles":[{"title":"go汇编语法和arm64小知识","level":"1.2.1","depth":2,"path":"notes/golang_汇编_arm64.md","ref":"notes/golang_汇编_arm64.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","-livereload","search-plus","navigator","github","anchors","splitter","toggle-chapters","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"navigator":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{},"toggle-chapters":{},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_汇编_arm64.md","mtime":"2022-08-23T16:13:43.333Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-23T16:14:21.850Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
