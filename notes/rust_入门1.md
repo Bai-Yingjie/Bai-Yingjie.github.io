@@ -2113,7 +2113,7 @@ fn print_type_of<T>(_: &T) {
 }
 ```
 
-# 问号操作符
+## 问号操作符
 用在`Result<T, E>`或`Option<T>`后面, 用于提前返回或者unwrap value  
 用在`Result<T, E>`上, 可以提前返回`Err(From::from(e))`; 没有Error时则unwrap返回T
 ```rust
@@ -2141,7 +2141,7 @@ fn try_option_none() -> Option<u8> {
 assert_eq!(try_option_none(), None);
 ```
 
-## 问号操作背后
+### 问号操作背后
 代码`rust/library/core/src/ops/try_trait.rs`
 问号operator背后是Try这个trait
 ```rust
