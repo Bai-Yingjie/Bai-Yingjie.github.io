@@ -81,6 +81,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="rust_入门3.html" />
+    
     
     <link rel="prev" href="rust_入门1.html" />
     
@@ -170,6 +172,19 @@
             
                     
                     rust入门: 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    rust入门: 闭包 容器 迭代器 生成器 线程
             
                 </a>
             
@@ -593,8 +608,7 @@
     <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;r: {}&quot;</span><span class="token punctuation">,</span> r<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x662F;&#x4E0D;&#x4F1A;&#x901A;&#x8FC7; Rust &#x7F16;&#x8BD1;&#x5668;&#x7684;&#xFF0C;&#x539F;&#x56E0;&#x662F; r &#x6240;&#x5F15;&#x7528;&#x7684;&#x503C;&#x5DF2;&#x7ECF;&#x5728;&#x4F7F;&#x7528;&#x4E4B;&#x524D;&#x88AB;&#x91CA;&#x653E;&#x3002;
-<img src="img/rust_&#x5165;&#x95E8;2_20220824184548.png" alt=""><br>&#x4E0A;&#x56FE;&#x4E2D;&#x7684;&#x7EFF;&#x8272;&#x8303;&#x56F4; <code>&apos;a</code> &#x8868;&#x793A; <code>r</code> &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x84DD;&#x8272;&#x8303;&#x56F4; <code>&apos;b</code> &#x8868;&#x793A; <code>x</code> &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;&#x5F88;&#x663E;&#x7136;&#xFF0C;<code>&apos;b</code> &#x6BD4; <code>&apos;a</code> &#x5C0F;&#x5F97;&#x591A;&#xFF0C;&#x5F15;&#x7528;&#x5FC5;&#x987B;&#x5728;&#x503C;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4EE5;&#x5185;&#x624D;&#x6709;&#x6548;</p>
+<p>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x662F;&#x4E0D;&#x4F1A;&#x901A;&#x8FC7; Rust &#x7F16;&#x8BD1;&#x5668;&#x7684;&#xFF0C;&#x539F;&#x56E0;&#x662F; r &#x6240;&#x5F15;&#x7528;&#x7684;&#x503C;&#x5DF2;&#x7ECF;&#x5728;&#x4F7F;&#x7528;&#x4E4B;&#x524D;&#x88AB;&#x91CA;&#x653E;&#x3002;<br><img src="img/rust_&#x5165;&#x95E8;2_20220824184548.png" alt=""><br>&#x4E0A;&#x56FE;&#x4E2D;&#x7684;&#x7EFF;&#x8272;&#x8303;&#x56F4; <code>&apos;a</code> &#x8868;&#x793A; <code>r</code> &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x84DD;&#x8272;&#x8303;&#x56F4; <code>&apos;b</code> &#x8868;&#x793A; <code>x</code> &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;&#x5F88;&#x663E;&#x7136;&#xFF0C;<code>&apos;b</code> &#x6BD4; <code>&apos;a</code> &#x5C0F;&#x5F97;&#x591A;&#xFF0C;&#x5F15;&#x7528;&#x5FC5;&#x987B;&#x5728;&#x503C;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4EE5;&#x5185;&#x624D;&#x6709;&#x6548;</p>
 <p>&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D; longer&#x51FD;&#x6570;&#x4E0D;&#x80FD;&#x7F16;&#x8BD1;&#x901A;&#x8FC7;</p>
 <pre class="language-"><code class="lang-rust"><span class="token keyword">fn</span> <span class="token function-definition function">longer</span><span class="token punctuation">(</span>s1<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">,</span> s2<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token operator">&amp;</span><span class="token keyword">str</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> s2<span class="token punctuation">.</span><span class="token function">len</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> s1<span class="token punctuation">.</span><span class="token function">len</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -1420,10 +1434,14 @@ Vec&#x7684;&#x7279;&#x70B9;&#x662F;&#x7A7A;&#x95F4;&#x4F1A;&#x81EA;&#x52A8;&#x62
 
             
                 
-                <a href="rust_入门1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: rust入门: 安装和基础语法">
+                <a href="rust_入门1.html" class="navigation navigation-prev " aria-label="Previous page: rust入门: 安装和基础语法">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="rust_入门3.html" class="navigation navigation-next " aria-label="Next page: rust入门: 闭包 容器 迭代器 生成器 线程">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -1432,7 +1450,7 @@ Vec&#x7684;&#x7279;&#x70B9;&#x662F;&#x7A7A;&#x95F4;&#x4F1A;&#x81EA;&#x52A8;&#x62
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"rust入门: 泛型和内存所有权","level":"3.2","depth":1,"previous":{"title":"rust入门: 安装和基础语法","level":"3.1","depth":1,"path":"notes/rust_入门1.md","ref":"notes/rust_入门1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_入门2.md","mtime":"2022-08-24T16:36:56.614Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-24T16:37:46.345Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"rust入门: 泛型和内存所有权","level":"3.2","depth":1,"next":{"title":"rust入门: 闭包 容器 迭代器 生成器 线程","level":"3.3","depth":1,"path":"notes/rust_入门3.md","ref":"notes/rust_入门3.md","articles":[]},"previous":{"title":"rust入门: 安装和基础语法","level":"3.1","depth":1,"path":"notes/rust_入门1.md","ref":"notes/rust_入门1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_入门2.md","mtime":"2022-08-25T02:11:23.552Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-25T02:12:04.225Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
