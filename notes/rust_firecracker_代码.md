@@ -1512,7 +1512,7 @@ pub trait VirtioDevice: AsAny + Send {
 ```
 
 ## VirtIO设备框图
-![](img/rust_firecracker_代码_20220825230751.png)  
+![](img/rust_firecracker_mmio_virtio.svg)  
 
 ## virtIO net
 virtIO net的定义很复杂
