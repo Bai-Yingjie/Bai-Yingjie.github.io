@@ -7,3 +7,4 @@
 ## Rust
 * [rust入门: 安装和基础语法](notes/rust_入门1.md)
 * [rust入门: 泛型和内存所有权](notes/rust_入门2.md)
+* [rust入门: 闭包 容器 迭代器 生成器 线程](notes/rust_入门3.md)
