@@ -15,3 +15,4 @@
   * [rust-vmm简介](notes/rust_vmm_简介.md)
   * [firecracker代码](notes/rust_firecracker_代码.md)
   * [firecracker使用](notes/rust_firecracker_使用.md)
+  * [cloud hypervisor代码](notes/rust_cloud-hypervisor_代码.md)
