@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>reference books · My Notes</title>
+        <title>VMM(virtual machine monitor) · My Notes</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -81,10 +81,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="rust_入门1.html" />
+    <link rel="next" href="rust_vmm_简介.html" />
     
     
-    <link rel="prev" href="rust_入门_brief.html" />
+    <link rel="prev" href="rust_工程构建.html" />
     
 
     </head>
@@ -167,7 +167,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="3.1.1" data-path="rust_books.html">
+        <li class="chapter " data-level="3.1.1" data-path="rust_books.html">
             
                 <a href="rust_books.html">
             
@@ -237,7 +237,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.2" data-path="rust_vmm_brief.html">
+        <li class="chapter active" data-level="3.2" data-path="rust_vmm_brief.html">
             
                 <a href="rust_vmm_brief.html">
             
@@ -325,7 +325,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >reference books</a>
+        <a href=".." >VMM(virtual machine monitor)</a>
     </h1>
 </div>
 
@@ -340,18 +340,86 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>&#x53C2;&#x8003;&#x4E66;&#x76EE;:</p>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#vmm-brief"><b>1. </b>VMM brief</a></li><li><span class="title-icon "></span><a href="#virtio-devices"><b>2. </b>Virtio devices</a></li><li><span class="title-icon "></span><a href="#mmio-based-virtio-devices"><b>3. </b>MMIO based virtio devices</a></li><li><span class="title-icon "></span><a href="#pci-based-virtio-devices"><b>4. </b>PCI based virtio devices</a></li><li><span class="title-icon "></span><a href="#memory-manager-in-cloud-hypervisor"><b>5. </b>Memory Manager in cloud-hypervisor</a></li><li><span class="title-icon "></span><a href="#device-manager"><b>6. </b>Device Manager</a></li><li><span class="title-icon "></span><a href="#virtio-net-example"><b>7. </b>Virtio Net example</a></li></ul></div><a href="#vmm-brief" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><p>&#x4ECB;&#x7ECD;Firecracker Cloud-hypervisor&#x4EE5;&#x53CA;virtio&#x57FA;&#x7840;&#x6982;&#x5FF5;. &#x8F6C;&#x5F55;&#x81EA;&#x6211;&#x7684;PPT</p>
+<h1 id="vmm-brief"><a name="vmm-brief" class="anchor-navigation-ex-anchor" href="#vmm-brief"><i class="fa fa-link" aria-hidden="true"></i></a>1. VMM brief</h1>
+<p><img src="img/rust_vmm_brief_20220826092951.png" alt="">  </p>
+<h1 id="virtio-devices"><a name="virtio-devices" class="anchor-navigation-ex-anchor" href="#virtio-devices"><i class="fa fa-link" aria-hidden="true"></i></a>2. Virtio devices</h1>
+<p>Virtio is a protocol that defines how guest drivers talk to virtual devices. See the spec <a href="http://docs.oasis-open.org/virtio/virtio/v1.2/virtio-v1.2.html" target="_blank">v1.2</a>.<br>Virtio devices can be exposed by PCI or MMIO</p>
 <ul>
-<li>&#x6587;&#x6863;&#x6C47;&#x603B;: <a href="https://www.rust-lang.org/learn" target="_blank">https://www.rust-lang.org/learn</a></li>
-<li>&#x8BED;&#x6CD5;: <a href="https://doc.rust-lang.org/book" target="_blank">https://doc.rust-lang.org/book</a></li>
-<li>&#x8BED;&#x6CD5;&#x53C2;&#x8003;: <a href="https://doc.rust-lang.org/reference" target="_blank">https://doc.rust-lang.org/reference</a></li>
-<li>&#x6807;&#x51C6;&#x5E93;: <a href="https://doc.rust-lang.org/std/index.html" target="_blank">https://doc.rust-lang.org/std/index.html</a></li>
-<li>&#x4F8B;&#x5B50;: <a href="https://doc.rust-lang.org/stable/rust-by-example" target="_blank">https://doc.rust-lang.org/stable/rust-by-example</a></li>
-<li>cargo: <a href="https://doc.rust-lang.org/stable/cargo" target="_blank">https://doc.rust-lang.org/stable/cargo</a></li>
-<li>rustup: <a href="https://rust-lang.github.io/rustup" target="_blank">https://rust-lang.github.io/rustup</a><ul>
-<li>&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;: <a href="https://rust-lang.github.io/rustup/cross-compilation.html" target="_blank">https://rust-lang.github.io/rustup/cross-compilation.html</a></li>
+<li>PCI: a device with PCI vendor ID <code>0x1AF4</code> is a virtio device, device configuration structures are mapped to PCI configuration header BAR 0<ul>
+<li>Common configuration: feature bits, queue num, queue size, queue select, queue address</li>
+<li>Notifications: driver writes to notification address triggers an event to device</li>
+<li>ISR Status: not used when msi-x is enabled</li>
+<li>Device-specific configuration: different virtio types(net, block&#x2026;) have different layouts</li>
+<li>PCI configuration access: provide an alternative way to access above registers other than BAR</li>
 </ul>
 </li>
+<li>MMIO: a region of predefined register layout starting at base address, with compatible = &quot;virtio,mmio&#x201C; in DTS, which can be &#x201C;discovered&#x201D; by guest driver.</li>
+<li>All registers are little endian</li>
+</ul>
+<h1 id="mmio-based-virtio-devices"><a name="mmio-based-virtio-devices" class="anchor-navigation-ex-anchor" href="#mmio-based-virtio-devices"><i class="fa fa-link" aria-hidden="true"></i></a>3. MMIO based virtio devices</h1>
+<p><img src="img/rust_vmm_brief_20220826093350.png" alt="">  </p>
+<h1 id="pci-based-virtio-devices"><a name="pci-based-virtio-devices" class="anchor-navigation-ex-anchor" href="#pci-based-virtio-devices"><i class="fa fa-link" aria-hidden="true"></i></a>4. PCI based virtio devices</h1>
+<p><img src="img/rust_vmm_brief_20220826093858.png" alt="">  </p>
+<h1 id="memory-manager-in-cloud-hypervisor"><a name="memory-manager-in-cloud-hypervisor" class="anchor-navigation-ex-anchor" href="#memory-manager-in-cloud-hypervisor"><i class="fa fa-link" aria-hidden="true"></i></a>5. Memory Manager in cloud-hypervisor</h1>
+<ul>
+<li>Defines VM physical memory layout, just like a new SOC</li>
+<li>Uses BtreeMap to record memory ranges</li>
+<li>Uses <code>KVM_SET_USER_MEMORY_REGION</code> ioctl to map the layout to VMM virtual memory. (<code>VM_PA</code> to <code>HOST_VA</code>)</li>
+<li>When guest VM access memory, 2 stages translate happens(e.g. AARCH64):<br><img src="img/rust_vmm_brief_20220826094753.png" alt="">  <ul>
+<li><code>VM_VA</code> -&gt; <code>VM_PA</code></li>
+<li><code>HOST_VA</code> -&gt; <code>HOST_PA</code></li>
+</ul>
+</li>
+<li>Mainly focus on<ul>
+<li>PCI MMIO space</li>
+<li>PCI MMCONFIG space</li>
+</ul>
+</li>
+<li>AARCH64 <code>VM_PA</code> layout<br><img src="img/rust_vmm_brief_20220826095454.png" alt="">  </li>
+</ul>
+<h1 id="device-manager"><a name="device-manager" class="anchor-navigation-ex-anchor" href="#device-manager"><i class="fa fa-link" aria-hidden="true"></i></a>6. Device Manager</h1>
+<p><img src="img/rust_vmm_brief_20220826100042.png" alt="">  </p>
+<ul>
+<li>Manages all PCI devices<ul>
+<li>Virtio PCI devices</li>
+<li>VFIO PCI devices</li>
+</ul>
+</li>
+<li>Normally has 2 PCI segments<ul>
+<li>Segment 0 is default</li>
+</ul>
+</li>
+<li>Each PCI segment has<ul>
+<li>PCI root, vendor ID intel, device ID <code>VIRT_PCIE_HOST</code></li>
+<li>Uses HashMap to map bdf to PciDevice</li>
+<li>A pci config mmio BusDevice to route mm config access to corresponding PciDevice</li>
+<li>A MMIO address Allocator </li>
+<li>And many VirtioPciDevices</li>
+</ul>
+</li>
+</ul>
+<h1 id="virtio-net-example"><a name="virtio-net-example" class="anchor-navigation-ex-anchor" href="#virtio-net-example"><i class="fa fa-link" aria-hidden="true"></i></a>7. Virtio Net example</h1>
+<p><img src="img/rust_vmm_brief_20220826100311.png" alt="">  </p>
+<ul>
+<li>Virtio net has at least 3 virtqueues<ul>
+<li>Transmitq</li>
+<li>Receiveq</li>
+<li>Controlq</li>
+</ul>
+</li>
+<li>Driver sends and receives packet<ul>
+<li>driver puts a packet into transmitq</li>
+<li>Notifies device by writing the notification address of the queue</li>
+<li>Kvm delivers the notification</li>
+<li>VMM handles the packet, typically by forwarding it to tap</li>
+<li>VMM receives the reply packet from tap</li>
+<li>VMM injects interrupt through KVM</li>
+<li>Guest irq handler receives the packet</li>
+<li>Guest driver handles the received packet and hands over it to upper network stack.</li>
+</ul>
+</li>
+<li>The content in the virtqueue is virtio_net_hdr + packet data</li>
 </ul>
 
                                 
@@ -380,12 +448,12 @@
 
             
                 
-                <a href="rust_入门_brief.html" class="navigation navigation-prev " aria-label="Previous page: 入门系列">
+                <a href="rust_工程构建.html" class="navigation navigation-prev " aria-label="Previous page: 工程构建">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="rust_入门1.html" class="navigation navigation-next " aria-label="Next page: 安装和基础语法">
+                <a href="rust_vmm_简介.html" class="navigation navigation-next " aria-label="Next page: rust-vmm简介">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -396,7 +464,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"reference books","level":"3.1.1","depth":2,"next":{"title":"安装和基础语法","level":"3.1.2","depth":2,"path":"notes/rust_入门1.md","ref":"notes/rust_入门1.md","articles":[]},"previous":{"title":"入门系列","level":"3.1","depth":1,"path":"notes/rust_入门_brief.md","ref":"notes/rust_入门_brief.md","articles":[{"title":"reference books","level":"3.1.1","depth":2,"path":"notes/rust_books.md","ref":"notes/rust_books.md","articles":[]},{"title":"安装和基础语法","level":"3.1.2","depth":2,"path":"notes/rust_入门1.md","ref":"notes/rust_入门1.md","articles":[]},{"title":"泛型和内存所有权","level":"3.1.3","depth":2,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},{"title":"闭包 容器 迭代器 生成器 线程","level":"3.1.4","depth":2,"path":"notes/rust_入门3.md","ref":"notes/rust_入门3.md","articles":[]},{"title":"工程构建","level":"3.1.5","depth":2,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_books.md","mtime":"2022-08-26T02:28:59.868Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-26T02:29:51.258Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"VMM(virtual machine monitor)","level":"3.2","depth":1,"next":{"title":"rust-vmm简介","level":"3.2.1","depth":2,"path":"notes/rust_vmm_简介.md","ref":"notes/rust_vmm_简介.md","articles":[]},"previous":{"title":"工程构建","level":"3.1.5","depth":2,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_vmm_brief.md","mtime":"2022-08-26T02:28:59.868Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-26T02:29:51.258Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
