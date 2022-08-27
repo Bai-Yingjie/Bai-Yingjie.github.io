@@ -13,12 +13,12 @@
   * [工程构建](notes/rust_工程构建.md)
 * [VMM(virtual machine monitor)](notes/rust_vmm_brief.md)
   * [rust-vmm简介](notes/rust_vmm_简介.md)
-  * firecracker
-    * [代码](notes/rust_firecracker_代码.md)
-    * [使用](notes/rust_firecracker_使用.md)
-  * cloud hypervisor
-    * [代码](notes/rust_cloud-hypervisor_代码.md)
-    * [使用](notes/rust_cloud-hypervisor_使用.md)
-    * [问题与解决](notes/rust_cloud-hypervisor_问题与解决.md)
-* 工具与使用
+  * [firecracker代码](notes/rust_firecracker_代码.md)
+  * [firecracker使用](notes/rust_firecracker_使用.md)
+  * [cloud hypervisor代码](notes/rust_cloud-hypervisor_代码.md)
+  * [cloud hypervisor使用](notes/rust_cloud-hypervisor_使用.md)
+  * [cloud hypervisor问题与解决](notes/rust_cloud-hypervisor_问题与解决.md)
+* [代码积累]()
+  * [序列化原理](notes/rust_coding_序列化.md)
+* [其他]()
   * [使用mdbook](notes/rust_mdbook_使用.md)
