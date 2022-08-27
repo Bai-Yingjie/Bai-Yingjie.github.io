@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>VMM(virtual machine monitor) · My Notes</title>
+        <title>问题与解决 · My Notes</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -81,10 +81,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="rust_vmm_简介.html" />
     
-    
-    <link rel="prev" href="rust_工程构建.html" />
+    <link rel="prev" href="rust_cloud-hypervisor_使用.html" />
     
 
     </head>
@@ -237,7 +235,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.2" data-path="rust_vmm_brief.html">
+        <li class="chapter " data-level="3.2" data-path="rust_vmm_brief.html">
             
                 <a href="rust_vmm_brief.html">
             
@@ -349,7 +347,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.2.3.3" data-path="rust_cloud-hypervisor_问题与解决.html">
+        <li class="chapter active" data-level="3.2.3.3" data-path="rust_cloud-hypervisor_问题与解决.html">
             
                 <a href="rust_cloud-hypervisor_问题与解决.html">
             
@@ -434,7 +432,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >VMM(virtual machine monitor)</a>
+        <a href=".." >问题与解决</a>
     </h1>
 </div>
 
@@ -449,87 +447,51 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#vmm-brief"><b>1. </b>VMM brief</a></li><li><span class="title-icon "></span><a href="#virtio-devices"><b>2. </b>Virtio devices</a></li><li><span class="title-icon "></span><a href="#mmio-based-virtio-devices"><b>3. </b>MMIO based virtio devices</a></li><li><span class="title-icon "></span><a href="#pci-based-virtio-devices"><b>4. </b>PCI based virtio devices</a></li><li><span class="title-icon "></span><a href="#memory-manager-in-cloud-hypervisor"><b>5. </b>Memory Manager in cloud-hypervisor</a></li><li><span class="title-icon "></span><a href="#device-manager"><b>6. </b>Device Manager</a></li><li><span class="title-icon "></span><a href="#virtio-net-example"><b>7. </b>Virtio Net example</a></li></ul></div><a href="#vmm-brief" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><p>&#x4ECB;&#x7ECD;Firecracker Cloud-hypervisor&#x4EE5;&#x53CA;virtio&#x57FA;&#x7840;&#x6982;&#x5FF5;. &#x8F6C;&#x5F55;&#x81EA;&#x6211;&#x7684;PPT</p>
-<h1 id="vmm-brief"><a name="vmm-brief" class="anchor-navigation-ex-anchor" href="#vmm-brief"><i class="fa fa-link" aria-hidden="true"></i></a>1. VMM brief</h1>
-<p><img src="img/rust_vmm_brief_20220826092951.png" alt="">  </p>
-<h1 id="virtio-devices"><a name="virtio-devices" class="anchor-navigation-ex-anchor" href="#virtio-devices"><i class="fa fa-link" aria-hidden="true"></i></a>2. Virtio devices</h1>
-<p>Virtio is a protocol that defines how guest drivers talk to virtual devices. See the spec <a href="http://docs.oasis-open.org/virtio/virtio/v1.2/virtio-v1.2.html" target="_blank">v1.2</a>.<br>Virtio devices can be exposed by PCI or MMIO</p>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#cloud-hypervisor&#x65E0;&#x6CD5;&#x542F;&#x52A8;"><b>1. </b>cloud hypervisor&#x65E0;&#x6CD5;&#x542F;&#x52A8;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4F1A;&#x662F;&#x4EC0;&#x4E48;&#x539F;&#x56E0;"><b>1.1. </b>&#x4F1A;&#x662F;&#x4EC0;&#x4E48;&#x539F;&#x56E0;</a></li><ul><li><span class="title-icon "></span><a href="#&#x68C0;&#x67E5;kvm&#x662F;&#x5426;nested"><b>1.1.1. </b>&#x68C0;&#x67E5;kvm&#x662F;&#x5426;nested</a></li><li><span class="title-icon "></span><a href="#enable-nested-kvm"><b>1.1.2. </b>enable nested KVM</a></li><li><span class="title-icon "></span><a href="#&#x4E0D;&#x662F;nested&#x6CA1;&#x5F00;"><b>1.1.3. </b>&#x4E0D;&#x662F;nested&#x6CA1;&#x5F00;</a></li><li><span class="title-icon "></span><a href="#&#x5347;&#x7EA7;kernel"><b>1.1.4. </b>&#x5347;&#x7EA7;kernel</a></li></ul></ul></ul></div><a href="#cloud-hypervisor&#x65E0;&#x6CD5;&#x542F;&#x52A8;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="cloud-hypervisor&#x65E0;&#x6CD5;&#x542F;&#x52A8;"><a name="cloud-hypervisor&#x65E0;&#x6CD5;&#x542F;&#x52A8;" class="anchor-navigation-ex-anchor" href="#cloud-hypervisor&#x65E0;&#x6CD5;&#x542F;&#x52A8;"><i class="fa fa-link" aria-hidden="true"></i></a>1. cloud hypervisor&#x65E0;&#x6CD5;&#x542F;&#x52A8;</h1>
+<p>&#x76F4;&#x63A5;&#x542F;&#x52A8;&#x4F1A;&#x62A5;&#x9519;:<br><img src="img/rust_cloud-hypervisor_debug_20220827223739.png" alt=""><br>&#x770B;&#x63D0;&#x793A;&#x5DF2;&#x7ECF;&#x80FD;&#x591F;&#x663E;&#x793A;&#x51FA;&#x9519;&#x7684;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#x4F4D;&#x7F6E;&#x4E86;.</p>
+<p>&#x52A0;&#x4E0A;<code>RUST_BACKTRACE=1</code>&#x4F1A;&#x66F4;&#x5177;&#x4F53;:<br><img src="img/rust_cloud-hypervisor_debug_20220827223808.png" alt="">  </p>
+<p>&#x53C8;&#x63D0;&#x793A;<code>RUST_BACKTRACE=full</code>&#x4F1A;&#x66F4;&#x8BE6;&#x7EC6;:<br><img src="img/rust_cloud-hypervisor_debug_20220827223833.png" alt="">  </p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;:</p>
 <ul>
-<li>PCI: a device with PCI vendor ID <code>0x1AF4</code> is a virtio device, device configuration structures are mapped to PCI configuration header BAR 0<ul>
-<li>Common configuration: feature bits, queue num, queue size, queue select, queue address</li>
-<li>Notifications: driver writes to notification address triggers an event to device</li>
-<li>ISR Status: not used when msi-x is enabled</li>
-<li>Device-specific configuration: different virtio types(net, block&#x2026;) have different layouts</li>
-<li>PCI configuration access: provide an alternative way to access above registers other than BAR</li>
+<li>rust&#x7684;&#x8C03;&#x7528;&#x5C42;&#x7EA7;&#x5F88;&#x591A;, &#x548C;go&#x6709;&#x7684;&#x4E00;&#x62FC;</li>
+<li><code>RUST_BACKTRACE=1</code>&#x4F1A;&#x8FC7;&#x6EE4;&#x6389;&#x6700;&#x8FD1;&#x7684;0&#x5230;12&#x5C42;&#x8C03;&#x7528;&#x6808;, &#x8FD9;&#x4E9B;&#x90FD;&#x662F;<code>rust_begin_unwind</code>&#x7684;&#x5185;&#x90E8;&#x6D41;&#x7A0B;, &#x4E00;&#x822C;&#x7528;&#x6237;&#x4E0D;&#x9700;&#x8981;&#x5173;&#x5FC3;</li>
+<li>&#x771F;&#x6B63;&#x51FA;&#x95EE;&#x9898;&#x7684;&#x662F;<code>vmm::vm::Vm::new</code>, &#x5373;<code>RUST_BACKTRACE=full</code>&#x65F6;&#x7684;&#x7B2C;16&#x5C42;&#x8C03;&#x7528;&#x6808;, &#x5F88;&#x5947;&#x602A;&#x7684;&#x662F;&#x5728;&#x8C03;&#x7528;&#x6808;&#x91CC;&#x6CA1;&#x63D0;&#x793A;&#x662F;&#x54EA;&#x4E00;&#x884C;. &#x4F46;&#x8C03;&#x7528;&#x6808;&#x6253;&#x5370;&#x4E4B;&#x524D;&#x5C31;&#x6709;&#x6253;&#x5370;&#x63D0;&#x793A;&#x51FA;&#x9519;&#x6587;&#x4EF6;&#x548C;&#x884C;&#x53F7;:<code>vmm/src/vm.rs:729:48</code>
+<img src="img/rust_cloud-hypervisor_debug_20220827223931.png" alt="">  </li>
+<li>unwrap&#x51FA;&#x9519;&#x4F1A;&#x76F4;&#x63A5;panic</li>
+<li>&#x7528;&#x73AF;&#x5883;&#x53D8;&#x91CF;<code>RUST_BACKTRACE=</code>&#x8FD9;&#x62DB;&#x548C;go&#x5F88;&#x50CF;<code>GOTRACEBACK=</code></li>
 </ul>
-</li>
-<li>MMIO: a region of predefined register layout starting at base address, with compatible = &quot;virtio,mmio&#x201C; in DTS, which can be &#x201C;discovered&#x201D; by guest driver.</li>
-<li>All registers are little endian</li>
-</ul>
-<h1 id="mmio-based-virtio-devices"><a name="mmio-based-virtio-devices" class="anchor-navigation-ex-anchor" href="#mmio-based-virtio-devices"><i class="fa fa-link" aria-hidden="true"></i></a>3. MMIO based virtio devices</h1>
-<p><img src="img/rust_vmm_brief_20220826093350.png" alt="">  </p>
-<h1 id="pci-based-virtio-devices"><a name="pci-based-virtio-devices" class="anchor-navigation-ex-anchor" href="#pci-based-virtio-devices"><i class="fa fa-link" aria-hidden="true"></i></a>4. PCI based virtio devices</h1>
-<p><img src="img/rust_vmm_brief_20220826093858.png" alt="">  </p>
-<h1 id="memory-manager-in-cloud-hypervisor"><a name="memory-manager-in-cloud-hypervisor" class="anchor-navigation-ex-anchor" href="#memory-manager-in-cloud-hypervisor"><i class="fa fa-link" aria-hidden="true"></i></a>5. Memory Manager in cloud-hypervisor</h1>
-<ul>
-<li>Defines VM physical memory layout, just like a new SOC</li>
-<li>Uses BtreeMap to record memory ranges</li>
-<li>Uses <code>KVM_SET_USER_MEMORY_REGION</code> ioctl to map the layout to VMM virtual memory. (<code>VM_PA</code> to <code>HOST_VA</code>)</li>
-<li>When guest VM access memory, 2 stages translate happens(e.g. AARCH64):<br><img src="img/rust_vmm_brief_20220826094753.png" alt="">  <ul>
-<li><code>VM_VA</code> -&gt; <code>VM_PA</code></li>
-<li><code>HOST_VA</code> -&gt; <code>HOST_PA</code></li>
-</ul>
-</li>
-<li>Mainly focus on<ul>
-<li>PCI MMIO space</li>
-<li>PCI MMCONFIG space</li>
-</ul>
-</li>
-<li>AARCH64 <code>VM_PA</code> layout<br><img src="img/rust_vmm_brief_20220826095454.png" alt="">  </li>
-</ul>
-<h1 id="device-manager"><a name="device-manager" class="anchor-navigation-ex-anchor" href="#device-manager"><i class="fa fa-link" aria-hidden="true"></i></a>6. Device Manager</h1>
-<p><img src="img/rust_vmm_brief_20220826100042.png" alt="">  </p>
-<ul>
-<li>Manages all PCI devices<ul>
-<li>Virtio PCI devices</li>
-<li>VFIO PCI devices</li>
-</ul>
-</li>
-<li>Normally has 2 PCI segments<ul>
-<li>Segment 0 is default</li>
-</ul>
-</li>
-<li>Each PCI segment has<ul>
-<li>PCI root, vendor ID intel, device ID <code>VIRT_PCIE_HOST</code></li>
-<li>Uses HashMap to map bdf to PciDevice</li>
-<li>A pci config mmio BusDevice to route mm config access to corresponding PciDevice</li>
-<li>A MMIO address Allocator </li>
-<li>And many VirtioPciDevices</li>
-</ul>
-</li>
-</ul>
-<h1 id="virtio-net-example"><a name="virtio-net-example" class="anchor-navigation-ex-anchor" href="#virtio-net-example"><i class="fa fa-link" aria-hidden="true"></i></a>7. Virtio Net example</h1>
-<p><img src="img/rust_vmm_brief_20220826100311.png" alt="">  </p>
-<ul>
-<li>Virtio net has at least 3 virtqueues<ul>
-<li>Transmitq</li>
-<li>Receiveq</li>
-<li>Controlq</li>
-</ul>
-</li>
-<li>Driver sends and receives packet<ul>
-<li>driver puts a packet into transmitq</li>
-<li>Notifies device by writing the notification address of the queue</li>
-<li>Kvm delivers the notification</li>
-<li>VMM handles the packet, typically by forwarding it to tap</li>
-<li>VMM receives the reply packet from tap</li>
-<li>VMM injects interrupt through KVM</li>
-<li>Guest irq handler receives the packet</li>
-<li>Guest driver handles the received packet and hands over it to upper network stack.</li>
-</ul>
-</li>
-<li>The content in the virtqueue is virtio_net_hdr + packet data</li>
-</ul>
+<h2 id="&#x4F1A;&#x662F;&#x4EC0;&#x4E48;&#x539F;&#x56E0;"><a name="&#x4F1A;&#x662F;&#x4EC0;&#x4E48;&#x539F;&#x56E0;" class="anchor-navigation-ex-anchor" href="#&#x4F1A;&#x662F;&#x4EC0;&#x4E48;&#x539F;&#x56E0;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x4F1A;&#x662F;&#x4EC0;&#x4E48;&#x539F;&#x56E0;</h2>
+<p>&#x7A81;&#x7136;&#x60F3;&#x5230;&#x8FD9;&#x4E2A;&#x673A;&#x5668;&#x672C;&#x6765;&#x5C31;&#x662F;kvm&#x7684;&#x865A;&#x62DF;&#x673A;, &#x662F;&#x5426;&#x662F;kvm&#x5D4C;&#x5957;&#x6CA1;&#x6253;&#x5F00;&#x5462;?
+&#x53C2;&#x8003;:<a href="https://docs.fedoraproject.org/en-US/quick-docs/using-nested-virtualization-in-kvm/" target="_blank">https://docs.fedoraproject.org/en-US/quick-docs/using-nested-virtualization-in-kvm/</a></p>
+<h3 id="&#x68C0;&#x67E5;kvm&#x662F;&#x5426;nested"><a name="&#x68C0;&#x67E5;kvm&#x662F;&#x5426;nested" class="anchor-navigation-ex-anchor" href="#&#x68C0;&#x67E5;kvm&#x662F;&#x5426;nested"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. &#x68C0;&#x67E5;kvm&#x662F;&#x5426;nested</h3>
+<pre class="language-"><code class="lang-sh"><span class="token function">cat</span> /sys/module/kvm_intel/parameters/nested
+</code></pre>
+<p>&#x679C;&#x7136;&#x8FD9;&#x4E2A;&#x673A;&#x5668;&#x663E;&#x793A;<code>N</code></p>
+<h3 id="enable-nested-kvm"><a name="enable-nested-kvm" class="anchor-navigation-ex-anchor" href="#enable-nested-kvm"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. enable nested KVM</h3>
+<p>To enable nested virtualization for Intel processors:</p>
+<ol>
+<li>Shut down all running VMs and unload the <code>kvm_probe</code> module:<pre class="language-"><code>sudo modprobe -r kvm_intel
+</code></pre></li>
+<li>Activate the nesting feature:<pre class="language-"><code>sudo modprobe kvm_intel nested=1
+</code></pre></li>
+<li>Nested virtualization is enabled until the host is rebooted. To enable it permanently, add the following line to the <code>/etc/modprobe.d/kvm.conf</code> file:<pre class="language-"><code>options kvm_intel nested=1
+</code></pre></li>
+</ol>
+<p>AMD&#x7684;CPU&#x628A;&#x4E0A;&#x9762;&#x7684;<code>kvm_intel</code>&#x6539;&#x6210;<code>kvm_amd</code></p>
+<h3 id="&#x4E0D;&#x662F;nested&#x6CA1;&#x5F00;"><a name="&#x4E0D;&#x662F;nested&#x6CA1;&#x5F00;" class="anchor-navigation-ex-anchor" href="#&#x4E0D;&#x662F;nested&#x6CA1;&#x5F00;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.3. &#x4E0D;&#x662F;nested&#x6CA1;&#x5F00;</h3>
+<p>&#x6309;&#x7167;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6CD5;, &#x91CD;&#x65B0;&#x52A0;&#x8F7D;<code>kvm_intel</code>&#x5E76;&#x4F7F;&#x80FD;<code>nested=1</code>, &#x4E5F;&#x6210;&#x529F;&#x4E86;.
+&#x4F46;&#x95EE;&#x9898;&#x4F9D;&#x65E7;.<br>&#x90A3;&#x4F30;&#x8BA1;&#x5C31;&#x662F;kernel&#x7248;&#x672C;&#x592A;&#x4F4E;&#x4E86;:<br><code>Linux spine.novalocal 3.10.0-1160.2.2.el7.x86_64</code>
+<a href="https://patchwork.ozlabs.org/project/qemu-devel/patch/20170227124551.8673-14-pbonzini@redhat.com/" target="_blank">&#x4E0D;&#x652F;&#x6301;<code>KVM_CAP_IMMEDIATE_EXIT</code>&#x529F;&#x80FD;</a></p>
+<p><code>https://github.com/rust-vmm/kvm-ioctls/src/cap.rs</code></p>
+<pre class="language-"><code>ImmediateExit = KVM_CAP_IMMEDIATE_EXIT,
+</code></pre><h3 id="&#x5347;&#x7EA7;kernel"><a name="&#x5347;&#x7EA7;kernel" class="anchor-navigation-ex-anchor" href="#&#x5347;&#x7EA7;kernel"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.4. &#x5347;&#x7EA7;kernel</h3>
+<p>centos 7&#x7684;kernel&#x6BD4;&#x8F83;&#x8001;, &#x76F4;&#x63A5;&#x7528;&#x6807;&#x51C6;&#x65B9;&#x5F0F;&#x5347;&#x7EA7;&#x7248;&#x672C;&#x8FD8;&#x662F;3.10.
+&#x4E0B;&#x9762;&#x7528;epel&#x5347;&#x7EA7;kernel</p>
+<pre class="language-"><code>yum --enablerepo=elrepo-kernel install kernel-lt
+</code></pre><p>&#x6539;grub&#x9ED8;&#x8BA4;&#x4ECE;&#x65B0;kernel&#x542F;&#x52A8;, &#x542F;&#x52A8;&#x540E;&#x7248;&#x672C;&#x662F;:</p>
+<pre class="language-"><code>$ uname -a
+Linux spine.novalocal 5.4.207-1.el7.elrepo.x86_64 #1 SMP Tue Jul 19 10:40:55 EDT 2022 x86_64 x86_64 x86_64 GNU/Linux
+</code></pre><p>&#x4F7F;&#x7528;&#x65B0;kernel&#x95EE;&#x9898;&#x89E3;&#x51B3;!</p>
 
                                 
                                 </section>
@@ -557,14 +519,10 @@
 
             
                 
-                <a href="rust_工程构建.html" class="navigation navigation-prev " aria-label="Previous page: 工程构建">
+                <a href="rust_cloud-hypervisor_使用.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 使用">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="rust_vmm_简介.html" class="navigation navigation-next " aria-label="Next page: rust-vmm简介">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -573,7 +531,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"VMM(virtual machine monitor)","level":"3.2","depth":1,"next":{"title":"rust-vmm简介","level":"3.2.1","depth":2,"path":"notes/rust_vmm_简介.md","ref":"notes/rust_vmm_简介.md","articles":[]},"previous":{"title":"工程构建","level":"3.1.5","depth":2,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_vmm_brief.md","mtime":"2022-08-27T14:57:46.391Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-27T14:58:43.552Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"问题与解决","level":"3.2.3.3","depth":3,"next":{"title":"工具与使用","level":"3.3","depth":1,"ref":"","articles":[{"title":"使用mdbook","level":"3.3.1","depth":2,"path":"notes/rust_mdbook_使用.md","ref":"notes/rust_mdbook_使用.md","articles":[]}]},"previous":{"title":"使用","level":"3.2.3.2","depth":3,"path":"notes/rust_cloud-hypervisor_使用.md","ref":"notes/rust_cloud-hypervisor_使用.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_cloud-hypervisor_问题与解决.md","mtime":"2022-08-27T14:57:46.391Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-27T14:58:43.552Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

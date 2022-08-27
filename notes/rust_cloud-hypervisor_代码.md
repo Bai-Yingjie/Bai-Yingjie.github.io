@@ -1,7 +1,7 @@
 cloud hypervisor是一种基于rust-vmm的VMM实现. 它和其他VMM的对比在[这里](rust_vmm_brief.md)
 
 # code walk in single picture
-![](img/rust_cloud-hypervisor_code_walk.svg)
+![](img/rust_cloud-hypervisor_code_walk.svg)  
 
 # 编译
 ```sh
