@@ -16,3 +16,4 @@
   * [firecracker代码](notes/rust_firecracker_代码.md)
   * [firecracker使用](notes/rust_firecracker_使用.md)
   * [cloud hypervisor代码](notes/rust_cloud-hypervisor_代码.md)
+  * [cloud hypervisor使用](notes/rust_cloud-hypervisor_使用.md)
