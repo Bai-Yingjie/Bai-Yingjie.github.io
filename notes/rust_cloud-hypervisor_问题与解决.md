@@ -69,3 +69,31 @@ Linux spine.novalocal 5.4.207-1.el7.elrepo.x86_64 #1 SMP Tue Jul 19 10:40:55 EDT
 ```
 
 使用新kernel问题解决!
+
+# 编译virtiofsd
+virtiofsd是rust版本的daemon进程, 用来通过viriofs协议和VM共享host目录.
+```
+git clone https://gitlab.com/virtio-fs/virtiofsd
+cargo build --release
+```
+错误:
+```
+/usr/bin/ld: cannot find -lseccomp
+/usr/bin/ld: cannot find -lcap-ng
+collect2: error: ld returned 1 exit status
+```
+
+解决:
+```
+sudo apt install libseccomp-dev libcap-ng-dev
+```
+## target是musl也不总是完全的静态链接
+比如这个virtiofsd, 用了musl libc之后, libc的部分是静态链接的. 但还是引用了libseccomp和libcap
+
+## 如何静态链接virtiofsd
+virtiofsd的官方repo就可以编译出完全静态的二进制, 它是如何做到的?
+见`https://gitlab.com/virtio-fs/virtiofsd/-/blob/main/.gitlab-ci.yml`
+```sh
+apk add libcap-ng-static libseccomp-static musl-dev
+RUSTFLAGS='-C target-feature=+crt-static -C link-self-contained=yes' LIBSECCOMP_LINK_TYPE=static LIBSECCOMP_LIB_PATH=/usr/lib LIBCAPNG_LINK_TYPE=static LIBCAPNG_LIB_PATH=/usr/lib cargo build --release --target x86_64-unknown-linux-musl
+```
