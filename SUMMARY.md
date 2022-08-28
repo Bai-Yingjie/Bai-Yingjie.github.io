@@ -20,6 +20,6 @@
   * [cloud hypervisor问题与解决](notes/rust_cloud-hypervisor_问题与解决.md)
 * [代码积累](notes/rust_coding_brief.md)
   * [序列化原理](notes/rust_coding_序列化.md)
-  * [知识点更新](notes/rust_coding_知识点积累)
+  * [知识点更新](notes/rust_coding_知识点积累.md)
 * [其他](notes/others.md)
   * [使用mdbook](notes/rust_mdbook_使用.md)
