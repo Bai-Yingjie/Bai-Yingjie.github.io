@@ -4,12 +4,12 @@
 * 编译器会自动推导一般的生命标记. 比如:  
 ```rust
 fn announce(value: &impl Display) {
-  println!("Behold! {}!", value);
+    println!("Behold! {}!", value);
 }
 fn main() {
- let num = 42;
- let num_ref = &num;
- announce(num_ref);
+    let num = 42;
+    let num_ref = &num;
+    announce(num_ref);
 }
 ```
 去掉编译器语法糖的版本
