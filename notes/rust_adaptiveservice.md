@@ -13,6 +13,7 @@ if st.svc.canHandle(tm.msg) {
 ```
 
 在rust里面没有反射, 如何实现从字节流数据(stream buffer)到具体结构体的生成? 生成的数据结构体能否"断言"成实现了KnownMessage的trait?  
+
 先看看rust从类型上提供了什么语义, 这些语义能干什么.
 
 # 5种"动态"类型

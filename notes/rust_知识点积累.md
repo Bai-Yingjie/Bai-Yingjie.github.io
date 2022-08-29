@@ -6,7 +6,6 @@
 fn announce(value: &impl Display) {
   println!("Behold! {}!", value);
 }
-
 fn main() {
  let num = 42;
  let num_ref = &num;

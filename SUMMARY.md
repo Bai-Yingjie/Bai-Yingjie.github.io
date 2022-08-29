@@ -23,5 +23,6 @@
   * [知识点更新](notes/rust_知识点积累.md)
   * [rust版本的adaptiveservice探索](notes/rust_adaptiveservice.md)
   * [常用设施](notes/rust_常用设施.md)
+  * [代码小段](notes/rust_代码小段.md)
 * [其他](notes/others.md)
   * [使用mdbook](notes/rust_mdbook_使用.md)

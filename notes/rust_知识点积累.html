@@ -400,6 +400,19 @@
             
         </li>
     
+        <li class="chapter " data-level="3.3.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -486,33 +499,33 @@
 <p>&#x53EA;&#x6709;&#x5F15;&#x7528;&#x624D;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#x6807;&#x8BB0;&#x7684;&#x8BF4;&#x6CD5;, &#x5176;&#x4ED6;&#x90FD;&#x6CA1;&#x6709;:</p>
 <ul>
 <li>&#x6CA1;&#x6709;&#x7ED3;&#x6784;&#x4F53;&#x751F;&#x547D;&#x5468;&#x671F;&#x6807;&#x8BB0;&#x7684;&#x8BF4;&#x6CD5;. &#x770B;&#x89C1;&#x4E00;&#x4E2A;struct&#x5E26;&#x6807;&#x8BB0;, &#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x5BF9;&#x5176;&#x5185;&#x90E8;&#x7684;field&#x7684;&#x5F15;&#x7528;&#x7684;&#x6807;&#x8BB0;</li>
-<li>&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x81EA;&#x52A8;&#x63A8;&#x5BFC;&#x4E00;&#x822C;&#x7684;&#x751F;&#x547D;&#x6807;&#x8BB0;. &#x6BD4;&#x5982;:<br>```rust
-fn announce(value: &amp;impl Display) {
-println!(&quot;Behold! {}!&quot;, value);
-}</li>
+<li>&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x81EA;&#x52A8;&#x63A8;&#x5BFC;&#x4E00;&#x822C;&#x7684;&#x751F;&#x547D;&#x6807;&#x8BB0;. &#x6BD4;&#x5982;:  <pre class="language-"><code class="lang-rust"><span class="token keyword">fn</span> <span class="token function-definition function">announce</span><span class="token punctuation">(</span>value<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">impl</span> <span class="token class-name">Display</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Behold! {}!&quot;</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">let</span> num <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> num_ref <span class="token operator">=</span> <span class="token operator">&amp;</span>num<span class="token punctuation">;</span>
+<span class="token function">announce</span><span class="token punctuation">(</span>num_ref<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+&#x53BB;&#x6389;&#x7F16;&#x8BD1;&#x5668;&#x8BED;&#x6CD5;&#x7CD6;&#x7684;&#x7248;&#x672C;<pre class="language-"><code class="lang-rust"><span class="token keyword">fn</span> <span class="token function-definition function">announce</span><span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">&apos;a</span><span class="token punctuation">,</span> <span class="token class-name">T</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>value<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">&apos;a</span> <span class="token class-name">T</span><span class="token punctuation">)</span> <span class="token keyword">where</span> <span class="token class-name">T</span><span class="token punctuation">:</span> <span class="token class-name">Display</span> <span class="token punctuation">{</span>
+  <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Behold! {}!&quot;</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token lifetime-annotation symbol">&apos;x</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> num <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
+      <span class="token lifetime-annotation symbol">&apos;y</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          <span class="token keyword">let</span> num_ref <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">&apos;y</span> num<span class="token punctuation">;</span>
+          <span class="token lifetime-annotation symbol">&apos;z</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+              <span class="token function">announce</span><span class="token punctuation">(</span>num_ref<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
 </ul>
-<p>fn main() {
- let num = 42;
- let num_ref = #
- announce(num_ref);
-}</p>
-<pre class="language-"><code>&#x53BB;&#x6389;&#x7F16;&#x8BD1;&#x5668;&#x8BED;&#x6CD5;&#x7CD6;&#x7684;&#x7248;&#x672C;
-```rust
-fn announce<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>&apos;a,</span> <span class="token attr-name">T</span><span class="token punctuation">&gt;</span></span>(value: &amp;&apos;a T) where T: Display {
-    println!(&quot;Behold! {}!&quot;, value);
-}
-fn main() {
-    &apos;x: {
-        let num = 42;
-        &apos;y: {
-            let num_ref = &amp;&apos;y num;
-            &apos;z: {
-                announce(num_ref);
-            }
-        }
-    }
-}
-</code></pre><h1 id="&#x7EBF;&#x7A0B;"><a name="&#x7EBF;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x7EBF;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x7EBF;&#x7A0B;</h1>
+<h1 id="&#x7EBF;&#x7A0B;"><a name="&#x7EBF;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x7EBF;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x7EBF;&#x7A0B;</h1>
 <pre class="language-"><code class="lang-rust"><span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span></span>thread<span class="token punctuation">;</span>
 
 <span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -1538,7 +1551,7 @@ map<span class="token punctuation">.</span><span class="token function">insert</
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"知识点更新","level":"3.3.2","depth":2,"next":{"title":"rust版本的adaptiveservice探索","level":"3.3.3","depth":2,"path":"notes/rust_adaptiveservice.md","ref":"notes/rust_adaptiveservice.md","articles":[]},"previous":{"title":"序列化原理","level":"3.3.1","depth":2,"path":"notes/rust_序列化.md","ref":"notes/rust_序列化.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_知识点积累.md","mtime":"2022-08-29T01:26:15.943Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-29T01:27:01.815Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"知识点更新","level":"3.3.2","depth":2,"next":{"title":"rust版本的adaptiveservice探索","level":"3.3.3","depth":2,"path":"notes/rust_adaptiveservice.md","ref":"notes/rust_adaptiveservice.md","articles":[]},"previous":{"title":"序列化原理","level":"3.3.1","depth":2,"path":"notes/rust_序列化.md","ref":"notes/rust_序列化.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_知识点积累.md","mtime":"2022-08-29T01:52:12.929Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-29T01:53:02.386Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
