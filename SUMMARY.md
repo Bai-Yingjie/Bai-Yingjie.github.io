@@ -3,11 +3,13 @@
 
 * [Golang](notes/as_title.md)
   * [语法基础](notes/golang_语法基础.md)
+  * [原理相关](notes/golang_原理.md)
   * [杂记](notes/as_title.md)
     * [杂记1](notes/golang_杂记1.md)
     * [杂记2](notes/golang_杂记2.md)
     * [杂记3](notes/golang_杂记3.md)
-  * [汇编语法和arm64小知识](notes/golang_汇编_arm64.md)
+    * [lib选型](notes/golang_lib选型.md)
+    * [汇编语法和arm64小知识](notes/golang_汇编_arm64.md)
 
 * [Rust](notes/as_title.md)
   * [入门系列](notes/rust_入门_brief.md)
