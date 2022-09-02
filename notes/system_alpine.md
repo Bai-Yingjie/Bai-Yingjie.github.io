@@ -1,13 +1,15 @@
 - [现代化的工程系统](#现代化的工程系统)
 - [使用subgroup来组织repo](#使用subgroup来组织repo)
 - [组织清爽, 源代码干净](#组织清爽-源代码干净)
+- [aports](#aports)
+  - [bootstrap.sh](#bootstrapsh)
 
 # 现代化的工程系统
-alpine linux的全部开发都在https://gitlab.alpinelinux.org/alpine
+alpine linux的全部开发都在 https://gitlab.alpinelinux.org/alpine
 * 自己搭建的gitlab服务器, 允许外部用户注册, fork库, 并提交MR
 * 使用gitlab-ci的CI/CD做build test
 * 用gitlab issue来跟踪bug
-* 文档也是repo管理, 使用[Antora Playbook](https://docs.antora.org/antora/latest/playbook/)发布, 网页入口是https://alpinelinux.org/
+* 文档也是repo管理, 使用[Antora Playbook](https://docs.antora.org/antora/latest/playbook/)发布, 网页入口是 https://alpinelinux.org/
 
 # 使用subgroup来组织repo
 比如CI/CD工具库在`alpine/infra/docker/alpine-gitlab-ci`下面, 先是根alpine, 再是infra, 再是docker, 最后是repo
@@ -64,3 +66,23 @@ report() {
     tee -a "$reportsdir/$report.log"
 }
 ```
+
+# aports
+alpine支持的package都放在[aports](https://gitlab.alpinelinux.org/alpine/aports)这个库下面.
+* main: alpine core team直接支持的package
+* community: 由社区支持的package
+
+参考: https://wiki.alpinelinux.org/wiki/Repositories
+
+`/etc/apk/repositories`是package的配置
+```
+/ # cat /etc/apk/repositories
+https://dl-cdn.alpinelinux.org/alpine/v3.15/main
+https://dl-cdn.alpinelinux.org/alpine/v3.15/community
+```
+比如`https://dl-cdn.alpinelinux.org/alpine/v3.15/main`目录下包括了所有arch的预编译好的apk  
+![](img/system_alpine_20220902115455.png)  
+点进去看这些apk的修改时间是不一样的, 说明apk是按需编译的.
+
+## bootstrap.sh
+似乎可以用它来生成交叉编译的工具链
