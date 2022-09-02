@@ -1,5 +1,15 @@
 除了普通文件fd, socket fd, Linux还提供了比较特殊的几种fd, 比如eventfd timerfd signalfd等等.
 
+- [signalfd](#signalfd)
+- [timerfd](#timerfd)
+  - [timerfd API](#timerfd-api)
+  - [注epoll使用简介](#注epoll使用简介)
+    - [边沿触发和电平触发](#边沿触发和电平触发)
+    - [epoll_wait](#epoll_wait)
+- [eventfd概念](#eventfd概念)
+  - [用法](#用法)
+- [进程间共享文件描述符](#进程间共享文件描述符)
+
 各种fd是系统调用
 用perf看所有带fd的系统调用
 `perf list | grep syscalls | grep fd | grep enter`

@@ -1,3 +1,66 @@
+- [类型断言很慢吗?](#类型断言很慢吗)
+  - [结果](#结果)
+- [zlib压缩](#zlib压缩)
+- [gob编码](#gob编码)
+  - [gob会缓存](#gob会缓存)
+    - [结论](#结论)
+  - [gob的编码规则](#gob的编码规则)
+  - [decode时使用指针方式避免interface的值拷贝](#decode时使用指针方式避免interface的值拷贝)
+    - [msg的值拷贝](#msg的值拷贝)
+    - [优化成指针](#优化成指针)
+  - [interface也可以序列化, 但需要Register](#interface也可以序列化-但需要register)
+    - [输出](#输出)
+    - [如果不Register会怎样?](#如果不register会怎样)
+  - [顶层是interface{}的情况](#顶层是interface的情况)
+    - [能直接encode interface{}](#能直接encode-interface)
+    - [使用interface的地址来encode](#使用interface的地址来encode)
+  - [Register()函数](#register函数)
+    - [非要Register()吗?](#非要register吗)
+- [没有特列, append也是值拷贝](#没有特列-append也是值拷贝)
+- [要用interface抽象行为, 就不要多一层struct马甲.](#要用interface抽象行为-就不要多一层struct马甲)
+- [interface{}变量可以直接和concrete类型的变量比较](#interface变量可以直接和concrete类型的变量比较)
+- [Read不能保证全读](#read不能保证全读)
+  - [用io.ReadFull](#用ioreadfull)
+  - [没有io.WriteFull](#没有iowritefull)
+- [string强转](#string强转)
+- [先return再defer, defer里面能看到return的值](#先return再defer-defer里面能看到return的值)
+- [包的初始化只执行一次](#包的初始化只执行一次)
+- [goroutine与channel](#goroutine与channel)
+  - [使用channel时一定要判断peer的goroutine是否还在1](#使用channel时一定要判断peer的goroutine是否还在1)
+    - [问题场景](#问题场景)
+    - [解决](#解决)
+  - [使用channel时一定要判断peer的goroutine是否还在2](#使用channel时一定要判断peer的goroutine是否还在2)
+    - [解决](#解决-1)
+- [写空的channel不会panic](#写空的channel不会panic)
+  - [简单的程序可以检测死锁](#简单的程序可以检测死锁)
+  - [复杂的程序检测不出来, 直接卡住](#复杂的程序检测不出来-直接卡住)
+- [patherror](#patherror)
+- [永久阻塞](#永久阻塞)
+- [selectgo源码杂记](#selectgo源码杂记)
+  - [强转成切片指针](#强转成切片指针)
+  - [突破数组大小限制](#突破数组大小限制)
+  - [切片截取](#切片截取)
+  - [子切片共享底层数组](#子切片共享底层数组)
+- [go test](#go-test)
+  - [测试对象方法](#测试对象方法)
+  - [子项](#子项)
+  - [性能测试](#性能测试)
+- [不推荐用self或者this指代receiver](#不推荐用self或者this指代receiver)
+  - [范式](#范式)
+- [在链接阶段对全局变量赋值](#在链接阶段对全局变量赋值)
+  - [使用场景](#使用场景)
+  - [如何做到的?](#如何做到的)
+    - [链接选项](#链接选项)
+- [编译限制Build Constraints](#编译限制build-constraints)
+  - [使用-tags参数指定用户自定义constraints](#使用-tags参数指定用户自定义constraints)
+- [无表达式的switch](#无表达式的switch)
+- [无缓冲和缓冲为1的通道不一样](#无缓冲和缓冲为1的通道不一样)
+- [书](#书)
+- [go内存模型](#go内存模型)
+  - [解决1: 用channel](#解决1-用channel)
+  - [解决2: 用sync](#解决2-用sync)
+- [sync的once](#sync的once)
+
 # 类型断言很慢吗?
 答: 不慢, 甚至比直接函数调用还快... 黑科技
 ```go
@@ -393,7 +456,8 @@ func registerBasics() {
 }
 ```
 
-### 既然有实例就能注册, 为什么不在encode/decode时自动注册了? 非要搞一个Register()
+### 非要Register()吗?
+既然有实例就能注册, 为什么不在encode/decode时自动注册了, 非要搞一个Register()?  
 答: 可能是因为用了反射比较慢的缘故. 注册一次就够了, 每次都"注册"反射开销大.
 
 
@@ -725,8 +789,8 @@ func foo() (result string) {
 
 # goroutine与channel
 goroutine的生命周期和channel要配合, routine的产生与消亡要考虑对channel的影响
-## 在用channel的时候, 一定要判断peer的goroutine是否还在1
-这个例子中,newPidInfo()函数中, 起了goroutine `pi.checkThreads()`
+## 使用channel时一定要判断peer的goroutine是否还在1
+这个例子中,`newPidInfo()`函数中, 起了goroutine `pi.checkThreads()`
 ```go
 func newPidInfo(pid int, ppi *PidInfo) (*PidInfo, error) {
         pi.hierarchyDone = make(chan int)
@@ -810,7 +874,7 @@ func (pi *PidInfo) triggerAndWaitHierarchy() {
 ```
 
 
-## 在用channel的时候, 一定要判断peer的goroutine是否还在2
+## 使用channel时一定要判断peer的goroutine是否还在2
 比如下面的代码, 倒数第二行在写channel的时候, 对应的checkChild协程不一定能到达37行select.
 实际上, 只有一个case的select可以只保留channel读部分.
 ```go

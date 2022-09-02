@@ -1,3 +1,62 @@
+- [静态分派和动态分派](#静态分派和动态分派)
+  - [trait不能用作入参或者返回值](#trait不能用作入参或者返回值)
+  - [impl Trait做为入参](#impl-trait做为入参)
+    - [impl trait只是语法糖](#impl-trait只是语法糖)
+  - [trait object](#trait-object)
+  - [impl trait](#impl-trait)
+- [闭包](#闭包)
+  - [普通的函数不能捕获局部变量](#普通的函数不能捕获局部变量)
+  - [闭包和函数](#闭包和函数)
+  - [闭包如何捕获变量?](#闭包如何捕获变量)
+  - [move关键字](#move关键字)
+  - [闭包和泛型](#闭包和泛型)
+  - [可以用Box封装闭包](#可以用box封装闭包)
+- [容器](#容器)
+  - [Vec](#vec)
+  - [VecDeque](#vecdeque)
+  - [HashMap](#hashmap)
+  - [BTreeMap](#btreemap)
+- [迭代器](#迭代器)
+  - [从容器创造迭代器](#从容器创造迭代器)
+  - [迭代器组合](#迭代器组合)
+  - [for in](#for-in)
+- [生成器](#生成器)
+- [协程](#协程)
+- [标准库](#标准库)
+  - [类型转换](#类型转换)
+    - [AsRef/AsMut](#asrefasmut)
+    - [borrow](#borrow)
+    - [From/Into](#frominto)
+    - [ToOwned](#toowned)
+    - [ToString/FromStr](#tostringfromstr)
+  - [运算符重载](#运算符重载)
+    - [complex加法重载](#complex加法重载)
+  - [IO](#io)
+    - [OsString和OsStr](#osstring和osstr)
+    - [文件和路径](#文件和路径)
+    - [标准输入输出](#标准输入输出)
+    - [进程启动参数](#进程启动参数)
+    - [Any和反射](#any和反射)
+- [线程安全](#线程安全)
+  - [创建线程](#创建线程)
+  - [更多线程参数](#更多线程参数)
+  - [rust怎么保证线程安全](#rust怎么保证线程安全)
+  - [Send & Sync](#send--sync)
+  - [什么是Send类型](#什么是send类型)
+  - [什么是Sync类型](#什么是sync类型)
+  - [保证线程安全的类型](#保证线程安全的类型)
+    - [Arc](#arc)
+    - [Mutex](#mutex)
+    - [RwLock](#rwlock)
+    - [Atomic](#atomic)
+    - [Barrier](#barrier)
+    - [Condvar](#condvar)
+    - [全局变量](#全局变量)
+    - [线程局部存储](#线程局部存储)
+  - [异步管道](#异步管道)
+  - [同步管道 相当于go channel](#同步管道-相当于go-channel)
+  - [第三方线程库](#第三方线程库)
+
 # 静态分派和动态分派
 ## trait不能用作入参或者返回值
 比如下面的Bird这个trait, 有两个实现, Duck和Swan
@@ -1306,7 +1365,8 @@ Rust中允许存在全局变量。在基本语法章节讲过，使用static关�
 * 可以使用`#[thread_local]attribute`
 * 可以使用`thread_local！`宏
 
-## 异步管道相当于无限扩容的go channel, 但只是多生产单消费
+## 异步管道
+相当于无限扩容的go channel, 但只是多生产单消费  
 异步管道是最常用的一种管道类型。它的特点是: 发送端和接收端之间存在一个缓冲区，发送端发送数据的时候，是先将这个数据扔到缓冲区，再由接收端自己去取。因此，每次发送，立马就返回了，发送端不用管数据什么时候被接收端处理
 ```rust
 use std::sync::mpsc::channel;

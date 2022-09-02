@@ -1,3 +1,9 @@
+- [5种"动态"类型](#5种动态类型)
+- [rust的泛型是静态的](#rust的泛型是静态的)
+  - [静态分发](#静态分发)
+  - [动态分发 即trait objects](#动态分发-即trait-objects)
+    - [从指针获取trait objects](#从指针获取trait-objects)
+
 [adaptiveservice](https://github.com/godevsig/adaptiveservice)是我用go写的微服务消息框架, 其核心之一是用了go的反射来给每个数据struct绑定一个handler方法.
 
 ```go

@@ -1,3 +1,26 @@
+- [命令记录](#命令记录)
+  - [命令行启动](#命令行启动)
+  - [ch-remote启动](#ch-remote启动)
+- [启动](#启动)
+  - [可选参数](#可选参数)
+- [rest API](#rest-api)
+  - [ping](#ping)
+  - [dump vm info](#dump-vm-info)
+  - [reboot shutdown](#reboot-shutdown)
+  - [其他](#其他)
+- [guest kernel启动打印](#guest-kernel启动打印)
+- [gdb调试](#gdb调试)
+  - [rust-gdb](#rust-gdb)
+- [测试场景: vm内virtio-net网口ping对应的tap口](#测试场景-vm内virtio-net网口ping对应的tap口)
+  - [gdb观察](#gdb观察)
+    - [ping是否会触发VM exit -- 否](#ping是否会触发vm-exit----否)
+    - [vmm后端怎么工作](#vmm后端怎么工作)
+    - [写文件是否会触发VM exit -- 否](#写文件是否会触发vm-exit----否)
+    - [lspci是否会触发VM exit -- 是](#lspci是否会触发vm-exit----是)
+- [最小化启动](#最小化启动)
+- [参考集成](#参考集成)
+- [release过程](#release过程)
+
 # 命令记录
 
 ## 命令行启动

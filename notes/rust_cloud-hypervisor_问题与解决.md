@@ -1,3 +1,13 @@
+- [cloud hypervisor无法启动](#cloud-hypervisor无法启动)
+  - [会是什么原因](#会是什么原因)
+    - [检查kvm是否nested](#检查kvm是否nested)
+    - [enable nested KVM](#enable-nested-kvm)
+    - [不是nested没开](#不是nested没开)
+    - [升级kernel](#升级kernel)
+- [编译virtiofsd](#编译virtiofsd)
+  - [target是musl也不总是完全的静态链接](#target是musl也不总是完全的静态链接)
+  - [如何静态链接virtiofsd](#如何静态链接virtiofsd)
+
 # cloud hypervisor无法启动
 直接启动会报错:  
 ![](img/rust_cloud-hypervisor_debug_20220827223739.png)  

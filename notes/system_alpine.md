@@ -1,3 +1,7 @@
+- [现代化的工程系统](#现代化的工程系统)
+- [使用subgroup来组织repo](#使用subgroup来组织repo)
+- [组织清爽, 源代码干净](#组织清爽-源代码干净)
+
 # 现代化的工程系统
 alpine linux的全部开发都在https://gitlab.alpinelinux.org/alpine
 * 自己搭建的gitlab服务器, 允许外部用户注册, fork库, 并提交MR
