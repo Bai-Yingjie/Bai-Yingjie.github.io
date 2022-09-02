@@ -1,3 +1,15 @@
+- [micro_http](#micro_http)
+- [channel in channel](#channel-in-channel)
+- [epoll](#epoll)
+- [反序列化到结构体](#反序列化到结构体)
+- [match语句块做为值](#match语句块做为值)
+- [命令行参数拿到文件名并读出其中字符串](#命令行参数拿到文件名并读出其中字符串)
+- [从`Vec<&str>`到`Vec<String>`](#从vecstr到vecstring)
+- [从&str返回任意类型](#从str返回任意类型)
+  - [map_err(Error::Arch)?](#map_errerrorarch)
+- [json文件 compile 序列化](#json文件-compile-序列化)
+- [Err的使用方法](#err的使用方法)
+
 # micro_http
 用的是
 `micro_http = { git = "https://github.com/firecracker-microvm/micro-http", branch = "main" }`

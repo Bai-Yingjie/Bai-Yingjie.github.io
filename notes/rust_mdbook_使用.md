@@ -3,6 +3,14 @@ guide: https://rust-lang.github.io/mdBook
 
 mdBook本身也是个git repo: https://github.com/rust-lang/mdBook
 
+- [更新 2022.08](#更新-202208)
+- [安装](#安装)
+- [book组织](#book组织)
+- [mdbook使用](#mdbook使用)
+  - [book.toml](#booktoml)
+  - [SUMMARY.md](#summarymd)
+  - [build book](#build-book)
+
 # 更新 2022.08
 mdbook不支持中文搜索, 故弃用. 使用gitbook代替  
 gitbook参考:   

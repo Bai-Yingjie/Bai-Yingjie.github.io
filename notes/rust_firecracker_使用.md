@@ -1,3 +1,25 @@
+- [编译](#编译)
+  - [编译firecracker](#编译firecracker)
+  - [编译kernel](#编译kernel)
+  - [编译rootfs](#编译rootfs)
+- [运行](#运行)
+  - [配置文件方式运行](#配置文件方式运行)
+  - [rest API方式运行](#rest-api方式运行)
+- [devctr镜像](#devctr镜像)
+- [顶层cargo](#顶层cargo)
+- [firecracker/tools/devtool脚本](#firecrackertoolsdevtool脚本)
+  - [cmd_build](#cmd_build)
+    - [先build seccompiler](#先build-seccompiler)
+    - [再build rebase-snap](#再build-rebase-snap)
+    - [build firecracker](#build-firecracker)
+    - [build jailer](#build-jailer)
+  - [build_kernel](#build_kernel)
+  - [build_rootfs](#build_rootfs)
+    - [firecracker/resources/tests/init.c](#firecrackerresourcestestsinitc)
+    - [firecracker/resources/tests/fillmem.c](#firecrackerresourcestestsfillmemc)
+    - [firecracker/resources/tests/readmem.c](#firecrackerresourcestestsreadmemc)
+    - [做镜像](#做镜像)
+
 # 编译
 先clone代码:
 `git clone https://github.com/firecracker-microvm/firecracker`

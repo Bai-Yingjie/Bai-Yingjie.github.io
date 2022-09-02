@@ -1,6 +1,23 @@
-http://www.chandrashekar.info/articles/linux-system-programming/introduction-to-linux-ipc-mechanims.html
+- [ipcs查看进程间通信的情况, 包括消息队列, 共享内存, semaphore](#ipcs查看进程间通信的情况-包括消息队列-共享内存-semaphore)
+- [进程间通信类型](#进程间通信类型)
+  - [signal](#signal)
+  - [匿名管道](#匿名管道)
+  - [有名管道和FIFO](#有名管道和fifo)
+  - [消息队列](#消息队列)
+  - [共享内存](#共享内存)
+  - [信号量](#信号量)
+  - [futex](#futex)
+  - [Unix domain socket](#unix-domain-socket)
+  - [Netlink socket](#netlink-socket)
+  - [Network socket](#network-socket)
+  - [Inotify机制](#inotify机制)
+  - [FUSE文件系统](#fuse文件系统)
+  - [D-BUS](#d-bus)
 
-[https://tldp.org/LDP/tlk/ipc/ipc.html#:~:text=1%20System%20V%20IPC%20Mechanisms,all%20share%20common%20authentication%20methods.](https://tldp.org/LDP/tlk/ipc/ipc.html#:~:text=1%20System%20V%20IPC%20Mechanisms,all%20share%20common%20authentication%20methods.)
+参考:
+* http://www.chandrashekar.info/articles/linux-system-programming/introduction-to-linux-ipc-mechanims.html
+
+* [https://tldp.org/LDP/tlk/ipc/ipc.html#:~:text=1%20System%20V%20IPC%20Mechanisms,all%20share%20common%20authentication%20methods.](https://tldp.org/LDP/tlk/ipc/ipc.html#:~:text=1%20System%20V%20IPC%20Mechanisms,all%20share%20common%20authentication%20methods.)
 
 # ipcs查看进程间通信的情况, 包括消息队列, 共享内存, semaphore
 ```

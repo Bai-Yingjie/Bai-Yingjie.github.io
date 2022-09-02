@@ -12,6 +12,9 @@ Rust-Vmm 是一个开源工程，是一个可以自由定制的 VMM（virtual ma
 
 简单介绍一下 Rust-Vmm 的一个历史，它是由谷歌首先实现的，谷歌首先实现一个 Rust based 的轻量级的 VMM，它叫做 crosVM，大家也可以从链接里面看到，它是一个为 chrome 浏览器做的一个微内核。然后 AWS，亚马逊基于谷歌开源出来的 crosVM，实现了自己的基于 rust 的 VMM 叫 Firecracker。两个项目的开发人员会发现做这两个项目的时候，会有很多重复的重叠的通用的代码，很自然的把可以开源的、通用的部分结合到一块，就有了 Rust-Vmm 的项目。
 
+- [使用rust vmm](#使用rust-vmm)
+- [crosvm](#crosvm)
+
 ## 使用rust vmm
 参考https://opensource.com/article/19/3/rust-virtual-machine  
 ![](img/rust_vmm_简介_20220825222425.png)  

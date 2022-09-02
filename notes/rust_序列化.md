@@ -1,3 +1,23 @@
+- [主流的serde框架](#主流的serde框架)
+  - [简单例子](#简单例子)
+  - [serde_json](#serde_json)
+    - [理论](#理论)
+    - [untype的例子](#untype的例子)
+    - [Index操作符重载](#index操作符重载)
+    - [反序列化自定义struct](#反序列化自定义struct)
+    - [json!宏构建json](#json宏构建json)
+    - [序列化结构体](#序列化结构体)
+    - [性能](#性能)
+    - [依赖](#依赖)
+  - [理论](#理论-1)
+    - [29种类型](#29种类型)
+    - [derive](#derive)
+    - [属性](#属性)
+    - [自己实现序列化](#自己实现序列化)
+      - [序列化](#序列化)
+      - [反序列化](#反序列化)
+      - [反序列化的zero copy和生命周期标记](#反序列化的zero-copy和生命周期标记)
+
 # 主流的serde框架
 **Serde is a framework for _ser_ializing and _de_serializing Rust data structures efficiently and generically.**
 

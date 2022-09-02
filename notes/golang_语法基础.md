@@ -1,3 +1,62 @@
+- [初始化和空值](#初始化和空值)
+  - [结构体](#结构体)
+  - [声明空切片](#声明空切片)
+    - [new切片](#new切片)
+    - [空切片的实例化](#空切片的实例化)
+  - [总结](#总结)
+- [字符串支持比较操作符](#字符串支持比较操作符)
+- [空白标识符](#空白标识符)
+  - [空白标识符和err](#空白标识符和err)
+  - [空白标识符和编译unused检查](#空白标识符和编译unused检查)
+  - [空白标识符和类型检查](#空白标识符和类型检查)
+- [go 是静态类型语言](#go-是静态类型语言)
+  - [interface类型的变量可以重复赋值为任意类型](#interface类型的变量可以重复赋值为任意类型)
+  - [可以在循环里用:语法糖赋值](#可以在循环里用语法糖赋值)
+  - [连续赋值可以支持重复声明](#连续赋值可以支持重复声明)
+- [结构体和json反射](#结构体和json反射)
+  - [结构体定义里的反射字段](#结构体定义里的反射字段)
+- [反射](#反射)
+- [Golang的单引号、双引号与反引号](#golang的单引号双引号与反引号)
+- [变长参数](#变长参数)
+- [flag包用来解析cmd参数](#flag包用来解析cmd参数)
+- [内置len copy 和cap](#内置len-copy-和cap)
+- [字符串 字节数组 符文](#字符串-字节数组-符文)
+- [常量和iota](#常量和iota)
+- [格式化和scan](#格式化和scan)
+  - [print](#print)
+  - [scan](#scan)
+- [减小go可执行文件的size](#减小go可执行文件的size)
+- [go doc看说明](#go-doc看说明)
+- [go内置pacakge](#go内置pacakge)
+- [go 环境变量](#go-环境变量)
+- [go test框架](#go-test框架)
+- [远程包](#远程包)
+- [go 工程布局(layout)](#go-工程布局layout)
+  - [典型的go workspace布局](#典型的go-workspace布局)
+  - [完整布局参考](#完整布局参考)
+- [go知识点](#go知识点)
+- [值传递和指针类型](#值传递和指针类型)
+- [struct](#struct)
+  - [形式](#形式)
+  - [结构体方法](#结构体方法)
+    - [基于指针对象的方法](#基于指针对象的方法)
+  - [继承](#继承)
+  - [结构体可以比较](#结构体可以比较)
+  - [new分配内存](#new分配内存)
+  - [工厂模式初始化](#工厂模式初始化)
+- [接口 interface](#接口-interface)
+  - [类型断言](#类型断言)
+  - [类型断言判断对象是否实现了一个接口](#类型断言判断对象是否实现了一个接口)
+- [goroutine](#goroutine)
+  - [通道](#通道)
+  - [带缓冲的通道](#带缓冲的通道)
+  - [通道用close来关闭](#通道用close来关闭)
+- [切片](#切片)
+  - [切片的append](#切片的append)
+- [map 集合](#map-集合)
+  - [delete可以删除元素](#delete可以删除元素)
+- [range](#range)
+
 # 初始化和空值
 
 ## 结构体
@@ -194,7 +253,7 @@ mys = 64
 ```
 动态语言, 变量可以随便赋值为不同种类的.
 
-## 但interface类型的变量, 可以重复赋值为任意类型.
+## interface类型的变量可以重复赋值为任意类型
 > The interface{} (empty interface) type describes an interface with zero methods. Every Go type implements at least zero methods and therefore satisfies the empty interface.
 
 ```go
@@ -1435,7 +1494,7 @@ x 是 int 型, 值为17
 ```
 
 
-## 类型断言判断一个对象是否实现了一个接口
+## 类型断言判断对象是否实现了一个接口
 判断`val`是否实现了json.Marshaler需要的接口, 即val是否为json.Marshaler类型.
 ```go
 if _, ok := val.(json.Marshaler); ok {
@@ -1738,6 +1797,8 @@ India 首都是 新德里
 美国的首都不存在
 ```
 
+## delete可以删除元素
+
 # range
 用range可以对数组(array), 切片(slice), 通道(channel), 集合(map)进行遍历
 ```go
@@ -1776,6 +1837,3 @@ b -> banana
 0 103
 1 111
 ```
-
-## delete可以删除元素
-
