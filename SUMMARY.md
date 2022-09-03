@@ -8,7 +8,9 @@
     * [杂记1](notes/golang_杂记1.md)
     * [杂记2](notes/golang_杂记2.md)
     * [杂记3](notes/golang_杂记3.md)
+    * [高效go](notes/golang_高效go.md)
     * [lib选型](notes/golang_lib选型.md)
+    * [go mod和go proxy](notes/golang_mod_proxy.md)
     * [汇编语法和arm64小知识](notes/golang_汇编_arm64.md)
 
 * [Rust](notes/as_title.md)
@@ -40,3 +42,5 @@
   * [进程间通信](notes/system_进程间通信.md)
   * [特殊功能fd](notes/system_特殊功能fd.md)
 
+* [工程实践](notes/as_title.md)
+  * [gitlab CI](notes/gitlab_ci.md)
