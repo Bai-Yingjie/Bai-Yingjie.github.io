@@ -4,6 +4,7 @@
 * [Golang](notes/as_title.md)
   * [语法基础](notes/golang_语法基础.md)
   * [原理相关](notes/golang_原理.md)
+  * [标准库](notes/golang_标准库.md)
   * [杂记](notes/as_title.md)
     * [杂记1](notes/golang_杂记1.md)
     * [杂记2](notes/golang_杂记2.md)
