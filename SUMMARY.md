@@ -10,6 +10,7 @@
     * [杂记2](notes/golang_杂记2.md)
     * [杂记3](notes/golang_杂记3.md)
     * [高效go](notes/golang_高效go.md)
+    * [进阶](notes/golang_进阶.md)
     * [lib选型](notes/golang_lib选型.md)
     * [go mod和go proxy](notes/golang_mod_proxy.md)
     * [汇编语法和arm64小知识](notes/golang_汇编_arm64.md)

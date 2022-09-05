@@ -3,6 +3,7 @@
   - [ch-remote启动](#ch-remote启动)
 - [启动](#启动)
   - [可选参数](#可选参数)
+- [virtiofsd](#virtiofsd)
 - [rest API](#rest-api)
   - [ping](#ping)
   - [dump vm info](#dump-vm-info)
@@ -113,6 +114,18 @@ cloud-hypervisor -h
     --serial
     --vsock
     --watchdog
+```
+
+# virtiofsd
+virtiofsd是用virtiofs协议来共享host文件系统到guest的一个工具.  
+host上需要运行virtiofsd, 指定socket路径和要共享的目录; 同时给cloud hypervisor指定一个tag
+```
+virtiofsd --log-level error --seccomp none --cache=never --socket-path=$WORK_DIR/run/rootextra.sock --shared-dir=$WORK_DIR/rootfs &
+ch-remote --api-socket $WORK_DIR/run/clh.sock add-fs tag=rootextra,socket=$WORK_DIR/run/rootextra.sock
+```
+在guest里面, 用指定的tag来mount:
+```
+mount rootextra /rootextra -t virtiofs -o noatime
 ```
 
 # rest API
