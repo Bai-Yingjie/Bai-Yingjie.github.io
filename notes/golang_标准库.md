@@ -988,10 +988,9 @@ func main() {
         log.Fatal("decode error 2:", err)
     }
     fmt.Printf("%q: {%d, %d}\n", q.Name, *q.X, *q.Y)
-
 }
-
 ```
+
 结果
 ```
 "Pythagoras": {3, 4}
