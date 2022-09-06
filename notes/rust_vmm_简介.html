@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang · My Notes</title>
+        <title>rust-vmm简介 · My Notes</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -81,10 +81,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="golang_语法基础.html" />
+    <link rel="next" href="rust_firecracker_代码.html" />
     
     
-    <link rel="prev" href="../" />
+    <link rel="prev" href="rust_vmm_brief.html" />
     
 
     </head>
@@ -126,7 +126,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="as_title.html">
+        <li class="chapter " data-level="1.2" data-path="as_title.html">
             
                 <a href="as_title.html">
             
@@ -179,7 +179,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.4" data-path="as_title.html">
+        <li class="chapter " data-level="1.2.4" data-path="as_title.html">
             
                 <a href="as_title.html">
             
@@ -307,7 +307,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="as_title.html">
+        <li class="chapter " data-level="1.3" data-path="as_title.html">
             
                 <a href="as_title.html">
             
@@ -419,7 +419,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.2.1" data-path="rust_vmm_简介.html">
+        <li class="chapter active" data-level="1.3.2.1" data-path="rust_vmm_简介.html">
             
                 <a href="rust_vmm_简介.html">
             
@@ -623,7 +623,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="as_title.html">
+        <li class="chapter " data-level="1.4" data-path="as_title.html">
             
                 <a href="as_title.html">
             
@@ -694,7 +694,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5" data-path="as_title.html">
+        <li class="chapter " data-level="1.5" data-path="as_title.html">
             
                 <a href="as_title.html">
             
@@ -756,7 +756,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Golang</a>
+        <a href=".." >rust-vmm简介</a>
     </h1>
 </div>
 
@@ -771,7 +771,43 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>&#x5982;&#x9898;</p>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;rust-vmm"><b>1.1. </b>&#x4F7F;&#x7528;rust vmm</a></li><li><span class="title-icon "></span><a href="#crosvm"><b>1.2. </b>crosvm</a></li></ul></ul></div><a href="#" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><p><a href="https://github.com/rust-vmm" target="_blank">https://github.com/rust-vmm</a></p>
+<p>Rust-Vmm &#x662F;&#x4E00;&#x4E2A;&#x5F00;&#x6E90;&#x5DE5;&#x7A0B;&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x81EA;&#x7531;&#x5B9A;&#x5236;&#x7684; VMM&#xFF08;virtual machine monitor&#xFF09;&#x865A;&#x62DF;&#x673A;&#x7BA1;&#x7406;&#x5668;&#xFF0C;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x6309;&#x7167;&#x81EA;&#x5DF1;&#x7684;&#x65B9;&#x5F0F;&#x8BA2;&#x5236;&#x5B83;&#x3002;&#x5B83;&#x662F;&#x57FA;&#x4E8E; Rust &#x8BED;&#x8A00;&#x5B9E;&#x73B0;&#x7684; VMM&#xFF0C;&#x6709;&#x7740; Rust &#x8BED;&#x8A00;&#x5E26;&#x6765;&#x7684;&#x4F18;&#x70B9;&#x548C;&#x7279;&#x6027;&#x3002;</p>
+<p>&#x9996;&#x5148;&#xFF0C;Rust &#x8BED;&#x8A00;&#x4E00;&#x4E2A;&#x5185;&#x5B58;&#x5B89;&#x5168;&#x7684;&#x8BED;&#x8A00;&#xFF0C;&#x76F8;&#x6BD4;&#x4E8E;&#x7528; C &#x6216;&#x8005; C++ &#x4F1A;&#x9891;&#x7E41;&#x9047;&#x5230;&#x7684;&#x5404;&#x79CD;&#x5185;&#x5B58;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x6BD4;&#x5982;&#x5185;&#x5B58;&#x7684;&#x6EA2;&#x51FA;&#x3001;&#x7A7A;&#x6307;&#x9488;&#x3001;&#x91CE;&#x6307;&#x9488;&#x3001;&#x8D8A;&#x754C;&#x8BBF;&#x95EE;&#x7B49;&#x7B49;&#xFF0C;&#x66F4;&#x8FDB;&#x4E00;&#x6B65;&#x4F1A;&#x9020;&#x6210;&#x5B89;&#x5168;&#x7684;&#x95EE;&#x9898;&#x3001;&#x6027;&#x80FD;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4EE5;&#x53CA;&#x5404;&#x79CD;&#x5D29;&#x6E83;&#x7684;&#x95EE;&#x9898;&#x3002;Rust &#x8BED;&#x8A00;&#x5F88;&#x597D;&#x5730;&#x89E3;&#x51B3;&#x4E86;&#x8FD9;&#x4E00;&#x70B9;&#xFF0C;&#x4ECE;&#x5B83;&#x7684;&#x8BED;&#x6CD5;&#x3001;&#x7F16;&#x8BD1;&#x89C4;&#x5219;&#x7B49;&#x675C;&#x7EDD;&#x4E86;&#x5185;&#x5B58;&#x7EA7;&#x522B;&#x8BBF;&#x95EE;&#x7684;&#x6F0F;&#x6D1E;&#x4EE5;&#x53CA;&#x98CE;&#x9669;&#xFF0C;&#x6240;&#x4EE5;&#x7528; Rust &#x5199;&#x7684; Rust-Vmm &#x5929;&#x7136;&#x7684;&#x5C31;&#x662F;&#x5185;&#x5B58;&#x5B89;&#x5168;&#x7684;&#x3002;</p>
+<p>&#x7B2C;&#x4E8C;&#xFF0C;Rust-Vmm &#x662F;&#x4E0D;&#x6613;&#x88AB;&#x653B;&#x51FB;&#x7684;&#xFF0C;Rust-VMM &#x662F;&#x4ECE;&#x96F6;&#x5F00;&#x59CB;&#x7684;&#xFF0C;&#x5B83;&#x662F;&#x4ECE;&#x6700;&#x5C0F;&#x7684;&#x786C;&#x4EF6;&#x865A;&#x62DF;&#x5316;&#x51FA;&#x53D1;&#x7684;&#xFF0C;&#x6700;&#x5C0F;&#x7684;&#x786C;&#x4EF6;&#x865A;&#x62DF;&#x5316;&#x610F;&#x5473;&#x7740;&#x5B83;&#x6709;&#x7740;&#x6700;&#x5C0F;&#x7684;&#x653B;&#x51FB;&#x9762;&#xFF0C;&#x88AB;&#x653B;&#x51FB;&#x7684;&#x9762;&#x5C31;&#x975E;&#x5E38;&#x5C11;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x4F1A;&#x5F88;&#x5B89;&#x5168;&#x3002;</p>
+<p>&#x7B2C;&#x4E09;&#xFF0C;Rust-Vmm &#x80FD;&#x591F;&#x5F88;&#x7075;&#x6D3B;&#x7684;&#x5B9A;&#x5236;&#x3002;Rust-VMM &#x53EF;&#x4EE5;&#x7075;&#x6D3B;&#x5B9A;&#x5236;&#x5B83;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x7EC4;&#x4EF6;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x5BF9;&#x4E8E;&#x8BBE;&#x5907;&#x7684;&#x6A21;&#x62DF;&#x6216;&#x8005;&#x5173;&#x952E;&#x7279;&#x6027;&#x7684;&#x5904;&#x7406;&#x90FD;&#x662F;&#x5C01;&#x88C5;&#x6210;&#x4E86;&#x4E00;&#x4E2A;&#x4E00;&#x4E2A;&#x7684; Rust-Vmm crates &#x5305;&#xFF0C;&#x6BD4;&#x5982;&#x6709; VCPU&#xFF0C;&#x6709; linuxloader&#xFF0C;vm-virtIO &#x7B49;&#x7B49;&#x3002;&#x5176;&#x4E2D; crates &#x662F; Rust &#x8BED;&#x8A00;&#x4E2D;&#x7684;&#x5305;&#x7BA1;&#x7406;&#x5DE5;&#x5177;&#xFF0C;&#x53EF;&#x4EE5;&#x7406;&#x89E3; JAVA &#x6216; golang &#x91CC;&#x9762;&#x7684; package&#xFF0C;&#x5B83;&#x662F;&#x4EE5;&#x53D1;&#x884C;&#x4E0D;&#x540C;&#x7684;&#x5305;&#x6216;&#x8005;&#x5E93;&#x7684;&#x5F62;&#x5F0F;&#x5BF9;&#x5916;&#x53D1;&#x5E03;&#x5B83;&#x7684; feature&#x3002;</p>
+<p>&#x7B2C;&#x56DB;&#xFF0C;Rust-Vmm &#x6709;&#x975E;&#x5E38;&#x9AD8;&#x7684;&#x6027;&#x80FD;&#xFF0C;&#x57FA;&#x4E8E; Rust &#x8BED;&#x8A00;&#x7684; without garbage collection &#x7279;&#x6027;&#xFF0C;&#x5B83;&#x662F;&#x6CA1;&#x6709; GC &#x56DE;&#x6536;&#x68C0;&#x67E5;&#x673A;&#x5236;&#x7684;&#xFF0C;&#x4E0D;&#x50CF; JAVA &#x6216;&#x8005;&#x5176;&#x4ED6;&#x66F4;&#x9AD8;&#x7EA7;&#x7684;&#x8BED;&#x8A00;&#x4F1A;&#x6709;&#x4E00;&#x4E2A; runtime&#xFF0C;Rust-Vmm &#x7684;&#x6027;&#x80FD;&#x4E0A;&#x4F1A;&#x66F4;&#x597D;&#xFF0C;&#x540C;&#x65F6;&#x57FA;&#x4E8E; KVM &#x5B9E;&#x73B0;&#x7684;&#x865A;&#x62DF;&#x5316;&#x65B9;&#x6848;&#x4E5F;&#x662F;&#x6027;&#x80FD;&#x7684;&#x4FDD;&#x8BC1;&#x3002;</p>
+<p>&#x7B80;&#x5355;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B; Rust-Vmm &#x7684;&#x4E00;&#x4E2A;&#x5386;&#x53F2;&#xFF0C;&#x5B83;&#x662F;&#x7531;&#x8C37;&#x6B4C;&#x9996;&#x5148;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x8C37;&#x6B4C;&#x9996;&#x5148;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A; Rust based &#x7684;&#x8F7B;&#x91CF;&#x7EA7;&#x7684; VMM&#xFF0C;&#x5B83;&#x53EB;&#x505A; crosVM&#xFF0C;&#x5927;&#x5BB6;&#x4E5F;&#x53EF;&#x4EE5;&#x4ECE;&#x94FE;&#x63A5;&#x91CC;&#x9762;&#x770B;&#x5230;&#xFF0C;&#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x4E3A; chrome &#x6D4F;&#x89C8;&#x5668;&#x505A;&#x7684;&#x4E00;&#x4E2A;&#x5FAE;&#x5185;&#x6838;&#x3002;&#x7136;&#x540E; AWS&#xFF0C;&#x4E9A;&#x9A6C;&#x900A;&#x57FA;&#x4E8E;&#x8C37;&#x6B4C;&#x5F00;&#x6E90;&#x51FA;&#x6765;&#x7684; crosVM&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x81EA;&#x5DF1;&#x7684;&#x57FA;&#x4E8E; rust &#x7684; VMM &#x53EB; Firecracker&#x3002;&#x4E24;&#x4E2A;&#x9879;&#x76EE;&#x7684;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x4F1A;&#x53D1;&#x73B0;&#x505A;&#x8FD9;&#x4E24;&#x4E2A;&#x9879;&#x76EE;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x6709;&#x5F88;&#x591A;&#x91CD;&#x590D;&#x7684;&#x91CD;&#x53E0;&#x7684;&#x901A;&#x7528;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5F88;&#x81EA;&#x7136;&#x7684;&#x628A;&#x53EF;&#x4EE5;&#x5F00;&#x6E90;&#x7684;&#x3001;&#x901A;&#x7528;&#x7684;&#x90E8;&#x5206;&#x7ED3;&#x5408;&#x5230;&#x4E00;&#x5757;&#xFF0C;&#x5C31;&#x6709;&#x4E86; Rust-Vmm &#x7684;&#x9879;&#x76EE;&#x3002;</p>
+<ul>
+<li><a href="#&#x4F7F;&#x7528;rust-vmm">&#x4F7F;&#x7528;rust vmm</a></li>
+<li><a href="#crosvm">crosvm</a></li>
+</ul>
+<h2 id="&#x4F7F;&#x7528;rust-vmm"><a name="&#x4F7F;&#x7528;rust-vmm" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;rust-vmm"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x4F7F;&#x7528;rust vmm</h2>
+<p>&#x53C2;&#x8003;<a href="https://opensource.com/article/19/3/rust-virtual-machine" target="_blank">https://opensource.com/article/19/3/rust-virtual-machine</a><br><img src="img/rust_vmm_&#x7B80;&#x4ECB;_20220825222425.png" alt=""><br>&#x8981;&#x81EA;&#x5DF1;&#x642D;&#x4E00;&#x4E2A;vmm, &#x53EF;&#x4EE5;&#x4F7F;&#x7528;rust rmm&#x63D0;&#x4F9B;&#x7684;&#x5404;&#x79CD;&#x6A21;&#x5757;, &#x8FD9;&#x4E9B;&#x6A21;&#x5757;&#x90FD;&#x662F;&#x72EC;&#x7ACB;&#x7684;&#x9879;&#x76EE;, rust&#x91CC;&#x9762;&#x53EB;crate.</p>
+<ul>
+<li><p><strong>KVM interface:</strong> Creating our VMM on top of KVM requires an interface that can invoke KVM functionality from Rust. The <em>kvm-bindings</em> crate represents the Rust Foreign Function Interface (FFI) to KVM kernel headers. Because headers only include structures and defines, we also have wrappers over the KVM ioctls (<em>kvm-ioctls</em>) that we use for opening dev/kvm, creating a VM, creating vCPUs, and so on.</p>
+</li>
+<li><p><strong>Virtio devices and rate limiting:</strong> Virtio has a frontend-backend architecture. Currently in rust-vmm, the frontend is implemented in the <em>virtio-devices</em> crate, and the backend lies in the <em>vhost</em> package. <em>Vhost</em> has support for both user-land and kernel-land drivers, but users can also plug <em>virtio-devices</em> to their custom backend. The <em>virtio-bindings</em> are the bindings for Virtio devices generated using the Virtio Linux headers. All devices in the <em>virtio-devices</em> crate are exported independently as modules using conditional compilation. Some devices, such as <em>block</em>, <em>net</em>, and <em>vsock</em> support rate limiting in terms of I/O per second and bandwidth. This can be achieved by using the functionality provided in the <em>rate-limiter</em> crate.</p>
+</li>
+<li><p>The <em>kernel-loader</em> is responsible for loading the contents of an <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format" target="_blank">ELF</a> kernel image in guest memory.</p>
+</li>
+</ul>
+<p>rust-vmm&#x7684;github&#x4E0A;, &#x5404;&#x4E2A;&#x6A21;&#x5757;&#x662F;&#x5355;&#x72EC;&#x6210;&#x5E93;&#x7684;:<br><img src="img/rust_vmm_&#x7B80;&#x4ECB;_20220825222636.png" alt="">  </p>
+<h2 id="crosvm"><a name="crosvm" class="anchor-navigation-ex-anchor" href="#crosvm"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. crosvm</h2>
+<p>crosvm&#x662F;google&#x7684;&#x4E3A;chrome OS&#x4E0A;&#x8FD0;&#x884C;&#x7684;VMM, &#x5B89;&#x5168;&#x6027;&#x597D;, Rust&#x5199;&#x7684;. Rust&#x4E5F;&#x662F;&#x9759;&#x6001;binary</p>
+<ul>
+<li>&#x6BCF;&#x4E2A;&#x865A;&#x62DF;&#x8BBE;&#x5907;&#x662F;&#x4E2A;&#x8FDB;&#x7A0B;,fork&#x51FA;&#x6765;&#x7684;, &#x4F46;&#x4E0D;exec. &#x8FD9;&#x4E2A;&#x8FDB;&#x7A0B;&#x7528;&#x4E86;<a href="https://android.googlesource.com/platform/external/minijail" target="_blank">minijail</a>&#x505A;&#x6C99;&#x76D2;&#x5904;&#x7406;, &#x5E94;&#x8BE5;&#x7C7B;&#x4F3C;seccomp. </li>
+<li>&#x57FA;&#x4E8E;KVM</li>
+<li>&#x4F7F;&#x7528;Rust</li>
+<li>&#x652F;&#x6301;x86, aarch64</li>
+<li>virtual device&#x4F7F;&#x7528;socket&#x548C;VM&#x901A;&#x4FE1;</li>
+<li>&#x8BBE;&#x5907;&#x6A21;&#x578B;&#x7684;&#x6838;&#x5FC3;&#x662F;bus, &#x4E00;&#x4E2A;&#x8BFB;/&#x5199;&#x64CD;&#x505A;&#x5230;bus&#x4E0A;, bus&#x4F1A;&#x6309;&#x8FD9;&#x4E2A;&#x8BFB;&#x6216;&#x5199;&#x7684;&#x5730;&#x5740;, &#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;<code>BusDevice</code>, &#x8F6C;&#x53D1;&#x8BFB;/&#x5199;&#x8BF7;&#x6C42;&#x5230;&#x8BE5;<code>BusDevice</code>. <ul>
+<li>&#x4E00;&#x4E2A;&#x5730;&#x5740;&#x4E0A;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;<code>BusDevice</code></li>
+<li><code>BusDevice</code>&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x5728;&#x591A;&#x4E2A;&#x5730;&#x5740;</li>
+<li>&#x6BCF;&#x4E2A;<code>BusDevice</code>&#x90FD;&#x81EA;&#x5E26;mutex, &#x6240;&#x4EE5;<code>BusDevice</code>&#x7684;&#x5B9E;&#x73B0;&#x91CC;&#x5C31;&#x4E0D;&#x9700;&#x8981;&#x518D;&#x52A0;&#x9501;&#x4E86;.</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -799,12 +835,12 @@
 
             
                 
-                <a href="../" class="navigation navigation-prev " aria-label="Previous page: 简介">
+                <a href="rust_vmm_brief.html" class="navigation navigation-prev " aria-label="Previous page: VMM(virtual machine monitor)">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="golang_语法基础.html" class="navigation navigation-next " aria-label="Next page: 语法基础">
+                <a href="rust_firecracker_代码.html" class="navigation navigation-next " aria-label="Next page: firecracker代码">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -815,7 +851,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Golang","level":"1.2","depth":1,"next":{"title":"语法基础","level":"1.2.1","depth":2,"path":"notes/golang_语法基础.md","ref":"notes/golang_语法基础.md","articles":[]},"previous":{"title":"简介","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/as_title.md","mtime":"2022-09-06T02:15:40.492Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-06T02:16:41.620Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"rust-vmm简介","level":"1.3.2.1","depth":3,"next":{"title":"firecracker代码","level":"1.3.2.2","depth":3,"path":"notes/rust_firecracker_代码.md","ref":"notes/rust_firecracker_代码.md","articles":[]},"previous":{"title":"VMM(virtual machine monitor)","level":"1.3.2","depth":2,"path":"notes/rust_vmm_brief.md","ref":"notes/rust_vmm_brief.md","articles":[{"title":"rust-vmm简介","level":"1.3.2.1","depth":3,"path":"notes/rust_vmm_简介.md","ref":"notes/rust_vmm_简介.md","articles":[]},{"title":"firecracker代码","level":"1.3.2.2","depth":3,"path":"notes/rust_firecracker_代码.md","ref":"notes/rust_firecracker_代码.md","articles":[]},{"title":"firecracker使用","level":"1.3.2.3","depth":3,"path":"notes/rust_firecracker_使用.md","ref":"notes/rust_firecracker_使用.md","articles":[]},{"title":"cloud hypervisor代码","level":"1.3.2.4","depth":3,"path":"notes/rust_cloud-hypervisor_代码.md","ref":"notes/rust_cloud-hypervisor_代码.md","articles":[]},{"title":"cloud hypervisor使用","level":"1.3.2.5","depth":3,"path":"notes/rust_cloud-hypervisor_使用.md","ref":"notes/rust_cloud-hypervisor_使用.md","articles":[]},{"title":"cloud hypervisor问题与解决","level":"1.3.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_vmm_简介.md","mtime":"2022-09-06T02:15:40.584Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-06T02:16:41.620Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

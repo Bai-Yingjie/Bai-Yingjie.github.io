@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Golang · My Notes</title>
+        <title>Alpine Linux · My Notes</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -81,10 +81,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="golang_语法基础.html" />
+    <link rel="next" href="system_进程间通信.html" />
     
     
-    <link rel="prev" href="../" />
+    <link rel="prev" href="system_原理杂记.html" />
     
 
     </head>
@@ -126,7 +126,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="as_title.html">
+        <li class="chapter " data-level="1.2" data-path="as_title.html">
             
                 <a href="as_title.html">
             
@@ -179,7 +179,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.4" data-path="as_title.html">
+        <li class="chapter " data-level="1.2.4" data-path="as_title.html">
             
                 <a href="as_title.html">
             
@@ -307,7 +307,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="as_title.html">
+        <li class="chapter " data-level="1.3" data-path="as_title.html">
             
                 <a href="as_title.html">
             
@@ -623,7 +623,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="as_title.html">
+        <li class="chapter " data-level="1.4" data-path="as_title.html">
             
                 <a href="as_title.html">
             
@@ -650,7 +650,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="system_alpine.html">
+        <li class="chapter active" data-level="1.4.2" data-path="system_alpine.html">
             
                 <a href="system_alpine.html">
             
@@ -694,7 +694,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5" data-path="as_title.html">
+        <li class="chapter " data-level="1.5" data-path="as_title.html">
             
                 <a href="as_title.html">
             
@@ -756,7 +756,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Golang</a>
+        <a href=".." >Alpine Linux</a>
     </h1>
 </div>
 
@@ -771,7 +771,90 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>&#x5982;&#x9898;</p>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x73B0;&#x4EE3;&#x5316;&#x7684;&#x5DE5;&#x7A0B;&#x7CFB;&#x7EDF;"><b>1. </b>&#x73B0;&#x4EE3;&#x5316;&#x7684;&#x5DE5;&#x7A0B;&#x7CFB;&#x7EDF;</a></li><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;subgroup&#x6765;&#x7EC4;&#x7EC7;repo"><b>2. </b>&#x4F7F;&#x7528;subgroup&#x6765;&#x7EC4;&#x7EC7;repo</a></li><li><span class="title-icon "></span><a href="#&#x7EC4;&#x7EC7;&#x6E05;&#x723D;-&#x6E90;&#x4EE3;&#x7801;&#x5E72;&#x51C0;"><b>3. </b>&#x7EC4;&#x7EC7;&#x6E05;&#x723D;, &#x6E90;&#x4EE3;&#x7801;&#x5E72;&#x51C0;</a></li><li><span class="title-icon "></span><a href="#aports"><b>4. </b>aports</a></li><ul><li><span class="title-icon "></span><a href="#bootstrapsh"><b>4.1. </b>bootstrap.sh</a></li></ul></ul></div><a href="#&#x73B0;&#x4EE3;&#x5316;&#x7684;&#x5DE5;&#x7A0B;&#x7CFB;&#x7EDF;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#&#x73B0;&#x4EE3;&#x5316;&#x7684;&#x5DE5;&#x7A0B;&#x7CFB;&#x7EDF;">&#x73B0;&#x4EE3;&#x5316;&#x7684;&#x5DE5;&#x7A0B;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="#&#x4F7F;&#x7528;subgroup&#x6765;&#x7EC4;&#x7EC7;repo">&#x4F7F;&#x7528;subgroup&#x6765;&#x7EC4;&#x7EC7;repo</a></li>
+<li><a href="#&#x7EC4;&#x7EC7;&#x6E05;&#x723D;-&#x6E90;&#x4EE3;&#x7801;&#x5E72;&#x51C0;">&#x7EC4;&#x7EC7;&#x6E05;&#x723D;, &#x6E90;&#x4EE3;&#x7801;&#x5E72;&#x51C0;</a></li>
+<li><a href="#aports">aports</a><ul>
+<li><a href="#bootstrapsh">bootstrap.sh</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="&#x73B0;&#x4EE3;&#x5316;&#x7684;&#x5DE5;&#x7A0B;&#x7CFB;&#x7EDF;"><a name="&#x73B0;&#x4EE3;&#x5316;&#x7684;&#x5DE5;&#x7A0B;&#x7CFB;&#x7EDF;" class="anchor-navigation-ex-anchor" href="#&#x73B0;&#x4EE3;&#x5316;&#x7684;&#x5DE5;&#x7A0B;&#x7CFB;&#x7EDF;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x73B0;&#x4EE3;&#x5316;&#x7684;&#x5DE5;&#x7A0B;&#x7CFB;&#x7EDF;</h1>
+<p>alpine linux&#x7684;&#x5168;&#x90E8;&#x5F00;&#x53D1;&#x90FD;&#x5728; <a href="https://gitlab.alpinelinux.org/alpine" target="_blank">https://gitlab.alpinelinux.org/alpine</a></p>
+<ul>
+<li>&#x81EA;&#x5DF1;&#x642D;&#x5EFA;&#x7684;gitlab&#x670D;&#x52A1;&#x5668;, &#x5141;&#x8BB8;&#x5916;&#x90E8;&#x7528;&#x6237;&#x6CE8;&#x518C;, fork&#x5E93;, &#x5E76;&#x63D0;&#x4EA4;MR</li>
+<li>&#x4F7F;&#x7528;gitlab-ci&#x7684;CI/CD&#x505A;build test</li>
+<li>&#x7528;gitlab issue&#x6765;&#x8DDF;&#x8E2A;bug</li>
+<li>&#x6587;&#x6863;&#x4E5F;&#x662F;repo&#x7BA1;&#x7406;, &#x4F7F;&#x7528;<a href="https://docs.antora.org/antora/latest/playbook/" target="_blank">Antora Playbook</a>&#x53D1;&#x5E03;, &#x7F51;&#x9875;&#x5165;&#x53E3;&#x662F; <a href="https://alpinelinux.org/" target="_blank">https://alpinelinux.org/</a></li>
+</ul>
+<h1 id="&#x4F7F;&#x7528;subgroup&#x6765;&#x7EC4;&#x7EC7;repo"><a name="&#x4F7F;&#x7528;subgroup&#x6765;&#x7EC4;&#x7EC7;repo" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;subgroup&#x6765;&#x7EC4;&#x7EC7;repo"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x4F7F;&#x7528;subgroup&#x6765;&#x7EC4;&#x7EC7;repo</h1>
+<p>&#x6BD4;&#x5982;CI/CD&#x5DE5;&#x5177;&#x5E93;&#x5728;<code>alpine/infra/docker/alpine-gitlab-ci</code>&#x4E0B;&#x9762;, &#x5148;&#x662F;&#x6839;alpine, &#x518D;&#x662F;infra, &#x518D;&#x662F;docker, &#x6700;&#x540E;&#x662F;repo</p>
+<h1 id="&#x7EC4;&#x7EC7;&#x6E05;&#x723D;-&#x6E90;&#x4EE3;&#x7801;&#x5E72;&#x51C0;"><a name="&#x7EC4;&#x7EC7;&#x6E05;&#x723D;-&#x6E90;&#x4EE3;&#x7801;&#x5E72;&#x51C0;" class="anchor-navigation-ex-anchor" href="#&#x7EC4;&#x7EC7;&#x6E05;&#x723D;-&#x6E90;&#x4EE3;&#x7801;&#x5E72;&#x51C0;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x7EC4;&#x7EC7;&#x6E05;&#x723D;, &#x6E90;&#x4EE3;&#x7801;&#x5E72;&#x51C0;</h1>
+<p>&#x6BD4;&#x5982;<code>alpine-gitlab-ci/-/blob/master/overlay/usr/local/bin/build.sh</code>&#x91CC;&#x9762;&#x7684;shell &#x8F93;&#x51FA;&#x4EE3;&#x7801;:</p>
+<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">:</span> <span class="token string">&quot;<span class="token variable">${CI_ALPINE_BUILD_OFFSET<span class="token operator">:=</span>0}</span>&quot;</span>
+<span class="token builtin class-name">:</span> <span class="token string">&quot;<span class="token variable">${CI_ALPINE_BUILD_LIMIT<span class="token operator">:=</span>9999}</span>&quot;</span>
+
+<span class="token function-name function">msg</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token builtin class-name">local</span> <span class="token assign-left variable">color</span><span class="token operator">=</span><span class="token variable">${2<span class="token operator">:-</span>green}</span>
+    <span class="token keyword">case</span> <span class="token string">&quot;<span class="token variable">$color</span>&quot;</span> <span class="token keyword">in</span>
+        red<span class="token punctuation">)</span> <span class="token assign-left variable">color</span><span class="token operator">=</span><span class="token string">&quot;31&quot;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+        green<span class="token punctuation">)</span> <span class="token assign-left variable">color</span><span class="token operator">=</span><span class="token string">&quot;32&quot;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+        yellow<span class="token punctuation">)</span> <span class="token assign-left variable">color</span><span class="token operator">=</span><span class="token string">&quot;33&quot;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+        blue<span class="token punctuation">)</span> <span class="token assign-left variable">color</span><span class="token operator">=</span><span class="token string">&quot;34&quot;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+        *<span class="token punctuation">)</span> <span class="token assign-left variable">color</span><span class="token operator">=</span><span class="token string">&quot;32&quot;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+    <span class="token keyword">esac</span>
+    <span class="token builtin class-name">printf</span> <span class="token string">&quot;<span class="token entity" title="\033">\033</span>[1;%sm&gt;&gt;&gt;<span class="token entity" title="\033">\033</span>[1;0m %s<span class="token entity" title="\n">\n</span>&quot;</span> <span class="token string">&quot;<span class="token variable">$color</span>&quot;</span> <span class="token string">&quot;<span class="token variable">$1</span>&quot;</span> <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token operator">&gt;</span><span class="token file-descriptor important">&amp;2</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">verbose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;&gt; &quot;</span> <span class="token string">&quot;<span class="token variable">$@</span>&quot;</span>
+    <span class="token comment"># shellcheck disable=SC2068</span>
+    <span class="token variable">$@</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">debugging</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span> <span class="token parameter variable">-n</span> <span class="token string">&quot;<span class="token variable">$CI_DEBUG_BUILD</span>&quot;</span> <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">debug</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> debugging<span class="token punctuation">;</span> <span class="token keyword">then</span>
+        verbose <span class="token string">&quot;<span class="token variable">$@</span>&quot;</span>
+    <span class="token keyword">fi</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">die</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    msg <span class="token string">&quot;<span class="token variable">$1</span>&quot;</span> red
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">capture_stderr</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;<span class="token variable">$@</span>&quot;</span> <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span><span class="token file-descriptor important">&amp;1</span>
+<span class="token punctuation">}</span>
+
+<span class="token function-name function">report</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token assign-left variable">report</span><span class="token operator">=</span><span class="token variable">$1</span>
+
+    <span class="token assign-left variable">reportsdir</span><span class="token operator">=</span><span class="token variable">$APORTSDIR</span>/logs/
+    <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> <span class="token string">&quot;<span class="token variable">$reportsdir</span>&quot;</span>
+
+    <span class="token function">tee</span> <span class="token parameter variable">-a</span> <span class="token string">&quot;<span class="token variable">$reportsdir</span>/<span class="token variable">$report</span>.log&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="aports"><a name="aports" class="anchor-navigation-ex-anchor" href="#aports"><i class="fa fa-link" aria-hidden="true"></i></a>4. aports</h1>
+<p>alpine&#x652F;&#x6301;&#x7684;package&#x90FD;&#x653E;&#x5728;<a href="https://gitlab.alpinelinux.org/alpine/aports" target="_blank">aports</a>&#x8FD9;&#x4E2A;&#x5E93;&#x4E0B;&#x9762;.</p>
+<ul>
+<li>main: alpine core team&#x76F4;&#x63A5;&#x652F;&#x6301;&#x7684;package</li>
+<li>community: &#x7531;&#x793E;&#x533A;&#x652F;&#x6301;&#x7684;package</li>
+</ul>
+<p>&#x53C2;&#x8003;: <a href="https://wiki.alpinelinux.org/wiki/Repositories" target="_blank">https://wiki.alpinelinux.org/wiki/Repositories</a></p>
+<p><code>/etc/apk/repositories</code>&#x662F;package&#x7684;&#x914D;&#x7F6E;</p>
+<pre class="language-"><code>/ # cat /etc/apk/repositories
+https://dl-cdn.alpinelinux.org/alpine/v3.15/main
+https://dl-cdn.alpinelinux.org/alpine/v3.15/community
+</code></pre><p>&#x6BD4;&#x5982;<code>https://dl-cdn.alpinelinux.org/alpine/v3.15/main</code>&#x76EE;&#x5F55;&#x4E0B;&#x5305;&#x62EC;&#x4E86;&#x6240;&#x6709;arch&#x7684;&#x9884;&#x7F16;&#x8BD1;&#x597D;&#x7684;apk<br><img src="img/system_alpine_20220902115455.png" alt=""><br>&#x70B9;&#x8FDB;&#x53BB;&#x770B;&#x8FD9;&#x4E9B;apk&#x7684;&#x4FEE;&#x6539;&#x65F6;&#x95F4;&#x662F;&#x4E0D;&#x4E00;&#x6837;&#x7684;, &#x8BF4;&#x660E;apk&#x662F;&#x6309;&#x9700;&#x7F16;&#x8BD1;&#x7684;.</p>
+<h2 id="bootstrapsh"><a name="bootstrapsh" class="anchor-navigation-ex-anchor" href="#bootstrapsh"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. bootstrap.sh</h2>
+<p>&#x4F3C;&#x4E4E;&#x53EF;&#x4EE5;&#x7528;&#x5B83;&#x6765;&#x751F;&#x6210;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#x7684;&#x5DE5;&#x5177;&#x94FE;</p>
 
                                 
                                 </section>
@@ -799,12 +882,12 @@
 
             
                 
-                <a href="../" class="navigation navigation-prev " aria-label="Previous page: 简介">
+                <a href="system_原理杂记.html" class="navigation navigation-prev " aria-label="Previous page: 原理杂记">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="golang_语法基础.html" class="navigation navigation-next " aria-label="Next page: 语法基础">
+                <a href="system_进程间通信.html" class="navigation navigation-next " aria-label="Next page: 进程间通信">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -815,7 +898,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Golang","level":"1.2","depth":1,"next":{"title":"语法基础","level":"1.2.1","depth":2,"path":"notes/golang_语法基础.md","ref":"notes/golang_语法基础.md","articles":[]},"previous":{"title":"简介","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/as_title.md","mtime":"2022-09-06T02:15:40.492Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-06T02:16:41.620Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Alpine Linux","level":"1.4.2","depth":2,"next":{"title":"进程间通信","level":"1.4.3","depth":2,"path":"notes/system_进程间通信.md","ref":"notes/system_进程间通信.md","articles":[]},"previous":{"title":"原理杂记","level":"1.4.1","depth":2,"path":"notes/system_原理杂记.md","ref":"notes/system_原理杂记.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/system_alpine.md","mtime":"2022-09-06T02:15:40.588Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-06T02:16:41.620Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
