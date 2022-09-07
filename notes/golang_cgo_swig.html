@@ -1,0 +1,958 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>go调用c: swig · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-coldark-cold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="as_title.html" />
+    
+    
+    <link rel="prev" href="golang_汇编_arm64.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    内存分配
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.7.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.7.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c: swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    特殊功能fd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >go调用c: swig</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#2010&#x5E74;&#x7684;&#x95EE;&#x7B54;-can-i-use-shared-objects-with-go"><b>1. </b>2010&#x5E74;&#x7684;&#x95EE;&#x7B54;: Can I use shared objects with Go?</a></li></ul></div><a href="#2010&#x5E74;&#x7684;&#x95EE;&#x7B54;-can-i-use-shared-objects-with-go" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><p>&#x9996;&#x5148;, swig&#x662F; - Simplified Wrapper and Interface Generator</p>
+<blockquote>
+<p>The  swig  command  is  used  to  create  wrapper  code to connect C and C++ code to scripting languages like Perl, Python, Tcl etc</p>
+</blockquote>
+<p><a href="http://www.swig.org/Doc4.0/Go.html" target="_blank">swig for go</a>&#x4E2D;&#x8BF4;&#x5230;, cgo&#x751F;&#x6210;&#x7684;wrapper&#x80FD;&#x8C03;&#x7528;c, &#x4F46;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x8C03;&#x7528;c++.
+&#x800C;&#x4E14;, gcgo&#x548C;gccgo&#x5728;&#x8C03;&#x7528;c&#x7684;&#x63A5;&#x53E3;&#x65F6;, &#x662F;&#x5B8C;&#x5168;&#x4E0D;&#x4E00;&#x6837;&#x7684;.
+swig&#x540C;&#x65F6;&#x652F;&#x6301;&#x8FD9;&#x4E24;&#x79CD;toolchain, &#x5E76;&#x4E14;&#x4FDD;&#x8BC1;&#x7C7B;&#x578B;&#x5B89;&#x5168;.</p>
+<p>&#x4ECE;go1.1&#x5F00;&#x59CB;&#x5C31;&#x652F;&#x6301;swig&#x4E86;, &#x5E76;&#x4E14;&#x96C6;&#x6210;&#x5728;go build&#x547D;&#x4EE4;&#x4E2D;. &#x4F7F;&#x7528;<code>go build -x -work</code>&#x80FD;&#x770B;&#x5230;&#x8BE6;&#x7EC6;&#x4F7F;&#x7528;swig&#x7684;&#x8FC7;&#x7A0B;.</p>
+<h1 id="2010&#x5E74;&#x7684;&#x95EE;&#x7B54;-can-i-use-shared-objects-with-go"><a name="2010&#x5E74;&#x7684;&#x95EE;&#x7B54;-can-i-use-shared-objects-with-go" class="anchor-navigation-ex-anchor" href="#2010&#x5E74;&#x7684;&#x95EE;&#x7B54;-can-i-use-shared-objects-with-go"><i class="fa fa-link" aria-hidden="true"></i></a>1. 2010&#x5E74;&#x7684;&#x95EE;&#x7B54;: Can I use shared objects with Go?</h1>
+<p>According to the Go <a href="http://golang.org/doc/go_faq.html#Do_Go_programs_link_with_Cpp_programs" target="_blank">FAQ</a>, you can call into C libraries using a &quot;foreign function interface&quot;:</p>
+<blockquote>
+<p>Do Go programs link with C/C++ programs?</p>
+<p>There are two Go compiler implementations, 6g and friends, generically called gc, and gccgo. Gc uses a different calling convention and linker and can therefore only be linked with C programs using the same convention. There is such a C compiler but no C++ compiler. Gccgo is a GCC front-end that can, with care, be linked with GCC-compiled C or C++ programs. However, because Go is garbage-collected it will be unwise to do so, at least naively.</p>
+<p>There is a &#x201C;foreign function interface&#x201D; to allow safe calling of C-written libraries from Go code. We expect to use SWIG to extend this capability to C++ libraries. There is no safe way to call Go code from C or C++ yet.</p>
+</blockquote>
+<p>&#x6839;&#x636E;&#x8BF4;&#x6CD5;, gccgo&#x662F;&#x53EF;&#x4EE5;&#x4E0D;&#x7528;cgo&#x7684;&#x63A5;&#x53E3;, &#x76F4;&#x63A5;&#x8C03;&#x7528;c&#x7684;. &#x4F46;&#x5FC5;&#x987B;&#x8981;&#x5341;&#x5206;&#x6E05;&#x695A;&#x8C03;&#x7528;convention, &#x6808;&#x5927;&#x5C0F;&#x7684;&#x9650;&#x5236;&#x7B49;&#x7EC6;&#x8282;:</p>
+<blockquote>
+<p>You can also use cgo and SWIG with Gccgo and gollvm. Since they use a traditional API, it&apos;s also possible, with great care, to link code from these compilers directly with GCC/LLVM-compiled C or C++ programs. However, doing so safely requires an understanding of the calling conventions for all languages concerned, as well as concern for stack limits when calling C or C++ from Go.</p>
+</blockquote>
+<p>&#x89C1;<a href="https://golang.org/doc/install/gccgo#C_Interoperability" target="_blank">gccgo&#x5B89;&#x88C5;&#x4F7F;&#x7528;&#x6587;&#x6863;</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="golang_汇编_arm64.html" class="navigation navigation-prev " aria-label="Previous page: 汇编语法和arm64小知识">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="as_title.html" class="navigation navigation-next " aria-label="Next page: Rust">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"go调用c: swig","level":"1.2.7.7","depth":3,"next":{"title":"Rust","level":"1.3","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"入门系列","level":"1.3.1","depth":2,"path":"notes/rust_入门_brief.md","ref":"notes/rust_入门_brief.md","articles":[{"title":"reference books","level":"1.3.1.1","depth":3,"path":"notes/rust_books.md","ref":"notes/rust_books.md","articles":[]},{"title":"安装和基础语法","level":"1.3.1.2","depth":3,"path":"notes/rust_入门1.md","ref":"notes/rust_入门1.md","articles":[]},{"title":"泛型和内存所有权","level":"1.3.1.3","depth":3,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},{"title":"闭包 容器 迭代器 生成器 线程","level":"1.3.1.4","depth":3,"path":"notes/rust_入门3.md","ref":"notes/rust_入门3.md","articles":[]},{"title":"工程构建","level":"1.3.1.5","depth":3,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]}]},{"title":"VMM(virtual machine monitor)","level":"1.3.2","depth":2,"path":"notes/rust_vmm_brief.md","ref":"notes/rust_vmm_brief.md","articles":[{"title":"rust-vmm简介","level":"1.3.2.1","depth":3,"path":"notes/rust_vmm_简介.md","ref":"notes/rust_vmm_简介.md","articles":[]},{"title":"firecracker代码","level":"1.3.2.2","depth":3,"path":"notes/rust_firecracker_代码.md","ref":"notes/rust_firecracker_代码.md","articles":[]},{"title":"firecracker使用","level":"1.3.2.3","depth":3,"path":"notes/rust_firecracker_使用.md","ref":"notes/rust_firecracker_使用.md","articles":[]},{"title":"cloud hypervisor代码","level":"1.3.2.4","depth":3,"path":"notes/rust_cloud-hypervisor_代码.md","ref":"notes/rust_cloud-hypervisor_代码.md","articles":[]},{"title":"cloud hypervisor使用","level":"1.3.2.5","depth":3,"path":"notes/rust_cloud-hypervisor_使用.md","ref":"notes/rust_cloud-hypervisor_使用.md","articles":[]},{"title":"cloud hypervisor问题与解决","level":"1.3.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]}]},{"title":"代码积累","level":"1.3.3","depth":2,"path":"notes/rust_coding_brief.md","ref":"notes/rust_coding_brief.md","articles":[{"title":"序列化原理","level":"1.3.3.1","depth":3,"path":"notes/rust_序列化.md","ref":"notes/rust_序列化.md","articles":[]},{"title":"知识点更新","level":"1.3.3.2","depth":3,"path":"notes/rust_知识点积累.md","ref":"notes/rust_知识点积累.md","articles":[]},{"title":"rust版本的adaptiveservice探索","level":"1.3.3.3","depth":3,"path":"notes/rust_adaptiveservice.md","ref":"notes/rust_adaptiveservice.md","articles":[]},{"title":"常用设施","level":"1.3.3.4","depth":3,"path":"notes/rust_常用设施.md","ref":"notes/rust_常用设施.md","articles":[]},{"title":"代码小段","level":"1.3.3.5","depth":3,"path":"notes/rust_代码小段.md","ref":"notes/rust_代码小段.md","articles":[]}]},{"title":"其他","level":"1.3.4","depth":2,"path":"notes/others.md","ref":"notes/others.md","articles":[{"title":"使用mdbook","level":"1.3.4.1","depth":3,"path":"notes/rust_mdbook_使用.md","ref":"notes/rust_mdbook_使用.md","articles":[]}]}]},"previous":{"title":"汇编语法和arm64小知识","level":"1.2.7.6","depth":3,"path":"notes/golang_汇编_arm64.md","ref":"notes/golang_汇编_arm64.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_cgo_swig.md","mtime":"2022-09-07T16:38:46.818Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-07T16:39:36.484Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
