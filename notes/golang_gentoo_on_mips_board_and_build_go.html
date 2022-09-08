@@ -1,0 +1,1301 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Gentoo on mips board and build go · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-coldark-cold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="as_title.html" />
+    
+    
+    <link rel="prev" href="golang_go_on_mips_part4.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    内存分配
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.7.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.8.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.8.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.8.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    特殊功能fd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Gentoo on mips board and build go</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x51C6;&#x5907;&#x73AF;&#x5883;"><b>1. </b>&#x51C6;&#x5907;&#x73AF;&#x5883;</a></li><li><span class="title-icon "></span><a href="#chroot"><b>2. </b>chroot</a></li><ul><li><span class="title-icon "></span><a href="#&#x66F4;&#x65B0;gentoo"><b>2.1. </b>&#x66F4;&#x65B0;Gentoo</a></li></ul><li><span class="title-icon "></span><a href="#build-go-toolchain"><b>3. </b>build go toolchain</a></li><ul><li><span class="title-icon "></span><a href="#&#x5148;&#x5728;x86&#x4E0A;build-bootstrap-for-mips"><b>3.1. </b>&#x5148;&#x5728;x86&#x4E0A;build bootstrap for mips</a></li><li><span class="title-icon "></span><a href="#&#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go-toolchain"><b>3.2. </b>&#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go toolchain</a></li><li><span class="title-icon "></span><a href="#hellogo-&#x548C;-cgotestgo"><b>3.3. </b>hello.go &#x548C; cgotest.go</a></li></ul><li><span class="title-icon "></span><a href="#go-env"><b>4. </b>go env</a></li><li><span class="title-icon "></span><a href="#&#x622A;&#x56FE;"><b>5. </b>&#x622A;&#x56FE;</a></li></ul></div><a href="#&#x51C6;&#x5907;&#x73AF;&#x5883;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#&#x51C6;&#x5907;&#x73AF;&#x5883;">&#x51C6;&#x5907;&#x73AF;&#x5883;</a></li>
+<li><a href="#chroot">chroot</a><ul>
+<li><a href="#&#x66F4;&#x65B0;gentoo">&#x66F4;&#x65B0;Gentoo</a></li>
+</ul>
+</li>
+<li><a href="#build-go-toolchain">build go toolchain</a><ul>
+<li><a href="#&#x5148;&#x5728;x86&#x4E0A;build-bootstrap-for-mips">&#x5148;&#x5728;x86&#x4E0A;build bootstrap for mips</a></li>
+<li><a href="#&#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go-toolchain">&#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go toolchain</a></li>
+<li><a href="#hellogo-&#x548C;-cgotestgo">hello.go &#x548C; cgotest.go</a></li>
+</ul>
+</li>
+<li><a href="#go-env">go env</a></li>
+<li><a href="#&#x622A;&#x56FE;">&#x622A;&#x56FE;</a></li>
+</ul>
+<h1 id="&#x51C6;&#x5907;&#x73AF;&#x5883;"><a name="&#x51C6;&#x5907;&#x73AF;&#x5883;" class="anchor-navigation-ex-anchor" href="#&#x51C6;&#x5907;&#x73AF;&#x5883;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x51C6;&#x5907;&#x73AF;&#x5883;</h1>
+<ul>
+<li>&#x4ECE;&#x4EE5;&#x4E0B;&#x5730;&#x5740;&#x4E0B;&#x8F7D;stage3: 2014&#x662F;&#x6700;&#x540E;&#x66F4;&#x65B0;&#x7684;, &#x8BF4;&#x660E;mips&#x5DF2;&#x7ECF;5&#x5E74;&#x6CA1;&#x4EBA;&#x66F4;&#x65B0;&#x4E86;.
+<a href="http://distfiles.gentoo.org/experimental/mips/stages/mips64/2014" target="_blank">http://distfiles.gentoo.org/experimental/mips/stages/mips64/2014</a></li>
+<li>git clone portage&#x5E93;
+<a href="https://anongit.gentoo.org/git/repo/gentoo.git" target="_blank">https://anongit.gentoo.org/git/repo/gentoo.git</a></li>
+</ul>
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x5728;mint&#x865A;&#x62DF;&#x673A;&#x4E0A;, &#x6253;&#x5F00;&#x76F8;&#x5173;&#x670D;&#x52A1;&#x548C;&#x8F6C;&#x53D1;</span>
+<span class="token function">sudo</span> <span class="token function">sysctl</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">net.ipv4.ip_forward</span><span class="token operator">=</span><span class="token number">1</span>
+<span class="token function">sudo</span> iptables <span class="token parameter variable">-t</span> nat <span class="token parameter variable">-A</span> POSTROUTING <span class="token parameter variable">-j</span> MASQUERADE <span class="token parameter variable">-s</span> <span class="token number">192.168</span>.2.12/32 <span class="token parameter variable">-o</span> enp0s10
+<span class="token function">cat</span> /etc/exports
+/home/yingjieb/work <span class="token number">192.168</span>.2.0/24<span class="token punctuation">(</span>rw,sync,insecure,no_subtree_check,no_root_squash,fsid<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token function">sudo</span> systemctl start nfs-kernel-server.service
+
+
+<span class="token comment">#&#x7528;root&#x64CD;&#x4F5C;</span>
+<span class="token function">sudo</span> <span class="token parameter variable">-s</span>
+<span class="token builtin class-name">cd</span> ~/work/nfsroot
+<span class="token function">mkdir</span> mipsroot
+<span class="token function">tar</span> xvf stage3-mips64_multilib-20140904.tar.bz2 <span class="token parameter variable">-C</span> mipsroot
+<span class="token comment">#&#x628A;portage&#x5E93;&#x62F7;&#x5230;usr/portage, &#x5E26;.git&#x4E00;&#x8D77;&#x62F7;, &#x540E;&#x9762;&#x8FD8;&#x8981;&#x64CD;&#x4F5C;</span>
+<span class="token function">cp</span> <span class="token parameter variable">-a</span> gentoo.git mipsroot/usr/portage
+<span class="token comment">#&#x5230;mipsroot&#x76EE;&#x5F55;&#x4E0B;&#x64CD;&#x4F5C;, &#x8FD9;&#x4E5F;&#x662F;&#x677F;&#x5B50;&#x7684;rootfs</span>
+<span class="token builtin class-name">cd</span> mipsroot
+</code></pre>
+<p>&#x677F;&#x5B50;&#x8D77;&#x5230;linux, &#x914D;&#x597D;&#x7F51;&#x7EDC;</p>
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x677F;&#x5B50;&#x4E0A;&#x64CD;&#x4F5C;, 192.168.2.11&#x662F;mint&#x7684;ip, &#x76F4;&#x8FDE;&#x7684;</span>
+<span class="token function">ifconfig</span> agl0 <span class="token number">192.168</span>.2.12 up
+<span class="token function">ifconfig</span> eth-mgnt <span class="token number">192.168</span>.2.12 up
+route <span class="token function">add</span> default gw <span class="token number">192.168</span>.2.11
+/etc/init.d/S50dropbear start
+
+
+<span class="token comment">#mount nfs4</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /root/remote
+<span class="token function">mount</span> <span class="token parameter variable">-t</span> nfs4 <span class="token number">192.168</span>.2.11:nfsroot/mipsroot /root/remote <span class="token parameter variable">-o</span> nolock     //nfsv4
+
+<span class="token function">mount</span> <span class="token number">192.168</span>.2.11:/home/yingjieb/work/nfsroot/mipsroot /root/remote <span class="token parameter variable">-o</span> nolock     //nfsv3&#x662F;&#x8FD9;&#x4E48;&#x5199;
+
+
+<span class="token comment">#&#x51C6;&#x5907;chroot</span>
+<span class="token function">mount</span> /dev/pts <span class="token parameter variable">-o</span> remount,gid<span class="token operator">=</span><span class="token number">5</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> /proc/self/fd /dev/fd
+
+
+<span class="token builtin class-name">cd</span> /root
+<span class="token comment">#mount</span>
+<span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token builtin class-name">bind</span> /dev remote/dev
+<span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token builtin class-name">bind</span> /dev/pts remote/dev/pts
+<span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token builtin class-name">bind</span> /proc remote/proc
+<span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token builtin class-name">bind</span> /sys remote/sys
+<span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token builtin class-name">bind</span> /run remote/run
+
+
+<span class="token comment">#umount</span>
+<span class="token function">umount</span> remote/dev/pts
+<span class="token function">umount</span> remote/dev
+<span class="token function">umount</span> remote/proc
+<span class="token function">umount</span> remote/sys
+<span class="token function">umount</span> remote/run
+<span class="token function">umount</span> remote
+</code></pre>
+<h1 id="chroot"><a name="chroot" class="anchor-navigation-ex-anchor" href="#chroot"><i class="fa fa-link" aria-hidden="true"></i></a>2. chroot</h1>
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x6700;&#x597D;ssh&#x5230;&#x677F;&#x5B50;&#x64CD;&#x4F5C;</span>
+<span class="token function">ssh</span> root@192.168.2.12
+<span class="token function">chroot</span> remote /bin/bash
+
+
+<span class="token comment">#&#x4E00;&#x6B21;&#x6027;&#x64CD;&#x4F5C;</span>
+<span class="token comment">#&#x7F51;&#x7EDC;</span>
+<span class="token function">ping</span> <span class="token number">135.245</span>.48.34
+route <span class="token function">add</span> default gw <span class="token number">192.168</span>.2.11
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;nameserver 172.24.213.251&quot;</span> <span class="token operator">&gt;</span> /etc/resolv.conf
+<span class="token comment">#&#x65F6;&#x95F4;</span>
+<span class="token function">date</span> <span class="token parameter variable">-s</span> <span class="token number">20190705</span>
+<span class="token comment">#profile, &#x91CD;&#x8981;</span>
+<span class="token builtin class-name">cd</span> /etc/portage
+<span class="token function">ln</span> <span class="token parameter variable">-sf</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/usr/portage/profiles/default/linux/mips/13.0/multilib/n64 make.profile
+
+
+<span class="token comment">#&#x4E00;&#x822C;&#x64CD;&#x4F5C;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">http_proxy</span><span class="token operator">=</span><span class="token string">&quot;http://135.245.48.34:8000&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">https_proxy</span><span class="token operator">=</span><span class="token variable">$http_proxy</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ftp_proxy</span><span class="token operator">=</span><span class="token variable">$http_proxy</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">rsync_proxy</span><span class="token operator">=</span><span class="token variable">$http_proxy</span>
+
+
+<span class="token comment"># gentoo&#x4F7F;&#x7528;</span>
+<span class="token comment">#&#x7559;core0&#x8DD1;&#x7F51;&#x7EDC;</span>
+taskset <span class="token parameter variable">-c</span> <span class="token number">1,2</span>,3 emerge <span class="token parameter variable">-avtuDN</span> @world
+</code></pre>
+<h2 id="&#x66F4;&#x65B0;gentoo"><a name="&#x66F4;&#x65B0;gentoo" class="anchor-navigation-ex-anchor" href="#&#x66F4;&#x65B0;gentoo"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x66F4;&#x65B0;Gentoo</h2>
+<pre class="language-"><code class="lang-sh"><span class="token comment">#etc/portage/make.conf</span>
+<span class="token assign-left variable">GENTOO_MIRRORS</span><span class="token operator">=</span><span class="token string">&quot;http://distfiles.gentoo.org/ http://bbgentoo.ilb.ru/&quot;</span>
+</code></pre>
+<h1 id="build-go-toolchain"><a name="build-go-toolchain" class="anchor-navigation-ex-anchor" href="#build-go-toolchain"><i class="fa fa-link" aria-hidden="true"></i></a>3. build go toolchain</h1>
+<p>git clone go&#x7684;&#x6E90;&#x7801;:
+<code>git clone https://go.googlesource.com/go</code></p>
+<p>go&#x7684;toolchain&#x7F16;&#x8BD1;&#x5305;&#x62EC;&#x4E24;&#x6B65;:</p>
+<ul>
+<li>&#x5148;&#x7528;go1.4&#x7F16;bootstrap</li>
+<li>&#x7528;bootstrap&#x518D;&#x7F16;go&#x9AD8;&#x7248;&#x672C;&#x7684;&#x7F16;&#x8BD1;&#x5668;
+&#x8FD9;&#x4E48;&#x505A;&#x7684;&#x539F;&#x56E0;&#x662F;, go1.4&#x662F;c&#x5199;&#x7684;, &#x4EE5;&#x540E;&#x7684;&#x9AD8;&#x7248;&#x672C;&#x7F16;&#x8BD1;&#x5668;&#x662F;go&#x5199;&#x7684;. &#x8981;&#x7F16;&#x8BD1; &gt;1.4&#x7248;&#x672C;&#x7684;&#x7F16;&#x8BD1;&#x5668;, &#x5148;&#x8981;&#x6709;go1.4&#x7F16;&#x8BD1;&#x5668;.</li>
+</ul>
+<h2 id="&#x5148;&#x5728;x86&#x4E0A;build-bootstrap-for-mips"><a name="&#x5148;&#x5728;x86&#x4E0A;build-bootstrap-for-mips" class="anchor-navigation-ex-anchor" href="#&#x5148;&#x5728;x86&#x4E0A;build-bootstrap-for-mips"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x5148;&#x5728;x86&#x4E0A;build bootstrap for mips</h2>
+<p>&#x5728;mint&#x673A;&#x5668;&#x4E0A;, &#x5148;&#x7F16;&#x8BD1;go1.4</p>
+<pre class="language-"><code class="lang-sh"><span class="token function">git</span> clone https://go.googlesource.com/go <span class="token environment constant">$HOME</span>/go1.4
+<span class="token builtin class-name">cd</span> <span class="token environment constant">$HOME</span>/go1.4/src
+<span class="token function">git</span> checkout release-branch.go1.4
+./make.bash
+</code></pre>
+<p>&#x518D;&#x7F16;&#x8BD1;go1.12, &#x8FD9;&#x4E2A;&#x7248;&#x672C;&#x652F;&#x6301;&#x751F;&#x6210;cross toolchain</p>
+<pre class="language-"><code class="lang-sh"><span class="token function">git</span> clone https://go.googlesource.com/go <span class="token environment constant">$HOME</span>/go
+<span class="token builtin class-name">cd</span> <span class="token environment constant">$HOME</span>/go/src
+<span class="token function">git</span> checkout release-branch.go1.12
+<span class="token function">env</span> <span class="token assign-left variable">GOROOT_BOOTSTRAP</span><span class="token operator">=</span><span class="token environment constant">$HOME</span>/go1.4 ./make.bash
+</code></pre>
+<p>&#x7528;go1.12&#x7F16;&#x8BD1;target&#x4E0A;&#x7684;boot strap toolchain</p>
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x8FD8;&#x662F;go1.12&#x76EE;&#x5F55;</span>
+<span class="token builtin class-name">cd</span> <span class="token environment constant">$HOME</span>/go/src
+
+<span class="token function">env</span> <span class="token assign-left variable">GOOS</span><span class="token operator">=</span>linux <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>mips64 ./bootstrap.bash
+<span class="token comment">#&#x6210;&#x529F;&#x540E;, &#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x548C;&#x4E00;&#x4E2A;&#x538B;&#x7F29;&#x5305;</span>
+go-linux-mips64-bootstrap
+go-linux-mips64-bootstrap.tbz
+</code></pre>
+<h2 id="&#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go-toolchain"><a name="&#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go-toolchain" class="anchor-navigation-ex-anchor" href="#&#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go-toolchain"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go toolchain</h2>
+<p>&#x62F7;&#x8D1D;<code>go-linux-mips64-bootstrap.tbz</code>&#x5230;&#x677F;&#x5B50;&#x4E0A;, &#x5E76;&#x89E3;&#x538B;
+&#x6CE8;&#x610F;: cgo&#x9ED8;&#x8BA4;&#x5F00;&#x542F;, &#x4F46;&#x9700;&#x8981;&#x677F;&#x5B50;&#x4E0A;&#x6709;gcc&#x5DE5;&#x5177;&#x94FE;, &#x4EE5;&#x652F;&#x6301;cgo</p>
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x6B63;&#x5E38;&#x5E94;&#x8BE5;git clone https://go.googlesource.com/go</span>
+<span class="token comment">#&#x4F46;&#x6211;&#x662F;&#x5728;&#x677F;&#x5B50;&#x4E0A;, &#x6CA1;&#x6709;git; &#x6240;&#x4EE5;&#x76F4;&#x63A5;&#x7528;nfs&#x5171;&#x4EAB;&#x7684;</span>
+<span class="token comment">#cd&#x5230;go 1.12&#x6E90;&#x7801;go-mips64</span>
+<span class="token builtin class-name">cd</span> go-mips64/src
+<span class="token comment">#&#x7F16;&#x8BD1;go 1.12 for mips64</span>
+<span class="token comment">#all.bash&#x4F1A;&#x505A;test, &#x6709;&#x529F;&#x80FD;&#x548C;&#x6027;&#x80FD;&#x7684;&#x6D4B;&#x8BD5;</span>
+<span class="token function">env</span> <span class="token assign-left variable">GOROOT_BOOTSTRAP</span><span class="token operator">=</span>/root/go-linux-mips64-bootstrap ./all.bash
+
+isam-reborn src <span class="token comment"># env GOROOT_BOOTSTRAP=/root/go-linux-mips64-bootstrap ./all.bash</span>
+Building Go cmd/dist using /root/go-linux-mips64-bootstrap.
+Building Go toolchain1 using /root/go-linux-mips64-bootstrap.
+Building Go bootstrap cmd/go <span class="token punctuation">(</span>go_bootstrap<span class="token punctuation">)</span> using Go toolchain1.
+Building Go toolchain2 using go_bootstrap and Go toolchain1.
+Building Go toolchain3 using go_bootstrap and Go toolchain2.
+Building packages and commands <span class="token keyword">for</span> linux/mips64.
+</code></pre>
+<h2 id="hellogo-&#x548C;-cgotestgo"><a name="hellogo-&#x548C;-cgotestgo" class="anchor-navigation-ex-anchor" href="#hellogo-&#x548C;-cgotestgo"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. hello.go &#x548C; cgotest.go</h2>
+<pre class="language-"><code class="lang-go">root@yingjieb<span class="token operator">-</span>VirtualBox ~<span class="token operator">/</span>work<span class="token operator">/</span>nfsroot<span class="token operator">/</span>mipsroot<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">.</span>ok<span class="token operator">/</span>root
+Linux Mint <span class="token number">19.1</span> Tessa # cat hello<span class="token punctuation">.</span><span class="token keyword">go</span>
+<span class="token keyword">package</span> main
+
+
+<span class="token keyword">import</span> <span class="token string">&quot;fmt&quot;</span>
+
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, World!&quot;</span><span class="token punctuation">)</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;First go program on cfnt-b!&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+
+root@yingjieb<span class="token operator">-</span>VirtualBox ~<span class="token operator">/</span>work<span class="token operator">/</span>nfsroot<span class="token operator">/</span>mipsroot<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">.</span>ok<span class="token operator">/</span>root
+Linux Mint <span class="token number">19.1</span> Tessa # cat cgotest<span class="token punctuation">.</span><span class="token keyword">go</span>
+<span class="token keyword">package</span> main
+
+
+<span class="token comment">//int Add(int a, int b){</span>
+<span class="token comment">// return a+b;</span>
+<span class="token comment">//}</span>
+<span class="token keyword">import</span> <span class="token string">&quot;C&quot;</span>
+<span class="token keyword">import</span> <span class="token string">&quot;fmt&quot;</span>
+
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a <span class="token operator">:=</span> C<span class="token punctuation">.</span><span class="token function">int</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+    b <span class="token operator">:=</span> C<span class="token punctuation">.</span><span class="token function">int</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
+    c <span class="token operator">:=</span> C<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token comment">// 30</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="go-env"><a name="go-env" class="anchor-navigation-ex-anchor" href="#go-env"><i class="fa fa-link" aria-hidden="true"></i></a>4. go env</h1>
+<pre class="language-"><code class="lang-sh">Linux Mint <span class="token number">19.1</span> Tessa <span class="token comment"># ls</span>
+bin go-linux-mips64 go-linux-mips64-bootstrap go-linux-mips64-bootstrap.tbz src
+
+
+isam-reborn ~ <span class="token comment"># go env</span>
+<span class="token assign-left variable">GOARCH</span><span class="token operator">=</span><span class="token string">&quot;mips64&quot;</span>
+<span class="token assign-left variable">GOBIN</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GOCACHE</span><span class="token operator">=</span><span class="token string">&quot;/root/.cache/go-build&quot;</span>
+<span class="token assign-left variable">GOEXE</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GOFLAGS</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GOHOSTARCH</span><span class="token operator">=</span><span class="token string">&quot;mips64&quot;</span>
+<span class="token assign-left variable">GOHOSTOS</span><span class="token operator">=</span><span class="token string">&quot;linux&quot;</span>
+<span class="token assign-left variable">GOOS</span><span class="token operator">=</span><span class="token string">&quot;linux&quot;</span>
+<span class="token assign-left variable">GOPATH</span><span class="token operator">=</span><span class="token string">&quot;/root&quot;</span>
+<span class="token assign-left variable">GOPROXY</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GORACE</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GOROOT</span><span class="token operator">=</span><span class="token string">&quot;/root/go-linux-mips64&quot;</span>
+<span class="token assign-left variable">GOTMPDIR</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GOTOOLDIR</span><span class="token operator">=</span><span class="token string">&quot;/root/go-linux-mips64/pkg/tool/linux_mips64&quot;</span>
+<span class="token assign-left variable">GCCGO</span><span class="token operator">=</span><span class="token string">&quot;gccgo&quot;</span>
+<span class="token assign-left variable">GOMIPS64</span><span class="token operator">=</span><span class="token string">&quot;hardfloat&quot;</span>
+<span class="token assign-left variable">CC</span><span class="token operator">=</span><span class="token string">&quot;gcc&quot;</span>
+<span class="token assign-left variable">CXX</span><span class="token operator">=</span><span class="token string">&quot;g++&quot;</span>
+<span class="token assign-left variable">CGO_ENABLED</span><span class="token operator">=</span><span class="token string">&quot;1&quot;</span>
+<span class="token assign-left variable">GOMOD</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">CGO_CFLAGS</span><span class="token operator">=</span><span class="token string">&quot;-g -O2&quot;</span>
+<span class="token assign-left variable">CGO_CPPFLAGS</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">CGO_CXXFLAGS</span><span class="token operator">=</span><span class="token string">&quot;-g -O2&quot;</span>
+<span class="token assign-left variable">CGO_FFLAGS</span><span class="token operator">=</span><span class="token string">&quot;-g -O2&quot;</span>
+<span class="token assign-left variable">CGO_LDFLAGS</span><span class="token operator">=</span><span class="token string">&quot;-g -O2&quot;</span>
+<span class="token assign-left variable">PKG_CONFIG</span><span class="token operator">=</span><span class="token string">&quot;pkg-config&quot;</span>
+<span class="token assign-left variable">GOGCCFLAGS</span><span class="token operator">=</span><span class="token string">&quot;-fPIC -mabi=64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build357009098=/tmp/go-build -gno-record-gcc-switches&quot;</span>
+</code></pre>
+<h1 id="&#x622A;&#x56FE;"><a name="&#x622A;&#x56FE;" class="anchor-navigation-ex-anchor" href="#&#x622A;&#x56FE;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x622A;&#x56FE;</h1>
+<p><img src="img/golang_gentoo_on_mips_board_and_build_go_20220908230429.png" alt=""><br><img src="img/golang_gentoo_on_mips_board_and_build_go_20220908230454.png" alt=""><br><img src="img/golang_gentoo_on_mips_board_and_build_go_20220908230514.png" alt="">  </p>
+<p>&#x53C2;&#x8003;:
+<a href="https://dave.cheney.net/2015/10/16/bootstrapping-go-1-5-on-non-intel-platforms" target="_blank">https://dave.cheney.net/2015/10/16/bootstrapping-go-1-5-on-non-intel-platforms</a></p>
+<p><a href="https://golang.org/doc/install/source" target="_blank">https://golang.org/doc/install/source</a></p>
+<p><a href="https://golang.org/cmd/cgo/" target="_blank">https://golang.org/cmd/cgo/</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="golang_go_on_mips_part4.html" class="navigation navigation-prev " aria-label="Previous page: part 4: json performance">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="as_title.html" class="navigation navigation-next " aria-label="Next page: Rust">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Gentoo on mips board and build go","level":"1.2.8.3.5","depth":4,"next":{"title":"Rust","level":"1.3","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"入门系列","level":"1.3.1","depth":2,"path":"notes/rust_入门_brief.md","ref":"notes/rust_入门_brief.md","articles":[{"title":"reference books","level":"1.3.1.1","depth":3,"path":"notes/rust_books.md","ref":"notes/rust_books.md","articles":[]},{"title":"安装和基础语法","level":"1.3.1.2","depth":3,"path":"notes/rust_入门1.md","ref":"notes/rust_入门1.md","articles":[]},{"title":"泛型和内存所有权","level":"1.3.1.3","depth":3,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},{"title":"闭包 容器 迭代器 生成器 线程","level":"1.3.1.4","depth":3,"path":"notes/rust_入门3.md","ref":"notes/rust_入门3.md","articles":[]},{"title":"工程构建","level":"1.3.1.5","depth":3,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]}]},{"title":"VMM(virtual machine monitor)","level":"1.3.2","depth":2,"path":"notes/rust_vmm_brief.md","ref":"notes/rust_vmm_brief.md","articles":[{"title":"rust-vmm简介","level":"1.3.2.1","depth":3,"path":"notes/rust_vmm_简介.md","ref":"notes/rust_vmm_简介.md","articles":[]},{"title":"firecracker代码","level":"1.3.2.2","depth":3,"path":"notes/rust_firecracker_代码.md","ref":"notes/rust_firecracker_代码.md","articles":[]},{"title":"firecracker使用","level":"1.3.2.3","depth":3,"path":"notes/rust_firecracker_使用.md","ref":"notes/rust_firecracker_使用.md","articles":[]},{"title":"cloud hypervisor代码","level":"1.3.2.4","depth":3,"path":"notes/rust_cloud-hypervisor_代码.md","ref":"notes/rust_cloud-hypervisor_代码.md","articles":[]},{"title":"cloud hypervisor使用","level":"1.3.2.5","depth":3,"path":"notes/rust_cloud-hypervisor_使用.md","ref":"notes/rust_cloud-hypervisor_使用.md","articles":[]},{"title":"cloud hypervisor问题与解决","level":"1.3.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]}]},{"title":"代码积累","level":"1.3.3","depth":2,"path":"notes/rust_coding_brief.md","ref":"notes/rust_coding_brief.md","articles":[{"title":"序列化原理","level":"1.3.3.1","depth":3,"path":"notes/rust_序列化.md","ref":"notes/rust_序列化.md","articles":[]},{"title":"知识点更新","level":"1.3.3.2","depth":3,"path":"notes/rust_知识点积累.md","ref":"notes/rust_知识点积累.md","articles":[]},{"title":"rust版本的adaptiveservice探索","level":"1.3.3.3","depth":3,"path":"notes/rust_adaptiveservice.md","ref":"notes/rust_adaptiveservice.md","articles":[]},{"title":"常用设施","level":"1.3.3.4","depth":3,"path":"notes/rust_常用设施.md","ref":"notes/rust_常用设施.md","articles":[]},{"title":"代码小段","level":"1.3.3.5","depth":3,"path":"notes/rust_代码小段.md","ref":"notes/rust_代码小段.md","articles":[]}]},{"title":"其他","level":"1.3.4","depth":2,"path":"notes/others.md","ref":"notes/others.md","articles":[{"title":"使用mdbook","level":"1.3.4.1","depth":3,"path":"notes/rust_mdbook_使用.md","ref":"notes/rust_mdbook_使用.md","articles":[]}]}]},"previous":{"title":"part 4: json performance","level":"1.2.8.3.4","depth":4,"path":"notes/golang_go_on_mips_part4.md","ref":"notes/golang_go_on_mips_part4.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","mtime":"2022-09-08T15:37:30.291Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-08T15:38:26.251Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,1318 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>part 1: cross compile go · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-coldark-cold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="golang_go_on_mips_part2.html" />
+    
+    
+    <link rel="prev" href="golang_go_on_mips.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    内存分配
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.7.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.8.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.8.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    特殊功能fd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >part 1: cross compile go</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#background"><b>1. </b>Background</a></li><li><span class="title-icon "></span><a href="#go-toolchains"><b>2. </b>Go toolchains</a></li><li><span class="title-icon "></span><a href="#compile-gc-go-toolchain"><b>3. </b>Compile gc go toolchain</a></li><ul><li><span class="title-icon "></span><a href="#compile-gc-go-14-for-host"><b>3.1. </b>Compile gc go 1.4 for host</a></li><li><span class="title-icon "></span><a href="#compile-gc-go-cross-toolchain"><b>3.2. </b>Compile gc go cross toolchain</a></li></ul><li><span class="title-icon "></span><a href="#cgo-issue"><b>4. </b>Cgo issue</a></li><ul><li><span class="title-icon "></span><a href="#cgo-use-gcc-compiler"><b>4.1. </b>Cgo use gcc compiler</a></li><li><span class="title-icon "></span><a href="#direct-cgo-to-use-n32-abi"><b>4.2. </b>direct cgo to use N32 ABI</a></li></ul><li><span class="title-icon "></span><a href="#how-to-proceed-if-cgo-is-not-working"><b>5. </b>How to proceed if cgo is not working?</a></li><ul><li><span class="title-icon "></span><a href="#disable-cgo-support"><b>5.1. </b>disable cgo support</a></li><li><span class="title-icon "></span><a href="#use-n64-abi-for-mips64"><b>5.2. </b>use N64 ABI for MIPS64</a></li></ul><li><span class="title-icon "></span><a href="#hellogo"><b>6. </b>hello.go</a></li><li><span class="title-icon "></span><a href="#works-next"><b>7. </b>Works next</a></li></ul></div><a href="#background" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#background">Background</a></li>
+<li><a href="#go-toolchains">Go toolchains</a></li>
+<li><a href="#compile-gc-go-toolchain">Compile gc go toolchain</a><ul>
+<li><a href="#compile-gc-go-14-for-host">Compile gc go 1.4 for host</a></li>
+<li><a href="#compile-gc-go-cross-toolchain">Compile gc go cross toolchain</a></li>
+</ul>
+</li>
+<li><a href="#cgo-issue">Cgo issue</a><ul>
+<li><a href="#cgo-use-gcc-compiler">Cgo use gcc compiler</a></li>
+<li><a href="#direct-cgo-to-use-n32-abi">direct cgo to use N32 ABI</a></li>
+</ul>
+</li>
+<li><a href="#how-to-proceed-if-cgo-is-not-working">How to proceed if cgo is not working?</a><ul>
+<li><a href="#disable-cgo-support">disable cgo support</a></li>
+<li><a href="#use-n64-abi-for-mips64">use N64 ABI for MIPS64</a></li>
+</ul>
+</li>
+<li><a href="#hellogo">hello.go</a></li>
+<li><a href="#works-next">Works next</a></li>
+</ul>
+<h1 id="background"><a name="background" class="anchor-navigation-ex-anchor" href="#background"><i class="fa fa-link" aria-hidden="true"></i></a>1. Background</h1>
+<p>In order to run go app on the board, we need to have a go compiler that compiles go sources into go executables. 
+Here we have a simple hello example: <code>hello.go</code></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">&quot;fmt&quot;</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, World!&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>For go is a modern programing language, it is pretty straightforward to do this in the cloud/server x86 environment:</p>
+<pre class="language-"><code class="lang-sh">$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> golang-go
+$ go build hello.go 
+$ <span class="token function">ls</span>
+hello hello.go
+$ ./hello 
+Hello, World<span class="token operator">!</span>
+</code></pre>
+<p>OK, job is done, you can stop reading if you work on a system that uses Ubuntu/CentOS on X86, or even ARM64.</p>
+<p>But for people who work in embedded environment like buildroot system on MIPS, please continue.</p>
+<h1 id="go-toolchains"><a name="go-toolchains" class="anchor-navigation-ex-anchor" href="#go-toolchains"><i class="fa fa-link" aria-hidden="true"></i></a>2. Go toolchains</h1>
+<p>There are two official Go compiler toolchains.</p>
+<ul>
+<li>gc go toolchain: seems to be more popular, this toolchain itself is written in Go
+x86/ubuntu reference: <code>sudo apt install golang-go</code></li>
+<li>gccgo compiler: the traditional compiler using the GCC back end
+x86/ubuntu reference: <code>sudo apt install gccgo-go</code></li>
+</ul>
+<p>At the moment, for MIPS boards like fglt-b, gcc version is 4.7.0, lower than the minimal gcc prerequisite version 4.7.1, which has support for go 1.0. gcc 8 supports go 1.10. 
+source: <a href="https://golang.org/doc/install/gccgo" target="_blank">https://golang.org/doc/install/gccgo</a></p>
+<h1 id="compile-gc-go-toolchain"><a name="compile-gc-go-toolchain" class="anchor-navigation-ex-anchor" href="#compile-gc-go-toolchain"><i class="fa fa-link" aria-hidden="true"></i></a>3. Compile gc go toolchain</h1>
+<p>In order to have go executables runnable on board, a gc go toolchain needs to be compiled first which is a cross toolchain resides on host for embedded world.
+As mentioned, gc go is written in go, so a go bootstrap compiler is needed to compile gc go toolchain. Actually, the bootstrap compiler is also gc go compiler version 1.4, which was the last distribution in which the toolchain was written in C.</p>
+<h2 id="compile-gc-go-14-for-host"><a name="compile-gc-go-14-for-host" class="anchor-navigation-ex-anchor" href="#compile-gc-go-14-for-host"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. Compile gc go 1.4 for host</h2>
+<p>In buildroot, package go-bootstrap is the one does the job. 
+see</p>
+<ul>
+<li><code>buildroot/package/go-bootstrap/go-bootstrap.mk</code></li>
+<li><code>buildroot/output/build/host-go-bootstrap-1.4.3/src/make.bash</code></li>
+</ul>
+<p>the compiled outputs are installed to:
+<code>buildroot/output/host/lib/go-1.4.3</code></p>
+<h2 id="compile-gc-go-cross-toolchain"><a name="compile-gc-go-cross-toolchain" class="anchor-navigation-ex-anchor" href="#compile-gc-go-cross-toolchain"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. Compile gc go cross toolchain</h2>
+<p>In buildroot, package go is the one does the job.
+Here we need to build a cross compiler, <code>GO_GOARCH</code> is used for this purpose, eg: for fglt-b, <code>GO_GOARCH = mips64</code>
+If all things go well, the toolchain will be installed to <code>buildroot/output/host/lib/go</code>.
+The complete build steps:</p>
+<pre class="language-"><code>Building Go cmd/dist using /repo/yingjieb/ms/buildroot/output/host/lib/go-1.4.3.
+Building Go toolchain1 using /repo/yingjieb/ms/buildroot/output/host/lib/go-1.4.3.
+Building Go bootstrap cmd/go (go_bootstrap) using Go toolchain1.
+Building Go toolchain2 using go_bootstrap and Go toolchain1.
+Building Go toolchain3 using go_bootstrap and Go toolchain2.
+Building packages and commands for host, linux/amd64.
+# errors are seen in this step
+Building packages and commands for target, linux/mips64.
+</code></pre><h1 id="cgo-issue"><a name="cgo-issue" class="anchor-navigation-ex-anchor" href="#cgo-issue"><i class="fa fa-link" aria-hidden="true"></i></a>4. Cgo issue</h1>
+<blockquote>
+<p>cgo is a component of go, which enables the creation of go packages that call C code.</p>
+</blockquote>
+<p>In buildroot, package go fails to compile, because go doesn&apos;t support CGO linking on MIPS64x platforms.
+See: <a href="https://github.com/karalabe/xgo/issues/46" target="_blank">https://github.com/karalabe/xgo/issues/46</a>
+The consequence is any go app that depends on BR2_PACKAGE_HOST_GO_CGO_LINKING_SUPPORTS is unable to compile, even not selectable by buildroot menuconfig.
+Nearly all go packages depend on BR2_PACKAGE_HOST_GO_CGO_LINKING_SUPPORTS, they are: docker-proxy, docker-containerd, docker-engine, docker-cli, flannel, mender, runc.
+For MIPS octeon family specifically, which is used widely by LTs, the error message is:</p>
+<pre class="language-"><code class="lang-sh"><span class="token comment"># runtime/cgo</span>
+/repo/yingjieb/ms/buildroot/output/host/opt/ext-toolchain/bin/<span class="token punctuation">..</span>/lib/gcc/mips64-octeon-linux-gnu/4.7.0/<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/mips64-octeon-linux-gnu/bin/ld: skipping incompatible /repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libpthread.so when searching <span class="token keyword">for</span> <span class="token parameter variable">-lpthread</span>
+/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not <span class="token builtin class-name">read</span> symbols: File <span class="token keyword">in</span> wrong <span class="token function">format</span>
+collect2: error: ld returned <span class="token number">1</span> <span class="token builtin class-name">exit</span> status
+go tool dist: FAILED: /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/pkg/tool/linux_amd64/go_bootstrap <span class="token function">install</span> <span class="token parameter variable">-gcflags</span><span class="token operator">=</span>all<span class="token operator">=</span> <span class="token parameter variable">-ldflags</span><span class="token operator">=</span>all<span class="token operator">=</span> <span class="token parameter variable">-v</span> std cmd: <span class="token builtin class-name">exit</span> status <span class="token number">2</span>
+</code></pre>
+<h2 id="cgo-use-gcc-compiler"><a name="cgo-use-gcc-compiler" class="anchor-navigation-ex-anchor" href="#cgo-use-gcc-compiler"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. Cgo use gcc compiler</h2>
+<p>cgo enables go packages call C code, so it must require a C compiler for the C code part. 
+And we are in embedded world, so here we need a cross C compiler. 
+Gc go make.bash uses CC_FOR_TARGET to specify the C compiler, on my environment, for example:
+<code>CC_FOR_TARGET=&quot;/repo/yingjieb/ms/buildroot/output/host/bin/mips64-octeon-linux-gnu-gcc&quot;</code> 
+In fact, this toolchain is a wrapper executable, which wraps external gcc toolchain to generate n32 ABI objects, like this:
+<code>ELF 32-bit MSB executable, MIPS, N32 MIPS64 rel2 version 1, dynamically linked (uses shared libs), for GNU/Linux 2.6.32, with unknown capability 0x41000000 = 0xf676e75, with unknown capability 0x10000 = 0x70401, not stripped</code></p>
+<blockquote>
+<p> The 64 bit N64 ABI allows for more arguments in registers for more efficient function calls when there are more than four parameters. There is also the N32 ABI which also allows for more arguments in registers. The return address when a function is called is stored in the $ra register automatically by use of the JAL (jump and link) or JALR (jump and link register) instructions.</p>
+</blockquote>
+<p>Basically, N32 uses 64 bit registers in a 32 bit address space, meaning that pointers are 32 bit.</p>
+<p>However, for some unknown reason, the actual output objects are N64 ABI:</p>
+<pre class="language-"><code class="lang-sh"><span class="token comment">#cgo puts its generated C files to /tmp dir:</span>
+yingjieb@FNSHA190 /tmp/go-build164444988/b032
+$ <span class="token function">ls</span>
+_cgo_export.c _cgo_flags _cgo_main.c _x001.o _x003.o _x005.o _x007.o _x009.o cgo.cgo1.go
+_cgo_export.h _cgo_gotypes.go _cgo_main.o _x002.o _x004.o _x006.o _x008.o _x010.o cgo.cgo2.c
+
+<span class="token comment"># the default ABI is N64</span>
+yingjieb@FNSHA190 /tmp/go-build164444988/b032
+$ <span class="token function">file</span> _cgo_main.o
+_cgo_main.o: ELF <span class="token number">64</span>-bit MSB relocatable, MIPS, MIPS64 rel2 version <span class="token number">1</span> <span class="token punctuation">(</span>SYSV<span class="token punctuation">)</span>, with unknown capability 0x410000000f676e75 <span class="token operator">=</span> 0x1000000070401, not stripped
+</code></pre>
+<p>The reason maybe that Gcc toolchain uses N64 ABI by default to generates objects.
+One can explicitly set <code>-mabi=n32</code> to <code>CFLAGS</code>, that&apos;s how we config buildroot to use N32 ABI for our MIPS octeon family boards.</p>
+<h2 id="direct-cgo-to-use-n32-abi"><a name="direct-cgo-to-use-n32-abi" class="anchor-navigation-ex-anchor" href="#direct-cgo-to-use-n32-abi"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. direct cgo to use N32 ABI</h2>
+<p>So, let&apos;s get back to the cgo compiling issue, basically, ld complains about the format of the to be linked shared objects are incompatible. 
+We can direct cgo to generate N32 ABI object.</p>
+<ul>
+<li>Add below to <code>src/runtime/cgo/cgo.go</code><pre class="language-"><code>#cgo mips64 CFLAGS: -mabi=n32
+#cgo mips64 LDFLAGS: -Wl,-m,elf32btsmipn32
+</code></pre></li>
+<li>Do <code>export CGO_LDFLAGS_ALLOW=&quot;.*&quot;</code> before building go package</li>
+</ul>
+<p>Let&apos;s compile it again...
+This time the previous errors are gone, but we have new errors now:</p>
+<pre class="language-"><code class="lang-sh"><span class="token comment"># runtime/cgo</span>
+In <span class="token function">file</span> included from _cgo_export.c:4:0:
+cgo-gcc-export-header-prolog:25:14: error: size of array <span class="token string">&apos;_check_for_64_bit_pointer_matching_GoInt&apos;</span> is negative
+</code></pre>
+<p><code>_cgo_export.c</code> is an generated c file, located in <code>/tmp/go-buildxxxxxxxxx</code> where xxxxxxxxx is a random number generated by the build system, so as <code>_cgo_export.h</code>, which has the assertion:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">typedef</span> GoInt64 GoInt<span class="token punctuation">;</span>
+<span class="token comment">/*
+  static assertion to make sure the file is being used on architecture
+  at least with matching size of GoInt.
+*/</span>
+<span class="token keyword">typedef</span> <span class="token keyword">char</span> _check_for_64_bit_pointer_matching_GoInt<span class="token punctuation">[</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">64</span><span class="token operator">/</span><span class="token number">8</span> <span class="token operator">?</span> <span class="token number">1</span><span class="token operator">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<p><code>src/cmd/cgo/out.go</code> is used to genertate <code>_cgo_export.h</code>:
+It seems that cgo expects a goInt to be 64 bit, but N32&apos;s pointer is 32 bit, that&apos;s why we have the error message.
+Disable the check temporally:</p>
+<pre class="language-"><code class="lang-c"><span class="token comment">//typedef char _check_for_GOINTBITS_bit_pointer_matching_GoInt[sizeof(void*)==GOINTBITS/8 ? 1:-1];</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">temporary</span> <span class="token expression">workaroud this check</span></span>
+<span class="token keyword">typedef</span> <span class="token keyword">char</span> _check_for_GOINTBITS_bit_pointer_matching_GoInt<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Let&apos;s rebuild it...
+cgo build seems to pass, but after it we have more errors:</p>
+<pre class="language-"><code class="lang-sh"><span class="token comment"># plugin</span>
+/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libdl.so: could not <span class="token builtin class-name">read</span> symbols:File <span class="token keyword">in</span> wrong <span class="token function">format</span> 
+<span class="token comment"># os/signal/internal/pty</span>
+/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not <span class="token builtin class-name">read</span> symbols: File <span class="token keyword">in</span> wrong <span class="token function">format</span>
+<span class="token comment"># os/user</span>
+/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not <span class="token builtin class-name">read</span> symbols: File <span class="token keyword">in</span> wrong <span class="token function">format</span>
+<span class="token comment"># net</span>
+/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not <span class="token builtin class-name">read</span> symbols: File <span class="token keyword">in</span> wrong <span class="token function">format</span>
+</code></pre>
+<p>Same issue, apply our changes to these files:</p>
+<ul>
+<li>src/plugin/plugin_dlopen.go</li>
+<li>src/os/signal/internal/pty/pty.go</li>
+<li>src/os/user/cgo_lookup_unix.go</li>
+<li>src/os/user/getgrouplist_unix.go</li>
+<li>src/os/user/listgroups_unix.go</li>
+<li>src/os/user/getgrouplist_darwin.go</li>
+<li>src/net/cgo_linux.go</li>
+</ul>
+<p>Rebuild, OK, then the error message leads to:</p>
+<pre class="language-"><code class="lang-sh">/tmp/go-link-436592583/go.o: In <span class="token keyword">function</span> <span class="token variable"><span class="token variable">`</span>runtime.save_g&apos;:                                                           
+/repo/yingjieb/ms/buildroot/output/host/lib/go/src/runtime/tls_mips64x.s:20:<span class="token punctuation">(</span>.text+0x6d24c<span class="token punctuation">)</span>: relocation truncated to fit: R_MIPS_TLS_TPREL_LO16 against <span class="token variable">`</span></span>runtime.tls_g&apos;
+</code></pre>
+<p>It seems to have come to the final stage to build the executable &quot;go&quot;(the go compiler), but apparently there is something wrong in <code>tls_mips64x.s</code>.
+The file is not long, but requires some longer study time to adapt for N32 mode if we still want to go this way...</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// If !iscgo, this is a no-op.</span>
+<span class="token comment">//</span>
+<span class="token comment">// NOTE: mcall() assumes this clobbers only R23 (REGTMP).</span>
+TEXT <span class="token function">runtime_save_g</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span>NOSPLIT<span class="token operator">|</span>NOFRAME<span class="token punctuation">,</span>$<span class="token number">0</span><span class="token operator">-</span><span class="token number">0</span>
+    MOVB <span class="token function">runtime_iscgo</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span> R23
+    BEQ R23<span class="token punctuation">,</span> nocgo
+
+    MOVV R3<span class="token punctuation">,</span> R23 <span class="token comment">// save R3</span>
+    MOVV g<span class="token punctuation">,</span> <span class="token function">runtime_tls_g</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span> <span class="token comment">// TLS relocation clobbers R3</span>
+    MOVV R23<span class="token punctuation">,</span> R3 <span class="token comment">// restore R3</span>
+
+nocgo<span class="token punctuation">:</span>
+    RET
+
+TEXT <span class="token function">runtime_load_g</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span>NOSPLIT<span class="token operator">|</span>NOFRAME<span class="token punctuation">,</span>$<span class="token number">0</span><span class="token operator">-</span><span class="token number">0</span>
+    MOVV <span class="token function">runtime_tls_g</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span> g <span class="token comment">// TLS relocation clobbers R3</span>
+    RET
+
+GLOBL <span class="token function">runtime_tls_g</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span> TLSBSS<span class="token punctuation">,</span> $<span class="token number">8</span>
+</code></pre>
+<p>There are high possibilities that other .s files need to be adapted.
+A rough estimation is: there are 505 .s files, with 446 line containing &quot;cgo&quot; key word together.</p>
+<pre class="language-"><code class="lang-sh">yingjieb@FNSHA190 /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/src
+$ <span class="token function">find</span> <span class="token parameter variable">-name</span> <span class="token string">&quot;*.s&quot;</span> <span class="token operator">|</span> <span class="token function">wc</span> <span class="token parameter variable">-l</span>
+<span class="token number">505</span>
+
+yingjieb@FNSHA190 /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/src
+$ <span class="token function">find</span> <span class="token parameter variable">-name</span> <span class="token string">&quot;*.s&quot;</span> <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">cat</span> <span class="token operator">|</span> <span class="token function">grep</span> cgo <span class="token operator">|</span> <span class="token function">wc</span> <span class="token parameter variable">-l</span>
+<span class="token number">446</span>
+</code></pre>
+<p>So, enabling N32 ABI which is used by all our MIPS boards for Go is not something can be done in a short time.</p>
+<h1 id="how-to-proceed-if-cgo-is-not-working"><a name="how-to-proceed-if-cgo-is-not-working" class="anchor-navigation-ex-anchor" href="#how-to-proceed-if-cgo-is-not-working"><i class="fa fa-link" aria-hidden="true"></i></a>5. How to proceed if cgo is not working?</h1>
+<p>As analyzed, the effort to resolve cgo problem is not trivial, right now what can be done are:</p>
+<h2 id="disable-cgo-support"><a name="disable-cgo-support" class="anchor-navigation-ex-anchor" href="#disable-cgo-support"><i class="fa fa-link" aria-hidden="true"></i></a>5.1. disable cgo support</h2>
+<p>add <code>HOST_GO_CGO_ENABLED = 0</code> to <code>package/go/go.mk</code>, which means the gc go toolchian will not have cgo support, which further results the libraries that depend on cgo are not available. 
+I am not an export of go, but I did a simple counter, there are 208 lines in the toolchain src use cgo.</p>
+<pre class="language-"><code>yingjieb@FNSHA190 /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/src
+$ grep -r &apos;import &quot;C&quot;&apos; | wc -l
+208
+</code></pre><h2 id="use-n64-abi-for-mips64"><a name="use-n64-abi-for-mips64" class="anchor-navigation-ex-anchor" href="#use-n64-abi-for-mips64"><i class="fa fa-link" aria-hidden="true"></i></a>5.2. use N64 ABI for MIPS64</h2>
+<p>What if cgo is the part of the heart of go toolchain and furthermore, is indispensable for most go apps? The other option we can consider is to use N64 ABI.</p>
+<blockquote>
+<p>N64 uses 64 bit registers and 64 bit address space.</p>
+</blockquote>
+<p>As said, all our MIPS boards use N32, I don&apos;t know exactly the reasons, but a common one would be: the old code are written for 32 bit processor, engineers at 32 bit era had the assumption that pointers are always 32 bit.</p>
+<p>This option remains to be investigated if decision made to go this way.</p>
+<h1 id="hellogo"><a name="hellogo" class="anchor-navigation-ex-anchor" href="#hellogo"><i class="fa fa-link" aria-hidden="true"></i></a>6. hello.go</h1>
+<p>Finally, we come to our task, thanks for the <strong>complicities</strong> of <strong>embedded</strong> world and <strong>weak</strong> ecosystem of MIPS.
+Now that we have the gc go toolchain built, yes, with cgo disabled.
+In Buildroot, we leverage the make framework to construct go packages, for example, I added below files:</p>
+<pre class="language-"><code>M package/Nokia/Config.in
+M package/go/Config.in.host
+M package/go/go.mk
+A package/Nokia/go-prototype/Config.in
+A package/Nokia/go-prototype/go-prototype.mk
+</code></pre><p>And I setup a repo named go-prototype, which has the hello.go src.
+Here I want to skip the details of how to create a package in Buildroot, which is basically to make a package that depends on package go(the gc go toolchain)</p>
+<p>OK, build our go-protogype package and all other packages selected in buildroot, make rootfs, and load to our board.
+Be noted that our hello.go doesn&apos;t need cgo, since it does not <code>import &quot;C&quot;</code>
+Then on our board, I am using cfnt-b, which has the same CPU with fglt-b:</p>
+<p>Type</p>
+<pre class="language-"><code class="lang-sh">/isam/slot_default/run <span class="token comment"># hello</span>
+Hello, World<span class="token operator">!</span>
+First go program on cfnt-b<span class="token operator">!</span>
+/isam/slot_default/run <span class="token comment"># which hello</span>
+/usr/bin/hello
+/isam/slot_default/run <span class="token comment"># ls -lh /usr/bin/hello</span>
+-rwxr-xr-x <span class="token number">1</span> root root <span class="token number">1</span>.4M Jun <span class="token number">28</span> <span class="token number">2019</span> /usr/bin/hello
+</code></pre>
+<p>OK, we are good to run hello.go</p>
+<h1 id="works-next"><a name="works-next" class="anchor-navigation-ex-anchor" href="#works-next"><i class="fa fa-link" aria-hidden="true"></i></a>7. Works next</h1>
+<ul>
+<li>run Go simple function with library(with the hope that cgo is not used)</li>
+<li>Go benchmarking research and selection(with the hope that cgo is not used)</li>
+<li>Benchmark go(with the hope that cgo is not used)</li>
+<li>investigate how to enable N64 ABI for MIPS(optional)</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="golang_go_on_mips.html" class="navigation navigation-prev " aria-label="Previous page: go on mips boards(not so updated)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="golang_go_on_mips_part2.html" class="navigation navigation-next " aria-label="Next page: part 2: build native go compiler">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"part 1: cross compile go","level":"1.2.8.3.1","depth":4,"next":{"title":"part 2: build native go compiler","level":"1.2.8.3.2","depth":4,"path":"notes/golang_go_on_mips_part2.md","ref":"notes/golang_go_on_mips_part2.md","articles":[]},"previous":{"title":"go on mips boards(not so updated)","level":"1.2.8.3","depth":3,"path":"notes/golang_go_on_mips.md","ref":"notes/golang_go_on_mips.md","articles":[{"title":"part 1: cross compile go","level":"1.2.8.3.1","depth":4,"path":"notes/golang_go_on_mips_part1.md","ref":"notes/golang_go_on_mips_part1.md","articles":[]},{"title":"part 2: build native go compiler","level":"1.2.8.3.2","depth":4,"path":"notes/golang_go_on_mips_part2.md","ref":"notes/golang_go_on_mips_part2.md","articles":[]},{"title":"part 3: gccgo experiments","level":"1.2.8.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},{"title":"part 4: json performance","level":"1.2.8.3.4","depth":4,"path":"notes/golang_go_on_mips_part4.md","ref":"notes/golang_go_on_mips_part4.md","articles":[]},{"title":"Gentoo on mips board and build go","level":"1.2.8.3.5","depth":4,"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","ref":"notes/golang_gentoo_on_mips_board_and_build_go.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part1.md","mtime":"2022-09-08T15:37:30.291Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-08T15:38:26.251Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
