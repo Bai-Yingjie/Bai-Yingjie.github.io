@@ -5,8 +5,10 @@
 - [Big picture](#big-picture)
 - [Inspiration](#inspiration)
 
-> go先从本M的buddy系统里分配内存, 再从全局的buddy里面分
+> go先从本M的buddy系统里分配内存, 再从全局的buddy里面分  
 > 对于大于32k的大内存, 直接跟os要.
+
+原文链接: https://medium.com/a-journey-with-go/go-memory-management-and-allocation-a7396d430f44
 
 # Go: Memory Management and Allocation
 ℹ️ _This article is based on Go 1.13._
