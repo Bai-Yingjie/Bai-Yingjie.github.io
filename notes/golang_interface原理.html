@@ -1,0 +1,1316 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>interface原理(网摘) · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-coldark-cold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="golang_内存分配.html" />
+    
+    
+    <link rel="prev" href="golang_原理.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    解释器和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11.2" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    特殊功能fd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >interface原理(网摘)</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#go-data-structures-interfaces"><b>1. </b>Go Data Structures: Interfaces</a></li><ul><ul><li><span class="title-icon "></span><a href="#usage"><b>1.1.1. </b>Usage</a></li><li><span class="title-icon "></span><a href="#interface-values"><b>1.1.2. </b>Interface Values</a></li><li><span class="title-icon "></span><a href="#computing-the-itable"><b>1.1.3. </b>Computing the Itable</a></li><li><span class="title-icon "></span><a href="#memory-optimizations"><b>1.1.4. </b>Memory Optimizations</a></li><li><span class="title-icon "></span><a href="#method-lookup-performance"><b>1.1.5. </b>Method Lookup Performance</a></li><li><span class="title-icon "></span><a href="#more-information"><b>1.1.6. </b>More Information</a></li><li><span class="title-icon "></span><a href="#code"><b>1.1.7. </b>Code</a></li></ul></ul></ul></div><a href="#go-data-structures-interfaces" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="go-data-structures-interfaces"><a name="go-data-structures-interfaces" class="anchor-navigation-ex-anchor" href="#go-data-structures-interfaces"><i class="fa fa-link" aria-hidden="true"></i></a>1. Go Data Structures: Interfaces</h1>
+<p>Posted on Tuesday, December 1, 2009.</p>
+<p>Go&apos;s interfaces&#x2014;static, checked at compile time, dynamic when asked for&#x2014;are, for me, the most exciting part of Go from a language design point of view. If I could export one feature of Go into other languages, it would be interfaces.</p>
+<p>This post is my take on the implementation of interface values in the &#x201C;gc&#x201D; compilers: 6g, 8g, and 5g. Over at Airs, Ian Lance Taylor has written <a href="http://www.airs.com/blog/archives/277" target="_blank">two</a> <a href="http://www.airs.com/blog/archives/276" target="_blank">posts</a> about the implementation of interface values in <code>gccgo</code>. The implementations are more alike than different: the biggest difference is that this post has pictures.</p>
+<p>Before looking at the implementation, let&apos;s get a sense of what it must support.</p>
+<h3 id="usage"><a name="usage" class="anchor-navigation-ex-anchor" href="#usage"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. Usage</h3>
+<p>Go&apos;s interfaces let you use <a href="http://en.wikipedia.org/wiki/Duck_typing" target="_blank">duck typing</a> like you would in a purely dynamic language like Python but still have the compiler catch obvious mistakes like passing an <code>int</code> where an object with a <code>Read</code> method was expected, or like calling the <code>Read</code> method with the wrong number of arguments. To use interfaces, first define the interface type (say, <code>ReadCloser</code>):</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> ReadCloser <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+    <span class="token function">Read</span><span class="token punctuation">(</span>b <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">,</span> err os<span class="token punctuation">.</span>Error<span class="token punctuation">)</span>
+    <span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>and then define your new function as taking a <code>ReadCloser</code>. For example, this function calls <code>Read</code> repeatedly to get all the data that was requested and then calls <code>Close</code>:</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">ReadAndClose</span><span class="token punctuation">(</span>r ReadCloser<span class="token punctuation">,</span> buf <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">,</span> err os<span class="token punctuation">.</span>Error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token function">len</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> nr <span class="token builtin">int</span>
+        nr<span class="token punctuation">,</span> err <span class="token operator">=</span> r<span class="token punctuation">.</span><span class="token function">Read</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span>
+        n <span class="token operator">+=</span> nr
+        buf <span class="token operator">=</span> buf<span class="token punctuation">[</span>nr<span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    r<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The code that calls <code>ReadAndClose</code> can pass a value of any type as long as it has <code>Read</code> and <code>Close</code> methods with the right signatures. And, unlike in languages like Python, if you pass a value with the wrong type, you get an error at compile time, not run time.</p>
+<p>Interfaces aren&apos;t restricted to static checking, though. You can check dynamically whether a particular interface value has an additional method. For example:</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> Stringer <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+    <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">ToString</span><span class="token punctuation">(</span>any <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> v<span class="token punctuation">,</span> ok <span class="token operator">:=</span> any<span class="token punctuation">.</span><span class="token punctuation">(</span>Stringer<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> v<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">switch</span> v <span class="token operator">:=</span> any<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+    <span class="token keyword">case</span> float<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> strconv<span class="token punctuation">.</span><span class="token function">Ftoa</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> <span class="token char">&apos;g&apos;</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token string">&quot;???&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The value <code>any</code> has static type <code>interface{}</code>, meaning no guarantee of any methods at all: it could contain any type. The &#x201C;comma ok&#x201D; assignment inside the <code>if</code> statement asks whether it is possible to convert <code>any</code> to an interface value of type <code>Stringer</code>, which has the method <code>String</code>. If so, the body of that statement calls the method to obtain a string to return. Otherwise, the <code>switch</code> picks off a few basic types before giving up. This is basically a stripped down version of what the <a href="http://golang.org/pkg/fmt/" target="_blank">fmt package</a> does. (The <code>if</code> could be replaced by adding <code>case Stringer:</code> at the top of the <code>switch</code>, but I used a separate statement to draw attention to the check.)</p>
+<p>As a simple example, let&apos;s consider a 64-bit integer type with a <code>String</code> method that prints the value in binary and a trivial <code>Get</code> method:</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> Binary <span class="token builtin">uint64</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>i Binary<span class="token punctuation">)</span> <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> strconv<span class="token punctuation">.</span><span class="token function">Uitob64</span><span class="token punctuation">(</span>i<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>i Binary<span class="token punctuation">)</span> <span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">uint64</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">uint64</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>A value of type <code>Binary</code> can be passed to <code>ToString</code>, which will format it using the <code>String</code> method, even though the program never says that <code>Binary</code> intends to implement <code>Stringer</code>. There&apos;s no need: the runtime can see that <code>Binary</code> has a <code>String</code> method, so it implements <code>Stringer</code>, even if the author of <code>Binary</code> has never heard of <code>Stringer</code>.</p>
+<p>These examples show that even though all the implicit conversions are checked at compile time, explicit interface-to-interface conversions can inquire about method sets at run time. &#x201C;<a href="http://golang.org/doc/effective_go.html#interfaces" target="_blank">Effective Go</a>&#x201D; has more details about and examples of how interface values can be used.</p>
+<h3 id="interface-values"><a name="interface-values" class="anchor-navigation-ex-anchor" href="#interface-values"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. Interface Values</h3>
+<p>Languages with methods typically fall into one of two camps: prepare tables for all the method calls statically (as in C++ and Java), or do a method lookup at each call (as in Smalltalk and its many imitators, JavaScript and Python included) and add fancy caching to make that call efficient. Go sits halfway between the two: it has method tables but computes them at run time. I don&apos;t know whether Go is the first language to use this technique, but it&apos;s certainly not a common one. (I&apos;d be interested to hear about earlier examples; leave a comment below.)</p>
+<p>As a warmup, a value of type <code>Binary</code> is just a 64-bit integer made up of two 32-bit words (like in the <a href="http://research.swtch.com/2009/11/go-data-structures.html" target="_blank">last post</a>, we&apos;ll assume a 32-bit machine; this time memory grows down instead of to the right):</p>
+<p><img src="img/golang_interface&#x539F;&#x7406;_20220909092925.png" alt="">  </p>
+<p>Interface values are represented as a two-word pair giving a pointer to information about the type stored in the interface and a pointer to the associated data. Assigning <code>b</code> to an interface value of type <code>Stringer</code> sets both words of the interface value.</p>
+<p><img src="img/golang_interface&#x539F;&#x7406;_20220909092940.png" alt="">  </p>
+<p>(The pointers contained in the interface value are gray to emphasize that they are implicit, not directly exposed to Go programs.)</p>
+<p>The first word in the interface value points at what I call an interface table or itable (pronounced i-table; in the <a href="http://golang.org/src/pkg/runtime/iface.c#L23" target="_blank">runtime sources</a>, the C implementation name is <code>Itab</code>). The itable begins with some metadata about the types involved and then becomes a list of function pointers. Note that the itable corresponds to the <em>interface type</em>, not the dynamic type. In terms of our example, the itable for <code>Stringer</code> holding type <code>Binary</code> lists the methods used to satisfy <code>Stringer</code>, which is just <code>String</code>: <code>Binary</code>&apos;s other methods (<code>Get</code>) make no appearance in the itable.</p>
+<p>The second word in the interface value points at the actual data, in this case a copy of <code>b</code>. The assignment <code>var s Stringer = b</code> makes a copy of <code>b</code> rather than point at <code>b</code> for the same reason that <code>var c uint64 = b</code> makes a copy: if <code>b</code> later changes, <code>s</code> and <code>c</code> are supposed to have the original value, not the new one. Values stored in interfaces might be arbitrarily large, but only one word is dedicated to holding the value in the interface structure, so the assignment allocates a chunk of memory on the heap and records the pointer in the one-word slot. (There&apos;s an obvious optimization when the value does fit in the slot; we&apos;ll get to that later.)</p>
+<p>To check whether an interface value holds a particular type, as in the <a href="https://research.swtch.com/interfaces" target="_blank">type switch</a> above, the Go compiler generates code equivalent to the C expression <code>s.tab-&gt;type</code> to obtain the type pointer and check it against the desired type. If the types match, the value can be copied by by dereferencing <code>s.data</code>.</p>
+<p>To call <code>s.String()</code>, the Go compiler generates code that does the equivalent of the C expression <code>s.tab-&gt;fun[0](s.data)</code>: it calls the appropriate function pointer from the itable, passing the interface value&apos;s data word as the function&apos;s first (in this example, only) argument. You can see this code if you run <code>8g -S x.go</code> (details at the bottom of this post). Note that the function in the itable is being passed the 32-bit pointer from the second word of the interface value, not the 64-bit value it points at. In general, the interface call site doesn&apos;t know the meaning of this word nor how much data it points at. Instead, the interface code arranges that the function pointers in the itable expect the 32-bit representation stored in the interface values. Thus the function pointer in this example is <code>(*Binary).String</code> not <code>Binary.String</code>.</p>
+<p>The example we&apos;re considering is an interface with just one method. An interface with more methods would have more entries in the <em>fun</em> list at the bottom of the itable.</p>
+<h3 id="computing-the-itable"><a name="computing-the-itable" class="anchor-navigation-ex-anchor" href="#computing-the-itable"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.3. Computing the Itable</h3>
+<p>Now we know what the itables look like, but where do they come from? Go&apos;s dynamic type conversions mean that it isn&apos;t reasonable for the compiler or linker to precompute all possible itables: there are too many (interface type, concrete type) pairs, and most won&apos;t be needed. Instead, the compiler generates a type description structure for each concrete type like <code>Binary</code> or <code>int</code> or <code>func(map[int]string)</code>. Among other metadata, the type description structure contains a list of the methods implemented by that type. Similarly, the compiler generates a (different) type description structure for each interface type like <code>Stringer</code>; it too contains a method list. <strong>The interface runtime computes the itable by looking for each method listed in the interface type&apos;s method table in the concrete type&apos;s method table</strong>. The runtime caches the itable after generating it, so that this correspondence need only be computed once.</p>
+<p>In our simple example, the method table for <code>Stringer</code> has one method, while the table for <code>Binary</code> has two methods. In general there might be <em>ni</em> methods for the interface type and <em>nt</em> methods for the concrete type. The obvious search to find the mapping from interface methods to concrete methods would take <em>O</em>(<em>ni</em> &#xD7; <em>nt</em>) time, but we can do better. By sorting the two method tables and walking them simultaneously, we can <a href="http://code.google.com/p/go/source/browse/src/pkg/runtime/iface.c#98" target="_blank">build the mapping</a> in <em>O</em>(<em>ni</em> + <em>nt</em>) time instead.</p>
+<h3 id="memory-optimizations"><a name="memory-optimizations" class="anchor-navigation-ex-anchor" href="#memory-optimizations"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.4. Memory Optimizations</h3>
+<p>The space used by the implementation described above can be optimized in two complementary ways.</p>
+<p>First, if the interface type involved is empty&#x2014;it has no methods&#x2014;then the itable serves no purpose except to hold the pointer to the original type. In this case, the itable can be dropped and the value can point at the type directly:</p>
+<p><img src="img/golang_interface&#x539F;&#x7406;_20220909093005.png" alt="">  </p>
+<p>Whether an interface type has methods is a static property&#x2014;either the type in the source code says <code>interface{}</code> or it says <code>interace{ methods... }</code>&#x2014;so the compiler knows which representation is in use at each point in the program.</p>
+<p>Second, if the value associated with the interface value can fit in a single machine word, there&apos;s no need to introduce the indirection or the heap allocation. If we define <code>Binary32</code> to be like <code>Binary</code> but implemented as a <code>uint32</code>, it could be stored in an interface value by keeping the actual value in the second word:</p>
+<p><img src="img/golang_interface&#x539F;&#x7406;_20220909093020.png" alt="">  </p>
+<p>Whether the actual value is being pointed at or inlined depends on the size of the type. The compiler arranges for the functions listed in the type&apos;s method table (which get copied into the itables) to do the right thing with the word that gets passed in. If the receiver type fits in a word, it is used directly; if not, it is dereferenced. The diagrams show this: in the <code>Binary</code> version far above, the method in the itable is <code>(*Binary).String</code>, while in the <code>Binary32</code> example, the method in the itable is <code>Binary32.String</code> not <code>(*Binary32).String</code>.</p>
+<p>Of course, empty interfaces holding word-sized (or smaller) values can take advantage of both optimizations:</p>
+<p><img src="img/golang_interface&#x539F;&#x7406;_20220909093036.png" alt="">  </p>
+<h3 id="method-lookup-performance"><a name="method-lookup-performance" class="anchor-navigation-ex-anchor" href="#method-lookup-performance"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.5. Method Lookup Performance</h3>
+<p>Smalltalk and the many dynamic systems that have followed it perform a method lookup every time a method gets called. For speed, many implementations use a simple one-entry cache at each call site, often in the instruction stream itself. In a multithreaded program, these caches must be managed carefully, since multiple threads could be at the same call site simultaneously. Even once the races have been avoided, the caches would end up being a source of memory contention.</p>
+<p>Because Go has the hint of static typing to go along with the dynamic method lookups, it can move the lookups back from the call sites to the point when the value is stored in the interface. For example, consider this code snippet:</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> any <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span>  <span class="token comment">// initialized elsewhere</span>
+s <span class="token operator">:=</span> any<span class="token punctuation">.</span><span class="token punctuation">(</span>Stringer<span class="token punctuation">)</span>  <span class="token comment">// dynamic conversion</span>
+<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In Go, the itable gets computed (or found in a cache) during the assignment on line 2; the dispatch for the <code>s.String()</code> call executed on line 4 is a couple of memory fetches and a single indirect call instruction.</p>
+<p>In contrast, the implementation of this program in a dynamic language like Smalltalk (or JavaScript, or Python, or ...) would do the method lookup at line 4, which in a loop repeats needless work. The cache mentioned earlier makes this less expensive than it might be, but it&apos;s still more expensive than a single indirect call instruction.</p>
+<p>Of course, this being a blog post, I don&apos;t have any numbers to back up this discussion, but it certainly seems like the lack of memory contention would be a big win in a heavily parallel program, as is being able to move the method lookup out of tight loops. Also, I&apos;m talking about the general architecture, not the specifics o the implementation: the latter probably has a few constant factor optimizations still available.</p>
+<h3 id="more-information"><a name="more-information" class="anchor-navigation-ex-anchor" href="#more-information"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.6. More Information</h3>
+<p>The interface runtime support is in <code>[$GOROOT/src/pkg/runtime/iface.c](http://code.google.com/p/go/source/browse/src/pkg/runtime/iface.c)</code>. There&apos;s much more to say about interfaces (we haven&apos;t even seen an example of a pointer receiver yet) and the type descriptors (they power reflection in addition to the interface runtime) but those will have to wait for future posts.</p>
+<h3 id="code"><a name="code" class="anchor-navigation-ex-anchor" href="#code"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.7. Code</h3>
+<p>Supporting code (<code>x.go</code>):</p>
+<pre class="language-"><code>package main
+
+import (
+    &quot;fmt&quot;
+    &quot;strconv&quot;
+)
+
+type Stringer interface {
+    String() string
+}
+
+type Binary uint64
+
+func (i Binary) String() string {
+    return strconv.Uitob64(i.Get(), 2)
+}
+
+func (i Binary) Get() uint64 {
+    return uint64(i)
+}
+
+func main() {
+    b := Binary(200)
+    s := Stringer(b)
+    fmt.Println(s.String())
+}
+</code></pre><p>Selected output of <code>8g -S x.go</code>:</p>
+<pre class="language-"><code class="lang-go"><span class="token number">0045</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> LEAL    s<span class="token operator">+</span><span class="token operator">-</span><span class="token function">24</span><span class="token punctuation">(</span>SP<span class="token punctuation">)</span><span class="token punctuation">,</span>BX
+<span class="token number">0046</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> MOVL    <span class="token function">4</span><span class="token punctuation">(</span>BX<span class="token punctuation">)</span><span class="token punctuation">,</span>BP
+<span class="token number">0047</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> MOVL    BP<span class="token punctuation">,</span><span class="token punctuation">(</span>SP<span class="token punctuation">)</span>
+<span class="token number">0048</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> MOVL    <span class="token punctuation">(</span>BX<span class="token punctuation">)</span><span class="token punctuation">,</span>BX
+<span class="token number">0049</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> MOVL    <span class="token function">20</span><span class="token punctuation">(</span>BX<span class="token punctuation">)</span><span class="token punctuation">,</span>BX
+<span class="token number">0050</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> CALL    <span class="token punctuation">,</span>BX
+</code></pre>
+<p>The <code>LEAL</code> loads the address of <code>s</code> into the register <code>BX</code>. (The notation <code>_n_(SP)</code> describes the word in memory at <code>SP+_n_</code>. <code>0(SP)</code> can be shortened to <code>(SP)</code>.) The next two <code>MOVL</code> instructions fetch the value from the second word in the interface and store it as the first function call argument, <code>0(SP)</code>. The final two <code>MOVL</code> instructions fetch the itable and then the function pointer from the itable, in preparation for calling that function.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="golang_原理.html" class="navigation navigation-prev " aria-label="Previous page: 原理相关">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="golang_内存分配.html" class="navigation navigation-next " aria-label="Next page: 内存分配(网摘)">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"interface原理(网摘)","level":"1.2.2.1","depth":3,"next":{"title":"内存分配(网摘)","level":"1.2.2.2","depth":3,"path":"notes/golang_内存分配.md","ref":"notes/golang_内存分配.md","articles":[]},"previous":{"title":"原理相关","level":"1.2.2","depth":2,"path":"notes/golang_原理.md","ref":"notes/golang_原理.md","articles":[{"title":"interface原理(网摘)","level":"1.2.2.1","depth":3,"path":"notes/golang_interface原理.md","ref":"notes/golang_interface原理.md","articles":[]},{"title":"内存分配(网摘)","level":"1.2.2.2","depth":3,"path":"notes/golang_内存分配.md","ref":"notes/golang_内存分配.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_interface原理.md","mtime":"2022-09-09T16:45:14.030Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-09T16:46:12.288Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
