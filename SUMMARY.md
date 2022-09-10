@@ -35,7 +35,9 @@
     * [微服务概念](notes/golang_微服务概念.md)
   * [解释器和消息中间件](notes/as_title.md)
     * [yeagi](notes/golang_yeagi.md)
+    * [tengo](notes/golang_tengo.md)
     * [govaluate](notes/golang_govaluate.md)
+    * [gotiny编解码](notes/golang_encoding_gotiny.md)
 
 * [Rust](notes/as_title.md)
   * [入门系列](notes/rust_入门_brief.md)
