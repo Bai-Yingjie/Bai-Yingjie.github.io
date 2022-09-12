@@ -41,6 +41,9 @@
     * [消息中间件mango](notes/golang_mango.md)
     * [消息中间件基本概念和zero mq](notes/golang_zmq.md)
     * [解释器abs](notes/golang_abs.md)
+  * [调试和性能](notes/as_title.md)
+    * [调试记录](notes/golang_调试记录.md)
+    * [topid性能优化](notes/golang_topid性能优化.md)
 
 * [Rust](notes/as_title.md)
   * [入门系列](notes/rust_入门_brief.md)
