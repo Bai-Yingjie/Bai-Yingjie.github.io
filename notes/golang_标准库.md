@@ -20,6 +20,14 @@
   - [Pool](#pool)
   - [重点WaitGroup](#重点waitgroup)
 - [net](#net)
+  - [ip tcp和udp](#ip-tcp和udp)
+    - [IP datagrams](#ip-datagrams)
+    - [UDP](#udp)
+    - [TCP](#tcp)
+  - [代码](#代码)
+    - [TCP](#tcp-1)
+    - [UDP](#udp-1)
+  - [raw socket](#raw-socket)
   - [名字解析](#名字解析)
   - [api](#api)
 - [path](#path)
@@ -675,6 +683,79 @@ for {
     }
     go handleConnection(conn)
 }
+```
+## ip tcp和udp
+总的来说, ip是面向报文的, udp也是面向报文的, 只是比ip多加了port.  
+tcp是面向流的.  
+udp有广播.
+都有api可以set os的发送接收buffer
+
+### IP datagrams
+
+The IP layer provides a connectionless and unreliable delivery system. It considers each datagram independently of the others. Any association between datagrams must be supplied by the higher layers.
+
+The IP layer supplies a checksum that includes its own header. The header includes the source and destination addresses.
+
+The IP layer handles routing through an Internet. It is also responsible for breaking up large datagrams into smaller ones for transmission and reassembling them at the other end.
+
+### UDP
+
+UDP is also connectionless and unreliable. What it adds to IP is a checksum for the contents of the datagram and port numbers. These are used to give a client/server model - see later.
+
+### TCP
+
+TCP supplies logic to give a reliable connection-oriented protocol above IP. It provides a virtual circuit that two processes can use to communicate. It also uses port numbers to identify services on a host.
+
+## 代码
+### TCP
+```go
+func DialTCP(net string, laddr, raddr *TCPAddr) (c *TCPConn, err os.Error)
+func (c *TCPConn) Write(b []byte) (n int, err os.Error)
+func (c *TCPConn) Read(b []byte) (n int, err os.Error)
+
+func ListenTCP(net string, laddr *TCPAddr) (l *TCPListener, err os.Error)
+func (l *TCPListener) Accept() (c Conn, err os.Error)
+
+func (c *TCPConn) SetTimeout(nsec int64) os.Error
+func (c *TCPConn) SetKeepAlive(keepalive bool) os.Error
+```
+
+### UDP
+```go
+func ResolveUDPAddr(net, addr string) (*UDPAddr, os.Error)
+func DialUDP(net string, laddr, raddr *UDPAddr) (c *UDPConn, err os.Error)
+//对client来说, 还是read write:
+func (c *UDPConn) Read(b []byte) (int, error)
+func (c *UDPConn) Write(b []byte) (int, error)
+
+//对server来说, 有点不一样: 因为UDP的server没有"连接"的概念, 只能从每个报文里看到对端的地址.
+func ListenUDP(net string, laddr *UDPAddr) (c *UDPConn, err os.Error)
+func (c *UDPConn) ReadFromUDP(b []byte) (n int, addr *UDPAddr, err os.Error
+func (c *UDPConn) WriteToUDP(b []byte, addr *UDPAddr) (n int, err os.Error)
+```
+比如server端的读写是:
+```go
+func handleClient(conn *net.UDPConn) {
+    var buf [512]byte
+
+    _, addr, err := conn.ReadFromUDP(buf[0:])
+    if err != nil {
+        return
+    }
+
+    daytime := time.Now().String()
+    conn.WriteToUDP([]byte(daytime), addr)
+}
+```
+
+## raw socket
+IPConn就是raw socket
+比如要写个ping
+```go
+addr, err := net.ResolveIPAddr("ip", os.Args[1])
+conn, err := net.DialIP("ip4:icmp", addr, addr)
+_, err = conn.Write(msg[0:len])
+_, err = conn.Read(msg[0:])
 ```
 
 ## 名字解析
