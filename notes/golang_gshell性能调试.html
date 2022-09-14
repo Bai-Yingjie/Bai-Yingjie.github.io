@@ -1,0 +1,1405 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>gshell性能调试 · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-coldark-cold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="as_title.html" />
+    
+    
+    <link rel="prev" href="golang_topid性能优化.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    特殊功能fd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title.html">
+            
+                <a href="as_title.html">
+            
+                    
+                    工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >gshell性能调试</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#asbench&#x8C03;&#x8BD5;"><b>1. </b>asbench&#x8C03;&#x8BD5;</a></li><ul><li><span class="title-icon "></span><a href="#&#x80CC;&#x666F;"><b>1.1. </b>&#x80CC;&#x666F;</a></li><li><span class="title-icon "></span><a href="#&#x5728;x86&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6027;&#x80FD;&#x4E0D;&#x7A33;&#x5B9A;"><b>1.2. </b>&#x5728;x86&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6027;&#x80FD;&#x4E0D;&#x7A33;&#x5B9A;</a></li><li><span class="title-icon "></span><a href="#&#x8BD5;&#x9A8C;"><b>1.3. </b>&#x8BD5;&#x9A8C;</a></li><li><span class="title-icon "></span><a href="#&#x76EE;&#x524D;&#x7684;&#x7ED3;&#x8BBA;"><b>1.4. </b>&#x76EE;&#x524D;&#x7684;&#x7ED3;&#x8BBA;:</a></li></ul><li><span class="title-icon "></span><a href="#topid&#x6027;&#x80FD;&#x8C03;&#x8BD5;"><b>2. </b>topid&#x6027;&#x80FD;&#x8C03;&#x8BD5;</a></li><ul><li><span class="title-icon "></span><a href="#baseline"><b>2.1. </b>baseline</a></li><ul><li><span class="title-icon "></span><a href="#cpu-chart"><b>2.1.1. </b>CPU chart</a></li><li><span class="title-icon "></span><a href="#&#x706B;&#x7130;&#x56FE;"><b>2.1.2. </b>&#x706B;&#x7130;&#x56FE;</a></li></ul><li><span class="title-icon "></span><a href="#float&#x6539;int&#x6709;&#x6548;&#x679C;&#x5417;"><b>2.2. </b>float&#x6539;int&#x6709;&#x6548;&#x679C;&#x5417;?</a></li></ul></ul></div><a href="#asbench&#x8C03;&#x8BD5;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#asbench&#x8C03;&#x8BD5;">asbench&#x8C03;&#x8BD5;</a><ul>
+<li><a href="#&#x80CC;&#x666F;">&#x80CC;&#x666F;</a></li>
+<li><a href="#&#x5728;x86&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6027;&#x80FD;&#x4E0D;&#x7A33;&#x5B9A;">&#x5728;x86&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6027;&#x80FD;&#x4E0D;&#x7A33;&#x5B9A;</a></li>
+<li><a href="#&#x8BD5;&#x9A8C;">&#x8BD5;&#x9A8C;</a></li>
+<li><a href="#&#x76EE;&#x524D;&#x7684;&#x7ED3;&#x8BBA;">&#x76EE;&#x524D;&#x7684;&#x7ED3;&#x8BBA;:</a></li>
+</ul>
+</li>
+<li><a href="#topid&#x6027;&#x80FD;&#x8C03;&#x8BD5;">topid&#x6027;&#x80FD;&#x8C03;&#x8BD5;</a><ul>
+<li><a href="#baseline">baseline</a><ul>
+<li><a href="#cpu-chart">CPU chart</a></li>
+<li><a href="#&#x706B;&#x7130;&#x56FE;">&#x706B;&#x7130;&#x56FE;</a></li>
+</ul>
+</li>
+<li><a href="#float&#x6539;int&#x6709;&#x6548;&#x679C;&#x5417;">float&#x6539;int&#x6709;&#x6548;&#x679C;&#x5417;?</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="asbench&#x8C03;&#x8BD5;"><a name="asbench&#x8C03;&#x8BD5;" class="anchor-navigation-ex-anchor" href="#asbench&#x8C03;&#x8BD5;"><i class="fa fa-link" aria-hidden="true"></i></a>1. asbench&#x8C03;&#x8BD5;</h1>
+<h2 id="&#x80CC;&#x666F;"><a name="&#x80CC;&#x666F;" class="anchor-navigation-ex-anchor" href="#&#x80CC;&#x666F;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x80CC;&#x666F;</h2>
+<p>&#x6D4B;&#x8BD5;adaptiveservice&#x6027;&#x80FD;<br><img src="img/golang_gshell&#x6027;&#x80FD;&#x8C03;&#x8BD5;_20220913092330.png" alt="">  </p>
+<h2 id="&#x5728;x86&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6027;&#x80FD;&#x4E0D;&#x7A33;&#x5B9A;"><a name="&#x5728;x86&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6027;&#x80FD;&#x4E0D;&#x7A33;&#x5B9A;" class="anchor-navigation-ex-anchor" href="#&#x5728;x86&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6027;&#x80FD;&#x4E0D;&#x7A33;&#x5B9A;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x5728;x86&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6027;&#x80FD;&#x4E0D;&#x7A33;&#x5B9A;</h2>
+<p>&#x6D4B;&#x8BD5;&#x547D;&#x4EE4;:
+&#x542F;&#x52A8;daemon, &#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x9650;&#x5B9A;&#x4E86;<code>GOMAXPROCS=8</code>, &#x5C31;&#x662F;&#x8BF4;&#x9ED8;&#x8BA4;grg&#x7684;&#x6700;&#x5927;proc&#x6570;&#x4E3A;8
+<code>GSHELL_NOUPDATE=1 GOMAXPROCS=8 bin/gshell -loglevel info daemon -registry 10.182.105.179:11985 -bcast 9923</code>
+&#x542F;&#x52A8;asbenchserver:
+<code>gsh run -group asbench benchmark/asbench/server/asbenchserver.go</code>
+&#x542F;&#x52A8;client, &#x6D4B;&#x8BD5;&#x6027;&#x80FD;
+<code>gsh run -group asbench -i -rm benchmark/asbench/client/asbenchclient.go -t 10 -scope os -s32 -n 1</code>
+&#x53D1;&#x73B0;&#x6709;&#x65F6;&#x5019;TPS&#x6570;&#x636E;&#x5DEE;&#x5F02;&#x5F88;&#x5927;:</p>
+<pre class="language-"><code>Transaction Per Second(TPS):     15088.94
+Transaction Per Second(TPS):     13968.29
+Transaction Per Second(TPS):     16901.58
+</code></pre><p>&#x4F46;&#x6709;&#x65F6;&#x5019;&#x53C8;&#x5F88;&#x7A33;&#x5B9A;:</p>
+<pre class="language-"><code>Transaction Per Second(TPS):     24853.32
+Transaction Per Second(TPS):     25749.64
+Transaction Per Second(TPS):     24608.96
+</code></pre><h2 id="&#x8BD5;&#x9A8C;"><a name="&#x8BD5;&#x9A8C;" class="anchor-navigation-ex-anchor" href="#&#x8BD5;&#x9A8C;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. &#x8BD5;&#x9A8C;</h2>
+<p>&#x7ECF;&#x8FC7;&#x7B80;&#x5355;&#x7684;&#x8C03;&#x6574;golang&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x53C2;&#x6570;, &#x6BD4;&#x5982;:
+<code>GODEBUG=madvdontneed=0,schedtrace=1000,scheddetail=1,asyncpreemptoff=1 GOGC=off taskset -c 11 ./asbench -packet -t 10 -mode c</code>
+<code>GODEBUG=madvdontneed=0,schedtrace=1000,scheddetail=1,asyncpreemptoff=1 GOGC=off GOMAXPROCS=1 ./asbench -packet -t 10 -mode c</code>
+taskset&#x4F3C;&#x4E4E;&#x80FD;&#x8D77;&#x4E00;&#x5B9A;&#x7684;&#x4F5C;&#x7528;, &#x4F46;TPS&#x8FD8;&#x662F;&#x4E0D;&#x7A33;. </p>
+<h2 id="&#x76EE;&#x524D;&#x7684;&#x7ED3;&#x8BBA;"><a name="&#x76EE;&#x524D;&#x7684;&#x7ED3;&#x8BBA;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x524D;&#x7684;&#x7ED3;&#x8BBA;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. &#x76EE;&#x524D;&#x7684;&#x7ED3;&#x8BBA;:</h2>
+<p>&#x672C;&#x6D4B;&#x8BD5;&#x662F;&#x5728;&#x4E91;&#x670D;&#x52A1;&#x5668;(VM)&#x4E0A;&#x8FDB;&#x884C;&#x7684;, &#x4F3C;&#x4E4E;&#x662F;KVM&#x865A;&#x62DF;&#x673A;. &#x5728;VM&#x4E0A;&#x7528;top&#x770B;&#x5230;, &#x6027;&#x80FD;&#x7A33;&#x5B9A;&#x7684;&#x65F6;&#x5019;, &#x90FD;&#x662F;<code>0.0st</code>(&#x7EA2;&#x6846;&#x90E8;&#x5206;).<br><img src="img/golang_gshell&#x6027;&#x80FD;&#x8C03;&#x8BD5;_20220913092437.png" alt=""><br>&#x4F46;&#x6027;&#x80FD;&#x4E0D;&#x7A33;&#x5B9A;&#x7684;&#x65F6;&#x5019;, &#x662F;&#x96F6;&#x70B9;&#x51E0;&#x7684;st: <code>0.3st</code>, &#x867D;&#x7136;&#x53EA;&#x6709;&#x96F6;&#x70B9;&#x51E0;, &#x4F46;&#x53EF;&#x80FD;&#x662F;host&#x4E0A;&#x6709;&#x4EC0;&#x4E48;&#x8D1F;&#x8F7D;, &#x6216;&#x8005;&#x662F;&#x540C;&#x4E00;&#x53F0;&#x7269;&#x7406;&#x673A;&#x4E0A;&#x5176;&#x4ED6;&#x4EBA;&#x7684;VM&#x6709;&#x5927;load.<br>&#x56E0;&#x4E3A;KVM&#x7684;&#x6838;&#x4E5F;&#x662F;host&#x4E0A;qemu&#x7684;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;, &#x5728;VM&#x4E2D;&#x8DD1;load, &#x4F1A;&#x53D7;&#x5230;host&#x7684;&#x5F71;&#x54CD;, &#x4F46;&#x8FD9;&#x79CD;&#x5F71;&#x54CD;&#x4F3C;&#x4E4E;&#x5728;VM&#x4E0A;&#x5F88;&#x96BE;&#x5BDF;&#x89C9;.</p>
+<h1 id="topid&#x6027;&#x80FD;&#x8C03;&#x8BD5;"><a name="topid&#x6027;&#x80FD;&#x8C03;&#x8BD5;" class="anchor-navigation-ex-anchor" href="#topid&#x6027;&#x80FD;&#x8C03;&#x8BD5;"><i class="fa fa-link" aria-hidden="true"></i></a>2. topid&#x6027;&#x80FD;&#x8C03;&#x8BD5;</h1>
+<h2 id="baseline"><a name="baseline" class="anchor-navigation-ex-anchor" href="#baseline"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. baseline</h2>
+<p>gshell&#x7248;&#x672C;<code>v21.11.02.rc2</code>
+&#x542F;&#x52A8;&#x547D;&#x4EE4;:</p>
+<pre class="language-"><code>~/gshell # gsh run -rt 91 -i app-plat/topid/topid.go -chart -snapshot -sys -i 3 -tag eonuTest -info &quot;cat /tmp/boardname,typeA_panda_show,typeA_squirrel_show&quot;
+</code></pre><h3 id="cpu-chart"><a name="cpu-chart" class="anchor-navigation-ex-anchor" href="#cpu-chart"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.1. CPU chart</h3>
+<p>CPU chart(on ppc32, gccgo):<br><img src="img/golang_gshell&#x6027;&#x80FD;&#x8C03;&#x8BD5;_20220913092516.png" alt="">  </p>
+<p>CPU chart(on x86, gcgo):
+<img src="img/golang_gshell&#x6027;&#x80FD;&#x8C03;&#x8BD5;_20220913092530.png" alt="">  </p>
+<h3 id="&#x706B;&#x7130;&#x56FE;"><a name="&#x706B;&#x7130;&#x56FE;" class="anchor-navigation-ex-anchor" href="#&#x706B;&#x7130;&#x56FE;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.2. &#x706B;&#x7130;&#x56FE;</h3>
+<p><img src="img/golang_gshell&#x6027;&#x80FD;&#x8C03;&#x8BD5;_20220913092543.png" alt=""><br>&#x706B;&#x7130;&#x56FE;&#x4E0A;&#x770B;, &#x5360;&#x6BD4;&#x6BD4;&#x8F83;&#x5927;&#x7684;&#x6709;:</p>
+<ul>
+<li>yaegi&#x89E3;&#x91CA;&#x5668;</li>
+<li>&#x8FDB;&#x7A0B;update</li>
+<li>&#x8C03;&#x5EA6;</li>
+<li>GC</li>
+<li>&#x800C;gotidy&#x7F16;&#x89E3;&#x7801;&#x5360;&#x6BD4;&#x975E;&#x5E38;&#x5C0F;</li>
+</ul>
+<h2 id="float&#x6539;int&#x6709;&#x6548;&#x679C;&#x5417;"><a name="float&#x6539;int&#x6709;&#x6548;&#x679C;&#x5417;" class="anchor-navigation-ex-anchor" href="#float&#x6539;int&#x6709;&#x6548;&#x679C;&#x5417;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. float&#x6539;int&#x6709;&#x6548;&#x679C;&#x5417;?</h2>
+<p>topid client&#x5728;&#x5411;server&#x7AEF;&#x4F20;&#x8F93;&#x6570;&#x636E;&#x7684;&#x65F6;&#x5019;, CPU&#x5360;&#x7528;&#x7387;&#x7528;&#x7684;&#x662F;float&#x8868;&#x793A;.
+&#x6211;&#x4EEC;&#x76F4;&#x5230;, &#x5373;&#x4F7F;&#x662F;&#x7B80;&#x5355;&#x7684;float&#x503C;, &#x6BD4;&#x5982;<code>1.05</code>, &#x5176;&#x5B9E;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x8868;&#x8FBE;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x5927;&#x7684;&quot;&#x6570;&#x503C;&quot;, &#x90A3;&#x4E48;&#x80FD;&#x4E0D;&#x80FD;&#x4F20;&#x8F93;int, &#x6BD4;&#x5982;<code>105</code>, &#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x5927;&#x5927;&#x7B80;&#x5316;&#x63D0;&#x9AD8;gotiny&#x7684;&#x7F16;&#x7801;&#x6548;&#x7387;.</p>
+<p>&#x90A3;float&#x6539;&#x6210;&#x5BF9;&#x5E94;&#x7684;int, &#x5B9E;&#x9645;&#x6548;&#x679C;&#x5982;&#x4F55;&#x5462;?<br>-- &#x51E0;&#x4E4E;&#x6CA1;&#x6539;&#x5584;, &#x548C;perf&#x706B;&#x7130;&#x56FE;&#x4E00;&#x81F4;.<br>&#x4ECE;&#x706B;&#x7130;&#x56FE;&#x4E0A;&#x770B;, &#x5E94;&#x8BE5;&#x6548;&#x679C;&#x975E;&#x5E38;&#x5C0F;. &#x771F;&#x7684;&#x5417;?<br>&#x628A;float64&#x6539;&#x6210;uint64<br><img src="img/golang_gshell&#x6027;&#x80FD;&#x8C03;&#x8BD5;_20220913092602.png" alt="">  </p>
+<p>CPU&#x5B9E;&#x9645;&#x66F4;&#x64C5;&#x957F;&quot;&#x7EAF;&#x6570;&#x503C;&quot;&#x8BA1;&#x7B97;, &#x5728;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x903B;&#x8F91;&#x4E2D;, &#x9664;&#x4E86;&#x8BA1;&#x7B97;, &#x8FD8;&#x6709;IO&#x64CD;&#x4F5C;, &#x6BD4;&#x5982;topid&#x4E2D;, &#x66F4;&#x591A;&#x7684;&#x5DE5;&#x4F5C;&#x662F;proc&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x64CD;&#x4F5C;&#x548C;&#x7F51;&#x7EDC;IO, &#x6BD4;&#x4F8B;&#x8FDC;&#x8FDC;&#x5927;&#x4E8E;&quot;&#x7EAF;&#x6570;&#x503C;&quot;&#x8BA1;&#x7B97;. &#x6240;&#x4EE5;&#x7406;&#x8BBA;&#x4E0A;float&#x53D8;&#x6210;int&#x80FD;&#x591F;&#x63D0;&#x9AD8;&#x7F16;&#x7801;&#x6548;&#x7387;, &#x4F46;&#x56E0;&#x4E3A;&#x8FD9;&#x90E8;&#x5206;&#x8BA1;&#x7B97;&#x5360;&#x5E94;&#x7528;&#x7684;&#x6BD4;&#x4F8B;&#x592A;&#x4F4E;, &#x5B9E;&#x9645;&#x4E0A;&#x6027;&#x80FD;&#x6CA1;&#x6709;&#x4EC0;&#x4E48;&#x63D0;&#x9AD8;.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="golang_topid性能优化.html" class="navigation navigation-prev " aria-label="Previous page: topid性能优化">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="as_title.html" class="navigation navigation-next " aria-label="Next page: 网络和消息中间件">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"gshell性能调试","level":"1.2.12.3","depth":3,"next":{"title":"网络和消息中间件","level":"1.2.13","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"消息中间件基本概念和zero mq","level":"1.2.13.1","depth":3,"path":"notes/golang_zmq.md","ref":"notes/golang_zmq.md","articles":[]},{"title":"消息中间件mango","level":"1.2.13.2","depth":3,"path":"notes/golang_mango.md","ref":"notes/golang_mango.md","articles":[]},{"title":"p2p网络","level":"1.2.13.3","depth":3,"path":"notes/golang_libp2p.md","ref":"notes/golang_libp2p.md","articles":[]}]},"previous":{"title":"topid性能优化","level":"1.2.12.2","depth":3,"path":"notes/golang_topid性能优化.md","ref":"notes/golang_topid性能优化.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_gshell性能调试.md","mtime":"2022-09-14T15:08:09.527Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-14T15:08:59.862Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
