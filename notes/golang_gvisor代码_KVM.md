@@ -1,4 +1,10 @@
-- [介绍](#介绍)
+- [gvisor代码概览图:](#gvisor代码概览图)
+  - [host mode和guest mode切换小结](#host-mode和guest-mode切换小结)
+  - [go 汇编和arm64知识](#go-汇编和arm64知识)
+    - [ARM64页表和进程切换知识](#arm64页表和进程切换知识)
+    - [ARM64异常处理](#arm64异常处理)
+    - [ARM64寄存器](#arm64寄存器)
+- [gvisor介绍](#gvisor介绍)
   - [原理简介](#原理简介)
 - [编译和调试](#编译和调试)
 - [代码结构](#代码结构)
@@ -61,10 +67,115 @@
       - [vCPU.CPU.SwitchToUser函数](#vcpucpuswitchtouser函数)
       - [补充 go linkname用法](#补充-go-linkname用法)
 
-gvisor代码概览图:  
-![](img/gvisor_code_flow.png)
+# gvisor代码概览图:  
+![](img/gvisor_code_flow.png)  
 
-# 介绍
+## host mode和guest mode切换小结
+总的来说, 虽然用了kvm, 但gvisor巧妙地设计了从guest PA到host VA的映射, 从而让guest能读写host一样的地址空间, 而且gvisor会把所有的guest app也都映射到这个地址空间. 这样产生的现象是guest和host交替执行这个地址空间上的代码.
+* 切换点在`(*vCPU).SwitchToUser`这个函数, 在bluepill前在host模式执行, 然后 切换到guest模式继续执行接下来的代码(包括EL1特权代码), 其中的关键函数是kernelExitToEl0, 效果是让geust执行guest的EL0代码, 直到遇到SVC系统调用指令
+* guest的SVC指令导致guest模式退出, ucontext被设置为guest执行SVC前的状态, 但交给host来接力执行. 接着host来执行SVC指令, 在host模式下触发syscall, 让host kernel来执行syscall
+
+## go 汇编和arm64知识
+伪寄存器:
+* SB: Static base pointer 全局基地址. 比如foo(SB)就是foo这个symbol的地址
+* FP: 帧指针. 用来传参的
+* SP: 栈指针. 指向栈顶. 用于局部变量. 注意真寄存器叫RSP
+* PC: 程序指针
+
+函数格式: TEXT symbol(SB), [flags,] $framesize[-argsize]
+* symbol: 函数名
+* SB: SB伪寄存器
+* flags: 可以是
+    * NOSPLIT: 不让编译器插入栈分裂的代码
+    * WRAPPER: 不增加函数帧计数
+    * NEEDCTXT: 需要上下文参数, 一般用于闭包
+* $framesize: 局部变量大小, 包含要传给子函数的参数部分
+* -argsize: 参数+返回值的大小, 可以省略由编译器自己推导
+
+### ARM64页表和进程切换知识
+每个进程都有自己的translation table, 这个table是kernel分配的, 把其物理地址配置到ttbr0寄存器.
+上下文切换的时候, kernel会保存/恢复如下上下文:
+* general-purpose registers X0-X30.
+* Advanced SIMD and Floating-point registers V0 - V31.
+* Some status registers.
+* TTBR0_EL1 and TTBR0.
+* Thread Process ID (TPIDxxx) Registers.
+* Address Space ID (ASID).
+
+EL0和EL1有两个translation table, TTBR0_EL1负责bottom空间(用户空间), TTBR1_EL1负责top空间(kernel空间).
+大家都用TTBR1_EL1做kernel空间, 所以进程切换的时候, TTBR1_EL1不用变, 所以kernel的映射不用变.
+
+ASID配置在TTBR0_EL1里
+ASID(Address Space ID)寄存器用来标记页表entry所属的task, 由kernel分配.  
+当TLB更新的时候, TLB entry除了保存地址翻译信息, 还会包括这个ASID.  
+TLB查询的时候, 只有当前的ASID和TLB entry保存的ASID匹配的时候, 才算TLB命中. 所以上下文切换的时候不需要flush TLB.  
+把ASID值放在TTBR0_EL1里的好处是, 一个指令就可以原子的更改ASID和页表.
+
+* AARCH64支持虚拟内存的tag, 虚拟内存的最高8位是tag, 在地址翻译的时候会被忽略.
+* PC, LR, SP, ELR里面都是VA
+* AArch64有48位VA, 空间有256TB, 有两个range空间  
+    `0xFFFF_0000_0000_0000` 到 `0xFFFF_FFFF_FFFF_FFFF` 基址寄存器是TTBR1, 内核态  
+    或  
+    `0x0000_0000_0000_0000` 到 `0x0000_FFFF_FFFF_FFFF` 基址寄存器是TTBR0, 用户态
+* IPA也是48位
+* PA也是48位, 并且secure和non-secure的物理地址空间是独立的
+* TTBR是地址转换表的基址寄存器, 这个表由硬件自动查, 并被缓存到TLB中;  
+    TTBR里面保存的是物理地址, 是给硬件MMU waker看的.  
+    这个表最多有四级, 地址最多48位, 最大64KB一个映射
+
+### ARM64异常处理 
+异常发生的时候, CPU会自动的实施如下动作:
+* 将PSTATE保存到SPSR_ELn
+* 比如异常发生在EL0, 一般会在EL1处理. 那PSTATE会保存在SPSR_EL1
+* 更新PSTATE以反映新的CPU状态, 比如已经进入EL1
+* 硬件会将返回地址保存在ELR_Eln.
+* 还是比如异常发生在EL0, 但在EL1处理, 那返回地址保存在ELR_EL1
+
+eret指令用来从异常处理返回:
+* 从SPSR_ELn恢复异常前的PSTATE
+* 从ELR_ELn恢复PC
+* 异常返回, 从恢复的PC和PSTATE继续执行
+
+在发生异常时, 硬件会自动更新ELR, 根据情况, 返回地址有几种可能:
+* 比如SVC指令触发的同步异常, ELR里保存的是其下一条指令
+* 比如异步异常(即外部中断), ELR里保存的是下一个没被执行(或完全执行)的指令
+* ELR可以在异常处理程序里面被更改.
+
+每个exception level都有独立的异常向量表  
+    VBAR_EL3, VBAR_EL2 and VBAR_EL1  
+向量表的虚拟地址配在VBAR寄存器里  
+
+arm64的sp寄存器每个EL都有, 但不一定都用:  
+* SPSel选择寄存器的0位, 来决定用哪个SP
+* 默认每个EL使用自己的level对应的SP
+
+### ARM64寄存器
+In AArch64 state, the following registers are available:
+
+* Thirty-one 64-bit general-purpose registers X0-X30, the bottom halves of which are accessible as W0-W30.
+* Four stack pointer registers SP_EL0, SP_EL1, SP_EL2, SP_EL3.
+* Three exception link registers ELR_EL1, ELR_EL2, ELR_EL3.
+* Three saved program status registers SPSR_EL1, SPSR_EL2, SPSR_EL3.
+* One program counter.
+
+For the purposes of function calls, the general-purpose registers are divided into four groups:
+
+* r30(LR): The Link Register
+* r29(FP): The Frame Pointer
+* r19...r28: Callee-saved registers
+* r18: The Platform Register, if needed; otherwise a temporary register.
+* r17(IP1): The second intra-procedure-call temporary register
+* r16(IP0): The first intra-procedure-call scratch register
+* r9...r15: Temporary registers
+* r8: Indirect result location register
+* r0...r7: Parameter/result registers
+
+XZR是zero寄存器  
+PC寄存器BL或ADL指令可以修改  
+SP向下增长, 必须16字节对齐  
+PSR寄存器: Process State, 反映一些比较操作的状态  
+
+# gvisor介绍
 gvisor是一个用户态操做系统, 自带一个runsc, 可以和conainterd等编排工具集成.
 gvisor主打安全特性.
 

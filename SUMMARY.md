@@ -75,6 +75,14 @@
   * [其他](notes/others.md)
     * [使用mdbook](notes/rust_mdbook_使用.md)
 
+* [脚本](notes/as_title.md)
+  * [shell变量](notes/shell_变量.md)
+  * [shell命令和脚本记录-基础篇](notes/shell_基础篇.md)
+  * [shell命令和脚本记录-高级篇](notes/shell_高级篇.md)
+  * [python记录](notes/python_记录.md)
+  * [lua记录](notes/lua_记录.md)
+  * [RDS脚本阅读](notes/shell_rds脚本阅读.md)
+
 * [System](notes/as_title.md)
   * [原理杂记](notes/system_原理杂记.md)
   * [Alpine Linux](notes/system_alpine.md)
