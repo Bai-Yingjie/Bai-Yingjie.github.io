@@ -1,3 +1,8 @@
+- [框架](#框架)
+  - [goframe gf](#goframe-gf)
+    - [hello](#hello)
+    - [Hello World](#hello-world)
+    - [API Service Demo](#api-service-demo)
 - [编解码](#编解码)
   - [性能汇总](#性能汇总)
   - [排名](#排名)
@@ -28,6 +33,60 @@
   - [方案2 -- promptui + cobra](#方案2----promptui--cobra)
   - [方案3 -- readline + cobra](#方案3----readline--cobra)
   - [方案4 -- 自己写REPL循环 + cobra](#方案4----自己写repl循环--cobra)
+
+# 框架
+## goframe gf
+作者是国人 郭强, 应该是某互联网大厂的架构师
+https://goframe.org/display/gf
+
+库链接:
+https://github.com/gogf/gf/issues
+
+gf是个go的web应用开发框架, 提供了大一统的企业应用开发的基础库:  
+![](img/golang_lib选型_20220915093952.png)  
+
+封装了常见的基础库:  
+![](img/golang_lib选型_20220915094010.png)  
+
+### hello
+创建一个hello工程
+```
+gf init hello
+```
+
+默认就开始编译运行了, 起来之后默认就提供swagger UI的和open api等url.
+
+
+### Hello World
+
+视频地址：[https://www.bilibili.com/video/BV15R4y1G7hq/](https://www.bilibili.com/video/BV15R4y1G7hq/)
+
+包含以下内容：
+
+1.  安装`GoFrame CLI`
+2.  使用`CLI`创建一个`Go`项目
+3.  工程目录介绍
+
+### API Service Demo
+
+视频地址：[https://www.bilibili.com/video/BV1b44y1M7oL/](https://www.bilibili.com/video/BV1b44y1M7oL/)
+
+代码地址：[https://github.com/gogf/gf-demo-user](https://github.com/gogf/gf-demo-user)
+
+我们以一个简单的`API Service`为例来介绍如何使用`GoFrame`框架以及相应的`CLI`工具来开发一个接口项目。
+
+包含以下内容：
+
+1.  包名设计
+2.  接口设计
+3.  接口文档
+4.  配置管理
+5.  控制器实现
+6.  业务逻辑封装
+7.  路由注册
+8.  中间件使用
+9.  Context及上下文变量
+
 
 # 编解码
 ## 性能汇总
