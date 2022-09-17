@@ -1,6 +1,5 @@
 - [simsim_charts脚本](#simsim_charts脚本)
   - [process_data.sh](#process_datash)
-  - [create_charts.sh](#create_chartssh)
   - [R语言](#r语言)
   - [rds lua脚本](#rds-lua脚本)
   - [rds bash脚本](#rds-bash脚本)
@@ -111,8 +110,6 @@ thunder_xfs,B5,4,lat,39.76
 thunder_xfs,B5,8,tps,1160.96
 thunder_xfs,B5,8,lat,50.93
 ```
-
-## create_charts.sh
 
 ## R语言
 
@@ -308,7 +305,7 @@ mysqld --defaults-file=$mysql_basedir/my.cnf \
 
 **这里面有两个知识点, $!是最新加入后台的进程id; pids是个数组, 展开后如:pids[1]=1022**
 
-* 如何打印大块文字? --用cat <<EOF
+* 如何打印大块文字? --用`cat <<EOF`  
 ```shell
 cat <<EOF
 *****************************************************************************
