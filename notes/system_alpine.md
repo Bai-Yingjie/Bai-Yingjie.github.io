@@ -2,10 +2,14 @@
 - [使用subgroup来组织repo](#使用subgroup来组织repo)
 - [组织清爽, 源代码干净](#组织清爽-源代码干净)
 - [aports](#aports)
-  - [bootstrap.sh](#bootstrapsh)
+  - [交叉编译](#交叉编译)
+- [openrc](#openrc)
+- [musl libc](#musl-libc)
 
 # 现代化的工程系统
-alpine linux的全部开发都在 https://gitlab.alpinelinux.org/alpine
+alpine linux的全部开发都在  
+https://gitlab.alpinelinux.org/alpine  
+mirror: https://git.alpinelinux.org/
 * 自己搭建的gitlab服务器, 允许外部用户注册, fork库, 并提交MR
 * 使用gitlab-ci的CI/CD做build test
 * 用gitlab issue来跟踪bug
@@ -84,5 +88,14 @@ https://dl-cdn.alpinelinux.org/alpine/v3.15/community
 ![](img/system_alpine_20220902115455.png)  
 点进去看这些apk的修改时间是不一样的, 说明apk是按需编译的.
 
-## bootstrap.sh
-似乎可以用它来生成交叉编译的工具链
+## 交叉编译
+似乎可以用bootstrap.sh来生成交叉编译的工具链  
+参考: [musl-cross-make](https://github.com/richfelker/musl-cross-make.git)
+
+# openrc
+alpine使用openrc  
+https://wiki.alpinelinux.org/wiki/OpenRC
+
+# musl libc
+alpine使用musl libc, 我看好musl的轻量简洁.  
+[几种libc的比较](http://www.etalabs.net/compare_libcs.html)
