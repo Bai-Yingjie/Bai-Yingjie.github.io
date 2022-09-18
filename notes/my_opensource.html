@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>go on mips boards(not so updated) · My Notes</title>
+        <title>我的开源项目 · My Notes</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -81,10 +81,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="golang_go_on_mips_part1.html" />
+    <link rel="next" href="my_upstream.html" />
     
     
-    <link rel="prev" href="golang_toolchain_compile_gccgo.html" />
+    <link rel="prev" href="as_title.html" />
     
 
     </head>
@@ -314,7 +314,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="my_opensource.html">
+        <li class="chapter active" data-level="1.3.1" data-path="my_opensource.html">
             
                 <a href="my_opensource.html">
             
@@ -664,7 +664,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.9.3" data-path="golang_go_on_mips.html">
+        <li class="chapter " data-level="1.4.9.3" data-path="golang_go_on_mips.html">
             
                 <a href="golang_go_on_mips.html">
             
@@ -1549,7 +1549,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >go on mips boards(not so updated)</a>
+        <a href=".." >我的开源项目</a>
     </h1>
 </div>
 
@@ -1564,7 +1564,156 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>&#x8BB0;&#x5F55;&#x65E9;&#x671F;&#x6211;&#x5728;mips&#x4E0A;&#x8DD1;go&#x7684;&#x8FC7;&#x7A0B;.<br>&#x73B0;&#x5728;&#x770B;&#x8D77;&#x6765;&#x8D70;&#x4E86;&#x4E9B;&#x5F2F;&#x8DEF;, &#x4E3B;&#x8981;&#x662F;&#x5F53;&#x65F6;&#x6CA1;&#x60F3;&#x5230;go&#x7684;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#x4F1A;&#x90A3;&#x4E48;&#x7B80;&#x5355;.  </p>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#adaptiveservice"><b>1. </b>adaptiveservice</a></li><ul><li><span class="title-icon "></span><a href="#hello&#x4F8B;&#x5B50;"><b>1.1. </b>hello&#x4F8B;&#x5B50;</a></li><ul><li><span class="title-icon "></span><a href="#client&#x7AEF;"><b>1.1.1. </b>client&#x7AEF;</a></li><li><span class="title-icon "></span><a href="#server&#x7AEF;"><b>1.1.2. </b>server&#x7AEF;</a></li></ul></ul><li><span class="title-icon "></span><a href="#gshell"><b>2. </b>gshell</a></li><li><span class="title-icon "></span><a href="#topid"><b>3. </b>topid</a></li></ul></div><a href="#adaptiveservice" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#adaptiveservice">adaptiveservice</a><ul>
+<li><a href="#hello&#x4F8B;&#x5B50;">hello&#x4F8B;&#x5B50;</a><ul>
+<li><a href="#client&#x7AEF;">client&#x7AEF;</a></li>
+<li><a href="#server&#x7AEF;">server&#x7AEF;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#gshell">gshell</a></li>
+<li><a href="#topid">topid</a></li>
+</ul>
+<h1 id="adaptiveservice"><a name="adaptiveservice" class="anchor-navigation-ex-anchor" href="#adaptiveservice"><i class="fa fa-link" aria-hidden="true"></i></a>1. adaptiveservice</h1>
+<p><a href="https://github.com/godevsig/adaptiveservice" target="_blank">godevsig/adaptiveservice</a>&#x662F;&#x7528;golang&#x5B9E;&#x73B0;&#x7684;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x6846;&#x67B6;.</p>
+<ul>
+<li>&#x670D;&#x52A1;&#x7AEF;&#x53D1;&#x5E03;&#x670D;&#x52A1;, &#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x73B0;&#x670D;&#x52A1;.</li>
+<li>&#x670D;&#x52A1;&#x4F7F;&#x7528;{&quot;publisher&quot;, &quot;service&quot;}&#x6765;&#x6807;&#x8BC6;.<ul>
+<li>publisher&#x7C7B;&#x4F3C;github repo&#x4E2D;&#x7684;&#x7EC4;&#x7EC7;&#x540D;&#x6216;&#x7528;&#x6237;&#x540D;, &#x6807;&#x8BC6;&#x8FD9;&#x4E2A;&#x670D;&#x52A1;&#x7684;&#x4EE3;&#x7801;&#x62E5;&#x6709;&#x8005;.</li>
+<li>service&#x5C31;&#x662F;&#x670D;&#x52A1;&#x7684;&#x540D;&#x5B57;, &#x7C7B;&#x4F3C;github repo&#x7684;repo&#x540D;.</li>
+<li>&#x5728;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x7F51;&#x7EDC;&#x4E2D;, &#x53EF;&#x4EE5;&#x6709;&#x540C;&#x540D;&#x670D;&#x52A1;&#x7684;&#x591A;&#x4E2A;&#x5B9E;&#x4F8B;, &#x5BF9;&#x5BA2;&#x6237;&#x7AEF;&#x6765;&#x8BF4;, &#x65E0;&#x8BBA;&#x54EA;&#x4E2A;&#x5B9E;&#x4F8B;, &#x90FD;&#x63D0;&#x4F9B;&#x4E00;&#x6837;&#x7684;&#x670D;&#x52A1;. &#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x7B56;&#x7565;, &#x6BD4;&#x5982;&#x968F;&#x673A;&#x7B56;&#x7565;, &#x6216;&#x8005;&#x5EF6;&#x8FDF;&#x6700;&#x5C0F;&#x7B56;&#x7565;, &#x9009;&#x62E9;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x6765;&#x901A;&#x4FE1;.</li>
+</ul>
+</li>
+<li>&#x652F;&#x6301;root registry&#x548C;&#x5C40;&#x57DF;&#x7F51;&#x5E7F;&#x64AD;&#x53D1;&#x73B0;.</li>
+<li>&#x6D88;&#x606F;&#x7684;&#x4EA4;&#x4E92;&#x53EA;&#x6709;&#x4E09;&#x4E2A;API.<ul>
+<li>Send(msg)<br>msg&#x4E00;&#x822C;&#x5B9A;&#x4E49;&#x4E8E;&#x670D;&#x52A1;&#x7AEF;, &#x662F;golang&#x7684;struct, &#x8868;&#x793A;&#x670D;&#x52A1;&#x7AEF;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x54EA;&#x4E9B;struct. client import&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;.</li>
+<li>Recv(msgPtr)<br>msgPtr&#x662F;&#x8981;&#x63A5;&#x6536;&#x7684;msg&#x7684;&#x6307;&#x9488;. &#x5728;golang&#x4E2D;, &#x7531;&#x4E8E;gc, &#x5E76;&#x4E0D;&#x9700;&#x8981;&#x63D0;&#x524D;&#x7533;&#x8BF7;&#x5185;&#x5B58;.</li>
+<li>SendRecv(msg, msgPtr)<br>&#x8FD9;&#x4E2A;&#x5F62;&#x5F0F;&#x7684;API&#x53EF;&#x4EE5;&#x5F53;&#x4F5C;RPC&#x6765;&#x4F7F;&#x7528;.</li>
+</ul>
+</li>
+<li>server&#x7AEF;&#x7684;&#x6D88;&#x606F;&#x5904;&#x7406;&#x4F7F;&#x7528;&#x5F39;&#x6027;&#x4F38;&#x7F29;&#x7684;worker pool, &#x81EA;&#x52A8;&#x652F;&#x6301;&#x5E76;&#x53D1;.</li>
+<li>client&#x7AEF;&#x652F;&#x6301;&#x591A;&#x8DEF;&#x590D;&#x7528;, &#x63D0;&#x9AD8;&#x5E76;&#x53D1;.</li>
+<li>&#x652F;&#x6301;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5185;&#x4F7F;&#x7528;, &#x652F;&#x6301;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x5185;&#x4F7F;&#x7528;, API&#x90FD;&#x4E00;&#x6837;.</li>
+<li>&#x5185;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;, &#x4ECE;&#x800C;NAT&#x5185;&#x7684;&#x670D;&#x52A1;&#x4E5F;&#x80FD;&#x88AB;&#x5916;&#x90E8;&#x53D1;&#x73B0;&#x5E76;&#x8FDE;&#x63A5;.</li>
+</ul>
+<p>&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://github.com/godevsig/adaptiveservice/blob/master/README.md" target="_blank">README</a></li>
+<li><a href="https://github.com/godevsig/gshellos/blob/master/docs/adaptiveservice.md" target="_blank">&#x4F7F;&#x7528;&#x8BF4;&#x660E;</a></li>
+</ul>
+<h2 id="hello&#x4F8B;&#x5B50;"><a name="hello&#x4F8B;&#x5B50;" class="anchor-navigation-ex-anchor" href="#hello&#x4F8B;&#x5B50;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. hello&#x4F8B;&#x5B50;</h2>
+<h3 id="client&#x7AEF;"><a name="client&#x7AEF;" class="anchor-navigation-ex-anchor" href="#client&#x7AEF;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. client&#x7AEF;</h3>
+<p>client&#x8981;&#x5148;&#x53D1;&#x73B0;&#x5E76;&#x8FDE;&#x63A5;&#x5230;&#x670D;&#x52A1;, &#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x6536;&#x53D1;&#x6D88;&#x606F;.</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;fmt&quot;</span>
+
+    as <span class="token string">&quot;github.com/godevsig/adaptiveservice&quot;</span>
+    msg <span class="token string">&quot;github.com/godevsig/adaptiveservice/examples/hello/message&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    c <span class="token operator">:=</span> as<span class="token punctuation">.</span><span class="token function">NewClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    conn <span class="token operator">:=</span> <span class="token operator">&lt;-</span>c<span class="token punctuation">.</span><span class="token function">Discover</span><span class="token punctuation">(</span><span class="token string">&quot;example&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;hello&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> conn <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>as<span class="token punctuation">.</span><span class="token function">ErrServiceNotFound</span><span class="token punctuation">(</span><span class="token string">&quot;example&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;hello&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">defer</span> conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    request <span class="token operator">:=</span> msg<span class="token punctuation">.</span>HelloRequest<span class="token punctuation">{</span>Who<span class="token punctuation">:</span> <span class="token string">&quot;John&quot;</span><span class="token punctuation">,</span> Question<span class="token punctuation">:</span> <span class="token string">&quot;who are you&quot;</span><span class="token punctuation">}</span>
+    <span class="token keyword">var</span> reply msg<span class="token punctuation">.</span>HelloReply
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> conn<span class="token punctuation">.</span><span class="token function">SendRecv</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token operator">&amp;</span>reply<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>reply<span class="token punctuation">.</span>Answer<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="server&#x7AEF;"><a name="server&#x7AEF;" class="anchor-navigation-ex-anchor" href="#server&#x7AEF;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. server&#x7AEF;</h3>
+<p>server&#x7AEF;&#x9700;&#x8981;&#x5B9A;&#x4E49;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x7684;struct, &#x4EE5;&#x53CA;&#x5176;handler. &#x5728;&#x8FD9;&#x4E2A;struct&#x5230;&#x8FBE;server&#x7AEF;&#x7684;&#x65F6;&#x5019;, &#x6846;&#x67B6;&#x5728;worker pool&#x91CC;&#x5206;&#x914D;worker, handler&#x88AB;&#x6846;&#x67B6;&#x5728;worker&#x4E2D;&#x8C03;&#x7528;.</p>
+<p>message.go&#x4E2D;&#x5B9A;&#x4E49;&#x6D88;&#x606F;struct&#x5982;&#x4E0B;:</p>
+<pre class="language-"><code class="lang-go">
+<span class="token keyword">package</span> message
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;strings&quot;</span>
+
+    as <span class="token string">&quot;github.com/godevsig/adaptiveservice&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// HelloRequest is the request from clients</span>
+<span class="token keyword">type</span> HelloRequest <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Who      <span class="token builtin">string</span>
+    Question <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// HelloReply is the reply of HelloRequest to clients</span>
+<span class="token keyword">type</span> HelloReply <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Answer <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Handle handles msg.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>msg HelloRequest<span class="token punctuation">)</span> <span class="token function">Handle</span><span class="token punctuation">(</span>stream as<span class="token punctuation">.</span>ContextStream<span class="token punctuation">)</span> <span class="token punctuation">(</span>reply <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    answer <span class="token operator">:=</span> <span class="token string">&quot;I don&apos;t know&quot;</span>
+
+    question <span class="token operator">:=</span> strings<span class="token punctuation">.</span><span class="token function">ToLower</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>Question<span class="token punctuation">)</span>
+    <span class="token keyword">switch</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> strings<span class="token punctuation">.</span><span class="token function">Contains</span><span class="token punctuation">(</span>question<span class="token punctuation">,</span> <span class="token string">&quot;who are you&quot;</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        answer <span class="token operator">=</span> <span class="token string">&quot;I am hello server&quot;</span>
+    <span class="token keyword">case</span> strings<span class="token punctuation">.</span><span class="token function">Contains</span><span class="token punctuation">(</span>question<span class="token punctuation">,</span> <span class="token string">&quot;how are you&quot;</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        answer <span class="token operator">=</span> <span class="token string">&quot;I am good&quot;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> HelloReply<span class="token punctuation">{</span>answer <span class="token operator">+</span> <span class="token string">&quot;, &quot;</span> <span class="token operator">+</span> msg<span class="token punctuation">.</span>Who<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    as<span class="token punctuation">.</span><span class="token function">RegisterType</span><span class="token punctuation">(</span>HelloRequest<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    as<span class="token punctuation">.</span><span class="token function">RegisterType</span><span class="token punctuation">(</span>HelloReply<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>helloserver.go&#x4E2D;&#x542F;&#x52A8;service:</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;fmt&quot;</span>
+
+    as <span class="token string">&quot;github.com/godevsig/adaptiveservice&quot;</span>
+    msg <span class="token string">&quot;github.com/godevsig/adaptiveservice/examples/hello/message&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    s <span class="token operator">:=</span> as<span class="token punctuation">.</span><span class="token function">NewServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">SetPublisher</span><span class="token punctuation">(</span><span class="token string">&quot;example&quot;</span><span class="token punctuation">)</span>
+
+    knownMsgs <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>as<span class="token punctuation">.</span>KnownMessage<span class="token punctuation">{</span>msg<span class="token punctuation">.</span>HelloRequest<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">Publish</span><span class="token punctuation">(</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> knownMsgs<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">Serve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span> <span class="token comment">// ctrl+c to exit</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="gshell"><a name="gshell" class="anchor-navigation-ex-anchor" href="#gshell"><i class="fa fa-link" aria-hidden="true"></i></a>2. gshell</h1>
+<p><a href="https://github.com/godevsig/gshellos" target="_blank">godevsig/gshellos</a>&#x662F;&#x57FA;&#x4E8E;adaptive service&#x7684;&#x4E00;&#x4E2A;go&#x670D;&#x52A1;&#x7F16;&#x6392;&#x7684;&#x6846;&#x67B6;. gshellos&#x4F7F;&#x7528;&#x4E86;go&#x89E3;&#x91CA;&#x5668;<a href="https://github.com/traefik/yaegi" target="_blank">yaegi</a>, &#x4F7F;gshell&#x6846;&#x67B6;&#x5F97;&#x4EE5;&#x5728;&#x4EFB;&#x610F;gshell&#x8282;&#x70B9;&#x8FD0;&#x884C;&#x4F4D;&#x4E8E;&#x4E2D;&#x592E;&#x4ED3;&#x5E93;<a href="https://github.com/godevsig/grepo" target="_blank">grepo</a>&#x4E0B;&#x7684;go&#x4EE3;&#x7801;.</p>
+<p><img src="img/my_opensource_20220918235236.png" alt="">  </p>
+<p>&#x6587;&#x6863;:</p>
+<ul>
+<li><a href="https://github.com/godevsig/gshellos/blob/master/README.md" target="_blank">README</a></li>
+</ul>
+<h1 id="topid"><a name="topid" class="anchor-navigation-ex-anchor" href="#topid"><i class="fa fa-link" aria-hidden="true"></i></a>3. topid</h1>
+<p>topid&#x662F;&#x57FA;&#x4E8E;gshell&#x7684;&#x4E00;&#x4E2A;app, &#x4EE3;&#x7801;&#x4F4D;&#x4E8E;<a href="https://github.com/godevsig/grepo" target="_blank">grepo</a>, &#x53EF;&#x4EE5;&#x91C7;&#x96C6;linux&#x7684;&#x8FDB;&#x7A0B;&#x4FE1;&#x606F;, &#x5E76;&#x914D;&#x5408;topid chart&#x670D;&#x52A1;, &#x53EF;&#x4EE5;&#x5728;web&#x4E0A;&#x5B9E;&#x65F6;&#x663E;&#x793A;CPU&#x548C;MEM&#x7684;&#x5360;&#x7528;.</p>
+<p>&#x5F97;&#x76CA;&#x4E8E;gshell, topid&#x5F88;&#x65B9;&#x4FBF;&#x5728;&#x5404;&#x4E2A;CPU arch&#x4E0B;&#x9762;&#x8FD0;&#x884C;, &#x6CA1;&#x6709;&#x8FD0;&#x884C;&#x65F6;&#x4F9D;&#x8D56;.</p>
+<p><a href="perf/topid/README.md">topid usage</a></p>
+<p><a href="perf/topidchart/cmd/README.md">topid chart usage</a></p>
+<p><img src="https://github.com/godevsig/grepo/raw/master/perf/topid/gshell-topid.gif" alt="topid demo"></p>
+<p><img src="https://github.com/godevsig/grepo/raw/master/perf/topidchart/cmd/gshell-topidchart.gif" alt="topid chart demo"></p>
 
                                 
                                 </section>
@@ -1592,12 +1741,12 @@
 
             
                 
-                <a href="golang_toolchain_compile_gccgo.html" class="navigation navigation-prev " aria-label="Previous page: 编译gccgo">
+                <a href="as_title.html" class="navigation navigation-prev " aria-label="Previous page: 开源">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="golang_go_on_mips_part1.html" class="navigation navigation-next " aria-label="Next page: part 1: cross compile go">
+                <a href="my_upstream.html" class="navigation navigation-next " aria-label="Next page: 我的upstream commit">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1608,7 +1757,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"go on mips boards(not so updated)","level":"1.4.9.3","depth":3,"next":{"title":"part 1: cross compile go","level":"1.4.9.3.1","depth":4,"path":"notes/golang_go_on_mips_part1.md","ref":"notes/golang_go_on_mips_part1.md","articles":[]},"previous":{"title":"编译gccgo","level":"1.4.9.2","depth":3,"path":"notes/golang_toolchain_compile_gccgo.md","ref":"notes/golang_toolchain_compile_gccgo.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips.md","mtime":"2022-09-18T16:12:30.546Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-18T16:13:29.528Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"我的开源项目","level":"1.3.1","depth":2,"next":{"title":"我的upstream commit","level":"1.3.2","depth":2,"path":"notes/my_upstream.md","ref":"notes/my_upstream.md","articles":[]},"previous":{"title":"开源","level":"1.3","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"我的开源项目","level":"1.3.1","depth":2,"path":"notes/my_opensource.md","ref":"notes/my_opensource.md","articles":[]},{"title":"我的upstream commit","level":"1.3.2","depth":2,"path":"notes/my_upstream.md","ref":"notes/my_upstream.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-coldark-cold.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/my_opensource.md","mtime":"2022-09-18T16:12:30.858Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-09-18T16:13:29.528Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

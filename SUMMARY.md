@@ -13,6 +13,9 @@
     * [cloud hypervisor代码](notes/rust_cloud-hypervisor_代码.md)
     * [cloud hypervisor使用](notes/rust_cloud-hypervisor_使用.md)
     * [cloud hypervisor问题与解决](notes/rust_cloud-hypervisor_问题与解决.md)
+* [开源](notes/as_title.md)
+  * [我的开源项目](notes/my_opensource.md)
+  * [我的upstream commit](notes/my_upstream.md)
 
 * [Golang](notes/as_title.md)
   * [入门](notes/as_title.md)
@@ -76,6 +79,9 @@
     * [代码小段](notes/rust_代码小段.md)
   * [其他](notes/others.md)
     * [使用mdbook](notes/rust_mdbook_使用.md)
+
+* [ARM server](notes/as_title.md)
+  * [杂记](notes/arm_server_杂记.md)
 
 * [脚本](notes/as_title.md)
   * [shell变量](notes/shell_变量.md)
