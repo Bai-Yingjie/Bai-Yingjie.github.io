@@ -110,7 +110,7 @@ perf script | /repo/yingjieb/FlameGraph/stackcollapse-perf.pl | /repo/yingjieb/F
 ### yaegi topid
 ![](img/golang_yeagi_20220909233322.png)  
 ![](img/golang_yeagi_20220909233347.png)  
-* yaegi的解释执行执行是个递归的过程, 具体来说就是`interp.runCfg`和`interp.call.func6`的递归
+* yaegi的解释执行执行是个递归的过程, 具体来说就是`interp.runCfg`和`interp.call.func6`的递归  
 ![](img/golang_yeagi_20220909233448.png)  
 * 出现很多`fmt.Fprintf`和`fmt.Sprintf`是在递归打印进程信息. 这个过程要不断解释, 递归执行.
 * 真正的printf只占很小比例, 很多时间花在了`interp.runCfg`和`interp.call.func6`的递归中, 即: 时间花在了"解释"代码而非"执行"代码
@@ -1311,7 +1311,7 @@ If condition then
     do_somthing()
 end if
 ```
-但它们的AST都是一样的: 在源程序中出现的括号，或者是关键字，都会被丢掉。
+但它们的AST都是一样的: 在源程序中出现的括号，或者是关键字，都会被丢掉。  
 ![](img/golang_yeagi_20220910003305.png)  
 
 ### 函数

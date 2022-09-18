@@ -22,7 +22,7 @@
 可以看到:
 * rust的调用层级很多, 和go有的一拼
 * `RUST_BACKTRACE=1`会过滤掉最近的0到12层调用栈, 这些都是`rust_begin_unwind`的内部流程, 一般用户不需要关心
-* 真正出问题的是`vmm::vm::Vm::new`, 即`RUST_BACKTRACE=full`时的第16层调用栈, 很奇怪的是在调用栈里没提示是哪一行. 但调用栈打印之前就有打印提示出错文件和行号:`vmm/src/vm.rs:729:48`
+* 真正出问题的是`vmm::vm::Vm::new`, 即`RUST_BACKTRACE=full`时的第16层调用栈, 很奇怪的是在调用栈里没提示是哪一行. 但调用栈打印之前就有打印提示出错文件和行号:`vmm/src/vm.rs:729:48`  
 ![](img/rust_cloud-hypervisor_debug_20220827223931.png)  
 * unwrap出错会直接panic
 * 用环境变量`RUST_BACKTRACE=`这招和go很像`GOTRACEBACK=`

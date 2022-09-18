@@ -76,13 +76,13 @@ I am using built-in json benchmark.
 Gc go toolchain has a test framework that all of its packages have built-in tests, encoding/json as the "official" json parser also follows the principle, there are many sub-tests of test and benchmarking.  
 ![](img/golang_go_on_mips_part4_20220908224851.png)  
 The benchmark takes the input `test.json` file, and test many operations on the data: encoding, decoding….
-The input file `test.json` is a complicated recursive json file, with 1.9M size.
+The input file `test.json` is a complicated recursive json file, with 1.9M size.  
 ![](img/golang_go_on_mips_part4_20220908224940.png)  
 
 We want ro run it in single core, so:
 `taskset -c 1 ./jsontest -test.bench .*`
 The run time snapshot is something looks like this: 1 core running nearly 100% in **user space**.
-The behavior is the same on MIPS, so we can make sure the comparison is apple to apple.
+The behavior is the same on MIPS, so we can make sure the comparison is apple to apple.  
 ![](img/golang_go_on_mips_part4_20220908225004.png)  
 
 ### the result

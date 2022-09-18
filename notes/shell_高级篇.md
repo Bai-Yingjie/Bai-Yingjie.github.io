@@ -1006,14 +1006,14 @@ top的输出, 每秒记录一次, 这里的patten是`xponhwadp switch_hwa_app xp
 cat top.log | awk '/GMT/{printf "\n"$4} /run\/switch_hwa_app/{printf(" switch_hwa_app:%s",$8)} /run\/xpon_hwa_app/{printf(" xpon_hwa_app:%s",$8)} /run\/xponhwadp/{printf(" xponhwadp:%s",$8)} /vONU-PoC-1 -skipav yes/{printf(" vonu:%s",$8)}' | while read line; do echo $line | xargs -n1 | sort | xargs; done
 ```
 * awk负责过滤关键词, 用/patten/{action}的形式
-* awk过滤后, 每个时间戳下, 这四个app都列出来了, 但顺不一定一样, 因为top输出会按照CPU排序
+* awk过滤后, 每个时间戳下, 这四个app都列出来了, 但顺不一定一样, 因为top输出会按照CPU排序  
 ![](img/shell_高级篇_20220915234243.png)  
 * 此时要用read, 从stdin读每一行, 然后对该行排序
 * xargs -n1实际上是对每个字段加回车, 因为默认的xargs会对每个输入做echo
 * sort是按行工作的, 前面的xargs的输出就是多行
 * 最后的xargs把排好序的多行输出还原成一行
 
-最后的输出:
+最后的输出:  
 ![](img/shell_高级篇_20220915234300.png)  
 
 ### 改进版

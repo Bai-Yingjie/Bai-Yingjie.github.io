@@ -44,7 +44,7 @@ runoob 说: 我 10 岁。
 ret = os.system("/path/to/executable para1 para2")
 ```
 # 一个节拍发生器的算法
-`log(1- x/1073741823)/-1`
+`log(1- x/1073741823)/-1`  
 ![](img/python_记录_20220915235359.png)  
 ```python
 import math

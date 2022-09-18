@@ -205,7 +205,7 @@ dlv显示`Pc: 95c6d8`, 这正好是触发SIGILL的指令地址.
 
 直到调用`kvm.bluepillHandler(SB)`之前, 这个PC都是`95c6d8`
 
-注意看这里的`Regs[30]`为`95a004`, 我们知道r30是LR寄存器, `95a004`就是调用完kvm.bluepill后的地址
+注意看这里的`Regs[30]`为`95a004`, 我们知道r30是LR寄存器, `95a004`就是调用完kvm.bluepill后的地址  
 ![](img/golang_gvisor调试_20220915092000.png)  
 
 ### sighandler做桥, host和guest跳转过程
@@ -272,7 +272,7 @@ p %x *(*arch.UContext64)(0x400006ce20)
 
 ### 另外一次blupill流程
 这次是打了bluepillGuestExit断点, continue等待断点时间较长, 从host观察到CPU一直在VM状态下, 持续高负载运行, 现象是htop显示黄色(CPU stolen), 直到trigger断点  
-此时观察到ucontext的PC是0x95c6d8, 就是blupill触发sigill的指令地址:
+此时观察到ucontext的PC是0x95c6d8, 就是blupill触发sigill的指令地址:  
 ![](img/golang_gvisor调试_20220915092412.png)  
 
 #### 问题
@@ -318,10 +318,10 @@ set *(*uint32)(0x7bf6c) = 0x17ff9ee9
 
 即修改前:  
 ![](img/golang_gvisor调试_20220915092556.png)  
-修改后:
+修改后:  
 ![](img/golang_gvisor调试_20220915092607.png)  
 
-可以看到, call指令换成了jmp指令后, 每轮的bluepill还是会执行很久, 但调用栈似乎已经正常:
+可以看到, call指令换成了jmp指令后, 每轮的bluepill还是会执行很久, 但调用栈似乎已经正常:  
 ![](img/golang_gvisor调试_20220915092625.png)  
 ![](img/golang_gvisor调试_20220915092637.png)  
 ![](img/golang_gvisor调试_20220915092648.png)  
@@ -336,7 +336,7 @@ set *(*uint32)(0x7bf6c) = 0x17ff9ee9
 用`sudo perf kvm --guest --guestvmlinux path/to/runsc top`可以看vm的符号  
 观察到:  
 ![](img/golang_gvisor调试_20220915092735.png)  
-对应的代码:
+对应的代码:  
 ![](img/golang_gvisor调试_20220915092747.png)  
 pmap显示:
 ```
@@ -382,8 +382,8 @@ sudo pmap 7556
 ![](img/golang_gvisor调试_20220915093114.png)  
 0x7f41c是tuntime.futex的svc指令
 
-比如:
+比如:  
 ![](img/golang_gvisor调试_20220915093135.png)  
 
-比如:
+比如:  
 ![](img/golang_gvisor调试_20220915093149.png)  

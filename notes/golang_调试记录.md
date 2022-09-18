@@ -160,7 +160,7 @@ set *(*uint32)(0x7bf6c) = 0x17ff9ee9
 
 修改前:  
 ![](img/golang_调试记录_20220913090810.png)  
-修改后:
+修改后:  
 ![](img/golang_调试记录_20220913090822.png)  
 
 可以看到, call指令换成了jmp指令
@@ -969,7 +969,7 @@ main.main()
 
 * 切片是个三个值的结构, 指针, len和cap  
 ![](img/golang_调试记录_20220913231335.png)  
-* 字符串是2个值的结构, 指针, len
+* 字符串是2个值的结构, 指针, len  
 ![](img/golang_调试记录_20220913231404.png)  
 * 整型参数就是一个值
 * map参数是一个位置
@@ -1696,7 +1696,7 @@ pprof和perf对比几点说明:
 ### pprof svg
 ![](img/golang_调试记录_20220914083204.png)  
 1. select会被编译器转化为运行时的`(*waitq)enqueue`和`gopark`把当前goroutine调度出去
-2. select有一把锁(sellock), 锁住所有case?
+2. select有一把锁(sellock), 锁住所有case?  
 ![](img/golang_调试记录_20220914083224.png)  
 3. handleOnu代码占比8.15%, 大部分是在搞goroutine的切换准备.
 ### perf 火焰图
@@ -1751,7 +1751,7 @@ func notetsleepg(n *note, ns int64) bool {
 
 ### 问题: futex唤醒路径是干啥用的?
 按理说, timerproc的futex都是带超时的, 那等待超时, kernel自然会wakeup这个M.
-那上文中, P和M分离后, 要选一个新的M来wakeup来干活, 那么是哪些M会被wakeup呢?
+那上文中, P和M分离后, 要选一个新的M来wakeup来干活, 那么是哪些M会被wakeup呢?  
 ![](img/golang_调试记录_20220914083605.png)  
 首先, 从htop中看到, 一共由4个线程, 那么就是4个M
 * timerproc那个routine所在的M应该最忙, 也就很可能是pid 21217
@@ -1801,7 +1801,7 @@ https://www.jianshu.com/p/abbe6663b672
 ![](img/golang_调试记录_20220914083909.png)  
 ### goroutine 1
 ![](img/golang_调试记录_20220914083923.png)  
-中间很长, 这个是个多层函数调用嵌套的过程, 因为输入test.json里面有多层嵌套
+中间很长, 这个是个多层函数调用嵌套的过程, 因为输入test.json里面有多层嵌套  
 ![](img/golang_调试记录_20220914083937.png)  
 
 ### 用taskset -c 1强制一个核跑
@@ -1829,6 +1829,6 @@ goroutine 19 [GC worker (idle)]:
 `GODEBUG=schedtrace=10000,scheddetail=1`可以10s打印一次调度信息
 * P: 代表CPU
 * M: 代表OS线程
-* G: 代表goroutine
+* G: 代表goroutine  
 ![](img/golang_调试记录_20220914084014.png)  
 ![](img/golang_调试记录_20220914084026.png)  

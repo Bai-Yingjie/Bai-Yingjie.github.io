@@ -336,7 +336,6 @@ export GOPROXY=https://gocenter.io
 注意: `GOPROXY`只在go mod模式下才有用. 使能go mod模式, 要么目录下有go.mod文件, 要么需要强制指定`GO111MODULE=on`
 
 使用`GoCenter`比直接从github上下载更快, GoCenter网页也能显示更详细的信息.
-![](https://media.jfrog.com/wp-content/uploads/2020/05/06184208/GoProxyKnot-Diagram-2-1024x547.png.webp)
 
 ## 私有repo
 使用公共repo时, `GOSUMDB`要去默认的公共校验中心`sum.golang.org`校验文件安全性.

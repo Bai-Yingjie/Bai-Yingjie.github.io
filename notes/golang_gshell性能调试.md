@@ -59,7 +59,7 @@ gshell版本`v21.11.02.rc2`
 CPU chart(on ppc32, gccgo):  
 ![](img/golang_gshell性能调试_20220913092516.png)  
 
-CPU chart(on x86, gcgo):
+CPU chart(on x86, gcgo):  
 ![](img/golang_gshell性能调试_20220913092530.png)  
 
 ### 火焰图

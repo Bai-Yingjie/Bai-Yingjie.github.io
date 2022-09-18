@@ -32,7 +32,7 @@ Reborn平台上, 用的是C语言实现的libjansson库, 使用`json_load_file()
 C语言版本(使用libjansson库):  
 ![](img/golang_json性能_20220908001359.png)  
 
-Go语言版本:
+Go语言版本:  
 ![](img/golang_json性能_20220908001442.png)  
 
 ## 编译和运行
@@ -126,7 +126,7 @@ time taskset -c 1 ./jsontest
 ./jsontest -test.list .*
 ...很多, Test开头的是功能测试, Benchmark开头的是性能测试
 ```
-* encoding/json是多个test的集合: 
+* encoding/json是多个test的集合:  
 ![](img/golang_json性能_20220908002257.png)  
 ![](img/golang_json性能_20220908002316.png)  
 ![](img/golang_json性能_20220908002335.png)  

@@ -628,7 +628,7 @@ firecracker工程下, 有个seccompiler目录:
 
 ## lib的例子
 比如下面这个utils, 是多个工具库的集合. 因为都是库, 就没有一个叫utils.rs的文件
-外部crate要引用其中某个库的时候, 用`use utils::arg_parser::{ArgParser, Argument, Arguments  as  ArgumentsBag};`
+外部crate要引用其中某个库的时候, 用`use utils::arg_parser::{ArgParser, Argument, Arguments  as  ArgumentsBag};`  
 ![](img/rust_coding_知识点积累_20220828234230.png)  
 
 # firecracker/src/utils/src/arg_parser.rs代码走读
