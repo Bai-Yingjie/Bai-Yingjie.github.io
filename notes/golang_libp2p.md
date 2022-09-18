@@ -1331,8 +1331,8 @@ multistream也叫multistream-select, 使用utf8编码的字符串来传递消息
 
 #### [relay](https://github.com/libp2p/specs/tree/master/relay)
 * TURN: Traversal Using Relays around NAT (TURN), 基于中间节点
-* [circuit relay v1](https://github.com/libp2p/specs/tree/master/relay)和[circuit relay v2](https://github.com/libp2p/specs/issues/314): 双方都知晓这个relay server的存在
-![](index_files/3c6a37c9-3b0a-471e-8e11-f35c7e1bd6a4.png)
+* [circuit relay v1](https://github.com/libp2p/specs/tree/master/relay)和[circuit relay v2](https://github.com/libp2p/specs/issues/314): 双方都知晓这个relay server的存在  
+![](img/golang_libp2p_20220918111741.png)  
 * relay的地址格式:
 `[<relay peer multiaddr>]/p2p-circuit/<destination peer multiaddr>`
 

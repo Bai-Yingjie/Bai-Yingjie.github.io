@@ -374,7 +374,7 @@ uunmap(base_addr , totalbytes);
 ```
 
 umap的性能在page size为4K的时候还是低于mmap的, 但从64K开始, 已经开始超越:  
-这说明基本上, umap的性能超越来自于page size可以修改, 而不是来自于其本身的框架. 因为userfaultfd的机制通知用户态本身就有不小的overhead.
+这说明基本上, umap的性能超越来自于page size可以修改, 而不是来自于其本身的框架. 因为userfaultfd的机制通知用户态本身就有不小的overhead.  
 ![](img/golang_gvisor代码_KVM_20220915081955.png)  
 
 ### sentry的mm

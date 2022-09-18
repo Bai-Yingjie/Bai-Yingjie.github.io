@@ -948,8 +948,8 @@ type iface struct { // 16 bytes
 
     fmt.Println(t2interface)
 ```
-那么t2interface的具体内存表达是什么样的?
-![](index_files/f7ac75d7-8bae-4f1e-b649-192d77783c84.png)
+那么t2interface的具体内存表达是什么样的?  
+![](img/golang_原理_20220918110917.png)  
 答: t2interface的data指针是`*interface{}`类型, 应该就是指向tinterface
 
 ## 结论
@@ -2280,7 +2280,7 @@ func sendTime(c interface{}, seq uintptr) {
 ```
 
 ### timer堆的维护
-timer桶里面的所有timer, golang使用了4叉数的顺序存储结构(`[]*timer`切片)来管理. 每次新增 删除 修改timer或者是timer到期, 都会对timer堆重新排序.
+timer桶里面的所有timer, golang使用了4叉数的顺序存储结构(`[]*timer`切片)来管理. 每次新增 删除 修改timer或者是timer到期, 都会对timer堆重新排序.  
 ![](img/golang_原理_20220902101729.png)  
 上图展示的是二叉堆，实际上Go实现时使用的是四叉堆，使用四叉堆的好处是堆的高度降低，堆调整时更快。
 
@@ -2655,6 +2655,6 @@ https://dave.cheney.net/2014/06/07/five-things-that-make-go-fast
 goroutine不用guard page, 栈不够时自动分配  
 ![](img/golang_原理_20220902102825.png)  
 go1.2的时候, 如果栈不够, 调用新的函数时, 会给新函数在堆里分配一个栈, 该函数返回就销毁这个栈. 
-go1.3改了方法, 栈不够时, 分配一个新栈, 大小为2倍. 把之前所有的栈拷贝过来运行, 从此都用这个更大的新栈. 空间换时间.
+go1.3改了方法, 栈不够时, 分配一个新栈, 大小为2倍. 把之前所有的栈拷贝过来运行, 从此都用这个更大的新栈. 空间换时间.  
 ![](img/golang_原理_20220902102844.png)  
 ![](img/golang_原理_20220902102909.png)  

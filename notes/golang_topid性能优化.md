@@ -45,7 +45,7 @@ topid是纯go写的类似top的进程性能统计工具, 和topidchart联用可�
 
 ## 24核运行时
 见下面 htop采集的运行数据 小节
-左侧是新版本, 右侧是老版本
+左侧是新版本, 右侧是老版本  
 ![](img/golang_topid性能优化_20220912223635.png)  
 
 ## 单核运行时
@@ -55,7 +55,7 @@ topid是纯go写的类似top的进程性能统计工具, 和topidchart联用可�
 GOMAXPROCS=1 ./topid.dd0301e -p 1 -tree -thread
 taskset -c 15 ./topid.dd0301e -p 1 -tree -thread
 ```
-左侧是新版本, 右侧是老版本
+左侧是新版本, 右侧是老版本  
 ![](img/golang_topid性能优化_20220912223715.png)  
 
 ## 对比多核, 单核运行时
@@ -138,7 +138,7 @@ pprof的采集数据和htop显示的数据是矛盾的吗? 新版本比老版本
 新版本:  
 ![](img/golang_topid性能优化_20220912231142.png)  
 
-老版本:
+老版本:  
 ![](img/golang_topid性能优化_20220912231239.png)  
 
 新版本的采样数为9048  

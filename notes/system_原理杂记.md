@@ -814,7 +814,7 @@ int request_threaded_irq(unsigned int irq, irq_handler_t handler, irq_handler_t 
 打开threadirqs功能:topid: http://10.182.105.138:9888/switchPerf/152917918  
 ![](img/system_原理杂记_20220829150229.png)  
 
-关闭threadirqs功能:topid：http://10.182.105.138:9888/fgltb_dhcpv4/3501403790
+关闭threadirqs功能:topid：http://10.182.105.138:9888/fgltb_dhcpv4/3501403790  
 ![](img/system_原理杂记_20220829150248.png)  
 
 对比两组数据, 基本上可以得到, 每个app的CPU load里, 都包含了中断处理时间, 比较均匀, 大概都是在2%左右.
@@ -922,7 +922,7 @@ kernel会在关键点上检查softirq的pending状态, 这些关键点(checkpoin
 前面分析了, 软中断上下文可以在硬中断中, 也可能是kernel checkpoints, 但都不是用户进程上下文(可能也不是绝对的, 比如用户态的系统调用里面, 调用的driver函数里有`local_bh_enable()`调用, 那么softirq就是在这个进程上下文处理的)  
 ![](img/system_原理杂记_20220829150420.png)  
 
-用户上下文永远可能被抢占
+用户上下文永远可能被抢占  
 ![](img/system_原理杂记_20220829150436.png)  
 
 纯内核线程没有MM  
@@ -1592,7 +1592,7 @@ sighandler可以执行系统调用, 没有任何问题.
 * 系统调用会被signal打断, 内核需要返回EINTR来指示系统调用被打断了. 被打断的read和write可能会被内核重新执行. 可以配置是返回EINTR还是rerun  
 ![](img/system_原理杂记_20220829152608.png)  
 ![](img/system_原理杂记_20220829152621.png)  
-* 进程在系统调用期间收到signal, 那它的之前都在内核态. 
+* 进程在系统调用期间收到signal, 那它的之前都在内核态.  
 ![](img/system_原理杂记_20220829152636.png)  
 
 ## siglongjmp

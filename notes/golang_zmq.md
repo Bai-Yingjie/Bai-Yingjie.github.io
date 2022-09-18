@@ -140,7 +140,7 @@ REP的应用层不关心这个标识frame, 所以zmq暂存这个标识, 剥掉�
 
 ### Router再把标识符剥掉, 传给REQ
 ![](img/golang_zmq_20220911225106.png)  
-DEALER还是把3个frame都给ROUTER, ROUTER查表得到connection, 剥掉标识符那个frame, 只发2个frame给REQ socket.
+DEALER还是把3个frame都给ROUTER, ROUTER查表得到connection, 剥掉标识符那个frame, 只发2个frame给REQ socket.  
 ![](img/golang_zmq_20220911225150.png)  
 > ROUTER sockets don’t care about the whole envelope. They don’t know anything about the empty delimiter. All they care about is that one identity frame that lets them figure out which connection to send a message to.
 
@@ -850,7 +850,7 @@ func main() {
 }
 ```
 
-如果此时加新需求: 增加多个发布者, 那么可以设计交互格式为:
+如果此时加新需求: 增加多个发布者, 那么可以设计交互格式为:  
 ![](img/golang_zmq_20220911233913.png)  
 
 ## 高水位
