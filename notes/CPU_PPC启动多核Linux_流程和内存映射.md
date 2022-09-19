@@ -89,7 +89,8 @@ idx w vaddr      GsLpidVTsSizeTidWIMGEUrUwUxSrSwSx    paddr        VfX0X1U0U1U2U
 linux.itb包括uImage, fdt, rootfs  
 uImage也是个itb, 是个压缩过的linux二进制. 不用解析elf.
 
-```sequence
+```mermaid
+sequenceDiagram
 participant uboot_wrappers.c as wp
 participant fantf/board.c as bd
 participant common/cmd_bootm.c as bm
@@ -144,7 +145,8 @@ invstr:
 ```
 
 kernel启动流程如下:
-```sequence
+```mermaid
+sequenceDiagram
 participant init/main.c as m
 participant head_fsl_booke.S as hd
 participant powerpc/kernel/\nsetup_32.c as su
@@ -221,7 +223,8 @@ memory {
 ## uboot阶段
 
 uboot启动从核流程如下:
-```sequence
+```mermaid
+sequenceDiagram
 participant 主流程 @主核 as ci
 participant mpc85xx/fdt.c @主核 as fdt
 participant mpc85xx/mp.c @主核 as mp
@@ -335,7 +338,8 @@ linux启动后, 在`/sys/firmware/devicetree/base`下能看到相关的dtb配置
 0000000 0000 0001 1fee 4180                    
 0000008
 ```
-```sequence
+```mermaid
+sequenceDiagram
 participant 第一个进程kernel_init @主核 as ki
 participant kernel/smp.c @主核 as smp
 participant kernel/cpu.c @主核 as cpu
@@ -362,7 +366,8 @@ note over ki: do_basic_setup(): \n初始化共享内存 驱动 irq 系统调用 
 note over ki: 至此系统正常running: \n依次尝试执行/init /sbin/init /etc/init \n/bin/init /bin/sh
 ```
 
-```sequence
+```mermaid
+sequenceDiagram
 participant powerpc/kernel/smp.c \n@主核 as ppcsmp
 participant platforms/85xx/smp.c \n@主核 as 85smp
 participant mpc85xx/release.S \n@从核 as rl
