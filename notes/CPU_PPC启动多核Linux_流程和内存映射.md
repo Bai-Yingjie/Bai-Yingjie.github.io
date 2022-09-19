@@ -91,25 +91,25 @@ uImage也是个itb, 是个压缩过的linux二进制. 不用解析elf.
 
 ```mermaid
 sequenceDiagram
-participant uboot_wrappers.c as wp
-participant fantf/board.c as bd
-participant common/cmd_bootm.c as bm
-participant powerpc/lib/bootm.c as ppcbm
+  participant uboot_wrappers.c as wp
+  participant fantf/board.c as bd
+  participant common/cmd_bootm.c as bm
+  participant powerpc/lib/bootm.c as ppcbm
 
-Note Over wp: prepare_images()
-Note Over wp: fdt addr 0x... \n //initrd \n isam mchosen 0xc10000 0x9d61c8;
-wp->bd: fdt boa
-Note Over bd: //做dtb的fixup \n ft_board_setup
-Note Over bd: //要非零物理地址启动, base要是实际LAW配的物理地址 \n 注1: fdt_fixup_memory(base, size)
-bd-->wp:
-wp->bm: bootm 0x7a0002a4 - 0x11000000
-note over bm: bootm_find_os \n boot_get_kernel
-note over bm: //for dts \n bootm_find_other
-note over bm: bootm_load_os
-note over bm: boot_relocate_fdt
-bm->ppcbm: do_bootm_linux
-note over ppcbm: boot_prep_linux \n boot_body_linux \n boot_jump_linux
-note over ppcbm: 注2: kernel = 把images->ep强转为函数指针;\n 注3: (*kernel) ((bd_t *)of_flat_tree, 0, 0, EPAPR_MAGIC, \n getenv_bootm_mapsize(), 0, 0)
+  Note Over wp: prepare_images()
+  Note Over wp: fdt addr 0x... \n //initrd \n isam mchosen 0xc10000 0x9d61c8;
+  wp->bd: fdt boa
+  Note Over bd: //做dtb的fixup \n ft_board_setup
+  Note Over bd: //要非零物理地址启动, base要是实际LAW配的物理地址 \n 注1: fdt_fixup_memory(base, size)
+  bd-->wp:
+  wp->bm: bootm 0x7a0002a4 - 0x11000000
+  note over bm: bootm_find_os \n boot_get_kernel
+  note over bm: //for dts \n bootm_find_other
+  note over bm: bootm_load_os
+  note over bm: boot_relocate_fdt
+  bm->ppcbm: do_bootm_linux
+  note over ppcbm: boot_prep_linux \n boot_body_linux \n boot_jump_linux
+  note over ppcbm: 注2: kernel = 把images->ep强转为函数指针;\n 注3: (*kernel) ((bd_t *)of_flat_tree, 0, 0, EPAPR_MAGIC, \n getenv_bootm_mapsize(), 0, 0)
 ```
 * 注1:  
 在fant-f上, ddr被配置在物理地址4G以上. 而uboot默认base为0, 不修改会导致kernel无法启动.  
@@ -147,48 +147,48 @@ invstr:
 kernel启动流程如下:
 ```mermaid
 sequenceDiagram
-participant init/main.c as m
-participant head_fsl_booke.S as hd
-participant powerpc/kernel/\nsetup_32.c as su
-participant powerpc/kernel/\nprom.c as pr
-participant powerpc/mm/\ninit_32.c as int
-participant powerpc/mm/\nfsl_booke_mmu.c as mmu
+  participant init/main.c as m
+  participant head_fsl_booke.S as hd
+  participant powerpc/kernel/\nsetup_32.c as su
+  participant powerpc/kernel/\nprom.c as pr
+  participant powerpc/mm/\ninit_32.c as int
+  participant powerpc/mm/\nfsl_booke_mmu.c as mmu
 
-note over hd: c0000000 <_start>: \n此时还在用uboot配的TLB, \n虚拟地址从0开始
-note over hd: invalidate所有uboot的TLB, \n但保留当前运行的kernel代码所用的TLB.
-note over hd: 注1: //建立第一条kernel的TLB\n__early_start: \ninclude fsl_booke_entry_mapping.S
-note over hd: 到这里已经是0xC000_0000地址了\n使用特殊指令mtivor0 .. mtivor15\n建立中断表: set_ivor
-note over hd: 如果是从核, 跳转到\n __secondary_start
-note over hd: 建立第一个线程的ptr到init_task,\n建立栈
-hd->su: 跳转到第一个C函数\n early_init
-note over su: 清零bss, 识别CPU类型
-#su-->hd:
-hd->su: machine_init
-note over su: 到这里kernel已经被relocated好了
-#note over su: early_init_devtree()\n early_init_mmu()
-su->pr: early_init_devtree
-note over pr: 根据device treee, 获取initrd等信息\n建立MEMBLOCKs: 内存区间表\n扫描并解析dt
-note over pr: early_init_mmu()
-pr-->hd:
-hd->int: MMU_init
-note over int: 从命令行解析MMU配置\n reserve hugetlb
-int->mmu: adjust_total_lowmem
-note over mmu: 为kernel固定768M \n"low memory"映射\n 注2: map_mem_in_cams_addr\n(物理地址,0xc0000000,768,3,0)
-mmu-->int:
-note over int: 初始化MMU硬件
-int-->hd:
-hd->m: start_kernel()
-note over m: lockdep_init();\ncgroup_init_early();\nlocal_irq_disable();\nboot_cpu_init();\npage_address_init();
-note over m: 打印Linux version
-note over m: setup_arch(&command_line);\n初始化mm, percpu, \nsoftirq, 页表分配器, \n打印并解析命令行
-note over m: 建立log buf, pid hash表, vfs的cache\n trap_init(); \nmm_init();
-note over m: sched_init();\nrcu_init();\ntick_nohz_init();\ncontext_tracking_init();\nradix_tree_init();\ninit_IRQ();\ntick_init();\ninit_timers();\nsoftirq_init();\ntime_init();\nperf_event_init();\ncall_function_init();
-note over m: 开中断local_irq_enable();
-note right of m: 开始有中断
-note over m: 初始化page_cgroup numa_policy \nsched_clock pidmap \nanon_vma thread_info_cache \nsignal 等等...
-note over m: 初始化cgroup cpuset ftrace
-note over m: rest_init(): \n开始第一个线程:kernel_init和\n第二个线程kthreadd
-note over m: 到这里所有初始化结束, 进入idle\nwhile(1) do_idle()
+  note over hd: c0000000 <_start>: \n此时还在用uboot配的TLB, \n虚拟地址从0开始
+  note over hd: invalidate所有uboot的TLB, \n但保留当前运行的kernel代码所用的TLB.
+  note over hd: 注1: //建立第一条kernel的TLB\n__early_start: \ninclude fsl_booke_entry_mapping.S
+  note over hd: 到这里已经是0xC000_0000地址了\n使用特殊指令mtivor0 .. mtivor15\n建立中断表: set_ivor
+  note over hd: 如果是从核, 跳转到\n __secondary_start
+  note over hd: 建立第一个线程的ptr到init_task,\n建立栈
+  hd->su: 跳转到第一个C函数\n early_init
+  note over su: 清零bss, 识别CPU类型
+  #su-->hd:
+  hd->su: machine_init
+  note over su: 到这里kernel已经被relocated好了
+  #note over su: early_init_devtree()\n early_init_mmu()
+  su->pr: early_init_devtree
+  note over pr: 根据device treee, 获取initrd等信息\n建立MEMBLOCKs: 内存区间表\n扫描并解析dt
+  note over pr: early_init_mmu()
+  pr-->hd:
+  hd->int: MMU_init
+  note over int: 从命令行解析MMU配置\n reserve hugetlb
+  int->mmu: adjust_total_lowmem
+  note over mmu: 为kernel固定768M \n"low memory"映射\n 注2: map_mem_in_cams_addr\n(物理地址,0xc0000000,768,3,0)
+  mmu-->int:
+  note over int: 初始化MMU硬件
+  int-->hd:
+  hd->m: start_kernel()
+  note over m: lockdep_init();\ncgroup_init_early();\nlocal_irq_disable();\nboot_cpu_init();\npage_address_init();
+  note over m: 打印Linux version
+  note over m: setup_arch(&command_line);\n初始化mm, percpu, \nsoftirq, 页表分配器, \n打印并解析命令行
+  note over m: 建立log buf, pid hash表, vfs的cache\n trap_init(); \nmm_init();
+  note over m: sched_init();\nrcu_init();\ntick_nohz_init();\ncontext_tracking_init();\nradix_tree_init();\ninit_IRQ();\ntick_init();\ninit_timers();\nsoftirq_init();\ntime_init();\nperf_event_init();\ncall_function_init();
+  note over m: 开中断local_irq_enable();
+  note right of m: 开始有中断
+  note over m: 初始化page_cgroup numa_policy \nsched_clock pidmap \nanon_vma thread_info_cache \nsignal 等等...
+  note over m: 初始化cgroup cpuset ftrace
+  note over m: rest_init(): \n开始第一个线程:kernel_init和\n第二个线程kthreadd
+  note over m: 到这里所有初始化结束, 进入idle\nwhile(1) do_idle()
 ```
 
 * 注1:  
@@ -225,38 +225,37 @@ memory {
 uboot启动从核流程如下:
 ```mermaid
 sequenceDiagram
-participant 主流程 @主核 as ci
-participant mpc85xx/fdt.c @主核 as fdt
-participant mpc85xx/mp.c @主核 as mp
-participant mpc85xx/release.S @所有从核 as rl
+  participant 主流程 @主核 as ci
+  participant mpc85xx/fdt.c @主核 as fdt
+  participant mpc85xx/mp.c @主核 as mp
+  participant mpc85xx/release.S @所有从核 as rl
 
-
-note over ci: 省略前面过程, \n此时uboot已经在ram中运行
-ci->mp: setup_mp()
-note over mp: boot page是最大DDR地址-4K\n 注0: 找到__second_half_boot_page的物理地址\n 找到spin table的物理地址
-note over mp: 注1: 找到虚拟地址CONFIG_BPTR_VIRT_ADDR的tlb index
-note over mp: 重新配置这个TLB index, 使得\nCONFIG_BPTR_VIRT_ADDR map到boot page
-note over mp: 拷贝__secondary_start_page到CONFIG_BPTR_VIRT_ADDR, \n即拷贝到boot page的物理地址
-note over mp: 注2: plat_mp_up(): \n把boot page的地址写入bstrh和bstrl寄存器
-mp->rl: release 从核
-note over rl: 注3: 0xFFFF_FFFC: \n__secondary_reset_vector: \nb __secondary_start_page
-rl->rl:
-note over rl: 0xFFFF_F000: __secondary_start_page
-note over rl: CPU core初始化, errata修复, \n打开CPU cache, 分支预测等组件.
-note over rl: 配置TLB index5, 映射CCSR. \n注4:
-note over rl: 解析spin table地址, 建立spin table的TLB映射\n 注5:TLB更新
-note over rl: 从__bootpg_addr取__second_half_boot_page的物理地址,\n rfi(return from interrupt)跳转到这个地址 \n这个地址在上面刚刚配置的TLB内.
-note over rl: 注6: __second_half_boot_page:\n 建立spin table entry
-rl--> mp: 置位spin table中本CPU的标记
-note over rl: 循环等待spin table被填入addr
-note over rl: PC地址: 0x1fee4048
-rl->rl:
-note over mp: 等待spin table中每个CPU的标记, \n1表示对应的从核已经跑到
-mp-->ci:
-note over ci: 主核继续运行
-note over ci: "boot m"命令
-ci-->fdt: ft_fixup_cpu
-note over fdt: 在dtb中添加spin table信息:\n获取spin table总地址\n在每个cpu节点下面:\n"enable-method" = "spin-table"\n"cpu-release-addr"=该cpu的spin table物理地址\n并把相关内存添加到reserve memory
+  note over ci: 省略前面过程, \n此时uboot已经在ram中运行
+  ci->mp: setup_mp()
+  note over mp: boot page是最大DDR地址-4K\n 注0: 找到__second_half_boot_page的物理地址\n 找到spin table的物理地址
+  note over mp: 注1: 找到虚拟地址CONFIG_BPTR_VIRT_ADDR的tlb index
+  note over mp: 重新配置这个TLB index, 使得\nCONFIG_BPTR_VIRT_ADDR map到boot page
+  note over mp: 拷贝__secondary_start_page到CONFIG_BPTR_VIRT_ADDR, \n即拷贝到boot page的物理地址
+  note over mp: 注2: plat_mp_up(): \n把boot page的地址写入bstrh和bstrl寄存器
+  mp->rl: release 从核
+  note over rl: 注3: 0xFFFF_FFFC: \n__secondary_reset_vector: \nb __secondary_start_page
+  rl->rl:
+  note over rl: 0xFFFF_F000: __secondary_start_page
+  note over rl: CPU core初始化, errata修复, \n打开CPU cache, 分支预测等组件.
+  note over rl: 配置TLB index5, 映射CCSR. \n注4:
+  note over rl: 解析spin table地址, 建立spin table的TLB映射\n 注5:TLB更新
+  note over rl: 从__bootpg_addr取__second_half_boot_page的物理地址,\n rfi(return from interrupt)跳转到这个地址 \n这个地址在上面刚刚配置的TLB内.
+  note over rl: 注6: __second_half_boot_page:\n 建立spin table entry
+  rl--> mp: 置位spin table中本CPU的标记
+  note over rl: 循环等待spin table被填入addr
+  note over rl: PC地址: 0x1fee4048
+  rl->rl:
+  note over mp: 等待spin table中每个CPU的标记, \n1表示对应的从核已经跑到
+  mp-->ci:
+  note over ci: 主核继续运行
+  note over ci: "boot m"命令
+  ci-->fdt: ft_fixup_cpu
+  note over fdt: 在dtb中添加spin table信息:\n获取spin table总地址\n在每个cpu节点下面:\n"enable-method" = "spin-table"\n"cpu-release-addr"=该cpu的spin table物理地址\n并把相关内存添加到reserve memory
 ```
 
 * 注0:  
@@ -340,81 +339,81 @@ linux启动后, 在`/sys/firmware/devicetree/base`下能看到相关的dtb配置
 ```
 ```mermaid
 sequenceDiagram
-participant 第一个进程kernel_init @主核 as ki
-participant kernel/smp.c @主核 as smp
-participant kernel/cpu.c @主核 as cpu
-participant powerpc/kernel/smp.c @主核 as ppcsmp
+  participant 第一个进程kernel_init @主核 as ki
+  participant kernel/smp.c @主核 as smp
+  participant kernel/cpu.c @主核 as cpu
+  participant powerpc/kernel/smp.c @主核 as ppcsmp
 
-note over ki: ...
-note over ki: 初始化多核: do_pre_smp_initcalls();\nlockup_detector_init();\nsmp_init();\nsched_init_smp();
-note over smp: 每个CPU都有idle threads \nstruct task_struct *idle_threads[NR_CPUS];
-ki->smp: smp_init
-note over smp: for each cpu: cpu_up(cpu)
-smp->cpu: cpu_up
-note over cpu: 获取该CPU的idle = idle thread \n 为这个CPU新建线程
-cpu->ppcsmp: __cpu_up(cpu, idle)
-note over ppcsmp: 全局变量unsigned int \ncpu_callin_map[NR_CPUS];\n
-note over ppcsmp: 初始化idle进程的thread_info
-note over ppcsmp: kick_cpu
+  note over ki: ...
+  note over ki: 初始化多核: do_pre_smp_initcalls();\nlockup_detector_init();\nsmp_init();\nsched_init_smp();
+  note over smp: 每个CPU都有idle threads \nstruct task_struct *idle_threads[NR_CPUS];
+  ki->smp: smp_init
+  note over smp: for each cpu: cpu_up(cpu)
+  smp->cpu: cpu_up
+  note over cpu: 获取该CPU的idle = idle thread \n 为这个CPU新建线程
+  cpu->ppcsmp: __cpu_up(cpu, idle)
+  note over ppcsmp: 全局变量unsigned int \ncpu_callin_map[NR_CPUS];\n
+  note over ppcsmp: 初始化idle进程的thread_info
+  note over ppcsmp: kick_cpu
 
-ppcsmp-->cpu:
-note over cpu: 激活这个CPU的线程\n 通知这个CPU已经online
-cpu-->smp:
-note over smp: 打印从核已启动\n Brought up 4 CPUs
-smp-->ki:
-note over ki: do_basic_setup(): \n初始化共享内存 驱动 irq 系统调用 执行initcalls\n从ramdis加载默认ko
-note over ki: 至此系统正常running: \n依次尝试执行/init /sbin/init /etc/init \n/bin/init /bin/sh
+  ppcsmp-->cpu:
+  note over cpu: 激活这个CPU的线程\n 通知这个CPU已经online
+  cpu-->smp:
+  note over smp: 打印从核已启动\n Brought up 4 CPUs
+  smp-->ki:
+  note over ki: do_basic_setup(): \n初始化共享内存 驱动 irq 系统调用 执行initcalls\n从ramdis加载默认ko
+  note over ki: 至此系统正常running: \n依次尝试执行/init /sbin/init /etc/init \n/bin/init /bin/sh
 ```
 
 ```mermaid
 sequenceDiagram
-participant powerpc/kernel/smp.c \n@主核 as ppcsmp
-participant platforms/85xx/smp.c \n@主核 as 85smp
-participant mpc85xx/release.S \n@从核 as rl
-participant head_fsl_booke.S \n@从核 as hd
-participant powerpc/kernel/smp.c \n@从核 as ppcsmp2
+  participant powerpc/kernel/smp.c \n@主核 as ppcsmp
+  participant platforms/85xx/smp.c \n@主核 as 85smp
+  participant mpc85xx/release.S \n@从核 as rl
+  participant head_fsl_booke.S \n@从核 as hd
+  participant powerpc/kernel/smp.c \n@从核 as ppcsmp2
 
 
-note over rl: 循环等待spin table被填入addr
-note over rl: PC地址: 0x1fee4048
-rl->rl:
-note left of rl: 此时还在uboot代码里面
-ppcsmp->85smp: smp_85xx_kick_cpu
-note over 85smp: 从device tree获取cpu-release-addr\n例如CPU2: *cpu_rel_addr=0x11fee4180\n将该地址ioremap得到spin table虚拟地址
-note over 85smp: 注1: 将__early_start的物理地址写入spin table
-85smp->rl: 从核启动物理地址生效\n:0x10000009c
-note over 85smp: 等待从核release
-note over rl: 注2: mask spin table 状态为released
-rl-->85smp:
-note over 85smp: 打开本地中断
-85smp-->ppcsmp:
-note over rl: 注3: 为该启动地址配置64M的1:1TLB
-note over rl: TLB配好后, rfi命令跳转到启动地址
-rl->hd: rfi命令跳转到linux代码
-note over hd: //建立第一条kernel的TLB\n__early_start: \ninclude "fsl_booke_entry_mapping.S"\n这部分和主核一样
-note over hd: 注4: 虚拟地址从0xc000_0000开始了\n设置中断向量表
-note over hd: 从核, 跳转到\n __secondary_start
-note over hd: 注5: 从核直接从TLBCAM[index] load tlb配置\n使低768M内存常驻TLB配置
-note over hd: 初始current和current_thread_info到全局变量\n建立栈
-note over hd: 跳转到start_secondary
-hd->ppcsmp2: start_secondary
-note over ppcsmp2: cpu_callin_map[cpu]置位
-note over ppcsmp: 等待从核给\ncpu_callin_map[CPU]置位\n timeout说明从核没起来
-ppcsmp2-->ppcsmp: 通知主核, 启动成功
-note over ppcsmp2: 初始化cputime\n配置numa\ncpu上线\n打开本地中断
-note over ppcsmp2: 注6: 从核从IDLE开始运行\ncpu_startup_entry\n(CPUHP_AP_ONLINE_IDLE)
+  note over rl: 循环等待spin table被填入addr
+  note over rl: PC地址: 0x1fee4048
+  rl->rl:
+  note left of rl: 此时还在uboot代码里面
+  ppcsmp->85smp: smp_85xx_kick_cpu
+  note over 85smp: 从device tree获取cpu-release-addr\n例如CPU2: *cpu_rel_addr=0x11fee4180\n将该地址ioremap得到spin table虚拟地址
+  note over 85smp: 注1: 将__early_start的物理地址写入spin table
+  85smp->rl: 从核启动物理地址生效\n:0x10000009c
+  note over 85smp: 等待从核release
+  note over rl: 注2: mask spin table 状态为released
+  rl-->85smp:
+  note over 85smp: 打开本地中断
+  85smp-->ppcsmp:
+  note over rl: 注3: 为该启动地址配置64M的1:1TLB
+  note over rl: TLB配好后, rfi命令跳转到启动地址
+  rl->hd: rfi命令跳转到linux代码
+  note over hd: //建立第一条kernel的TLB\n__early_start: \ninclude "fsl_booke_entry_mapping.S"\n这部分和主核一样
+  note over hd: 注4: 虚拟地址从0xc000_0000开始了\n设置中断向量表
+  note over hd: 从核, 跳转到\n __secondary_start
+  note over hd: 注5: 从核直接从TLBCAM[index] load tlb配置\n使低768M内存常驻TLB配置
+  note over hd: 初始current和current_thread_info到全局变量\n建立栈
+  note over hd: 跳转到start_secondary
+  hd->ppcsmp2: start_secondary
+  note over ppcsmp2: cpu_callin_map[cpu]置位
+  note over ppcsmp: 等待从核给\ncpu_callin_map[CPU]置位\n timeout说明从核没起来
+  ppcsmp2-->ppcsmp: 通知主核, 启动成功
+  note over ppcsmp2: 初始化cputime\n配置numa\ncpu上线\n打开本地中断
+  note over ppcsmp2: 注6: 从核从IDLE开始运行\ncpu_startup_entry\n(CPUHP_AP_ONLINE_IDLE)
 ```
 
 * 注1:  
 在linux下面, spin table定义如下:
 ```c
 struct epapr_spin_table {
-    u32    addr_h;
-    u32    addr_l;
-    u32    r3_h;
-    u32    r3_l;
-    u32    reserved;
-    u32    pir;
+  u32    addr_h;
+  u32    addr_l;
+  u32    r3_h;
+  u32    r3_l;
+  u32    reserved;
+  u32    pir;
 };
 ```
 这里的kernel代码有个bug, CPU是PPC32时, kernel不写addr_h, 一般系统的DDR配置在物理0地址, addr_h不写也没问题.  
