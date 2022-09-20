@@ -53,9 +53,13 @@ BSTRH, BSTRL, and BSTAR, 转换到4GB-BSTAR[SIZE] to 4GB-1
 ![](img/CPU_PPC启动多核Linux_流程和内存映射_20220919135531.png)  
 * L1 MMU也有tlb, 但对软件不可见; 硬件把L1的TLB作为L2的TBL的缓存(inclusive cache), 自动管理.
 * 两类TLB: TLB0和TLB0, 是并行工作的; TLB0的page size是固定4K, 比TLB1少了些通用性, 但entry数多. 多4K page的kernel应该比较友好.
-* 多个tlb hit到一个虚拟地址是错误的.这种情况下, tlb会返回无效地址, 并且产生machine check  
+* 多个tlb hit到一个虚拟地址是错误的.这种情况下, tlb会返回无效地址, 并且产生machine check
+
+虚拟地址转换为物理地址过程:  
 ![](img/CPU_PPC启动多核Linux_流程和内存映射_20220919135557.png)  
+tlb匹配过程:  
 ![](img/CPU_PPC启动多核Linux_流程和内存映射_20220919135621.png)  
+tlb的标记位含义:  
 ![](img/CPU_PPC启动多核Linux_流程和内存映射_20220919135633.png)  
 ![](img/CPU_PPC启动多核Linux_流程和内存映射_20220919135643.png)  
 ![](img/CPU_PPC启动多核Linux_流程和内存映射_20220919135702.png)  
@@ -91,7 +95,7 @@ uImage也是个itb, 是个压缩过的linux二进制. 不用解析elf.
 
 ```sequence
 participant uboot_wrappers.c as wp
-participant fantf/board.c as bd
+participant fant/board.c as bd
 participant common/cmd_bootm.c as bm
 participant powerpc/lib/bootm.c as ppcbm
 
@@ -111,7 +115,7 @@ note over ppcbm: boot_prep_linux \n boot_body_linux \n boot_jump_linux
 note over ppcbm: 注2: kernel = 把images->ep强转为函数指针;\n 注3: (*kernel) ((bd_t *)of_flat_tree, 0, 0, EPAPR_MAGIC, \n getenv_bootm_mapsize(), 0, 0)
 ```
 * 注1:  
-在fant-f上, ddr被配置在物理地址4G以上. 而uboot默认base为0, 不修改会导致kernel无法启动.  
+在fant上, ddr被配置在物理地址4G以上. 而uboot默认base为0, 不修改会导致kernel无法启动.  
 对DDR来说, 它的ID是0x10和0x11, 它不可能是一个memory transaction的源, 只可能是目的.  
 LAW寄存器: ddr使用fe00_0c70和fe00_0c80, 被map到36位物理地址0x1:00000000, 两段各2G, 一共4G.  
 具体LAW寄存器要看芯片手册第二章, memory map
@@ -264,7 +268,7 @@ note over fdt: 在dtb中添加spin table信息:\n获取spin table总地址\n在�
 `__spin_table`在第2个4K: 0x0ff44204
 
 * 注1:  
-CONFIG_BPTR_VIRT_ADDR默认是0xfffff000, 但fant-f改写为0xeffff000
+CONFIG_BPTR_VIRT_ADDR默认是0xfffff000, 但fant改写为0xeffff000
 ```
 idx w vaddr      GsLpidVTsSizeTidWIMGEUrUwUxSrSwSx    paddr        VfX0X1U0U1U2U3Iprot
  19 0 0xeffff000 --   0V--   1  0-I-G-------SrSwSx -> 0x1:1ffff000 --------------Iprot
@@ -413,8 +417,8 @@ struct epapr_spin_table {
 };
 ```
 这里的kernel代码有个bug, CPU是PPC32时, kernel不写addr_h, 一般系统的DDR配置在物理0地址, addr_h不写也没问题.  
-但fant-f的物理地址在0x1_0000_0000, 即从4G开始, 那么`__pa(__early_start)`是大于32位的, 不写addr_h会导致从核得到的启动地址不对, 从核无法启动.
-在fant-f上的相关地址打印如下: **注for注1**:
+但fant的物理地址在0x1_0000_0000, 即从4G开始, 那么`__pa(__early_start)`是大于32位的, 不写addr_h会导致从核得到的启动地址不对, 从核无法启动.
+在fant上的相关地址打印如下: **注for注1**:
 ```c
 cpu_rel_addr=0xc3fdc4ac *cpu_rel_addr=0x11fee4180
 high_memory=0xf0000000 virt_to_phys(high_memory)=0x30000000
@@ -442,7 +446,7 @@ static inline unsigned long virt_to_phys(volatile void * address)
 历史背景:
 **virt_to_phys**被kernel里面很多核心代码和众多driver引用.  `unsigned long`在32位机器上是32位, 在64位机器上是64位, 所以这个api被设计成默认虚拟地址和物理地址等宽. 一般情况下, 这样设计没问题.  
 PPC4080, CPU是32位, 但物理地址有36位, 这种情况下, 如果DDR被配置在物理0地址, 大小不超过4G, 这样做也是没问题的.  
-但fant-f很特殊, DDR被配置在了物理4G地址开始, 其物理地址"真的"超过了32位. 在这种情况下, `virt_to_phys`返回的物理地址会被截断.  
+但fant很特殊, DDR被配置在了物理4G地址开始, 其物理地址"真的"超过了32位. 在这种情况下, `virt_to_phys`返回的物理地址会被截断.  
 修改:  
 也很简单, 把`unsigned long`换成`phys_addr_t`, `phys_addr_t`足够容下物理地址.  
 此时打印如下:`virt_to_phys(high_memory)`地址变正确了.
