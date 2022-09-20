@@ -1,7 +1,7 @@
 # Summary
 * [简介](README.md)
 
-* [虚拟化](notes/as_title.md)
+* [CPU和device虚拟化](notes/as_title.md)
   * [gvisor](notes/as_title.md)
     * [gvisor KVM模式代码](notes/golang_gvisor代码_KVM.md)
     * [gvisor调试](notes/golang_gvisor调试.md)
@@ -13,6 +13,12 @@
     * [cloud hypervisor代码](notes/rust_cloud-hypervisor_代码.md)
     * [cloud hypervisor使用](notes/rust_cloud-hypervisor_使用.md)
     * [cloud hypervisor问题与解决](notes/rust_cloud-hypervisor_问题与解决.md)
+  * [Qemu使用](notes/qemu使用.md)
+
+* [虚拟化网络](notes/as_title.md)
+  * [虚拟化网络杂记](notes/networking_virtualization_杂记.md)
+  * [linux虚拟网络接口(网摘)](notes/networking_linux虚拟网络接口.md)
+
 * [开源](notes/as_title.md)
   * [我的开源项目](notes/my_opensource.md)
   * [我的upstream commit](notes/my_upstream.md)
@@ -94,7 +100,18 @@
   * [Project Euler](notes/Project_Euler.md)
 
 * [CPU Arch相关](notes/as_title.md)
-  * [PPC启动多核linux: 流程和内存映射](notes/CPU_PPC启动多核Linux_流程和内存映射.md)
+  * [PPC](notes/as_title.md)
+    * [PPC启动多核linux: 流程和内存映射](notes/CPU_PPC启动多核Linux_流程和内存映射.md)
+    * [PPC kernel升级记录](notes/CPU_PPC_kernel升级记录.md)
+  * [MIPS](notes/as_title.md)
+    * [octeon操作记录](notes/CPU_MIPS_octeon操作记录.md)
+
+* [设备和驱动相关](notes/as_title.md)
+  * [驱动杂记](notes/device_driver_杂记.md)
+  * [Nand flash概率写失败问题分析](notes/device_driver_nand概率写失败问题分析.md)
+  * [智能网卡](notes/as_title.md)
+    * [liquidIO](notes/as_title.md)
+      * [PCI-NIC 代码阅读 --app篇](notes/smartNIC_liquidIO_代码阅读app篇.md)
 
 * [Linux 开发调试](notes/as_title.md)
   * [Operating System](notes/as_title.md)
