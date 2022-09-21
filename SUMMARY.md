@@ -112,6 +112,9 @@
   * [智能网卡](notes/as_title.md)
     * [liquidIO](notes/as_title.md)
       * [PCI-NIC 代码阅读 --app篇](notes/smartNIC_liquidIO_代码阅读app篇.md)
+      * [PCI-NIC 代码阅读 --driver篇之结构体](notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md)
+      * [PCI-NIC 代码阅读 --driver篇](notes/smartNIC_liquidIO_代码阅读driver篇.md)
+      * [PCI-NIC 代码阅读 --真NIC篇](notes/smartNIC_liquidIO_代码阅读真NIC篇.md)
 
 * [Linux 开发调试](notes/as_title.md)
   * [Operating System](notes/as_title.md)
