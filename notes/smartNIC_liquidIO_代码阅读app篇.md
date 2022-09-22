@@ -1,3 +1,4 @@
+- [](#)
 - [用户态使用](#用户态使用)
 - [代码梳理](#代码梳理)
   - [共享内存里面保存的结构体](#共享内存里面保存的结构体)
@@ -8,7 +9,38 @@
   - [这个测试程序的默认配置](#这个测试程序的默认配置)
   - [子进程](#子进程)
 
+# 编译
+* host
+```
+cd OCTEON-SDK/components/driver
+make
+```
+* core
+```
+cd OCTEON-SDK/applications/pci-core-app/base
+make
+```
+* test
+```
+cd OCTEON-SDK-2.3.0/components/driver/host/test
+make
+```
+
 # 用户态使用
+
+## load
+```
+cd /home/yingjie/repos/OCTEON-SDK-2.3.0/target/bin
+OCTEON_REMOTE_DEBUG=1 oct-pci-boot u-boot-octeon_nic10e_66.bin
+OCTEON_REMOTE_DEBUG=1 oct-pci-load 0 ../../components/driver/bin/cvmcs.strip
+OCTEON_REMOTE_DEBUG=1 oct-pci-bootcmd "bootoct 0 coremask=f"
+
+cd /home/yingjie/repos/OCTEON-SDK-2.3.0/components/driver/bin
+insmod octeon_drv.ko
+mknod /dev/octeon_device c 127 0
+./oct_req 0 -ubsy
+```
+
 对应代码`OCTEON-SDK/components/driver/host/test/oct_req.c`
 ```
 [root@cvmx bin]# ./oct_req 0 -ubsy

@@ -1,3 +1,4 @@
+- [用户态使用设备物理地址方法](#用户态使用设备物理地址方法)
 - [iomem冲突问题](#iomem冲突问题)
   - [现象](#现象)
   - [driver代码](#driver代码)
@@ -25,6 +26,20 @@
   - [nand的timing mode](#nand的timing-mode)
 - [网口中断](#网口中断)
   - [core0 CPU占用率持续100%的情况下, 调试网口不通.](#core0-cpu占用率持续100的情况下-调试网口不通)
+
+# 用户态使用设备物理地址方法
+> he traditional answer here is to use `dma_alloc_coherent()` in a kernel driver, then share that memory with userspace, typically via `mmap()`.
+> If you need more than a few megs of memory, you will run into some default size limits, which can be worked around by tweaking various kernel settings.
+> The "modern" solution is called CMA - Contiguous Memory Allocator - which was merged into mainline linux kernel 3.5 (IIRC).
+
+参考  
+http://lwn.net/Articles/447405/  
+http://lwn.net/Articles/486301/  
+http://mina86.com/2012/06/10/deep-dive-into-contiguous-memory-allocator-part-i/
+https://events.linuxfoundation.org/images/stories/pdf/lceu2012_nazarwicz.pdf
+
+Sample driver: http://thread.gmane.org/gmane.linux.kernel/1263136
+
 
 # iomem冲突问题
 ## 现象
