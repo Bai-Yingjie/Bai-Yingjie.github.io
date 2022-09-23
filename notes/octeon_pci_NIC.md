@@ -36,12 +36,12 @@
   - [test](#test)
 
 # pci NIC支持两种模式
-* Packet Mode: 类似网卡
-* Coprocessor Mode: host发请求, octeon给response
+* Packet Mode: 类似网卡
+* Coprocessor Mode: host发请求, octeon给response
 
 # PEM
-RC mode: type1 configuration space header
-EP mode: type 0 configuration space header  
+* RC mode: type1 configuration space header
+* EP mode: type 0 configuration space header  
 ![](img/octeon_pci_NIC_20220922225128.png)  
 
 * pcie2.0
@@ -54,6 +54,7 @@ EP mode: type 0 configuration space header
 SLI_WIN_* enable indirect access to all other CPU CSRs(or mem?)  
 ![](img/octeon_pci_NIC_20220922225412.png)  
 * bar1: 64M, indirect access to L2/DRAM  
+
 ```
 EP: pcie bar1(64MB window)
 
@@ -99,8 +100,6 @@ PEM0_P2N_BAR0_START make no sense? only expose SLI CSRs to device? 
 * internal bar1: 64M, --"just like in EP mode", but can change base? --PEM1_P2N_BAR0_START
 * internal bar2: 2T, --"just like in EP mode", but can change base? --PEM2_P2N_BAR0_START ?
  
-
-
 # DPI & SLI
 ![](img/octeon_pci_NIC_20220922225900.png)  
 
