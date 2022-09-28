@@ -105,6 +105,9 @@
     * [thunder 开发板操作记录](notes/CPU_ARM64_thunder_开发板操作记录.md)
     * [thunder BDK](notes/CPU_ARM64_thunder_bdk.md)
     * [thunder RTC时间和efi](notes/CPU_ARM64_thunder_efi_rtc.md)
+    * [thunder uefi和fdt](notes/CPU_ARM64_thunder_uefi_fdt.md)
+    * [thunder atf](notes/CPU_ARM64_thunder_atf.md)
+    * [thunder kernel启动打印流程](notes/CPU_ARM64_thunder_kernel_boot.md)
   * [PPC](notes/as_title.md)
     * [PPC启动多核linux: 流程和内存映射](notes/CPU_PPC启动多核Linux_流程和内存映射.md)
     * [PPC kernel升级记录](notes/CPU_PPC_kernel升级记录.md)
@@ -120,6 +123,9 @@
     * [octeon 中断](notes/CPU_MIPS_octeon中断.md)
     * [octeon 原子操作](notes/CPU_MIPS_octeon原子操作.md)
     * [octeon 网口代码分析](notes/CPU_MIPS_octeon网口代码分析.md)
+
+* [Qemu OVS和DPDK](notes/as_title.md)
+  * [OVS架构和代码](notes/OVS_架构和代码.md)
 
 * [设备和驱动相关](notes/as_title.md)
   * [驱动杂记](notes/device_driver_杂记.md)
