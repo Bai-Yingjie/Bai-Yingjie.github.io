@@ -159,7 +159,7 @@ SQ必须对应一个CQ(可以多对一), NIC在发包完成时自动创建一个
 ![](img/CPU_ARM64_thunder_overview_20220928082156.png)  
 * TCP 分片: If NIC_SEND_HDR_S[TSO] is set  
 ![](img/CPU_ARM64_thunder_overview_20220928082225.png)  
-* 发包后的动作? 由VNIC来做?
+* 发包后的动作? 由VNIC来做?  
 ![](img/CPU_ARM64_thunder_overview_20220928084352.png)  
 ![](img/CPU_ARM64_thunder_overview_20220928084407.png)  
 
