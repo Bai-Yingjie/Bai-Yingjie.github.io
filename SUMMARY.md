@@ -138,6 +138,7 @@
   * [octeon remote-pci.c阅读](notes/octeon_remote_pci.md)
   * [VFIO简介](notes/Device_VFIO_notes.md)
   * [智能网卡和DPDK](notes/as_title.md)
+    * [智能网卡对比](notes/smartNIC_智能网卡对比.md)
     * [octeon PCI NIC](notes/octeon_pci_NIC.md)
     * [octeon liquidIO](notes/as_title.md)
       * [PCI-NIC 代码阅读 --app篇](notes/smartNIC_liquidIO_代码阅读app篇.md)
