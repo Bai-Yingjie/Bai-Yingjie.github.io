@@ -1,5 +1,7 @@
 - [现象](#现象)
 - [从rtc-efi.ko说开去](#从rtc-efiko说开去)
+- [从UEFI看起](#从uefi看起)
+- [kernel调用efi的service机制是什么?](#kernel调用efi的service机制是什么)
 
 # 现象
 很简单, RTC时间不对, 每次重启就回到1970年.
@@ -42,23 +44,23 @@ static int efi_read_time(struct device *dev, struct rtc_time *tm)
  * All runtime access to EFI goes through this structure:
  */
 extern struct efi {
-	efi_system_table_t *systab;	/* EFI system table */
-	unsigned int runtime_version;	/* Runtime services version */
-	unsigned long mps;		/* MPS table */
-	unsigned long acpi;		/* ACPI table  (IA64 ext 0.71) */
-	unsigned long acpi20;		/* ACPI table  (ACPI 2.0) */
-	unsigned long smbios;		/* SMBIOS table (32 bit entry point) */
-	unsigned long smbios3;		/* SMBIOS table (64 bit entry point) */
-	unsigned long sal_systab;	/* SAL system table */
-	unsigned long boot_info;	/* boot info table */
-	unsigned long hcdp;		/* HCDP table */
-	unsigned long uga;		/* UGA table */
-	unsigned long uv_systab;	/* UV system table */
-	unsigned long fw_vendor;	/* fw_vendor */
-	unsigned long runtime;		/* runtime table */
-	unsigned long config_table;	/* config tables */
-	unsigned long esrt;		/* ESRT table */
-efi_get_time_t *get_time;
+	efi_system_table_t *systab;    /* EFI system table */
+	unsigned int runtime_version;  /* Runtime services version */
+	unsigned long mps;             /* MPS table */
+	unsigned long acpi;            /* ACPI table  (IA64 ext 0.71) */
+	unsigned long acpi20;          /* ACPI table  (ACPI 2.0) */
+	unsigned long smbios;          /* SMBIOS table (32 bit entry point) */
+	unsigned long smbios3;         /* SMBIOS table (64 bit entry point) */
+	unsigned long sal_systab;      /* SAL system table */
+	unsigned long boot_info;       /* boot info table */
+	unsigned long hcdp;            /* HCDP table */
+	unsigned long uga;             /* UGA table */
+	unsigned long uv_systab;       /* UV system table */
+	unsigned long fw_vendor;       /* fw_vendor */
+	unsigned long runtime;         /* runtime table */
+	unsigned long config_table;    /* config tables */
+	unsigned long esrt;            /* ESRT table */
+	efi_get_time_t *get_time;
 	efi_set_time_t *set_time;
 	efi_get_wakeup_time_t *get_wakeup_time;
 	efi_set_wakeup_time_t *set_wakeup_time;
@@ -130,18 +132,18 @@ void efi_native_runtime_setup(void)
 最后调用`status = efi_call_virt(get_time, tm, tc);`
 这里面的`efi_call_virt`是个宏, 在`arch/arm64/include/asm/efi.h`中定义
 ```c
-#define efi_call_virt(f, ...)		\
+#define efi_call_virt(f, ...)       \
 ({                                  \
-    efi_##f##_t *__f;				\
-    efi_status_t __s;				\
+    efi_##f##_t *__f;               \
+    efi_status_t __s;               \
                                     \
-    kernel_neon_begin();			\
-    efi_virtmap_load();				\
-    __f = efi.systab->runtime->f;	\
-    __s = __f(__VA_ARGS__);			\
-    efi_virtmap_unload();			\
-    kernel_neon_end();				\
-    __s;							\
+    kernel_neon_begin();            \
+    efi_virtmap_load();             \
+    __f = efi.systab->runtime->f;   \
+    __s = __f(__VA_ARGS__);         \
+    efi_virtmap_unload();           \
+    kernel_neon_end();              \
+    __s;                            \
 })
 ```
 我们能够得出一下几点:

@@ -15,10 +15,6 @@
     * [cloud hypervisor问题与解决](notes/rust_cloud-hypervisor_问题与解决.md)
   * [Qemu使用](notes/qemu使用.md)
 
-* [虚拟化网络](notes/as_title.md)
-  * [虚拟化网络杂记](notes/networking_virtualization_杂记.md)
-  * [linux虚拟网络接口(网摘)](notes/networking_linux虚拟网络接口.md)
-
 * [开源](notes/as_title.md)
   * [我的开源项目](notes/my_opensource.md)
   * [我的upstream commit](notes/my_upstream.md)
@@ -124,8 +120,14 @@
     * [octeon 原子操作](notes/CPU_MIPS_octeon原子操作.md)
     * [octeon 网口代码分析](notes/CPU_MIPS_octeon网口代码分析.md)
 
-* [Qemu OVS和DPDK](notes/as_title.md)
-  * [OVS架构和代码](notes/OVS_架构和代码.md)
+* [计算机网络](notes/as_title.md)
+  * [networking杂记1](notes/networking_杂记1.md)
+  * [Qemu OVS和DPDK](notes/as_title.md)
+    * [OVS架构和代码](notes/OVS_架构和代码.md)
+    * [OVS-DPDK for ARM server 性能测试环境](notes/OVS_DPDK_performance_HXT_ARM_server.md)
+  * [虚拟化网络](notes/as_title.md)
+    * [虚拟化网络杂记](notes/networking_virtualization_杂记.md)
+    * [linux虚拟网络接口(网摘)](notes/networking_linux虚拟网络接口.md)
 
 * [设备和驱动相关](notes/as_title.md)
   * [驱动杂记](notes/device_driver_杂记.md)
@@ -134,6 +136,7 @@
     * [octeon nand flash驱动](notes/device_driver_octeon_nand.md)
     * [Nand flash概率写失败问题分析](notes/device_driver_nand概率写失败问题分析.md)
   * [octeon remote-pci.c阅读](notes/octeon_remote_pci.md)
+  * [VFIO简介](notes/Device_VFIO_notes.md)
   * [智能网卡和DPDK](notes/as_title.md)
     * [octeon PCI NIC](notes/octeon_pci_NIC.md)
     * [octeon liquidIO](notes/as_title.md)
@@ -143,6 +146,7 @@
       * [PCI-NIC 代码阅读 --driver篇](notes/smartNIC_liquidIO_代码阅读driver篇.md)
       * [PCI-NIC 代码阅读 --真NIC篇](notes/smartNIC_liquidIO_代码阅读真NIC篇.md)
     * [DPDK使用(2014)](notes/networking_dpdk使用_2014.md)
+  * [nvme要点介绍](notes/device_nvme要点介绍.md)
 
 * [Linux 开发调试](notes/as_title.md)
   * [Operating System](notes/as_title.md)
