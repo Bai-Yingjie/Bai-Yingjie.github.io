@@ -268,6 +268,7 @@ iface lo inet loopback
 #auto eth0
 #iface eth0 inet dhcp
 ```
+
 ## 新版本UEFI
 ```
 Please choose option 1 (97MB) and then answer as follows
@@ -276,6 +277,7 @@ y
 <nothing>
 Grub.
 ```
+
 ## CRB更新UEFI
 ```sh
 $ scp thunder-uefi.img yingjie@192.168.1.99:/tftpboot

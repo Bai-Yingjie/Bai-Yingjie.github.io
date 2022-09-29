@@ -34,7 +34,7 @@
 详见`qemu/docs/interop/vhost-user.txt`
 * Qemu是master, ovs是slave; master通过unix socket共享它的虚拟队列(virtqueues);
 * 当OVS的虚拟port是dpdkvhostuserclient模式时, 这个socket由Qemu来listen, 由OVS来connect
-* 在socket上, 传递消息的格式如下:
+* 在socket上, 传递消息的格式如下:  
 ```
 ------------------------------------ 
 | request | flags | size | payload | 
@@ -48,7 +48,7 @@
      details. 
  * Size - 32-bit size of the payload 
 ```
-* payload格式会根据不同的类型来改变, 比如vring状态描述, vring地址描述, 内存地址描述, IOTLB消息, virtio配置空间
+* payload格式会根据不同的类型来改变, 比如vring状态描述, vring地址描述, 内存地址描述, IOTLB消息, virtio配置空间  
 ```c
 //消息定义 
 typedef struct VhostUserMsg { 
@@ -67,14 +67,14 @@ typedef struct VhostUserMsg {
 } QEMU_PACKED VhostUserMsg; 
 ```
 * vhost-user用的消息协议跑在socket上, 但大部分消息兼容kernel的vhost驱动用的ioctl中的消息;  
-master发request, slave发reply, 但大部分消息不需要reply, 除了以下几个:
+master发request, slave发reply, 但大部分消息不需要reply, 除了以下几个:  
 ```c
  * VHOST_USER_GET_FEATURES 
  * VHOST_USER_GET_PROTOCOL_FEATURES 
  * VHOST_USER_GET_VRING_BASE 
  * VHOST_USER_SET_LOG_BASE (if VHOST_USER_PROTOCOL_F_LOG_SHMFD) 
 ```
-* 有些消息传的是fd
+* 有些消息传的是fd  
 ```
  * VHOST_USER_SET_MEM_TABLE 
  * VHOST_USER_SET_LOG_BASE (if VHOST_USER_PROTOCOL_F_LOG_SHMFD) 
@@ -538,7 +538,7 @@ OVS有两种datapath: kernel datapath和userspace datapath:
 
 ## kernel datapath
 默认即kernel datapath, 使用内核模块`openvswitch.ko`
-* 代码实现在lib/dpif-netlink.c
+* 代码实现在lib/dpif-netlink.c  
 > When a packet arrives on a vport, the kernel module processes it by extracting its flow key and looking it up in the flow table. If there is a matching flow, it executes the associated actions. If there is no match, it queues the packet to userspace for processing (as part of its processing, userspace will likely set up a flow to handle further packets of the same type entirely in-kernel).
 * kernel datapath框图  
 ![](img/OVS_架构和代码_20220928233612.png)  

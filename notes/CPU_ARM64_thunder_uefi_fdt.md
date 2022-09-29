@@ -64,7 +64,7 @@ ArmPlatformPkg/ThunderPkg/AcpiTables/Crb2s.asl
 
 # Thunder_${PLATFORM}.dsc
 * platform也有GUID
-* common的模块
+* common的模块  
 ```
 [LibraryClasses.common]
   ArmLib|ArmPkg/Library/ArmLib/AArch64/AArch64Lib.inf
@@ -83,7 +83,7 @@ ArmPlatformPkg/ThunderPkg/AcpiTables/Crb2s.asl
   PciExpressLib|ArmPlatformPkg/ThunderPkg/Library/BasePciExpressLib/BasePciExpressLib.inf
   PciLib|MdePkg/Library/BasePciLibPciExpress/BasePciLibPciExpress.inf
 ```
-* GIC
+* GIC  
 ```
 gArmTokenSpaceGuid.PcdSystemMemoryBase|0x01400000
 gArmTokenSpaceGuid.PcdSystemMemoryBase_Node2|0x10000400000
@@ -95,7 +95,7 @@ gArmTokenSpaceGuid.PcdSystemMemoryBase_Node2|0x10000400000
   gArmTokenSpaceGuid.PcdGicInterruptInterfaceBase|0x801000002000
 ```
 
-* PL011就是arm体系下的串口
+* PL011就是arm体系下的串口  
 ```
 serial@101f0000 {
     compatible = "arm,pl011";
@@ -105,14 +105,14 @@ serial@101f0000 {
 ```
 `gEfiMdeModulePkgTokenSpaceGuid.PcdSerialRegisterBase|0x87e024000000` --从手册可以查到, 这个地址就是串口寄存器的地址, 看起来, thunder的串口是按照arm标准设计的.
 
-* 为什么有的寄存器的地址非常小????
+* 为什么有的寄存器的地址非常小????  
 ```
 ## PL180 MMC/SD card controller
   gArmPlatformTokenSpaceGuid.PcdPL180SysMciRegAddress|0x1C010048
   gArmPlatformTokenSpaceGuid.PcdPL180MciBaseAddress|0x1C050000
 ```
 
-* 默认的grub启动路径, 固定的pci, 固定的uuid分区
+* 默认的grub启动路径, 固定的pci, 固定的uuid分区  
 ```
   #
   # GRUB Loader from SATA DISK from EFI partition.
@@ -122,7 +122,7 @@ serial@101f0000 {
    gArmPlatformTokenSpaceGuid.PcdDefaultBootType|0
 ```
 
-* 看起来变量是保存在flash上的
+* 看起来变量是保存在flash上的  
 ```
 	#FTW Non-volatile flash storage
   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase|0xF00000
@@ -138,7 +138,7 @@ serial@101f0000 {
   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize|0x0000A000
 ```
 
-* 每个inf描述被包含的一个模块???
+* 每个inf描述被包含的一个模块???  
 ```
   #
   # ACPI Support
