@@ -404,7 +404,7 @@ Access 端口发送出去的数据包无VLAN信息，可被PC接受或Access口�
 
 `1000*1000*1000bps/8bit/(64+8+12)=1.488Mpps`
 
-所以, 比如40G网口理论pps为40G/1G * 1.488=59.5Mpps
+所以, 比如40G网口理论pps为40G/1G * 1.488=59.5Mpps  
 ![](img/networking_杂记1_20220929105025.png)  
 
 # NVME-oF(NVM Express over Fabrics)

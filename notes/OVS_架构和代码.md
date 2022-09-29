@@ -34,7 +34,8 @@
 详见`qemu/docs/interop/vhost-user.txt`
 * Qemu是master, ovs是slave; master通过unix socket共享它的虚拟队列(virtqueues);
 * 当OVS的虚拟port是dpdkvhostuserclient模式时, 这个socket由Qemu来listen, 由OVS来connect
-* 在socket上, 传递消息的格式如下:  
+* 在socket上, 传递消息的格式如下:
+
 ```
 ------------------------------------ 
 | request | flags | size | payload | 
