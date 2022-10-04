@@ -229,8 +229,8 @@ TX-packets: 957875678  TX-errors: 0          TX-bytes:  64887974023
 Pktgen只能以平均99.99%的速率发包, 并不能完全线速, 而丢包就是在那0.01%的速率差异上.
 
 # 关于NIC描述符和ring
-https://stackoverflow.com/questions/36625892/descriptor-concept-in-nic
-https://blog.csdn.net/chen98765432101/article/details/69367633
+https://stackoverflow.com/questions/36625892/descriptor-concept-in-nic  
+https://blog.csdn.net/chen98765432101/article/details/69367633  
 https://blog.csdn.net/bestboyxie/article/details/53414731
 
 # latency和光速
