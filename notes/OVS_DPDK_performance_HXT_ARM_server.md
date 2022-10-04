@@ -12,7 +12,7 @@ Socket| 1 | 单socket
 CPU | 46core@2.6G AW2.1 | `sudo dmidecode -t processor`
 MEM | 96G | `free -h`
 NIC | MLX CX4121A 10G 0004:01:00.0 enP4p1s0f0| `ibdev2netdev -v`
-OS | CentOS 7.5.1804 | CentOS 7.5.1804 | `cat /etc/redhat-release`
+OS | CentOS 7.5.1804 | CentOS 7.5.1804 `cat /etc/redhat-release`
 kernel | 4.14.62-5.hxt.aarch64 | `uname -r`
 Mellanox OFED version | 4.4-1.0.0.0 | `ofed_info -s`
 QEMU version | 2.12.1 | `qemu-system-aarch64 --version` 源码编译
