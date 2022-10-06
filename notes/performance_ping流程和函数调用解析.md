@@ -37,7 +37,7 @@
 ![](img/performance_ping流程和函数调用解析_20221004231850.png)  
 可以看到从系统调用`sys_sendto`开始, 到调用实际物理网卡`mlx5e_sq_xmit`发送报文结束.
 流程如下:
-```seq
+```sequence
 Note Over Host B: ping
 Note Over Host B: sys_sendto
 Note Over Host B: sock_sendmsg
@@ -65,7 +65,7 @@ Note Over Host B: ping recive packet
 这个发送的报文通过loopback这个"设备"驱动来收包, 走标准的linux收包流程.
 
 流程如下:
-```seq
+```sequence
 Note Over Host B: ping
 Note Over Host B: sys_sendto
 Note Over Host B: sock_sendmsg

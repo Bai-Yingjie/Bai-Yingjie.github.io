@@ -13,6 +13,7 @@
     * [cloud hypervisor代码](notes/rust_cloud-hypervisor_代码.md)
     * [cloud hypervisor使用](notes/rust_cloud-hypervisor_使用.md)
     * [cloud hypervisor问题与解决](notes/rust_cloud-hypervisor_问题与解决.md)
+  * [virtio规范阅读笔记.md](notes/virtualization_virtio规范阅读笔记.md)
   * [qemu OVS 虚拟化环境准备](notes/qemu_ovs_虚拟化环境.md)
   * [Qemu使用(old)](notes/qemu使用.md)
 
@@ -21,6 +22,7 @@
   * [我的upstream commit](notes/my_upstream.md)
 
 * [系统分析和性能](notes/as_title.md)
+  * [bcc和ebpf(starting)](notes/system_analysis_bcc和ebpf.md)
   * [OVS进程调查](notes/performance_ovs进程调查.md)
   * [ping流程和函数调用解析](notes/performance_ping流程和函数调用解析.md)
   * [CentOS 性能优化系统配置](notes/CentOS_系统性能优化配置.md)
@@ -137,6 +139,7 @@
     * [网络虚拟化用例记录](notes/networking_网络虚拟化用例记录.md)
     * [网络虚拟化操作记录](notes/networking_网络虚拟化操作记录.md)
   * [虚拟化网络](notes/as_title.md)
+    * [multicast vxlan和flannel](notes/networking_multicast_vxlan_flannel.md)
     * [虚拟化网络杂记](notes/networking_virtualization_杂记.md)
     * [linux虚拟网络接口(网摘)](notes/networking_linux虚拟网络接口.md)
 
