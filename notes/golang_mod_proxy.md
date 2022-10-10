@@ -41,6 +41,18 @@
     - [Using v2 releases](#using-v2-releases)
     - [Using v1 releases](#using-v1-releases)
 
+# GOPROXY=direct
+有时候github的库更新了, 但go get或者go mod等命令不能及时的更新版本号, 比如:
+```sh
+go get github.com/godevsig/adaptiveservice@master
+```
+总是取到master的次新版本, 即使等了一段时间也不行.
+
+估计是proxy cache还没有更新, 用下面的命令可以及时更新:
+```sh
+GOPROXY=direct go get github.com/godevsig/adaptiveservice@master
+```
+
 # go get 和 replace
 有replace的时候, 比如:
 ```go

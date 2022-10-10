@@ -66,27 +66,29 @@ Note Over Host B: ping recive packet
 
 流程如下:
 ```sequence
-Note Over Host B: ping
-Note Over Host B: sys_sendto
-Note Over Host B: sock_sendmsg
-Note Over Host B: ip_finish_output
-Note Over Host B: do_softirq
-Note right of Host B: ICMP receive process
-Note Over Host B: ip_rcv
-Note Over Host B: icmp_rcv
-Note Over Host B: icmp_echo
-Note right of Host B: go through ip send process again
-Note Over Host B: ip_output
-Note Over Host B: dev_hard_start_xmit
-Note right of Host B: send packt through loopback
-Note Over Host B: loopback_xmit
-Note Over Host B: sleep on skb recive(on behalf of ping thread in kernel)
-Note Over Host B: loopback driver recv packet
-Note Over Host B: wake up recive thread
-Note Over Host B: skb_recv_datagram
-Note Over Host B: sock_recvmsg
-Note Over Host B: sys_recvmsg(wake up ping thread)
-Note Over Host B: ping recive packet
+Note Over Host B ping: ping
+Note Over Host B ping: sys_sendto
+Note Over Host B ping: sock_sendmsg
+Note Over Host B ping: ip_finish_output
+Host B ping->Host B kernel: ICMP request
+Note Over Host B kernel: do_softirq
+Note right of Host B kernel: ICMP receive process
+Note Over Host B kernel: ip_rcv
+Note Over Host B kernel: icmp_rcv
+Note Over Host B kernel: icmp_echo
+Note right of Host B kernel: go through ip send process again
+Note Over Host B kernel: ip_output
+Note Over Host B kernel: dev_hard_start_xmit
+Note right of Host B kernel: send packt through loopback
+Note Over Host B kernel: loopback_xmit
+Host B kernel->Host B ping: ICMP reply
+Note Over Host B ping: sleep on skb recive(on behalf of ping thread in kernel)
+Note Over Host B ping: loopback driver recv packet
+Note Over Host B ping: wake up recive thread
+Note Over Host B ping: skb_recv_datagram
+Note Over Host B ping: sock_recvmsg
+Note Over Host B ping: sys_recvmsg(wake up ping thread)
+Note Over Host B ping: ping recive packet
 ```
 
 ## ping localhost

@@ -139,6 +139,7 @@
     * [网络虚拟化用例记录](notes/networking_网络虚拟化用例记录.md)
     * [网络虚拟化操作记录](notes/networking_网络虚拟化操作记录.md)
   * [虚拟化网络](notes/as_title.md)
+    * [Connecting a veth device to tap](notes/networking_tc_filter_连接veth和tap.md)
     * [multicast vxlan和flannel](notes/networking_multicast_vxlan_flannel.md)
     * [虚拟化网络杂记](notes/networking_virtualization_杂记.md)
     * [linux虚拟网络接口(网摘)](notes/networking_linux虚拟网络接口.md)
