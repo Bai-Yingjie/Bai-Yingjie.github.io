@@ -721,7 +721,7 @@ numactl可以控制一个进程以及他的所有子进程的numa运行模式, �
 
 ##  预取 prefetch
 如果 perf发现热点代码在ldr xxx, 说明它在不断load什么东西. 此时用prefetch会好点.
-```c++
+```c
 #define PRFM(x,y) asm("prfm pldl1strm, [%x[a], %[off] ]" : : [a]"r"(x), [off]"i"(y))
 float Decoder::CalcModelScore( Hypothesis* hypo ) {
     float score = 0.0;
