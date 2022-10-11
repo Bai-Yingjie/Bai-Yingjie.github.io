@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2875,133 +2878,133 @@
 </li>
 </ul>
 <p><a href="https://github.com/godevsig/adaptiveservice" target="_blank">adaptiveservice</a>&#x662F;&#x6211;&#x7528;go&#x5199;&#x7684;&#x5FAE;&#x670D;&#x52A1;&#x6D88;&#x606F;&#x6846;&#x67B6;, &#x5176;&#x6838;&#x5FC3;&#x4E4B;&#x4E00;&#x662F;&#x7528;&#x4E86;go&#x7684;&#x53CD;&#x5C04;&#x6765;&#x7ED9;&#x6BCF;&#x4E2A;&#x6570;&#x636E;struct&#x7ED1;&#x5B9A;&#x4E00;&#x4E2A;handler&#x65B9;&#x6CD5;.</p>
-<pre class="language-"><code class="lang-go"><span class="token keyword">if</span> st<span class="token punctuation">.</span>svc<span class="token punctuation">.</span><span class="token function">canHandle</span><span class="token punctuation">(</span>tm<span class="token punctuation">.</span>msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    mm <span class="token operator">:=</span> <span class="token operator">&amp;</span>metaKnownMsg<span class="token punctuation">{</span>
-        stream<span class="token punctuation">:</span> ss<span class="token punctuation">,</span>
-        msg<span class="token punctuation">:</span>    tm<span class="token punctuation">.</span>msg<span class="token punctuation">.</span><span class="token punctuation">(</span>KnownMessage<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">}</span>
-    mq<span class="token punctuation">.</span><span class="token function">putMetaMsg</span><span class="token punctuation">(</span>mm<span class="token punctuation">)</span>
-<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-    ss<span class="token punctuation">.</span>privateChan <span class="token operator">&lt;-</span> tm<span class="token punctuation">.</span>msg
-<span class="token punctuation">}</span>
+<pre><code class="lang-go">if st.svc.canHandle(tm.msg) {
+    mm := &amp;metaKnownMsg{
+        stream: ss,
+        msg:    tm.msg.(KnownMessage),
+    }
+    mq.putMetaMsg(mm)
+} else {
+    ss.privateChan &lt;- tm.msg
+}
 </code></pre>
 <p>&#x5728;rust&#x91CC;&#x9762;&#x6CA1;&#x6709;&#x53CD;&#x5C04;, &#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x4ECE;&#x5B57;&#x8282;&#x6D41;&#x6570;&#x636E;(stream buffer)&#x5230;&#x5177;&#x4F53;&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x751F;&#x6210;? &#x751F;&#x6210;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x4F53;&#x80FD;&#x5426;&quot;&#x65AD;&#x8A00;&quot;&#x6210;&#x5B9E;&#x73B0;&#x4E86;KnownMessage&#x7684;trait?  </p>
 <p>&#x5148;&#x770B;&#x770B;rust&#x4ECE;&#x7C7B;&#x578B;&#x4E0A;&#x63D0;&#x4F9B;&#x4E86;&#x4EC0;&#x4E48;&#x8BED;&#x4E49;, &#x8FD9;&#x4E9B;&#x8BED;&#x4E49;&#x80FD;&#x5E72;&#x4EC0;&#x4E48;.</p>
 <h1 id="5&#x79CD;&#x52A8;&#x6001;&#x7C7B;&#x578B;"><a name="5&#x79CD;&#x52A8;&#x6001;&#x7C7B;&#x578B;" class="anchor-navigation-ex-anchor" href="#5&#x79CD;&#x52A8;&#x6001;&#x7C7B;&#x578B;"><i class="fa fa-link" aria-hidden="true"></i></a>1. 5&#x79CD;&quot;&#x52A8;&#x6001;&quot;&#x7C7B;&#x578B;</h1>
-<pre class="language-"><code class="lang-rust"><span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span>any<span class="token punctuation">::</span></span><span class="token class-name">Any</span><span class="token punctuation">;</span>
+<pre><code class="lang-rust">use std::any::Any;
 
-<span class="token keyword">struct</span> <span class="token type-definition class-name">Header</span> <span class="token punctuation">{</span>
-    uuid<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
-    protocol<span class="token punctuation">:</span> <span class="token class-name">String</span>
-<span class="token punctuation">}</span>
+struct Header {
+    uuid: u64,
+    protocol: String
+}
 
-<span class="token comment">// &#x7B2C;&#x4E00;&#x79CD;, &#x9759;&#x6001;&#x7C7B;&#x578B;, &#x6CDB;&#x578B;&#x662F;&#x9759;&#x6001;&#x5206;&#x53D1;&#x7684;, &#x5373;&#x5728;&#x7F16;&#x8BD1;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x751F;&#x6210;&#x597D;&#x4E86;&quot;&#x7C7B;&#x578B;&#x5316;&quot;&#x7684;&#x4EE3;&#x7801;.</span>
-<span class="token comment">// statically typed, no pointer dereference</span>
-<span class="token keyword">struct</span> <span class="token type-definition class-name">GenericPacket</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-    header<span class="token punctuation">:</span> <span class="token class-name">Header</span><span class="token punctuation">,</span>
-    data<span class="token punctuation">:</span> <span class="token class-name">T</span>
-<span class="token punctuation">}</span>
+// &#x7B2C;&#x4E00;&#x79CD;, &#x9759;&#x6001;&#x7C7B;&#x578B;, &#x6CDB;&#x578B;&#x662F;&#x9759;&#x6001;&#x5206;&#x53D1;&#x7684;, &#x5373;&#x5728;&#x7F16;&#x8BD1;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x751F;&#x6210;&#x597D;&#x4E86;&quot;&#x7C7B;&#x578B;&#x5316;&quot;&#x7684;&#x4EE3;&#x7801;.
+// statically typed, no pointer dereference
+struct GenericPacket&lt;T&gt; {
+    header: Header,
+    data: T
+}
 
-<span class="token comment">// &#x7B2C;&#x4E8C;&#x79CD;, &#x7528;Any&#xFF0C;&#x4EFB;&#x4F55;&#x7C7B;&#x578B;&#x90FD;&#x5B9E;&#x73B0;&#x4E86;Any</span>
-<span class="token comment">// uses the &quot;Any&quot; type to have dynamic typing</span>
-<span class="token keyword">struct</span> <span class="token type-definition class-name">AnyPacket</span> <span class="token punctuation">{</span>
-    header<span class="token punctuation">:</span> <span class="token class-name">Header</span><span class="token punctuation">,</span>
-    data<span class="token punctuation">:</span> <span class="token class-name">Any</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
+// &#x7B2C;&#x4E8C;&#x79CD;, &#x7528;Any&#xFF0C;&#x4EFB;&#x4F55;&#x7C7B;&#x578B;&#x90FD;&#x5B9E;&#x73B0;&#x4E86;Any
+// uses the &quot;Any&quot; type to have dynamic typing
+struct AnyPacket {
+    header: Header,
+    data: Any,
+}
 
-<span class="token comment">// &#x7B2C;&#x4E09;&#x79CD;&#xFF0C;&#x7528;enum&#x7A77;&#x5C3D;&#x6240;&#x6709;&#x53EF;&#x80FD;&#x7684;&#x7C7B;&#x578B;</span>
-<span class="token comment">// uses an enum to capture the differnet possible types</span>
-<span class="token keyword">enum</span> <span class="token type-definition class-name">DataEnum</span> <span class="token punctuation">{</span>
-    <span class="token class-name">Integer</span><span class="token punctuation">(</span><span class="token keyword">i32</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Float</span><span class="token punctuation">(</span><span class="token keyword">f32</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">struct</span> <span class="token type-definition class-name">EnumPacket</span> <span class="token punctuation">{</span>
-    header<span class="token punctuation">:</span> <span class="token class-name">Header</span><span class="token punctuation">,</span>
-    data<span class="token punctuation">:</span> <span class="token class-name">DataEnum</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
+// &#x7B2C;&#x4E09;&#x79CD;&#xFF0C;&#x7528;enum&#x7A77;&#x5C3D;&#x6240;&#x6709;&#x53EF;&#x80FD;&#x7684;&#x7C7B;&#x578B;
+// uses an enum to capture the differnet possible types
+enum DataEnum {
+    Integer(i32),
+    Float(f32)
+}
+struct EnumPacket {
+    header: Header,
+    data: DataEnum,
+}
 
 
-<span class="token comment">// &#x7B2C;&#x56DB;&#x79CD;: &#x7528;trait object</span>
-<span class="token keyword">trait</span> <span class="token type-definition class-name">DataTrait</span> <span class="token punctuation">{</span>
-    <span class="token comment">// interface your data conforms to</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">struct</span> <span class="token type-definition class-name">TraitPacket</span><span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">&apos;a</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-    header<span class="token punctuation">:</span> <span class="token class-name">Header</span><span class="token punctuation">,</span>
-    data<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">&apos;a</span> <span class="token keyword">dyn</span> <span class="token class-name">DataTrait</span><span class="token punctuation">,</span>  <span class="token comment">// uses a pointer dereference to something that implements DataTrait</span>
-<span class="token punctuation">}</span>
+// &#x7B2C;&#x56DB;&#x79CD;: &#x7528;trait object
+trait DataTrait {
+    // interface your data conforms to
+}
+struct TraitPacket&lt;&apos;a&gt; {
+    header: Header,
+    data: &amp;&apos;a dyn DataTrait,  // uses a pointer dereference to something that implements DataTrait
+}
 
-<span class="token comment">// &#x7B2C;&#x4E94;&#x79CD;: &#x548C;&#x7B2C;&#x4E00;&#x79CD;&#x7C7B;&#x578B;&#x7C7B;&#x4F3C;, &#x4F46;&#x662F;&#x5E26;&#x5177;&#x4F53;&#x65B9;&#x6CD5;&#x7684;trait</span>
-<span class="token comment">// statically typed, but will accept any type that conforms to DataTrait</span>
-<span class="token keyword">struct</span> <span class="token type-definition class-name">StaticTraitPacket</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token punctuation">:</span> <span class="token class-name">DataTrait</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-    header<span class="token punctuation">:</span> <span class="token class-name">Header</span><span class="token punctuation">,</span>
-    data<span class="token punctuation">:</span> <span class="token class-name">T</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
+// &#x7B2C;&#x4E94;&#x79CD;: &#x548C;&#x7B2C;&#x4E00;&#x79CD;&#x7C7B;&#x578B;&#x7C7B;&#x4F3C;, &#x4F46;&#x662F;&#x5E26;&#x5177;&#x4F53;&#x65B9;&#x6CD5;&#x7684;trait
+// statically typed, but will accept any type that conforms to DataTrait
+struct StaticTraitPacket&lt;T: DataTrait&gt; {
+    header: Header,
+    data: T,
+}
 </code></pre>
 <h1 id="rust&#x7684;&#x6CDB;&#x578B;&#x662F;&#x9759;&#x6001;&#x7684;"><a name="rust&#x7684;&#x6CDB;&#x578B;&#x662F;&#x9759;&#x6001;&#x7684;" class="anchor-navigation-ex-anchor" href="#rust&#x7684;&#x6CDB;&#x578B;&#x662F;&#x9759;&#x6001;&#x7684;"><i class="fa fa-link" aria-hidden="true"></i></a>2. rust&#x7684;&#x6CDB;&#x578B;&#x662F;&#x9759;&#x6001;&#x7684;</h1>
 <p>&#x53C2;&#x8003;: <a href="https://www.cs.brandeis.edu/~cs146a/rust/doc-02-21-2015/book/static-and-dynamic-dispatch.html" target="_blank">https://www.cs.brandeis.edu/~cs146a/rust/doc-02-21-2015/book/static-and-dynamic-dispatch.html</a></p>
 <p>&#x6BD4;&#x5982;&#x4E0B;&#x9762;&#x7684;trait:</p>
-<pre class="language-"><code class="lang-rust"><span class="token keyword">trait</span> <span class="token type-definition class-name">Foo</span> <span class="token punctuation">{</span>
-    <span class="token keyword">fn</span> <span class="token function-definition function">method</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">String</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-rust">trait Foo {
+    fn method(&amp;self) -&gt; String;
+}
 
-<span class="token keyword">impl</span> <span class="token class-name">Foo</span> <span class="token keyword">for</span> <span class="token keyword">u8</span> <span class="token punctuation">{</span>
-    <span class="token keyword">fn</span> <span class="token function-definition function">method</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">String</span> <span class="token punctuation">{</span> <span class="token macro property">format!</span><span class="token punctuation">(</span><span class="token string">&quot;u8: {}&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+impl Foo for u8 {
+    fn method(&amp;self) -&gt; String { format!(&quot;u8: {}&quot;, *self) }
+}
 
-<span class="token keyword">impl</span> <span class="token class-name">Foo</span> <span class="token keyword">for</span> <span class="token class-name">String</span> <span class="token punctuation">{</span>
-    <span class="token keyword">fn</span> <span class="token function-definition function">method</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">String</span> <span class="token punctuation">{</span> <span class="token macro property">format!</span><span class="token punctuation">(</span><span class="token string">&quot;string: {}&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+impl Foo for String {
+    fn method(&amp;self) -&gt; String { format!(&quot;string: {}&quot;, *self) }
+}
 </code></pre>
 <h2 id="&#x9759;&#x6001;&#x5206;&#x53D1;"><a name="&#x9759;&#x6001;&#x5206;&#x53D1;" class="anchor-navigation-ex-anchor" href="#&#x9759;&#x6001;&#x5206;&#x53D1;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x9759;&#x6001;&#x5206;&#x53D1;</h2>
 <p>&#x6BD4;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;:</p>
-<pre class="language-"><code class="lang-rust"><span class="token keyword">fn</span> <span class="token function-definition function">do_something</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token punctuation">:</span> <span class="token class-name">Foo</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>x<span class="token punctuation">:</span> <span class="token class-name">T</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    x<span class="token punctuation">.</span><span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-rust">fn do_something&lt;T: Foo&gt;(x: T) {
+    x.method();
+}
 
-<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">5u8</span><span class="token punctuation">;</span>
-    <span class="token keyword">let</span> y <span class="token operator">=</span> <span class="token string">&quot;Hello&quot;</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+fn main() {
+    let x = 5u8;
+    let y = &quot;Hello&quot;.to_string();
 
-    <span class="token function">do_something</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">do_something</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+    do_something(x);
+    do_something(y);
+}
 </code></pre>
 <p>rust&#x4F1A;&#x5728;&#x7F16;&#x8BD1;&#x9636;&#x6BB5;&#x5C31;&#x77E5;&#x9053;<code>do_something()</code>&#x7684;&#x5165;&#x53C2;&#x7C7B;&#x578B;, &#x4F1A;&#x9759;&#x6001;&#x7684;&#x751F;&#x6210;&#x7C7B;&#x578B;&#x4E0B;&#x9762;&#x7684;&#x9759;&#x6001;&#x4EE3;&#x7801;:</p>
-<pre class="language-"><code class="lang-rust"><span class="token keyword">fn</span> <span class="token function-definition function">do_something_u8</span><span class="token punctuation">(</span>x<span class="token punctuation">:</span> <span class="token keyword">u8</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    x<span class="token punctuation">.</span><span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-rust">fn do_something_u8(x: u8) {
+    x.method();
+}
 
-<span class="token keyword">fn</span> <span class="token function-definition function">do_something_string</span><span class="token punctuation">(</span>x<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    x<span class="token punctuation">.</span><span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+fn do_something_string(x: String) {
+    x.method();
+}
 
-<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">5u8</span><span class="token punctuation">;</span>
-    <span class="token keyword">let</span> y <span class="token operator">=</span> <span class="token string">&quot;Hello&quot;</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+fn main() {
+    let x = 5u8;
+    let y = &quot;Hello&quot;.to_string();
 
-    <span class="token function">do_something_u8</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">do_something_string</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+    do_something_u8(x);
+    do_something_string(y);
+}
 </code></pre>
 <p>&#x867D;&#x7136;&quot;&#x9759;&#x6001;&#x5206;&#x53D1;&quot;&#x4F1A;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x4EE3;&#x7801;&quot;&#x91CD;&#x590D;&quot;&#x5E26;&#x6765;&#x4EE3;&#x7801;&#x6BB5;&#x7684;&#x81A8;&#x80C0;, &#x4F46;&#x4E00;&#x822C;&#x95EE;&#x9898;&#x4E0D;&#x5927;, &#x76F4;&#x63A5;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x7684;&#x6027;&#x80FD;&#x4F1A;&#x597D;&#x70B9;, &#x6BD4;&#x5982;&#x53EF;&#x4EE5;&#x88AB;inline&#x4F18;&#x5316;</p>
 <h2 id="&#x52A8;&#x6001;&#x5206;&#x53D1;-&#x5373;trait-objects"><a name="&#x52A8;&#x6001;&#x5206;&#x53D1;-&#x5373;trait-objects" class="anchor-navigation-ex-anchor" href="#&#x52A8;&#x6001;&#x5206;&#x53D1;-&#x5373;trait-objects"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. &#x52A8;&#x6001;&#x5206;&#x53D1; &#x5373;trait objects</h2>
-<p>Rust provides dynamic dispatch through a feature called <code>trait objects</code>. Trait objects, like <code>&amp;Foo</code> or <code>Box<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Foo</span><span class="token punctuation">&gt;</span></span></code>, are normal values that store a value of <em>any</em> type that implements the given trait, where the precise type can only be known at runtime. The methods of the trait can be called on a trait object via a special record of function pointers (created and managed by the compiler).</p>
+<p>Rust provides dynamic dispatch through a feature called <code>trait objects</code>. Trait objects, like <code>&amp;Foo</code> or <code>Box&lt;Foo&gt;</code>, are normal values that store a value of <em>any</em> type that implements the given trait, where the precise type can only be known at runtime. The methods of the trait can be called on a trait object via a special record of function pointers (created and managed by the compiler).</p>
 <p>A function that takes a trait object is not specialised to each of the types that implements <code>Foo</code>: only one copy is generated, often (but not always) resulting in less code bloat. However, this comes at the cost of requiring slower virtual function calls, and effectively inhibiting any chance of inlining and related optimisations from occurring.</p>
 <p>Trait objects are both simple and complicated: their core representation and layout is quite straight-forward, but there are some curly error messages and surprising behaviours to discover.</p>
 <h3 id="&#x4ECE;&#x6307;&#x9488;&#x83B7;&#x53D6;trait-objects"><a name="&#x4ECE;&#x6307;&#x9488;&#x83B7;&#x53D6;trait-objects" class="anchor-navigation-ex-anchor" href="#&#x4ECE;&#x6307;&#x9488;&#x83B7;&#x53D6;trait-objects"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. &#x4ECE;&#x6307;&#x9488;&#x83B7;&#x53D6;trait objects</h3>
 <p>There&apos;s two similar ways to get a trait object value: casts and coercions. If <code>T</code> is a type that implements a trait <code>Foo</code> (e.g. <code>u8</code> for the <code>Foo</code> above), then the two ways to get a <code>Foo</code> trait object out of a pointer to <code>T</code> look like:</p>
-<pre class="language-"><code class="lang-rust"><span class="token keyword">let</span> ref_to_t<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">T</span> <span class="token operator">=</span> <span class="token punctuation">...</span><span class="token punctuation">;</span>
+<pre><code class="lang-rust">let ref_to_t: &amp;T = ...;
 
-<span class="token comment">// `as` keyword for casting</span>
-<span class="token keyword">let</span> cast <span class="token operator">=</span> ref_to_t <span class="token keyword">as</span> <span class="token operator">&amp;</span><span class="token class-name">Foo</span><span class="token punctuation">;</span>
+// `as` keyword for casting
+let cast = ref_to_t as &amp;Foo;
 
-<span class="token comment">// using a `&amp;T` in a place that has a known type of `&amp;Foo` will implicitly coerce:</span>
-<span class="token keyword">let</span> coerce<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Foo</span> <span class="token operator">=</span> ref_to_t<span class="token punctuation">;</span>
+// using a `&amp;T` in a place that has a known type of `&amp;Foo` will implicitly coerce:
+let coerce: &amp;Foo = ref_to_t;
 
-<span class="token keyword">fn</span> <span class="token function-definition function">also_coerce</span><span class="token punctuation">(</span>_unused<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Foo</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token function">also_coerce</span><span class="token punctuation">(</span>ref_to_t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+fn also_coerce(_unused: &amp;Foo) {}
+also_coerce(ref_to_t);
 </code></pre>
-<p>These trait object coercions and casts also work for pointers like <code>&amp;mut T</code> to <code>&amp;mut Foo</code> and <code>Box<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span></code> to <code>Box<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Foo</span><span class="token punctuation">&gt;</span></span></code>, but that&apos;s all at the moment. Coercions and casts are identical.</p>
+<p>These trait object coercions and casts also work for pointers like <code>&amp;mut T</code> to <code>&amp;mut Foo</code> and <code>Box&lt;T&gt;</code> to <code>Box&lt;Foo&gt;</code>, but that&apos;s all at the moment. Coercions and casts are identical.</p>
 <p>This operation can be seen as &quot;erasing&quot; the compiler&apos;s knowledge about the specific type of the pointer, and hence trait objects are sometimes referred to &quot;type erasure&quot;</p>
 
                                 
@@ -3046,10 +3049,11 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"rust版本的adaptiveservice探索","level":"1.8.2.3","depth":3,"next":{"title":"Rust 常用设施","level":"1.8.2.4","depth":3,"path":"notes/rust_常用设施.md","ref":"notes/rust_常用设施.md","articles":[]},"previous":{"title":"Rust 知识点更新","level":"1.8.2.2","depth":3,"path":"notes/rust_知识点积累.md","ref":"notes/rust_知识点积累.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_adaptiveservice.md","mtime":"2022-10-11T14:47:24.178Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"rust版本的adaptiveservice探索","level":"1.8.2.3","depth":3,"next":{"title":"Rust 常用设施","level":"1.8.2.4","depth":3,"path":"notes/rust_常用设施.md","ref":"notes/rust_常用设施.md","articles":[]},"previous":{"title":"Rust 知识点更新","level":"1.8.2.2","depth":3,"path":"notes/rust_知识点积累.md","ref":"notes/rust_知识点积累.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_adaptiveservice.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3088,6 +3092,7 @@
         
     
 
+        
     </body>
 </html>
 

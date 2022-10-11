@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2967,56 +2970,56 @@
 <li>ENOTSOCK: &#x6CA1;&#x6709;&#x8FD9;&#x4E2A;socket</li>
 <li>EMSGSIZE: socket &#x53D1;&#x9001;&#x7684;msg&#x592A;&#x5927;</li>
 <li>ENETDOWN: socket&#x53D1;&#x73B0;net down
-&#x76F8;&#x5173;&#x51FD;&#x6570;<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;errno.h&gt;</span></span>
-<span class="token keyword">void</span> <span class="token function">perror</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>message<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">strerror</span> <span class="token punctuation">(</span><span class="token keyword">int</span> errnum<span class="token punctuation">)</span>
+&#x76F8;&#x5173;&#x51FD;&#x6570;<pre><code class="lang-c">#include &lt;errno.h&gt;
+void perror (const char *message)
+char * strerror (int errnum)
 </code></pre>
-&#x4E3E;&#x4F8B;:<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;errno.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
-FILE <span class="token operator">*</span>
-<span class="token function">open_sesame</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>name<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
- FILE <span class="token operator">*</span>stream<span class="token punctuation">;</span>
- errno <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
- stream <span class="token operator">=</span> <span class="token function">fopen</span> <span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token string">&quot;r&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token keyword">if</span> <span class="token punctuation">(</span>stream <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
- <span class="token punctuation">{</span>
-     <span class="token function">fprintf</span> <span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">&quot;%s: Couldn&#x2019;t open file %s; %s\n&quot;</span><span class="token punctuation">,</span>
-     program_invocation_short_name<span class="token punctuation">,</span> name<span class="token punctuation">,</span> <span class="token function">strerror</span> <span class="token punctuation">(</span>errno<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-     <span class="token function">exit</span> <span class="token punctuation">(</span>EXIT_FAILURE<span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span>
- <span class="token keyword">else</span>
-     <span class="token keyword">return</span> stream<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+&#x4E3E;&#x4F8B;:<pre><code class="lang-c">#include &lt;errno.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+FILE *
+open_sesame (char *name)
+{
+ FILE *stream;
+ errno = 0;
+ stream = fopen (name, &quot;r&quot;);
+ if (stream == NULL)
+ {
+     fprintf (stderr, &quot;%s: Couldn&#x2019;t open file %s; %s\n&quot;,
+     program_invocation_short_name, name, strerror (errno));
+     exit (EXIT_FAILURE);
+ }
+ else
+     return stream;
+}
 </code></pre>
 </li>
 </ul>
 <h1 id="&#x5185;&#x5B58;&#x7BA1;&#x7406;"><a name="&#x5185;&#x5B58;&#x7BA1;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x5B58;&#x7BA1;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x5185;&#x5B58;&#x7BA1;&#x7406;</h1>
 <h2 id="&#x5185;&#x5B58;&#x5206;&#x914D;"><a name="&#x5185;&#x5B58;&#x5206;&#x914D;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x5B58;&#x5206;&#x914D;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x5185;&#x5B58;&#x5206;&#x914D;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">malloc</span> <span class="token punctuation">(</span>size t size<span class="token punctuation">)</span> <span class="token comment">//&#x5982;&#x679C;&#x5206;&#x914D;&#x7684;&#x5185;&#x5B58;&#x5927;&#x4E8E;page size, &#x5219;malloc&#x4F1A;&#x4F7F;&#x7528;mmap&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x6765;&#x5206;&#x914D;&#x5185;&#x5B58;</span>
-<span class="token keyword">void</span> <span class="token function">free</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>ptr<span class="token punctuation">)</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">realloc</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>ptr<span class="token punctuation">,</span> size t newsize<span class="token punctuation">)</span> <span class="token comment">//&#x5728;malloc&#x5F97;&#x5230;&#x7684;ptr&#x57FA;&#x7840;&#x4E0A;, &#x6539;&#x53D8;&#x5927;&#x5C0F;&#x5230;newsize, &#x5982;&#x679C;&#x7CFB;&#x7EDF;&#x53D1;&#x73B0;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x5728;&#x540E;&#x9762;&#x589E;&#x5927;, &#x90A3;&#x4E48;&#x4F1A;&#x627E;&#x5230;&#x53E6;&#x5916;&#x4E00;&#x7247;&#x8DB3;&#x591F;&#x5927;&#x7684;&#x5185;&#x5B58;, &#x5E76;&#x62F7;&#x8D1D;&#x539F;&#x6709;&#x7684;&#x5185;&#x5BB9;&#x5230;&#x65B0;&#x7684;ptr, &#x6240;&#x4EE5;realloc&#x4E5F;&#x8BB8;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6307;&#x9488;</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">calloc</span> <span class="token punctuation">(</span>size t count<span class="token punctuation">,</span> size t eltsize<span class="token punctuation">)</span> <span class="token comment">//&#x5206;&#x914D;&#x5185;&#x5B58;&#x5E76;&#x6E05;&#x96F6;</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">aligned_alloc</span> <span class="token punctuation">(</span>size t alignment<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span> <span class="token comment">//&#x5206;&#x914D;&#x5BF9;&#x9F50;&#x7684;&#x5185;&#x5B58;</span>
+<pre><code class="lang-c">#include &lt;stdlib.h&gt;
+void * malloc (size t size) //&#x5982;&#x679C;&#x5206;&#x914D;&#x7684;&#x5185;&#x5B58;&#x5927;&#x4E8E;page size, &#x5219;malloc&#x4F1A;&#x4F7F;&#x7528;mmap&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x6765;&#x5206;&#x914D;&#x5185;&#x5B58;
+void free (void *ptr)
+void * realloc (void *ptr, size t newsize) //&#x5728;malloc&#x5F97;&#x5230;&#x7684;ptr&#x57FA;&#x7840;&#x4E0A;, &#x6539;&#x53D8;&#x5927;&#x5C0F;&#x5230;newsize, &#x5982;&#x679C;&#x7CFB;&#x7EDF;&#x53D1;&#x73B0;&#x65E0;&#x6CD5;&#x76F4;&#x63A5;&#x5728;&#x540E;&#x9762;&#x589E;&#x5927;, &#x90A3;&#x4E48;&#x4F1A;&#x627E;&#x5230;&#x53E6;&#x5916;&#x4E00;&#x7247;&#x8DB3;&#x591F;&#x5927;&#x7684;&#x5185;&#x5B58;, &#x5E76;&#x62F7;&#x8D1D;&#x539F;&#x6709;&#x7684;&#x5185;&#x5BB9;&#x5230;&#x65B0;&#x7684;ptr, &#x6240;&#x4EE5;realloc&#x4E5F;&#x8BB8;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6307;&#x9488;
+void * calloc (size t count, size t eltsize) //&#x5206;&#x914D;&#x5185;&#x5B58;&#x5E76;&#x6E05;&#x96F6;
+void * aligned_alloc (size t alignment, size t size) //&#x5206;&#x914D;&#x5BF9;&#x9F50;&#x7684;&#x5185;&#x5B58;
 </code></pre>
 <h2 id="&#x6539;&#x53D8;malloc&#x7684;&#x884C;&#x4E3A;"><a name="&#x6539;&#x53D8;malloc&#x7684;&#x884C;&#x4E3A;" class="anchor-navigation-ex-anchor" href="#&#x6539;&#x53D8;malloc&#x7684;&#x884C;&#x4E3A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x6539;&#x53D8;malloc&#x7684;&#x884C;&#x4E3A;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;malloc.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">mallopt</span> <span class="token punctuation">(</span><span class="token keyword">int</span> param<span class="token punctuation">,</span> <span class="token keyword">int</span> value<span class="token punctuation">)</span> <span class="token comment">//&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x662F;M_MMAP_THRESHOLD, &#x7528;&#x6765;&#x8BBE;&#x5B9A;&#x7528;mmap&#x7684;&#x9608;&#x503C;</span>
+<pre><code class="lang-c">#include &lt;malloc.h&gt;
+int mallopt (int param, int value) //&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x662F;M_MMAP_THRESHOLD, &#x7528;&#x6765;&#x8BBE;&#x5B9A;&#x7528;mmap&#x7684;&#x9608;&#x503C;
 </code></pre>
 <h2 id="&#x5185;&#x5B58;&#x68C0;&#x67E5;"><a name="&#x5185;&#x5B58;&#x68C0;&#x67E5;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x5B58;&#x68C0;&#x67E5;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. &#x5185;&#x5B58;&#x68C0;&#x67E5;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;mcheck.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">mcheck</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>abortfn<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">enum</span> <span class="token class-name">mcheck</span> status status<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">enum</span> <span class="token class-name">mcheck_status</span> <span class="token function">mprobe</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>pointer<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;mcheck.h&gt;
+int mcheck (void (*abortfn) (enum mcheck status status))
+enum mcheck_status mprobe (void *pointer)
 </code></pre>
 <p>&#x7528;&#x6CD5;:</p>
 <ul>
 <li>&#x5728;main&#xFF08;&#xFF09;&#x51FD;&#x6570;&#x5F00;&#x59CB;&#x65F6;&#x6216;&#x9002;&#x5F53;&#x4F4D;&#x7F6E;&#x663E;&#x5F0F;&#x5730;&#x8C03;&#x7528;mcheck()</li>
 <li>&#x52A0;-lmcheck&#x91CD;&#x65B0;&#x8FDE;&#x63A5;&#x53EF;&#x6267;&#x884C;&#x7A0B;&#x5E8F;</li>
 <li>&#x8BBE;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;MALLOC<em>CHECK</em>&#x7684;&#x503C;, MALLOC<em>CHECK</em>=1</li>
-<li>gdb<pre class="language-"><code>(gdb) break main
+<li>gdb<pre><code>(gdb) break main
 Breakpoint 1, main (argc=2, argv=0xbffff964) at whatever.c:10
 (gdb) command 1
 Type commands for when breakpoint 1 is hit, one per line.
@@ -3028,245 +3031,245 @@ End with a line saying just &quot;end&quot;.
 </code></pre></li>
 </ul>
 <h2 id="&#x5185;&#x5B58;&#x5206;&#x914D;&#x94A9;&#x5B50;"><a name="&#x5185;&#x5B58;&#x5206;&#x914D;&#x94A9;&#x5B50;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x5B58;&#x5206;&#x914D;&#x94A9;&#x5B50;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. &#x5185;&#x5B58;&#x5206;&#x914D;&#x94A9;&#x5B50;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;malloc.h&gt;</span></span>
-__malloc_hook <span class="token comment">//&#x51FD;&#x6570;&#x6307;&#x9488;, &#x7C7B;&#x578B;: void *function (size_t size, const void *caller)</span>
-__realloc_hook <span class="token comment">//void *function (void *ptr, size_t size, const void *caller)</span>
-__free_hook <span class="token comment">//void function (void *ptr, const void *caller)</span>
-__memalign_hook <span class="token comment">//void *function (size_t alignment, size_t size, const void *caller)</span>
+<pre><code class="lang-c">#include &lt;malloc.h&gt;
+__malloc_hook //&#x51FD;&#x6570;&#x6307;&#x9488;, &#x7C7B;&#x578B;: void *function (size_t size, const void *caller)
+__realloc_hook //void *function (void *ptr, size_t size, const void *caller)
+__free_hook //void function (void *ptr, const void *caller)
+__memalign_hook //void *function (size_t alignment, size_t size, const void *caller)
 </code></pre>
 <h2 id="&#x5185;&#x5B58;debug"><a name="&#x5185;&#x5B58;debug" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x5B58;debug"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. &#x5185;&#x5B58;debug</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;mcheck.h&gt;</span></span>
-<span class="token keyword">void</span> <span class="token function">mtrace</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token comment">//&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4F1A;&#x5B89;&#x88C5;hook, &#x5C06;malloc&#x76F8;&#x5173;&#x7684;strace&#x8F93;&#x51FA;&#x5230;&#x73AF;&#x5883;&#x53D8;&#x91CF;MALLOC_TRACE&#x6307;&#x5411;&#x7684;&#x6587;&#x4EF6;</span>
-<span class="token keyword">void</span> <span class="token function">muntrace</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;mcheck.h&gt;
+void mtrace (void) //&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4F1A;&#x5B89;&#x88C5;hook, &#x5C06;malloc&#x76F8;&#x5173;&#x7684;strace&#x8F93;&#x51FA;&#x5230;&#x73AF;&#x5883;&#x53D8;&#x91CF;MALLOC_TRACE&#x6307;&#x5411;&#x7684;&#x6587;&#x4EF6;
+void muntrace (void)
 </code></pre>
 <h2 id="&#x5728;&#x6808;&#x4E0A;&#x5206;&#x914D;&#x5185;&#x5B58;-&#x4E0D;&#x9700;&#x8981;free"><a name="&#x5728;&#x6808;&#x4E0A;&#x5206;&#x914D;&#x5185;&#x5B58;-&#x4E0D;&#x9700;&#x8981;free" class="anchor-navigation-ex-anchor" href="#&#x5728;&#x6808;&#x4E0A;&#x5206;&#x914D;&#x5185;&#x5B58;-&#x4E0D;&#x9700;&#x8981;free"><i class="fa fa-link" aria-hidden="true"></i></a>3.6. &#x5728;&#x6808;&#x4E0A;&#x5206;&#x914D;&#x5185;&#x5B58;, &#x4E0D;&#x9700;&#x8981;free</h2>
 <p>&#x56E0;&#x4E3A;&#x6808;&#x6307;&#x9488;&#x4F1A;&#x81EA;&#x52A8;&#x56DE;&#x6EAF;. &#x4F46;&#x8981;&#x6CE8;&#x610F;&#x6808;&#x5927;&#x5C0F;</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">alloca</span> <span class="token punctuation">(</span>size t size<span class="token punctuation">)</span>
-<span class="token comment">//&#x4E3E;&#x4F8B;:</span>
-<span class="token keyword">int</span>
-<span class="token function">open2</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>str1<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>str2<span class="token punctuation">,</span> <span class="token keyword">int</span> flags<span class="token punctuation">,</span> <span class="token keyword">int</span> mode<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token comment">//&#x548C;&#x5C40;&#x90E8;&#x5B57;&#x7B26;&#x6570;&#x7EC4;&#x76F8;&#x6BD4;, alloca&#x7684;&#x5927;&#x5C0F;&#x662F;&#x81EA;&#x52A8;&#x6269;&#x5C55;&#x7684;.</span>
-    <span class="token comment">//GUN C&#x6807;&#x51C6;&#x652F;&#x6301;&#x52A8;&#x6001;&#x6570;&#x7EC4;, &#x6BD4;&#x5982;&#x8FD9;&#x91CC;&#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5199; char name[strlen (str1) + strlen (str2) + 1];</span>
-    <span class="token keyword">char</span> <span class="token operator">*</span>name <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">alloca</span> <span class="token punctuation">(</span><span class="token function">strlen</span> <span class="token punctuation">(</span>str1<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">strlen</span> <span class="token punctuation">(</span>str2<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">stpcpy</span> <span class="token punctuation">(</span><span class="token function">stpcpy</span> <span class="token punctuation">(</span>name<span class="token punctuation">,</span> str1<span class="token punctuation">)</span><span class="token punctuation">,</span> str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token function">open</span> <span class="token punctuation">(</span>name<span class="token punctuation">,</span> flags<span class="token punctuation">,</span> mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">#include &lt;stdlib.h&gt;
+void * alloca (size t size)
+//&#x4E3E;&#x4F8B;:
+int
+open2 (char *str1, char *str2, int flags, int mode)
+{
+    //&#x548C;&#x5C40;&#x90E8;&#x5B57;&#x7B26;&#x6570;&#x7EC4;&#x76F8;&#x6BD4;, alloca&#x7684;&#x5927;&#x5C0F;&#x662F;&#x81EA;&#x52A8;&#x6269;&#x5C55;&#x7684;.
+    //GUN C&#x6807;&#x51C6;&#x652F;&#x6301;&#x52A8;&#x6001;&#x6570;&#x7EC4;, &#x6BD4;&#x5982;&#x8FD9;&#x91CC;&#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5199; char name[strlen (str1) + strlen (str2) + 1];
+    char *name = (char *) alloca (strlen (str1) + strlen (str2) + 1);
+    stpcpy (stpcpy (name, str1), str2);
+    return open (name, flags, mode);
+}
 </code></pre>
 <h2 id="obstacks"><a name="obstacks" class="anchor-navigation-ex-anchor" href="#obstacks"><i class="fa fa-link" aria-hidden="true"></i></a>3.7. Obstacks</h2>
 <p>&#x66F4;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#x53C2;&#x8003;&#x9644;&#x4EF6;
 obstack&#x662F;&#x4E2A;&#x5185;&#x5B58;&#x6C60;, &#x662F;&#x4E2A;&#x7531;&#x4E0D;&#x540C;size&#x7684;object&#x7EC4;&#x6210;&#x7684;&#x6808;, &#x6240;&#x4EE5;&#x5B83;&#x5FC5;&#x987B;&#x6309;&#x540E;&#x8FDB;&#x5148;&#x51FA;&#x7684;&#x987A;&#x5E8F;free.
 &#x4E3E;&#x4F8B;1:</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token function">test</span> <span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">struct</span> <span class="token class-name">obstack</span> obst <span class="token punctuation">;</span>
-    <span class="token function">obstack_init</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span> obst <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">/* Allocate memory for a string of length n-1 */</span>
-    <span class="token keyword">char</span> <span class="token operator">*</span> str <span class="token operator">=</span> <span class="token function">obstack_alloc</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span> obst <span class="token punctuation">,</span> n <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span> str <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">/* Allocate an array for n nodes */</span>
-    <span class="token class-name">node_t</span> <span class="token operator">*</span><span class="token operator">*</span> nodes <span class="token operator">=</span> <span class="token function">obstack_alloc</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span> obst <span class="token punctuation">,</span> n <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span> nodes <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">/* Store the current mark of the obstack */</span>
-    <span class="token keyword">void</span> <span class="token operator">*</span> mark <span class="token operator">=</span> <span class="token function">obstack_base</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span> obst <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">/* Allocate the nodes */</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
-        nodes <span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">obstack_alloc</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span> obst <span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span> node <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">/* All the marks are gone */</span>
-    <span class="token function">obstack_free</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span> obst <span class="token punctuation">,</span> mark <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">/* Everything has gone */</span>
-    <span class="token function">obstack_free</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span> obst <span class="token punctuation">,</span> <span class="token constant">NULL</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">void test (int n) {
+    struct obstack obst ;
+    obstack_init (&amp; obst );
+    /* Allocate memory for a string of length n-1 */
+    char * str = obstack_alloc (&amp; obst , n * sizeof( str [0]));
+    /* Allocate an array for n nodes */
+    node_t ** nodes = obstack_alloc (&amp; obst , n * sizeof( nodes [0]));
+    /* Store the current mark of the obstack */
+    void * mark = obstack_base (&amp; obst );
+    /* Allocate the nodes */
+    for (i = 0; i &lt; n; i ++)
+        nodes [i] = obstack_alloc (&amp; obst , sizeof( node [0]));
+    /* All the marks are gone */
+    obstack_free (&amp; obst , mark );
+    /* Everything has gone */
+    obstack_free (&amp; obst , NULL );
+}
 </code></pre>
 <p>&#x4E3E;&#x4F8B;2: &#x81EA;&#x52A8;&#x589E;&#x957F;</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token operator">*</span> <span class="token function">read_ints</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">obstack</span> <span class="token operator">*</span> obst <span class="token punctuation">,</span> FILE <span class="token operator">*</span>f<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token function">feof</span> <span class="token punctuation">(</span>f <span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> x <span class="token punctuation">,</span> res <span class="token punctuation">;</span>
-        res <span class="token operator">=</span> <span class="token function">fscanf</span> <span class="token punctuation">(</span>f <span class="token punctuation">,</span> <span class="token string">&quot;%d&quot;</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span> x <span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span> res <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token function">obstack_int_grow</span> <span class="token punctuation">(</span> obst <span class="token punctuation">,</span> x <span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">else</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token function">obstack_finish</span> <span class="token punctuation">(</span> obst <span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">int * read_ints (struct obstack * obst , FILE *f) {
+    while (! feof (f )) {
+        int x , res ;
+        res = fscanf (f , &quot;%d&quot;, &amp; x );
+        if ( res == 1)
+            obstack_int_grow ( obst , x );
+        else
+            break;
+    }
+    return obstack_finish ( obst );
+}
 </code></pre>
 <h2 id="&#x589E;&#x5927;&#x8FDB;&#x7A0B;&#x6570;&#x636E;&#x6BB5;"><a name="&#x589E;&#x5927;&#x8FDB;&#x7A0B;&#x6570;&#x636E;&#x6BB5;" class="anchor-navigation-ex-anchor" href="#&#x589E;&#x5927;&#x8FDB;&#x7A0B;&#x6570;&#x636E;&#x6BB5;"><i class="fa fa-link" aria-hidden="true"></i></a>3.8. &#x589E;&#x5927;&#x8FDB;&#x7A0B;&#x6570;&#x636E;&#x6BB5;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">brk</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>addr<span class="token punctuation">)</span> <span class="token comment">//&#x7528;addr&#x6307;&#x5B9A;&#x8FDB;&#x7A0B;&#x53EF;&#x7528;&#x7684;end&#x5730;&#x5740;</span>
-<span class="token keyword">void</span> <span class="token operator">*</span><span class="token function">sbrk</span> <span class="token punctuation">(</span>ptrdiff t delta<span class="token punctuation">)</span> <span class="token comment">//&#x7528;delta&#x589E;&#x957F;</span>
+<pre><code class="lang-c">int brk (void *addr) //&#x7528;addr&#x6307;&#x5B9A;&#x8FDB;&#x7A0B;&#x53EF;&#x7528;&#x7684;end&#x5730;&#x5740;
+void *sbrk (ptrdiff t delta) //&#x7528;delta&#x589E;&#x957F;
 </code></pre>
 <h2 id="&#x9501;&#x9875;&#x9762;-&#x4F7F;&#x5176;&#x4E0D;&#x4F1A;&#x88AB;&#x6362;&#x51FA;"><a name="&#x9501;&#x9875;&#x9762;-&#x4F7F;&#x5176;&#x4E0D;&#x4F1A;&#x88AB;&#x6362;&#x51FA;" class="anchor-navigation-ex-anchor" href="#&#x9501;&#x9875;&#x9762;-&#x4F7F;&#x5176;&#x4E0D;&#x4F1A;&#x88AB;&#x6362;&#x51FA;"><i class="fa fa-link" aria-hidden="true"></i></a>3.9. &#x9501;&#x9875;&#x9762;, &#x4F7F;&#x5176;&#x4E0D;&#x4F1A;&#x88AB;&#x6362;&#x51FA;</h2>
 <p>&#x9700;&#x6CE8;&#x610F;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E0D;&#x6362;&#x51FA;&#x4F1A;&#x5BFC;&#x81F4;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x53EF;&#x7528;&#x7684;&#x7269;&#x7406;&#x9875;&#x9762;&#x51CF;&#x5C11;</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">mlock</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>addr<span class="token punctuation">,</span> size t len<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">munlock</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>addr<span class="token punctuation">,</span> size t len<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">mlockall</span> <span class="token punctuation">(</span><span class="token keyword">int</span> flags<span class="token punctuation">)</span> <span class="token comment">//MCL_CURRENT|MCL_FUTURE</span>
-<span class="token keyword">int</span> <span class="token function">munlockall</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<pre><code class="lang-c">int mlock (const void *addr, size t len)
+int munlock (const void *addr, size t len)
+int mlockall (int flags) //MCL_CURRENT|MCL_FUTURE
+int munlockall (void)
 </code></pre>
 <h1 id="&#x5B57;&#x7B26;&#x5904;&#x7406;"><a name="&#x5B57;&#x7B26;&#x5904;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x5B57;&#x7B26;&#x5904;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x5B57;&#x7B26;&#x5904;&#x7406;</h1>
 <h2 id="&#x7C7B;&#x578B;&#x5224;&#x65AD;&#x548C;&#x8F6C;&#x6362;"><a name="&#x7C7B;&#x578B;&#x5224;&#x65AD;&#x548C;&#x8F6C;&#x6362;" class="anchor-navigation-ex-anchor" href="#&#x7C7B;&#x578B;&#x5224;&#x65AD;&#x548C;&#x8F6C;&#x6362;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. &#x7C7B;&#x578B;&#x5224;&#x65AD;&#x548C;&#x8F6C;&#x6362;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ctype.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">islower</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">isupper</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">isalpha</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">isdigit</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">isalnum</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">isxdigit</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">ispunct</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">isspace</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">isblank</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">isgraph</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">isprint</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">iscntrl</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">isascii</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">tolower</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">toupper</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">toascii</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;ctype.h&gt;
+int islower (int c)
+int isupper (int c)
+int isalpha (int c)
+int isdigit (int c)
+int isalnum (int c)
+int isxdigit (int c)
+int ispunct (int c)
+int isspace (int c)
+int isblank (int c)
+int isgraph (int c)
+int isprint (int c)
+int iscntrl (int c)
+int isascii (int c)
+int tolower (int c)
+int toupper (int c)
+int toascii (int c)
 </code></pre>
 <h2 id="&#x5B57;&#x7B26;&#x51FD;&#x6570;"><a name="&#x5B57;&#x7B26;&#x51FD;&#x6570;" class="anchor-navigation-ex-anchor" href="#&#x5B57;&#x7B26;&#x51FD;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. &#x5B57;&#x7B26;&#x51FD;&#x6570;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
-<span class="token class-name">size_t</span> <span class="token function">strlen</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">)</span>
-<span class="token class-name">size_t</span> <span class="token function">strnlen</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> size t maxlen<span class="token punctuation">)</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">memcpy</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>restrict to<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>restrict from<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">memmove</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>to<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>from<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">memset</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>block<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">strcpy</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>restrict to<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict from<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">strncpy</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>restrict to<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict from<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">strdup</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">)</span> <span class="token comment">//&#x628A;&#x5B57;&#x7B26;&#x4E32;s&#x62F7;&#x5230;malloc&#x51FA;&#x6765;&#x7684;&#x5185;&#x5B58;&#x91CC;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">strcat</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>restrict to<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict from<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">memcmp</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>a1<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>a2<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">strcmp</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s1<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s2<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">strcasecmp</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s1<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s2<span class="token punctuation">)</span> <span class="token comment">//&#x5FFD;&#x7565;&#x5927;&#x5C0F;&#x5199;</span>
-<span class="token keyword">int</span> <span class="token function">strncmp</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s1<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s2<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">memchr</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>block<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">strchr</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>string<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">strrchr</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>string<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">strstr</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>haystack<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>needle<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">strtok</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>restrict newstring<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict delimiters<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">basename</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">dirname</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>path<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;string.h&gt;
+size_t strlen (const char *s)
+size_t strnlen (const char *s, size t maxlen)
+void * memcpy (void *restrict to, const void *restrict from, size t size)
+void * memmove (void *to, const void *from, size t size)
+void * memset (void *block, int c, size t size)
+char * strcpy (char *restrict to, const char *restrict from)
+char * strncpy (char *restrict to, const char *restrict from, size t size)
+char * strdup (const char *s) //&#x628A;&#x5B57;&#x7B26;&#x4E32;s&#x62F7;&#x5230;malloc&#x51FA;&#x6765;&#x7684;&#x5185;&#x5B58;&#x91CC;
+char * strcat (char *restrict to, const char *restrict from)
+int memcmp (const void *a1, const void *a2, size t size)
+int strcmp (const char *s1, const char *s2)
+int strcasecmp (const char *s1, const char *s2) //&#x5FFD;&#x7565;&#x5927;&#x5C0F;&#x5199;
+int strncmp (const char *s1, const char *s2, size t size)
+void * memchr (const void *block, int c, size t size)
+char * strchr (const char *string, int c)
+char * strrchr (const char *string, int c)
+char * strstr (const char *haystack, const char *needle)
+char * strtok (char *restrict newstring, const char *restrict delimiters)
+char * basename (const char *filename)
+char * dirname (char *path)
 </code></pre>
 <h1 id="&#x641C;&#x7D22;&#x4E0E;&#x6392;&#x5E8F;"><a name="&#x641C;&#x7D22;&#x4E0E;&#x6392;&#x5E8F;" class="anchor-navigation-ex-anchor" href="#&#x641C;&#x7D22;&#x4E0E;&#x6392;&#x5E8F;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x641C;&#x7D22;&#x4E0E;&#x6392;&#x5E8F;</h1>
 <p>libc&#x63D0;&#x4F9B;&#x6700;&#x57FA;&#x7840;&#x7684;&#x6392;&#x5E8F;&#x7684;&#x652F;&#x6301;, &#x6BD4;&#x5982;&#x5FEB;&#x6392;. &#x4E0B;&#x6B21;&#x6709;&#x4EBA;&#x627E;&#x4F60;&#x5199;&#x4E2A;&#x5FEB;&#x6392;&#x8FD8;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x5199;&#x4E48;?</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<pre><code class="lang-c">#include &lt;stdlib.h&gt;
 </code></pre>
 <h2 id="&#x6BD4;&#x8F83;&#x51FD;&#x6570;&#x539F;&#x578B;-int-comparisonfnt-const-void--const-void-"><a name="&#x6BD4;&#x8F83;&#x51FD;&#x6570;&#x539F;&#x578B;-int-comparisonfnt-const-void--const-void-" class="anchor-navigation-ex-anchor" href="#&#x6BD4;&#x8F83;&#x51FD;&#x6570;&#x539F;&#x578B;-int-comparisonfnt-const-void--const-void-"><i class="fa fa-link" aria-hidden="true"></i></a>5.1. &#x6BD4;&#x8F83;&#x51FD;&#x6570;&#x539F;&#x578B;: int comparison_fn_t (const void , const void );</h2>
 <p>&#x4F8B;&#x5B50;:</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span>
-<span class="token function">compare_doubles</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>b<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">const</span> <span class="token keyword">double</span> <span class="token operator">*</span>da <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">double</span> <span class="token operator">*</span><span class="token punctuation">)</span> a<span class="token punctuation">;</span>
-    <span class="token keyword">const</span> <span class="token keyword">double</span> <span class="token operator">*</span>db <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">double</span> <span class="token operator">*</span><span class="token punctuation">)</span> b<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token operator">*</span>da <span class="token operator">&gt;</span> <span class="token operator">*</span>db<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span><span class="token operator">*</span>da <span class="token operator">&lt;</span> <span class="token operator">*</span>db<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">int
+compare_doubles (const void *a, const void *b)
+{
+    const double *da = (const double *) a;
+    const double *db = (const double *) b;
+    return (*da &gt; *db) - (*da &lt; *db);
+}
 </code></pre>
 <h2 id="&#x6570;&#x7EC4;"><a name="&#x6570;&#x7EC4;" class="anchor-navigation-ex-anchor" href="#&#x6570;&#x7EC4;"><i class="fa fa-link" aria-hidden="true"></i></a>5.2. &#x6570;&#x7EC4;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;search.h&gt;</span></span>
-<span class="token comment">/* &#x5728;base&#x6570;&#x7EC4;&#x5185;&#x6309;&#x7167;key&#x641C;&#x7D22; */</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">lfind</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>key<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>base<span class="token punctuation">,</span> size t <span class="token operator">*</span>nmemb<span class="token punctuation">,</span> size t size<span class="token punctuation">,</span> comparison fn t compar<span class="token punctuation">)</span>
-<span class="token comment">/* &#x5728;&#x6392;&#x597D;&#x5E8F;&#x7684;&#x6570;&#x7EC4;&#x5185;&#x641C;&#x7D22; */</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">bsearch</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>key<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>array<span class="token punctuation">,</span> size t count<span class="token punctuation">,</span> size t size<span class="token punctuation">,</span> comparison fn t compare<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;search.h&gt;
+/* &#x5728;base&#x6570;&#x7EC4;&#x5185;&#x6309;&#x7167;key&#x641C;&#x7D22; */
+void * lfind (const void *key, const void *base, size t *nmemb, size t size, comparison fn t compar)
+/* &#x5728;&#x6392;&#x597D;&#x5E8F;&#x7684;&#x6570;&#x7EC4;&#x5185;&#x641C;&#x7D22; */
+void * bsearch (const void *key, const void *array, size t count, size t size, comparison fn t compare)
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token comment">/* &#x5FEB;&#x6392; */</span>
-<span class="token keyword">void</span> <span class="token function">qsort</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>array<span class="token punctuation">,</span> size t count<span class="token punctuation">,</span> size t size<span class="token punctuation">,</span> comparison fn t compare<span class="token punctuation">)</span>
+#include &lt;stdlib.h&gt;
+/* &#x5FEB;&#x6392; */
+void qsort (void *array, size t count, size t size, comparison fn t compare)
 </code></pre>
 <h2 id="&#x54C8;&#x5E0C;"><a name="&#x54C8;&#x5E0C;" class="anchor-navigation-ex-anchor" href="#&#x54C8;&#x5E0C;"><i class="fa fa-link" aria-hidden="true"></i></a>5.3. &#x54C8;&#x5E0C;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">hcreate</span> <span class="token punctuation">(</span>size t nel<span class="token punctuation">)</span>
+<pre><code class="lang-c">int hcreate (size t nel)
 </code></pre>
 <h2 id="&#x6811;"><a name="&#x6811;" class="anchor-navigation-ex-anchor" href="#&#x6811;"><i class="fa fa-link" aria-hidden="true"></i></a>5.4. &#x6811;</h2>
-<pre class="language-"><code class="lang-c"><span class="token comment">/*&#x627E;&#x5230;&#x5219;&#x8FD4;&#x56DE;&#x8282;&#x70B9;&#x6307;&#x9488;, &#x5426;&#x5219;&#x5C31;&#x5C06;key&#x52A0;&#x5165;&#x5230;tree&#x4E2D;*/</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">tsearch</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>key<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span><span class="token operator">*</span>rootp<span class="token punctuation">,</span> <span class="token class-name">comparison_fn_t</span> compar<span class="token punctuation">)</span>
-<span class="token comment">/*&#x53EA;&#x67E5;&#x627E;&#x4E0D;&#x6DFB;&#x52A0;*/</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">tfind</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>key<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span><span class="token keyword">const</span> <span class="token operator">*</span>rootp<span class="token punctuation">,</span> comparison fn t compar<span class="token punctuation">)</span>
-<span class="token comment">/*&#x5220;&#x9664;&#x8282;&#x70B9;*/</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">tdelete</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>key<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span><span class="token operator">*</span>rootp<span class="token punctuation">,</span> comparison fn t compar<span class="token punctuation">)</span>
-<span class="token comment">/*&#x9500;&#x6BC1;*/</span>
-<span class="token keyword">void</span> <span class="token function">tdestroy</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>vroot<span class="token punctuation">,</span> free fn t freefct<span class="token punctuation">)</span>
-<span class="token comment">/*&#x904D;&#x5386;void __action_fn_t (const void *nodep, VISIT value, int level);*/</span>
-<span class="token keyword">void</span> <span class="token function">twalk</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>root<span class="token punctuation">,</span> action fn t action<span class="token punctuation">)</span>
+<pre><code class="lang-c">/*&#x627E;&#x5230;&#x5219;&#x8FD4;&#x56DE;&#x8282;&#x70B9;&#x6307;&#x9488;, &#x5426;&#x5219;&#x5C31;&#x5C06;key&#x52A0;&#x5165;&#x5230;tree&#x4E2D;*/
+void * tsearch (const void *key, void **rootp, comparison_fn_t compar)
+/*&#x53EA;&#x67E5;&#x627E;&#x4E0D;&#x6DFB;&#x52A0;*/
+void * tfind (const void *key, void *const *rootp, comparison fn t compar)
+/*&#x5220;&#x9664;&#x8282;&#x70B9;*/
+void * tdelete (const void *key, void **rootp, comparison fn t compar)
+/*&#x9500;&#x6BC1;*/
+void tdestroy (void *vroot, free fn t freefct)
+/*&#x904D;&#x5386;void __action_fn_t (const void *nodep, VISIT value, int level);*/
+void twalk (const void *root, action fn t action)
 </code></pre>
 <h1 id="&#x6B63;&#x5219;"><a name="&#x6B63;&#x5219;" class="anchor-navigation-ex-anchor" href="#&#x6B63;&#x5219;"><i class="fa fa-link" aria-hidden="true"></i></a>6. &#x6B63;&#x5219;</h1>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;regex.h&gt;</span></span>
-<span class="token comment">//&#x5728;&#x8FDB;&#x884C;&#x6B63;&#x5219;&#x5339;&#x914D;&#x4E4B;&#x524D;, &#x8981;&#x6C42;&#x5148;&#x7F16;&#x8BD1;pattern, &#x5230;regex_t&#x7ED3;&#x6784;&#x4F53;&#x4E2D;</span>
-<span class="token keyword">int</span> <span class="token function">regcomp</span> <span class="token punctuation">(</span>regex t <span class="token operator">*</span>restrict compiled<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict pattern<span class="token punctuation">,</span> <span class="token keyword">int</span> cflags<span class="token punctuation">)</span>
-<span class="token comment">//&#x5339;&#x914D;</span>
-<span class="token keyword">int</span> <span class="token function">regexec</span> <span class="token punctuation">(</span><span class="token keyword">const</span> regex t <span class="token operator">*</span>restrict compiled<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict string<span class="token punctuation">,</span> size t nmatch<span class="token punctuation">,</span> regmatch t matchptr<span class="token punctuation">[</span>restrict<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> eflags<span class="token punctuation">)</span>
-<span class="token comment">//&#x5355;&#x8BCD;&#x89E3;&#x6790;</span>
-<span class="token keyword">int</span> <span class="token function">wordexp</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span> words<span class="token punctuation">,</span> <span class="token class-name">wordexp_t</span> <span class="token operator">*</span> word<span class="token operator">-</span>vector<span class="token operator">-</span>ptr<span class="token punctuation">,</span> <span class="token keyword">int</span> flags<span class="token punctuation">)</span>
-<span class="token keyword">void</span> <span class="token function">wordfree</span><span class="token punctuation">(</span><span class="token class-name">wordexp_t</span> <span class="token operator">*</span>word<span class="token operator">-</span>vector<span class="token operator">-</span>ptr<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;regex.h&gt;
+//&#x5728;&#x8FDB;&#x884C;&#x6B63;&#x5219;&#x5339;&#x914D;&#x4E4B;&#x524D;, &#x8981;&#x6C42;&#x5148;&#x7F16;&#x8BD1;pattern, &#x5230;regex_t&#x7ED3;&#x6784;&#x4F53;&#x4E2D;
+int regcomp (regex t *restrict compiled, const char *restrict pattern, int cflags)
+//&#x5339;&#x914D;
+int regexec (const regex t *restrict compiled, const char *restrict string, size t nmatch, regmatch t matchptr[restrict], int eflags)
+//&#x5355;&#x8BCD;&#x89E3;&#x6790;
+int wordexp (const char * words, wordexp_t * word-vector-ptr, int flags)
+void wordfree(wordexp_t *word-vector-ptr)
 </code></pre>
 <p>&#x4E3E;&#x4F8B;</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span>
-<span class="token function">expand_and_execute</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>program<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>options<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token class-name">wordexp_t</span> result<span class="token punctuation">;</span>
-    <span class="token class-name">pid_t</span> pid
-    <span class="token keyword">int</span> status<span class="token punctuation">,</span> i<span class="token punctuation">;</span>
+<pre><code class="lang-c">int
+expand_and_execute(const char *program, const char **options)
+{
+    wordexp_t result;
+    pid_t pid
+    int status, i;
 
-    <span class="token comment">/*
+    /*
     Expand the string for the program to run.
-    */</span>
-    <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token function">wordexp</span><span class="token punctuation">(</span>program<span class="token punctuation">,</span> <span class="token operator">&amp;</span>result<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> <span class="token number">0</span><span class="token operator">:</span>  <span class="token comment">/*Successful*/</span>
-        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    */
+    switch (wordexp(program, &amp;result, 0)) {
+    case 0:  /*Successful*/
+        break;
 
-    <span class="token keyword">case</span> WRDE_NOSPACE<span class="token operator">:</span>
-        <span class="token comment">/*
+    case WRDE_NOSPACE:
+        /*
         If the error was
         WRDE_NOSPACE
         ,
         then perhaps part of the result was allocated.
-        */</span>
-        <span class="token function">wordfree</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        */
+        wordfree(&amp;result);
 
-    <span class="token keyword">default</span><span class="token operator">:</span>                    <span class="token comment">/*Some other error.*/</span>
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    default:                    /*Some other error.*/
+        return -1;
+    }
 
-    <span class="token comment">/*
+    /*
     Expand the strings specified for the arguments.
-    */</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> options<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">wordexp</span><span class="token punctuation">(</span>options<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>result<span class="token punctuation">,</span> WRDE_APPEND<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">wordfree</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    */
+    for (i = 0; options[i] != NULL; i++) {
+        if (wordexp(options[i], &amp;result, WRDE_APPEND)) {
+            wordfree(&amp;result);
+            return -1;
+        }
+    }
 
-    pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pid = fork();
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">/*
+    if (pid == 0) {
+        /*
         This is the child process.  Execute the command.
-        */</span>
-        <span class="token function">execv</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>we_wordv<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> result<span class="token punctuation">.</span>we_wordv<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">exit</span><span class="token punctuation">(</span>EXIT_FAILURE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        <span class="token comment">/*
+        */
+        execv(result.we_wordv[0], result.we_wordv);
+        exit(EXIT_FAILURE);
+    } else if (pid &lt; 0)
+        /*
         The fork failed.  Report failure.
-        */</span>
-        status <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">else</span>
-        <span class="token comment">/*
+        */
+        status = -1;
+    else
+        /*
         This is the parent process.  Wait for the child to complete.
-        */</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">waitpid</span><span class="token punctuation">(</span>pid<span class="token punctuation">,</span> <span class="token operator">&amp;</span>status<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">!=</span> pid<span class="token punctuation">)</span>
-            status <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        */
+        if (waitpid(pid, &amp;status, 0) != pid)
+            status = -1;
 
-    <span class="token function">wordfree</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> status<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+    wordfree(&amp;result);
+    return status;
+}
 </code></pre>
 <h1 id="&#x8F93;&#x5165;&#x8F93;&#x51FA;&#x4E4B;&#x6D41;&#x6587;&#x4EF6;"><a name="&#x8F93;&#x5165;&#x8F93;&#x51FA;&#x4E4B;&#x6D41;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x8F93;&#x5165;&#x8F93;&#x51FA;&#x4E4B;&#x6D41;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>7. &#x8F93;&#x5165;&#x8F93;&#x51FA;&#x4E4B;&#x6D41;&#x6587;&#x4EF6;</h1>
 <p>&#x6D41;&#x6587;&#x4EF6;, &#x7528;FILE <em>&#x4EE3;&#x8868;, &#x9ED8;&#x8BA4;&#x5DF2;&#x7ECF;&#x6253;&#x5F00;&#x7684;&#x4E09;&#x4E2A; FILE </em> stdin, FILE <em> stdout, FILE </em> stderr</p>
 <h2 id="&#x91CD;&#x5B9A;&#x5411;"><a name="&#x91CD;&#x5B9A;&#x5411;" class="anchor-navigation-ex-anchor" href="#&#x91CD;&#x5B9A;&#x5411;"><i class="fa fa-link" aria-hidden="true"></i></a>7.1. &#x91CD;&#x5B9A;&#x5411;</h2>
-<pre class="language-"><code class="lang-c"><span class="token function">fclose</span> <span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token constant">stdout</span> <span class="token operator">=</span> <span class="token function">fopen</span> <span class="token punctuation">(</span><span class="token string">&quot;standard-output-file&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;w&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">fclose (stdout);
+stdout = fopen (&quot;standard-output-file&quot;, &quot;w&quot;);
 </code></pre>
 <p>&#x53EF;&#x80FD;&#x6709;&#x4E9B;&#x7CFB;&#x7EDF;stdout&#x662F;&#x4E2A;&#x5B8F;, &#x90A3;&#x53EF;&#x4EE5;&#x7528;freopen(), &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x57FA;&#x672C;&#x4E0A;&#x662F;fclose&#x548C;fopen&#x7684;&#x5408;&#x4F53;</p>
 <h2 id="&#x6D41;&#x6587;&#x4EF6;&#x64CD;&#x4F5C;"><a name="&#x6D41;&#x6587;&#x4EF6;&#x64CD;&#x4F5C;" class="anchor-navigation-ex-anchor" href="#&#x6D41;&#x6587;&#x4EF6;&#x64CD;&#x4F5C;"><i class="fa fa-link" aria-hidden="true"></i></a>7.2. &#x6D41;&#x6587;&#x4EF6;&#x64CD;&#x4F5C;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-FILE <span class="token operator">*</span><span class="token function">fopen</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>path<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
-FILE <span class="token operator">*</span><span class="token function">fdopen</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>mode<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">fclose</span><span class="token punctuation">(</span>FILE <span class="token operator">*</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+FILE *fopen(const char *path, const char *mode);
+FILE *fdopen(int fd, const char *mode);
+int fclose(FILE *fp);
 </code></pre>
 <p>&#x5E26;64&#x540E;&#x7F00;&#x7684;fopen&#x80FD;&#x591F;&#x6253;&#x5F00;&#x8D85;&#x8FC7;4G&#x7684;&#x6587;&#x4EF6;</p>
 <h2 id="&#x591A;&#x7EBF;&#x7A0B;&#x4E0E;&#x6587;&#x4EF6;&#x9501;"><a name="&#x591A;&#x7EBF;&#x7A0B;&#x4E0E;&#x6587;&#x4EF6;&#x9501;" class="anchor-navigation-ex-anchor" href="#&#x591A;&#x7EBF;&#x7A0B;&#x4E0E;&#x6587;&#x4EF6;&#x9501;"><i class="fa fa-link" aria-hidden="true"></i></a>7.3. &#x591A;&#x7EBF;&#x7A0B;&#x4E0E;&#x6587;&#x4EF6;&#x9501;</h2>
@@ -3274,136 +3277,136 @@ FILE <span class="token operator">*</span><span class="token function">fdopen</s
 &#x4F46;&#x6709;&#x65F6;&#x8FD9;&#x6837;&#x8FD8;&#x4E0D;&#x591F;, &#x90A3;&#x4E48;&#x53EF;&#x4EE5;&#x663E;&#x793A;&#x4F7F;&#x7528;&#x6587;&#x4EF6;&#x9501;
 &#x6CE8;&#x610F;: &#x6587;&#x4EF6;&#x9501;&#x52A0;&#x9501;&#x7684;&#x5BF9;&#x8C61;&#x662F;stream, &#x7528;&#x4E8E;&#x591A;&#x7EBF;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x4E92;&#x65A5;.
 &#x5982;&#x679C;&#x8981;&#x5728;&#x591A;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x7528;&#x6587;&#x4EF6;&#x4E92;&#x65A5;, &#x9700;&#x4F7F;&#x7528;lockf()&#x8C03;&#x7528;. &#x8BE6;&#x89C1;&#x4EE3;&#x7801;&#x7247;&#x6BB5;==&#x6587;&#x4EF6;&#x9501;</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token keyword">void</span> <span class="token function">flockfile</span><span class="token punctuation">(</span>FILE <span class="token operator">*</span>filehandle<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&#x4F1A;&#x5BFC;&#x81F4;&#x8FDB;&#x7A0B;&#x963B;&#x585E;</span>
-<span class="token keyword">int</span> <span class="token function">ftrylockfile</span><span class="token punctuation">(</span>FILE <span class="token operator">*</span>filehandle<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">funlockfile</span><span class="token punctuation">(</span>FILE <span class="token operator">*</span>filehandle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+void flockfile(FILE *filehandle); //&#x4F1A;&#x5BFC;&#x81F4;&#x8FDB;&#x7A0B;&#x963B;&#x585E;
+int ftrylockfile(FILE *filehandle);
+void funlockfile(FILE *filehandle);
 </code></pre>
 <p>&#x4E3E;&#x4F8B;: &#x8FD9;&#x91CC;&#x7684;flockfile()&#x4FDD;&#x62A4;&#x4E86;&#x4E0B;&#x9762;&#x7684;&#x4E24;&#x53E5;&#x64CD;&#x4F5C;&#x662F;&#x539F;&#x5B50;&#x7684;.</p>
-<pre class="language-"><code class="lang-c">FILE <span class="token operator">*</span>fp<span class="token punctuation">;</span>
-<span class="token punctuation">{</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-    <span class="token function">flockfile</span> <span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">fputs</span> <span class="token punctuation">(</span><span class="token string">&quot;This is test number &quot;</span><span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">fprintf</span> <span class="token punctuation">(</span>fp<span class="token punctuation">,</span> <span class="token string">&quot;%d\n&quot;</span><span class="token punctuation">,</span> test<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">funlockfile</span> <span class="token punctuation">(</span>fp<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">FILE *fp;
+{
+    ...
+    flockfile (fp);
+    fputs (&quot;This is test number &quot;, fp);
+    fprintf (fp, &quot;%d\n&quot;, test);
+    funlockfile (fp)
+}
 </code></pre>
 <h2 id="&#x5173;&#x4E8E;&#x5BBD;&#x5B57;&#x7B26;"><a name="&#x5173;&#x4E8E;&#x5BBD;&#x5B57;&#x7B26;" class="anchor-navigation-ex-anchor" href="#&#x5173;&#x4E8E;&#x5BBD;&#x5B57;&#x7B26;"><i class="fa fa-link" aria-hidden="true"></i></a>7.4. &#x5173;&#x4E8E;&#x5BBD;&#x5B57;&#x7B26;</h2>
 <p>libc&#x652F;&#x6301;&#x5728;&#x4E00;&#x4E2A;stream&#x4E0A;&#x5141;&#x8BB8;&#x5BBD;&#x5B57;&#x7B26;&#x548C;&#x666E;&#x901A;&#x5B57;&#x7B26;&#x8F93;&#x51FA;, &#x4F46;&#x4E24;&#x8005;&#x53EA;&#x80FD;&#x9009;&#x5176;&#x4E00;, &#x800C;&#x4E14;&#x4E00;&#x65E6;&#x9009;&#x5B9A;&#x5C31;&#x4E0D;&#x80FD;&#x518D;&#x66F4;&#x6362;.
 &#x5BBD;&#x5B57;&#x7B26;&#x64CD;&#x4F5C;&#x51FD;&#x6570;&#x548C;&#x666E;&#x901A;&#x5B57;&#x7B26;&#x51FD;&#x6570;&#x662F;&#x5BF9;&#x5E94;&#x7684;, &#x51FD;&#x6570;&#x540D;&#x6709;w&#x7684;&#x5C31;&#x662F;&#x5BBD;&#x5B57;&#x7B26;&#x64CD;&#x4F5C;.
 &#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86;&#x5BBD;&#x5B57;&#x7B26;&#x64CD;&#x4F5C;&#x51FD;&#x6570;, &#x8FD9;&#x4E2A;stream&#x5C31;&#x662F;&#x5BBD;&#x5B57;&#x7B26;&#x6A21;&#x5F0F;, &#x5426;&#x5219;&#x5C31;&#x662F;&#x666E;&#x901A;&#x5B57;&#x7B26;&#x6A21;&#x5F0F;.</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">fwide</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">,</span> <span class="token keyword">int</span> mode<span class="token punctuation">)</span> <span class="token comment">//&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6A21;&#x5F0F;, &#x8981;&#x6C42;&#x662F;&#x5C3D;&#x91CF;&#x65E9;&#x7684;&#x8C03;&#x7528;</span>
-<span class="token keyword">void</span>
-<span class="token function">print_f</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>fp<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">fwide</span> <span class="token punctuation">(</span>fp<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        <span class="token comment">/* Positive return value means wide orientation. */</span>
-        <span class="token function">fputwc</span> <span class="token punctuation">(</span>L&#x2019;f&#x2019;<span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">else</span>
-        <span class="token function">fputc</span> <span class="token punctuation">(</span>&#x2019;f&#x2019;<span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">int fwide (FILE *stream, int mode) //&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x6A21;&#x5F0F;, &#x8981;&#x6C42;&#x662F;&#x5C3D;&#x91CF;&#x65E9;&#x7684;&#x8C03;&#x7528;
+void
+print_f (FILE *fp)
+{
+    if (fwide (fp, 0) &gt; 0)
+        /* Positive return value means wide orientation. */
+        fputwc (L&#x2019;f&#x2019;, fp);
+    else
+        fputc (&#x2019;f&#x2019;, fp);
+}
 </code></pre>
 <h2 id="stream&#x5199;"><a name="stream&#x5199;" class="anchor-navigation-ex-anchor" href="#stream&#x5199;"><i class="fa fa-link" aria-hidden="true"></i></a>7.5. stream&#x5199;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">fputc</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token class-name">wint_t</span> <span class="token function">fputwc</span> <span class="token punctuation">(</span>wchar t wc<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fputs</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fputws</span> <span class="token punctuation">(</span><span class="token keyword">const</span> wchar t <span class="token operator">*</span>ws<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">puts</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">)</span> <span class="token comment">//&#x8F93;&#x51FA;&#x5230;stdout</span>
+<pre><code class="lang-c">int fputc (int c, FILE *stream)
+wint_t fputwc (wchar t wc, FILE *stream)
+int fputs (const char *s, FILE *stream)
+int fputws (const wchar t *ws, FILE *stream)
+int puts (const char *s) //&#x8F93;&#x51FA;&#x5230;stdout
 </code></pre>
 <h2 id="stream&#x8BFB;"><a name="stream&#x8BFB;" class="anchor-navigation-ex-anchor" href="#stream&#x8BFB;"><i class="fa fa-link" aria-hidden="true"></i></a>7.6. stream&#x8BFB;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">fgetc</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token class-name">wint_t</span> <span class="token function">fgetwc</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token comment">/*&#x4EE5;&#x4E0B;&#x662F;&#x884C;&#x6A21;&#x5F0F;*/</span>
-<span class="token class-name">ssize_t</span> <span class="token function">getline</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>lineptr<span class="token punctuation">,</span> size t <span class="token operator">*</span>n<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span> <span class="token comment">//&#x5982;&#x679C;*lineptr&#x662F;NULL&#x800C;&#x4E14;n&#x4E3A;0, &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4F1A;&#x81EA;&#x5DF1;malloc</span>
-<span class="token class-name">ssize_t</span> <span class="token function">getdelim</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>lineptr<span class="token punctuation">,</span> size t <span class="token operator">*</span>n<span class="token punctuation">,</span> <span class="token keyword">int</span> delimiter<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span> <span class="token comment">//&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x5206;&#x9694;&#x7B26;</span>
-<span class="token class-name">ssize_t</span> <span class="token function">getline</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>lineptr<span class="token punctuation">,</span> <span class="token class-name">size_t</span> <span class="token operator">*</span>n<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token function">getdelim</span> <span class="token punctuation">(</span>lineptr<span class="token punctuation">,</span> n<span class="token punctuation">,</span> &#x2019;\n&#x2019;<span class="token punctuation">,</span> stream<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">fgets</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> <span class="token keyword">int</span> count<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token class-name">wchar_t</span> <span class="token operator">*</span> <span class="token function">fgetws</span> <span class="token punctuation">(</span>wchar t <span class="token operator">*</span>ws<span class="token punctuation">,</span> <span class="token keyword">int</span> count<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
+<pre><code class="lang-c">int fgetc (FILE *stream)
+wint_t fgetwc (FILE *stream)
+/*&#x4EE5;&#x4E0B;&#x662F;&#x884C;&#x6A21;&#x5F0F;*/
+ssize_t getline (char **lineptr, size t *n, FILE *stream) //&#x5982;&#x679C;*lineptr&#x662F;NULL&#x800C;&#x4E14;n&#x4E3A;0, &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4F1A;&#x81EA;&#x5DF1;malloc
+ssize_t getdelim (char **lineptr, size t *n, int delimiter, FILE *stream) //&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x5206;&#x9694;&#x7B26;
+ssize_t getline (char **lineptr, size_t *n, FILE *stream)
+{
+    return getdelim (lineptr, n, &#x2019;\n&#x2019;, stream);
+}
+char * fgets (char *s, int count, FILE *stream)
+wchar_t * fgetws (wchar t *ws, int count, FILE *stream)
 </code></pre>
 <h2 id="unread&#x548C;peeking-ahead"><a name="unread&#x548C;peeking-ahead" class="anchor-navigation-ex-anchor" href="#unread&#x548C;peeking-ahead"><i class="fa fa-link" aria-hidden="true"></i></a>7.7. unread&#x548C;peeking ahead</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">ungetc</span> <span class="token punctuation">(</span><span class="token keyword">int</span> c<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span> <span class="token comment">//&#x628A;c&#x653E;&#x56DE;stream, &#x53EA;&#x80FD;&#x653E;&#x4E00;&#x6B21;.</span>
+<pre><code class="lang-c">int ungetc (int c, FILE *stream) //&#x628A;c&#x653E;&#x56DE;stream, &#x53EA;&#x80FD;&#x653E;&#x4E00;&#x6B21;.
 </code></pre>
 <p>&#x4E3E;&#x4F8B;:</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;ctype.h&gt;</span></span>
-<span class="token keyword">void</span>
-<span class="token function">skip_whitespace</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> c<span class="token punctuation">;</span>
-    <span class="token keyword">do</span>
-        <span class="token comment">/* No need to check for EOF because it is not
-        isspace, and ungetc ignores EOF. */</span>
-        c <span class="token operator">=</span> <span class="token function">getc</span> <span class="token punctuation">(</span>stream<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">isspace</span> <span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">ungetc</span> <span class="token punctuation">(</span>c<span class="token punctuation">,</span> stream<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#include &lt;ctype.h&gt;
+void
+skip_whitespace (FILE *stream)
+{
+    int c;
+    do
+        /* No need to check for EOF because it is not
+        isspace, and ungetc ignores EOF. */
+        c = getc (stream);
+    while (isspace (c));
+    ungetc (c, stream);
+}
 </code></pre>
 <h2 id="block&#x8BFB;&#x5199;"><a name="block&#x8BFB;&#x5199;" class="anchor-navigation-ex-anchor" href="#block&#x8BFB;&#x5199;"><i class="fa fa-link" aria-hidden="true"></i></a>7.8. block&#x8BFB;&#x5199;</h2>
-<pre class="language-"><code class="lang-c"><span class="token class-name">size_t</span> <span class="token function">fread</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>data<span class="token punctuation">,</span> size t size<span class="token punctuation">,</span> size t count<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token class-name">size_t</span> <span class="token function">fwrite</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>data<span class="token punctuation">,</span> size t size<span class="token punctuation">,</span> size t count<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
+<pre><code class="lang-c">size_t fread (void *data, size t size, size t count, FILE *stream)
+size_t fwrite (const void *data, size t size, size t count, FILE *stream)
 </code></pre>
 <h2 id="&#x683C;&#x5F0F;&#x5316;&#x6253;&#x5370;"><a name="&#x683C;&#x5F0F;&#x5316;&#x6253;&#x5370;" class="anchor-navigation-ex-anchor" href="#&#x683C;&#x5F0F;&#x5316;&#x6253;&#x5370;"><i class="fa fa-link" aria-hidden="true"></i></a>7.9. &#x683C;&#x5F0F;&#x5316;&#x6253;&#x5370;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">printf</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">wprintf</span> <span class="token punctuation">(</span><span class="token keyword">const</span> wchar t <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fprintf</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fwprintf</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">,</span> <span class="token keyword">const</span> wchar t <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">sprintf</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">swprintf</span> <span class="token punctuation">(</span>wchar t <span class="token operator">*</span>s<span class="token punctuation">,</span> size t size<span class="token punctuation">,</span> <span class="token keyword">const</span> wchar t <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
-<span class="token comment">/*&#x52A8;&#x6001;&#x5206;&#x914D;&#x5185;&#x5B58;*/</span>
-<span class="token keyword">int</span> <span class="token function">asprintf</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>ptr<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int printf (const char *template, . . . )
+int wprintf (const wchar t *template, . . . )
+int fprintf (FILE *stream, const char *template, . . . )
+int fwprintf (FILE *stream, const wchar t *template, . . . )
+int sprintf (char *s, const char *template, . . . )
+int swprintf (wchar t *s, size t size, const wchar t *template, . . . )
+/*&#x52A8;&#x6001;&#x5206;&#x914D;&#x5185;&#x5B58;*/
+int asprintf (char **ptr, const char *template, . . . )
 </code></pre>
 <p>&#x4E3E;&#x4F8B;:</p>
-<pre class="language-"><code class="lang-c"><span class="token comment">/* Construct a message describing the value of a variable
-whose name is name and whose value is value. */</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>
-<span class="token function">make_message</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>name<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>value<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">char</span> <span class="token operator">*</span>result<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">asprintf</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>result<span class="token punctuation">,</span> <span class="token string">&quot;value of %s is %s&quot;</span><span class="token punctuation">,</span> name<span class="token punctuation">,</span> value<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">/* Construct a message describing the value of a variable
+whose name is name and whose value is value. */
+char *
+make_message (char *name, char *value)
+{
+    char *result;
+    if (asprintf (&amp;result, &quot;value of %s is %s&quot;, name, value) &lt; 0)
+        return NULL;
+    return result;
+}
 
-<span class="token keyword">int</span> <span class="token function">vprintf</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>template<span class="token punctuation">,</span> va list ap<span class="token punctuation">)</span>
+int vprintf (const char *template, va list ap)
 </code></pre>
 <p>&#x4E3E;&#x4F8B;:</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdarg.h&gt;</span></span>
-<span class="token keyword">void</span>
-<span class="token function">eprintf</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    va_list ap<span class="token punctuation">;</span>
-    <span class="token keyword">extern</span> <span class="token keyword">char</span> <span class="token operator">*</span>program_invocation_short_name<span class="token punctuation">;</span>
-    <span class="token function">fprintf</span> <span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">&quot;%s: &quot;</span><span class="token punctuation">,</span> program_invocation_short_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">va_start</span> <span class="token punctuation">(</span>ap<span class="token punctuation">,</span> template<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">vfprintf</span> <span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> template<span class="token punctuation">,</span> ap<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">va_end</span> <span class="token punctuation">(</span>ap<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#include &lt;stdarg.h&gt;
+void
+eprintf (const char *template, ...)
+{
+    va_list ap;
+    extern char *program_invocation_short_name;
+    fprintf (stderr, &quot;%s: &quot;, program_invocation_short_name);
+    va_start (ap, template);
+    vfprintf (stderr, template, ap);
+    va_end (ap);
+}
 </code></pre>
 <h2 id="&#x683C;&#x5F0F;&#x5316;&#x8F93;&#x5165;"><a name="&#x683C;&#x5F0F;&#x5316;&#x8F93;&#x5165;" class="anchor-navigation-ex-anchor" href="#&#x683C;&#x5F0F;&#x5316;&#x8F93;&#x5165;"><i class="fa fa-link" aria-hidden="true"></i></a>7.10. &#x683C;&#x5F0F;&#x5316;&#x8F93;&#x5165;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">scanf</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">wscanf</span> <span class="token punctuation">(</span><span class="token keyword">const</span> wchar t <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fscanf</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">sscanf</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>s<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>template<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
+<pre><code class="lang-c">int scanf (const char *template, . . . )
+int wscanf (const wchar t *template, . . . )
+int fscanf (FILE *stream, const char *template, . . . )
+int sscanf (const char *s, const char *template, . . . )
 </code></pre>
 <h2 id="&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x5C3E;-&#x5E38;&#x7528;&#x4E8E;&#x5224;&#x65AD;"><a name="&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x5C3E;-&#x5E38;&#x7528;&#x4E8E;&#x5224;&#x65AD;" class="anchor-navigation-ex-anchor" href="#&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x5C3E;-&#x5E38;&#x7528;&#x4E8E;&#x5224;&#x65AD;"><i class="fa fa-link" aria-hidden="true"></i></a>7.11. &#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x5C3E;, &#x5E38;&#x7528;&#x4E8E;&#x5224;&#x65AD;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">feof</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">ferror</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
+<pre><code class="lang-c">int feof (FILE *stream)
+int ferror (FILE *stream)
 </code></pre>
 <h2 id="&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;"><a name="&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>7.12. &#x6587;&#x4EF6;&#x4F4D;&#x7F6E;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">long</span> <span class="token keyword">int</span> <span class="token function">ftell</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token class-name">off_t</span> <span class="token function">ftello</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token class-name">off64_t</span> <span class="token function">ftello64</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fseek</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">,</span> <span class="token keyword">long</span> <span class="token keyword">int</span> offset<span class="token punctuation">,</span> <span class="token keyword">int</span> whence<span class="token punctuation">)</span> <span class="token comment">//SEEK_SET, SEEK_CUR, or SEEK_END</span>
-<span class="token keyword">int</span> <span class="token function">fseeko</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">,</span> off t offset<span class="token punctuation">,</span> <span class="token keyword">int</span> whence<span class="token punctuation">)</span>
-<span class="token comment">//&#x7528;&#x4EE5;&#x4E0B;&#x4E00;&#x7EC4;&#x51FD;&#x6570;&#x5904;&#x7406;&#x4F4D;&#x7F6E;&#x66F4;&#x597D;</span>
-<span class="token keyword">int</span> <span class="token function">fgetpos</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">,</span> fpos t <span class="token operator">*</span>position<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fsetpos</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">,</span> <span class="token keyword">const</span> fpos t <span class="token operator">*</span>position<span class="token punctuation">)</span>
+<pre><code class="lang-c">long int ftell (FILE *stream)
+off_t ftello (FILE *stream)
+off64_t ftello64 (FILE *stream)
+int fseek (FILE *stream, long int offset, int whence) //SEEK_SET, SEEK_CUR, or SEEK_END
+int fseeko (FILE *stream, off t offset, int whence)
+//&#x7528;&#x4EE5;&#x4E0B;&#x4E00;&#x7EC4;&#x51FD;&#x6570;&#x5904;&#x7406;&#x4F4D;&#x7F6E;&#x66F4;&#x597D;
+int fgetpos (FILE *stream, fpos t *position)
+int fsetpos (FILE *stream, const fpos t *position)
 </code></pre>
 <h2 id="&#x6587;&#x4EF6;&#x6D41;&#x7684;buffering"><a name="&#x6587;&#x4EF6;&#x6D41;&#x7684;buffering" class="anchor-navigation-ex-anchor" href="#&#x6587;&#x4EF6;&#x6D41;&#x7684;buffering"><i class="fa fa-link" aria-hidden="true"></i></a>7.13. &#x6587;&#x4EF6;&#x6D41;&#x7684;buffering</h2>
 <p>&#x6587;&#x4EF6;&#x6D41;&#x90FD;&#x6709;buffer, &#x800C;&#x66F4;&#x5E95;&#x5C42;&#x7684;io&#x8BFB;&#x5199;&#x6CA1;&#x6709;.
@@ -3413,137 +3416,137 @@ buffer&#x6709;&#x4E09;&#x79CD;&#x6A21;&#x5F0F;:</p>
 <li>line buffer</li>
 <li>full buffer
 &#x4E00;&#x822C;&#x7684;&#x6587;&#x4EF6;&#x90FD;&#x662F;full buffer, &#x4F46;&#x548C;&#x4EA4;&#x4E92;&#x76F8;&#x5173;&#x7684;&#x8BBE;&#x5907;&#x6BD4;&#x5982;terminal&#x5C31;&#x662F;line buffer
-&#x5237;buffer&#x7684;&#x51FD;&#x6570;:<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">fflush</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span> <span class="token comment">//&#x5982;&#x679C;&#x5165;&#x53C2;&#x662F;NULL, &#x5219;&#x4F1A;flush&#x6240;&#x6709;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;</span>
+&#x5237;buffer&#x7684;&#x51FD;&#x6570;:<pre><code class="lang-c">int fflush (FILE *stream) //&#x5982;&#x679C;&#x5165;&#x53C2;&#x662F;NULL, &#x5219;&#x4F1A;flush&#x6240;&#x6709;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;
 </code></pre>
-&#x6539;&#x53D8;buffer&#x6A21;&#x5F0F;:<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">setvbuf</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>buf<span class="token punctuation">,</span> <span class="token keyword">int</span> mode<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span> <span class="token comment">//_IOFBF _IOLBF _IONBF</span>
+&#x6539;&#x53D8;buffer&#x6A21;&#x5F0F;:<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int setvbuf (FILE *stream, char *buf, int mode, size t size) //_IOFBF _IOLBF _IONBF
 </code></pre>
 </li>
 </ul>
 <h1 id="&#x5E95;&#x5C42;&#x8F93;&#x5165;&#x8F93;&#x51FA;-&#x4E0E;&#x4E4B;&#x5BF9;&#x5E94;&#x7684;&#x662F;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;"><a name="&#x5E95;&#x5C42;&#x8F93;&#x5165;&#x8F93;&#x51FA;-&#x4E0E;&#x4E4B;&#x5BF9;&#x5E94;&#x7684;&#x662F;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;" class="anchor-navigation-ex-anchor" href="#&#x5E95;&#x5C42;&#x8F93;&#x5165;&#x8F93;&#x51FA;-&#x4E0E;&#x4E4B;&#x5BF9;&#x5E94;&#x7684;&#x662F;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;"><i class="fa fa-link" aria-hidden="true"></i></a>8. &#x5E95;&#x5C42;&#x8F93;&#x5165;&#x8F93;&#x51FA;, &#x4E0E;&#x4E4B;&#x5BF9;&#x5E94;&#x7684;&#x662F;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;</h1>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">open</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">,</span> <span class="token keyword">int</span> flags<span class="token punctuation">[</span><span class="token punctuation">,</span> mode t mode<span class="token punctuation">]</span><span class="token punctuation">)</span>
-&#x6BD4;&#x5982;<span class="token operator">:</span> <span class="token function">open</span> <span class="token punctuation">(</span>filename<span class="token punctuation">,</span> O_WRONLY <span class="token operator">|</span> O_CREAT <span class="token operator">|</span> O_TRUNC<span class="token punctuation">,</span> mode<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">open64</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">,</span> <span class="token keyword">int</span> flags<span class="token punctuation">[</span><span class="token punctuation">,</span> mode t mode<span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">close</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">)</span>
-<span class="token class-name">ssize_t</span> <span class="token function">read</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>buffer<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span> <span class="token comment">//EAGAIN EINTR EIO</span>
-<span class="token class-name">ssize_t</span> <span class="token function">pread</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>buffer<span class="token punctuation">,</span> size t size<span class="token punctuation">,</span> off t offset<span class="token punctuation">)</span> <span class="token comment">//&#x4ECE;&#x6587;&#x4EF6;&#x5F00;&#x59CB;&#x7684;offset&#x5F00;&#x59CB;&#x8BFB;, &#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;</span>
-<span class="token class-name">ssize_t</span> <span class="token function">write</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>buffer<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span>
-<span class="token class-name">ssize_t</span> <span class="token function">pwrite</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>buffer<span class="token punctuation">,</span> size t size<span class="token punctuation">,</span> off t offset<span class="token punctuation">)</span> <span class="token comment">//&#x7C7B;&#x4F3C;pread</span>
-<span class="token class-name">off_t</span> <span class="token function">lseek</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> off t offset<span class="token punctuation">,</span> <span class="token keyword">int</span> whence<span class="token punctuation">)</span> <span class="token comment">//SEEK_SET, SEEK_CUR, or SEEK_END</span>
-<span class="token class-name">off64_t</span> <span class="token function">lseek64</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> off64 t offset<span class="token punctuation">,</span> <span class="token keyword">int</span> whence<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+int open (const char *filename, int flags[, mode t mode])
+&#x6BD4;&#x5982;: open (filename, O_WRONLY | O_CREAT | O_TRUNC, mode)
+int open64 (const char *filename, int flags[, mode t mode])
+int close (int filedes)
+ssize_t read (int filedes, void *buffer, size t size) //EAGAIN EINTR EIO
+ssize_t pread (int filedes, void *buffer, size t size, off t offset) //&#x4ECE;&#x6587;&#x4EF6;&#x5F00;&#x59CB;&#x7684;offset&#x5F00;&#x59CB;&#x8BFB;, &#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;
+ssize_t write (int filedes, const void *buffer, size t size)
+ssize_t pwrite (int filedes, const void *buffer, size t size, off t offset) //&#x7C7B;&#x4F3C;pread
+off_t lseek (int filedes, off t offset, int whence) //SEEK_SET, SEEK_CUR, or SEEK_END
+off64_t lseek64 (int filedes, off64 t offset, int whence)
 </code></pre>
 <p>&#x4E3E;&#x4F8B;:</p>
-<pre class="language-"><code class="lang-c"><span class="token comment">//&#x540C;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;, open&#x4E24;&#x6B21;, &#x6BCF;&#x4E2A;&#x63CF;&#x8FF0;&#x7B26;&#x6709;&#x72EC;&#x7ACB;&#x7684;&#x4F4D;&#x7F6E;</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> d1<span class="token punctuation">,</span> d2<span class="token punctuation">;</span>
-    <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    d1 <span class="token operator">=</span> <span class="token function">open</span> <span class="token punctuation">(</span><span class="token string">&quot;foo&quot;</span><span class="token punctuation">,</span> O_RDONLY<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    d2 <span class="token operator">=</span> <span class="token function">open</span> <span class="token punctuation">(</span><span class="token string">&quot;foo&quot;</span><span class="token punctuation">,</span> O_RDONLY<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">lseek</span> <span class="token punctuation">(</span>d1<span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">,</span> <span class="token constant">SEEK_SET</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">read</span> <span class="token punctuation">(</span>d2<span class="token punctuation">,</span> buf<span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token comment">//&#x4F46;dup&#x51FD;&#x6570;&#x590D;&#x5236;&#x7684;&#x63CF;&#x8FF0;&#x7B26;&#x90FD;&#x5171;&#x4EAB;&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> d1<span class="token punctuation">,</span> d2<span class="token punctuation">,</span> d3<span class="token punctuation">;</span>
-    <span class="token keyword">char</span> buf1<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> buf2<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    d1 <span class="token operator">=</span> <span class="token function">open</span> <span class="token punctuation">(</span><span class="token string">&quot;foo&quot;</span><span class="token punctuation">,</span> O_RDONLY<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    d2 <span class="token operator">=</span> <span class="token function">dup</span> <span class="token punctuation">(</span>d1<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    d3 <span class="token operator">=</span> <span class="token function">dup</span> <span class="token punctuation">(</span>d2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">lseek</span> <span class="token punctuation">(</span>d3<span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">,</span> <span class="token constant">SEEK_SET</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">read</span> <span class="token punctuation">(</span>d1<span class="token punctuation">,</span> buf1<span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">read</span> <span class="token punctuation">(</span>d2<span class="token punctuation">,</span> buf2<span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">//&#x540C;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;, open&#x4E24;&#x6B21;, &#x6BCF;&#x4E2A;&#x63CF;&#x8FF0;&#x7B26;&#x6709;&#x72EC;&#x7ACB;&#x7684;&#x4F4D;&#x7F6E;
+{
+    int d1, d2;
+    char buf[4];
+    d1 = open (&quot;foo&quot;, O_RDONLY);
+    d2 = open (&quot;foo&quot;, O_RDONLY);
+    lseek (d1, 1024, SEEK_SET);
+    read (d2, buf, 4);
+}
+//&#x4F46;dup&#x51FD;&#x6570;&#x590D;&#x5236;&#x7684;&#x63CF;&#x8FF0;&#x7B26;&#x90FD;&#x5171;&#x4EAB;&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;
+{
+    int d1, d2, d3;
+    char buf1[4], buf2[4];
+    d1 = open (&quot;foo&quot;, O_RDONLY);
+    d2 = dup (d1);
+    d3 = dup (d2);
+    lseek (d3, 1024, SEEK_SET);
+    read (d1, buf1, 4);
+    read (d2, buf2, 4);
+}
 </code></pre>
 <h2 id="&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x548C;&#x6587;&#x4EF6;&#x6D41;&#x4E92;&#x8F6C;"><a name="&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x548C;&#x6587;&#x4EF6;&#x6D41;&#x4E92;&#x8F6C;" class="anchor-navigation-ex-anchor" href="#&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x548C;&#x6587;&#x4EF6;&#x6D41;&#x4E92;&#x8F6C;"><i class="fa fa-link" aria-hidden="true"></i></a>8.1. &#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x548C;&#x6587;&#x4EF6;&#x6D41;&#x4E92;&#x8F6C;</h2>
-<pre class="language-"><code class="lang-c">FILE <span class="token operator">*</span> <span class="token function">fdopen</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>opentype<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fileno</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
+<pre><code class="lang-c">FILE * fdopen (int filedes, const char *opentype)
+int fileno (FILE *stream)
 </code></pre>
 <h2 id="mmap-io"><a name="mmap-io" class="anchor-navigation-ex-anchor" href="#mmap-io"><i class="fa fa-link" aria-hidden="true"></i></a>8.2. mmap io</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/mman.h&gt;</span></span>
-<span class="token class-name">size_t</span> page_size <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">size_t</span><span class="token punctuation">)</span> <span class="token function">sysconf</span> <span class="token punctuation">(</span>_SC_PAGESIZE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">mmap</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>address<span class="token punctuation">,</span> size t length<span class="token punctuation">,</span> <span class="token keyword">int</span> protect<span class="token punctuation">,</span> <span class="token keyword">int</span> flags<span class="token punctuation">,</span> <span class="token keyword">int</span> filedes<span class="token punctuation">,</span> off t offset<span class="token punctuation">)</span>
-protect<span class="token operator">:</span> PROT_READ<span class="token punctuation">,</span> PROT_WRITE<span class="token punctuation">,</span> and PROT_EXEC
-flags<span class="token operator">:</span>
-MAP_PRIVATE<span class="token operator">:</span> &#x5BF9;&#x5185;&#x5B58;region&#x7684;&#x5199;&#x4E0D;&#x4F1A;&#x5199;&#x56DE;&#x5230;&#x6587;&#x4EF6;
-MAP_SHARED<span class="token operator">:</span> &#x5BF9;&#x5185;&#x5B58;region&#x7684;&#x5199;&#x4F1A;&#x5199;&#x5230;&#x6587;&#x4EF6;<span class="token punctuation">,</span> &#x4F46;&#x771F;&#x6B63;&#x5199;&#x6587;&#x4EF6;&#x7684;&#x64CD;&#x4F5C;&#x53D1;&#x751F;&#x5728;any time<span class="token punctuation">.</span> &#x7528;msync&#x53EF;&#x4EE5;&#x5F3A;&#x5236;&#x5199;
-MAP_ANONYMOUS<span class="token operator">:</span> &#x533F;&#x540D;mmap<span class="token punctuation">,</span> &#x4E0D;&#x9700;&#x8981;&#x6587;&#x4EF6;<span class="token punctuation">,</span> &#x6620;&#x5C04;&#x7684;&#x5185;&#x5B58;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x4E3A;<span class="token number">0</span><span class="token punctuation">;</span> &#x53EF;&#x7528;&#x6765;&#x66FF;&#x4EE3;malloc<span class="token punctuation">,</span> &#x4F46;GNU&#x7684;malloc&#x5DF2;&#x5305;&#x542B;mmap&#x529F;&#x80FD;<span class="token punctuation">.</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">mmap64</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>address<span class="token punctuation">,</span> size t length<span class="token punctuation">,</span> <span class="token keyword">int</span> protect<span class="token punctuation">,</span> <span class="token keyword">int</span> flags<span class="token punctuation">,</span> <span class="token keyword">int</span> filedes<span class="token punctuation">,</span> off64 t offset<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">munmap</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>addr<span class="token punctuation">,</span> size t length<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">msync</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>address<span class="token punctuation">,</span> size t length<span class="token punctuation">,</span> <span class="token keyword">int</span> flags<span class="token punctuation">)</span>
-<span class="token keyword">void</span> <span class="token operator">*</span> <span class="token function">mremap</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>address<span class="token punctuation">,</span> size t length<span class="token punctuation">,</span> size t new_length<span class="token punctuation">,</span> <span class="token keyword">int</span> flag<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;sys/mman.h&gt;
+size_t page_size = (size_t) sysconf (_SC_PAGESIZE);
+void * mmap (void *address, size t length, int protect, int flags, int filedes, off t offset)
+protect: PROT_READ, PROT_WRITE, and PROT_EXEC
+flags:
+MAP_PRIVATE: &#x5BF9;&#x5185;&#x5B58;region&#x7684;&#x5199;&#x4E0D;&#x4F1A;&#x5199;&#x56DE;&#x5230;&#x6587;&#x4EF6;
+MAP_SHARED: &#x5BF9;&#x5185;&#x5B58;region&#x7684;&#x5199;&#x4F1A;&#x5199;&#x5230;&#x6587;&#x4EF6;, &#x4F46;&#x771F;&#x6B63;&#x5199;&#x6587;&#x4EF6;&#x7684;&#x64CD;&#x4F5C;&#x53D1;&#x751F;&#x5728;any time. &#x7528;msync&#x53EF;&#x4EE5;&#x5F3A;&#x5236;&#x5199;
+MAP_ANONYMOUS: &#x533F;&#x540D;mmap, &#x4E0D;&#x9700;&#x8981;&#x6587;&#x4EF6;, &#x6620;&#x5C04;&#x7684;&#x5185;&#x5B58;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x4E3A;0; &#x53EF;&#x7528;&#x6765;&#x66FF;&#x4EE3;malloc, &#x4F46;GNU&#x7684;malloc&#x5DF2;&#x5305;&#x542B;mmap&#x529F;&#x80FD;.
+void * mmap64 (void *address, size t length, int protect, int flags, int filedes, off64 t offset)
+int munmap (void *addr, size t length)
+int msync (void *address, size t length, int flags)
+void * mremap (void *address, size t length, size t new_length, int flag)
 </code></pre>
 <h2 id="&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x548C;mmap"><a name="&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x548C;mmap" class="anchor-navigation-ex-anchor" href="#&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x548C;mmap"><i class="fa fa-link" aria-hidden="true"></i></a>8.3. &#x5171;&#x4EAB;&#x5185;&#x5B58;&#x548C;mmap</h2>
-<pre class="language-"><code class="lang-c"><span class="token comment">//&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;, &#x7528;&#x4E8E;mmap. &#x4E0D;&#x540C;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x540C;&#x540D;&#x7684;&#x5171;&#x4EAB;&#x5185;&#x5B58;</span>
-<span class="token keyword">int</span> <span class="token function">shm_open</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>name<span class="token punctuation">,</span> <span class="token keyword">int</span> oflag<span class="token punctuation">,</span> mode t mode<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">shm_unlink</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>name<span class="token punctuation">)</span>
+<pre><code class="lang-c">//&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;, &#x7528;&#x4E8E;mmap. &#x4E0D;&#x540C;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x540C;&#x540D;&#x7684;&#x5171;&#x4EAB;&#x5185;&#x5B58;
+int shm_open (const char *name, int oflag, mode t mode)
+int shm_unlink (const char *name)
 </code></pre>
 <h2 id="select"><a name="select" class="anchor-navigation-ex-anchor" href="#select"><i class="fa fa-link" aria-hidden="true"></i></a>8.4. select</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h&gt;</span></span>
-<span class="token keyword">void</span> <span class="token function">FD_ZERO</span> <span class="token punctuation">(</span>fd set <span class="token operator">*</span>set<span class="token punctuation">)</span>
-<span class="token keyword">void</span> <span class="token function">FD_SET</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> fd set <span class="token operator">*</span>set<span class="token punctuation">)</span>
-<span class="token keyword">void</span> <span class="token function">FD_CLR</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> fd set <span class="token operator">*</span>set<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">FD_ISSET</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> <span class="token keyword">const</span> fd set <span class="token operator">*</span>set<span class="token punctuation">)</span>
-<span class="token comment">//select</span>
-<span class="token keyword">int</span> <span class="token function">select</span> <span class="token punctuation">(</span><span class="token keyword">int</span> nfds<span class="token punctuation">,</span> fd set <span class="token operator">*</span>read<span class="token operator">-</span>fds<span class="token punctuation">,</span> fd set <span class="token operator">*</span>write<span class="token operator">-</span>fds<span class="token punctuation">,</span> fd set <span class="token operator">*</span>except<span class="token operator">-</span>fds<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">timeval</span> <span class="token operator">*</span>timeout<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;sys/types.h&gt;
+void FD_ZERO (fd set *set)
+void FD_SET (int filedes, fd set *set)
+void FD_CLR (int filedes, fd set *set)
+int FD_ISSET (int filedes, const fd set *set)
+//select
+int select (int nfds, fd set *read-fds, fd set *write-fds, fd set *except-fds, struct timeval *timeout)
 </code></pre>
 <p>&#x4E3E;&#x4F8B;:</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;errno.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/time.h&gt;</span></span>
-<span class="token keyword">int</span>
-<span class="token function">input_timeout</span><span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">int</span> seconds<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    fd_set set<span class="token punctuation">;</span>
-    <span class="token keyword">struct</span> <span class="token class-name">timeval</span> timeout<span class="token punctuation">;</span>
-    <span class="token comment">/* Initialize the file descriptor set. */</span>
-    <span class="token function">FD_ZERO</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>set<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">FD_SET</span><span class="token punctuation">(</span>filedes<span class="token punctuation">,</span> <span class="token operator">&amp;</span>set<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">/* Initialize the timeout data structure. */</span>
-    timeout<span class="token punctuation">.</span>tv_sec <span class="token operator">=</span> seconds<span class="token punctuation">;</span>
-    timeout<span class="token punctuation">.</span>tv_usec <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token comment">/* select returns 0 if timeout, 1 if input available, -1 if error. */</span>
-    <span class="token keyword">return</span> <span class="token function">TEMP_FAILURE_RETRY</span><span class="token punctuation">(</span><span class="token function">select</span><span class="token punctuation">(</span>FD_SETSIZE<span class="token punctuation">,</span> <span class="token operator">&amp;</span>set<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>timeout<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">int</span>
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">&quot;select returned %d.\n&quot;</span><span class="token punctuation">,</span>
-            <span class="token function">input_timeout</span><span class="token punctuation">(</span>STDIN_FILENO<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-c">#include &lt;errno.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/time.h&gt;
+int
+input_timeout(int filedes, unsigned int seconds)
+{
+    fd_set set;
+    struct timeval timeout;
+    /* Initialize the file descriptor set. */
+    FD_ZERO(&amp;set);
+    FD_SET(filedes, &amp;set);
+    /* Initialize the timeout data structure. */
+    timeout.tv_sec = seconds;
+    timeout.tv_usec = 0;
+    /* select returns 0 if timeout, 1 if input available, -1 if error. */
+    return TEMP_FAILURE_RETRY(select(FD_SETSIZE, &amp;set, NULL, NULL, &amp;timeout));
+}
+int
+main(void)
+{
+    fprintf(stderr, &quot;select returned %d.\n&quot;,
+            input_timeout(STDIN_FILENO, 5));
+    return 0;
+}
 </code></pre>
 <h2 id="&#x540C;&#x6B65;io"><a name="&#x540C;&#x6B65;io" class="anchor-navigation-ex-anchor" href="#&#x540C;&#x6B65;io"><i class="fa fa-link" aria-hidden="true"></i></a>8.5. &#x540C;&#x6B65;io</h2>
 <p>&#x5373;&#x4F7F;write&#x6210;&#x529F;&#x8FD4;&#x56DE;, &#x4E5F;&#x5E76;&#x4E0D;&#x610F;&#x5473;&#x7740;&#x6570;&#x636E;&#x5DF2;&#x7ECF;&#x771F;&#x6B63;&#x5199;&#x8FDB;&#x53BB;&#x4E86;. </p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
-<span class="token comment">//&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4FDD;&#x8BC1;&#x6240;&#x6709;&#x7684;&#x6570;&#x636E;&#x5DF2;&#x7ECF;&#x5199;&#x5165;&#x7269;&#x7406;&#x4ECB;&#x8D28;</span>
-<span class="token keyword">void</span> <span class="token function">sync</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token comment">//&#x5BF9;&#x5355;&#x6587;&#x4EF6;</span>
-<span class="token keyword">int</span> <span class="token function">fsync</span> <span class="token punctuation">(</span><span class="token keyword">int</span> fildes<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;unistd.h&gt;
+//&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4FDD;&#x8BC1;&#x6240;&#x6709;&#x7684;&#x6570;&#x636E;&#x5DF2;&#x7ECF;&#x5199;&#x5165;&#x7269;&#x7406;&#x4ECB;&#x8D28;
+void sync (void)
+//&#x5BF9;&#x5355;&#x6587;&#x4EF6;
+int fsync (int fildes)
 </code></pre>
 <h2 id="&#x5E76;&#x884C;io&#x4E4B;aio-posixasynchronousio"><a name="&#x5E76;&#x884C;io&#x4E4B;aio-posixasynchronousio" class="anchor-navigation-ex-anchor" href="#&#x5E76;&#x884C;io&#x4E4B;aio-posixasynchronousio"><i class="fa fa-link" aria-hidden="true"></i></a>8.6. &#x5E76;&#x884C;io&#x4E4B;aio, _POSIX_ASYNCHRONOUS_IO</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;aio.h&gt;</span></span>
-<span class="token comment">//&#x5F02;&#x6B65;&#x8BFB;&#x5199;, &#x64CD;&#x4F5C;&#x4F1A;&#x88AB;&#x653E;&#x8FDB;&#x961F;&#x5217;</span>
-<span class="token keyword">int</span> <span class="token function">aio_read</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">aiocb</span> <span class="token operator">*</span>aiocbp<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">aio_write</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">aiocb</span> <span class="token operator">*</span>aiocbp<span class="token punctuation">)</span>
-<span class="token comment">//&#x65E2;&#x7136;&#x662F;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;, &#x5C31;&#x5FC5;&#x7136;&#x6709;&#x4E2A;&#x51FD;&#x6570;&#x6765;&#x68C0;&#x67E5;&#x72B6;&#x6001;</span>
-<span class="token keyword">int</span> <span class="token function">aio_error</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">struct</span> <span class="token class-name">aiocb</span> <span class="token operator">*</span>aiocbp<span class="token punctuation">)</span>
-<span class="token comment">//&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x5B8C;&#x6210;&#x4E86;, &#x68C0;&#x67E5;&#x8FD4;&#x56DE;&#x503C;</span>
-<span class="token class-name">ssize_t</span> <span class="token function">aio_return</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">aiocb</span> <span class="token operator">*</span>aiocbp<span class="token punctuation">)</span>
-<span class="token comment">//&#x5E0C;&#x671B;&#x5728;&#x67D0;&#x4E2A;&#x70B9;&#x4E0A;&#x4FDD;&#x8BC1;&#x540C;&#x6B65;</span>
-<span class="token keyword">int</span> <span class="token function">aio_fsync</span> <span class="token punctuation">(</span><span class="token keyword">int</span> op<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">aiocb</span> <span class="token operator">*</span>aiocbp<span class="token punctuation">)</span>
-<span class="token comment">//&#x53D6;&#x6D88;aio&#x64CD;&#x4F5C;</span>
-<span class="token keyword">int</span> <span class="token function">aio_cancel</span> <span class="token punctuation">(</span><span class="token keyword">int</span> fildes<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">aiocb</span> <span class="token operator">*</span>aiocbp<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;aio.h&gt;
+//&#x5F02;&#x6B65;&#x8BFB;&#x5199;, &#x64CD;&#x4F5C;&#x4F1A;&#x88AB;&#x653E;&#x8FDB;&#x961F;&#x5217;
+int aio_read (struct aiocb *aiocbp)
+int aio_write (struct aiocb *aiocbp)
+//&#x65E2;&#x7136;&#x662F;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;, &#x5C31;&#x5FC5;&#x7136;&#x6709;&#x4E2A;&#x51FD;&#x6570;&#x6765;&#x68C0;&#x67E5;&#x72B6;&#x6001;
+int aio_error (const struct aiocb *aiocbp)
+//&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x5B8C;&#x6210;&#x4E86;, &#x68C0;&#x67E5;&#x8FD4;&#x56DE;&#x503C;
+ssize_t aio_return (struct aiocb *aiocbp)
+//&#x5E0C;&#x671B;&#x5728;&#x67D0;&#x4E2A;&#x70B9;&#x4E0A;&#x4FDD;&#x8BC1;&#x540C;&#x6B65;
+int aio_fsync (int op, struct aiocb *aiocbp)
+//&#x53D6;&#x6D88;aio&#x64CD;&#x4F5C;
+int aio_cancel (int fildes, struct aiocb *aiocbp)
 </code></pre>
 <h2 id="fcntl"><a name="fcntl" class="anchor-navigation-ex-anchor" href="#fcntl"><i class="fa fa-link" aria-hidden="true"></i></a>8.7. fcntl</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">fcntl</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> <span class="token keyword">int</span> command<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;fcntl.h&gt;
+int fcntl (int filedes, int command, . . . )
 F_DUPFD F_GETFD F_SETFD F_GETFL F_SETFL F_GETLK F_SETLK  F_SETOWN
-<span class="token function">fcntl</span> <span class="token punctuation">(</span>filedes<span class="token punctuation">,</span> F_SETFD<span class="token punctuation">,</span> new<span class="token operator">-</span>flags<span class="token punctuation">)</span>
-<span class="token function">fcntl</span> <span class="token punctuation">(</span>filedes<span class="token punctuation">,</span> F_SETOWN<span class="token punctuation">,</span> pid<span class="token punctuation">)</span>
+fcntl (filedes, F_SETFD, new-flags)
+fcntl (filedes, F_SETOWN, pid)
 </code></pre>
 <p>F_GETFL F_SETFL&#x5305;&#x62EC;:</p>
 <ul>
@@ -3554,198 +3557,198 @@ F_DUPFD F_GETFD F_SETFD F_GETFL F_SETFL F_GETLK F_SETLK  F_SETOWN
 <li>O_FSYNC</li>
 </ul>
 <p>&#x4E3E;&#x4F8B;:</p>
-<pre class="language-"><code class="lang-c"><span class="token comment">/* Set the O_NONBLOCK flag of desc if value is nonzero,
+<pre><code class="lang-c">/* Set the O_NONBLOCK flag of desc if value is nonzero,
 or clear the flag if value is 0.
-Return 0 on success, or -1 on error with errno set. */</span>
-<span class="token keyword">int</span>
-<span class="token function">set_nonblock_flag</span><span class="token punctuation">(</span><span class="token keyword">int</span> desc<span class="token punctuation">,</span> <span class="token keyword">int</span> value<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> oldflags <span class="token operator">=</span> <span class="token function">fcntl</span><span class="token punctuation">(</span>desc<span class="token punctuation">,</span> F_GETFL<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Return 0 on success, or -1 on error with errno set. */
+int
+set_nonblock_flag(int desc, int value)
+{
+    int oldflags = fcntl(desc, F_GETFL, 0);
 
-    <span class="token comment">/* If reading the flags failed, return error indication now. */</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>oldflags <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    /* If reading the flags failed, return error indication now. */
+    if (oldflags == -1)
+        return -1;
 
-    <span class="token comment">/* Set just the flag we want to set. */</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>value <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        oldflags <span class="token operator">|=</span> O_NONBLOCK<span class="token punctuation">;</span>
-    <span class="token keyword">else</span>
-        oldflags <span class="token operator">&amp;=</span> <span class="token operator">~</span>O_NONBLOCK<span class="token punctuation">;</span>
+    /* Set just the flag we want to set. */
+    if (value != 0)
+        oldflags |= O_NONBLOCK;
+    else
+        oldflags &amp;= ~O_NONBLOCK;
 
-    <span class="token comment">/* Store modified flag word in the descriptor. */</span>
-    <span class="token keyword">return</span> <span class="token function">fcntl</span><span class="token punctuation">(</span>desc<span class="token punctuation">,</span> F_SETFL<span class="token punctuation">,</span> oldflags<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+    /* Store modified flag word in the descriptor. */
+    return fcntl(desc, F_SETFL, oldflags);
+}
 </code></pre>
 <h2 id="&#x6587;&#x4EF6;&#x9501;&#x64CD;&#x4F5C;"><a name="&#x6587;&#x4EF6;&#x9501;&#x64CD;&#x4F5C;" class="anchor-navigation-ex-anchor" href="#&#x6587;&#x4EF6;&#x9501;&#x64CD;&#x4F5C;"><i class="fa fa-link" aria-hidden="true"></i></a>8.8. &#x6587;&#x4EF6;&#x9501;&#x64CD;&#x4F5C;</h2>
-<pre class="language-"><code class="lang-c"><span class="token function">fcntl</span> <span class="token punctuation">(</span>filedes<span class="token punctuation">,</span> F_SETLK<span class="token punctuation">,</span> lockp<span class="token punctuation">)</span>
+<pre><code class="lang-c">fcntl (filedes, F_SETLK, lockp)
 </code></pre>
 <p>&#x4E0E;lockf()&#x7B49;&#x540C;
 &#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;, &#x6587;&#x4EF6;&#x9501;&#x662F;&#x4E2A;&#x4E3B;&#x52A8;&#x9501;, &#x663E;&#x793A;&#x7684;&#x8C03;&#x7528;&#x83B7;&#x53D6;&#x9501;&#x624D;&#x80FD;&#x4FDD;&#x8BC1;&#x4E92;&#x65A5;.</p>
 <h2 id="io&#x91CD;&#x5B9A;&#x5411;"><a name="io&#x91CD;&#x5B9A;&#x5411;" class="anchor-navigation-ex-anchor" href="#io&#x91CD;&#x5B9A;&#x5411;"><i class="fa fa-link" aria-hidden="true"></i></a>8.9. io&#x91CD;&#x5B9A;&#x5411;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">dup</span> <span class="token punctuation">(</span><span class="token keyword">int</span> old<span class="token punctuation">)</span>
-<span class="token comment">//&#x5148;close new, &#x518D;dup old</span>
-<span class="token keyword">int</span> <span class="token function">dup2</span> <span class="token punctuation">(</span><span class="token keyword">int</span> old<span class="token punctuation">,</span> <span class="token keyword">int</span> new<span class="token punctuation">)</span>
+<pre><code class="lang-c">int dup (int old)
+//&#x5148;close new, &#x518D;dup old
+int dup2 (int old, int new)
 </code></pre>
 <p>&#x4E3E;&#x4F8B;:</p>
-<pre class="language-"><code class="lang-c">pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">pid = fork();
 
-<span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">;</span>
-    <span class="token keyword">char</span> <span class="token operator">*</span>program<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> file<span class="token punctuation">;</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-    file <span class="token operator">=</span> <span class="token function">TEMP_FAILURE_RETRY</span><span class="token punctuation">(</span><span class="token function">open</span><span class="token punctuation">(</span>filename<span class="token punctuation">,</span> O_RDONLY<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">dup2</span><span class="token punctuation">(</span>file<span class="token punctuation">,</span> STDIN_FILENO<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">TEMP_FAILURE_RETRY</span><span class="token punctuation">(</span><span class="token function">close</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">execv</span><span class="token punctuation">(</span>program<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+if (pid == 0)
+{
+    char *filename;
+    char *program;
+    int file;
+    ...
+    file = TEMP_FAILURE_RETRY(open(filename, O_RDONLY));
+    dup2(file, STDIN_FILENO);
+    TEMP_FAILURE_RETRY(close(file));
+    execv(program, NULL);
+}
 </code></pre>
 <h2 id="ioctl"><a name="ioctl" class="anchor-navigation-ex-anchor" href="#ioctl"><i class="fa fa-link" aria-hidden="true"></i></a>8.10. ioctl</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/ioctl.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">ioctl</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> <span class="token keyword">int</span> command<span class="token punctuation">,</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;sys/ioctl.h&gt;
+int ioctl (int filedes, int command, . . . )
 </code></pre>
 <h1 id="&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x63A5;&#x53E3;"><a name="&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x63A5;&#x53E3;" class="anchor-navigation-ex-anchor" href="#&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x63A5;&#x53E3;"><i class="fa fa-link" aria-hidden="true"></i></a>9. &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x63A5;&#x53E3;</h1>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;dirent.h&gt;</span></span>
-<span class="token keyword">struct</span> <span class="token class-name">dirent</span>
-    <span class="token keyword">char</span> d_name<span class="token punctuation">[</span><span class="token punctuation">]</span>
-    <span class="token class-name">ino_t</span> d_fileno
-    <span class="token keyword">unsigned</span> <span class="token keyword">char</span> d_namlen
-    <span class="token keyword">unsigned</span> <span class="token keyword">char</span> d_type
+<pre><code class="lang-c">#include &lt;dirent.h&gt;
+struct dirent
+    char d_name[]
+    ino_t d_fileno
+    unsigned char d_namlen
+    unsigned char d_type
 </code></pre>
 <h2 id="&#x76EE;&#x5F55;&#x9879;"><a name="&#x76EE;&#x5F55;&#x9879;" class="anchor-navigation-ex-anchor" href="#&#x76EE;&#x5F55;&#x9879;"><i class="fa fa-link" aria-hidden="true"></i></a>9.1. &#x76EE;&#x5F55;&#x9879;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">getcwd</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>buffer<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">chdir</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fchdir</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">)</span>
-DIR <span class="token operator">*</span> <span class="token function">opendir</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>dirname<span class="token punctuation">)</span>
-DIR <span class="token operator">*</span> <span class="token function">fdopendir</span> <span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">dirfd</span> <span class="token punctuation">(</span>DIR <span class="token operator">*</span>dirstream<span class="token punctuation">)</span>
-<span class="token keyword">struct</span> <span class="token class-name">dirent</span> <span class="token operator">*</span> <span class="token function">readdir</span> <span class="token punctuation">(</span>DIR <span class="token operator">*</span>dirstream<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">closedir</span> <span class="token punctuation">(</span>DIR <span class="token operator">*</span>dirstream<span class="token punctuation">)</span>
-<span class="token comment">//&#x91CD;&#x65B0;init&#x8FD9;&#x4E2A;dirstream</span>
-<span class="token keyword">void</span> <span class="token function">rewinddir</span> <span class="token punctuation">(</span>DIR <span class="token operator">*</span>dirstream<span class="token punctuation">)</span>
+<pre><code class="lang-c">char * getcwd (char *buffer, size t size)
+int chdir (const char *filename)
+int fchdir (int filedes)
+DIR * opendir (const char *dirname)
+DIR * fdopendir (int fd)
+int dirfd (DIR *dirstream)
+struct dirent * readdir (DIR *dirstream)
+int closedir (DIR *dirstream)
+//&#x91CD;&#x65B0;init&#x8FD9;&#x4E2A;dirstream
+void rewinddir (DIR *dirstream)
 </code></pre>
 <p>&#x4E3E;&#x4F8B;:</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;dirent.h&gt;</span></span>
-<span class="token keyword">int</span>
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    DIR <span class="token operator">*</span>dp<span class="token punctuation">;</span>
-    <span class="token keyword">struct</span> <span class="token class-name">dirent</span> <span class="token operator">*</span>ep<span class="token punctuation">;</span>
-    dp <span class="token operator">=</span> <span class="token function">opendir</span><span class="token punctuation">(</span><span class="token string">&quot;./&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;dirent.h&gt;
+int
+main(void)
+{
+    DIR *dp;
+    struct dirent *ep;
+    dp = opendir(&quot;./&quot;);
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>dp <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>ep <span class="token operator">=</span> <span class="token function">readdir</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">)</span>
-            <span class="token function">puts</span><span class="token punctuation">(</span>ep<span class="token operator">-&gt;</span>d_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    if (dp != NULL) {
+        while (ep = readdir(dp))
+            puts(ep-&gt;d_name);
 
-        <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token function">closedir</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span>
-        <span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">&quot;Couldn&#x2019;t open the directory&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        (void) closedir(dp);
+    } else
+        perror(&quot;Couldn&#x2019;t open the directory&quot;);
 
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+    return 0;
+}
 </code></pre>
 <h2 id="&#x904D;&#x5386;&#x76EE;&#x5F55;&#x9879;"><a name="&#x904D;&#x5386;&#x76EE;&#x5F55;&#x9879;" class="anchor-navigation-ex-anchor" href="#&#x904D;&#x5386;&#x76EE;&#x5F55;&#x9879;"><i class="fa fa-link" aria-hidden="true"></i></a>9.2. &#x904D;&#x5386;&#x76EE;&#x5F55;&#x9879;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">scandir</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>dir<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">dirent</span> <span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span>namelist<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>selector<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">struct</span> <span class="token class-name">dirent</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>cmp<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">const</span>  truct dirent <span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">struct</span> <span class="token class-name">dirent</span> <span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<pre><code class="lang-c">int scandir (const char *dir, struct dirent ***namelist, int (*selector) (const struct dirent *), int (*cmp) (const  truct dirent **, const struct dirent **))
 </code></pre>
 <h2 id="&#x904D;&#x5386;&#x76EE;&#x5F55;&#x6811;"><a name="&#x904D;&#x5386;&#x76EE;&#x5F55;&#x6811;" class="anchor-navigation-ex-anchor" href="#&#x904D;&#x5386;&#x76EE;&#x5F55;&#x6811;"><i class="fa fa-link" aria-hidden="true"></i></a>9.3. &#x904D;&#x5386;&#x76EE;&#x5F55;&#x6811;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">ftw</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">,</span> ftw func t func<span class="token punctuation">,</span> <span class="token keyword">int</span> descriptors<span class="token punctuation">)</span>
+<pre><code class="lang-c">int ftw (const char *filename, ftw func t func, int descriptors)
 </code></pre>
 <h2 id="&#x6587;&#x4EF6;&#x94FE;&#x63A5;"><a name="&#x6587;&#x4EF6;&#x94FE;&#x63A5;" class="anchor-navigation-ex-anchor" href="#&#x6587;&#x4EF6;&#x94FE;&#x63A5;"><i class="fa fa-link" aria-hidden="true"></i></a>9.4. &#x6587;&#x4EF6;&#x94FE;&#x63A5;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">link</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>oldname<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>newname<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">symlink</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>oldname<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>newname<span class="token punctuation">)</span>
-<span class="token class-name">ssize_t</span> <span class="token function">readlink</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>buffer<span class="token punctuation">,</span> size t size<span class="token punctuation">)</span>
+<pre><code class="lang-c">int link (const char *oldname, const char *newname)
+int symlink (const char *oldname, const char *newname)
+ssize_t readlink (const char *filename, char *buffer, size t size)
 </code></pre>
 <h2 id="&#x5316;&#x7B80;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;-&#x53BB;&#x6389;-&#x548C;&#x591A;&#x4F59;&#x7684;"><a name="&#x5316;&#x7B80;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;-&#x53BB;&#x6389;-&#x548C;&#x591A;&#x4F59;&#x7684;" class="anchor-navigation-ex-anchor" href="#&#x5316;&#x7B80;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;-&#x53BB;&#x6389;-&#x548C;&#x591A;&#x4F59;&#x7684;"><i class="fa fa-link" aria-hidden="true"></i></a>9.5. &#x5316;&#x7B80;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;, &#x53BB;&#x6389;. ..&#x548C;&#x591A;&#x4F59;&#x7684;/</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">canonicalize_file_name</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>name<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">realpath</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict name<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict resolved<span class="token punctuation">)</span>
+<pre><code class="lang-c">char * canonicalize_file_name (const char *name)
+char * realpath (const char *restrict name, char *restrict resolved)
 </code></pre>
 <h2 id="&#x5220;&#x9664;&#x4E0E;&#x91CD;&#x547D;&#x540D;"><a name="&#x5220;&#x9664;&#x4E0E;&#x91CD;&#x547D;&#x540D;" class="anchor-navigation-ex-anchor" href="#&#x5220;&#x9664;&#x4E0E;&#x91CD;&#x547D;&#x540D;"><i class="fa fa-link" aria-hidden="true"></i></a>9.6. &#x5220;&#x9664;&#x4E0E;&#x91CD;&#x547D;&#x540D;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">unlink</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">rmdir</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">remove</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">rename</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>oldname<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>newname<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">mkdir</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">,</span> mode t mode<span class="token punctuation">)</span>
+<pre><code class="lang-c">int unlink (const char *filename)
+int rmdir (const char *filename)
+int remove (const char *filename)
+int rename (const char *oldname, const char *newname)
+int mkdir (const char *filename, mode t mode)
 </code></pre>
 <h2 id="&#x6587;&#x4EF6;&#x7EDF;&#x8BA1;"><a name="&#x6587;&#x4EF6;&#x7EDF;&#x8BA1;" class="anchor-navigation-ex-anchor" href="#&#x6587;&#x4EF6;&#x7EDF;&#x8BA1;"><i class="fa fa-link" aria-hidden="true"></i></a>9.7. &#x6587;&#x4EF6;&#x7EDF;&#x8BA1;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/stat.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">stat</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">stat</span> <span class="token operator">*</span>buf<span class="token punctuation">)</span>
-<span class="token comment">//&#x4E0D;follow link</span>
-<span class="token keyword">int</span> <span class="token function">lstat</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">stat</span> <span class="token operator">*</span>buf<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fstat</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">stat</span> <span class="token operator">*</span>buf<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;sys/stat.h&gt;
+int stat (const char *filename, struct stat *buf)
+//&#x4E0D;follow link
+int lstat (const char *filename, struct stat *buf)
+int fstat (int filedes, struct stat *buf)
 </code></pre>
 <h2 id="&#x6587;&#x4EF6;&#x7C7B;&#x578B;&#x5224;&#x65AD;-&#x5165;&#x53C2;&#x662F;stat&#x7684;stmode&#x57DF;"><a name="&#x6587;&#x4EF6;&#x7C7B;&#x578B;&#x5224;&#x65AD;-&#x5165;&#x53C2;&#x662F;stat&#x7684;stmode&#x57DF;" class="anchor-navigation-ex-anchor" href="#&#x6587;&#x4EF6;&#x7C7B;&#x578B;&#x5224;&#x65AD;-&#x5165;&#x53C2;&#x662F;stat&#x7684;stmode&#x57DF;"><i class="fa fa-link" aria-hidden="true"></i></a>9.8. &#x6587;&#x4EF6;&#x7C7B;&#x578B;&#x5224;&#x65AD;, &#x5165;&#x53C2;&#x662F;stat&#x7684;st_mode&#x57DF;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">S_ISDIR</span> <span class="token punctuation">(</span>mode t m<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">S_ISCHR</span> <span class="token punctuation">(</span>mode t m<span class="token punctuation">)</span>
+<pre><code class="lang-c">int S_ISDIR (mode t m)
+int S_ISCHR (mode t m)
 </code></pre>
 <h2 id="&#x8BBF;&#x95EE;&#x6743;&#x9650;"><a name="&#x8BBF;&#x95EE;&#x6743;&#x9650;" class="anchor-navigation-ex-anchor" href="#&#x8BBF;&#x95EE;&#x6743;&#x9650;"><i class="fa fa-link" aria-hidden="true"></i></a>9.9. &#x8BBF;&#x95EE;&#x6743;&#x9650;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/stat.h&gt;</span></span>
+<pre><code class="lang-c">#include &lt;sys/stat.h&gt;
 S_IRUSR S_IWUSR S_IXUSR
-<span class="token class-name">mode_t</span> <span class="token function">getumask</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">chmod</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">,</span> mode t mode<span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">fchmod</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">,</span> mode t mode<span class="token punctuation">)</span>
+mode_t getumask (void)
+int chmod (const char *filename, mode t mode)
+int fchmod (int filedes, mode t mode)
 </code></pre>
 <h2 id="&#x7279;&#x6B8A;&#x6587;&#x4EF6;"><a name="&#x7279;&#x6B8A;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x7279;&#x6B8A;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>9.10. &#x7279;&#x6B8A;&#x6587;&#x4EF6;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">mknod</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">,</span> mode t mode<span class="token punctuation">,</span> dev t dev<span class="token punctuation">)</span>
+<pre><code class="lang-c">int mknod (const char *filename, mode t mode, dev t dev)
 </code></pre>
 <h2 id="&#x4E34;&#x65F6;&#x6587;&#x4EF6;"><a name="&#x4E34;&#x65F6;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x4E34;&#x65F6;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>9.11. &#x4E34;&#x65F6;&#x6587;&#x4EF6;</h2>
-<pre class="language-"><code class="lang-c">FILE <span class="token operator">*</span> <span class="token function">tmpfile</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token comment">//&#x4E34;&#x65F6;&#x6587;&#x4EF6;&#x540D;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">tmpnam</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>result<span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token operator">*</span> <span class="token function">mktemp</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>template<span class="token punctuation">)</span>
+<pre><code class="lang-c">FILE * tmpfile (void)
+//&#x4E34;&#x65F6;&#x6587;&#x4EF6;&#x540D;
+char * tmpnam (char *result)
+char * mktemp (char *template)
 </code></pre>
 <h1 id="&#x7BA1;&#x9053;"><a name="&#x7BA1;&#x9053;" class="anchor-navigation-ex-anchor" href="#&#x7BA1;&#x9053;"><i class="fa fa-link" aria-hidden="true"></i></a>10. &#x7BA1;&#x9053;</h1>
-<pre class="language-"><code class="lang-c"><span class="token comment">//&#x4F7F;&#x7528;&#x7BA1;&#x9053;&#x5FC5;&#x987B;&#x4FDD;&#x8BC1;&#x8BFB;&#x5199;&#x4E24;&#x7AEF;&#x540C;&#x65F6;open&#x4E86;, &#x624D;&#x80FD;&#x5F00;&#x59CB;&#x8BFB;&#x5199;.</span>
-<span class="token keyword">int</span> <span class="token function">pipe</span> <span class="token punctuation">(</span><span class="token keyword">int</span> filedes<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment">//filedes[0]&#x4E3A;&#x8BFB;, filedes[1]&#x4E3A;&#x5199;</span>
+<pre><code class="lang-c">//&#x4F7F;&#x7528;&#x7BA1;&#x9053;&#x5FC5;&#x987B;&#x4FDD;&#x8BC1;&#x8BFB;&#x5199;&#x4E24;&#x7AEF;&#x540C;&#x65F6;open&#x4E86;, &#x624D;&#x80FD;&#x5F00;&#x59CB;&#x8BFB;&#x5199;.
+int pipe (int filedes[2]) //filedes[0]&#x4E3A;&#x8BFB;, filedes[1]&#x4E3A;&#x5199;
 </code></pre>
 <p>&#x5728;&#x4F7F;&#x7528;pipe&#x65F6;, &#x642D;&#x914D;&#x4F7F;&#x7528;fork(&#x521B;&#x5EFA;&#x5B50;&#x8FDB;&#x7A0B;), dup2(&#x4EE4;&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x6807;&#x51C6;&#x8F93;&#x5165;&#x6216;&#x8F93;&#x51FA;&#x91CD;&#x5B9A;&#x5411;&#x5230;pipe)
 &#x6216;&#x8005;, &#x4F7F;&#x7528;</p>
-<pre class="language-"><code class="lang-c">FILE <span class="token operator">*</span> <span class="token function">popen</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>command<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>mode<span class="token punctuation">)</span> <span class="token comment">//&#x521B;&#x5EFA;&#x5B50;&#x8FDB;&#x7A0B;&#x6267;&#x884C;command, &#x5E76;&#x91CD;&#x5B9A;&#x5411;&#x5230;pipe, &#x65B9;&#x5411;&#x53D6;&#x51B3;&#x4E8E;mode, &quot;r&quot;, &quot;w&quot;</span>
-<span class="token keyword">int</span> <span class="token function">pclose</span> <span class="token punctuation">(</span>FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
+<pre><code class="lang-c">FILE * popen (const char *command, const char *mode) //&#x521B;&#x5EFA;&#x5B50;&#x8FDB;&#x7A0B;&#x6267;&#x884C;command, &#x5E76;&#x91CD;&#x5B9A;&#x5411;&#x5230;pipe, &#x65B9;&#x5411;&#x53D6;&#x51B3;&#x4E8E;mode, &quot;r&quot;, &quot;w&quot;
+int pclose (FILE *stream)
 </code></pre>
 <p>&#x4E3E;&#x4F8B;:</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token keyword">void</span>
-<span class="token function">write_data</span><span class="token punctuation">(</span>FILE <span class="token operator">*</span> stream<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+void
+write_data(FILE * stream)
+{
+    int i;
 
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token function">fprintf</span><span class="token punctuation">(</span>stream<span class="token punctuation">,</span> <span class="token string">&quot;%d\n&quot;</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    for (i = 0; i &lt; 100; i++)
+        fprintf(stream, &quot;%d\n&quot;, i);
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">ferror</span><span class="token punctuation">(</span>stream<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">&quot;Output to stream failed.\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">exit</span><span class="token punctuation">(</span>EXIT_FAILURE<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">int</span>
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    FILE <span class="token operator">*</span>output<span class="token punctuation">;</span>
-    output <span class="token operator">=</span> <span class="token function">popen</span><span class="token punctuation">(</span><span class="token string">&quot;more&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;w&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    if (ferror(stream)) {
+        fprintf(stderr, &quot;Output to stream failed.\n&quot;);
+        exit(EXIT_FAILURE);
+    }
+}
+int
+main(void)
+{
+    FILE *output;
+    output = popen(&quot;more&quot;, &quot;w&quot;);
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>output<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span>
-                <span class="token string">&quot;incorrect parameters or too many files.\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> EXIT_FAILURE<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    if (!output) {
+        fprintf(stderr,
+                &quot;incorrect parameters or too many files.\n&quot;);
+        return EXIT_FAILURE;
+    }
 
-    <span class="token function">write_data</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    write_data(output);
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">pclose</span><span class="token punctuation">(</span>output<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span>
-                <span class="token string">&quot;Could not run more or other error.\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    if (pclose(output) != 0) {
+        fprintf(stderr,
+                &quot;Could not run more or other error.\n&quot;);
+    }
 
-    <span class="token keyword">return</span> EXIT_SUCCESS<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+    return EXIT_SUCCESS;
+}
 </code></pre>
 <h2 id="&#x547D;&#x540D;&#x7BA1;&#x9053;"><a name="&#x547D;&#x540D;&#x7BA1;&#x9053;" class="anchor-navigation-ex-anchor" href="#&#x547D;&#x540D;&#x7BA1;&#x9053;"><i class="fa fa-link" aria-hidden="true"></i></a>10.1. &#x547D;&#x540D;&#x7BA1;&#x9053;</h2>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/stat.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">mkfifo</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">,</span> mode t mode<span class="token punctuation">)</span>
+<pre><code class="lang-c">#include &lt;sys/stat.h&gt;
+int mkfifo (const char *filename, mode t mode)
 </code></pre>
 <h2 id="&#x4E00;&#x822C;&#x6765;&#x8BF4;-&#x7BA1;&#x9053;&#x7684;&#x8BFB;&#x5199;&#x662F;&#x539F;&#x5B50;&#x7684;-&#x9664;&#x975E;size&#x5927;&#x4E8E;pipebuf"><a name="&#x4E00;&#x822C;&#x6765;&#x8BF4;-&#x7BA1;&#x9053;&#x7684;&#x8BFB;&#x5199;&#x662F;&#x539F;&#x5B50;&#x7684;-&#x9664;&#x975E;size&#x5927;&#x4E8E;pipebuf" class="anchor-navigation-ex-anchor" href="#&#x4E00;&#x822C;&#x6765;&#x8BF4;-&#x7BA1;&#x9053;&#x7684;&#x8BFB;&#x5199;&#x662F;&#x539F;&#x5B50;&#x7684;-&#x9664;&#x975E;size&#x5927;&#x4E8E;pipebuf"><i class="fa fa-link" aria-hidden="true"></i></a>10.2. &#x4E00;&#x822C;&#x6765;&#x8BF4;, &#x7BA1;&#x9053;&#x7684;&#x8BFB;&#x5199;&#x662F;&#x539F;&#x5B50;&#x7684;. &#x9664;&#x975E;size&#x5927;&#x4E8E;PIPE_BUF</h2>
 
@@ -3791,10 +3794,11 @@ S_IRUSR S_IWUSR S_IXUSR
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"libc概览1","level":"1.12.1","depth":2,"next":{"title":"libc概览2","level":"1.12.2","depth":2,"path":"notes/system_libc_part2.md","ref":"notes/system_libc_part2.md","articles":[]},"previous":{"title":"Operating System","level":"1.12","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"libc概览1","level":"1.12.1","depth":2,"path":"notes/system_libc_part1.md","ref":"notes/system_libc_part1.md","articles":[]},{"title":"libc概览2","level":"1.12.2","depth":2,"path":"notes/system_libc_part2.md","ref":"notes/system_libc_part2.md","articles":[]},{"title":"libc概览3","level":"1.12.3","depth":2,"path":"notes/system_libc_part3.md","ref":"notes/system_libc_part3.md","articles":[]},{"title":"系统原理杂记","level":"1.12.4","depth":2,"path":"notes/system_原理杂记.md","ref":"notes/system_原理杂记.md","articles":[]},{"title":"Alpine Linux","level":"1.12.5","depth":2,"path":"notes/system_alpine.md","ref":"notes/system_alpine.md","articles":[]},{"title":"进程间通信","level":"1.12.6","depth":2,"path":"notes/system_进程间通信.md","ref":"notes/system_进程间通信.md","articles":[]},{"title":"eventfd timerfd signalfd和fd共享","level":"1.12.7","depth":2,"path":"notes/system_特殊功能fd.md","ref":"notes/system_特殊功能fd.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/system_libc_part1.md","mtime":"2022-10-11T14:47:24.186Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"libc概览1","level":"1.12.1","depth":2,"next":{"title":"libc概览2","level":"1.12.2","depth":2,"path":"notes/system_libc_part2.md","ref":"notes/system_libc_part2.md","articles":[]},"previous":{"title":"Operating System","level":"1.12","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"libc概览1","level":"1.12.1","depth":2,"path":"notes/system_libc_part1.md","ref":"notes/system_libc_part1.md","articles":[]},{"title":"libc概览2","level":"1.12.2","depth":2,"path":"notes/system_libc_part2.md","ref":"notes/system_libc_part2.md","articles":[]},{"title":"libc概览3","level":"1.12.3","depth":2,"path":"notes/system_libc_part3.md","ref":"notes/system_libc_part3.md","articles":[]},{"title":"系统原理杂记","level":"1.12.4","depth":2,"path":"notes/system_原理杂记.md","ref":"notes/system_原理杂记.md","articles":[]},{"title":"Alpine Linux","level":"1.12.5","depth":2,"path":"notes/system_alpine.md","ref":"notes/system_alpine.md","articles":[]},{"title":"进程间通信","level":"1.12.6","depth":2,"path":"notes/system_进程间通信.md","ref":"notes/system_进程间通信.md","articles":[]},{"title":"eventfd timerfd signalfd和fd共享","level":"1.12.7","depth":2,"path":"notes/system_特殊功能fd.md","ref":"notes/system_特殊功能fd.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/system_libc_part1.md","mtime":"2022-10-11T15:10:43.018Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3833,6 +3837,7 @@ S_IRUSR S_IWUSR S_IXUSR
         
     
 
+        
     </body>
 </html>
 

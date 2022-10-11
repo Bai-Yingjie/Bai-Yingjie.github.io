@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -3054,7 +3057,7 @@ Permission is granted to copy, distribute and/or modify this document under the 
 <p>In order to use the procfs it needs to be compiled with the Linux kernel source code. This is done by setting the parameter CONFIG_PROC_FS=y. In most standard configurations this is enabled by default</p>
 <p>Procfs supports two different APIs for kernel modules: The legacy procfs API: It is easy to use as long as the amount of data to be handled is small. In this context small means smaller than one page size (PAGE_SIZE), which is in i386 systems 4096 bytes. The seq_file API: Seq_file was designed to facilitate the handling of read requests. It supports read requests for more than PAGE_SIZE bytes and it provides mechanism to traverse a list, collect the elements of the list, and send all elements to user space.</p>
 <h4 id="1-legacy-procfs-api"><a name="1-legacy-procfs-api" class="anchor-navigation-ex-anchor" href="#1-legacy-procfs-api"><i class="fa fa-link" aria-hidden="true"></i></a>1. Legacy procfs API</h4>
-<pre class="language-"><code>procfs.c        legacy procfs API
+<pre><code>procfs.c        legacy procfs API
 </code></pre><p>The legacy procfs API allows for the creation of files and directories. For each file you have to specify two callback functions: One which is executed when a user reads the file and the other when a user writes to the file. The use of this API is well described in the &quot;Linux Kernel Procfs Guide&quot; distributed with the Linux kernel source code. Therefore we give here only a very basic example: A module which creates a directory as well as a file. If your file provides more than PAGE_SIZE bytes of data it is easy to get things wrong. This is due to the API of the read function: read(char <em>page, char **start, off_t off, int count, int </em>eof, void *data) The first parameter of this function is a buffer with the size corresponding to one page. Hence, if there is more data, the read has to be split in multiple pieces.</p>
 <h4 id="2-seqfile-api"><a name="2-seqfile-api" class="anchor-navigation-ex-anchor" href="#2-seqfile-api"><i class="fa fa-link" aria-hidden="true"></i></a>2. Seq_file API</h4>
 <p>The seq_file API is concerned with read requests solely - no writes. It hides the PAGE_SIZE boundary from the developer and it provides an API to step through a series of objects, collect the data from each of them and put all those data in the file. An example module can be found at <a href="http://lwn.net/Articles/22359/" target="_blank">http://lwn.net/Articles/22359/</a>.</p>
@@ -3106,13 +3109,13 @@ Permission is granted to copy, distribute and/or modify this document under the 
 <p>The standard sysfs API uses a dedicated terminology: A file is called an attribute, the function executed upon reading an attribute is called show and the one for writing an attribute store.</p>
 <p>Before starting with the implementation of a module which uses sysfs you have to figure out which subdirectory it belongs to. If you deal with a bus, it belongs to bus/, with a file system it belongs to fs/ or with a block device it belongs to block/. The API to use depends on the given subdirectory. We first show an example which uses the low level sysfs functions to add a new directory to fs/, and in a second example we show how to add a new entry to the bus/ directory.</p>
 <p><strong>1. new fs/ entry</strong></p>
-<pre class="language-"><code>sysfs_ex.c      creates the directory /sys/fs/myfs/ along with two files first and second. Both containing one single integer value.
+<pre><code>sysfs_ex.c      creates the directory /sys/fs/myfs/ along with two files first and second. Both containing one single integer value.
 </code></pre><p>The first step is to declare our subsystem. This can be done with the use of the decl_subsys macro (on top of the file). This macro creates a struct kset with the name myfs_subsys.</p>
 <p>The module_init() function performs the proper registration of our subsystem: The macro kobj_set_kset_s initializes myfs_subsys so that it will be part of the fs_subsys. The field myfs_subsys.kobj.ktype points to a structure which holds all the attributes as well as the functions to read and write the attributes. And finally a call to register_subsystem() registers our subsystem.</p>
 <p>Files are generally represented by a struct attribute. This struct holds the name as well as the access permission for the corresponding file, but no data. Therefore you have to create your own attribute type which consists of at least the struct attribute and the value corresponding to that file.</p>
 <p>By design all attributes share the same show and store functions. Each time one of these two functions is invoked it gets the corresponding struct attribute as an argument. Therefore in the show and store functions you can obtain the value corresponding to the file being read/written and you can manipulate it accordingly. For this purpose you need the macro container_of(ptr, type, member). ptr is a pointer to the member of the struct. type is the type of the struct this member is emeded in and member is the name of the member within the struct.</p>
 <p><strong>2. new bus/ entry</strong></p>
-<pre class="language-"><code>sysfs_ex2.c     use of sysfs in combination with a bus. It provides the possibility to read and write one value with the help of &quot;my_pseude_bus&quot;.
+<pre><code>sysfs_ex2.c     use of sysfs in combination with a bus. It provides the possibility to read and write one value with the help of &quot;my_pseude_bus&quot;.
 </code></pre><p>First of all we define our bus my_pseudo_bus. Then we create our attribute with the help of the BUS_ATTR macro. In the init function we register our pseudo bus and we create a file (attribute). If we would like more than one attribute we would have to use BUS_ATTR several times and provide for each attribute its own store and show function. This example is similar to the debugging facility of the scsi bus, which is implemented in drivers/scsi/scsi_debug.c Resources and Further Reading</p>
 <ul>
 <li>Understanding the Linux Kernel p. 527</li>
@@ -3126,7 +3129,7 @@ Permission is granted to copy, distribute and/or modify this document under the 
 <p>Configfs has the same limitations than sysfs: each file should represent only one value and it should be smaller than PAGE_SIZE bytes. Implementation</p>
 <p>In order to use configfs it needs to be compiled with the Linux kernel source code. This is done by setting the parameter CONFIG_CONFIGFS_FS=y.</p>
 <p>In order to access configfs it has to be mounted with the following command:</p>
-<pre class="language-"><code>mount -t configfs none /config
+<pre><code>mount -t configfs none /config
 </code></pre><p>The Linux kernel documentation provides a good manual for configfs along with an example module. Therefore we do not describe the configfs implementation aspects.</p>
 <h3 id="resources-and-further-reading"><a name="resources-and-further-reading" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading"><i class="fa fa-link" aria-hidden="true"></i></a>2.4.2. Resources and Further Reading</h3>
 <ul>
@@ -3138,8 +3141,8 @@ Permission is granted to copy, distribute and/or modify this document under the 
 <h3 id="implementation_2"><a name="implementation_2" class="anchor-navigation-ex-anchor" href="#implementation_2"><i class="fa fa-link" aria-hidden="true"></i></a>2.5.2. Implementation</h3>
 <p>In order to use debugfs it needs to be compiled with the Linux kernel source code. This is done by setting the parameter CONFIG_DEBUG_FS=y.</p>
 <p>Before having access to the debugfs it has to be mounted with the following command.</p>
-<pre class="language-"><code>mount -t debugfs none /sys/kernel/debug
-</code></pre><pre class="language-"><code>debugfs.c       kernel module that implements the &quot;one line&quot; API for a variable of type u8 as well as the API with which you can specify your own read and write functions.
+<pre><code>mount -t debugfs none /sys/kernel/debug
+</code></pre><pre><code>debugfs.c       kernel module that implements the &quot;one line&quot; API for a variable of type u8 as well as the API with which you can specify your own read and write functions.
 </code></pre><p>All the &quot;one line&quot; APIs start with debugfs<em>create</em> and are listed in include/linux/debugfs.h</p>
 <p>The API with which you can provide your own read and write functions is similar to the one of procfs. In contrast to sysfs, you may create directories and files without having to care about a given hierarchy. Resources and Further Reading</p>
 <ul>
@@ -3153,11 +3156,11 @@ Permission is granted to copy, distribute and/or modify this document under the 
 <h3 id="description_4"><a name="description_4" class="anchor-navigation-ex-anchor" href="#description_4"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.1. Description</h3>
 <p>The sysctl infrastructure is designed to configure kernel parameters at run time. The sysctl interface is heavily used by the Linux networking subsystem. It can be used to configure some core kernel parameters; represented as files in /proc/sys/*. The values can be accessed by using cat(1), echo(1) or the sysctl(8) commands. If a value is set by the echo command it only persists as long as the kernel is running, but gets lost as soon as the machine is rebooted. In order to change the values permanently they have to be written to the file /etc/sysctl.conf. Upon restarting the machine all values specified in this file are written to the corresponding files in /proc/sys/.</p>
 <h3 id="implementation_3"><a name="implementation_3" class="anchor-navigation-ex-anchor" href="#implementation_3"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.2. Implementation</h3>
-<pre class="language-"><code>sysctl.c        sysctl example module: write an integer to /proc/sys/net/test/value1 and value2 respectively
+<pre><code>sysctl.c        sysctl example module: write an integer to /proc/sys/net/test/value1 and value2 respectively
 </code></pre><p>Each entry in the /proc/sys directory is represented by an entry in a table maintained by the Linux kernel, arranged in a hierarchy. A directory is represented by an entry pointing to a subtable. A file is represented by an entry of type struct ctl_table. This entry consists of the data represented by this file along with some access rules.</p>
 <p>New files and directories can be added by expanding one of the subtables. In this example we add a new directory called test below the /proc/sys/net/ directory. Our directory has got two files: value1 and value2. Each of these files hold an integer variable which can have a value between 10 and 20. The user root is allowed to change the entries whereas normal user are allowed to read the entries.</p>
 <p>Each file is represented with an entry in the test_table[] array:</p>
-<pre class="language-"><code>    static ctl_table test_table[] = {
+<pre><code>    static ctl_table test_table[] = {
             {
             .ctl_name       = CTL_UNNUMBERED,
             .procname       = &quot;value1&quot;,
@@ -3181,7 +3184,7 @@ Permission is granted to copy, distribute and/or modify this document under the 
 <li>proc_handler: The routine which handles read and write requests. There is a set of default routines declared near the end of include/linux/sysctl.h</li>
 <li>strategy: Some routine that enforces additional access control. In this example it checks that the value to be written is between min and max.</li>
 </ul>
-<pre class="language-"><code>    static ctl_table test_net_table[] = {
+<pre><code>    static ctl_table test_net_table[] = {
             {
                     .ctl_name       = CTL_UNNUMBERED,
                     .procname       = &quot;test&quot;,
@@ -3191,7 +3194,7 @@ Permission is granted to copy, distribute and/or modify this document under the 
             { .ctl_name = 0 }
     };
 </code></pre><p>This table represents our test directory. The entry .child says that the elements below this directory are represented by the table test_table, discussed above.</p>
-<pre class="language-"><code>    static ctl_table test_root_table[] = {
+<pre><code>    static ctl_table test_root_table[] = {
             {
                     .ctl_name       = CTL_UNNUMBERED,
                     .procname       = &quot;net&quot;,
@@ -3211,10 +3214,10 @@ Permission is granted to copy, distribute and/or modify this document under the 
 <p>As the name suggests, this interface was designed for character device drivers, and is commonly used for communication between uer and kernel space. (For example, users with sufficient privileges my write directly to the virtual terminal 1 with echo &quot;hi there&quot; &gt; /dev/tty1).</p>
 <p>Each module can register itself as a character device and provide some read and write functions which handle the data. Files representing character devices are located within the /dev directory (where you will also find block devices, but we will not be describing them further). Usually these files correspond to a hardware device.</p>
 <h3 id="implementation_4"><a name="implementation_4" class="anchor-navigation-ex-anchor" href="#implementation_4"><i class="fa fa-link" aria-hidden="true"></i></a>2.7.2. Implementation</h3>
-<pre class="language-"><code>cdev.c  kernel module that prints its majorNumber to the system log. The minorNumber can be chosen to be 0.
+<pre><code>cdev.c  kernel module that prints its majorNumber to the system log. The minorNumber can be chosen to be 0.
 </code></pre><p>As with all file system based approaches the module has to specify a read and a write callback function. Therefore, we have to register ourself with the function register_chrdev(unsigned int major, const char <em>name, struct file_operations </em>ops);. major is the major number of this device. We can set it to 0 to let the kernel choose an appropriate number. name is the name of this character device, as it will be shown below the /dev directory. ops is a pointer to the read and write functions.</p>
 <p>In contrast to most file system based approaches seen so far, the user has to create the device file explicitly with a call to:</p>
-<pre class="language-"><code>mknod /dev/arbitrary_name c majorNumber minorNumber
+<pre><code>mknod /dev/arbitrary_name c majorNumber minorNumber
 </code></pre><h3 id="resources-and-further-reading_2"><a name="resources-and-further-reading_2" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_2"><i class="fa fa-link" aria-hidden="true"></i></a>2.7.3. Resources and Further Reading</h3>
 <ul>
 <li>man mknod(1)</li>
@@ -3233,7 +3236,7 @@ Permission is granted to copy, distribute and/or modify this document under the 
 <h3 id="description_6"><a name="description_6" class="anchor-navigation-ex-anchor" href="#description_6"><i class="fa fa-link" aria-hidden="true"></i></a>3.2.1. Description</h3>
 <p>We briefly describe UDP sockets, since their usage in user space is well known and they provide a lot of flexibility. With UDP sockets it is possible to have communication between a kernel module on one system and a user space application on an other machine.</p>
 <h3 id="implementation_5"><a name="implementation_5" class="anchor-navigation-ex-anchor" href="#implementation_5"><i class="fa fa-link" aria-hidden="true"></i></a>3.2.2. Implementation</h3>
-<pre class="language-"><code>udpRecvCallback.c       kernel module that provides a callback function to receive messages on port number 5555.
+<pre><code>udpRecvCallback.c       kernel module that provides a callback function to receive messages on port number 5555.
 udpUser.c       user space program that sends a message to the kernel which sends the message back.
 </code></pre><p>The user space program sends the string &quot;hello world&quot; to the kernel, which listens on port 5555. The module prints the payload to the system log file and sends it back to the application. The application receives the message and prints the payload to stdout.</p>
 <p>The user space code does not need any explanation, since a lot of documentation is available for socket programming. The module implementation requires some understanding of the Linux kernel. The module_init function performs three actions:</p>
@@ -3263,7 +3266,7 @@ udpUser.c       user space program that sends a message to the kernel which send
 <p>Generic Netlink communications are essentially a series of different communication channels which are multiplexed on a single Netlink family. Communication channels are uniquely identified by channel numbers which are dynamically allocated by the Generic Netlink controller. Kernel or user space users which provide services, establish new communication channels by registering their services with the Generic Netlink controller. Users of the service, then query the controller to see if the service exists and to determine the correct channel number.</p>
 <p>Each generic netlink family can provide different &quot;attributes&quot; and &quot;commands&quot;. Each command has its own callback function in the kernel module and may receive messages with different attributes. Both commands and attributes, are &quot;addressed&quot; by an identifier.</p>
 <h2 id="implementation_6"><a name="implementation_6" class="anchor-navigation-ex-anchor" href="#implementation_6"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. Implementation</h2>
-<pre class="language-"><code>gnKernel.c      kernel module that implements a generic netlink family (CONTROL_EXMPL)
+<pre><code>gnKernel.c      kernel module that implements a generic netlink family (CONTROL_EXMPL)
 gnUser.c        user space program that sends a message to the kernel and receives an answer back
 </code></pre><p>Here we describe how to use this generic netlink protocol to exchange data between user space and kernel space.</p>
 <h3 id="user-space"><a name="user-space" class="anchor-navigation-ex-anchor" href="#user-space"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.1. User Space</h3>
@@ -3322,7 +3325,7 @@ gnUser.c        user space program that sends a message to the kernel and receiv
 </ul>
 <p>The argument type can be specified when the command number is generated as described in the Linux kernel file Documentation/ioctl-number.txt.</p>
 <h2 id="implementation_7"><a name="implementation_7" class="anchor-navigation-ex-anchor" href="#implementation_7"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. Implementation</h2>
-<pre class="language-"><code>ioctl.c         kernel module that uses ioctl in combination with a character device.The ioctl allows to send a message of up to 200 bytes.
+<pre><code>ioctl.c         kernel module that uses ioctl in combination with a character device.The ioctl allows to send a message of up to 200 bytes.
 ioctl_user.c    user space program that uses ioctl to send a message to the kernel
 </code></pre><p>In order to demonstrate the use of the ioctl mechanism we extend the character device example from section Character Device. Despite sending some data with the read and write system calls, we can now also use ioctl. We have implemented two ioctl commands one for sending data to the kernel and the other for reading data from the kernel. This extension is quite straight forward: Define your ioctl handler function in the struct file_operations (as was already done for the read and write handler function). The callback function consists mainly of a switch statement, which parses the different commands. If the specified command number does not exist ENOTTY is returned, which translates to &quot;Inappropriate ioctl for device&quot;.</p>
 <h2 id="resources-and-further-reading_4"><a name="resources-and-further-reading_4" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_4"><i class="fa fa-link" aria-hidden="true"></i></a>4.3. Resources and Further Reading</h2>
@@ -3352,7 +3355,7 @@ ioctl_user.c    user space program that uses ioctl to send a message to the kern
 </ul>
 </li>
 </ol>
-<pre class="language-"><code>                  #define __NR_mysyscall          325
+<pre><code>                  #define __NR_mysyscall          325
                   #define NR_syscalls 326
 </code></pre><ol>
 <li>include/linux/syscalls.h<ul>
@@ -3360,14 +3363,14 @@ ioctl_user.c    user space program that uses ioctl to send a message to the kern
 </ul>
 </li>
 </ol>
-<pre class="language-"><code>                  asmlinkage long sys_mysyscall(char __user *data, int len);
+<pre><code>                  asmlinkage long sys_mysyscall(char __user *data, int len);
 </code></pre><ol>
 <li>arch/i386/kernel/syscall_table.S<ul>
 <li>This file is a table with all the available system calls. In order to make your call accessible add the following line at the bottom of this file:</li>
 </ul>
 </li>
 </ol>
-<pre class="language-"><code>                  .long sys_mycall
+<pre><code>                  .long sys_mycall
 </code></pre><ol>
 <li>add a new directory mysyscall<ul>
 <li>Since the system call has to be integrated in the kernel we add a new directory &quot;mysyscall&quot; for our system call in the top level directory of the Linux source code.</li>
@@ -3382,7 +3385,7 @@ ioctl_user.c    user space program that uses ioctl to send a message to the kern
 </ul>
 </li>
 </ol>
-<pre class="language-"><code>                  #include &lt;linux/linkage.h&gt;
+<pre><code>                  #include &lt;linux/linkage.h&gt;
                   #include &lt;asm/uaccess.h&gt;
                   asmlinkage long sys_mysyscall(char __user *buf, int len)
                   {
@@ -3397,11 +3400,11 @@ ioctl_user.c    user space program that uses ioctl to send a message to the kern
 </code></pre><ol>
 <li>Add a Makefile to your directory with the following line:</li>
 </ol>
-<pre class="language-"><code>                  obj-y:= mysyscall.o
+<pre><code>                  obj-y:= mysyscall.o
 </code></pre><p>With this you have completed the kernel implementation. After having compiled and installed the new kernel, user space applications can make use of the new system call. The following is an example code which uses the new system call:</p>
-<pre class="language-"><code>            #include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">&gt;</span></span>
-            #include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string.h</span><span class="token punctuation">&gt;</span></span>
-            #include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>unistd.h</span><span class="token punctuation">&gt;</span></span>
+<pre><code>            #include &lt;stdio.h&gt;
+            #include &lt;string.h&gt;
+            #include &lt;unistd.h&gt;
             #include &lt;sys/syscall.h&gt;
             #define MYSYSCALL 325
             int main(){
@@ -3426,7 +3429,7 @@ ioctl_user.c    user space program that uses ioctl to send a message to the kern
 <li>If this process is to be rescheduled, or if it returns from an interrupt, it first checks whether there is a signal pending. If yes, it executes first the signal handler and only then does it continue with the rest of the program.</li>
 </ol>
 <h2 id="implementation_9"><a name="implementation_9" class="anchor-navigation-ex-anchor" href="#implementation_9"><i class="fa fa-link" aria-hidden="true"></i></a>6.2. Implementation</h2>
-<pre class="language-"><code>signal_kernel.c         kernel module that sends a signal to a user space process. The kernel needs to know the PID of the user space process. Therefore the user space process writes its PID in the debugfs file signalconfpid.
+<pre><code>signal_kernel.c         kernel module that sends a signal to a user space process. The kernel needs to know the PID of the user space process. Therefore the user space process writes its PID in the debugfs file signalconfpid.
 signal_user.c   user space program that receives the signal.
 </code></pre><p>In order to be able to send a signal from kernel space to user space, the kernel needs to know the pid of the user space process. Therefore in this dummy example the user space process sends its pid to the kernel. As soon as the kernel module receives the pid, it looks for the corresponding process descriptor, and sends a signal to it. All information related to the signal is saved in a struct siginfo. We are able to send 32 bit of data in si_int. In order that the user space interprets this signal as a real time signal and that we can therefore access the data part, we need to set si_code to SI_QUEUE. Otherwise our data is not received by the user space function.</p>
 <h2 id="resources-and-further-reading_6"><a name="resources-and-further-reading_6" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_6"><i class="fa fa-link" aria-hidden="true"></i></a>6.3. Resources and Further Reading</h2>
@@ -3439,7 +3442,7 @@ signal_user.c   user space program that receives the signal.
 <h2 id="introduction_6"><a name="introduction_6" class="anchor-navigation-ex-anchor" href="#introduction_6"><i class="fa fa-link" aria-hidden="true"></i></a>7.1. Introduction</h2>
 <p>The upcall functionality of the Linux kernel allows a kernel module to invoke a function in user space. It is possible to start a program in user space, and give it some command line arguments, as well as setting environment variables.</p>
 <h2 id="implementation_10"><a name="implementation_10" class="anchor-navigation-ex-anchor" href="#implementation_10"><i class="fa fa-link" aria-hidden="true"></i></a>7.2. Implementation</h2>
-<pre class="language-"><code>usermodehelper.c        kernel module that starts a process
+<pre><code>usermodehelper.c        kernel module that starts a process
 callee.c        user space program that will be executed on behalf of the kernel
 </code></pre><p>Our example consists of a kernel module usermodehelper and a user space program callee. Since callee is not started within a shell, we cannot use printf to verify its correct execution, instead we let him run the beep command and let the kernel module specify how many times to beep. The callee gets invoked by the following function prototype: int call_usermodehelper(char <em>path, char <em>*argv, char </em></em>envp, enum umh_wait wait) With the following arguments:</p>
 <ul>
@@ -3462,7 +3465,7 @@ callee.c        user space program that will be executed on behalf of the kernel
 <p>Memory mapping is the only way to transfer data between user and kernel spaces that does not involve explicit copying, and is the fastest way to handle large amounts of data.</p>
 <p>There is a major difference between the conventional read(2) and write(2) functions and mmap. While data is transfered with mmap no &quot;control&quot; messages are exchanged. This means that a user space process can put data into the memory, but that the kernel does not know that new data is available. The same holds for the opposite scenario: The kernel puts its data into the shared memory, but the user space process does not get a notification of this event. This characteristic implies that memory mapping has to be used with some other communication means that transfers control messages, or that the shared memory needs to be checked in regular intervals for new content. Similar to the read and write function calls mmap can be used with different file systems and with sockets.</p>
 <h2 id="implementation_11"><a name="implementation_11" class="anchor-navigation-ex-anchor" href="#implementation_11"><i class="fa fa-link" aria-hidden="true"></i></a>8.2. Implementation</h2>
-<pre class="language-"><code>mmap_simple_kernel.c    kernel module that provides the mmap system call based on debugfs.
+<pre><code>mmap_simple_kernel.c    kernel module that provides the mmap system call based on debugfs.
 mmap_user.c     user space program that will share a memory area with the kernel module
 </code></pre><p>Of course we need some memory that we want to map between user space and kernel space. In this example we share some RAM but if you are writing a device driver, this could be the memory of your device. We use debugfs and attach the memory area to a file. This allows the user space process to access the shared memory area with the help of a file descriptor.</p>
 <p>The user space program uses the system calls open, mmap, memcpy and close, which are all documented in the Linux man pages.</p>
@@ -3521,10 +3524,11 @@ mmap_user.c     user space program that will share a memory area with the kernel
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"kernel space和user space交互(网摘, linux2.6)","level":"1.9.9","depth":2,"next":{"title":"脚本","level":"1.10","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"shell变量","level":"1.10.1","depth":2,"path":"notes/shell_变量.md","ref":"notes/shell_变量.md","articles":[]},{"title":"shell命令和脚本记录-基础篇","level":"1.10.2","depth":2,"path":"notes/shell_基础篇.md","ref":"notes/shell_基础篇.md","articles":[]},{"title":"shell命令和脚本记录-高级篇","level":"1.10.3","depth":2,"path":"notes/shell_高级篇.md","ref":"notes/shell_高级篇.md","articles":[]},{"title":"shell脚本片段","level":"1.10.4","depth":2,"path":"notes/shell_脚本片段.md","ref":"notes/shell_脚本片段.md","articles":[]},{"title":"python记录","level":"1.10.5","depth":2,"path":"notes/python_记录.md","ref":"notes/python_记录.md","articles":[]},{"title":"lua记录","level":"1.10.6","depth":2,"path":"notes/lua_记录.md","ref":"notes/lua_记录.md","articles":[]},{"title":"RDS脚本阅读","level":"1.10.7","depth":2,"path":"notes/shell_rds脚本阅读.md","ref":"notes/shell_rds脚本阅读.md","articles":[]},{"title":"Project Euler","level":"1.10.8","depth":2,"path":"notes/Project_Euler.md","ref":"notes/Project_Euler.md","articles":[]}]},"previous":{"title":"并发 任务 事件 和锁.md","level":"1.9.8","depth":2,"path":"notes/c_pthread_condition和mutex.md","ref":"notes/c_pthread_condition和mutex.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/kernel_user_space_howto.md","mtime":"2022-10-11T14:47:24.174Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"kernel space和user space交互(网摘, linux2.6)","level":"1.9.9","depth":2,"next":{"title":"脚本","level":"1.10","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"shell变量","level":"1.10.1","depth":2,"path":"notes/shell_变量.md","ref":"notes/shell_变量.md","articles":[]},{"title":"shell命令和脚本记录-基础篇","level":"1.10.2","depth":2,"path":"notes/shell_基础篇.md","ref":"notes/shell_基础篇.md","articles":[]},{"title":"shell命令和脚本记录-高级篇","level":"1.10.3","depth":2,"path":"notes/shell_高级篇.md","ref":"notes/shell_高级篇.md","articles":[]},{"title":"shell脚本片段","level":"1.10.4","depth":2,"path":"notes/shell_脚本片段.md","ref":"notes/shell_脚本片段.md","articles":[]},{"title":"python记录","level":"1.10.5","depth":2,"path":"notes/python_记录.md","ref":"notes/python_记录.md","articles":[]},{"title":"lua记录","level":"1.10.6","depth":2,"path":"notes/lua_记录.md","ref":"notes/lua_记录.md","articles":[]},{"title":"RDS脚本阅读","level":"1.10.7","depth":2,"path":"notes/shell_rds脚本阅读.md","ref":"notes/shell_rds脚本阅读.md","articles":[]},{"title":"Project Euler","level":"1.10.8","depth":2,"path":"notes/Project_Euler.md","ref":"notes/Project_Euler.md","articles":[]}]},"previous":{"title":"并发 任务 事件 和锁.md","level":"1.9.8","depth":2,"path":"notes/c_pthread_condition和mutex.md","ref":"notes/c_pthread_condition和mutex.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/kernel_user_space_howto.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3563,6 +3567,7 @@ mmap_user.c     user space program that will share a memory area with the kernel
         
     
 
+        
     </body>
 </html>
 

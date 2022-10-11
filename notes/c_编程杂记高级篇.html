@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2902,96 +2905,96 @@
 <li><a href="#&#x4F7F;&#x7528;&#x5B8F;&#x62FC;&#x63A5;">&#x4F7F;&#x7528;&#x5B8F;&#x62FC;&#x63A5;</a></li>
 </ul>
 <h1 id="raw-socket&#x6536;&#x62A5;&#x5168;&#x4E22;&#x6389;-&#x6D4B;&#x8BD5;&#x6027;&#x80FD;"><a name="raw-socket&#x6536;&#x62A5;&#x5168;&#x4E22;&#x6389;-&#x6D4B;&#x8BD5;&#x6027;&#x80FD;" class="anchor-navigation-ex-anchor" href="#raw-socket&#x6536;&#x62A5;&#x5168;&#x4E22;&#x6389;-&#x6D4B;&#x8BD5;&#x6027;&#x80FD;"><i class="fa fa-link" aria-hidden="true"></i></a>1. raw socket&#x6536;&#x62A5;&#x5168;&#x4E22;&#x6389;, &#x6D4B;&#x8BD5;&#x6027;&#x80FD;</h1>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/socket.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;strings.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
+<pre><code class="lang-c">#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;strings.h&gt;
+#include &lt;unistd.h&gt;
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/if_packet.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/if_ether.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/if_arp.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;netinet/in.h&gt;</span></span>
+#include &lt;linux/if_packet.h&gt;
+#include &lt;linux/if_ether.h&gt;
+#include &lt;linux/if_arp.h&gt;
+#include &lt;netinet/in.h&gt;
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
+#include &lt;string.h&gt;
 
-<span class="token keyword">extern</span> <span class="token keyword">unsigned</span> <span class="token function">if_nametoindex</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>ifname<span class="token punctuation">)</span><span class="token punctuation">;</span>
+extern unsigned if_nametoindex(const char *ifname);
 
-<span class="token keyword">char</span> <span class="token operator">*</span>interface <span class="token operator">=</span> <span class="token string">&quot;eth-mgnt&quot;</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">create_raw_eth_socket</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword">int</span> eth_sock<span class="token punctuation">;</span>
-  <span class="token keyword">struct</span> <span class="token class-name">sockaddr_ll</span> eth_dest<span class="token punctuation">;</span>
+char *interface = &quot;eth-mgnt&quot;;
+int create_raw_eth_socket(void)
+{
+  int eth_sock;
+  struct sockaddr_ll eth_dest;
 
-  <span class="token keyword">unsigned</span> <span class="token keyword">long</span> itf_ifindex <span class="token operator">=</span> <span class="token function">if_nametoindex</span><span class="token punctuation">(</span>interface<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  unsigned long itf_ifindex = if_nametoindex(interface);
 
-  <span class="token comment">/*ETH socket, RAW communication*/</span>
-  eth_dest<span class="token punctuation">.</span>sll_family   <span class="token operator">=</span> PF_PACKET<span class="token punctuation">;</span>
-  eth_dest<span class="token punctuation">.</span>sll_protocol <span class="token operator">=</span> <span class="token function">htons</span><span class="token punctuation">(</span>ETH_P_ALL<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  eth_dest<span class="token punctuation">.</span>sll_ifindex  <span class="token operator">=</span> itf_ifindex<span class="token punctuation">;</span>
-  eth_dest<span class="token punctuation">.</span>sll_hatype   <span class="token operator">=</span> ARPHRD_ETHER<span class="token punctuation">;</span>
-  eth_dest<span class="token punctuation">.</span>sll_pkttype  <span class="token operator">=</span> PACKET_OTHERHOST<span class="token punctuation">;</span>
-  eth_dest<span class="token punctuation">.</span>sll_halen    <span class="token operator">=</span> ETH_ALEN<span class="token punctuation">;</span>
+  /*ETH socket, RAW communication*/
+  eth_dest.sll_family   = PF_PACKET;
+  eth_dest.sll_protocol = htons(ETH_P_ALL);
+  eth_dest.sll_ifindex  = itf_ifindex;
+  eth_dest.sll_hatype   = ARPHRD_ETHER;
+  eth_dest.sll_pkttype  = PACKET_OTHERHOST;
+  eth_dest.sll_halen    = ETH_ALEN;
 
-  eth_sock <span class="token operator">=</span> <span class="token function">socket</span><span class="token punctuation">(</span>AF_PACKET<span class="token punctuation">,</span> SOCK_RAW<span class="token punctuation">,</span> <span class="token function">htons</span><span class="token punctuation">(</span>ETH_P_ALL<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">bind</span><span class="token punctuation">(</span>eth_sock<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">sockaddr</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>eth_dest<span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>eth_dest<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  eth_sock = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+  bind(eth_sock,(struct sockaddr*)&amp;eth_dest,sizeof(eth_dest));
 
-  <span class="token keyword">return</span> eth_sock<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+  return eth_sock;
+}
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span><span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword">int</span> eth_sock<span class="token punctuation">;</span>
-  <span class="token keyword">struct</span> <span class="token class-name">sockaddr_ll</span> eth_src<span class="token punctuation">;</span>
-  <span class="token keyword">unsigned</span> <span class="token keyword">char</span> data<span class="token punctuation">[</span><span class="token number">1600</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-  <span class="token keyword">unsigned</span> <span class="token keyword">long</span> packet_count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+int main(int argc,char *argv[], char**envp)
+{
+  int eth_sock;
+  struct sockaddr_ll eth_src;
+  unsigned char data[1600];
+  unsigned long packet_count = 0;
 
-  eth_sock <span class="token operator">=</span> <span class="token function">create_raw_eth_socket</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  eth_sock = create_raw_eth_socket();
 
-  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">{</span>
-    <span class="token class-name">socklen_t</span> addr_len <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>eth_src<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> size <span class="token operator">=</span> <span class="token function">recvfrom</span><span class="token punctuation">(</span>eth_sock<span class="token punctuation">,</span>data<span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">sockaddr</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>eth_src<span class="token punctuation">,</span><span class="token operator">&amp;</span>addr_len<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>size <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Error reading socket\n\r&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">break</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    packet_count<span class="token operator">++</span><span class="token punctuation">;</span>
+  while (1)
+  {
+    socklen_t addr_len = sizeof(eth_src);
+    int size = recvfrom(eth_sock,data,sizeof(data),0,(struct sockaddr*)&amp;eth_src,&amp;addr_len);
+    if (size &lt; 0) {
+      printf(&quot;Error reading socket\n\r&quot;);
+      break;
+    }
+    packet_count++;
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>packet_count <span class="token operator">%</span> <span class="token number">1000</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;count = %10lu\n&quot;</span><span class="token punctuation">,</span>packet_count<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+    if ((packet_count % 1000) == 0)
+        printf(&quot;count = %10lu\n&quot;,packet_count);
+  }
 
-  <span class="token function">close</span><span class="token punctuation">(</span>eth_sock<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+  close(eth_sock);
+  return 1;
+}
 </code></pre>
 <h1 id="scanf&#x5FFD;&#x7565;&#x67D0;&#x4E2A;filed"><a name="scanf&#x5FFD;&#x7565;&#x67D0;&#x4E2A;filed" class="anchor-navigation-ex-anchor" href="#scanf&#x5FFD;&#x7565;&#x67D0;&#x4E2A;filed"><i class="fa fa-link" aria-hidden="true"></i></a>2. scanf&#x5FFD;&#x7565;&#x67D0;&#x4E2A;filed</h1>
 <p><code>%*</code>&#x5173;&#x952E;&#x8BCD;&#x544A;&#x8BC9;scanf&#x5FFD;&#x7565;&#x8FD9;&#x90E8;&#x5206;input</p>
-<pre class="language-"><code class="lang-c"><span class="token function">fscanf</span><span class="token punctuation">(</span>fpstat<span class="token punctuation">,</span> <span class="token string">&quot;%*d %*s %*c %*d %*d %*d %*d %*d %*u %*u %*u %*u %*u %lu&quot;</span>
-               <span class="token string">&quot;%lu %ld %ld %*d %*d %*d %*d %*u %lu %ld&quot;</span><span class="token punctuation">,</span>
-               <span class="token operator">&amp;</span>result<span class="token operator">-&gt;</span>utime_ticks<span class="token punctuation">,</span> <span class="token operator">&amp;</span>result<span class="token operator">-&gt;</span>stime_ticks<span class="token punctuation">,</span>
-               <span class="token operator">&amp;</span>result<span class="token operator">-&gt;</span>cutime_ticks<span class="token punctuation">,</span> <span class="token operator">&amp;</span>result<span class="token operator">-&gt;</span>cstime_ticks<span class="token punctuation">,</span> <span class="token operator">&amp;</span>result<span class="token operator">-&gt;</span>vsize<span class="token punctuation">,</span>
-               <span class="token operator">&amp;</span>rss<span class="token punctuation">)</span>
+<pre><code class="lang-c">fscanf(fpstat, &quot;%*d %*s %*c %*d %*d %*d %*d %*d %*u %*u %*u %*u %*u %lu&quot;
+               &quot;%lu %ld %ld %*d %*d %*d %*d %*u %lu %ld&quot;,
+               &amp;result-&gt;utime_ticks, &amp;result-&gt;stime_ticks,
+               &amp;result-&gt;cutime_ticks, &amp;result-&gt;cstime_ticks, &amp;result-&gt;vsize,
+               &amp;rss)
 </code></pre>
 <h1 id="io&#x6A21;&#x578B;"><a name="io&#x6A21;&#x578B;" class="anchor-navigation-ex-anchor" href="#io&#x6A21;&#x578B;"><i class="fa fa-link" aria-hidden="true"></i></a>3. IO&#x6A21;&#x578B;</h1>
 <h2 id="&#x666E;&#x901A;&#x963B;&#x585E;&#x8BFB;&#x5199;"><a name="&#x666E;&#x901A;&#x963B;&#x585E;&#x8BFB;&#x5199;" class="anchor-navigation-ex-anchor" href="#&#x666E;&#x901A;&#x963B;&#x585E;&#x8BFB;&#x5199;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x666E;&#x901A;&#x963B;&#x585E;&#x8BFB;&#x5199;</h2>
 <p>&#x6B63;&#x5E38;&#x7684;&#x8BFB;&#x5199;&#x662F;&#x963B;&#x585E;&#x7684;.</p>
-<pre class="language-"><code class="lang-c"><span class="token class-name">ssize_t</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>buf<span class="token punctuation">,</span> <span class="token class-name">size_t</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token class-name">ssize_t</span> <span class="token function">write</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>buf<span class="token punctuation">,</span> <span class="token class-name">size_t</span> nbytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">ssize_t read(int fd, void *buf, size_t count);
+ssize_t write(int fd, const void *buf, size_t nbytes);
 </code></pre>
 <p><img src="img/c_&#x7F16;&#x7A0B;&#x6742;&#x8BB0;&#x9AD8;&#x7EA7;&#x7BC7;_20221011160017.png" alt="">  </p>
 <h2 id="&#x975E;&#x963B;&#x585E;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;"><a name="&#x975E;&#x963B;&#x585E;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x975E;&#x963B;&#x585E;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x975E;&#x963B;&#x585E;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;</h2>
 <p>&#x975E;&#x963B;&#x585E;&#x7684;&#x8BFB;&#x5199;&#x9700;&#x8981;&#x5148;&#x7ED9;fd&#x8BBE;&#x7F6E;&#x6807;&#x8BB0;</p>
-<pre class="language-"><code>int flags = fcntl(fd, F_GETFL, 0);
+<pre><code>int flags = fcntl(fd, F_GETFL, 0);
 fcntl(fd, F_SETFL, flags | O_NONBLOCK);
 </code></pre><p>&#x540E;&#x9762;&#x7684;&#x8BFB;&#x5199;&#x4F1A;&#x9A6C;&#x4E0A;&#x8FD4;&#x56DE;, &#x5982;&#x679C;&#x6CA1;&#x51C6;&#x5907;&#x597D;, &#x8FD4;&#x56DE;EAGAIN.</p>
 <p><img src="img/c_&#x7F16;&#x7A0B;&#x6742;&#x8BB0;&#x9AD8;&#x7EA7;&#x7BC7;_20221011160309.png" alt="">  </p>
 <h2 id="&#x591A;&#x8DEF;io&#x590D;&#x7528;"><a name="&#x591A;&#x8DEF;io&#x590D;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x591A;&#x8DEF;io&#x590D;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. &#x591A;&#x8DEF;IO&#x590D;&#x7528;</h2>
-<pre class="language-"><code>int select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds, struct timeval *restrict timeout);
+<pre><code>int select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds, struct timeval *restrict timeout);
 </code></pre><blockquote>
 <p>&#x9664;&#x4E86;&#x6807;&#x51C6;&#x7684; select &#x51FD;&#x6570;&#x4E4B;&#x5916;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x8FD8;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x6BD4;&#x8F83;&#x76F8;&#x4F3C;&#x7684; poll &#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x4F7F;&#x7528;&#x94FE;&#x8868;&#x5B58;&#x50A8;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#xFF0C;&#x6446;&#x8131;&#x4E86; 1024 &#x7684;&#x6570;&#x91CF;&#x4E0A;&#x9650;&#x3002;<br><img src="img/c_&#x7F16;&#x7A0B;&#x6742;&#x8BB0;&#x9AD8;&#x7EA7;&#x7BC7;_20221011160341.png" alt="">  </p>
 </blockquote>
@@ -3002,62 +3005,62 @@ fcntl(fd, F_SETFL, flags | O_NONBLOCK);
 <h1 id="&#x7236;&#x5B50;&#x8FDB;&#x7A0B;&#x4E0E;fd----fcntl&#x7684;&#x4F7F;&#x7528;"><a name="&#x7236;&#x5B50;&#x8FDB;&#x7A0B;&#x4E0E;fd----fcntl&#x7684;&#x4F7F;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x7236;&#x5B50;&#x8FDB;&#x7A0B;&#x4E0E;fd----fcntl&#x7684;&#x4F7F;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x7236;&#x5B50;&#x8FDB;&#x7A0B;&#x4E0E;FD -- fcntl&#x7684;&#x4F7F;&#x7528;</h1>
 <p>&#x5B50;&#x8FDB;&#x7A0B;&#x96C6;&#x6210;&#x7236;&#x8FDB;&#x7A0B;&#x7684;FD, &#x4F46;&#x5B50;&#x8FDB;&#x7A0B;exec&#x540E;&#x5462;?
 &#x6709;&#x4E2A;&#x51FD;&#x6570;, &#x5982;&#x679C;&#x8C03;&#x7528;, &#x8868;&#x793A;&#x5B50;&#x8FDB;&#x7A0B;exec&#x540E;, &#x5173;&#x95ED;&#x8BE5;fd. &#x610F;&#x601D;&#x5C31;&#x662F;&#x5B50;&#x8FDB;&#x7A0B;&#x5373;&#x4F7F;exec, &#x9ED8;&#x8BA4;&#x4E5F;&#x662F;&#x7EE7;&#x627F;&#x7236;&#x8FDB;&#x7A0B;&#x7684;fd&#x7684;.</p>
-<pre class="language-"><code class="lang-c"><span class="token function">fcntl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> F_SETFD<span class="token punctuation">,</span> FD_CLOEXEC<span class="token punctuation">)</span>
+<pre><code class="lang-c">fcntl(fd, F_SETFD, FD_CLOEXEC)
 </code></pre>
 <p>fcntl&#x8FD8;&#x6709;&#x5176;&#x4ED6;&#x4F5C;&#x7528;:</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;unistd.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;fcntl.h&gt;</span></span>
-<span class="token comment">//&#x5B9A;&#x4E49;&#x51FD;&#x6570;</span>
-<span class="token keyword">int</span> <span class="token function">fcntl</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd <span class="token punctuation">,</span> <span class="token keyword">int</span> cmd<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">fcntl</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span><span class="token keyword">int</span> cmd<span class="token punctuation">,</span><span class="token keyword">long</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">fcntl</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span><span class="token keyword">int</span> cmd<span class="token punctuation">,</span><span class="token keyword">struct</span> <span class="token class-name">flock</span> <span class="token operator">*</span> lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">#include&lt;unistd.h&gt;
+#include&lt;fcntl.h&gt;
+//&#x5B9A;&#x4E49;&#x51FD;&#x6570;
+int fcntl(int fd , int cmd);
+int fcntl(int fd,int cmd,long arg);
+int fcntl(int fd,int cmd,struct flock * lock);
 
-<span class="token comment">//fcntl()&#x7528;&#x6765;&#x64CD;&#x4F5C;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#x7684;&#x4E00;&#x4E9B;&#x7279;&#x6027;&#x3002;&#x53C2;&#x6570;fd&#x4EE3;&#x8868;&#x6B32;&#x8BBE;&#x7F6E;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#xFF0C;&#x53C2;&#x6570;cmd&#x4EE3;&#x8868;&#x6B32;&#x64CD;&#x4F5C;&#x7684;&#x6307;&#x4EE4;&#x3002;</span>
-<span class="token comment">//&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#x60C5;&#x51B5;:</span>
-F_DUPFD&#x7528;&#x6765;&#x67E5;&#x627E;&#x5927;&#x4E8E;&#x6216;&#x7B49;&#x4E8E;&#x53C2;&#x6570;arg&#x7684;&#x6700;&#x5C0F;&#x4E14;&#x4ECD;&#x672A;&#x4F7F;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#xFF0C;&#x5E76;&#x4E14;&#x590D;&#x5236;&#x53C2;&#x6570;fd&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#x3002;&#x6267;&#x884C;&#x6210;&#x529F;&#x5219;&#x8FD4;&#x56DE;&#x65B0;&#x590D;&#x5236;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#x3002;&#x8BF7;&#x53C2;&#x8003;<span class="token function">dup2</span><span class="token punctuation">(</span><span class="token punctuation">)</span>&#x3002;F_GETFD&#x53D6;&#x5F97;close<span class="token operator">-</span>on<span class="token operator">-</span>exec&#x65D7;&#x6807;&#x3002;&#x82E5;&#x6B64;&#x65D7;&#x6807;&#x7684;FD_CLOEXEC&#x4F4D;&#x4E3A;<span class="token number">0</span>&#xFF0C;&#x4EE3;&#x8868;&#x5728;&#x8C03;&#x7528;<span class="token function">exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>&#x76F8;&#x5173;&#x51FD;&#x6570;&#x65F6;&#x6587;&#x4EF6;&#x5C06;&#x4E0D;&#x4F1A;&#x5173;&#x95ED;&#x3002;
-F_SETFD &#x8BBE;&#x7F6E;close<span class="token operator">-</span>on<span class="token operator">-</span>exec &#x65D7;&#x6807;&#x3002;&#x8BE5;&#x65D7;&#x6807;&#x4EE5;&#x53C2;&#x6570;arg &#x7684;FD_CLOEXEC&#x4F4D;&#x51B3;&#x5B9A;&#x3002;
+//fcntl()&#x7528;&#x6765;&#x64CD;&#x4F5C;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#x7684;&#x4E00;&#x4E9B;&#x7279;&#x6027;&#x3002;&#x53C2;&#x6570;fd&#x4EE3;&#x8868;&#x6B32;&#x8BBE;&#x7F6E;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#xFF0C;&#x53C2;&#x6570;cmd&#x4EE3;&#x8868;&#x6B32;&#x64CD;&#x4F5C;&#x7684;&#x6307;&#x4EE4;&#x3002;
+//&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#x60C5;&#x51B5;:
+F_DUPFD&#x7528;&#x6765;&#x67E5;&#x627E;&#x5927;&#x4E8E;&#x6216;&#x7B49;&#x4E8E;&#x53C2;&#x6570;arg&#x7684;&#x6700;&#x5C0F;&#x4E14;&#x4ECD;&#x672A;&#x4F7F;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#xFF0C;&#x5E76;&#x4E14;&#x590D;&#x5236;&#x53C2;&#x6570;fd&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#x3002;&#x6267;&#x884C;&#x6210;&#x529F;&#x5219;&#x8FD4;&#x56DE;&#x65B0;&#x590D;&#x5236;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#x3002;&#x8BF7;&#x53C2;&#x8003;dup2()&#x3002;F_GETFD&#x53D6;&#x5F97;close-on-exec&#x65D7;&#x6807;&#x3002;&#x82E5;&#x6B64;&#x65D7;&#x6807;&#x7684;FD_CLOEXEC&#x4F4D;&#x4E3A;0&#xFF0C;&#x4EE3;&#x8868;&#x5728;&#x8C03;&#x7528;exec()&#x76F8;&#x5173;&#x51FD;&#x6570;&#x65F6;&#x6587;&#x4EF6;&#x5C06;&#x4E0D;&#x4F1A;&#x5173;&#x95ED;&#x3002;
+F_SETFD &#x8BBE;&#x7F6E;close-on-exec &#x65D7;&#x6807;&#x3002;&#x8BE5;&#x65D7;&#x6807;&#x4EE5;&#x53C2;&#x6570;arg &#x7684;FD_CLOEXEC&#x4F4D;&#x51B3;&#x5B9A;&#x3002;
 F_GETFL &#x53D6;&#x5F97;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#x72B6;&#x6001;&#x65D7;&#x6807;&#xFF0C;&#x6B64;&#x65D7;&#x6807;&#x4E3A;open&#xFF08;&#xFF09;&#x7684;&#x53C2;&#x6570;flags&#x3002;
 F_SETFL&#x8BBE;&#x7F6E;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x8BCD;&#x72B6;&#x6001;&#x65D7;&#x6807;&#xFF0C;&#x53C2;&#x6570;arg&#x4E3A;&#x65B0;&#x65D7;&#x6807;&#xFF0C;&#x4F46;&#x53EA;&#x5141;&#x8BB8;O_APPEND&#x3001;O_NONBLOCK&#x548C;O_ASYNC&#x4F4D;&#x7684;&#x6539;&#x53D8;&#xFF0C;&#x5176;&#x4ED6;&#x4F4D;&#x7684;&#x6539;&#x53D8;&#x5C06;&#x4E0D;&#x53D7;&#x5F71;&#x54CD;&#x3002;
 F_GETLK &#x53D6;&#x5F97;&#x6587;&#x4EF6;&#x9501;&#x5B9A;&#x7684;&#x72B6;&#x6001;&#x3002;
-F_SETLK &#x8BBE;&#x7F6E;&#x6587;&#x4EF6;&#x9501;&#x5B9A;&#x7684;&#x72B6;&#x6001;&#x3002;&#x6B64;&#x65F6;flcok &#x7ED3;&#x6784;&#x7684;l_type&#x503C;&#x5FC5;&#x987B;&#x662F;F_RDLCK&#x3001;F_WRLCK&#x6216;F_UNLCK&#x3002;&#x5982;&#x679C;&#x65E0;&#x6CD5;&#x5EFA;&#x7ACB;&#x9501;&#x5B9A;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;<span class="token operator">-</span><span class="token number">1</span>&#xFF0C;&#x9519;&#x8BEF;&#x4EE3;&#x7801;&#x4E3A;EACCES&#x6216;EAGAIN&#x3002;
-F_SETLKW F_SETLK&#x4F5C;&#x7528;&#x76F8;&#x540C;&#xFF0C;&#x4F46;&#x662F;&#x65E0;&#x6CD5;&#x5EFA;&#x7ACB;&#x9501;&#x5B9A;&#x65F6;&#xFF0C;&#x6B64;&#x8C03;&#x7528;&#x4F1A;&#x4E00;&#x76F4;&#x7B49;&#x5230;&#x9501;&#x5B9A;&#x52A8;&#x4F5C;&#x6210;&#x529F;&#x4E3A;&#x6B62;&#x3002;&#x82E5;&#x5728;&#x7B49;&#x5F85;&#x9501;&#x5B9A;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x88AB;&#x4FE1;&#x53F7;&#x4E2D;&#x65AD;&#x65F6;&#xFF0C;&#x4F1A;&#x7ACB;&#x5373;&#x8FD4;&#x56DE;<span class="token operator">-</span><span class="token number">1</span>&#xFF0C;&#x9519;&#x8BEF;&#x4EE3;&#x7801;&#x4E3A;EINTR&#x3002;&#x53C2;&#x6570;lock&#x6307;&#x9488;&#x4E3A;flock&#x7ED3;&#x6784;&#x6307;&#x9488;&#xFF0C;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;
-<span class="token keyword">struct</span> <span class="token class-name">flcok</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">short</span> <span class="token keyword">int</span> l_type<span class="token punctuation">;</span>
-    <span class="token keyword">short</span> <span class="token keyword">int</span> l_whence<span class="token punctuation">;</span>
-    <span class="token class-name">off_t</span> l_start<span class="token punctuation">;</span>
-    <span class="token class-name">off_t</span> l_len<span class="token punctuation">;</span>
-    <span class="token class-name">pid_t</span> l_pid<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-l_type &#x6709;&#x4E09;&#x79CD;&#x72B6;&#x6001;<span class="token operator">:</span>
+F_SETLK &#x8BBE;&#x7F6E;&#x6587;&#x4EF6;&#x9501;&#x5B9A;&#x7684;&#x72B6;&#x6001;&#x3002;&#x6B64;&#x65F6;flcok &#x7ED3;&#x6784;&#x7684;l_type&#x503C;&#x5FC5;&#x987B;&#x662F;F_RDLCK&#x3001;F_WRLCK&#x6216;F_UNLCK&#x3002;&#x5982;&#x679C;&#x65E0;&#x6CD5;&#x5EFA;&#x7ACB;&#x9501;&#x5B9A;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;-1&#xFF0C;&#x9519;&#x8BEF;&#x4EE3;&#x7801;&#x4E3A;EACCES&#x6216;EAGAIN&#x3002;
+F_SETLKW F_SETLK&#x4F5C;&#x7528;&#x76F8;&#x540C;&#xFF0C;&#x4F46;&#x662F;&#x65E0;&#x6CD5;&#x5EFA;&#x7ACB;&#x9501;&#x5B9A;&#x65F6;&#xFF0C;&#x6B64;&#x8C03;&#x7528;&#x4F1A;&#x4E00;&#x76F4;&#x7B49;&#x5230;&#x9501;&#x5B9A;&#x52A8;&#x4F5C;&#x6210;&#x529F;&#x4E3A;&#x6B62;&#x3002;&#x82E5;&#x5728;&#x7B49;&#x5F85;&#x9501;&#x5B9A;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x88AB;&#x4FE1;&#x53F7;&#x4E2D;&#x65AD;&#x65F6;&#xFF0C;&#x4F1A;&#x7ACB;&#x5373;&#x8FD4;&#x56DE;-1&#xFF0C;&#x9519;&#x8BEF;&#x4EE3;&#x7801;&#x4E3A;EINTR&#x3002;&#x53C2;&#x6570;lock&#x6307;&#x9488;&#x4E3A;flock&#x7ED3;&#x6784;&#x6307;&#x9488;&#xFF0C;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;
+struct flcok
+{
+    short int l_type;
+    short int l_whence;
+    off_t l_start;
+    off_t l_len;
+    pid_t l_pid;
+};
+l_type &#x6709;&#x4E09;&#x79CD;&#x72B6;&#x6001;:
 F_RDLCK &#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x4F9B;&#x8BFB;&#x53D6;&#x7528;&#x7684;&#x9501;&#x5B9A;
 F_WRLCK &#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x4F9B;&#x5199;&#x5165;&#x7528;&#x7684;&#x9501;&#x5B9A;
 F_UNLCK &#x5220;&#x9664;&#x4E4B;&#x524D;&#x5EFA;&#x7ACB;&#x7684;&#x9501;&#x5B9A;
-l_whence &#x4E5F;&#x6709;&#x4E09;&#x79CD;&#x65B9;&#x5F0F;<span class="token operator">:</span>
-<span class="token constant">SEEK_SET</span> &#x4EE5;&#x6587;&#x4EF6;&#x5F00;&#x5934;&#x4E3A;&#x9501;&#x5B9A;&#x7684;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;&#x3002;
-<span class="token constant">SEEK_CUR</span> &#x4EE5;&#x76EE;&#x524D;&#x6587;&#x4EF6;&#x8BFB;&#x5199;&#x4F4D;&#x7F6E;&#x4E3A;&#x9501;&#x5B9A;&#x7684;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;
-<span class="token constant">SEEK_END</span> &#x4EE5;&#x6587;&#x4EF6;&#x7ED3;&#x5C3E;&#x4E3A;&#x9501;&#x5B9A;&#x7684;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;&#x3002;
+l_whence &#x4E5F;&#x6709;&#x4E09;&#x79CD;&#x65B9;&#x5F0F;:
+SEEK_SET &#x4EE5;&#x6587;&#x4EF6;&#x5F00;&#x5934;&#x4E3A;&#x9501;&#x5B9A;&#x7684;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;&#x3002;
+SEEK_CUR &#x4EE5;&#x76EE;&#x524D;&#x6587;&#x4EF6;&#x8BFB;&#x5199;&#x4F4D;&#x7F6E;&#x4E3A;&#x9501;&#x5B9A;&#x7684;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;
+SEEK_END &#x4EE5;&#x6587;&#x4EF6;&#x7ED3;&#x5C3E;&#x4E3A;&#x9501;&#x5B9A;&#x7684;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;&#x3002;
 
-<span class="token comment">//&#x8FD4;&#x56DE;&#x503C;</span>
-&#x6210;&#x529F;&#x5219;&#x8FD4;&#x56DE;<span class="token number">0</span>&#xFF0C;&#x82E5;&#x6709;&#x9519;&#x8BEF;&#x5219;&#x8FD4;&#x56DE;<span class="token operator">-</span><span class="token number">1</span>&#xFF0C;&#x9519;&#x8BEF;&#x539F;&#x56E0;&#x5B58;&#x4E8E;errno<span class="token punctuation">.</span>
+//&#x8FD4;&#x56DE;&#x503C;
+&#x6210;&#x529F;&#x5219;&#x8FD4;&#x56DE;0&#xFF0C;&#x82E5;&#x6709;&#x9519;&#x8BEF;&#x5219;&#x8FD4;&#x56DE;-1&#xFF0C;&#x9519;&#x8BEF;&#x539F;&#x56E0;&#x5B58;&#x4E8E;errno.
 </code></pre>
 <h1 id="&#x4F7F;&#x7528;gcc&#x5185;&#x5EFA;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x8C03;&#x7528;&#x8005;"><a name="&#x4F7F;&#x7528;gcc&#x5185;&#x5EFA;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x8C03;&#x7528;&#x8005;" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;gcc&#x5185;&#x5EFA;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x8C03;&#x7528;&#x8005;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x4F7F;&#x7528;gcc&#x5185;&#x5EFA;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x8C03;&#x7528;&#x8005;</h1>
 <p>&#x5728;kernel&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;, &#x6709;&#x4E0B;&#x9762;&#x7684;&#x6253;&#x5370;:</p>
-<pre class="language-"><code class="lang-c">memblock_reserve<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x00000100000000</span><span class="token operator">-</span><span class="token number">0x00000100829fff</span><span class="token punctuation">]</span> flags <span class="token number">0x0</span> early_init_devtree<span class="token operator">+</span><span class="token number">0x104</span><span class="token operator">/</span><span class="token number">0x350</span>
-memblock_reserve<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x00000000c10000</span><span class="token operator">-</span><span class="token number">0x0000000166fdc7</span><span class="token punctuation">]</span> flags <span class="token number">0x0</span> early_init_fdt_scan_reserved_mem<span class="token operator">+</span><span class="token number">0x5c</span><span class="token operator">/</span><span class="token number">0x7c</span>
-memblock_reserve<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0x000001fe000000</span><span class="token operator">-</span><span class="token number">0x000001feffffff</span><span class="token punctuation">]</span> flags <span class="token number">0x0</span> memblock_alloc_range_nid<span class="token operator">+</span><span class="token number">0x70</span><span class="token operator">/</span><span class="token number">0x7c</span>
+<pre><code class="lang-c">memblock_reserve: [0x00000100000000-0x00000100829fff] flags 0x0 early_init_devtree+0x104/0x350
+memblock_reserve: [0x00000000c10000-0x0000000166fdc7] flags 0x0 early_init_fdt_scan_reserved_mem+0x5c/0x7c
+memblock_reserve: [0x000001fe000000-0x000001feffffff] flags 0x0 memblock_alloc_range_nid+0x70/0x7c
 </code></pre>
 <p>&#x770B;&#x8D77;&#x6765;<code>memblock_reserve</code>&#x662F;&#x4E2A;&#x51FD;&#x6570;, &#x8868;&#x793A;&#x54EA;&#x6BB5;&#x533A;&#x95F4;&#x7684;&#x5185;&#x5B58;&#x88AB;reserve&#x4E86;. &#x5B83;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x6253;&#x5370;&#x5B57;&#x6BB5;&#x6709;&#x610F;&#x601D;, &#x662F;&#x8C03;&#x7528;&#x8005;&#x7684;&#x51FD;&#x6570;&#x540D;&#x5417;?
 &#x6253;&#x5370;&#x51FA;&#x81EA;:</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> __init_memblock <span class="token function">memblock_reserve</span><span class="token punctuation">(</span><span class="token class-name">phys_addr_t</span> base<span class="token punctuation">,</span> <span class="token class-name">phys_addr_t</span> size<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
- <span class="token function">memblock_dbg</span><span class="token punctuation">(</span><span class="token string">&quot;memblock_reserve: [%#016llx-%#016llx] flags %#02lx %pF\n&quot;</span><span class="token punctuation">,</span>
-       <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span>base<span class="token punctuation">,</span>
-       <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span>base <span class="token operator">+</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span>
-       <span class="token number">0UL</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>_RET_IP_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">int __init_memblock memblock_reserve(phys_addr_t base, phys_addr_t size)
+{
+ memblock_dbg(&quot;memblock_reserve: [%#016llx-%#016llx] flags %#02lx %pF\n&quot;,
+       (unsigned long long)base,
+       (unsigned long long)base + size - 1,
+       0UL, (void *)_RET_IP_);
 
- <span class="token keyword">return</span> <span class="token function">memblock_add_range</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>memblock<span class="token punctuation">.</span>reserved<span class="token punctuation">,</span> base<span class="token punctuation">,</span> size<span class="token punctuation">,</span> MAX_NUMNODES<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+ return memblock_add_range(&amp;memblock.reserved, base, size, MAX_NUMNODES, 0);
+}
 </code></pre>
 <p>&#x800C;<code>_RET_IP_</code>&#x662F;<code>#define _RET_IP_    (unsigned long)__builtin_return_address(0)</code></p>
 <p><code>__builtin_return_address</code>&#x662F;gcc&#x63D0;&#x4F9B;&#x7684;&#x5185;&#x5EFA;&#x51FD;&#x6570;, &#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x51FD;&#x6570;&#x7684;&#x8FD4;&#x56DE;&#x5730;&#x5740;. level0&#x8868;&#x793A;&#x5F53;&#x524D;&#x51FD;&#x6570;, level1&#x8868;&#x793A;&#x8FD4;&#x56DE;&#x5176;&#x7236;&#x51FD;&#x6570;&#x7684;&#x8FD4;&#x56DE;&#x5730;&#x5740;, &#x4EE5;&#x6B64;&#x7C7B;&#x63A8;.<br><code>Built-in Function: void * __builtin_return_address (unsigned int level)</code></p>
@@ -3074,14 +3077,14 @@ memblock_reserve<span class="token operator">:</span> <span class="token punctua
 <p>&#x8FD9;&#x4E2A;&#x5730;&#x65B9;&#x975E;&#x5E38;&#x65E9;, trace_printk()&#x8FD8;&#x6CA1;&#x6765;&#x5F97;&#x53CA;&#x88AB;&#x8C03;&#x7528;.</p>
 <p>&#x90A3;kernel&#x600E;&#x4E48;&#x77E5;&#x9053;&#x8981;&#x6253;&#x5370;&#x8FD9;&#x4E2A;&#x5462;? &#x5982;&#x679C;&#x4EE3;&#x7801;&#x91CC;&#x6CA1;&#x6709;&#x8C03;&#x7528;trace_printk(), &#x662F;&#x6CA1;&#x6709;&#x8FD9;&#x4E2A;&#x6253;&#x5370;&#x7684;
 &#x8FD9;&#x4E2A;warning&#x662F;&#x5728;<code>trace_printk_init_buffers()</code>&#x6253;&#x5370;&#x7684;, &#x6761;&#x4EF6;&#x662F;<br><code>if (__stop___trace_bprintk_fmt != __start___trace_bprintk_fmt)</code><br>&#x8FD9;&#x4E24;&#x4E2A;&quot;&#x53D8;&#x91CF;&quot;&#x662F;&#x6307;&#x9488;:</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">extern</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>__start___trace_bprintk_fmt<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">extern</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>__stop___trace_bprintk_fmt<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">extern const char *__start___trace_bprintk_fmt[];
+extern const char *__stop___trace_bprintk_fmt[];
 </code></pre>
 <p><img src="img/c_&#x7F16;&#x7A0B;&#x6742;&#x8BB0;&#x9AD8;&#x7EA7;&#x7BC7;_20221011160935.png" alt="">  </p>
 <p>&#x5728;&#x94FE;&#x63A5;&#x811A;&#x672C;&#x91CC;<code>include/asm-generic/vmlinux.lds.h</code></p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">TRACE_PRINTKS</span><span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token function">VMLINUX_SYMBOL</span><span class="token punctuation">(</span>__start___trace_bprintk_fmt<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span>__trace_printk_fmt<span class="token punctuation">)</span> </span><span class="token comment">/* Trace_printk fmt&apos; pointer */</span> <span class="token punctuation">\</span>
-    <span class="token expression"><span class="token function">VMLINUX_SYMBOL</span><span class="token punctuation">(</span>__stop___trace_bprintk_fmt<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">;</span></span></span>
+<pre><code class="lang-c">#define TRACE_PRINTKS() VMLINUX_SYMBOL(__start___trace_bprintk_fmt) = .; \
+    *(__trace_printk_fmt) /* Trace_printk fmt&apos; pointer */ \
+    VMLINUX_SYMBOL(__stop___trace_bprintk_fmt) = .;
 </code></pre>
 <p>OK, &#x518D;&#x6765;&#x770B;&#x770B;<code>trace_printk()</code>&#x7684;&#x5B9A;&#x4E49;:<br><img src="img/c_&#x7F16;&#x7A0B;&#x6742;&#x8BB0;&#x9AD8;&#x7EA7;&#x7BC7;_20221011161009.png" alt="">  </p>
 <p>&#x539F;&#x6765;, trace_printk()&#x7684;&#x5165;&#x53C2;fmt, &#x662F;&#x4FDD;&#x5B58;&#x5728;<code>__trace_printk_fmt</code>&#x8FD9;&#x4E2A;section&#x7684;, &#x7528;trace_printk_fmt&#x6307;&#x9488;&#x6307;&#x5411;&#x5B83;.</p>
@@ -3094,36 +3097,36 @@ memblock_reserve<span class="token operator">:</span> <span class="token punctua
 &#x8FD9;&#x6837;&#x505A;, &#x53EF;&#x4EE5;&#x5728;&#x4E00;&#x4E2A;C&#x6587;&#x4EF6;&#x91CC;, &#x540C;&#x65F6;&#x5B8C;&#x6210;&#x547D;&#x4EE4;&#x7684;&#x5B9E;&#x73B0;, &#x548C;&#x547D;&#x4EE4;&#x7684;&#x6CE8;&#x518C;.
 &#x8FD9;&#x4E2A;&#x7279;&#x6B8A;&#x7684;section, &#x53EF;&#x4EE5;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x8BBF;&#x95EE;.</p>
 <p>&#x6BD4;&#x5982;bootm&#x547D;&#x4EE4;, &#x5728;<code>common/cmd_bootm.c</code>&#x4E2D;, &#x662F;&#x8FD9;&#x6837;&#x6CE8;&#x518C;&#x7684;:</p>
-<pre class="language-"><code class="lang-c"><span class="token function">U_BOOT_CMD</span><span class="token punctuation">(</span>
-    bootm<span class="token punctuation">,</span> CONFIG_SYS_MAXARGS<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> do_bootm<span class="token punctuation">,</span>
-    <span class="token string">&quot;boot application image from memory&quot;</span><span class="token punctuation">,</span> bootm_help_text
-<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">U_BOOT_CMD(
+    bootm, CONFIG_SYS_MAXARGS, 1, do_bootm,
+    &quot;boot application image from memory&quot;, bootm_help_text
+);
 </code></pre>
 <p>&#x8FD9;&#x4E2A;&#x5B8F;, &#x4F1A;&#x628A;bootm&#x76F8;&#x5173;&#x7684;&#x8981;&#x7D20;: &#x547D;&#x4EE4;, &#x51FD;&#x6570;, &#x8BF4;&#x660E;, &#x5199;&#x5165;&#x7279;&#x6B8A;&#x7684;&#x6BB5;&#x5185;, &#x9700;&#x8981;&#x94FE;&#x63A5;&#x5668;&#x914D;&#x5408;.
 linux kernel&#x4E5F;&#x7ECF;&#x5E38;&#x7528;&#x8FD9;&#x4E2A;&#x673A;&#x5236;.</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">U_BOOT_CMD</span><span class="token expression"><span class="token punctuation">(</span>_name<span class="token punctuation">,</span> _maxargs<span class="token punctuation">,</span> _rep<span class="token punctuation">,</span> _cmd<span class="token punctuation">,</span> _usage<span class="token punctuation">,</span> _help<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token function">U_BOOT_CMD_COMPLETE</span><span class="token punctuation">(</span>_name<span class="token punctuation">,</span> _maxargs<span class="token punctuation">,</span> _rep<span class="token punctuation">,</span> _cmd<span class="token punctuation">,</span> _usage<span class="token punctuation">,</span> _help<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span></span></span>
+<pre><code class="lang-c">#define U_BOOT_CMD(_name, _maxargs, _rep, _cmd, _usage, _help) \
+    U_BOOT_CMD_COMPLETE(_name, _maxargs, _rep, _cmd, _usage, _help, NULL)
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">U_BOOT_CMD_COMPLETE</span><span class="token expression"><span class="token punctuation">(</span>_name<span class="token punctuation">,</span> _maxargs<span class="token punctuation">,</span> _rep<span class="token punctuation">,</span> _cmd<span class="token punctuation">,</span> _usage<span class="token punctuation">,</span> _help<span class="token punctuation">,</span> _comp<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token function">ll_entry_declare</span><span class="token punctuation">(</span><span class="token class-name">cmd_tbl_t</span><span class="token punctuation">,</span> _name<span class="token punctuation">,</span> cmd<span class="token punctuation">)</span> <span class="token operator">=</span> </span><span class="token punctuation">\</span>
-        <span class="token expression"><span class="token function">U_BOOT_CMD_MKENT_COMPLETE</span><span class="token punctuation">(</span>_name<span class="token punctuation">,</span> _maxargs<span class="token punctuation">,</span> _rep<span class="token punctuation">,</span> _cmd<span class="token punctuation">,</span> </span><span class="token punctuation">\</span>
-                <span class="token expression">_usage<span class="token punctuation">,</span> _help<span class="token punctuation">,</span> _comp<span class="token punctuation">)</span><span class="token punctuation">;</span></span></span>
+#define U_BOOT_CMD_COMPLETE(_name, _maxargs, _rep, _cmd, _usage, _help, _comp) \
+    ll_entry_declare(cmd_tbl_t, _name, cmd) = \
+        U_BOOT_CMD_MKENT_COMPLETE(_name, _maxargs, _rep, _cmd, \
+                _usage, _help, _comp);
 </code></pre>
 <p>&#x5173;&#x952E;&#x5728;&#x4E8E;<code>include/linker_lists.h</code>&#x4E2D;:</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">ll_entry_declare</span><span class="token expression"><span class="token punctuation">(</span>_type<span class="token punctuation">,</span> _name<span class="token punctuation">,</span> _list<span class="token punctuation">)</span>     </span><span class="token punctuation">\</span>
-    <span class="token expression">_type _u_boot_list_2_</span><span class="token punctuation">##</span><span class="token expression">_list</span><span class="token punctuation">##</span><span class="token expression">_2_</span><span class="token punctuation">##</span><span class="token expression">_name <span class="token function">__aligned</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token keyword">__attribute__</span><span class="token punctuation">(</span><span class="token punctuation">(</span>unused<span class="token punctuation">,</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token function">section</span><span class="token punctuation">(</span></span><span class="token string">&quot;.u_boot_list_2_&quot;</span><span class="token directive-hash">#</span><span class="token expression">_list</span><span class="token string">&quot;_2_&quot;</span><span class="token directive-hash">#</span><span class="token expression">_name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<pre><code class="lang-c">#define ll_entry_declare(_type, _name, _list)     \
+    _type _u_boot_list_2_##_list##_2_##_name __aligned(4) \
+    __attribute__((unused, \
+    section(&quot;.u_boot_list_2_&quot;#_list&quot;_2_&quot;#_name)))
 </code></pre>
 <p>&#x53EF;&#x4EE5;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x8BBF;&#x95EE;, &#x56E0;&#x4E3A;&#x53EF;&#x4EE5;&#x627E;&#x5230;&#x6570;&#x7EC4;&#x7684;&quot;&#x57FA;&#x5730;&#x5740;&quot;</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">my_sub_cmd</span> <span class="token operator">*</span>msc <span class="token operator">=</span> <span class="token function">ll_entry_start</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">my_sub_cmd</span><span class="token punctuation">,</span> cmd_sub<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">struct my_sub_cmd *msc = ll_entry_start(struct my_sub_cmd, cmd_sub);
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">ll_entry_start</span><span class="token expression"><span class="token punctuation">(</span>_type<span class="token punctuation">,</span> _list<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-<span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">{</span>                                                    </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token keyword">static</span> <span class="token keyword">char</span> start<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token function">__aligned</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token keyword">__attribute__</span><span class="token punctuation">(</span><span class="token punctuation">(</span>unused<span class="token punctuation">,</span> </span><span class="token punctuation">\</span>
-        <span class="token expression"><span class="token function">section</span><span class="token punctuation">(</span></span><span class="token string">&quot;.u_boot_list_2_&quot;</span><span class="token directive-hash">#</span><span class="token expression">_list</span><span class="token string">&quot;_1&quot;</span><span class="token expression"><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token punctuation">(</span>_type <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>start<span class="token punctuation">;</span>                                        </span><span class="token punctuation">\</span>
-<span class="token expression"><span class="token punctuation">}</span><span class="token punctuation">)</span></span></span>
+#define ll_entry_start(_type, _list) \
+({                                                    \
+    static char start[0] __aligned(4) __attribute__((unused, \
+        section(&quot;.u_boot_list_2_&quot;#_list&quot;_1&quot;))); \
+    (_type *)&amp;start;                                        \
+})
 </code></pre>
 <h1 id="c&#x5B9E;&#x73B0;&#x57FA;&#x7C7B;&#x6D3E;&#x751F;"><a name="c&#x5B9E;&#x73B0;&#x57FA;&#x7C7B;&#x6D3E;&#x751F;" class="anchor-navigation-ex-anchor" href="#c&#x5B9E;&#x73B0;&#x57FA;&#x7C7B;&#x6D3E;&#x751F;"><i class="fa fa-link" aria-hidden="true"></i></a>8. C&#x5B9E;&#x73B0;&#x57FA;&#x7C7B;&#x6D3E;&#x751F;</h1>
 <p>&#x5173;&#x952E;&#x70B9;: C&#x91CC;&#x9762;, &#x6D3E;&#x751F;&#x7C7B;&#x7684;&#x7ED3;&#x6784;&#x4F53;, &#x663E;&#x5F0F;&#x7684;&#x5728;&#x6700;&#x5F00;&#x59CB;&#x5305;&#x542B;&#x5176;&#x57FA;&#x7C7B;&#x7684;&#x7ED3;&#x6784;&#x4F53;.<br>&#x8FD9;&#x6837;, &#x5728;&#x77E5;&#x9053;&#x4E00;&#x4E2A;&#x6307;&#x9488;&#x662F;&#x57FA;&#x7C7B;, &#x4F46;&#x5B9E;&#x9645;&#x662F;&#x6D3E;&#x751F;&#x7C7B;&#x7684;&#x60C5;&#x51B5;&#x4E0B;, &#x53EF;&#x4EE5;&#x6307;&#x9488;&#x5F3A;&#x8F6C;&#x6210;&#x6D3E;&#x751F;&#x7C7B;.</p>
@@ -3132,15 +3135,15 @@ linux kernel&#x4E5F;&#x7ECF;&#x5E38;&#x7528;&#x8FD9;&#x4E2A;&#x673A;&#x5236;.</p
 <p>GNU&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;runtime&#x5B8F;&#x6765;&#x68C0;&#x67E5;&#x4E24;&#x4E2A;&#x7C7B;&#x578B;&#x662F;&#x5426;&#x4E00;&#x6837;:
 <code>int __builtin_types_compatible_p(type_a, type_b);</code>
 type_a&#x548C;type_b&#x4E00;&#x81F4;, &#x8FD4;&#x56DE;1; &#x5426;&#x5219;&#x8FD4;&#x56DE;0<br>&#x4F7F;&#x7528;</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">__COMPARE_TYPES</span><span class="token expression"><span class="token punctuation">(</span>v<span class="token punctuation">,</span> t<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token function">__builtin_types_compatible_p</span><span class="token punctuation">(</span><span class="token function">__typeof__</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span></span></span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__COMPARE_TYPES</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> <span class="token keyword">double</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token function">err</span><span class="token punctuation">(</span>EX_DATAERR<span class="token punctuation">,</span> <span class="token string">&quot;invalid type&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">#define __COMPARE_TYPES(v, t) \
+    __builtin_types_compatible_p(__typeof__(v), t)
+...
+if (__COMPARE_TYPES(p, double) != 0)
+    err(EX_DATAERR, &quot;invalid type&quot;);
 </code></pre>
 <h2 id="&#x5B9E;&#x4F8B;"><a name="&#x5B9E;&#x4F8B;" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x4F8B;"><i class="fa fa-link" aria-hidden="true"></i></a>8.2. &#x5B9E;&#x4F8B;</h2>
 <p><img src="img/c_&#x7F16;&#x7A0B;&#x6742;&#x8BB0;&#x9AD8;&#x7EA7;&#x7BC7;_20221011161141.png" alt=""><br><img src="img/c_&#x7F16;&#x7A0B;&#x6742;&#x8BB0;&#x9AD8;&#x7EA7;&#x7BC7;_20221011161204.png" alt=""><br>&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x7B80;&#x5316;&#x4E3A;</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">stack_entry</span> <span class="token operator">*</span>field <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">stack_entry</span> <span class="token operator">*</span><span class="token punctuation">)</span> iter<span class="token operator">-&gt;</span>ent
+<pre><code class="lang-c">struct stack_entry *field = (struct stack_entry *) iter-&gt;ent
 </code></pre>
 <h3 id="&#x57FA;&#x7C7B;&#x548C;&#x6D3E;&#x751F;&#x7C7B;"><a name="&#x57FA;&#x7C7B;&#x548C;&#x6D3E;&#x751F;&#x7C7B;" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x7C7B;&#x548C;&#x6D3E;&#x751F;&#x7C7B;"><i class="fa fa-link" aria-hidden="true"></i></a>8.2.1. &#x57FA;&#x7C7B;&#x548C;&#x6D3E;&#x751F;&#x7C7B;</h3>
 <p><code>field</code>&#x662F;<code>stack_entry</code>, &#x800C;<code>iter-&gt;ent</code>&#x662F;<code>trace_entry</code>, &#x662F;&#x4E0D;&#x4E00;&#x6837;&#x7684;. &#x4E3A;&#x4EC0;&#x4E48;&#x80FD;&#x5F3A;&#x8F6C;&#x5462;?</p>
@@ -3150,50 +3153,50 @@ strace_entry&#x88AB;stack_entry&#x5305;&#x542B;&#x5728;&#x5176;&#x7ED3;&#x6784;&
 <p>&#x8FD9;&#x6837;, &#x6307;&#x5411;&#x57FA;&#x7C7B;&#x7684;&#x6307;&#x9488;, &#x88AB;&#x5F3A;&#x5236;&#x8F6C;&#x6362;&#x4E3A;&#x6307;&#x5411;&#x5176;&#x6D3E;&#x751F;&#x7C7B;&#x7684;&#x6307;&#x9488;. &#x8FD9;&#x8981;&#x6C42;<code>trace_stack_print</code>&#x7684;&#x5165;&#x53C2;<code>struct trace_iterator *iter</code>, &#x672C;&#x8EAB;&#x5C31;&#x662F;stack_entry&#x6D3E;&#x751F;&#x7C7B;.</p>
 <h1 id="&#x628A;rootfscpio&#x5D4C;&#x5165;&#x5230;vmlinux--incbin&#x7684;&#x4F7F;&#x7528;"><a name="&#x628A;rootfscpio&#x5D4C;&#x5165;&#x5230;vmlinux--incbin&#x7684;&#x4F7F;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x628A;rootfscpio&#x5D4C;&#x5165;&#x5230;vmlinux--incbin&#x7684;&#x4F7F;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>9. &#x628A;rootfs.cpio&#x5D4C;&#x5165;&#x5230;vmlinux--incbin&#x7684;&#x4F7F;&#x7528;</h1>
 <p>&#x5728;<code>linux-octeon-3.0/usr/initramfs_data.S</code>&#x4E2D;<br>&#x4F7F;&#x7528;&#x4E86;.incbin<br>&#x5176;&#x4E2D;, INITRAMFS_IMAGE&#x4E3A;initramfs_data.cpio.gz</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/stringify.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;asm-generic/vmlinux.lds.h&gt;</span></span>
+<pre><code class="lang-c">#include &lt;linux/stringify.h&gt;
+#include &lt;asm-generic/vmlinux.lds.h&gt;
 
-<span class="token punctuation">.</span>section <span class="token punctuation">.</span>init<span class="token punctuation">.</span>ramfs<span class="token punctuation">,</span><span class="token string">&quot;a&quot;</span>
-__irf_start<span class="token operator">:</span>
-<span class="token punctuation">.</span>incbin <span class="token function">__stringify</span><span class="token punctuation">(</span>INITRAMFS_IMAGE<span class="token punctuation">)</span>
-__irf_end<span class="token operator">:</span>
-<span class="token punctuation">.</span>section <span class="token punctuation">.</span>init<span class="token punctuation">.</span>ramfs<span class="token punctuation">.</span>info<span class="token punctuation">,</span><span class="token string">&quot;a&quot;</span>
-<span class="token punctuation">.</span>globl <span class="token function">VMLINUX_SYMBOL</span><span class="token punctuation">(</span>__initramfs_size<span class="token punctuation">)</span>
-<span class="token function">VMLINUX_SYMBOL</span><span class="token punctuation">(</span>__initramfs_size<span class="token punctuation">)</span><span class="token operator">:</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">CONFIG_64BIT</span></span>
-    <span class="token punctuation">.</span>quad __irf_end <span class="token operator">-</span> __irf_start
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">else</span></span>
-    <span class="token punctuation">.</span><span class="token keyword">long</span> __irf_end <span class="token operator">-</span> __irf_start
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+.section .init.ramfs,&quot;a&quot;
+__irf_start:
+.incbin __stringify(INITRAMFS_IMAGE)
+__irf_end:
+.section .init.ramfs.info,&quot;a&quot;
+.globl VMLINUX_SYMBOL(__initramfs_size)
+VMLINUX_SYMBOL(__initramfs_size):
+#ifdef CONFIG_64BIT
+    .quad __irf_end - __irf_start
+#else
+    .long __irf_end - __irf_start
+#endif
 </code></pre>
 <h1 id="&#x5982;&#x4F55;&#x7528;c&#x8BBE;&#x8BA1;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x7684;&#x4E2D;&#x95F4;&#x5C42;"><a name="&#x5982;&#x4F55;&#x7528;c&#x8BBE;&#x8BA1;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x7684;&#x4E2D;&#x95F4;&#x5C42;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;&#x7528;c&#x8BBE;&#x8BA1;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x7684;&#x4E2D;&#x95F4;&#x5C42;"><i class="fa fa-link" aria-hidden="true"></i></a>10. &#x5982;&#x4F55;&#x7528;C&#x8BBE;&#x8BA1;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x7684;&#x4E2D;&#x95F4;&#x5C42;</h1>
 <h2 id="&#x7236;&#x7C7B;&#x5B50;&#x7C7B;&#x516C;&#x7528;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;"><a name="&#x7236;&#x7C7B;&#x5B50;&#x7C7B;&#x516C;&#x7528;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;" class="anchor-navigation-ex-anchor" href="#&#x7236;&#x7C7B;&#x5B50;&#x7C7B;&#x516C;&#x7528;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;"><i class="fa fa-link" aria-hidden="true"></i></a>10.1. &#x7236;&#x7C7B;&#x5B50;&#x7C7B;&#x516C;&#x7528;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;</h2>
 <p>&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;, &#x5E76;&#x58F0;&#x660E;&#x8FD9;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;: &#x8FD9;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x6709;&#x70B9;&#x50CF;C++&#x7684;&#x7C7B;, &#x4F46;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x662F;&#x7236;&#x7C7B;&#x548C;&#x5B50;&#x7C7B;&#x90FD;&#x5171;&#x7528;&#x8FD9;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;, &#x6240;&#x4EE5;, &#x8FD9;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x5E94;&#x8BE5;&#x8BBE;&#x8BA1;&#x6210;&#x65E2;&#x5305;&#x62EC;&#x516C;&#x6709;&#x65B9;&#x6CD5;&#x7684;&#x6307;&#x9488;, &#x53C8;&#x5305;&#x62EC;&#x79C1;&#x6709;&#x65B9;&#x6CD5;&#x7684;&#x6307;&#x9488;. </p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">typedef</span> <span class="token keyword">struct</span>
-<span class="token punctuation">{</span>
-    &#x4E00;&#x4E9B;&#x63A7;&#x5236;&#x53D8;&#x91CF;<span class="token punctuation">;</span>
-    <span class="token comment">//&#x7236;&#x7C7B;&#x65B9;&#x6CD5;&#x6307;&#x9488;, &#x7531;&#x7236;&#x7C7B;C&#x6587;&#x4EF6;&#x63D0;&#x4F9B;&#x9ED8;&#x8BA4;&#x503C;;</span>
-    <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>lock<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>unlock<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>reset<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">int</span> stop_core<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">uint64_t</span> <span class="token punctuation">(</span><span class="token operator">*</span>read_register<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">int</span> core<span class="token punctuation">,</span> <span class="token keyword">int</span> reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>write_register<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">int</span> core<span class="token punctuation">,</span> <span class="token keyword">int</span> reg<span class="token punctuation">,</span> <span class="token class-name">uint64_t</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">uint64_t</span> <span class="token punctuation">(</span><span class="token operator">*</span>read_csr<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token class-name">uint64_t</span> physical_address<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>write_csr<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token class-name">uint64_t</span> physical_address<span class="token punctuation">,</span> <span class="token class-name">uint64_t</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">typedef struct
+{
+    &#x4E00;&#x4E9B;&#x63A7;&#x5236;&#x53D8;&#x91CF;;
+    //&#x7236;&#x7C7B;&#x65B9;&#x6CD5;&#x6307;&#x9488;, &#x7531;&#x7236;&#x7C7B;C&#x6587;&#x4EF6;&#x63D0;&#x4F9B;&#x9ED8;&#x8BA4;&#x503C;;
+    void (*lock)(void);
+    void (*unlock)(void);
+    int (*reset)(int stop_core);
+    uint64_t (*read_register)(int core, int reg);
+    void (*write_register)(int core, int reg, uint64_t value);
+    uint64_t (*read_csr)(uint64_t physical_address);
+    void (*write_csr)(uint64_t physical_address, uint64_t value);
 
-    <span class="token comment">//&#x5B50;&#x7C7B;&#x65B9;&#x6CD5;, &#x5206;&#x522B;&#x7531;&#x5B50;&#x7C7B;C&#x6587;&#x4EF6;&#x63D0;&#x4F9B;</span>
-    <span class="token keyword">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>open<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>remote_spec<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>close<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>read_mem<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>buffer<span class="token punctuation">,</span> <span class="token class-name">uint64_t</span> physical_address<span class="token punctuation">,</span> <span class="token keyword">int</span> length<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>write_mem<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token class-name">uint64_t</span> physical_address<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>buffer<span class="token punctuation">,</span> <span class="token keyword">int</span> length<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">uint64_t</span> <span class="token punctuation">(</span><span class="token operator">*</span>get_running_cores<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-     <span class="token class-name">uint32_t</span> <span class="token punctuation">(</span><span class="token operator">*</span>get_num_cores<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span> <span class="token class-name">octeon_remote_funcs_t</span><span class="token punctuation">;</span>
-<span class="token comment">/*&#x5168;&#x5C40;&#x53D8;&#x91CF;*/</span>
-<span class="token keyword">static</span> <span class="token class-name">octeon_remote_funcs_t</span> remote_funcs<span class="token punctuation">;</span>
+    //&#x5B50;&#x7C7B;&#x65B9;&#x6CD5;, &#x5206;&#x522B;&#x7531;&#x5B50;&#x7C7B;C&#x6587;&#x4EF6;&#x63D0;&#x4F9B;
+    int (*open)(const char *remote_spec);
+    void (*close)(void);
+    void (*read_mem)(void *buffer, uint64_t physical_address, int length);
+    void (*write_mem)(uint64_t physical_address, const void *buffer, int length);
+    uint64_t (*get_running_cores)(void);
+     uint32_t (*get_num_cores)(void);
+} octeon_remote_funcs_t;
+/*&#x5168;&#x5C40;&#x53D8;&#x91CF;*/
+static octeon_remote_funcs_t remote_funcs;
 </code></pre>
 <h2 id="&#x4E00;&#x4E2A;&#x516C;&#x5171;c&#x6587;&#x4EF6;-&#x548C;&#x82E5;&#x5E72;&#x4E2A;&#x5B50;&#x7C7B;c&#x6587;&#x4EF6;"><a name="&#x4E00;&#x4E2A;&#x516C;&#x5171;c&#x6587;&#x4EF6;-&#x548C;&#x82E5;&#x5E72;&#x4E2A;&#x5B50;&#x7C7B;c&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x4E00;&#x4E2A;&#x516C;&#x5171;c&#x6587;&#x4EF6;-&#x548C;&#x82E5;&#x5E72;&#x4E2A;&#x5B50;&#x7C7B;c&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>10.2. &#x4E00;&#x4E2A;&#x516C;&#x5171;C&#x6587;&#x4EF6;, &#x548C;&#x82E5;&#x5E72;&#x4E2A;&quot;&#x5B50;&#x7C7B;&quot;C&#x6587;&#x4EF6;</h2>
-<pre class="language-"><code>&#x7236;&#x7C7B;:
+<pre><code>&#x7236;&#x7C7B;:
 octeon-remote.c
 &#x5B50;&#x7C7B;:
     octeon-remote-cvmx.c          
@@ -3209,83 +3212,83 @@ octeon-remote.c
 <h2 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>10.3. &#x603B;&#x7ED3;</h2>
 <p>&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;&#x5C01;&#x88C5;, &#x8981;&#x6C42;&#x5168;&#x90E8;&#x5B50;&#x7C7B;&#x7684;&#x4EE3;&#x7801;&#x90FD;&#x8981;&#x53C2;&#x4E0E;&#x7F16;&#x8BD1;. &#x53EA;&#x662F;&#x8FD0;&#x884C;&#x9636;&#x6BB5;, &#x6839;&#x636E;&#x60C5;&#x51B5;, &#x9009;&#x62E9;&#x4F7F;&#x7528;&#x67D0;&#x4E2A;&#x5B50;&#x7C7B;. </p>
 <h1 id="syslog&#x8BB0;&#x5F55;log&#x5230;syslogd"><a name="syslog&#x8BB0;&#x5F55;log&#x5230;syslogd" class="anchor-navigation-ex-anchor" href="#syslog&#x8BB0;&#x5F55;log&#x5230;syslogd"><i class="fa fa-link" aria-hidden="true"></i></a>11. syslog&#x8BB0;&#x5F55;log&#x5230;syslogd</h1>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;syslog.h&gt;</span></span>
+<pre><code class="lang-c">#include &lt;syslog.h&gt;
 
-<span class="token function">setlogmask</span> <span class="token punctuation">(</span><span class="token function">LOG_UPTO</span> <span class="token punctuation">(</span>LOG_NOTICE<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+setlogmask (LOG_UPTO (LOG_NOTICE));
 
-<span class="token function">openlog</span> <span class="token punctuation">(</span><span class="token string">&quot;exampleprog&quot;</span><span class="token punctuation">,</span> LOG_CONS <span class="token operator">|</span> LOG_PID <span class="token operator">|</span> LOG_NDELAY<span class="token punctuation">,</span> LOG_LOCAL1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+openlog (&quot;exampleprog&quot;, LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
 
-<span class="token function">syslog</span> <span class="token punctuation">(</span>LOG_NOTICE<span class="token punctuation">,</span> <span class="token string">&quot;Program started by User %d&quot;</span><span class="token punctuation">,</span> <span class="token function">getuid</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">syslog</span> <span class="token punctuation">(</span>LOG_INFO<span class="token punctuation">,</span> <span class="token string">&quot;A tree falls in a forest&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+syslog (LOG_NOTICE, &quot;Program started by User %d&quot;, getuid ());
+syslog (LOG_INFO, &quot;A tree falls in a forest&quot;);
 
-<span class="token function">closelog</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+closelog ();
 </code></pre>
 <h1 id="&#x4F7F;&#x7528;&#x5B8F;&#x62FC;&#x63A5;"><a name="&#x4F7F;&#x7528;&#x5B8F;&#x62FC;&#x63A5;" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;&#x5B8F;&#x62FC;&#x63A5;"><i class="fa fa-link" aria-hidden="true"></i></a>12. &#x4F7F;&#x7528;&#x5B8F;&#x62FC;&#x63A5;</h1>
 <ul>
 <li>&#x5B9A;&#x4E49;&#x5BC4;&#x5B58;&#x5668;&#x8868;board_cpld_registers.h, &#x6CE8;&#x610F;&#x4E0D;&#x8981;&#x52A0;&#x5934;&#x6587;&#x4EF6;&#x536B;&#x58EB;  </li>
 </ul>
-<pre class="language-"><code class="lang-c"><span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>CIPHER1<span class="token punctuation">,</span>                   <span class="token number">0x00</span><span class="token punctuation">,</span>   <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">)</span>
-<span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>CIPHER2<span class="token punctuation">,</span>                   <span class="token number">0x01</span><span class="token punctuation">,</span>   <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">)</span>
-<span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>CIPHER3<span class="token punctuation">,</span>                   <span class="token number">0x02</span><span class="token punctuation">,</span>   <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">)</span>
-<span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>CIPHER4<span class="token punctuation">,</span>                   <span class="token number">0x03</span><span class="token punctuation">,</span>   <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">)</span>
-<span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>VERSION<span class="token punctuation">,</span>                   <span class="token number">0x07</span><span class="token punctuation">,</span>   <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">)</span>
-<span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>REVISION<span class="token punctuation">,</span>                  <span class="token number">0x08</span><span class="token punctuation">,</span>   <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">)</span>
-<span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>REG_GICI_SHELF_BPSW<span class="token punctuation">,</span>       <span class="token number">0x0b</span><span class="token punctuation">,</span>   <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">)</span>
-<span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>SHELF_ID<span class="token punctuation">,</span>                  <span class="token number">0x0b</span><span class="token punctuation">,</span>   <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">2</span><span class="token punctuation">)</span>
-<span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>BPSW<span class="token punctuation">,</span>                      <span class="token number">0x0b</span><span class="token punctuation">,</span>   <span class="token number">4</span><span class="token punctuation">,</span>  <span class="token number">3</span><span class="token punctuation">)</span>
-<span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>GICI_P<span class="token punctuation">,</span>                    <span class="token number">0x0b</span><span class="token punctuation">,</span>   <span class="token number">7</span><span class="token punctuation">,</span>  <span class="token number">1</span><span class="token punctuation">)</span>
-<span class="token function">cpld_declare_reg</span><span class="token punctuation">(</span>REG_NTR_STAT<span class="token punctuation">,</span>              <span class="token number">0x0e</span><span class="token punctuation">,</span>   <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">8</span><span class="token punctuation">)</span>
+<pre><code class="lang-c">cpld_declare_reg(CIPHER1,                   0x00,   0,  8)
+cpld_declare_reg(CIPHER2,                   0x01,   0,  8)
+cpld_declare_reg(CIPHER3,                   0x02,   0,  8)
+cpld_declare_reg(CIPHER4,                   0x03,   0,  8)
+cpld_declare_reg(VERSION,                   0x07,   0,  8)
+cpld_declare_reg(REVISION,                  0x08,   0,  8)
+cpld_declare_reg(REG_GICI_SHELF_BPSW,       0x0b,   0,  8)
+cpld_declare_reg(SHELF_ID,                  0x0b,   0,  2)
+cpld_declare_reg(BPSW,                      0x0b,   4,  3)
+cpld_declare_reg(GICI_P,                    0x0b,   7,  1)
+cpld_declare_reg(REG_NTR_STAT,              0x0e,   0,  8)
 </code></pre>
 <ul>
 <li>&#x5728;&#x516C;&#x5171;&#x5934;&#x6587;&#x4EF6;&#x91CC;&#x5B9A;&#x4E49;&#x5B8F;&#x63A5;&#x53E3;, &#x4F7F;&#x7528;&#x5B8F;&#x62FC;&#x63A5;##&#x6765;&#x7B80;&#x5316;&#x64CD;&#x4F5C;  </li>
 </ul>
-<pre class="language-"><code class="lang-c"><span class="token keyword">extern</span> <span class="token class-name">spinlock_t</span> cpld_lock<span class="token punctuation">;</span>
+<pre><code class="lang-c">extern spinlock_t cpld_lock;
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">undef</span> <span class="token expression">cpld_declare_reg</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">cpld_declare_reg</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">,</span>d<span class="token punctuation">)</span> a<span class="token punctuation">,</span></span></span>
-<span class="token keyword">enum</span> <span class="token class-name">cpld_field_id</span> <span class="token punctuation">{</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;board_cpld_registers.h&quot;</span></span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
+#undef cpld_declare_reg
+#define cpld_declare_reg(a,b,c,d) a,
+enum cpld_field_id {
+#include &quot;board_cpld_registers.h&quot;
+};
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">undef</span> <span class="token expression">cpld_declare_reg</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">cpld_declare_reg</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">,</span>d<span class="token punctuation">)</span> a</span><span class="token punctuation">##</span><span class="token expression">_OFFSET_ <span class="token operator">=</span> b<span class="token punctuation">,</span></span></span>
-<span class="token keyword">enum</span> <span class="token class-name">cpld_field_offset</span> <span class="token punctuation">{</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;board_cpld_registers.h&quot;</span></span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
+#undef cpld_declare_reg
+#define cpld_declare_reg(a,b,c,d) a##_OFFSET_ = b,
+enum cpld_field_offset {
+#include &quot;board_cpld_registers.h&quot;
+};
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">undef</span> <span class="token expression">cpld_declare_reg</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">cpld_declare_reg</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">,</span>d<span class="token punctuation">)</span> a</span><span class="token punctuation">##</span><span class="token expression">_START_BIT_ <span class="token operator">=</span> c<span class="token punctuation">,</span></span></span>
-<span class="token keyword">enum</span> <span class="token class-name">cpld_field_start_bit</span> <span class="token punctuation">{</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;board_cpld_registers.h&quot;</span></span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
+#undef cpld_declare_reg
+#define cpld_declare_reg(a,b,c,d) a##_START_BIT_ = c,
+enum cpld_field_start_bit {
+#include &quot;board_cpld_registers.h&quot;
+};
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">undef</span> <span class="token expression">cpld_declare_reg</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">cpld_declare_reg</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">,</span>d<span class="token punctuation">)</span> a</span><span class="token punctuation">##</span><span class="token expression">_MASK_ <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">,</span></span></span>
-<span class="token keyword">enum</span> <span class="token class-name">cpld_field_mask</span> <span class="token punctuation">{</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;board_cpld_registers.h&quot;</span></span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
+#undef cpld_declare_reg
+#define cpld_declare_reg(a,b,c,d) a##_MASK_ = ((1 &lt;&lt; (d)) - 1) &lt;&lt; (c),
+enum cpld_field_mask {
+#include &quot;board_cpld_registers.h&quot;
+};
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">rd_cpld_field</span><span class="token expression"><span class="token punctuation">(</span>base<span class="token punctuation">,</span> field_nr<span class="token punctuation">,</span> pval<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-        <span class="token expression"><span class="token keyword">do</span> <span class="token punctuation">{</span> </span><span class="token punctuation">\</span>
-            <span class="token expression"><span class="token keyword">unsigned</span> <span class="token keyword">long</span> __flags<span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression">u8 __tmp<span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression"><span class="token function">spin_lock_irqsave</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>cpld_lock<span class="token punctuation">,</span> __flags<span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression">__tmp <span class="token operator">=</span> <span class="token function">ioread8</span><span class="token punctuation">(</span><span class="token punctuation">(</span>base<span class="token punctuation">)</span> <span class="token operator">+</span> field_nr</span><span class="token punctuation">##</span><span class="token expression">_OFFSET_<span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression"><span class="token function">spin_unlock_irqrestore</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>cpld_lock<span class="token punctuation">,</span> __flags<span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression"><span class="token operator">*</span><span class="token punctuation">(</span>pval<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span>__tmp <span class="token operator">&amp;</span> field_nr</span><span class="token punctuation">##</span><span class="token expression">_MASK_<span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> field_nr</span><span class="token punctuation">##</span><span class="token expression">_START_BIT_<span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-        <span class="token expression"><span class="token punctuation">}</span><span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span></span></span>
+#define rd_cpld_field(base, field_nr, pval) \
+        do { \
+            unsigned long __flags; \
+            u8 __tmp; \
+            spin_lock_irqsave(&amp;cpld_lock, __flags); \
+            __tmp = ioread8((base) + field_nr##_OFFSET_); \
+            spin_unlock_irqrestore(&amp;cpld_lock, __flags); \
+            *(pval) = (__tmp &amp; field_nr##_MASK_) &gt;&gt; field_nr##_START_BIT_; \
+        }while(0)
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span>  <span class="token macro-name function">wr_cpld_field</span><span class="token expression"><span class="token punctuation">(</span>base<span class="token punctuation">,</span> field_nr<span class="token punctuation">,</span> val<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-        <span class="token expression"><span class="token keyword">do</span> <span class="token punctuation">{</span> </span><span class="token punctuation">\</span>
-            <span class="token expression"><span class="token keyword">unsigned</span> <span class="token keyword">long</span> __flags<span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression">u8 __tmp<span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression"><span class="token function">spin_lock_irqsave</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>cpld_lock<span class="token punctuation">,</span> __flags<span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression">__tmp <span class="token operator">=</span> <span class="token function">ioread8</span><span class="token punctuation">(</span><span class="token punctuation">(</span>base<span class="token punctuation">)</span> <span class="token operator">+</span> field_nr</span><span class="token punctuation">##</span><span class="token expression">_OFFSET_<span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression">__tmp <span class="token operator">&amp;=</span> <span class="token punctuation">(</span>u8<span class="token punctuation">)</span><span class="token operator">~</span>field_nr</span><span class="token punctuation">##</span><span class="token expression">_MASK_<span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression">__tmp <span class="token operator">|=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> field_nr</span><span class="token punctuation">##</span><span class="token expression">_START_BIT_<span class="token punctuation">)</span> <span class="token operator">&amp;</span> field_nr</span><span class="token punctuation">##</span><span class="token expression">_MASK_<span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression"><span class="token function">iowrite8</span><span class="token punctuation">(</span>__tmp<span class="token punctuation">,</span> <span class="token punctuation">(</span>base<span class="token punctuation">)</span> <span class="token operator">+</span> field_nr</span><span class="token punctuation">##</span><span class="token expression">_OFFSET_<span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-            <span class="token expression"><span class="token function">spin_unlock_irqrestore</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>cpld_lock<span class="token punctuation">,</span> __flags<span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-        <span class="token expression"><span class="token punctuation">}</span><span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span></span></span>
+#define  wr_cpld_field(base, field_nr, val) \
+        do { \
+            unsigned long __flags; \
+            u8 __tmp; \
+            spin_lock_irqsave(&amp;cpld_lock, __flags); \
+            __tmp = ioread8((base) + field_nr##_OFFSET_); \
+            __tmp &amp;= (u8)~field_nr##_MASK_; \
+            __tmp |= ((val) &lt;&lt; field_nr##_START_BIT_) &amp; field_nr##_MASK_; \
+            iowrite8(__tmp, (base) + field_nr##_OFFSET_); \
+            spin_unlock_irqrestore(&amp;cpld_lock, __flags); \
+        }while(0)
 </code></pre>
 
                                 
@@ -3330,10 +3333,11 @@ octeon-remote.c
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"C编程杂记高级篇","level":"1.9.3","depth":2,"next":{"title":"C编程杂记基础篇","level":"1.9.4","depth":2,"path":"notes/c_编程杂记基础篇.md","ref":"notes/c_编程杂记基础篇.md","articles":[]},"previous":{"title":"makefile","level":"1.9.2","depth":2,"path":"notes/makefile_原理和实践.md","ref":"notes/makefile_原理和实践.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/c_编程杂记高级篇.md","mtime":"2022-10-11T14:47:23.670Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"C编程杂记高级篇","level":"1.9.3","depth":2,"next":{"title":"C编程杂记基础篇","level":"1.9.4","depth":2,"path":"notes/c_编程杂记基础篇.md","ref":"notes/c_编程杂记基础篇.md","articles":[]},"previous":{"title":"makefile","level":"1.9.2","depth":2,"path":"notes/makefile_原理和实践.md","ref":"notes/makefile_原理和实践.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/c_编程杂记高级篇.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3372,6 +3376,7 @@ octeon-remote.c
         
     
 
+        
     </body>
 </html>
 

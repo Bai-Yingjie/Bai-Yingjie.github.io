@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2924,38 +2927,38 @@
 <code>sudo usermod -a -G docker gitlab-runner</code></p>
 <h3 id="&#x5B89;&#x88C5;runner"><a name="&#x5B89;&#x88C5;runner" class="anchor-navigation-ex-anchor" href="#&#x5B89;&#x88C5;runner"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.3. &#x5B89;&#x88C5;runner</h3>
 <p>&#x589E;&#x52A0;gitlab&#x6E90;</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment"># For Debian/Ubuntu/Mint</span>
-<span class="token function">curl</span> <span class="token parameter variable">-L</span> https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span>
+<pre><code class="lang-sh"># For Debian/Ubuntu/Mint
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
 
-<span class="token comment"># For RHEL/CentOS/Fedora</span>
-<span class="token function">curl</span> <span class="token parameter variable">-L</span> https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span>
+# For RHEL/CentOS/Fedora
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh | sudo bash
 </code></pre>
 <p>&#x5B89;&#x88C5;</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment"># For Debian/Ubuntu/Mint</span>
-<span class="token builtin class-name">export</span> <span class="token assign-left variable">GITLAB_RUNNER_DISABLE_SKEL</span><span class="token operator">=</span>true<span class="token punctuation">;</span> <span class="token function">sudo</span> <span class="token parameter variable">-E</span> <span class="token function">apt-get</span> <span class="token function">install</span> gitlab-runner
+<pre><code class="lang-sh"># For Debian/Ubuntu/Mint
+export GITLAB_RUNNER_DISABLE_SKEL=true; sudo -E apt-get install gitlab-runner
 
-<span class="token comment"># For RHEL/CentOS/Fedora</span>
-<span class="token builtin class-name">export</span> <span class="token assign-left variable">GITLAB_RUNNER_DISABLE_SKEL</span><span class="token operator">=</span>true<span class="token punctuation">;</span> <span class="token function">sudo</span> <span class="token parameter variable">-E</span> yum <span class="token function">install</span> gitlab-runner
+# For RHEL/CentOS/Fedora
+export GITLAB_RUNNER_DISABLE_SKEL=true; sudo -E yum install gitlab-runner
 </code></pre>
 <h3 id="&#x6CE8;&#x518C;runner"><a name="&#x6CE8;&#x518C;runner" class="anchor-navigation-ex-anchor" href="#&#x6CE8;&#x518C;runner"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.4. &#x6CE8;&#x518C;runner</h3>
 <p>&#x6839;&#x636E;&#x4E0A;&#x9762;&#x5DE5;&#x7A0B;&#x7684;&#x4FE1;&#x606F;, &#x6CE8;&#x518C;runner</p>
-<pre class="language-"><code class="lang-sh"><span class="token function">sudo</span> gitlab-runner register <span class="token punctuation">\</span>
-  <span class="token parameter variable">--url</span> <span class="token string">&quot;https://gitlabe1.ext.net.nokia.com/&quot;</span> <span class="token punctuation">\</span>
-  <span class="token parameter variable">--description</span> <span class="token string">&quot;docker-godevsig&quot;</span> <span class="token punctuation">\</span>
-  --registration-token <span class="token string">&quot;Aprw1hQ6nuxyra5dzVwQ&quot;</span> <span class="token punctuation">\</span>
-  <span class="token parameter variable">--executor</span> <span class="token string">&quot;docker&quot;</span> <span class="token punctuation">\</span>
-  --tag-list <span class="token string">&quot;docker-generic&quot;</span> <span class="token punctuation">\</span>
+<pre><code class="lang-sh">sudo gitlab-runner register \
+  --url &quot;https://gitlabe1.ext.net.nokia.com/&quot; \
+  --description &quot;docker-godevsig&quot; \
+  --registration-token &quot;Aprw1hQ6nuxyra5dzVwQ&quot; \
+  --executor &quot;docker&quot; \
+  --tag-list &quot;docker-generic&quot; \
   --docker-image alpine:latest
 </code></pre>
 <p>&#x5728;ubuntu&#x4E0A;, &#x770B;runner&#x670D;&#x52A1;&#x7684;&#x72B6;&#x6001;</p>
-<pre class="language-"><code class="lang-sh">yingjieb@cloud-server-1:~$ systemctl status gitlab-runner
+<pre><code class="lang-sh">yingjieb@cloud-server-1:~$ systemctl status gitlab-runner
 &#x25CF; gitlab-runner.service - GitLab Runner
-   Loaded: loaded <span class="token punctuation">(</span>/etc/systemd/system/gitlab-runner.service<span class="token punctuation">;</span> enabled<span class="token punctuation">;</span> vendor preset: enabled<span class="token punctuation">)</span>
-   Active: active <span class="token punctuation">(</span>running<span class="token punctuation">)</span> since Sat <span class="token number">2020</span>-09-19 <span class="token number">16</span>:11:41 UTC<span class="token punctuation">;</span> <span class="token number">2</span> days ago
- Main PID: <span class="token number">1944</span> <span class="token punctuation">(</span>gitlab-runner<span class="token punctuation">)</span>
-    Tasks: <span class="token number">35</span> <span class="token punctuation">(</span>limit: <span class="token number">4915</span><span class="token punctuation">)</span>
+   Loaded: loaded (/etc/systemd/system/gitlab-runner.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sat 2020-09-19 16:11:41 UTC; 2 days ago
+ Main PID: 1944 (gitlab-runner)
+    Tasks: 35 (limit: 4915)
    CGroup: /system.slice/gitlab-runner.service
-           &#x2514;&#x2500;1944 /usr/bin/gitlab-runner run --working-directory /home/gitlab-runner <span class="token parameter variable">--config</span> /etc/gitlab-runner/config.toml <span class="token parameter variable">--service</span> gitlab-runner <span class="token parameter variable">--syslog</span> <span class="token parameter variable">--user</span> gitlab-runner
+           &#x2514;&#x2500;1944 /usr/bin/gitlab-runner run --working-directory /home/gitlab-runner --config /etc/gitlab-runner/config.toml --service gitlab-runner --syslog --user gitlab-runner
 </code></pre>
 <ul>
 <li>&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x662F;<code>/home/gitlab-runner</code></li>
@@ -2964,7 +2967,7 @@
 </ul>
 <h1 id="runner&#x4F7F;&#x7528;&#x548C;gitlab-ciyml"><a name="runner&#x4F7F;&#x7528;&#x548C;gitlab-ciyml" class="anchor-navigation-ex-anchor" href="#runner&#x4F7F;&#x7528;&#x548C;gitlab-ciyml"><i class="fa fa-link" aria-hidden="true"></i></a>2. runner&#x4F7F;&#x7528;&#x548C;.gitlab-ci.yml</h1>
 <h2 id="runner&#x7BA1;&#x7406;"><a name="runner&#x7BA1;&#x7406;" class="anchor-navigation-ex-anchor" href="#runner&#x7BA1;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. runner&#x7BA1;&#x7406;</h2>
-<pre class="language-"><code class="lang-sh">yingjieb@cloud-server-1:~$ gitlab-runner <span class="token parameter variable">-h</span>
+<pre><code class="lang-sh">yingjieb@cloud-server-1:~$ gitlab-runner -h
 &#x652F;&#x6301;&#x5F88;&#x591A;&#x547D;&#x4EE4;
 start
 stop
@@ -2972,7 +2975,7 @@ restart
 status
 register
 unregister
-<span class="token function">install</span>
+install
 uninstall
 &#x7B49;&#x7B49;
 </code></pre>
@@ -2991,60 +2994,60 @@ service&#x7684;&#x73A9;&#x6CD5;&#x662F;&#x542F;&#x52A8;&#x4E00;&#x4E2A;service&#
 job&#x662F;&#x7528;&#x6237;&#x5B9A;&#x4E49;&#x7684;, &#x4F46;&#x4E0D;&#x80FD;&#x662F;<a href="https://docs.gitlab.com/ee/ci/yaml/README.html#unavailable-names-for-jobs" target="_blank">&#x4FDD;&#x7559;&#x5B57;</a>
 job&#x7684;script&#x662F;&#x5FC5;&#x987B;&#x7684;, <a href="https://docs.gitlab.com/ee/ci/yaml/README.html#configuration-parameters" target="_blank">&#x53EF;&#x4EE5;&#x6709;&#x5176;&#x4ED6;&#x53EF;&#x9009;&#x914D;&#x7F6E;</a></p>
 <p><a href="https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Go.gitlab-ci.yml" target="_blank">&#x5B98;&#x65B9;&#x4F8B;&#x5B50;for go:</a></p>
-<pre class="language-"><code class="lang-yaml"><span class="token key atrule">image</span><span class="token punctuation">:</span> golang<span class="token punctuation">:</span>latest
+<pre><code class="lang-yaml">image: golang:latest
 
-<span class="token key atrule">variables</span><span class="token punctuation">:</span>
-  <span class="token comment"># Please edit to your GitLab project</span>
-  <span class="token key atrule">REPO_NAME</span><span class="token punctuation">:</span> gitlab.com/namespace/project
+variables:
+  # Please edit to your GitLab project
+  REPO_NAME: gitlab.com/namespace/project
 
-<span class="token comment"># The problem is that to be able to use go get, one needs to put</span>
-<span class="token comment"># the repository in the $GOPATH. So for example if your gitlab domain</span>
-<span class="token comment"># is gitlab.com, and that your repository is namespace/project, and</span>
-<span class="token comment"># the default GOPATH being /go, then you&apos;d need to have your</span>
-<span class="token comment"># repository in /go/src/gitlab.com/namespace/project</span>
-<span class="token comment"># Thus, making a symbolic link corrects this.</span>
-<span class="token key atrule">before_script</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> mkdir <span class="token punctuation">-</span>p $GOPATH/src/$(dirname $REPO_NAME)
-  <span class="token punctuation">-</span> ln <span class="token punctuation">-</span>svf $CI_PROJECT_DIR $GOPATH/src/$REPO_NAME
-  <span class="token punctuation">-</span> cd $GOPATH/src/$REPO_NAME
+# The problem is that to be able to use go get, one needs to put
+# the repository in the $GOPATH. So for example if your gitlab domain
+# is gitlab.com, and that your repository is namespace/project, and
+# the default GOPATH being /go, then you&apos;d need to have your
+# repository in /go/src/gitlab.com/namespace/project
+# Thus, making a symbolic link corrects this.
+before_script:
+  - mkdir -p $GOPATH/src/$(dirname $REPO_NAME)
+  - ln -svf $CI_PROJECT_DIR $GOPATH/src/$REPO_NAME
+  - cd $GOPATH/src/$REPO_NAME
 
-<span class="token key atrule">stages</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> test
-  <span class="token punctuation">-</span> build
-  <span class="token punctuation">-</span> deploy
+stages:
+  - test
+  - build
+  - deploy
 
-<span class="token key atrule">format</span><span class="token punctuation">:</span>
-  <span class="token key atrule">stage</span><span class="token punctuation">:</span> test
-  <span class="token key atrule">script</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> go fmt $(go list ./<span class="token punctuation">...</span> <span class="token punctuation">|</span> grep <span class="token punctuation">-</span>v /vendor/)
-    <span class="token punctuation">-</span> go vet $(go list ./<span class="token punctuation">...</span> <span class="token punctuation">|</span> grep <span class="token punctuation">-</span>v /vendor/)
-    <span class="token punctuation">-</span> go test <span class="token punctuation">-</span>race $(go list ./<span class="token punctuation">...</span> <span class="token punctuation">|</span> grep <span class="token punctuation">-</span>v /vendor/)
+format:
+  stage: test
+  script:
+    - go fmt $(go list ./... | grep -v /vendor/)
+    - go vet $(go list ./... | grep -v /vendor/)
+    - go test -race $(go list ./... | grep -v /vendor/)
 
-<span class="token key atrule">compile</span><span class="token punctuation">:</span>
-  <span class="token key atrule">stage</span><span class="token punctuation">:</span> build
-  <span class="token key atrule">script</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> go build <span class="token punctuation">-</span>race <span class="token punctuation">-</span>ldflags &quot;<span class="token punctuation">-</span>extldflags &apos;<span class="token punctuation">-</span>static&apos;&quot; <span class="token punctuation">-</span>o $CI_PROJECT_DIR/mybinary
-  <span class="token key atrule">artifacts</span><span class="token punctuation">:</span>
-    <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> mybinary
+compile:
+  stage: build
+  script:
+    - go build -race -ldflags &quot;-extldflags &apos;-static&apos;&quot; -o $CI_PROJECT_DIR/mybinary
+  artifacts:
+    paths:
+      - mybinary
 </code></pre>
 <h2 id="&#x5168;&#x5C40;&#x914D;&#x7F6E;"><a name="&#x5168;&#x5C40;&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x5168;&#x5C40;&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>2.5. &#x5168;&#x5C40;&#x914D;&#x7F6E;</h2>
 <p>&#x6709;&#x51E0;&#x4E2A;&#x914D;&#x7F6E;<a href="https://docs.gitlab.com/ee/ci/yaml/README.html#global-defaults" target="_blank">&#x53EF;&#x4EE5;&#x914D;&#x6210;&#x5168;&#x5C40;&#x7684;</a></p>
 <h2 id="stages&#x548C;workflow"><a name="stages&#x548C;workflow" class="anchor-navigation-ex-anchor" href="#stages&#x548C;workflow"><i class="fa fa-link" aria-hidden="true"></i></a>2.6. stages&#x548C;workflow</h2>
 <p>stages&#x662F;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x7684;</p>
-<pre class="language-"><code class="lang-yaml"><span class="token key atrule">stages</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> build
-  <span class="token punctuation">-</span> test
-  <span class="token punctuation">-</span> deploy
+<pre><code class="lang-yaml">stages:
+  - build
+  - test
+  - deploy
 </code></pre>
 <p>workflow&#x662F;&#x5168;&#x5C40;&#x7684;&#x6267;&#x884C;&#x6761;&#x4EF6;, &#x662F;&#x6761;&#x4EF6;&#x89C4;&#x5219;&#x96C6;&#x5408;, &#x89C4;&#x5219;&#x4F9D;&#x6B21;&#x5339;&#x914D;</p>
-<pre class="language-"><code class="lang-yaml"><span class="token key atrule">workflow</span><span class="token punctuation">:</span>
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">if</span><span class="token punctuation">:</span> <span class="token string">&apos;$CI_PIPELINE_SOURCE == &quot;schedule&quot;&apos;</span>
-      <span class="token key atrule">when</span><span class="token punctuation">:</span> never
-    <span class="token punctuation">-</span> <span class="token key atrule">if</span><span class="token punctuation">:</span> <span class="token string">&apos;$CI_PIPELINE_SOURCE == &quot;push&quot;&apos;</span>
-      <span class="token key atrule">when</span><span class="token punctuation">:</span> never
-    <span class="token punctuation">-</span> <span class="token key atrule">when</span><span class="token punctuation">:</span> always
+<pre><code class="lang-yaml">workflow:
+  rules:
+    - if: &apos;$CI_PIPELINE_SOURCE == &quot;schedule&quot;&apos;
+      when: never
+    - if: &apos;$CI_PIPELINE_SOURCE == &quot;push&quot;&apos;
+      when: never
+    - when: always
 </code></pre>
 <p>This example never allows pipelines for schedules or push (branches and tags) pipelines, but does allow pipelines in all other cases, including merge request pipelines.</p>
 <p>workflow&#x6709;<a href="https://docs.gitlab.com/ee/ci/yaml/README.html#workflowrules-templates" target="_blank">&#x5B98;&#x65B9;&#x6A21;&#x677F;</a>&#x53EF;&#x4EE5;&#x53C2;&#x8003;</p>
@@ -3081,7 +3084,7 @@ job&#x7684;script&#x662F;&#x5FC5;&#x987B;&#x7684;, <a href="https://docs.gitlab.
 <h2 id="&#x9884;&#x5B9A;&#x4E49;&#x7684;&#x53D8;&#x91CF;"><a name="&#x9884;&#x5B9A;&#x4E49;&#x7684;&#x53D8;&#x91CF;" class="anchor-navigation-ex-anchor" href="#&#x9884;&#x5B9A;&#x4E49;&#x7684;&#x53D8;&#x91CF;"><i class="fa fa-link" aria-hidden="true"></i></a>2.9. &#x9884;&#x5B9A;&#x4E49;&#x7684;&#x53D8;&#x91CF;</h2>
 <p>&#x6709;&#x4E9B;&#x53D8;&#x91CF;&#x662F;<a href="https://docs.gitlab.com/ee/ci/variables/predefined_variables.html" target="_blank">&#x9884;&#x5B9A;&#x4E49;&#x7684;</a>
 &#x6BD4;&#x5982;</p>
-<pre class="language-"><code>CI_PROJECT_DIR
+<pre><code>CI_PROJECT_DIR
 CI_BUILDS_DIR
 CI_PIPELINE_SOURCE 
 CI_COMMIT_TAG
@@ -3121,7 +3124,7 @@ CI_COMMIT_BRANCH
 <p>&#x539F;&#x56E0;&#x662F;docker&#x5185;&#x7684;mtu&#x8BBE;&#x7F6E;&#x6BD4;host&#x5927;.
 &#x4FEE;&#x6539;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;
 &#x589E;&#x52A0;docker&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;, &#x6307;&#x5B9A;mtu</p>
-<pre class="language-"><code>yingjieb@cloud-server-1:~$ cat /etc/docker/daemon.json
+<pre><code>yingjieb@cloud-server-1:~$ cat /etc/docker/daemon.json
 {
   &quot;mtu&quot;: 1400
 }
@@ -3184,10 +3187,11 @@ CI_COMMIT_BRANCH
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"gitlab CI","level":"1.6.5","depth":2,"next":{"title":"docker操作记录","level":"1.6.6","depth":2,"path":"notes/docker_操作记录.md","ref":"notes/docker_操作记录.md","articles":[]},"previous":{"title":"ssh relay","level":"1.6.4","depth":2,"path":"notes/linux_ssh_relay.md","ref":"notes/linux_ssh_relay.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/gitlab_ci.md","mtime":"2022-10-11T14:47:23.670Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"gitlab CI","level":"1.6.5","depth":2,"next":{"title":"docker操作记录","level":"1.6.6","depth":2,"path":"notes/docker_操作记录.md","ref":"notes/docker_操作记录.md","articles":[]},"previous":{"title":"ssh relay","level":"1.6.4","depth":2,"path":"notes/linux_ssh_relay.md","ref":"notes/linux_ssh_relay.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/gitlab_ci.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3226,6 +3230,7 @@ CI_COMMIT_BRANCH
         
     
 
+        
     </body>
 </html>
 

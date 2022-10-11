@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2869,75 +2872,75 @@
 </ul>
 <h1 id="api"><a name="api" class="anchor-navigation-ex-anchor" href="#api"><i class="fa fa-link" aria-hidden="true"></i></a>1. api</h1>
 <p><code>components/driver/host/api/octeon_user.c</code><br>&#x8FD9;&#x91CC;&#x9762;&#x90FD;&#x662F;&#x5BF9;ioctl&#x7684;&#x5C01;&#x88C5;, api&#x5305;&#x62EC;:<br>&#x5728;octeon_user.h&#x91CC;&#x9762;&#x6709;&#x8BE6;&#x7EC6;&#x8BF4;&#x660E;<br>&#x6700;&#x4E3B;&#x8981;&#x7684;&#x53D1;&#x9001;  </p>
-<pre class="language-"><code>octeon_send_request
+<pre><code>octeon_send_request
 </code></pre><p>&#x68C0;&#x67E5;&#x53D1;&#x9001;&#x540E;&#x7684;&#x60C5;&#x51B5;</p>
-<pre class="language-"><code>octeon_query_request
+<pre><code>octeon_query_request
 octeon_get_stats
 </code></pre><p>&#x8FD8;&#x6709;pcie&#x76F8;&#x5173;&#x7684;&#x63A5;&#x53E3;:<br>config&#x7A7A;&#x95F4;</p>
-<pre class="language-"><code>octeon_read_pcicfg_register
+<pre><code>octeon_read_pcicfg_register
 octeon_write_pcicfg_register
 </code></pre><p>mem&#x7A7A;&#x95F4;, &#x5F97;&#x5230;BAR0 BAR1&#x7684;mapping&#x5730;&#x5740;</p>
-<pre class="language-"><code>octeon_get_mapping_info
+<pre><code>octeon_get_mapping_info
 octeon_read32
 octeon_write32
 </code></pre><p>&#x76F4;&#x63A5;&#x8BBF;&#x95EE;octeon&#x82AF;&#x7247;&#x5730;&#x5740;&#x7684;&#x63A5;&#x53E3;</p>
-<pre class="language-"><code>octeon_read_core_direct
+<pre><code>octeon_read_core_direct
 octeon_write_core_direct
 </code></pre><p>&#x90FD;&#x662F;x86&#x76F4;&#x63A5;&#x8BFB;&#x5199;octeon, &#x4EE5;&#x4E0B;&#x4E24;&#x4E2A;&#x548C;&#x4E0A;&#x9762;&#x4E24;&#x4E2A;&#x6709;&#x4EC0;&#x4E48;&#x533A;&#x522B;?</p>
-<pre class="language-"><code>octeon_read_core
+<pre><code>octeon_read_core
 octeon_write_core
 </code></pre><h1 id="ioctl&#x7684;&#x5B8F;&#x662F;&#x600E;&#x4E48;&#x5B9A;&#x4E49;&#x7684;"><a name="ioctl&#x7684;&#x5B8F;&#x662F;&#x600E;&#x4E48;&#x5B9A;&#x4E49;&#x7684;" class="anchor-navigation-ex-anchor" href="#ioctl&#x7684;&#x5B8F;&#x662F;&#x600E;&#x4E48;&#x5B9A;&#x4E49;&#x7684;"><i class="fa fa-link" aria-hidden="true"></i></a>2. ioctl&#x7684;&#x5B8F;&#x662F;&#x600E;&#x4E48;&#x5B9A;&#x4E49;&#x7684;?</h1>
 <p><code>components/driver/host/include/octeon_ioctl.h</code>
 &#x6BD4;&#x5982;&#x5B9A;&#x4E49;</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">IOCTL_OCTEON_SEND_REQUEST</span>   <span class="token punctuation">\</span>
-        <span class="token expression"><span class="token function">_IOWR</span><span class="token punctuation">(</span>OCTEON_MAGIC<span class="token punctuation">,</span> OCTEON_SEND_REQUEST_CODE<span class="token punctuation">,</span> <span class="token class-name">octeon_soft_request_t</span><span class="token punctuation">)</span></span></span>
+<pre><code class="lang-c">#define IOCTL_OCTEON_SEND_REQUEST   \
+        _IOWR(OCTEON_MAGIC, OCTEON_SEND_REQUEST_CODE, octeon_soft_request_t)
 </code></pre>
 <p>&#x8FD9;&#x91CC;&#x9762;magic&#x662F;</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">OCTEON_MAGIC</span>   <span class="token expression"><span class="token number">0xC1</span></span></span>
+<pre><code class="lang-c">#define OCTEON_MAGIC   0xC1
 </code></pre>
 <p>&#x800C;__IOWR&#x5728;&#x5185;&#x6838;&#x6811;&#x91CC;&#x9762;</p>
-<pre class="language-"><code class="lang-c">linux<span class="token operator">/</span>include<span class="token operator">/</span>uapi<span class="token operator">/</span><span class="token keyword">asm</span><span class="token operator">-</span>generic<span class="token operator">/</span>ioctl<span class="token punctuation">.</span>h
+<pre><code class="lang-c">linux/include/uapi/asm-generic/ioctl.h
 
-<span class="token comment">/* used to create numbers */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IO</span><span class="token expression"><span class="token punctuation">(</span>type<span class="token punctuation">,</span>nr<span class="token punctuation">)</span>        <span class="token function">_IOC</span><span class="token punctuation">(</span>_IOC_NONE<span class="token punctuation">,</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOR</span><span class="token expression"><span class="token punctuation">(</span>type<span class="token punctuation">,</span>nr<span class="token punctuation">,</span>size<span class="token punctuation">)</span>  <span class="token function">_IOC</span><span class="token punctuation">(</span>_IOC_READ<span class="token punctuation">,</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token function">_IOC_TYPECHECK</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOW</span><span class="token expression"><span class="token punctuation">(</span>type<span class="token punctuation">,</span>nr<span class="token punctuation">,</span>size<span class="token punctuation">)</span>  <span class="token function">_IOC</span><span class="token punctuation">(</span>_IOC_WRITE<span class="token punctuation">,</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token function">_IOC_TYPECHECK</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOWR</span><span class="token expression"><span class="token punctuation">(</span>type<span class="token punctuation">,</span>nr<span class="token punctuation">,</span>size<span class="token punctuation">)</span> <span class="token function">_IOC</span><span class="token punctuation">(</span>_IOC_READ<span class="token operator">|</span>_IOC_WRITE<span class="token punctuation">,</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token function">_IOC_TYPECHECK</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOR_BAD</span><span class="token expression"><span class="token punctuation">(</span>type<span class="token punctuation">,</span>nr<span class="token punctuation">,</span>size<span class="token punctuation">)</span>  <span class="token function">_IOC</span><span class="token punctuation">(</span>_IOC_READ<span class="token punctuation">,</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOW_BAD</span><span class="token expression"><span class="token punctuation">(</span>type<span class="token punctuation">,</span>nr<span class="token punctuation">,</span>size<span class="token punctuation">)</span>  <span class="token function">_IOC</span><span class="token punctuation">(</span>_IOC_WRITE<span class="token punctuation">,</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOWR_BAD</span><span class="token expression"><span class="token punctuation">(</span>type<span class="token punctuation">,</span>nr<span class="token punctuation">,</span>size<span class="token punctuation">)</span> <span class="token function">_IOC</span><span class="token punctuation">(</span>_IOC_READ<span class="token operator">|</span>_IOC_WRITE<span class="token punctuation">,</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">__KERNEL__</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOC_TYPECHECK</span><span class="token expression"><span class="token punctuation">(</span>t<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+/* used to create numbers */
+#define _IO(type,nr)        _IOC(_IOC_NONE,(type),(nr),0)
+#define _IOR(type,nr,size)  _IOC(_IOC_READ,(type),(nr),(_IOC_TYPECHECK(size)))
+#define _IOW(type,nr,size)  _IOC(_IOC_WRITE,(type),(nr),(_IOC_TYPECHECK(size)))
+#define _IOWR(type,nr,size) _IOC(_IOC_READ|_IOC_WRITE,(type),(nr),(_IOC_TYPECHECK(size)))
+#define _IOR_BAD(type,nr,size)  _IOC(_IOC_READ,(type),(nr),sizeof(size))
+#define _IOW_BAD(type,nr,size)  _IOC(_IOC_WRITE,(type),(nr),sizeof(size))
+#define _IOWR_BAD(type,nr,size) _IOC(_IOC_READ|_IOC_WRITE,(type),(nr),sizeof(size))
+#ifndef __KERNEL__
+#define _IOC_TYPECHECK(t) (sizeof(t))
+#endif
 </code></pre>
 <p>&#x800C;IOC&#x5728;</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOC</span><span class="token expression"><span class="token punctuation">(</span>dir<span class="token punctuation">,</span>type<span class="token punctuation">,</span>nr<span class="token punctuation">,</span>size<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>dir<span class="token punctuation">)</span>  <span class="token operator">&lt;&lt;</span> _IOC_DIRSHIFT<span class="token punctuation">)</span> <span class="token operator">|</span> </span><span class="token punctuation">\</span>
-     <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> _IOC_TYPESHIFT<span class="token punctuation">)</span> <span class="token operator">|</span> </span><span class="token punctuation">\</span>
-     <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span>   <span class="token operator">&lt;&lt;</span> _IOC_NRSHIFT<span class="token punctuation">)</span> <span class="token operator">|</span> </span><span class="token punctuation">\</span>
-     <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> _IOC_SIZESHIFT<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<pre><code class="lang-c">#define _IOC(dir,type,nr,size) \
+    (((dir)  &lt;&lt; _IOC_DIRSHIFT) | \
+     ((type) &lt;&lt; _IOC_TYPESHIFT) | \
+     ((nr)   &lt;&lt; _IOC_NRSHIFT) | \
+     ((size) &lt;&lt; _IOC_SIZESHIFT))
 </code></pre>
 <p>dir&#x662F;direction&#x7684;&#x610F;&#x601D;</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">_IOC_NONE</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">define</span> <span class="token macro-name">_IOC_NONE</span>  <span class="token expression"><span class="token number">0U</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+<pre><code class="lang-c">#ifndef _IOC_NONE
+# define _IOC_NONE  0U
+#endif
 
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">_IOC_WRITE</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">define</span> <span class="token macro-name">_IOC_WRITE</span> <span class="token expression"><span class="token number">1U</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+#ifndef _IOC_WRITE
+# define _IOC_WRITE 1U
+#endif
 
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">_IOC_READ</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">define</span> <span class="token macro-name">_IOC_READ</span>  <span class="token expression"><span class="token number">2U</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+#ifndef _IOC_READ
+# define _IOC_READ  2U
+#endif
 </code></pre>
 <p>&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x5B8F;&#x53EF;&#x4EE5;&#x5728;&#x9A71;&#x52A8;&#x91CC;&#x9762;&#x7528;</p>
-<pre class="language-"><code class="lang-c"><span class="token comment">/* used to decode ioctl numbers.. */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOC_DIR</span><span class="token expression"><span class="token punctuation">(</span>nr<span class="token punctuation">)</span>        <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> _IOC_DIRSHIFT<span class="token punctuation">)</span> <span class="token operator">&amp;</span> _IOC_DIRMASK<span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOC_TYPE</span><span class="token expression"><span class="token punctuation">(</span>nr<span class="token punctuation">)</span>       <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> _IOC_TYPESHIFT<span class="token punctuation">)</span> <span class="token operator">&amp;</span> _IOC_TYPEMASK<span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOC_NR</span><span class="token expression"><span class="token punctuation">(</span>nr<span class="token punctuation">)</span>     <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> _IOC_NRSHIFT<span class="token punctuation">)</span> <span class="token operator">&amp;</span> _IOC_NRMASK<span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">_IOC_SIZE</span><span class="token expression"><span class="token punctuation">(</span>nr<span class="token punctuation">)</span>       <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>nr<span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> _IOC_SIZESHIFT<span class="token punctuation">)</span> <span class="token operator">&amp;</span> _IOC_SIZEMASK<span class="token punctuation">)</span></span></span>
+<pre><code class="lang-c">/* used to decode ioctl numbers.. */
+#define _IOC_DIR(nr)        (((nr) &gt;&gt; _IOC_DIRSHIFT) &amp; _IOC_DIRMASK)
+#define _IOC_TYPE(nr)       (((nr) &gt;&gt; _IOC_TYPESHIFT) &amp; _IOC_TYPEMASK)
+#define _IOC_NR(nr)     (((nr) &gt;&gt; _IOC_NRSHIFT) &amp; _IOC_NRMASK)
+#define _IOC_SIZE(nr)       (((nr) &gt;&gt; _IOC_SIZESHIFT) &amp; _IOC_SIZEMASK)
 </code></pre>
 
                                 
@@ -2982,10 +2985,11 @@ octeon_write_core
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"PCI-NIC 代码阅读 --api篇","level":"1.15.8.3.2","depth":4,"next":{"title":"PCI-NIC 代码阅读 --driver篇之结构体","level":"1.15.8.3.3","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","ref":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","articles":[]},"previous":{"title":"PCI-NIC 代码阅读 --app篇","level":"1.15.8.3.1","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读app篇.md","ref":"notes/smartNIC_liquidIO_代码阅读app篇.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/smartNIC_liquidIO_代码阅读api篇.md","mtime":"2022-10-11T14:47:24.182Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"PCI-NIC 代码阅读 --api篇","level":"1.15.8.3.2","depth":4,"next":{"title":"PCI-NIC 代码阅读 --driver篇之结构体","level":"1.15.8.3.3","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","ref":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","articles":[]},"previous":{"title":"PCI-NIC 代码阅读 --app篇","level":"1.15.8.3.1","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读app篇.md","ref":"notes/smartNIC_liquidIO_代码阅读app篇.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/smartNIC_liquidIO_代码阅读api篇.md","mtime":"2022-10-11T15:10:43.014Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3024,6 +3028,7 @@ octeon_write_core
         
     
 
+        
     </body>
 </html>
 

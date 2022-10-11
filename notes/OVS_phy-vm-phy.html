@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -3036,40 +3039,40 @@
 </tr>
 </tbody>
 </table>
-<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x589E;&#x52A0;32G&#x7684;hugepage</span>
-<span class="token function">sudo</span> <span class="token function">bash</span> <span class="token parameter variable">-c</span> <span class="token string">&quot;echo 64 &gt; /sys/kernel/mm/hugepages/hugepages-524288kB/nr_hugepages&quot;</span>
-<span class="token comment">#&#x5F00;&#x59CB;ovs</span>
-<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/usr/local/share/openvswitch/scripts
-<span class="token function">sudo</span> ovs-ctl start
-<span class="token comment">#&#x6253;&#x5F00;&#x786C;&#x4EF6;offload, 2.10&#x624D;&#x6709;; 2.9.3&#x6CA1;&#x6548;&#x679C;</span>
-<span class="token comment">#miniflow_extract, dpcls_lookup&#x7B49;&#x51FD;&#x6570;&#x88AB;offload&#x4E86;</span>
-<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:hw-offload<span class="token operator">=</span>true
-<span class="token comment">#&#x591A;&#x6761;&#x6D41;&#x4F1A;&#x6709;&#x7528;? :&#x63D0;&#x9AD8;~15%</span>
-<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:smc-enable<span class="token operator">=</span>true
+<pre><code class="lang-bash">#&#x589E;&#x52A0;32G&#x7684;hugepage
+sudo bash -c &quot;echo 64 &gt; /sys/kernel/mm/hugepages/hugepages-524288kB/nr_hugepages&quot;
+#&#x5F00;&#x59CB;ovs
+export PATH=$PATH:/usr/local/share/openvswitch/scripts
+sudo ovs-ctl start
+#&#x6253;&#x5F00;&#x786C;&#x4EF6;offload, 2.10&#x624D;&#x6709;; 2.9.3&#x6CA1;&#x6548;&#x679C;
+#miniflow_extract, dpcls_lookup&#x7B49;&#x51FD;&#x6570;&#x88AB;offload&#x4E86;
+sudo ovs-vsctl --no-wait set Open_vSwitch . other_config:hw-offload=true
+#&#x591A;&#x6761;&#x6D41;&#x4F1A;&#x6709;&#x7528;? :&#x63D0;&#x9AD8;~15%
+sudo ovs-vsctl --no-wait set Open_vSwitch . other_config:smc-enable=true
 
-<span class="token comment">#&#x6253;&#x5F00;dpdk&#x521D;&#x59CB;&#x5316;</span>
-<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:dpdk-init<span class="token operator">=</span>true
-<span class="token comment">#&#x65B0;&#x589E;&#x4E00;&#x4E2A;bridge, &#x4F7F;&#x7528;&#x7528;&#x6237;&#x6001;datapath&#x6A21;&#x5F0F;</span>
-<span class="token function">sudo</span> ovs-vsctl add-br ovsbr0 -- <span class="token builtin class-name">set</span> bridge ovsbr0 <span class="token assign-left variable">datapath_type</span><span class="token operator">=</span>netdev
-<span class="token comment">#&#x914D;&#x7F6E;pmd&#x8DD1;&#x5728;8&#x4E2A;&#x6838;&#x4E0A;, core 32 33 34 35 36 37 38 39</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:pmd-cpu-mask<span class="token operator">=</span>FF00000000
-<span class="token comment">#&#x914D;&#x7F6E;&#x4F7F;&#x7528;node0&#x7684;16G&#x5185;&#x5B58;.</span>
-<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:dpdk-socket-mem<span class="token operator">=</span><span class="token string">&quot;16384&quot;</span>
+#&#x6253;&#x5F00;dpdk&#x521D;&#x59CB;&#x5316;
+sudo ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-init=true
+#&#x65B0;&#x589E;&#x4E00;&#x4E2A;bridge, &#x4F7F;&#x7528;&#x7528;&#x6237;&#x6001;datapath&#x6A21;&#x5F0F;
+sudo ovs-vsctl add-br ovsbr0 -- set bridge ovsbr0 datapath_type=netdev
+#&#x914D;&#x7F6E;pmd&#x8DD1;&#x5728;8&#x4E2A;&#x6838;&#x4E0A;, core 32 33 34 35 36 37 38 39
+sudo ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=FF00000000
+#&#x914D;&#x7F6E;&#x4F7F;&#x7528;node0&#x7684;16G&#x5185;&#x5B58;.
+sudo ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-socket-mem=&quot;16384&quot;
 
-<span class="token comment">#&#x589E;&#x52A0;&#x7269;&#x7406;port, &#x5BF9;&#x5E94;&#x7269;&#x7406;NIC</span>
-<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkp0 -- <span class="token builtin class-name">set</span> Interface dpdkp0 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdk options:dpdk-devargs<span class="token operator">=</span>0004:01:00.0
-<span class="token comment">#&#x589E;&#x52A0;&#x4E24;&#x4E2A;port, &#x7C7B;&#x578B;&#x662F;dpdkvhostuserclient</span>
-<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkvhostuser0 -- <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdkvhostuserclient
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 options:vhost-server-path<span class="token operator">=</span><span class="token string">&quot;/tmp/dpdkvhostuser0&quot;</span>
-<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkvhostuser1 -- <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdkvhostuserclient
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 options:vhost-server-path<span class="token operator">=</span><span class="token string">&quot;/tmp/dpdkvhostuser1&quot;</span>
+#&#x589E;&#x52A0;&#x7269;&#x7406;port, &#x5BF9;&#x5E94;&#x7269;&#x7406;NIC
+sudo ovs-vsctl add-port ovsbr0 dpdkp0 -- set Interface dpdkp0 type=dpdk options:dpdk-devargs=0004:01:00.0
+#&#x589E;&#x52A0;&#x4E24;&#x4E2A;port, &#x7C7B;&#x578B;&#x662F;dpdkvhostuserclient
+sudo ovs-vsctl add-port ovsbr0 dpdkvhostuser0 -- set Interface dpdkvhostuser0 type=dpdkvhostuserclient
+sudo ovs-vsctl set Interface dpdkvhostuser0 options:vhost-server-path=&quot;/tmp/dpdkvhostuser0&quot;
+sudo ovs-vsctl add-port ovsbr0 dpdkvhostuser1 -- set Interface dpdkvhostuser1 type=dpdkvhostuserclient
+sudo ovs-vsctl set Interface dpdkvhostuser1 options:vhost-server-path=&quot;/tmp/dpdkvhostuser1&quot;
 
-<span class="token comment">#&#x4EE5;&#x4E0B;&#x4E3A;&#x53EF;&#x9009;&#x914D;&#x7F6E;</span>
-<span class="token comment">#&#x914D;&#x7F6E;&#x591A;queue</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 options:n_rxq<span class="token operator">=</span><span class="token number">2</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 options:n_rxq<span class="token operator">=</span><span class="token number">2</span>
-<span class="token comment">#&#x8BBE;&#x7F6E;&#x7269;&#x7406;port&#x4F7F;&#x7528;2&#x4E2A;q</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkp0 options:n_rxq<span class="token operator">=</span><span class="token number">2</span>
+#&#x4EE5;&#x4E0B;&#x4E3A;&#x53EF;&#x9009;&#x914D;&#x7F6E;
+#&#x914D;&#x7F6E;&#x591A;queue
+sudo ovs-vsctl set Interface dpdkvhostuser0 options:n_rxq=2
+sudo ovs-vsctl set Interface dpdkvhostuser1 options:n_rxq=2
+#&#x8BBE;&#x7F6E;&#x7269;&#x7406;port&#x4F7F;&#x7528;2&#x4E2A;q
+sudo ovs-vsctl set Interface dpdkp0 options:n_rxq=2
 </code></pre>
 <h2 id="vm&#x914D;&#x7F6E;"><a name="vm&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#vm&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. VM&#x914D;&#x7F6E;</h2>
 <p>&#x9884;&#x7F6E;&#x6761;&#x4EF6;: libvirtd&#x5DF2;&#x7ECF;&#x6210;&#x529F;&#x542F;&#x52A8;
@@ -3082,26 +3085,26 @@ Disk | hxt-centos7.5-01.qcow2 32G | hxt-centos7.5-02.qcow2 32G
 NIC(for external Net) | virtio NAT |  virtio NAT
 NIC(for test) | vhostuser0 | vhostuser0
 NIC(for test) | vhostuser1 | vhostuser1</p>
-<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x542F;&#x52A8;libvirtd&#x670D;&#x52A1;</span>
-<span class="token function">sudo</span> systemctl start libvirtd
-<span class="token comment">#&#x542F;&#x52A8;virt-manager</span>
-<span class="token function">sudo</span> xauth <span class="token function">add</span> <span class="token variable"><span class="token variable">$(</span>xauth <span class="token parameter variable">-f</span> /home/bai/.Xauthority list <span class="token operator">|</span> <span class="token function">tail</span> <span class="token parameter variable">-1</span><span class="token variable">)</span></span> 
-<span class="token function">sudo</span> virt-manager <span class="token parameter variable">-c</span> <span class="token string">&apos;qemu+unix:///system?socket=/usr/local/var/run/libvirt/libvirt-sock&apos;</span>
-<span class="token comment">#&#x542F;&#x52A8;&#x4E00;&#x4E2A;VM, &#x8FD9;&#x4E2A;VM&#x914D;&#x7F6E;&#x5982;&#x4E0A;</span>
-<span class="token function">sudo</span> <span class="token function">virsh</span> create ~/repo/save/vm/2vhostuser.xml
+<pre><code class="lang-bash">#&#x542F;&#x52A8;libvirtd&#x670D;&#x52A1;
+sudo systemctl start libvirtd
+#&#x542F;&#x52A8;virt-manager
+sudo xauth add $(xauth -f /home/bai/.Xauthority list | tail -1) 
+sudo virt-manager -c &apos;qemu+unix:///system?socket=/usr/local/var/run/libvirt/libvirt-sock&apos;
+#&#x542F;&#x52A8;&#x4E00;&#x4E2A;VM, &#x8FD9;&#x4E2A;VM&#x914D;&#x7F6E;&#x5982;&#x4E0A;
+sudo virsh create ~/repo/save/vm/2vhostuser.xml
 </code></pre>
 <h1 id="&#x5B9E;&#x9A8C;1-ovs&#x5168;&#x90E8;1q"><a name="&#x5B9E;&#x9A8C;1-ovs&#x5168;&#x90E8;1q" class="anchor-navigation-ex-anchor" href="#&#x5B9E;&#x9A8C;1-ovs&#x5168;&#x90E8;1q"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x5B9E;&#x9A8C;1 OVS&#x5168;&#x90E8;1Q</h1>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkp0 options:n_rxq<span class="token operator">=</span><span class="token number">1</span>
-$ <span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 options:n_rxq<span class="token operator">=</span><span class="token number">1</span>
-$ <span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 options:n_rxq<span class="token operator">=</span><span class="token number">1</span>
+<pre><code class="lang-bash">$ sudo ovs-vsctl set Interface dpdkp0 options:n_rxq=1
+$ sudo ovs-vsctl set Interface dpdkvhostuser0 options:n_rxq=1
+$ sudo ovs-vsctl set Interface dpdkvhostuser1 options:n_rxq=1
 
-$ <span class="token function">sudo</span> ovs-appctl dpif/show
+$ sudo ovs-appctl dpif/show
 netdev@ovs-netdev: hit:8540019443 missed:406
         ovsbr0:
-                dpdkp0 <span class="token number">3</span>/4: <span class="token punctuation">(</span>dpdk: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">configured_rxq_descriptors</span><span class="token operator">=</span><span class="token number">2048</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">9</span>, <span class="token assign-left variable">configured_txq_descriptors</span><span class="token operator">=</span><span class="token number">2048</span>, <span class="token assign-left variable">lsc_interrupt_mode</span><span class="token operator">=</span>false, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">requested_rxq_descriptors</span><span class="token operator">=</span><span class="token number">2048</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">9</span>, <span class="token assign-left variable">requested_txq_descriptors</span><span class="token operator">=</span><span class="token number">2048</span>, <span class="token assign-left variable">rx_csum_offload</span><span class="token operator">=</span>true<span class="token punctuation">)</span>
-                dpdkvhostuser0 <span class="token number">1</span>/2: <span class="token punctuation">(</span>dpdkvhostuser: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
-                dpdkvhostuser1 <span class="token number">2</span>/3: <span class="token punctuation">(</span>dpdkvhostuser: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
-                ovsbr0 <span class="token number">65534</span>/1: <span class="token punctuation">(</span>tap<span class="token punctuation">)</span>
+                dpdkp0 3/4: (dpdk: configured_rx_queues=1, configured_rxq_descriptors=2048, configured_tx_queues=9, configured_txq_descriptors=2048, lsc_interrupt_mode=false, mtu=1500, requested_rx_queues=1, requested_rxq_descriptors=2048, requested_tx_queues=9, requested_txq_descriptors=2048, rx_csum_offload=true)
+                dpdkvhostuser0 1/2: (dpdkvhostuser: configured_rx_queues=1, configured_tx_queues=1, mtu=1500, requested_rx_queues=1, requested_tx_queues=1)
+                dpdkvhostuser1 2/3: (dpdkvhostuser: configured_rx_queues=1, configured_tx_queues=1, mtu=1500, requested_rx_queues=1, requested_tx_queues=1)
+                ovsbr0 65534/1: (tap)
 </code></pre>
 <h2 id="&#x62D3;&#x6251;&#x6A21;&#x578B;"><a name="&#x62D3;&#x6251;&#x6A21;&#x578B;" class="anchor-navigation-ex-anchor" href="#&#x62D3;&#x6251;&#x6A21;&#x578B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x62D3;&#x6251;&#x6A21;&#x578B;</h2>
 <h3 id="&#x62D3;&#x6251;1"><a name="&#x62D3;&#x6251;1" class="anchor-navigation-ex-anchor" href="#&#x62D3;&#x6251;1"><i class="fa fa-link" aria-hidden="true"></i></a>3.1.1. &#x62D3;&#x6251;1</h3>
@@ -3345,19 +3348,19 @@ netdev@ovs-netdev: hit:8540019443 missed:406
 </ul>
 <p>CMCC NFV&#x6D4B;&#x8BD5;&#x89C4;&#x8303;: 7.3.5.1    &#x57FA;&#x4E8E;10GE&#x7F51;&#x5361;&#x7684;&#x7F51;&#x7EDC;&#x8F6C;&#x53D1;&#x6027;&#x80FD;<br><img src="img/OVS_phy-vm-phy_20220930233801.png" alt="">  </p>
 <h3 id="pktgen&#x547D;&#x4EE4;&#x53C2;&#x8003;"><a name="pktgen&#x547D;&#x4EE4;&#x53C2;&#x8003;" class="anchor-navigation-ex-anchor" href="#pktgen&#x547D;&#x4EE4;&#x53C2;&#x8003;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3.1. pktgen&#x547D;&#x4EE4;&#x53C2;&#x8003;</h3>
-<pre class="language-"><code class="lang-bash"><span class="token builtin class-name">enable</span> <span class="token number">0</span> range
-<span class="token comment">#&#x4ECE;&#x9ED8;&#x8BA4;&#x72B6;&#x6001;&#x7684;range, IP&#x53D8;&#x5316;2&#x4E2A;</span>
-range <span class="token number">0</span> dst <span class="token function">ip</span> max <span class="token number">192.168</span>.1.2
-<span class="token comment">#&#x4ECE;&#x9ED8;&#x8BA4;&#x72B6;&#x6001;&#x7684;range, &#x6539;&#x4E3A;range&#x6A21;&#x5F0F;&#x7684;&#x5355;&#x6D41;</span>
-range <span class="token number">0</span> dst <span class="token function">ip</span> inc <span class="token number">0.0</span>.0.0
-range <span class="token number">0</span> dst port inc <span class="token number">0</span>
-range <span class="token number">0</span> src port inc <span class="token number">0</span>
-<span class="token comment">#&#x6539;&#x53D8;src mac, 10000&#x4E2A;</span>
-range <span class="token number">0</span> src mac 00:00:00:00:00:01 00:00:00:00:00:01 00:00:00:00:27:10 00:00:00:00:00:01
-<span class="token comment">#&#x6539;&#x53D8;src mac, 2&#x4E2A;</span>
-range <span class="token number">0</span> src mac 00:00:00:00:00:01 00:00:00:00:00:01 00:00:00:00:00:02 00:00:00:00:00:01
-<span class="token comment">#&#x6539;&#x53D8;src mac, 2000&#x4E2A;</span>
-range <span class="token number">0</span> src mac 00:00:00:00:00:01 00:00:00:00:00:01 00:00:00:00:07:d0 00:00:00:00:00:01
+<pre><code class="lang-bash">enable 0 range
+#&#x4ECE;&#x9ED8;&#x8BA4;&#x72B6;&#x6001;&#x7684;range, IP&#x53D8;&#x5316;2&#x4E2A;
+range 0 dst ip max 192.168.1.2
+#&#x4ECE;&#x9ED8;&#x8BA4;&#x72B6;&#x6001;&#x7684;range, &#x6539;&#x4E3A;range&#x6A21;&#x5F0F;&#x7684;&#x5355;&#x6D41;
+range 0 dst ip inc 0.0.0.0
+range 0 dst port inc 0
+range 0 src port inc 0
+#&#x6539;&#x53D8;src mac, 10000&#x4E2A;
+range 0 src mac 00:00:00:00:00:01 00:00:00:00:00:01 00:00:00:00:27:10 00:00:00:00:00:01
+#&#x6539;&#x53D8;src mac, 2&#x4E2A;
+range 0 src mac 00:00:00:00:00:01 00:00:00:00:00:01 00:00:00:00:00:02 00:00:00:00:00:01
+#&#x6539;&#x53D8;src mac, 2000&#x4E2A;
+range 0 src mac 00:00:00:00:00:01 00:00:00:00:00:01 00:00:00:00:07:d0 00:00:00:00:00:01
 </code></pre>
 <h3 id="&#x6027;&#x80FD;&#x6570;&#x636E;"><a name="&#x6027;&#x80FD;&#x6570;&#x636E;" class="anchor-navigation-ex-anchor" href="#&#x6027;&#x80FD;&#x6570;&#x636E;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3.2. &#x6027;&#x80FD;&#x6570;&#x636E;</h3>
 <table>
@@ -3495,30 +3498,30 @@ range <span class="token number">0</span> src mac 00:00:00:00:00:01 00:00:00:00:
 <p>&#x9996;&#x5148;&#x662F;VM&#x91CC;&#x9762;&#x7684;testpmd?
 &#x5176;&#x6B21;&#x662F;dpdkp0&#x6536;&#x5305;?</p>
 <h2 id="&#x914D;flow"><a name="&#x914D;flow" class="anchor-navigation-ex-anchor" href="#&#x914D;flow"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. &#x914D;flow</h2>
-<pre class="language-"><code>#&#x914D;flow
+<pre><code>#&#x914D;flow
 sudo ovs-vsctl set interface dpdkp0 ofport_request=1 
 sudo ovs-vsctl set interface &quot;dpdkvhostuser0&quot; ofport_request=2 
 sudo ovs-vsctl set interface &quot;dpdkvhostuser1&quot; ofport_request=3 
 sudo ovs-ofctl add-flow ovsbr0 in_port=1,action=output:2 
 sudo ovs-ofctl add-flow ovsbr0 in_port=2,action=output:1
 </code></pre><p>&#x624B;&#x52A8;&#x914D;&#x7AEF;&#x53E3;flow&#x4E4B;&#x540E;, &#x6E90;mac&#x53D8;&#x5316;&#x7684;&#x6240;&#x6709;case&#x91CC;, &#x81EA;&#x52A8;&#x751F;&#x6210;&#x7684;flow&#x4E2A;&#x6570;&#x4E00;&#x76F4;&#x4FDD;&#x6301;&#x4E3A;2, &#x6027;&#x80FD;&#x7684;&#x4E0B;&#x964D;&#x4E5F;&#x53D8;&#x5C0F;&#x4E86;&#x5F88;&#x591A;; &#x5BF9;&#x6BD4;&#x4E4B;&#x524D;&#x6CA1;&#x6709;&#x914D;&#x7F6E;port flow&#x89C4;&#x5219;&#x7684;&#x65F6;&#x5019;, &#x751F;&#x6210;&#x7684;flow&#x4E2A;&#x6570;&#x548C;&#x6E90;mac&#x4E2A;&#x6570;&#x6B63;&#x76F8;&#x5173;.</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> ovs-ofctl dump-flows ovsbr0
- <span class="token assign-left variable">cookie</span><span class="token operator">=</span>0x0, <span class="token assign-left variable">duration</span><span class="token operator">=</span><span class="token number">735</span>.584s, <span class="token assign-left variable">table</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">n_packets</span><span class="token operator">=</span><span class="token number">2560466336</span>, <span class="token assign-left variable">n_bytes</span><span class="token operator">=</span><span class="token number">153627980160</span>, <span class="token assign-left variable">in_port</span><span class="token operator">=</span>dpdkp0 <span class="token assign-left variable">actions</span><span class="token operator">=</span>output:dpdkvhostuser0
- <span class="token assign-left variable">cookie</span><span class="token operator">=</span>0x0, <span class="token assign-left variable">duration</span><span class="token operator">=</span><span class="token number">734</span>.856s, <span class="token assign-left variable">table</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">n_packets</span><span class="token operator">=</span><span class="token number">1393435005</span>, <span class="token assign-left variable">n_bytes</span><span class="token operator">=</span><span class="token number">83606100300</span>, <span class="token assign-left variable">in_port</span><span class="token operator">=</span>dpdkvhostuser0 <span class="token assign-left variable">actions</span><span class="token operator">=</span>output:dpdkp0
- <span class="token assign-left variable">cookie</span><span class="token operator">=</span>0x0, <span class="token assign-left variable">duration</span><span class="token operator">=</span><span class="token number">232599</span>.667s, <span class="token assign-left variable">table</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">n_packets</span><span class="token operator">=</span><span class="token number">20420892318</span>, <span class="token assign-left variable">n_bytes</span><span class="token operator">=</span><span class="token number">1225253539080</span>, <span class="token assign-left variable">priority</span><span class="token operator">=</span><span class="token number">0</span> <span class="token assign-left variable">actions</span><span class="token operator">=</span>NORMAL
+<pre><code class="lang-bash">$ sudo ovs-ofctl dump-flows ovsbr0
+ cookie=0x0, duration=735.584s, table=0, n_packets=2560466336, n_bytes=153627980160, in_port=dpdkp0 actions=output:dpdkvhostuser0
+ cookie=0x0, duration=734.856s, table=0, n_packets=1393435005, n_bytes=83606100300, in_port=dpdkvhostuser0 actions=output:dpdkp0
+ cookie=0x0, duration=232599.667s, table=0, n_packets=20420892318, n_bytes=1225253539080, priority=0 actions=NORMAL
 
-$ <span class="token function">sudo</span> ovs-appctl dpctl/dump-flows
-flow-dump from pmd on cpu core: <span class="token number">39</span>
-recirc_id<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>,in_port<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>,packet_type<span class="token punctuation">(</span>ns<span class="token operator">=</span><span class="token number">0</span>,id<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>,eth_type<span class="token punctuation">(</span>0x0800<span class="token punctuation">)</span>,ipv4<span class="token punctuation">(</span>frag<span class="token operator">=</span>no<span class="token punctuation">)</span>, packets:109149103, bytes:6548946180, used:0.000s, flags:., actions:3
-flow-dump from pmd on cpu core: <span class="token number">34</span>
-recirc_id<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>,in_port<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>,packet_type<span class="token punctuation">(</span>ns<span class="token operator">=</span><span class="token number">0</span>,id<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>,eth_type<span class="token punctuation">(</span>0x0800<span class="token punctuation">)</span>,ipv4<span class="token punctuation">(</span>frag<span class="token operator">=</span>no<span class="token punctuation">)</span>, packets:54566419, bytes:3273985140, used:0.000s, flags:., actions:1
+$ sudo ovs-appctl dpctl/dump-flows
+flow-dump from pmd on cpu core: 39
+recirc_id(0),in_port(1),packet_type(ns=0,id=0),eth_type(0x0800),ipv4(frag=no), packets:109149103, bytes:6548946180, used:0.000s, flags:., actions:3
+flow-dump from pmd on cpu core: 34
+recirc_id(0),in_port(3),packet_type(ns=0,id=0),eth_type(0x0800),ipv4(frag=no), packets:54566419, bytes:3273985140, used:0.000s, flags:., actions:1
 </code></pre>
 <h2 id="&#x89E3;&#x51B3;vm&#x91CC;&#x9762;testpmd&#x6027;&#x80FD;&#x4E0D;&#x591F;&#x95EE;&#x9898;"><a name="&#x89E3;&#x51B3;vm&#x91CC;&#x9762;testpmd&#x6027;&#x80FD;&#x4E0D;&#x591F;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x89E3;&#x51B3;vm&#x91CC;&#x9762;testpmd&#x6027;&#x80FD;&#x4E0D;&#x591F;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. &#x89E3;&#x51B3;vm&#x91CC;&#x9762;testpmd&#x6027;&#x80FD;&#x4E0D;&#x591F;&#x95EE;&#x9898;</h2>
 <h2 id="&#x62D3;&#x6251;2&#x8FD0;&#x884C;&#x6570;&#x636E;"><a name="&#x62D3;&#x6251;2&#x8FD0;&#x884C;&#x6570;&#x636E;" class="anchor-navigation-ex-anchor" href="#&#x62D3;&#x6251;2&#x8FD0;&#x884C;&#x6570;&#x636E;"><i class="fa fa-link" aria-hidden="true"></i></a>3.6. &#x62D3;&#x6251;2&#x8FD0;&#x884C;&#x6570;&#x636E;</h2>
 <p>pktgen&#x53D1;64&#x5B57;&#x8282;&#x5C0F;&#x5305;, &#x7ECF;&#x8FC7;OVS&#x5230;VM, VM&#x8DD1;testpmd macswap&#x8F6C;&#x53D1;, &#x7ECF;&#x8FC7;2&#x4E2A;vhost user port</p>
 <p><img src="img/OVS_phy-vm-phy_20220930234724.png" alt="">  </p>
 <p>dpdkp0&#x6536;&#x5305;</p>
-<pre class="language-"><code>dpdkp0:
+<pre><code>dpdkp0:
         RX packets:          4310802 pps
 dpdkp0:
         TX packets:          3918137 pps
@@ -3573,10 +3576,11 @@ dpdkvhostuser1:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"OVS PHY-VM-PHY","level":"1.14.2.5","depth":3,"next":{"title":"网络虚拟化用例记录","level":"1.14.2.6","depth":3,"path":"notes/networking_网络虚拟化用例记录.md","ref":"notes/networking_网络虚拟化用例记录.md","articles":[]},"previous":{"title":"DPDK Mellanox","level":"1.14.2.4","depth":3,"path":"notes/DPDK_Mellanox.md","ref":"notes/DPDK_Mellanox.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/OVS_phy-vm-phy.md","mtime":"2022-10-11T14:47:23.670Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"OVS PHY-VM-PHY","level":"1.14.2.5","depth":3,"next":{"title":"网络虚拟化用例记录","level":"1.14.2.6","depth":3,"path":"notes/networking_网络虚拟化用例记录.md","ref":"notes/networking_网络虚拟化用例记录.md","articles":[]},"previous":{"title":"DPDK Mellanox","level":"1.14.2.4","depth":3,"path":"notes/DPDK_Mellanox.md","ref":"notes/DPDK_Mellanox.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/OVS_phy-vm-phy.md","mtime":"2022-10-11T15:10:42.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3615,6 +3619,7 @@ dpdkvhostuser1:
         
     
 
+        
     </body>
 </html>
 

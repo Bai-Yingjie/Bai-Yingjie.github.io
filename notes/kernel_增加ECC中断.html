@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2865,11 +2868,11 @@
                                 
                                 <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x80CC;&#x666F;"><b>1. </b>&#x80CC;&#x666F;</a></li><li><span class="title-icon "></span><a href="#&#x5C1D;&#x8BD5;1"><b>2. </b>&#x5C1D;&#x8BD5;1</a></li><li><span class="title-icon "></span><a href="#&#x5C1D;&#x8BD5;2"><b>3. </b>&#x5C1D;&#x8BD5;2</a></li><li><span class="title-icon "></span><a href="#&#x7EC8;&#x6781;&#x65B9;&#x6848;"><b>4. </b>&#x7EC8;&#x6781;&#x65B9;&#x6848;</a></li><li><span class="title-icon "></span><a href="#&#x542F;&#x52A8;&#x6253;&#x5370;"><b>5. </b>&#x542F;&#x52A8;&#x6253;&#x5370;</a></li><li><span class="title-icon "></span><a href="#&#x540E;&#x8BB0;"><b>6. </b>&#x540E;&#x8BB0;</a></li></ul></div><a href="#&#x80CC;&#x666F;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="&#x80CC;&#x666F;"><a name="&#x80CC;&#x666F;" class="anchor-navigation-ex-anchor" href="#&#x80CC;&#x666F;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x80CC;&#x666F;</h1>
 <p>&#x6709;&#x7684;&#x677F;&#x5B50;kernel&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x6709;ecc&#x9519;, kernel&#x91CC;&#x9762;&#x6709;&#x4E2A;polling&#x4EFB;&#x52A1;&#x4F1A;&#x6253;&#x5370;</p>
-<pre class="language-"><code>EDAC MC0: 1 CE DIMM 1 rank 1 bank 4 row 65056 col 1020 on any memory ( page:0x0 offset:0x0 grain:0 syndrome:0x0)
+<pre><code>EDAC MC0: 1 CE DIMM 1 rank 1 bank 4 row 65056 col 1020 on any memory ( page:0x0 offset:0x0 grain:0 syndrome:0x0)
 </code></pre><p>&#x4E00;&#x4E2A;workaround&#x601D;&#x8DEF;&#x662F;, &#x68C0;&#x6D4B;&#x5230;ecc&#x9519;&#x7684;&#x65F6;&#x5019;&#x91CD;&#x542F;&#x677F;&#x5B50;. &#x56E0;&#x4E3A;&#x8FD9;&#x4E2A;ecc&#x9519;&#x548C;&#x91CD;&#x542F;&#x76F8;&#x5173;.</p>
 <h1 id="&#x5C1D;&#x8BD5;1"><a name="&#x5C1D;&#x8BD5;1" class="anchor-navigation-ex-anchor" href="#&#x5C1D;&#x8BD5;1"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x5C1D;&#x8BD5;1</h1>
 <p>&#x5728;init&#x811A;&#x672C;&#x91CC;&#x9762;&#x68C0;&#x6D4B;</p>
-<pre class="language-"><code>while true; do
+<pre><code>while true; do
     key=&quot;CE DIMM&quot;
     if `dmesg | grep &quot;$key&quot; &gt;/dev/null` ; then
         echo &quot;i find:  $key&quot;
@@ -2890,72 +2893,72 @@ done
 <p>&#x6302;&#x4E2D;&#x65AD;<br>&#x8FD9;&#x91CC;&#x5148;&#x628A;&#x4EE3;&#x7801;&#x653E;&#x4E0A;&#x6765;
 &#x5728;<code>~/repo/hg/xrepo/OCTEON-SDK-3.1/linux/kernel/linux/drivers/edac/octeon_edac-lmc.c</code>
 &#x6700;&#x540E;&#x52A0;</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression"><span class="token number">1</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/interrupt.h&gt;</span></span>
-<span class="token keyword">static</span> <span class="token class-name">irqreturn_t</span> <span class="token function">interrupt_octeon_lmc</span><span class="token punctuation">(</span><span class="token keyword">int</span> irq<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>dev_id<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token class-name">cvmx_ciu_cib_lmcx_rawx_t</span> cib_lmc_raw<span class="token punctuation">;</span>
-    <span class="token keyword">union</span> cvmx_lmcx_int int_reg<span class="token punctuation">;</span>
-    <span class="token keyword">char</span> msg<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token function">printk</span><span class="token punctuation">(</span><span class="token string">&quot;%s:%d irq=%d&quot;</span><span class="token punctuation">,</span> __FUNCTION__<span class="token punctuation">,</span> <span class="token constant">__LINE__</span><span class="token punctuation">,</span> irq<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cib_lmc_raw<span class="token punctuation">.</span>u64 <span class="token operator">=</span> <span class="token function">cvmx_read_csr</span><span class="token punctuation">(</span><span class="token function">CVMX_CIU_CIB_LMCX_RAWX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">//clear the source</span>
-    <span class="token function">cvmx_write_csr</span><span class="token punctuation">(</span><span class="token function">CVMX_CIU_CIB_LMCX_RAWX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cib_lmc_raw<span class="token punctuation">.</span>u64<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    int_reg<span class="token punctuation">.</span>u64 <span class="token operator">=</span> <span class="token function">cvmx_read_csr</span><span class="token punctuation">(</span><span class="token function">CVMX_LMCX_INT</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printk</span><span class="token punctuation">(</span><span class="token string">&quot;DDR ecc error! LMC0_INT=0x%llx&quot;</span><span class="token punctuation">,</span> int_reg<span class="token punctuation">.</span>u64<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>int_reg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>sec_err <span class="token operator">||</span> int_reg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>ded_err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">union</span> cvmx_lmcx_fadr fadr<span class="token punctuation">;</span>
-        fadr<span class="token punctuation">.</span>u64 <span class="token operator">=</span> <span class="token function">cvmx_read_csr</span><span class="token punctuation">(</span><span class="token function">CVMX_LMCX_FADR</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">snprintf</span><span class="token punctuation">(</span>msg<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">,</span>
-             <span class="token string">&quot;DIMM %d rank %d bank %d row %d col %d&quot;</span><span class="token punctuation">,</span>
-             fadr<span class="token punctuation">.</span>cn61xx<span class="token punctuation">.</span>fdimm<span class="token punctuation">,</span> fadr<span class="token punctuation">.</span>cn61xx<span class="token punctuation">.</span>fbunk<span class="token punctuation">,</span>
-             fadr<span class="token punctuation">.</span>cn61xx<span class="token punctuation">.</span>fbank<span class="token punctuation">,</span> fadr<span class="token punctuation">.</span>cn61xx<span class="token punctuation">.</span>frow<span class="token punctuation">,</span> fadr<span class="token punctuation">.</span>cn61xx<span class="token punctuation">.</span>fcol<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>int_reg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>sec_err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">printk</span><span class="token punctuation">(</span><span class="token string">&quot;single error detected: %s&quot;</span><span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        int_reg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>sec_err <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">/* Done, re-arm */</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>int_reg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>ded_err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">printk</span><span class="token punctuation">(</span><span class="token string">&quot;double error detected: %s&quot;</span><span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        int_reg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>ded_err <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">/* Done, re-arm */</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>int_reg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>nxm_wr_err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">snprintf</span><span class="token punctuation">(</span>msg<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;NXM_WR_ERR: Write to non-existent memory&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">printk</span><span class="token punctuation">(</span><span class="token string">&quot;nxm error detected: %s&quot;</span><span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        int_reg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>nxm_wr_err <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>  <span class="token comment">/* Done, re-arm */</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment">//clear INT</span>
-    <span class="token function">cvmx_write_csr</span><span class="token punctuation">(</span><span class="token function">CVMX_LMCX_INT</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> int_reg<span class="token punctuation">.</span>u64<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> IRQ_HANDLED<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">octeon_setup_lmc_interrupt</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">unsigned</span> <span class="token keyword">int</span> hwirq<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> irq<span class="token punctuation">;</span>
-    <span class="token class-name">cvmx_ciu_cib_lmcx_enx_t</span> cib_lmc_en<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">OCTEON_IS_MODEL</span><span class="token punctuation">(</span>OCTEON_CN70XX<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token function">printk</span><span class="token punctuation">(</span><span class="token string">&quot;ECC workaround for cn70xx!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    hwirq <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">52</span><span class="token punctuation">;</span>
-    irq <span class="token operator">=</span> <span class="token function">irq_create_mapping</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">,</span> hwirq<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printk</span><span class="token punctuation">(</span><span class="token string">&quot;map irq=%d for ecc error&quot;</span><span class="token punctuation">,</span> irq<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>irq<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> <span class="token operator">-</span>EINVAL<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">request_irq</span><span class="token punctuation">(</span>irq<span class="token punctuation">,</span> interrupt_octeon_lmc<span class="token punctuation">,</span>
-            <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">&quot;lmc-ecc-error&quot;</span><span class="token punctuation">,</span> interrupt_octeon_lmc<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">&quot;request_irq(%d) failed.&quot;</span><span class="token punctuation">,</span> irq<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    cib_lmc_en<span class="token punctuation">.</span>u64 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    cib_lmc_en<span class="token punctuation">.</span>s<span class="token punctuation">.</span>int_ded_errx <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    cib_lmc_en<span class="token punctuation">.</span>s<span class="token punctuation">.</span>int_sec_errx <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    cib_lmc_en<span class="token punctuation">.</span>s<span class="token punctuation">.</span>int_nxm_wr_err <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token comment">//enable the interrupt</span>
-    <span class="token function">cvmx_write_csr</span><span class="token punctuation">(</span><span class="token function">CVMX_CIU_CIB_LMCX_ENX</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cib_lmc_en<span class="token punctuation">.</span>u64<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printk</span><span class="token punctuation">(</span><span class="token string">&quot;attach ecc handler done!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token function">core_initcall</span><span class="token punctuation">(</span>octeon_setup_lmc_interrupt<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+<pre><code class="lang-c">#if 1
+#include &lt;linux/interrupt.h&gt;
+static irqreturn_t interrupt_octeon_lmc(int irq, void *dev_id)
+{
+    cvmx_ciu_cib_lmcx_rawx_t cib_lmc_raw;
+    union cvmx_lmcx_int int_reg;
+    char msg[64];
+    printk(&quot;%s:%d irq=%d&quot;, __FUNCTION__, __LINE__, irq);
+    cib_lmc_raw.u64 = cvmx_read_csr(CVMX_CIU_CIB_LMCX_RAWX(0,0));
+    //clear the source
+    cvmx_write_csr(CVMX_CIU_CIB_LMCX_RAWX(0,0), cib_lmc_raw.u64);
+    int_reg.u64 = cvmx_read_csr(CVMX_LMCX_INT(0));
+    printk(&quot;DDR ecc error! LMC0_INT=0x%llx&quot;, int_reg.u64);
+    if (int_reg.s.sec_err || int_reg.s.ded_err) {
+        union cvmx_lmcx_fadr fadr;
+        fadr.u64 = cvmx_read_csr(CVMX_LMCX_FADR(0));
+        snprintf(msg, sizeof(msg),
+             &quot;DIMM %d rank %d bank %d row %d col %d&quot;,
+             fadr.cn61xx.fdimm, fadr.cn61xx.fbunk,
+             fadr.cn61xx.fbank, fadr.cn61xx.frow, fadr.cn61xx.fcol);
+    }
+    if (int_reg.s.sec_err) {
+        printk(&quot;single error detected: %s&quot;, msg);
+        int_reg.s.sec_err = -1; /* Done, re-arm */
+    }
+    if (int_reg.s.ded_err) {
+        printk(&quot;double error detected: %s&quot;, msg);
+        int_reg.s.ded_err = -1; /* Done, re-arm */
+    }
+    if (int_reg.s.nxm_wr_err) {
+        snprintf(msg, sizeof(msg), &quot;NXM_WR_ERR: Write to non-existent memory&quot;);
+        printk(&quot;nxm error detected: %s&quot;, msg);
+        int_reg.s.nxm_wr_err = -1;  /* Done, re-arm */
+    }
+    //clear INT
+    cvmx_write_csr(CVMX_LMCX_INT(0), int_reg.u64);
+    return IRQ_HANDLED;
+}
+static int octeon_setup_lmc_interrupt(void)
+{
+    unsigned int hwirq;
+    int irq;
+    cvmx_ciu_cib_lmcx_enx_t cib_lmc_en;
+    if (!OCTEON_IS_MODEL(OCTEON_CN70XX))
+        return 0;
+    printk(&quot;ECC workaround for cn70xx!&quot;);
+    hwirq = (1 &lt;&lt; 6) + 52;
+    irq = irq_create_mapping(NULL, hwirq);
+    printk(&quot;map irq=%d for ecc error&quot;, irq);
+    if (!irq)
+        return -EINVAL;
+    if (request_irq(irq, interrupt_octeon_lmc,
+            0, &quot;lmc-ecc-error&quot;, interrupt_octeon_lmc)) {
+        panic(&quot;request_irq(%d) failed.&quot;, irq);
+    }
+    cib_lmc_en.u64 = 0;
+    cib_lmc_en.s.int_ded_errx = -1;
+    cib_lmc_en.s.int_sec_errx = -1;
+    cib_lmc_en.s.int_nxm_wr_err = -1;
+    //enable the interrupt
+    cvmx_write_csr(CVMX_CIU_CIB_LMCX_ENX(0,0), cib_lmc_en.u64);
+    printk(&quot;attach ecc handler done!&quot;);
+    return 0;
+}
+core_initcall(octeon_setup_lmc_interrupt);
+#endif
 </code></pre>
 <p>&#x8FD9;&#x91CC;&#x9762;&#x6709;&#x597D;&#x51E0;&#x4E2A;&#x70B9;</p>
 <ul>
@@ -2966,7 +2969,7 @@ done
 <li>core_initcall()&#x662F;&#x4E2A;&#x7CFB;&#x5217;&#x51FD;&#x6570;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;, &#x53EF;&#x4EE5;&#x5728;kernel&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x6302;&#x521D;&#x59CB;&#x5316;&#x51FD;&#x6570;, &#x4F4D;&#x7F6E;&#x6BD4;&#x8F83;&#x9760;&#x524D;.</li>
 </ul>
 <h1 id="&#x542F;&#x52A8;&#x6253;&#x5370;"><a name="&#x542F;&#x52A8;&#x6253;&#x5370;" class="anchor-navigation-ex-anchor" href="#&#x542F;&#x52A8;&#x6253;&#x5370;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x542F;&#x52A8;&#x6253;&#x5370;</h1>
-<pre class="language-"><code>03-19 06:56:05  [    0.000000] NR_IRQS:598
+<pre><code>03-19 06:56:05  [    0.000000] NR_IRQS:598
 03-19 06:56:05  [   34.196761] Calibrating delay loop (skipped) preset value.. 2400.00 BogoMIPS (lpj=12000000)
 03-19 06:56:05  [   34.204941] pid_max: default: 32768 minimum: 501
 03-19 06:56:05  [   34.209775] Mount-cache hash table entries: 256
@@ -3032,10 +3035,11 @@ done
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon 增加ECC中断","level":"1.16.3.6","depth":3,"next":{"title":"octeon hw-ddr2代码走读","level":"1.16.3.7","depth":3,"path":"notes/CPU_MIPS_octeon_hw-ddr2代码走读.md","ref":"notes/CPU_MIPS_octeon_hw-ddr2代码走读.md","articles":[]},"previous":{"title":"octeon CN78xx BDK","level":"1.16.3.5","depth":3,"path":"notes/CPU_MIPS_octeon_BDK.md","ref":"notes/CPU_MIPS_octeon_BDK.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/kernel_增加ECC中断.md","mtime":"2022-10-11T14:47:24.174Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon 增加ECC中断","level":"1.16.3.6","depth":3,"next":{"title":"octeon hw-ddr2代码走读","level":"1.16.3.7","depth":3,"path":"notes/CPU_MIPS_octeon_hw-ddr2代码走读.md","ref":"notes/CPU_MIPS_octeon_hw-ddr2代码走读.md","articles":[]},"previous":{"title":"octeon CN78xx BDK","level":"1.16.3.5","depth":3,"path":"notes/CPU_MIPS_octeon_BDK.md","ref":"notes/CPU_MIPS_octeon_BDK.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/kernel_增加ECC中断.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3074,6 +3078,7 @@ done
         
     
 
+        
     </body>
 </html>
 

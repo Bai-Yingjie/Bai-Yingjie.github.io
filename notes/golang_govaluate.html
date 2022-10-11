@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2879,90 +2882,90 @@
 </ul>
 <h1 id="govaluate"><a name="govaluate" class="anchor-navigation-ex-anchor" href="#govaluate"><i class="fa fa-link" aria-hidden="true"></i></a>1. govaluate</h1>
 <p>govaluate&#x63D0;&#x4F9B;&#x4E86;&#x7B80;&#x5355;&#x7684;C&#x7C7B;&#x4F3C;&#x7684;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x6C42;&#x503C;&#x529F;&#x80FD;.</p>
-<pre class="language-"><code class="lang-go">    expression<span class="token punctuation">,</span> err <span class="token operator">:=</span> govaluate<span class="token punctuation">.</span><span class="token function">NewEvaluableExpression</span><span class="token punctuation">(</span><span class="token string">&quot;10 &gt; 0&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    result<span class="token punctuation">,</span> err <span class="token operator">:=</span> expression<span class="token punctuation">.</span><span class="token function">Evaluate</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// result is now set to &quot;true&quot;, the bool value.</span>
+<pre><code class="lang-go">    expression, err := govaluate.NewEvaluableExpression(&quot;10 &gt; 0&quot;);
+    result, err := expression.Evaluate(nil);
+    // result is now set to &quot;true&quot;, the bool value.
 </code></pre>
 <p>&#x4F20;&#x53C2;&#x9700;&#x8981;&#x7528;&#x4E2A;<code>map[string]interface{}</code>&#x6765;&#x4F20;&#x9012;.</p>
-<pre class="language-"><code class="lang-go">    expression<span class="token punctuation">,</span> err <span class="token operator">:=</span> govaluate<span class="token punctuation">.</span><span class="token function">NewEvaluableExpression</span><span class="token punctuation">(</span><span class="token string">&quot;(requests_made * requests_succeeded / 100) &gt;= 90&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-go">    expression, err := govaluate.NewEvaluableExpression(&quot;(requests_made * requests_succeeded / 100) &gt;= 90&quot;);
 
-    parameters <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span>
-    parameters<span class="token punctuation">[</span><span class="token string">&quot;requests_made&quot;</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
-    parameters<span class="token punctuation">[</span><span class="token string">&quot;requests_succeeded&quot;</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">80</span><span class="token punctuation">;</span>
+    parameters := make(map[string]interface{}, 8)
+    parameters[&quot;requests_made&quot;] = 100;
+    parameters[&quot;requests_succeeded&quot;] = 80;
 
-    result<span class="token punctuation">,</span> err <span class="token operator">:=</span> expression<span class="token punctuation">.</span><span class="token function">Evaluate</span><span class="token punctuation">(</span>parameters<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// result is now set to &quot;false&quot;, the bool value.</span>
+    result, err := expression.Evaluate(parameters);
+    // result is now set to &quot;false&quot;, the bool value.
 </code></pre>
 <p>&#x9664;&#x4E86;&#x8FD4;&#x56DE;bool, &#x4E5F;&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x6570;&#x5B57;</p>
-<pre class="language-"><code class="lang-go">    expression<span class="token punctuation">,</span> err <span class="token operator">:=</span> govaluate<span class="token punctuation">.</span><span class="token function">NewEvaluableExpression</span><span class="token punctuation">(</span><span class="token string">&quot;(mem_used / total_mem) * 100&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-go">    expression, err := govaluate.NewEvaluableExpression(&quot;(mem_used / total_mem) * 100&quot;);
 
-    parameters <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span>
-    parameters<span class="token punctuation">[</span><span class="token string">&quot;total_mem&quot;</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1024</span><span class="token punctuation">;</span>
-    parameters<span class="token punctuation">[</span><span class="token string">&quot;mem_used&quot;</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">512</span><span class="token punctuation">;</span>
+    parameters := make(map[string]interface{}, 8)
+    parameters[&quot;total_mem&quot;] = 1024;
+    parameters[&quot;mem_used&quot;] = 512;
 
-    result<span class="token punctuation">,</span> err <span class="token operator">:=</span> expression<span class="token punctuation">.</span><span class="token function">Evaluate</span><span class="token punctuation">(</span>parameters<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// result is now set to &quot;50.0&quot;, the float64 value.</span>
+    result, err := expression.Evaluate(parameters);
+    // result is now set to &quot;50.0&quot;, the float64 value.
 </code></pre>
 <p>&#x4E5F;&#x53EF;&#x4EE5;&#x9884;&#x5B9A;&#x4E49;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x7684;&#x51FD;&#x6570;, &#x7528;<code>govaluate.NewEvaluableExpressionWithFunctions</code>&#x6CE8;&#x518C;</p>
-<pre class="language-"><code class="lang-go">    functions <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>govaluate<span class="token punctuation">.</span>ExpressionFunction <span class="token punctuation">{</span>
-        <span class="token string">&quot;strlen&quot;</span><span class="token punctuation">:</span> <span class="token keyword">func</span><span class="token punctuation">(</span>args <span class="token operator">...</span><span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            length <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-            <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token builtin">float64</span><span class="token punctuation">)</span><span class="token punctuation">(</span>length<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">}</span>
+<pre><code class="lang-go">    functions := map[string]govaluate.ExpressionFunction {
+        &quot;strlen&quot;: func(args ...interface{}) (interface{}, error) {
+            length := len(args[0].(string))
+            return (float64)(length), nil
+        },
+    }
 
-    expString <span class="token operator">:=</span> <span class="token string">&quot;strlen(&apos;someReallyLongInputString&apos;) &lt;= 16&quot;</span>
-    expression<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> govaluate<span class="token punctuation">.</span><span class="token function">NewEvaluableExpressionWithFunctions</span><span class="token punctuation">(</span>expString<span class="token punctuation">,</span> functions<span class="token punctuation">)</span>
+    expString := &quot;strlen(&apos;someReallyLongInputString&apos;) &lt;= 16&quot;
+    expression, _ := govaluate.NewEvaluableExpressionWithFunctions(expString, functions)
 
-    result<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> expression<span class="token punctuation">.</span><span class="token function">Evaluate</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">)</span>
-    <span class="token comment">// result is now &quot;false&quot;, the boolean value</span>
+    result, _ := expression.Evaluate(nil)
+    // result is now &quot;false&quot;, the boolean value
 </code></pre>
 <h2 id="parse&#x9636;&#x6BB5;"><a name="parse&#x9636;&#x6BB5;" class="anchor-navigation-ex-anchor" href="#parse&#x9636;&#x6BB5;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. parse&#x9636;&#x6BB5;</h2>
-<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">NewEvaluableExpression</span><span class="token punctuation">(</span>expression <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>EvaluableExpression<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<pre><code class="lang-go">func NewEvaluableExpression(expression string) (*EvaluableExpression, error) {
 
-    functions <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>ExpressionFunction<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span class="token function">NewEvaluableExpressionWithFunctions</span><span class="token punctuation">(</span>expression<span class="token punctuation">,</span> functions<span class="token punctuation">)</span>
-        <span class="token comment">//&#x4E5F;&#x8981;&#x7ECF;&#x8FC7;&#x89E3;&#x6790;token</span>
-        <span class="token comment">//&#x5728;&#x5FAA;&#x73AF;&#x91CC;&#x9010;&#x4E2A;&#x67E5;&#x770B;&#x5B57;&#x7B26;, &#x83B7;&#x5F97;token&#x7684;&#x5207;&#x7247;: []ExpressionToken -- &#x8FD9;&#x91CC;&#x7684;token&#x90FD;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;ast</span>
-        ret<span class="token punctuation">.</span>tokens<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">parseTokens</span><span class="token punctuation">(</span>expression<span class="token punctuation">,</span> functions<span class="token punctuation">)</span>
-        err <span class="token operator">=</span> <span class="token function">checkBalance</span><span class="token punctuation">(</span>ret<span class="token punctuation">.</span>tokens<span class="token punctuation">)</span>
-        err <span class="token operator">=</span> <span class="token function">checkExpressionSyntax</span><span class="token punctuation">(</span>ret<span class="token punctuation">.</span>tokens<span class="token punctuation">)</span>
-        <span class="token comment">//&#x4F18;&#x5316;token slice. </span>
-        ret<span class="token punctuation">.</span>tokens<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">optimizeTokens</span><span class="token punctuation">(</span>ret<span class="token punctuation">.</span>tokens<span class="token punctuation">)</span>
-        <span class="token comment">//planStages&#x628A;token&#x5217;&#x8868;&#x8F6C;&#x4E3A;&#x6267;&#x884C;&#x6811;</span>
-        ret<span class="token punctuation">.</span>evaluationStages<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">planStages</span><span class="token punctuation">(</span>ret<span class="token punctuation">.</span>tokens<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+    functions := make(map[string]ExpressionFunction)
+    return NewEvaluableExpressionWithFunctions(expression, functions)
+        //&#x4E5F;&#x8981;&#x7ECF;&#x8FC7;&#x89E3;&#x6790;token
+        //&#x5728;&#x5FAA;&#x73AF;&#x91CC;&#x9010;&#x4E2A;&#x67E5;&#x770B;&#x5B57;&#x7B26;, &#x83B7;&#x5F97;token&#x7684;&#x5207;&#x7247;: []ExpressionToken -- &#x8FD9;&#x91CC;&#x7684;token&#x90FD;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;ast
+        ret.tokens, err = parseTokens(expression, functions)
+        err = checkBalance(ret.tokens)
+        err = checkExpressionSyntax(ret.tokens)
+        //&#x4F18;&#x5316;token slice. 
+        ret.tokens, err = optimizeTokens(ret.tokens)
+        //planStages&#x628A;token&#x5217;&#x8868;&#x8F6C;&#x4E3A;&#x6267;&#x884C;&#x6811;
+        ret.evaluationStages, err = planStages(ret.tokens)
+}
 </code></pre>
 <h3 id="parsetokens"><a name="parsetokens" class="anchor-navigation-ex-anchor" href="#parsetokens"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. parseTokens</h3>
 <p>&#x5BF9;input&#x7684;&#x6BCF;&#x4E2A;&#x5B57;&#x7B26;&#x90FD;parse</p>
-<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">newLexerStream</span><span class="token punctuation">(</span>source <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">*</span>lexerStream <span class="token punctuation">{</span>
+<pre><code class="lang-go">func newLexerStream(source string) *lexerStream {
 
-    <span class="token keyword">var</span> ret <span class="token operator">*</span>lexerStream
-    <span class="token keyword">var</span> runes <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">rune</span>
+    var ret *lexerStream
+    var runes []rune
 
-    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> character <span class="token operator">:=</span> <span class="token keyword">range</span> source <span class="token punctuation">{</span>
-        runes <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>runes<span class="token punctuation">,</span> character<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
+    for _, character := range source {
+        runes = append(runes, character)
+    }
 
-    ret <span class="token operator">=</span> <span class="token function">new</span><span class="token punctuation">(</span>lexerStream<span class="token punctuation">)</span>
-    ret<span class="token punctuation">.</span>source <span class="token operator">=</span> runes
-    ret<span class="token punctuation">.</span>length <span class="token operator">=</span> <span class="token function">len</span><span class="token punctuation">(</span>runes<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> ret
-<span class="token punctuation">}</span>
+    ret = new(lexerStream)
+    ret.source = runes
+    ret.length = len(runes)
+    return ret
+}
 </code></pre>
 <h3 id="token&#x7C7B;&#x578B;"><a name="token&#x7C7B;&#x578B;" class="anchor-navigation-ex-anchor" href="#token&#x7C7B;&#x578B;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. token&#x7C7B;&#x578B;</h3>
 <p>token&#x662F;{Kind, Value}</p>
-<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> ExpressionToken <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-    <span class="token comment">//Kind&#x662F;&#x9884;&#x5B9A;&#x4E49;&#x7684;int&#x6807;&#x53F7;</span>
+<pre><code class="lang-go">type ExpressionToken struct {
+    //Kind&#x662F;&#x9884;&#x5B9A;&#x4E49;&#x7684;int&#x6807;&#x53F7;
     Kind  TokenKind
-    <span class="token comment">//&#x503C;&#x5C31;&#x662F;&#x4E07;&#x80FD;interface</span>
-    Value <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    //&#x503C;&#x5C31;&#x662F;&#x4E07;&#x80FD;interface
+    Value interface{}
+}
 
-<span class="token keyword">type</span> TokenKind <span class="token builtin">int</span>
+type TokenKind int
 
-<span class="token keyword">const</span> <span class="token punctuation">(</span>
-    UNKNOWN TokenKind <span class="token operator">=</span> <span class="token boolean">iota</span>
+const (
+    UNKNOWN TokenKind = iota
 
     PREFIX
     NUMERIC
@@ -2983,110 +2986,110 @@
     CLAUSE_CLOSE
 
     TERNARY
-<span class="token punctuation">)</span>
+)
 </code></pre>
 <h3 id="planstages"><a name="planstages" class="anchor-navigation-ex-anchor" href="#planstages"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.3. planStages</h3>
 <p>&#x4ECE;token&#x5230;&#x6267;&#x884C;&#x6811;. &#x90A3;&#x4E48;&#x6267;&#x884C;&#x6811;&#x91CC;&#x9762;&#x6709;&#x4EC0;&#x4E48;&#x5462;?</p>
-<pre class="language-"><code class="lang-go"><span class="token comment">/*
+<pre><code class="lang-go">/*
     Creates a `evaluationStageList` object which represents an execution plan (or tree)
     which is used to completely evaluate a set of tokens at evaluation-time.
     The three stages of evaluation can be thought of as parsing strings to tokens, then tokens to a stage list, then evaluation with parameters.
-*/</span>
-<span class="token keyword">func</span> <span class="token function">planStages</span><span class="token punctuation">(</span>tokens <span class="token punctuation">[</span><span class="token punctuation">]</span>ExpressionToken<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>evaluationStage<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+*/
+func planStages(tokens []ExpressionToken) (*evaluationStage, error) {
 
-    stream <span class="token operator">:=</span> <span class="token function">newTokenStream</span><span class="token punctuation">(</span>tokens<span class="token punctuation">)</span>
+    stream := newTokenStream(tokens)
 
-    stage<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">planTokens</span><span class="token punctuation">(</span>stream<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
-    <span class="token punctuation">}</span>
+    stage, err := planTokens(stream)
+    if err != nil {
+        return nil, err
+    }
 
-    <span class="token comment">// while we&apos;re now fully-planned, we now need to re-order same-precedence operators.</span>
-    <span class="token comment">// this could probably be avoided with a different planning method</span>
-    <span class="token function">reorderStages</span><span class="token punctuation">(</span>stage<span class="token punctuation">)</span>
+    // while we&apos;re now fully-planned, we now need to re-order same-precedence operators.
+    // this could probably be avoided with a different planning method
+    reorderStages(stage)
 
-    stage <span class="token operator">=</span> <span class="token function">elideLiterals</span><span class="token punctuation">(</span>stage<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> stage<span class="token punctuation">,</span> <span class="token boolean">nil</span>
-<span class="token punctuation">}</span>
+    stage = elideLiterals(stage)
+    return stage, nil
+}
 </code></pre>
 <h3 id="operator"><a name="operator" class="anchor-navigation-ex-anchor" href="#operator"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.4. operator</h3>
 <p>&#x5728;plan&#x6267;&#x884C;&#x6811;&#x7684;&#x65F6;&#x5019;, &#x6240;&#x6709;&#x6700;&#x5E95;&#x5C42;&#x7684;&#x64CD;&#x4F5C;&#x90FD;&#x88AB;&#x5B9A;&#x4E49;&#x4E3A;evaluationStage.operator</p>
-<pre class="language-"><code class="lang-go"><span class="token comment">/*
+<pre><code class="lang-go">/*
     A truly special precedence function, this handles all the &quot;lowest-case&quot; errata of the process, including literals, parmeters,
     clauses, and prefixes.
-*/</span>
-<span class="token keyword">func</span> <span class="token function">planValue</span><span class="token punctuation">(</span>stream <span class="token operator">*</span>tokenStream<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>evaluationStage<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token operator">...</span>
-    <span class="token comment">//&#x6839;&#x636E;token&#x7684;kind&#x4FE1;&#x606F;&#x51B3;&#x5B9A;operator</span>
-    <span class="token keyword">switch</span> token<span class="token punctuation">.</span>Kind <span class="token punctuation">{</span>
-    <span class="token operator">...</span>
-    <span class="token keyword">case</span> VARIABLE<span class="token punctuation">:</span>
-        operator <span class="token operator">=</span> <span class="token function">makeParameterStage</span><span class="token punctuation">(</span>token<span class="token punctuation">.</span>Value<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+*/
+func planValue(stream *tokenStream) (*evaluationStage, error) {
+    ...
+    //&#x6839;&#x636E;token&#x7684;kind&#x4FE1;&#x606F;&#x51B3;&#x5B9A;operator
+    switch token.Kind {
+    ...
+    case VARIABLE:
+        operator = makeParameterStage(token.Value.(string))
 
-    <span class="token keyword">case</span> NUMERIC<span class="token punctuation">:</span>
-        <span class="token keyword">fallthrough</span>
-    <span class="token keyword">case</span> STRING<span class="token punctuation">:</span>
-        <span class="token keyword">fallthrough</span>
-    <span class="token keyword">case</span> PATTERN<span class="token punctuation">:</span>
-        <span class="token keyword">fallthrough</span>
-    <span class="token keyword">case</span> BOOLEAN<span class="token punctuation">:</span>
-        symbol <span class="token operator">=</span> LITERAL
-        operator <span class="token operator">=</span> <span class="token function">makeLiteralStage</span><span class="token punctuation">(</span>token<span class="token punctuation">.</span>Value<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    case NUMERIC:
+        fallthrough
+    case STRING:
+        fallthrough
+    case PATTERN:
+        fallthrough
+    case BOOLEAN:
+        symbol = LITERAL
+        operator = makeLiteralStage(token.Value)
+    }
+}
 </code></pre>
 <p>&#x6BCF;&#x4E2A;&#x5177;&#x4F53;&#x7684;&#x64CD;&#x4F5C;&#x90FD;&#x6709;&#x5BF9;&#x5E94;&#x7684;stage</p>
-<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">subtractStage</span><span class="token punctuation">(</span>left <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> right <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> parameters Parameters<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> left<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">float64</span><span class="token punctuation">)</span> <span class="token operator">-</span> right<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">float64</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">func</span> <span class="token function">multiplyStage</span><span class="token punctuation">(</span>left <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> right <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> parameters Parameters<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> left<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">float64</span><span class="token punctuation">)</span> <span class="token operator">*</span> right<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">float64</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-go">func subtractStage(left interface{}, right interface{}, parameters Parameters) (interface{}, error) {
+    return left.(float64) - right.(float64), nil
+}
+func multiplyStage(left interface{}, right interface{}, parameters Parameters) (interface{}, error) {
+    return left.(float64) * right.(float64), nil
+}
 </code></pre>
 <p>&#x5B83;&#x4EEC;&#x88AB;&#x653E;&#x5230;&#x4E00;&#x4E2A;map&#x8868;&#x91CC;</p>
-<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> stageSymbolMap <span class="token operator">=</span> <span class="token keyword">map</span><span class="token punctuation">[</span>OperatorSymbol<span class="token punctuation">]</span>evaluationOperator<span class="token punctuation">{</span>
-    EQ<span class="token punctuation">:</span>             equalStage<span class="token punctuation">,</span>
-    NEQ<span class="token punctuation">:</span>            notEqualStage<span class="token punctuation">,</span>
-    GT<span class="token punctuation">:</span>             gtStage<span class="token punctuation">,</span>
-    LT<span class="token punctuation">:</span>             ltStage<span class="token punctuation">,</span>
-    GTE<span class="token punctuation">:</span>            gteStage<span class="token punctuation">,</span>
-    LTE<span class="token punctuation">:</span>            lteStage<span class="token punctuation">,</span>
-    REQ<span class="token punctuation">:</span>            regexStage<span class="token punctuation">,</span>
-    NREQ<span class="token punctuation">:</span>           notRegexStage<span class="token punctuation">,</span>
-    AND<span class="token punctuation">:</span>            andStage<span class="token punctuation">,</span>
-    OR<span class="token punctuation">:</span>             orStage<span class="token punctuation">,</span>
-    IN<span class="token punctuation">:</span>             inStage<span class="token punctuation">,</span>
-    BITWISE_OR<span class="token punctuation">:</span>     bitwiseOrStage<span class="token punctuation">,</span>
-    BITWISE_AND<span class="token punctuation">:</span>    bitwiseAndStage<span class="token punctuation">,</span>
-    BITWISE_XOR<span class="token punctuation">:</span>    bitwiseXORStage<span class="token punctuation">,</span>
-    BITWISE_LSHIFT<span class="token punctuation">:</span> leftShiftStage<span class="token punctuation">,</span>
-    BITWISE_RSHIFT<span class="token punctuation">:</span> rightShiftStage<span class="token punctuation">,</span>
-    PLUS<span class="token punctuation">:</span>           addStage<span class="token punctuation">,</span>
-    MINUS<span class="token punctuation">:</span>          subtractStage<span class="token punctuation">,</span>
-    MULTIPLY<span class="token punctuation">:</span>       multiplyStage<span class="token punctuation">,</span>
-    DIVIDE<span class="token punctuation">:</span>         divideStage<span class="token punctuation">,</span>
-    MODULUS<span class="token punctuation">:</span>        modulusStage<span class="token punctuation">,</span>
-    EXPONENT<span class="token punctuation">:</span>       exponentStage<span class="token punctuation">,</span>
-    NEGATE<span class="token punctuation">:</span>         negateStage<span class="token punctuation">,</span>
-    INVERT<span class="token punctuation">:</span>         invertStage<span class="token punctuation">,</span>
-    BITWISE_NOT<span class="token punctuation">:</span>    bitwiseNotStage<span class="token punctuation">,</span>
-    TERNARY_TRUE<span class="token punctuation">:</span>   ternaryIfStage<span class="token punctuation">,</span>
-    TERNARY_FALSE<span class="token punctuation">:</span>  ternaryElseStage<span class="token punctuation">,</span>
-    COALESCE<span class="token punctuation">:</span>       ternaryElseStage<span class="token punctuation">,</span>
-    SEPARATE<span class="token punctuation">:</span>       separatorStage<span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-go">var stageSymbolMap = map[OperatorSymbol]evaluationOperator{
+    EQ:             equalStage,
+    NEQ:            notEqualStage,
+    GT:             gtStage,
+    LT:             ltStage,
+    GTE:            gteStage,
+    LTE:            lteStage,
+    REQ:            regexStage,
+    NREQ:           notRegexStage,
+    AND:            andStage,
+    OR:             orStage,
+    IN:             inStage,
+    BITWISE_OR:     bitwiseOrStage,
+    BITWISE_AND:    bitwiseAndStage,
+    BITWISE_XOR:    bitwiseXORStage,
+    BITWISE_LSHIFT: leftShiftStage,
+    BITWISE_RSHIFT: rightShiftStage,
+    PLUS:           addStage,
+    MINUS:          subtractStage,
+    MULTIPLY:       multiplyStage,
+    DIVIDE:         divideStage,
+    MODULUS:        modulusStage,
+    EXPONENT:       exponentStage,
+    NEGATE:         negateStage,
+    INVERT:         invertStage,
+    BITWISE_NOT:    bitwiseNotStage,
+    TERNARY_TRUE:   ternaryIfStage,
+    TERNARY_FALSE:  ternaryElseStage,
+    COALESCE:       ternaryElseStage,
+    SEPARATE:       separatorStage,
+}
 </code></pre>
 <h2 id="&#x6267;&#x884C;&#x9636;&#x6BB5;"><a name="&#x6267;&#x884C;&#x9636;&#x6BB5;" class="anchor-navigation-ex-anchor" href="#&#x6267;&#x884C;&#x9636;&#x6BB5;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x6267;&#x884C;&#x9636;&#x6BB5;</h2>
-<pre class="language-"><code class="lang-go"><span class="token comment">/*
+<pre><code class="lang-go">/*
     Same as `Eval`, but automatically wraps a map of parameters into a `govalute.Parameters` structure.
-*/</span>
-<span class="token keyword">func</span> <span class="token punctuation">(</span>this EvaluableExpression<span class="token punctuation">)</span> <span class="token function">Evaluate</span><span class="token punctuation">(</span>parameters <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+*/
+func (this EvaluableExpression) Evaluate(parameters map[string]interface{}) (interface{}, error) {
 
-    <span class="token keyword">if</span> parameters <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> this<span class="token punctuation">.</span><span class="token function">Eval</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
+    if parameters == nil {
+        return this.Eval(nil)
+    }
 
-    <span class="token comment">/*
+    /*
     Runs the entire expression using the given [parameters].
     e.g., If the expression contains a reference to the variable &quot;foo&quot;, it will be taken from `parameters.Get(&quot;foo&quot;)`.
 
@@ -3096,15 +3099,15 @@
     In all non-error circumstances, this returns the single value result of the expression and parameters given.
     e.g., if the expression is &quot;1 + 1&quot;, this will return 2.0.
     e.g., if the expression is &quot;foo + 1&quot; and parameters contains &quot;foo&quot; = 2, this will return 3.0
-    */</span>
-    <span class="token keyword">return</span> this<span class="token punctuation">.</span><span class="token function">Eval</span><span class="token punctuation">(</span><span class="token function">MapParameters</span><span class="token punctuation">(</span>parameters<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> this<span class="token punctuation">.</span><span class="token function">evaluateStage</span><span class="token punctuation">(</span>this<span class="token punctuation">.</span>evaluationStages<span class="token punctuation">,</span> parameters<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment">//&#x8FD9;&#x91CC;&#x5176;&#x5B9E;&#x5BF9;&#x5E94;&#x7684;&#x662F;&#x8FD9;&#x4E2A;stage, &#x6BD4;&#x5982;&#x662F;multiplyStage, &#x6267;&#x884C;</span>
-            <span class="token comment">//left.(float64) * right.(float64), nil</span>
-            <span class="token keyword">return</span> stage<span class="token punctuation">.</span><span class="token function">operator</span><span class="token punctuation">(</span>left<span class="token punctuation">,</span> right<span class="token punctuation">,</span> parameters<span class="token punctuation">)</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    */
+    return this.Eval(MapParameters(parameters)) {
+        return this.evaluateStage(this.evaluationStages, parameters) {
+            //&#x8FD9;&#x91CC;&#x5176;&#x5B9E;&#x5BF9;&#x5E94;&#x7684;&#x662F;&#x8FD9;&#x4E2A;stage, &#x6BD4;&#x5982;&#x662F;multiplyStage, &#x6267;&#x884C;
+            //left.(float64) * right.(float64), nil
+            return stage.operator(left, right, parameters)
+        }
+    }
+}
 </code></pre>
 <h2 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. &#x603B;&#x7ED3;</h2>
 <p>&#x8FD9;&#x4E2A;&#x5E93;&#x662F;&#x4E2A;&#x975E;&#x5E38;&#x7B80;&#x5316;&#x7248;&#x7684;&#x89E3;&#x91CA;&#x5668;. &#x4E5F;&#x6709;&#x6807;&#x51C6;&#x7684;&#x4E09;&#x6B65;:</p>
@@ -3156,10 +3159,11 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"解释器govaluate","level":"1.7.11.3","depth":3,"next":{"title":"gotiny编解码","level":"1.7.11.4","depth":3,"path":"notes/golang_encoding_gotiny.md","ref":"notes/golang_encoding_gotiny.md","articles":[]},"previous":{"title":"解释器tengo","level":"1.7.11.2","depth":3,"path":"notes/golang_tengo.md","ref":"notes/golang_tengo.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_govaluate.md","mtime":"2022-10-11T14:47:23.674Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"解释器govaluate","level":"1.7.11.3","depth":3,"next":{"title":"gotiny编解码","level":"1.7.11.4","depth":3,"path":"notes/golang_encoding_gotiny.md","ref":"notes/golang_encoding_gotiny.md","articles":[]},"previous":{"title":"解释器tengo","level":"1.7.11.2","depth":3,"path":"notes/golang_tengo.md","ref":"notes/golang_tengo.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_govaluate.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3198,6 +3202,7 @@
         
     
 
+        
     </body>
 </html>
 

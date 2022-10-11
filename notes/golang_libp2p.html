@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -3014,20 +3017,20 @@ libp2p&#x8D77;&#x6E90;&#x4E8E;IPFS, &#x4EE5;&#x6A21;&#x5757;&#x5316;&#x7684;&#x6
 </ul>
 <h2 id="&#x5165;&#x95E8;"><a name="&#x5165;&#x95E8;" class="anchor-navigation-ex-anchor" href="#&#x5165;&#x95E8;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x5165;&#x95E8;</h2>
 <p>listen&#x7684;&#x5730;&#x5740;&#x662F;0&#x53F7;&#x7AEF;&#x53E3;, &#x81EA;&#x52A8;&#x5206;&#x914D;. &#x8FD9;&#x91CC;&#x5173;&#x95ED;&#x4E86;&#x5185;&#x7F6E;&#x7684;ping(&#x8FD8;&#x6709;&#x5185;&#x7F6E;&#x7684;ping?)</p>
-<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token operator">...</span>
+<pre><code class="lang-go">func main() {
+    ...
 
-    <span class="token comment">// start a libp2p node that listens on a random local TCP port,</span>
-    <span class="token comment">// but without running the built-in ping protocol</span>
-    node<span class="token punctuation">,</span> err <span class="token operator">:=</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrStrings</span><span class="token punctuation">(</span><span class="token string">&quot;/ip4/127.0.0.1/tcp/0&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">Ping</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span>
-    <span class="token comment">// configure our own ping protocol</span>
-    pingService <span class="token operator">:=</span> <span class="token operator">&amp;</span>ping<span class="token punctuation">.</span>PingService<span class="token punctuation">{</span>Host<span class="token punctuation">:</span> node<span class="token punctuation">}</span>
-    node<span class="token punctuation">.</span><span class="token function">SetStreamHandler</span><span class="token punctuation">(</span>ping<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> pingService<span class="token punctuation">.</span>PingHandler<span class="token punctuation">)</span>
-    <span class="token operator">...</span>
-<span class="token punctuation">}</span>
+    // start a libp2p node that listens on a random local TCP port,
+    // but without running the built-in ping protocol
+    node, err := libp2p.New(ctx,
+        libp2p.ListenAddrStrings(&quot;/ip4/127.0.0.1/tcp/0&quot;),
+        libp2p.Ping(false),
+    )
+    // configure our own ping protocol
+    pingService := &amp;ping.PingService{Host: node}
+    node.SetStreamHandler(ping.ID, pingService.PingHandler)
+    ...
+}
 </code></pre>
 <h2 id="transport"><a name="transport" class="anchor-navigation-ex-anchor" href="#transport"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. transport</h2>
 <p>&#x6700;&#x5E38;&#x89C1;&#x7684;transport&#x662F;TCP, &#x53E6;&#x5916;&#x4E5F;&#x63D0;&#x5230;&#x4E86;QUIC(Quick UDP Internet Connections, google&#x53D1;&#x5E03;&#x7684;&#x57FA;&#x4E8E;UDP&#x7684;&#x534F;&#x8BAE;), &#x5176;&#x76EE;&#x6807;&#x662F;&#x66FF;&#x4EE3;TCP
@@ -3057,16 +3060,16 @@ TCP &#x53D1;&#x751F;&#x4E22;&#x5305;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x4E00;&#x4
 <p>go-libp2p-quic-transport uses <a href="https://github.com/lucas-clemente/quic-go/" target="_blank">quic-go</a> to provide QUIC support for libp2p.</p>
 <h3 id="&#x5730;&#x5740;&#x683C;&#x5F0F;"><a name="&#x5730;&#x5740;&#x683C;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x5730;&#x5740;&#x683C;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.2. &#x5730;&#x5740;&#x683C;&#x5F0F;</h3>
 <p>libp2p&#x4F7F;&#x7528;&#x4E00;&#x79CD;&#x53EB;multiaddr&#x7684;&#x4E1C;&#x897F;&#x6765;&#x63CF;&#x8FF0;&#x5730;&#x5740;, &#x8FD9;&#x4E2A;&#x63CF;&#x8FF0;&#x517C;&#x5BB9;&#x6240;&#x6709;&#x7684;transport&#x7C7B;&#x578B;.<br>&#x6BD4;&#x5982;</p>
-<pre class="language-"><code>/ip4/7.7.7.7/tcp/6543
+<pre><code>/ip4/7.7.7.7/tcp/6543
 </code></pre><p>libp2p&#x7684;&#x901A;&#x4FE1;&#x5355;&#x5143;&#x53EB;peer, &#x7528;peerId&#x6765;&#x552F;&#x4E00;&#x6807;&#x8BC6;; &#x5FC5;&#x987B;&#x6307;&#x5B9A;peerId&#x6765;&#x5EFA;&#x7ACB;&#x5B89;&#x5168;&#x4FE1;&#x9053;&#x6765;&#x901A;&#x4FE1;.</p>
-<pre class="language-"><code>/ip4/1.2.3.4/tcp/4321/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6
+<pre><code>/ip4/1.2.3.4/tcp/4321/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6
 </code></pre><h3 id="&#x540C;&#x65F6;&#x652F;&#x6301;&#x591A;transport"><a name="&#x540C;&#x65F6;&#x652F;&#x6301;&#x591A;transport" class="anchor-navigation-ex-anchor" href="#&#x540C;&#x65F6;&#x652F;&#x6301;&#x591A;transport"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.3. &#x540C;&#x65F6;&#x652F;&#x6301;&#x591A;transport</h3>
 <p>&#x4E00;&#x822C;libp2p&#x662F;&#x652F;&#x6301;&#x591A;transport, &#x6BD4;&#x5982;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x5BF9;&#x4F7F;&#x7528;TCP&#x7684;&#x4E00;&#x4E2A;&#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#x548C;&#x4F7F;&#x7528;websocket&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x670D;&#x52A1;.
 &#x80FD;&#x5B9E;&#x73B0;&#x5BF9;&#x591A;transport&#x7684;&#x591A;&#x8DEF;&#x590D;&#x7528;, &#x662F;&#x56E0;&#x4E3A;libp2p&#x6709;&#x4E2A;switch&#x5C42;(&#x4E5F;&#x53EB;swarm&#x5C42;), &#x63D0;&#x4F9B;&#x4E86;</p>
 <ul>
 <li>&#x534F;&#x8BAE;&#x534F;&#x5546;: &#x5F53;&#x5BA2;&#x6237;&#x7AEF;dialing&#x4E00;&#x4E2A;&#x65B0;&#x7684;stream&#x7684;&#x65F6;&#x5019;, &#x5B83;&#x4F1A;&#x53D1;&#x9001;protocol id&#x6765;&#x548C;&#x670D;&#x52A1;&#x7AEF;&#x534F;&#x5546;, &#x5982;&#x679C;&#x670D;&#x52A1;&#x7AEF;&#x4E5F;&#x652F;&#x6301;&#x8BE5;&#x534F;&#x8BAE;, &#x5C31;&#x4F1A;&#x8FD4;&#x56DE;&#x8FD9;&#x4E2A;&#x534F;&#x8BAE;ID, &#x4E4B;&#x540E;&#x7684;&#x901A;&#x4FE1;&#x4F1A;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x534F;&#x5546;&#x597D;&#x7684;&#x534F;&#x8BAE;&#x6765;&#x8FDB;&#x884C;. &#x5982;&#x679C;&#x4E0D;&#x652F;&#x6301;, &#x8FD4;&#x56DE;&#x4E0D;&#x652F;&#x6301;, &#x90A3;&#x4E48;&#x5BA2;&#x6237;&#x7AEF;&#x8981;&#x4E48;&#x505C;&#x6B62;, &#x8981;&#x4E48;&#x53D1;&#x8D77;&#x53E6;&#x5916;&#x4E00;&#x4E2A;protocol ID&#x6765;&#x8FDB;&#x884C;&#x4E0B;&#x4E00;&#x8F6E;&#x534F;&#x5546;. -- &#x60F3;&#x6CD5;: encoding&#x4E5F;&#x8981;&#x534F;&#x5546;</li>
 <li>stream&#x591A;&#x8DEF;&#x590D;&#x7528;: &#x5C31;&#x662F;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x7269;&#x7406;&#x7684;transport(&#x6BD4;&#x5982;&#x4E00;&#x4E2A;TCP&#x8FDE;&#x63A5;)&#x6765;&#x652F;&#x6301;&#x591A;&#x4E2A;&#x903B;&#x8F91;&#x4E0A;&#x7684;stream&#x7684;&#x901A;&#x4FE1;. &#x4E00;&#x4E2A;stream&#x6709;&#x4E2A;&#x5F88;&#x77ED;&#x7684;header&#x6765;&#x6807;&#x8BB0;stream. libp2p&#x4F7F;&#x7528;mplex multiplexing&#x5B9E;&#x73B0;, &#x540C;&#x65F6;&#x4E5F;&#x63D0;&#x4F9B;&#x4E86;yamux&#x548C;spdy&#x5B9E;&#x73B0;.<ul>
-<li>mplex: &#x6BCF;&#x6B21;&#x901A;&#x4FE1;&#x90FD;&#x4F1A;&#x52A0;&#x4E2A;header, payload&#x662F;&#x56FA;&#x5B9A;&#x957F;&#x5EA6;&#x7684;data segment. header&#x662F;&#x4E2A;base128&#x7684;&#x53D8;&#x957F;&#x6570;, &#x6700;&#x957F;9&#x5B57;&#x8282;. mplex&#x57FA;&#x4E8E;&#x53EF;&#x9760;&#x7684;, &#x4FDD;&#x5E8F;&#x7684;&#x4F20;&#x8F93;&#x5C42;&#x534F;&#x8BAE;&#x6BD4;&#x5982;TCP&#x6216;UDS. &#x8FD9;&#x4E2A;&#x5E94;&#x8BE5;&#x662F;&#x9ED8;&#x8BA4;&#x7684;.<pre class="language-"><code>| header  | length  | data           |
+<li>mplex: &#x6BCF;&#x6B21;&#x901A;&#x4FE1;&#x90FD;&#x4F1A;&#x52A0;&#x4E2A;header, payload&#x662F;&#x56FA;&#x5B9A;&#x957F;&#x5EA6;&#x7684;data segment. header&#x662F;&#x4E2A;base128&#x7684;&#x53D8;&#x957F;&#x6570;, &#x6700;&#x957F;9&#x5B57;&#x8282;. mplex&#x57FA;&#x4E8E;&#x53EF;&#x9760;&#x7684;, &#x4FDD;&#x5E8F;&#x7684;&#x4F20;&#x8F93;&#x5C42;&#x534F;&#x8BAE;&#x6BD4;&#x5982;TCP&#x6216;UDS. &#x8FD9;&#x4E2A;&#x5E94;&#x8BE5;&#x662F;&#x9ED8;&#x8BA4;&#x7684;.<pre><code>| header  | length  | data           |
 | uvarint | uvarint | &apos;length&apos; bytes |
 </code></pre></li>
 <li><a href="https://github.com/hashicorp/yamux" target="_blank">Yamux</a>: &#x53E6;&#x5916;&#x4E00;&#x79CD;multiplexing, &#x652F;&#x6301;&#x53CC;&#x5411;stream, &#x652F;&#x6301;&#x6D41;&#x63A7;, &#x540C;&#x65F6;&#x652F;&#x6301;&#x5927;&#x91CF;stream&#x6D88;&#x8017;&#x6BD4;&#x8F83;&#x5C0F;.</li>
@@ -3082,7 +3085,7 @@ TCP &#x53D1;&#x751F;&#x4E22;&#x5305;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x4E00;&#x4
 <li>STUN&#x6253;&#x6D1E;: &#x5185;&#x7F51;&#x80FD;dial&#x51FA;&#x53BB;, &#x662F;&#x56E0;&#x4E3A;&#x5185;&#x7F51;&#x8DEF;&#x7531;&#x5668;&#x4F1A;map&#x8FD9;&#x4E2A;&#x5185;&#x90E8;&#x7AEF;&#x53E3;&#x5230;&#x5BF9;&#x5916;&#x53EF;&#x89C1;&#x7684;&#x7AEF;&#x53E3;. &#x6709;&#x7684;&#x8DEF;&#x7531;&#x4F1A;&#x628A;incoming&#x7684;&#x5230;&#x8FD9;&#x4E2A;&#x7AEF;&#x53E3;&#x7684;&#x8FDE;&#x63A5;&#x4E5F;&#x8F6C;&#x53D1;&#x7ED9;&#x5185;&#x7F51;. <ul>
 <li>libp2pyong <code>SO_REUSEPORT</code>&#x9009;&#x9879;&#x590D;&#x7528;&#x8FD9;&#x4E2A;IP&#x7684;&#x7AEF;&#x53E3;&#x53F7;</li>
 <li>&#x5185;&#x7F51;&#x51FA;&#x53BB;&#x65B9;&#x5411;&#x7684;&#x8FDE;&#x63A5;&#x4F1A;&#x5728;&#x5185;&#x7F51;&#x8DEF;&#x7531;&#x5668;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x5BF9;&#x5916;&#x7684;&#x7AEF;&#x53E3;&#x53F7;, &#x8FD9;&#x4E2A;&#x7AEF;&#x53E3;&#x53F7;&#x5916;&#x90E8;&#x53EF;&#x89C1;, &#x4F46;&#x5185;&#x90E8;&#x662F;&#x4E0D;&#x77E5;&#x9053;&#x7684;. &#x90A3;&#x4E48;&#x53EF;&#x4EE5;&#x8BA9;&#x5916;&#x90E8;&#x7684;peer&#x544A;&#x8BC9;&#x6211;&#x4EEC;&#x6211;&#x4EEC;&#x7684;&#x5916;&#x90E8;&#x5730;&#x5740;&#x662F;&#x4EC0;&#x4E48;, &#x7136;&#x540E;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x544A;&#x8BC9;p2p&#x7F51;&#x7EDC;, &#x8FD9;&#x4E2A;&#x5730;&#x5740;&#x53EF;&#x4EE5;&#x5230;&#x8FBE;&#x6211;&#x4EEC;.</li>
-<li>&#x90A3;&#x4E48;&#x8C01;&#x6765;&#x5F53;&#x8FD9;&#x4E2A;&#x5916;&#x90E8;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x5462;?&#x4F20;&#x7EDF;&#x7684;STUN&#x5B9E;&#x73B0;&#x9700;&#x8981;&#x56FA;&#x5B9A;&#x7684;&#x5916;&#x90E8;&#x89C2;&#x5BDF;&#x8005;, &#x800C;libp2p&#x4F7F;&#x7528;&#x4E86;identify protocol&#x5728;peer&#x95F4;&#x4EA4;&#x6362;&#x4FE1;&#x606F;:<code>https://github.com/libp2p/specs/tree/master/identify</code>, &#x57FA;&#x672C;&#x4E0A;&#x662F;&#x4E2A;<code>/ipfs/id/1.0.0</code>&#x8FD9;&#x4E2A;&#x534F;&#x8BAE;ID, &#x4EA4;&#x6362;&#x7684;&#x4FE1;&#x606F;&#x5982;&#x4E0B;, &#x5176;&#x4E2D;&#x5C31;&#x6709;observedAddr<pre class="language-"><code>message Identify {
+<li>&#x90A3;&#x4E48;&#x8C01;&#x6765;&#x5F53;&#x8FD9;&#x4E2A;&#x5916;&#x90E8;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x5462;?&#x4F20;&#x7EDF;&#x7684;STUN&#x5B9E;&#x73B0;&#x9700;&#x8981;&#x56FA;&#x5B9A;&#x7684;&#x5916;&#x90E8;&#x89C2;&#x5BDF;&#x8005;, &#x800C;libp2p&#x4F7F;&#x7528;&#x4E86;identify protocol&#x5728;peer&#x95F4;&#x4EA4;&#x6362;&#x4FE1;&#x606F;:<code>https://github.com/libp2p/specs/tree/master/identify</code>, &#x57FA;&#x672C;&#x4E0A;&#x662F;&#x4E2A;<code>/ipfs/id/1.0.0</code>&#x8FD9;&#x4E2A;&#x534F;&#x8BAE;ID, &#x4EA4;&#x6362;&#x7684;&#x4FE1;&#x606F;&#x5982;&#x4E0B;, &#x5176;&#x4E2D;&#x5C31;&#x6709;observedAddr<pre><code>message Identify {
 optional string protocolVersion = 5;
 optional string agentVersion = 6;
 optional bytes publicKey = 1;
@@ -3216,35 +3219,35 @@ meta data&#x7684;&#x8FDE;&#x63A5;&#x7528;&#x6765;&#x7EF4;&#x62A4;gossip&#x7F51;&
 <p>&#x8FD0;&#x884C;&#x4E24;&#x4E2A;echo&#x5B9E;&#x4F8B;, &#x4E00;&#x4E2A;&#x662F;listener, &#x4E00;&#x4E2A;&#x662F;sender
 &#x5B83;&#x4EEC;&#x90FD;&#x662F;&#x4E2A;basichost, &#x5B83;&#x662F;&#x66F4;&#x5E95;&#x5C42;&#x7684;<a href="https://godoc.org/github.com/libp2p/go-libp2p-swarm#Swarm" target="_blank">go-libp2p swarms</a>&#x7684;&#x5C01;&#x88C5;. swarm&#x5904;&#x7406;&#x66F4;&#x7EC6;&#x8282;&#x7684;&#x6D41;, &#x8FDE;&#x63A5;, &#x591A;&#x534F;&#x8BAE;&#x591A;&#x8DEF;&#x590D;&#x7528;&#x7B49;.</p>
 <h3 id="makebasichost"><a name="makebasichost" class="anchor-navigation-ex-anchor" href="#makebasichost"><i class="fa fa-link" aria-hidden="true"></i></a>3.1.1. makeBasicHost</h3>
-<pre class="language-"><code class="lang-go"><span class="token comment">// makeBasicHost creates a LibP2P host with a random peer ID listening on the</span>
-<span class="token comment">// given multiaddress. It won&apos;t encrypt the connection if insecure is true.</span>
-<span class="token keyword">func</span> <span class="token function">makeBasicHost</span><span class="token punctuation">(</span>listenPort <span class="token builtin">int</span><span class="token punctuation">,</span> insecure <span class="token builtin">bool</span><span class="token punctuation">,</span> randseed <span class="token builtin">int64</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>host<span class="token punctuation">.</span>Host<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">var</span> r io<span class="token punctuation">.</span>Reader
-    <span class="token keyword">if</span> randseed <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
-        r <span class="token operator">=</span> rand<span class="token punctuation">.</span>Reader
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-        r <span class="token operator">=</span> mrand<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>mrand<span class="token punctuation">.</span><span class="token function">NewSource</span><span class="token punctuation">(</span>randseed<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
+<pre><code class="lang-go">// makeBasicHost creates a LibP2P host with a random peer ID listening on the
+// given multiaddress. It won&apos;t encrypt the connection if insecure is true.
+func makeBasicHost(listenPort int, insecure bool, randseed int64) (host.Host, error) {
+    var r io.Reader
+    if randseed == 0 {
+        r = rand.Reader
+    } else {
+        r = mrand.New(mrand.NewSource(randseed))
+    }
 
-    <span class="token comment">// Generate a key pair for this host. We will use it at least</span>
-    <span class="token comment">// to obtain a valid host ID.</span>
-    priv<span class="token punctuation">,</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> crypto<span class="token punctuation">.</span><span class="token function">GenerateKeyPairWithReader</span><span class="token punctuation">(</span>crypto<span class="token punctuation">.</span>RSA<span class="token punctuation">,</span> <span class="token number">2048</span><span class="token punctuation">,</span> r<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
-    <span class="token punctuation">}</span>
+    // Generate a key pair for this host. We will use it at least
+    // to obtain a valid host ID.
+    priv, _, err := crypto.GenerateKeyPairWithReader(crypto.RSA, 2048, r)
+    if err != nil {
+        return nil, err
+    }
 
-    opts <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>libp2p<span class="token punctuation">.</span>Option<span class="token punctuation">{</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrStrings</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;/ip4/127.0.0.1/tcp/%d&quot;</span><span class="token punctuation">,</span> listenPort<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">Identity</span><span class="token punctuation">(</span>priv<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">DisableRelay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">}</span>
+    opts := []libp2p.Option{
+        libp2p.ListenAddrStrings(fmt.Sprintf(&quot;/ip4/127.0.0.1/tcp/%d&quot;, listenPort)),
+        libp2p.Identity(priv),
+        libp2p.DisableRelay(),
+    }
 
-    <span class="token keyword">if</span> insecure <span class="token punctuation">{</span>
-        opts <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>opts<span class="token punctuation">,</span> libp2p<span class="token punctuation">.</span>NoSecurity<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
+    if insecure {
+        opts = append(opts, libp2p.NoSecurity)
+    }
 
-    <span class="token keyword">return</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> opts<span class="token operator">...</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+    return libp2p.New(context.Background(), opts...)
+}
 </code></pre>
 <ul>
 <li><code>crypto.GenerateKeyPairWithReader</code>: &#x5148;&#x7528;RSA&#x751F;&#x6210;&#x79C1;&#x94A5;, &#x79C1;&#x94A5;&#x53EF;&#x4EE5;&#x63A8;&#x5BFC;&#x51FA;&#x516C;&#x94A5;</li>
@@ -3263,106 +3266,106 @@ meta data&#x7684;&#x8FDE;&#x63A5;&#x7528;&#x6765;&#x7EF4;&#x62A4;gossip&#x7F51;&
 </ul>
 </li>
 <li><p>Host&#x662F;p2p&#x7F51;&#x7EDC;&#x7684;&#x4E00;&#x4E2A;&#x5B9E;&#x4F53;, &#x5B83;&#x65E2;&#x662F;server, &#x53EF;&#x4EE5;&#x63D0;&#x4F9B;&#x670D;&#x52A1;; &#x53C8;&#x662F;client, &#x53EF;&#x4EE5;&#x53D1;&#x9001;&#x8BF7;&#x6C42;. &#x6240;&#x4EE5;&#x53EB;host, &#x662F;&#x4E8C;&#x5408;&#x4E00;. host&#x6709;&#x4E00;&#x7CFB;&#x5217;&#x805A;&#x5408;&#x7684;&#x62BD;&#x8C61;:</p>
-<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> Host <span class="token keyword">interface</span> <span class="token punctuation">{</span>
-  <span class="token comment">// ID returns the (local) peer.ID associated with this Host</span>
-  <span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span> peer<span class="token punctuation">.</span>ID
+<pre><code class="lang-go">type Host interface {
+  // ID returns the (local) peer.ID associated with this Host
+  ID() peer.ID
 
-  <span class="token comment">// Peerstore returns the Host&apos;s repository of Peer Addresses and Keys.</span>
-  <span class="token function">Peerstore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> peerstore<span class="token punctuation">.</span>Peerstore
+  // Peerstore returns the Host&apos;s repository of Peer Addresses and Keys.
+  Peerstore() peerstore.Peerstore
 
-  <span class="token comment">// Returns the listen addresses of the Host</span>
-  <span class="token function">Addrs</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>ma<span class="token punctuation">.</span>Multiaddr
+  // Returns the listen addresses of the Host
+  Addrs() []ma.Multiaddr
 
-  <span class="token comment">// Networks returns the Network interface of the Host</span>
-  <span class="token function">Network</span><span class="token punctuation">(</span><span class="token punctuation">)</span> network<span class="token punctuation">.</span>Network
+  // Networks returns the Network interface of the Host
+  Network() network.Network
 
-  <span class="token comment">// Mux returns the Mux multiplexing incoming streams to protocol handlers</span>
-  <span class="token function">Mux</span><span class="token punctuation">(</span><span class="token punctuation">)</span> protocol<span class="token punctuation">.</span>Switch
+  // Mux returns the Mux multiplexing incoming streams to protocol handlers
+  Mux() protocol.Switch
 
-  <span class="token comment">// Connect ensures there is a connection between this host and the peer with</span>
-  <span class="token comment">// given peer.ID. Connect will absorb the addresses in pi into its internal</span>
-  <span class="token comment">// peerstore. If there is not an active connection, Connect will issue a</span>
-  <span class="token comment">// h.Network.Dial, and block until a connection is open, or an error is</span>
-  <span class="token comment">// returned. // TODO: Relay + NAT.</span>
-  <span class="token function">Connect</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> pi peer<span class="token punctuation">.</span>AddrInfo<span class="token punctuation">)</span> <span class="token builtin">error</span>
+  // Connect ensures there is a connection between this host and the peer with
+  // given peer.ID. Connect will absorb the addresses in pi into its internal
+  // peerstore. If there is not an active connection, Connect will issue a
+  // h.Network.Dial, and block until a connection is open, or an error is
+  // returned. // TODO: Relay + NAT.
+  Connect(ctx context.Context, pi peer.AddrInfo) error
 
-  <span class="token comment">// SetStreamHandler sets the protocol handler on the Host&apos;s Mux.</span>
-  <span class="token comment">// This is equivalent to:</span>
-  <span class="token comment">//   host.Mux().SetHandler(proto, handler)</span>
-  <span class="token comment">// (Threadsafe)</span>
-  <span class="token function">SetStreamHandler</span><span class="token punctuation">(</span>pid protocol<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> handler network<span class="token punctuation">.</span>StreamHandler<span class="token punctuation">)</span>
+  // SetStreamHandler sets the protocol handler on the Host&apos;s Mux.
+  // This is equivalent to:
+  //   host.Mux().SetHandler(proto, handler)
+  // (Threadsafe)
+  SetStreamHandler(pid protocol.ID, handler network.StreamHandler)
 
-  <span class="token comment">// SetStreamHandlerMatch sets the protocol handler on the Host&apos;s Mux</span>
-  <span class="token comment">// using a matching function for protocol selection.</span>
-  <span class="token function">SetStreamHandlerMatch</span><span class="token punctuation">(</span>protocol<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">,</span> network<span class="token punctuation">.</span>StreamHandler<span class="token punctuation">)</span>
+  // SetStreamHandlerMatch sets the protocol handler on the Host&apos;s Mux
+  // using a matching function for protocol selection.
+  SetStreamHandlerMatch(protocol.ID, func(string) bool, network.StreamHandler)
 
-  <span class="token comment">// RemoveStreamHandler removes a handler on the mux that was set by</span>
-  <span class="token comment">// SetStreamHandler</span>
-  <span class="token function">RemoveStreamHandler</span><span class="token punctuation">(</span>pid protocol<span class="token punctuation">.</span>ID<span class="token punctuation">)</span>
+  // RemoveStreamHandler removes a handler on the mux that was set by
+  // SetStreamHandler
+  RemoveStreamHandler(pid protocol.ID)
 
-  <span class="token comment">// NewStream opens a new stream to given peer p, and writes a p2p/protocol</span>
-  <span class="token comment">// header with given ProtocolID. If there is no connection to p, attempts</span>
-  <span class="token comment">// to create one. If ProtocolID is &quot;&quot;, writes no header.</span>
-  <span class="token comment">// (Threadsafe)</span>
-  <span class="token function">NewStream</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> p peer<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> pids <span class="token operator">...</span>protocol<span class="token punctuation">.</span>ID<span class="token punctuation">)</span> <span class="token punctuation">(</span>network<span class="token punctuation">.</span>Stream<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span>
+  // NewStream opens a new stream to given peer p, and writes a p2p/protocol
+  // header with given ProtocolID. If there is no connection to p, attempts
+  // to create one. If ProtocolID is &quot;&quot;, writes no header.
+  // (Threadsafe)
+  NewStream(ctx context.Context, p peer.ID, pids ...protocol.ID) (network.Stream, error)
 
-  <span class="token comment">// Close shuts down the host, its Network, and services.</span>
-  <span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">error</span>
+  // Close shuts down the host, its Network, and services.
+  Close() error
 
-  <span class="token comment">// ConnManager returns this hosts connection manager</span>
-  <span class="token function">ConnManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span> connmgr<span class="token punctuation">.</span>ConnManager
+  // ConnManager returns this hosts connection manager
+  ConnManager() connmgr.ConnManager
 
-  <span class="token comment">// EventBus returns the hosts eventbus</span>
-  <span class="token function">EventBus</span><span class="token punctuation">(</span><span class="token punctuation">)</span> event<span class="token punctuation">.</span>Bus
-<span class="token punctuation">}</span>
+  // EventBus returns the hosts eventbus
+  EventBus() event.Bus
+}
 </code></pre>
 </li>
 </ul>
 <h3 id="runlistener"><a name="runlistener" class="anchor-navigation-ex-anchor" href="#runlistener"><i class="fa fa-link" aria-hidden="true"></i></a>3.1.2. runListener</h3>
-<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">runListener</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> ha host<span class="token punctuation">.</span>Host<span class="token punctuation">,</span> listenPort <span class="token builtin">int</span><span class="token punctuation">,</span> insecure <span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    fullAddr <span class="token operator">:=</span> <span class="token function">getHostAddress</span><span class="token punctuation">(</span>ha<span class="token punctuation">)</span>
-    log<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;I am %s\n&quot;</span><span class="token punctuation">,</span> fullAddr<span class="token punctuation">)</span>
+<pre><code class="lang-go">func runListener(ctx context.Context, ha host.Host, listenPort int, insecure bool) {
+    fullAddr := getHostAddress(ha)
+    log.Printf(&quot;I am %s\n&quot;, fullAddr)
 
-    <span class="token comment">// Set a stream handler on host A. /echo/1.0.0 is</span>
-    <span class="token comment">// a user-defined protocol name.</span>
-    ha<span class="token punctuation">.</span><span class="token function">SetStreamHandler</span><span class="token punctuation">(</span><span class="token string">&quot;/echo/1.0.0&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>s network<span class="token punctuation">.</span>Stream<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;listener received new stream&quot;</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> err <span class="token operator">:=</span> <span class="token function">doEcho</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-            log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-            s<span class="token punctuation">.</span><span class="token function">Reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            s<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    // Set a stream handler on host A. /echo/1.0.0 is
+    // a user-defined protocol name.
+    ha.SetStreamHandler(&quot;/echo/1.0.0&quot;, func(s network.Stream) {
+        log.Println(&quot;listener received new stream&quot;)
+        if err := doEcho(s); err != nil {
+            log.Println(err)
+            s.Reset()
+        } else {
+            s.Close()
+        }
+    })
 
-    log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;listening for connections&quot;</span><span class="token punctuation">)</span>
+    log.Println(&quot;listening for connections&quot;)
 
-    <span class="token keyword">if</span> insecure <span class="token punctuation">{</span>
-        log<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;Now run \&quot;./echo -l %d -d %s -insecure\&quot; on a different terminal\n&quot;</span><span class="token punctuation">,</span> listenPort<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> fullAddr<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-        log<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;Now run \&quot;./echo -l %d -d %s\&quot; on a different terminal\n&quot;</span><span class="token punctuation">,</span> listenPort<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> fullAddr<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
+    if insecure {
+        log.Printf(&quot;Now run \&quot;./echo -l %d -d %s -insecure\&quot; on a different terminal\n&quot;, listenPort+1, fullAddr)
+    } else {
+        log.Printf(&quot;Now run \&quot;./echo -l %d -d %s\&quot; on a different terminal\n&quot;, listenPort+1, fullAddr)
+    }
 
-    <span class="token comment">// Wait until canceled</span>
-    <span class="token operator">&lt;-</span>ctx<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+    // Wait until canceled
+    &lt;-ctx.Done()
+}
 </code></pre>
 <ul>
 <li><code>getHostAddress</code>: &#x4F7F;&#x7528;mutliaddr&#x7684;Encapsulate&#x51FD;&#x6570;, &#x628A;peerId&#x5305;&#x88C5;&#x8FDB;network&#x5730;&#x5740;&#x4E2D;:<code>I am /ip4/127.0.0.1/tcp/10000/p2p/QmW1Ze4AbEtWtTg5ibcnsLgUPJsZ3wh1VuGzhqHtrvAp2e</code></li>
 <li><p><code>SetStreamHandler(pid protocol.ID, handler network.StreamHandler)</code>: &#x7ED9;mux&#x5C42;&#x8BBE;&#x5B9A;&#x4E00;&#x4E2A;handler. &#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x4E2A;string, &#x63CF;&#x8FF0;&#x534F;&#x8BAE;&#x7684;, &#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;handler&#x7684;&#x7B7E;&#x540D;&#x662F;<code>type StreamHandler func(Stream)</code>, &#x6709;&#x70B9;&#x50CF;OnConnect(), &#x540C;&#x6837;&#x7684;&#x662F;&#x4F1A;&#x88AB;&#x6846;&#x67B6;&#x4F20;&#x5165;Stream, &#x8FD9;&#x662F;&#x4E2A;&#x5728;mux&#x5C42;&#x4E4B;&#x4E0A;&#x7684;&#x6982;&#x5FF5;, &#x63D0;&#x4F9B;&#x903B;&#x8F91;&#x4E0A;&#x7684;2&#x4E2A;agent&#x4E4B;&#x95F4;&#x7684;&#x53CC;&#x5411;&#x901A;&#x4FE1;, &#x662F;io reader&#x548C;io writer, &#x5B83;&#x7684;&#x4E0B;&#x9762;&#x662F;&#x4E2A;multiplexer.
 &#x8FD9;&#x91CC;&#x8FD9;&#x4E2A;handler&#x5F88;&#x7B80;&#x5355;, &#x5C31;&#x662F;doEcho. &#x56E0;&#x4E3A;<code>s network.Stream</code>&#x662F;&#x6846;&#x67B6;&#x4F20;&#x5165;&#x7684;, &#x80FD;&#x76F4;&#x63A5;&#x505A;io&#x8BFB;&#x5199;&#x64CD;&#x505A;.</p>
-<pre class="language-"><code class="lang-go"><span class="token comment">// doEcho reads a line of data a stream and writes it back</span>
-<span class="token keyword">func</span> <span class="token function">doEcho</span><span class="token punctuation">(</span>s network<span class="token punctuation">.</span>Stream<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
-  buf <span class="token operator">:=</span> bufio<span class="token punctuation">.</span><span class="token function">NewReader</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-  str<span class="token punctuation">,</span> err <span class="token operator">:=</span> buf<span class="token punctuation">.</span><span class="token function">ReadString</span><span class="token punctuation">(</span><span class="token char">&apos;\n&apos;</span><span class="token punctuation">)</span>
-  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-      <span class="token keyword">return</span> err
-  <span class="token punctuation">}</span>
+<pre><code class="lang-go">// doEcho reads a line of data a stream and writes it back
+func doEcho(s network.Stream) error {
+  buf := bufio.NewReader(s)
+  str, err := buf.ReadString(&apos;\n&apos;)
+  if err != nil {
+      return err
+  }
 
-  log<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;read: %s&quot;</span><span class="token punctuation">,</span> str<span class="token punctuation">)</span>
-  <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token keyword">return</span> err
-<span class="token punctuation">}</span>
+  log.Printf(&quot;read: %s&quot;, str)
+  _, err = s.Write([]byte(str))
+  return err
+}
 </code></pre>
 </li>
 </ul>
@@ -3389,113 +3392,113 @@ meta data&#x7684;&#x8FDE;&#x63A5;&#x7528;&#x6765;&#x7EF4;&#x62A4;gossip&#x7F51;&
 </ul>
 <h2 id="host"><a name="host" class="anchor-navigation-ex-anchor" href="#host"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. host</h2>
 <p>&#x4E4B;&#x524D;&#x7684;echo&#x7684;&#x4F8B;&#x5B50;&#x53EA;&#x662F;&#x7528;&#x4E86;&#x7B80;&#x5355;&#x7684;option. &#x6211;&#x4EEC;&#x5728;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x91CC;&#x4F1A;&#x7528;&#x4E00;&#x4E9B;&#x5E38;&#x7528;&#x7684;option, &#x4F7F;&#x80FD;&#x4E86;routing, &#x4F7F;nat&#x7F51;&#x7EDC;&#x4E5F;&#x80FD;&#x53D1;&#x73B0;.</p>
-<pre class="language-"><code class="lang-go">    <span class="token comment">// To construct a simple host with all the default settings, just use `New`</span>
-    h<span class="token punctuation">,</span> err <span class="token operator">:=</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span>
+<pre><code class="lang-go">    // To construct a simple host with all the default settings, just use `New`
+    h, err := libp2p.New(ctx)
 
-    <span class="token comment">//h2&#x662F;&#x4E2A;&#x5B9A;&#x5236;&#x7684;host</span>
-    h2<span class="token punctuation">,</span> err <span class="token operator">:=</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
-        <span class="token comment">// Use the keypair we generated, &#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;key</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">Identity</span><span class="token punctuation">(</span>priv<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token comment">// Multiple listen addresses, &#x6307;&#x5B9A;&#x591A;&#x4E2A;listen&#x5730;&#x5740;</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrStrings</span><span class="token punctuation">(</span>
-            <span class="token string">&quot;/ip4/0.0.0.0/tcp/9000&quot;</span><span class="token punctuation">,</span>      <span class="token comment">// regular tcp connections</span>
-            <span class="token string">&quot;/ip4/0.0.0.0/udp/9000/quic&quot;</span><span class="token punctuation">,</span> <span class="token comment">// a UDP endpoint for the QUIC transport</span>
-        <span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token comment">// support TLS connections</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">Security</span><span class="token punctuation">(</span>libp2ptls<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> libp2ptls<span class="token punctuation">.</span>New<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token comment">// support secio connections</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">Security</span><span class="token punctuation">(</span>secio<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> secio<span class="token punctuation">.</span>New<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token comment">// support QUIC - experimental</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">Transport</span><span class="token punctuation">(</span>libp2pquic<span class="token punctuation">.</span>NewTransport<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token comment">// support any other default transports (TCP)</span>
-        libp2p<span class="token punctuation">.</span>DefaultTransports<span class="token punctuation">,</span> <span class="token comment">// DefaultTransports&#x662F;tcp&#x548C;websocket</span>
-        <span class="token comment">// Let&apos;s prevent our peer from having too many</span>
-        <span class="token comment">// connections by attaching a connection manager.</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">ConnectionManager</span><span class="token punctuation">(</span>connmgr<span class="token punctuation">.</span><span class="token function">NewConnManager</span><span class="token punctuation">(</span>
-            <span class="token number">100</span><span class="token punctuation">,</span>         <span class="token comment">// Lowwater</span>
-            <span class="token number">400</span><span class="token punctuation">,</span>         <span class="token comment">// HighWater,</span>
-            time<span class="token punctuation">.</span>Minute<span class="token punctuation">,</span> <span class="token comment">// GracePeriod</span>
-        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token comment">// &#x4E0B;&#x9762;&#x8FD9;&#x51E0;&#x4E2A;&#x914D;&#x7F6E;&#x4E86;NAT&#x53EF;&#x8FBE;</span>
-        <span class="token comment">// Attempt to open ports using uPNP for NATed hosts.</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">NATPortMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token comment">// Let this host use the DHT to find other hosts</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">Routing</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span>h host<span class="token punctuation">.</span>Host<span class="token punctuation">)</span> <span class="token punctuation">(</span>routing<span class="token punctuation">.</span>PeerRouting<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            idht<span class="token punctuation">,</span> err <span class="token operator">=</span> dht<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> h<span class="token punctuation">)</span>
-            <span class="token keyword">return</span> idht<span class="token punctuation">,</span> err
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token comment">// Let this host use relays and advertise itself on relays if</span>
-        <span class="token comment">// it finds it is behind NAT. Use libp2p.Relay(options...) to</span>
-        <span class="token comment">// enable active relays and more.</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">EnableAutoRelay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token comment">// If you want to help other peers to figure out if they are behind</span>
-        <span class="token comment">// NATs, you can launch the server-side of AutoNAT too (AutoRelay</span>
-        <span class="token comment">// already runs the client)</span>
-        <span class="token comment">//</span>
-        <span class="token comment">// This service is highly rate-limited and should not cause any</span>
-        <span class="token comment">// performance issues.</span>
-        libp2p<span class="token punctuation">.</span><span class="token function">EnableNATService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span>
+    //h2&#x662F;&#x4E2A;&#x5B9A;&#x5236;&#x7684;host
+    h2, err := libp2p.New(ctx,
+        // Use the keypair we generated, &#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;key
+        libp2p.Identity(priv),
+        // Multiple listen addresses, &#x6307;&#x5B9A;&#x591A;&#x4E2A;listen&#x5730;&#x5740;
+        libp2p.ListenAddrStrings(
+            &quot;/ip4/0.0.0.0/tcp/9000&quot;,      // regular tcp connections
+            &quot;/ip4/0.0.0.0/udp/9000/quic&quot;, // a UDP endpoint for the QUIC transport
+        ),
+        // support TLS connections
+        libp2p.Security(libp2ptls.ID, libp2ptls.New),
+        // support secio connections
+        libp2p.Security(secio.ID, secio.New),
+        // support QUIC - experimental
+        libp2p.Transport(libp2pquic.NewTransport),
+        // support any other default transports (TCP)
+        libp2p.DefaultTransports, // DefaultTransports&#x662F;tcp&#x548C;websocket
+        // Let&apos;s prevent our peer from having too many
+        // connections by attaching a connection manager.
+        libp2p.ConnectionManager(connmgr.NewConnManager(
+            100,         // Lowwater
+            400,         // HighWater,
+            time.Minute, // GracePeriod
+        )),
+        // &#x4E0B;&#x9762;&#x8FD9;&#x51E0;&#x4E2A;&#x914D;&#x7F6E;&#x4E86;NAT&#x53EF;&#x8FBE;
+        // Attempt to open ports using uPNP for NATed hosts.
+        libp2p.NATPortMap(),
+        // Let this host use the DHT to find other hosts
+        libp2p.Routing(func(h host.Host) (routing.PeerRouting, error) {
+            idht, err = dht.New(ctx, h)
+            return idht, err
+        }),
+        // Let this host use relays and advertise itself on relays if
+        // it finds it is behind NAT. Use libp2p.Relay(options...) to
+        // enable active relays and more.
+        libp2p.EnableAutoRelay(),
+        // If you want to help other peers to figure out if they are behind
+        // NATs, you can launch the server-side of AutoNAT too (AutoRelay
+        // already runs the client)
+        //
+        // This service is highly rate-limited and should not cause any
+        // performance issues.
+        libp2p.EnableNATService(),
+    )
 </code></pre>
 <p>&#x914D;&#x7F6E;&#x597D;&#x4E86;host, &#x4E3A;&#x4E86;&#x8BA9;&#x8FD9;&#x4E2A;host&#x9AD8;&#x53EF;&#x8FBE;, &#x8FD8;&#x8981;&#x8FDE;&#x63A5;&#x9884;&#x914D;&#x7F6E;&#x7684;bootstrap nodes.</p>
-<pre class="language-"><code class="lang-go">        <span class="token comment">// This connects to public bootstrappers</span>
-        <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> addr <span class="token operator">:=</span> <span class="token keyword">range</span> dht<span class="token punctuation">.</span>DefaultBootstrapPeers <span class="token punctuation">{</span>
-            pi<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> peer<span class="token punctuation">.</span><span class="token function">AddrInfoFromP2pAddr</span><span class="token punctuation">(</span>addr<span class="token punctuation">)</span>
-            <span class="token comment">// We ignore errors as some bootstrap peers may be down</span>
-            <span class="token comment">// and that is fine.</span>
-            h2<span class="token punctuation">.</span><span class="token function">Connect</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">*</span>pi<span class="token punctuation">)</span>
-        <span class="token punctuation">}</span>
+<pre><code class="lang-go">        // This connects to public bootstrappers
+        for _, addr := range dht.DefaultBootstrapPeers {
+            pi, _ := peer.AddrInfoFromP2pAddr(addr)
+            // We ignore errors as some bootstrap peers may be down
+            // and that is fine.
+            h2.Connect(ctx, *pi)
+        }
 </code></pre>
 <h2 id="routed-echo"><a name="routed-echo" class="anchor-navigation-ex-anchor" href="#routed-echo"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. routed echo</h2>
 <p>&#x5728;&#x7B80;&#x5355;echo&#x548C;host&#x7684;&#x57FA;&#x7840;&#x4E0A;, routed echo&#x914D;&#x7F6E;&#x4E00;&#x4E2A;host&#x4F7F;&#x7528;DHT,&#x8FDE;&#x63A5;bootstrap&#x8282;&#x70B9;, &#x4F7F;&#x5176;&#x80FD;&#x591F;&#x88AB;peer&#x53D1;&#x73B0;.
 &#x5176;&#x4ED6;peer&#x53EF;&#x4EE5;&#x53EA;&#x6839;&#x636E;peerId&#x6765;&#x8BBF;&#x95EE;&#x5B83;.</p>
 <ul>
 <li><p><code>makeRoutedHost</code>&#x51FD;&#x6570;&#x9996;&#x5148;&#x751F;&#x6210;&#x79C1;&#x94A5;, &#x7136;&#x540E;&#x914D;&#x7F6E;options&#x5982;&#x4E0B;, &#x6B64;&#x65F6;&#x5B83;&#x8FD8;&#x662F;&#x4E2A;basic host</p>
-<pre class="language-"><code class="lang-go">  opts <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>libp2p<span class="token punctuation">.</span>Option<span class="token punctuation">{</span>
-      libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrStrings</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;/ip4/0.0.0.0/tcp/%d&quot;</span><span class="token punctuation">,</span> listenPort<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-      libp2p<span class="token punctuation">.</span><span class="token function">Identity</span><span class="token punctuation">(</span>priv<span class="token punctuation">)</span><span class="token punctuation">,</span>
-      libp2p<span class="token punctuation">.</span>DefaultTransports<span class="token punctuation">,</span>
-      libp2p<span class="token punctuation">.</span>DefaultMuxers<span class="token punctuation">,</span>
-      libp2p<span class="token punctuation">.</span>DefaultSecurity<span class="token punctuation">,</span>
-      libp2p<span class="token punctuation">.</span><span class="token function">NATPortMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">}</span>
-  ctx <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre><code class="lang-go">  opts := []libp2p.Option{
+      libp2p.ListenAddrStrings(fmt.Sprintf(&quot;/ip4/0.0.0.0/tcp/%d&quot;, listenPort)),
+      libp2p.Identity(priv),
+      libp2p.DefaultTransports,
+      libp2p.DefaultMuxers,
+      libp2p.DefaultSecurity,
+      libp2p.NATPortMap(),
+  }
+  ctx := context.Background()
 
-  basicHost<span class="token punctuation">,</span> err <span class="token operator">:=</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> opts<span class="token operator">...</span><span class="token punctuation">)</span>
+  basicHost, err := libp2p.New(ctx, opts...)
 </code></pre>
 </li>
 <li><p>&#x7136;&#x540E;&#x65B0;&#x5EFA;datastroe</p>
-<pre class="language-"><code class="lang-go">  <span class="token comment">// Construct a datastore (needed by the DHT). This is just a simple, in-memory thread-safe datastore.</span>
-  dstore <span class="token operator">:=</span> dsync<span class="token punctuation">.</span><span class="token function">MutexWrap</span><span class="token punctuation">(</span>ds<span class="token punctuation">.</span><span class="token function">NewMapDatastore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<pre><code class="lang-go">  // Construct a datastore (needed by the DHT). This is just a simple, in-memory thread-safe datastore.
+  dstore := dsync.MutexWrap(ds.NewMapDatastore())
 
-  <span class="token comment">// Make the DHT</span>
-  dht <span class="token operator">:=</span> dht<span class="token punctuation">.</span><span class="token function">NewDHT</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> basicHost<span class="token punctuation">,</span> dstore<span class="token punctuation">)</span>
+  // Make the DHT
+  dht := dht.NewDHT(ctx, basicHost, dstore)
 
-  <span class="token comment">// Make the routed host -- &#x8FD9;&#x6B65;&#x5C31;&#x662F;&#x628A;basic host&#x5305;&#x88C5;&#x6210;routed host</span>
-  <span class="token comment">// &#x53EF;&#x4EE5;&#x770B;&#x51FA;, routed host&#x9700;&#x8981;basic host&#x548C;dht</span>
-  routedHost <span class="token operator">:=</span> rhost<span class="token punctuation">.</span><span class="token function">Wrap</span><span class="token punctuation">(</span>basicHost<span class="token punctuation">,</span> dht<span class="token punctuation">)</span> <span class="token comment">//&#x8FD9;&#x91CC;&#x7684;rhost&#x5C31;&#x662F;go-libp2p/p2p/host/routed</span>
+  // Make the routed host -- &#x8FD9;&#x6B65;&#x5C31;&#x662F;&#x628A;basic host&#x5305;&#x88C5;&#x6210;routed host
+  // &#x53EF;&#x4EE5;&#x770B;&#x51FA;, routed host&#x9700;&#x8981;basic host&#x548C;dht
+  routedHost := rhost.Wrap(basicHost, dht) //&#x8FD9;&#x91CC;&#x7684;rhost&#x5C31;&#x662F;go-libp2p/p2p/host/routed
 
-  <span class="token comment">// connect to the chosen ipfs nodes</span>
-  <span class="token comment">// for&#x6BCF;&#x4E2A;bootstrap peer, &#x8C03;&#x7528;host.Connect</span>
-  <span class="token comment">// &#x5947;&#x602A;&#x7684;&#x662F;&#x5728;connect&#x4E4B;&#x524D;&#x5C31;&#x628A;&#x6BCF;&#x4E2A;bootstrap peer&#x7684;&#x5730;&#x5740;&#x52A0;&#x5230;&#x81EA;&#x5DF1;&#x7684;peerstore&#x4E2D;&#x4E86;: ph.Peerstore().AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)</span>
-  <span class="token comment">// -- &#x4E0D;&#x5947;&#x602A;, &#x8981;&#x5148;&#x77E5;&#x9053;&#x5730;&#x5740;&#x4FE1;&#x606F;, &#x518D;connect. &#x56E0;&#x4E3A;connect&#x53EA;&#x9700;&#x8981;peer ID</span>
-  err <span class="token operator">=</span> <span class="token function">bootstrapConnect</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> routedHost<span class="token punctuation">,</span> bootstrapPeers<span class="token punctuation">)</span>
+  // connect to the chosen ipfs nodes
+  // for&#x6BCF;&#x4E2A;bootstrap peer, &#x8C03;&#x7528;host.Connect
+  // &#x5947;&#x602A;&#x7684;&#x662F;&#x5728;connect&#x4E4B;&#x524D;&#x5C31;&#x628A;&#x6BCF;&#x4E2A;bootstrap peer&#x7684;&#x5730;&#x5740;&#x52A0;&#x5230;&#x81EA;&#x5DF1;&#x7684;peerstore&#x4E2D;&#x4E86;: ph.Peerstore().AddAddrs(p.ID, p.Addrs, peerstore.PermanentAddrTTL)
+  // -- &#x4E0D;&#x5947;&#x602A;, &#x8981;&#x5148;&#x77E5;&#x9053;&#x5730;&#x5740;&#x4FE1;&#x606F;, &#x518D;connect. &#x56E0;&#x4E3A;connect&#x53EA;&#x9700;&#x8981;peer ID
+  err = bootstrapConnect(ctx, routedHost, bootstrapPeers)
 
-  <span class="token comment">// Bootstrap the host</span>
-  err <span class="token operator">=</span> dht<span class="token punctuation">.</span><span class="token function">Bootstrap</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span>
+  // Bootstrap the host
+  err = dht.Bootstrap(ctx)
 </code></pre>
 </li>
 <li>bootstrap peer&#x5982;&#x4F55;&#x786E;&#x5B9A;&#x7684;?
-&#x53EF;&#x4EE5;&#x662F;&#x5168;&#x5C40;&#x5199;&#x6B7B;&#x7684;, &#x6BD4;&#x5982;:<pre class="language-"><code class="lang-go">  IPFS_PEERS <span class="token operator">=</span> <span class="token function">convertPeers</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span>
-      <span class="token string">&quot;/ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ&quot;</span><span class="token punctuation">,</span>
-      <span class="token string">&quot;/ip4/104.236.179.241/tcp/4001/p2p/QmSoLPppuBtQSGwKDZT2M73ULpjvfd3aZ6ha4oFGL1KrGM&quot;</span><span class="token punctuation">,</span>
-      <span class="token string">&quot;/ip4/128.199.219.111/tcp/4001/p2p/QmSoLSafTMBsPKadTEgaXctDQVcqN88CNLHXMkTNwMKPnu&quot;</span><span class="token punctuation">,</span>
-      <span class="token string">&quot;/ip4/104.236.76.40/tcp/4001/p2p/QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64&quot;</span><span class="token punctuation">,</span>
-      <span class="token string">&quot;/ip4/178.62.158.247/tcp/4001/p2p/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd&quot;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+&#x53EF;&#x4EE5;&#x662F;&#x5168;&#x5C40;&#x5199;&#x6B7B;&#x7684;, &#x6BD4;&#x5982;:<pre><code class="lang-go">  IPFS_PEERS = convertPeers([]string{
+      &quot;/ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ&quot;,
+      &quot;/ip4/104.236.179.241/tcp/4001/p2p/QmSoLPppuBtQSGwKDZT2M73ULpjvfd3aZ6ha4oFGL1KrGM&quot;,
+      &quot;/ip4/128.199.219.111/tcp/4001/p2p/QmSoLSafTMBsPKadTEgaXctDQVcqN88CNLHXMkTNwMKPnu&quot;,
+      &quot;/ip4/104.236.76.40/tcp/4001/p2p/QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64&quot;,
+      &quot;/ip4/178.62.158.247/tcp/4001/p2p/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd&quot;,
+  })
 </code></pre>
-&#x6216;&#x8005;&#x4ECE;&#x672C;&#x5730;http server&#x83B7;&#x53D6;<pre class="language-"><code class="lang-go">LOCAL_PEER_ENDPOINT <span class="token operator">=</span> <span class="token string">&quot;http://localhost:5001/api/v0/id&quot;</span>
-resp<span class="token punctuation">,</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span>LOCAL_PEER_ENDPOINT<span class="token punctuation">)</span>
+&#x6216;&#x8005;&#x4ECE;&#x672C;&#x5730;http server&#x83B7;&#x53D6;<pre><code class="lang-go">LOCAL_PEER_ENDPOINT = &quot;http://localhost:5001/api/v0/id&quot;
+resp, err := http.Get(LOCAL_PEER_ENDPOINT)
 </code></pre>
 </li>
 </ul>
@@ -3528,235 +3531,235 @@ A&#x5728;&#x5185;&#x7F51;, B&#x5728;&#x5916;&#x7F51;(&#x6709;&#x516C;&#x7F51;IP)
 <p>&#x7B54;: &#x6821;&#x9A8C;&#x7528;&#x7684;. &#x5982;&#x679C;&#x586B;&#x9519;p2p&#x5730;&#x5740;, &#x6BD4;&#x5982;B&#x9519;&#x586B;&#x4E86;A&#x7684;&#x5730;&#x5740;, &#x4F1A;&#x62A5;&#x9519;, &#x4E0D;&#x8BA9;&#x8FDE;&#x63A5;<br><img src="img/golang_libp2p_20220914224300.png" alt="">  </p>
 <h3 id="&#x4EE3;&#x7801;"><a name="&#x4EE3;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.3. &#x4EE3;&#x7801;</h3>
 <ul>
-<li>&#x6253;&#x5370;&#x989C;&#x8272;<pre class="language-"><code class="lang-go">          <span class="token comment">// Green console colour:     \x1b[32m</span>
-          <span class="token comment">// Reset console colour:     \x1b[0m</span>
-          fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;\x1b[32m%s\x1b[0m&gt; &quot;</span><span class="token punctuation">,</span> str<span class="token punctuation">)</span>
+<li>&#x6253;&#x5370;&#x989C;&#x8272;<pre><code class="lang-go">          // Green console colour:     \x1b[32m
+          // Reset console colour:     \x1b[0m
+          fmt.Printf(&quot;\x1b[32m%s\x1b[0m&gt; &quot;, str)
 </code></pre>
 </li>
-<li>&#x5982;&#x679C;&#x521D;&#x59CB;&#x968F;&#x673A;&#x503C;&#x4E00;&#x6837;, &#x5F97;&#x51FA;&#x7684;key&#x6BCF;&#x6B21;&#x90FD;&#x4E00;&#x6837;&#x7684;:<pre class="language-"><code class="lang-go">  <span class="token keyword">if</span> <span class="token operator">*</span>debug <span class="token punctuation">{</span>
-      <span class="token comment">// Use the port number as the randomness source.</span>
-      <span class="token comment">// This will always generate the same host ID on multiple executions, if the same port number is used.</span>
-      <span class="token comment">// Never do this in production code.</span>
-      r <span class="token operator">=</span> mrand<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>mrand<span class="token punctuation">.</span><span class="token function">NewSource</span><span class="token punctuation">(</span><span class="token function">int64</span><span class="token punctuation">(</span><span class="token operator">*</span>sourcePort<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-      r <span class="token operator">=</span> rand<span class="token punctuation">.</span>Reader
-  <span class="token punctuation">}</span>
+<li>&#x5982;&#x679C;&#x521D;&#x59CB;&#x968F;&#x673A;&#x503C;&#x4E00;&#x6837;, &#x5F97;&#x51FA;&#x7684;key&#x6BCF;&#x6B21;&#x90FD;&#x4E00;&#x6837;&#x7684;:<pre><code class="lang-go">  if *debug {
+      // Use the port number as the randomness source.
+      // This will always generate the same host ID on multiple executions, if the same port number is used.
+      // Never do this in production code.
+      r = mrand.New(mrand.NewSource(int64(*sourcePort)))
+  } else {
+      r = rand.Reader
+  }
 </code></pre>
 </li>
-<li>&#x5168;0&#x7684;&#x5730;&#x5740;&#x4F1A;listen&#x6240;&#x6709;&#x7684;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;<pre class="language-"><code class="lang-go"><span class="token comment">// 0.0.0.0 will listen on any interface device.</span>
-sourceMultiAddr<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> multiaddr<span class="token punctuation">.</span><span class="token function">NewMultiaddr</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;/ip4/0.0.0.0/tcp/%d&quot;</span><span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<li>&#x5168;0&#x7684;&#x5730;&#x5740;&#x4F1A;listen&#x6240;&#x6709;&#x7684;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;<pre><code class="lang-go">// 0.0.0.0 will listen on any interface device.
+sourceMultiAddr, _ := multiaddr.NewMultiaddr(fmt.Sprintf(&quot;/ip4/0.0.0.0/tcp/%d&quot;, port))
 </code></pre>
 </li>
 <li>&quot;&#x670D;&#x52A1;&#x7AEF;&quot;&#x8981;<code>SetStreamHandler</code></li>
 <li><p>&#x53EF;&#x4EE5;&#x8BA9;&#x7CFB;&#x7EDF;&#x81EA;&#x52A8;&#x5206;&#x914D;&#x7AEF;&#x53E3;</p>
-<pre class="language-"><code class="lang-go">  <span class="token comment">// Let&apos;s get the actual TCP port from our listen multiaddr, in case we&apos;re using 0 (default; random available port).</span>
-  <span class="token keyword">var</span> port <span class="token builtin">string</span>
-  <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> la <span class="token operator">:=</span> <span class="token keyword">range</span> h<span class="token punctuation">.</span><span class="token function">Network</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ListenAddresses</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> p<span class="token punctuation">,</span> err <span class="token operator">:=</span> la<span class="token punctuation">.</span><span class="token function">ValueForProtocol</span><span class="token punctuation">(</span>multiaddr<span class="token punctuation">.</span>P_TCP<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-          port <span class="token operator">=</span> p
-          <span class="token keyword">break</span>
-      <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
+<pre><code class="lang-go">  // Let&apos;s get the actual TCP port from our listen multiaddr, in case we&apos;re using 0 (default; random available port).
+  var port string
+  for _, la := range h.Network().ListenAddresses() {
+      if p, err := la.ValueForProtocol(multiaddr.P_TCP); err == nil {
+          port = p
+          break
+      }
+  }
 
-  <span class="token keyword">if</span> port <span class="token operator">==</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">{</span>
-      log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;was not able to find actual local port&quot;</span><span class="token punctuation">)</span>
-      <span class="token keyword">return</span>
-  <span class="token punctuation">}</span>
+  if port == &quot;&quot; {
+      log.Println(&quot;was not able to find actual local port&quot;)
+      return
+  }
 </code></pre>
 </li>
 <li><p>&quot;&#x5BA2;&#x6237;&#x7AEF;&quot;&#x4E0D;&#x4EC5;&#x8981;&#x5EFA;&#x7ACB;&#x81EA;&#x5DF1;&#x7684;host, &#x8FD8;&#x8981;connect&quot;&#x670D;&#x52A1;&#x7AEF;&quot;. &#x8981;&#x5148;&#x4ECE;-d&#x9009;&#x9879;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x91CC;&#x63D0;&#x53D6;&#x5730;&#x5740;&#x4FE1;&#x606F;</p>
-<pre class="language-"><code class="lang-go">  <span class="token comment">// Turn the destination into a multiaddr.</span>
-  maddr<span class="token punctuation">,</span> err <span class="token operator">:=</span> multiaddr<span class="token punctuation">.</span><span class="token function">NewMultiaddr</span><span class="token punctuation">(</span>destination<span class="token punctuation">)</span>
-  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-      log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-      <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
-  <span class="token punctuation">}</span>
+<pre><code class="lang-go">  // Turn the destination into a multiaddr.
+  maddr, err := multiaddr.NewMultiaddr(destination)
+  if err != nil {
+      log.Println(err)
+      return nil, err
+  }
 
-  <span class="token comment">// Extract the peer ID from the multiaddr.</span>
-  info<span class="token punctuation">,</span> err <span class="token operator">:=</span> peer<span class="token punctuation">.</span><span class="token function">AddrInfoFromP2pAddr</span><span class="token punctuation">(</span>maddr<span class="token punctuation">)</span>
-  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-      log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-      <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
-  <span class="token punctuation">}</span>
+  // Extract the peer ID from the multiaddr.
+  info, err := peer.AddrInfoFromP2pAddr(maddr)
+  if err != nil {
+      log.Println(err)
+      return nil, err
+  }
 </code></pre>
 </li>
 <li><p>&#x5148;&#x5728;peerstore&#x91CC;&#x9762;add&#x5BF9;&#x7AEF;&#x7684;&#x5730;&#x5740;, &#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x53D1;&#x8D77;&#x8FDE;&#x63A5;&#x4E86;.</p>
-<pre class="language-"><code class="lang-go">  <span class="token comment">// Add the destination&apos;s peer multiaddress in the peerstore.</span>
-  <span class="token comment">// This will be used during connection and stream creation by libp2p.</span>
-  h<span class="token punctuation">.</span><span class="token function">Peerstore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">AddAddrs</span><span class="token punctuation">(</span>info<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> info<span class="token punctuation">.</span>Addrs<span class="token punctuation">,</span> peerstore<span class="token punctuation">.</span>PermanentAddrTTL<span class="token punctuation">)</span>
+<pre><code class="lang-go">  // Add the destination&apos;s peer multiaddress in the peerstore.
+  // This will be used during connection and stream creation by libp2p.
+  h.Peerstore().AddAddrs(info.ID, info.Addrs, peerstore.PermanentAddrTTL)
 
-  <span class="token comment">// Start a stream with the destination.</span>
-  <span class="token comment">// Multiaddress of the destination peer is fetched from the peerstore using &apos;peerId&apos;.</span>
-  s<span class="token punctuation">,</span> err <span class="token operator">:=</span> h<span class="token punctuation">.</span><span class="token function">NewStream</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> info<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> <span class="token string">&quot;/chat/1.0.0&quot;</span><span class="token punctuation">)</span>
+  // Start a stream with the destination.
+  // Multiaddress of the destination peer is fetched from the peerstore using &apos;peerId&apos;.
+  s, err := h.NewStream(context.Background(), info.ID, &quot;/chat/1.0.0&quot;)
 </code></pre>
 </li>
 <li><p>&#x4F7F;&#x7528;bufio&#x53EF;&#x4EE5;&#x628A;&#x963B;&#x585E;&#x7684;io&#x8BFB;&#x5199;&#x53D8;&#x6210;&#x975E;&#x963B;&#x585E;&#x7684;:</p>
-<pre class="language-"><code class="lang-go">  <span class="token comment">// Start a stream with the destination.</span>
-  <span class="token comment">// Multiaddress of the destination peer is fetched from the peerstore using &apos;peerId&apos;.</span>
-  s<span class="token punctuation">,</span> err <span class="token operator">:=</span> h<span class="token punctuation">.</span><span class="token function">NewStream</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> info<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> <span class="token string">&quot;/chat/1.0.0&quot;</span><span class="token punctuation">)</span>
+<pre><code class="lang-go">  // Start a stream with the destination.
+  // Multiaddress of the destination peer is fetched from the peerstore using &apos;peerId&apos;.
+  s, err := h.NewStream(context.Background(), info.ID, &quot;/chat/1.0.0&quot;)
 
-  <span class="token comment">// Create a buffered stream so that read and writes are non blocking.</span>
-  rw <span class="token operator">:=</span> bufio<span class="token punctuation">.</span><span class="token function">NewReadWriter</span><span class="token punctuation">(</span>bufio<span class="token punctuation">.</span><span class="token function">NewReader</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">,</span> bufio<span class="token punctuation">.</span><span class="token function">NewWriter</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  // Create a buffered stream so that read and writes are non blocking.
+  rw := bufio.NewReadWriter(bufio.NewReader(s), bufio.NewWriter(s))
 </code></pre>
 </li>
 </ul>
 <h2 id="chat-mdns"><a name="chat-mdns" class="anchor-navigation-ex-anchor" href="#chat-mdns"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. chat mdns</h2>
 <p>&#x4F7F;&#x80FD;&#x91CC;mdns&#x53D1;&#x73B0;&#x7684;chat. &#x5176;&#x4ED6;&#x7684;&#x548C;chat&#x4E00;&#x6837;</p>
 <h3 id="&#x4F7F;&#x7528;_1"><a name="&#x4F7F;&#x7528;_1" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;_1"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.1. &#x4F7F;&#x7528;</h3>
-<pre class="language-"><code>./chat-with-mdns -port 6666
+<pre><code>./chat-with-mdns -port 6666
 ./chat-with-mdns -port 6668
 </code></pre><h3 id="&#x4EE3;&#x7801;_1"><a name="&#x4EE3;&#x7801;_1" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;_1"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.2. &#x4EE3;&#x7801;</h3>
 <ul>
 <li><p>&#x5148;New&#x4E00;&#x4E2A;&#x57FA;&#x672C;&#x7684;host, &#x8FD9;&#x4E2A;&#x548C;&#x666E;&#x901A;&#x7684;chat&#x4E00;&#x6837;; SetStreamHandler&#x4E5F;&#x4E00;&#x6837;</p>
-<pre class="language-"><code class="lang-go">  <span class="token comment">// 0.0.0.0 will listen on any interface device.</span>
-  sourceMultiAddr<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> multiaddr<span class="token punctuation">.</span><span class="token function">NewMultiaddr</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;/ip4/%s/tcp/%d&quot;</span><span class="token punctuation">,</span> cfg<span class="token punctuation">.</span>listenHost<span class="token punctuation">,</span> cfg<span class="token punctuation">.</span>listenPort<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<pre><code class="lang-go">  // 0.0.0.0 will listen on any interface device.
+  sourceMultiAddr, _ := multiaddr.NewMultiaddr(fmt.Sprintf(&quot;/ip4/%s/tcp/%d&quot;, cfg.listenHost, cfg.listenPort))
 
-  <span class="token comment">// libp2p.New constructs a new libp2p Host.</span>
-  <span class="token comment">// Other options can be added here.</span>
-  host<span class="token punctuation">,</span> err <span class="token operator">:=</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>
-      ctx<span class="token punctuation">,</span>
-      libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrs</span><span class="token punctuation">(</span>sourceMultiAddr<span class="token punctuation">)</span><span class="token punctuation">,</span>
-      libp2p<span class="token punctuation">.</span><span class="token function">Identity</span><span class="token punctuation">(</span>prvKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">)</span>
+  // libp2p.New constructs a new libp2p Host.
+  // Other options can be added here.
+  host, err := libp2p.New(
+      ctx,
+      libp2p.ListenAddrs(sourceMultiAddr),
+      libp2p.Identity(prvKey),
+  )
 
-  <span class="token comment">// Set a function as stream handler.</span>
-  <span class="token comment">// This function is called when a peer initiates a connection and starts a stream with this peer.</span>
-  host<span class="token punctuation">.</span><span class="token function">SetStreamHandler</span><span class="token punctuation">(</span>protocol<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span>cfg<span class="token punctuation">.</span>ProtocolID<span class="token punctuation">)</span><span class="token punctuation">,</span> handleStream<span class="token punctuation">)</span>
+  // Set a function as stream handler.
+  // This function is called when a peer initiates a connection and starts a stream with this peer.
+  host.SetStreamHandler(protocol.ID(cfg.ProtocolID), handleStream)
 </code></pre>
 </li>
 <li><p>&#x4F7F;&#x80FD;mDNS, &#x7B49;&#x5F85;&#x5E76;&#x8FDE;&#x63A5;peer.</p>
-<pre class="language-"><code class="lang-go">  peerChan <span class="token operator">:=</span> <span class="token function">initMDNS</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> host<span class="token punctuation">,</span> cfg<span class="token punctuation">.</span>RendezvousString<span class="token punctuation">)</span>
+<pre><code class="lang-go">  peerChan := initMDNS(ctx, host, cfg.RendezvousString)
 
-  peer <span class="token operator">:=</span> <span class="token operator">&lt;-</span>peerChan <span class="token comment">// will block untill we discover a peer</span>
-  err <span class="token operator">:=</span> host<span class="token punctuation">.</span><span class="token function">Connect</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> peer<span class="token punctuation">)</span>
-  <span class="token comment">// open a stream, this stream will be handled by handleStream other end</span>
-  stream<span class="token punctuation">,</span> err <span class="token operator">:=</span> host<span class="token punctuation">.</span><span class="token function">NewStream</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> peer<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> protocol<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span>cfg<span class="token punctuation">.</span>ProtocolID<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  peer := &lt;-peerChan // will block untill we discover a peer
+  err := host.Connect(ctx, peer)
+  // open a stream, this stream will be handled by handleStream other end
+  stream, err := host.NewStream(ctx, peer.ID, protocol.ID(cfg.ProtocolID))
 </code></pre>
 </li>
 <li><p><code>go-libp2p/p2p/discovery</code>&#x63D0;&#x4F9B;&#x4E86;mDNS&#x53D1;&#x73B0;&#x529F;&#x80FD;. &#x8FD9;&#x4E2A;discovery&#x5305;&#x76EE;&#x524D;&#x53EA;&#x6709;mdns&#x53D1;&#x73B0;&#x65B9;&#x5F0F;.
 discoveryNotifee&#x662F;&#x88AB;&#x901A;&#x77E5;&#x7684;&#x4E00;&#x65B9;. mdns&#x53D1;&#x73B0;&#x65B0;&#x7684;peer, &#x5C31;&#x4F1A;&#x53D1;&#x9001;&#x5230;PeerChan, &#x8FD9;&#x6837;&#x5C31;&#x63A5;&#x4E0A;&#x524D;&#x9762;&#x7684;&#x4ECE;peerChan&#x8BFB;peer&#x4FE1;&#x606F;, &#x518D;connect, &#x518D;NewStream&#x7684;&#x64CD;&#x505A;&#x4E86;.</p>
-<pre class="language-"><code class="lang-go"><span class="token comment">//Initialize the MDNS service</span>
-<span class="token keyword">func</span> <span class="token function">initMDNS</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> peerhost host<span class="token punctuation">.</span>Host<span class="token punctuation">,</span> rendezvous <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token keyword">chan</span> peer<span class="token punctuation">.</span>AddrInfo <span class="token punctuation">{</span>
-  <span class="token comment">// An hour might be a long long period in practical applications. But this is fine for us</span>
-  ser<span class="token punctuation">,</span> err <span class="token operator">:=</span> discovery<span class="token punctuation">.</span><span class="token function">NewMdnsService</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> peerhost<span class="token punctuation">,</span> time<span class="token punctuation">.</span>Hour<span class="token punctuation">,</span> rendezvous<span class="token punctuation">)</span>
+<pre><code class="lang-go">//Initialize the MDNS service
+func initMDNS(ctx context.Context, peerhost host.Host, rendezvous string) chan peer.AddrInfo {
+  // An hour might be a long long period in practical applications. But this is fine for us
+  ser, err := discovery.NewMdnsService(ctx, peerhost, time.Hour, rendezvous)
 
-  <span class="token comment">//register with service so that we get notified about peer discovery</span>
-  n <span class="token operator">:=</span> <span class="token operator">&amp;</span>discoveryNotifee<span class="token punctuation">{</span><span class="token punctuation">}</span>
-  n<span class="token punctuation">.</span>PeerChan <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> peer<span class="token punctuation">.</span>AddrInfo<span class="token punctuation">)</span>
+  //register with service so that we get notified about peer discovery
+  n := &amp;discoveryNotifee{}
+  n.PeerChan = make(chan peer.AddrInfo)
 
-  ser<span class="token punctuation">.</span><span class="token function">RegisterNotifee</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
-  <span class="token keyword">return</span> n<span class="token punctuation">.</span>PeerChan
-<span class="token punctuation">}</span>
+  ser.RegisterNotifee(n)
+  return n.PeerChan
+}
 </code></pre>
 </li>
 <li><p>&quot;github.com/whyrusleeping/mdns&quot;&#x662F;&#x5E95;&#x5C42;&#x63D0;&#x4F9B;mdns&#x7684;&#x5305;, mdns&#x7684;query&#x8FD4;&#x56DE;ServiceEntry</p>
-<pre class="language-"><code class="lang-go"><span class="token comment">// ServiceEntry is returned after we query for a service</span>
-<span class="token keyword">type</span> ServiceEntry <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  Name       <span class="token builtin">string</span>
-  Host       <span class="token builtin">string</span>
-  AddrV4     net<span class="token punctuation">.</span>IP
-  AddrV6     net<span class="token punctuation">.</span>IP
-  Port       <span class="token builtin">int</span>
-  Info       <span class="token builtin">string</span> <span class="token comment">// peerID&#x5C31;&#x662F;&#x7528;&#x8FD9;&#x4E2A;field&#x6765;&#x4F20;&#x9012;&#x7684;.</span>
-  InfoFields <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
+<pre><code class="lang-go">// ServiceEntry is returned after we query for a service
+type ServiceEntry struct {
+  Name       string
+  Host       string
+  AddrV4     net.IP
+  AddrV6     net.IP
+  Port       int
+  Info       string // peerID&#x5C31;&#x662F;&#x7528;&#x8FD9;&#x4E2A;field&#x6765;&#x4F20;&#x9012;&#x7684;.
+  InfoFields []string
 
-  Addr net<span class="token punctuation">.</span>IP <span class="token comment">// @Deprecated</span>
+  Addr net.IP // @Deprecated
 
-  hasTXT <span class="token builtin">bool</span>
-<span class="token punctuation">}</span>
+  hasTXT bool
+}
 </code></pre>
 <p><code>p2p/discovery/mdns.go</code>&#x7684;<code>NewMdnsService</code>&#x51FD;&#x6570;&#x4E2D;, &#x8D77;&#x4E86;&#x4E2A;<code>mdns.NewMDNSService()</code>, &#x81EA;&#x5DF1;&#x7684;ID&#x5C31;&#x4F1A;&#x88AB;&#x5F53;&#x4F5C;Info&#x4F20;&#x8FDB;&#x53BB;</p>
-<pre class="language-"><code class="lang-go">  info <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span>myid<span class="token punctuation">}</span>
-  <span class="token keyword">if</span> serviceTag <span class="token operator">==</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">{</span>
-      serviceTag <span class="token operator">=</span> ServiceTag
-  <span class="token punctuation">}</span>
-  service<span class="token punctuation">,</span> err <span class="token operator">:=</span> mdns<span class="token punctuation">.</span><span class="token function">NewMDNSService</span><span class="token punctuation">(</span>myid<span class="token punctuation">,</span> serviceTag<span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> port<span class="token punctuation">,</span> ipaddrs<span class="token punctuation">,</span> info<span class="token punctuation">)</span>
+<pre><code class="lang-go">  info := []string{myid}
+  if serviceTag == &quot;&quot; {
+      serviceTag = ServiceTag
+  }
+  service, err := mdns.NewMDNSService(myid, serviceTag, &quot;&quot;, &quot;&quot;, port, ipaddrs, info)
 </code></pre>
 </li>
 </ul>
 <h2 id="chat-with-peer&#x53D1;&#x73B0;-&#x57FA;&#x4E8E;dht"><a name="chat-with-peer&#x53D1;&#x73B0;-&#x57FA;&#x4E8E;dht" class="anchor-navigation-ex-anchor" href="#chat-with-peer&#x53D1;&#x73B0;-&#x57FA;&#x4E8E;dht"><i class="fa fa-link" aria-hidden="true"></i></a>3.6. chat with peer&#x53D1;&#x73B0;, &#x57FA;&#x4E8E;dht</h2>
 <h3 id="&#x7528;&#x5230;&#x7684;package"><a name="&#x7528;&#x5230;&#x7684;package" class="anchor-navigation-ex-anchor" href="#&#x7528;&#x5230;&#x7684;package"><i class="fa fa-link" aria-hidden="true"></i></a>3.6.1. &#x7528;&#x5230;&#x7684;package</h3>
-<pre class="language-"><code class="lang-go">    <span class="token string">&quot;github.com/libp2p/go-libp2p&quot;</span>
-    <span class="token string">&quot;github.com/libp2p/go-libp2p-core/network&quot;</span>
-    <span class="token string">&quot;github.com/libp2p/go-libp2p-core/peer&quot;</span>
-    <span class="token string">&quot;github.com/libp2p/go-libp2p-core/protocol&quot;</span>
-    <span class="token string">&quot;github.com/libp2p/go-libp2p-discovery&quot;</span>
+<pre><code class="lang-go">    &quot;github.com/libp2p/go-libp2p&quot;
+    &quot;github.com/libp2p/go-libp2p-core/network&quot;
+    &quot;github.com/libp2p/go-libp2p-core/peer&quot;
+    &quot;github.com/libp2p/go-libp2p-core/protocol&quot;
+    &quot;github.com/libp2p/go-libp2p-discovery&quot;
 
-    dht <span class="token string">&quot;github.com/libp2p/go-libp2p-kad-dht&quot;</span>
-    multiaddr <span class="token string">&quot;github.com/multiformats/go-multiaddr&quot;</span>
+    dht &quot;github.com/libp2p/go-libp2p-kad-dht&quot;
+    multiaddr &quot;github.com/multiformats/go-multiaddr&quot;
 </code></pre>
 <h3 id="&#x4EE3;&#x7801;_2"><a name="&#x4EE3;&#x7801;_2" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;_2"><i class="fa fa-link" aria-hidden="true"></i></a>3.6.2. &#x4EE3;&#x7801;</h3>
 <ul>
-<li>&#x8FD8;&#x662F;&#x5148;New&#x4E00;&#x4E2A;host<pre class="language-"><code class="lang-go">  <span class="token comment">// libp2p.New constructs a new libp2p Host. Other options can be added</span>
-  <span class="token comment">// here.</span>
-  host<span class="token punctuation">,</span> err <span class="token operator">:=</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
-      libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrs</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span>multiaddr<span class="token punctuation">.</span><span class="token function">Multiaddr</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>ListenAddresses<span class="token punctuation">)</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">)</span>
-  <span class="token comment">// Set a function as stream handler. This function is called when a peer</span>
-  <span class="token comment">// initiates a connection and starts a stream with this peer.</span>
-  host<span class="token punctuation">.</span><span class="token function">SetStreamHandler</span><span class="token punctuation">(</span>protocol<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>ProtocolID<span class="token punctuation">)</span><span class="token punctuation">,</span> handleStream<span class="token punctuation">)</span>
+<li>&#x8FD8;&#x662F;&#x5148;New&#x4E00;&#x4E2A;host<pre><code class="lang-go">  // libp2p.New constructs a new libp2p Host. Other options can be added
+  // here.
+  host, err := libp2p.New(ctx,
+      libp2p.ListenAddrs([]multiaddr.Multiaddr(config.ListenAddresses)...),
+  )
+  // Set a function as stream handler. This function is called when a peer
+  // initiates a connection and starts a stream with this peer.
+  host.SetStreamHandler(protocol.ID(config.ProtocolID), handleStream)
 </code></pre>
 </li>
 <li><p>&#x540E;&#x9762;&#x8FD9;&#x91CC;&#x5389;&#x5BB3;&#x4E86;, &#x6CE8;&#x610F;&#x770B;&#x6CE8;&#x91CA;: New&#x4E86;&#x4E00;&#x4E2A;dht&#x8FD8;&#x4E0D;&#x591F;, &#x8FD8;&#x9700;&#x8981;Bootstrap, &#x8FD9;&#x6837;&#x6BCF;&#x4E2A;node&#x90FD;&#x6709;&#x4E2A;dht&#x7684;&#x62F7;&#x8D1D;, &#x5373;&#x4F7F;&#x521D;&#x59CB;&#x8282;&#x70B9;down&#x4E86;&#x4E5F;&#x4E0D;&#x5F71;&#x54CD;&#x540E;&#x7EED;&#x7684;peer&#x53D1;&#x73B0;. Bootstrap&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4F1A;&#x6BCF;5&#x5206;&#x949F;&#x540E;&#x53F0;&#x5237;&#x65B0;&#x8FD9;&#x4E2A;dht</p>
-<pre class="language-"><code class="lang-go">  <span class="token comment">// Start a DHT, for use in peer discovery. We can&apos;t just make a new DHT</span>
-  <span class="token comment">// client because we want each peer to maintain its own local copy of the</span>
-  <span class="token comment">// DHT, so that the bootstrapping node of the DHT can go down without</span>
-  <span class="token comment">// inhibiting future peer discovery.</span>
-  kademliaDHT<span class="token punctuation">,</span> err <span class="token operator">:=</span> dht<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> host<span class="token punctuation">)</span>
+<pre><code class="lang-go">  // Start a DHT, for use in peer discovery. We can&apos;t just make a new DHT
+  // client because we want each peer to maintain its own local copy of the
+  // DHT, so that the bootstrapping node of the DHT can go down without
+  // inhibiting future peer discovery.
+  kademliaDHT, err := dht.New(ctx, host)
 
-  <span class="token comment">// Bootstrap the DHT. In the default configuration, this spawns a Background</span>
-  <span class="token comment">// thread that will refresh the peer table every five minutes.</span>
-  err <span class="token operator">=</span> kademliaDHT<span class="token punctuation">.</span><span class="token function">Bootstrap</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span>
+  // Bootstrap the DHT. In the default configuration, this spawns a Background
+  // thread that will refresh the peer table every five minutes.
+  err = kademliaDHT.Bootstrap(ctx)
 </code></pre>
 </li>
-<li>&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x8981;&#x8FDE;&#x63A5;bootstrap&#x8282;&#x70B9;&#x4E86;<pre class="language-"><code class="lang-go"><span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> peerAddr <span class="token operator">:=</span> <span class="token keyword">range</span> config<span class="token punctuation">.</span>BootstrapPeers <span class="token punctuation">{</span>
-  peerinfo<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> peer<span class="token punctuation">.</span><span class="token function">AddrInfoFromP2pAddr</span><span class="token punctuation">(</span>peerAddr<span class="token punctuation">)</span>
-  <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      host<span class="token punctuation">.</span><span class="token function">Connect</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">*</span>peerinfo<span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<li>&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x8981;&#x8FDE;&#x63A5;bootstrap&#x8282;&#x70B9;&#x4E86;<pre><code class="lang-go">for _, peerAddr := range config.BootstrapPeers {
+  peerinfo, _ := peer.AddrInfoFromP2pAddr(peerAddr)
+  go func() {
+      host.Connect(ctx, *peerinfo)
+  }
+}
 </code></pre>
 </li>
 <li><p>&#x63A5;&#x4E0B;&#x6765;&#x8981;&#x58F0;&#x660E;&quot;meet me here&quot;&#x670D;&#x52A1;, &#x7136;&#x540E;&#x901A;&#x8FC7;FindPeer&#x529F;&#x80FD;&#x627E;&#x5230;&quot;&#x540C;&#x7C7B;&quot;<br>discovery&#x8FD9;&#x5757;&#x5728;<code>go-libp2p-discovery/routing.go</code></p>
-<pre class="language-"><code class="lang-go">  <span class="token comment">// We use a rendezvous point &quot;meet me here&quot; to announce our location.</span>
-  <span class="token comment">// This is like telling your friends to meet you at the Eiffel Tower.</span>
-  logger<span class="token punctuation">.</span><span class="token function">Info</span><span class="token punctuation">(</span><span class="token string">&quot;Announcing ourselves...&quot;</span><span class="token punctuation">)</span>
-  routingDiscovery <span class="token operator">:=</span> discovery<span class="token punctuation">.</span><span class="token function">NewRoutingDiscovery</span><span class="token punctuation">(</span>kademliaDHT<span class="token punctuation">)</span>
-  discovery<span class="token punctuation">.</span><span class="token function">Advertise</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> routingDiscovery<span class="token punctuation">,</span> config<span class="token punctuation">.</span>RendezvousString<span class="token punctuation">)</span>
-  logger<span class="token punctuation">.</span><span class="token function">Debug</span><span class="token punctuation">(</span><span class="token string">&quot;Successfully announced!&quot;</span><span class="token punctuation">)</span>
+<pre><code class="lang-go">  // We use a rendezvous point &quot;meet me here&quot; to announce our location.
+  // This is like telling your friends to meet you at the Eiffel Tower.
+  logger.Info(&quot;Announcing ourselves...&quot;)
+  routingDiscovery := discovery.NewRoutingDiscovery(kademliaDHT)
+  discovery.Advertise(ctx, routingDiscovery, config.RendezvousString)
+  logger.Debug(&quot;Successfully announced!&quot;)
 
-  <span class="token comment">// Now, look for others who have announced</span>
-  <span class="token comment">// This is like your friend telling you the location to meet you.</span>
-  logger<span class="token punctuation">.</span><span class="token function">Debug</span><span class="token punctuation">(</span><span class="token string">&quot;Searching for other peers...&quot;</span><span class="token punctuation">)</span>
-  peerChan<span class="token punctuation">,</span> err <span class="token operator">:=</span> routingDiscovery<span class="token punctuation">.</span><span class="token function">FindPeers</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> config<span class="token punctuation">.</span>RendezvousString<span class="token punctuation">)</span>
+  // Now, look for others who have announced
+  // This is like your friend telling you the location to meet you.
+  logger.Debug(&quot;Searching for other peers...&quot;)
+  peerChan, err := routingDiscovery.FindPeers(ctx, config.RendezvousString)
 </code></pre>
 </li>
 <li><p>RoutingDiscovery&#x662F;&#x4E2A;&#x5B50;&#x7C7B;, &#x7EE7;&#x627F;&#x4E86;go-libp2p-core/routing&#x7684;ContentRouting<br>ContentRouting&#x662F;&#x5BF9;&#x5185;&#x5BB9;&#x7684;routing, &#x90A3;&#x4E48;&#x5185;&#x5BB9;&#x7531;&#x4E00;&#x4E2A;hash&#x503C;&#x6807;&#x8BC6;(Cid)</p>
-<pre class="language-"><code class="lang-go"><span class="token comment">// RoutingDiscovery is an implementation of discovery using ContentRouting.</span>
-<span class="token comment">// Namespaces are translated to Cids using the SHA256 hash.</span>
-<span class="token keyword">type</span> RoutingDiscovery <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  routing<span class="token punctuation">.</span>ContentRouting
-<span class="token punctuation">}</span>
+<pre><code class="lang-go">// RoutingDiscovery is an implementation of discovery using ContentRouting.
+// Namespaces are translated to Cids using the SHA256 hash.
+type RoutingDiscovery struct {
+  routing.ContentRouting
+}
 </code></pre>
 </li>
 <li><p>ContentRouting&#x5728;<code>go-libp2p-core/routing/routing.go</code></p>
-<pre class="language-"><code class="lang-go"><span class="token comment">// ContentRouting is a value provider layer of indirection. It is used to find</span>
-<span class="token comment">// information about who has what content.</span>
-<span class="token comment">//</span>
-<span class="token comment">// Content is identified by CID (content identifier), which encodes a hash</span>
-<span class="token comment">// of the identified content in a future-proof manner.</span>
-<span class="token keyword">type</span> ContentRouting <span class="token keyword">interface</span> <span class="token punctuation">{</span>
-  <span class="token comment">// Provide adds the given cid to the content routing system. If &apos;true&apos; is</span>
-  <span class="token comment">// passed, it also announces it, otherwise it is just kept in the local</span>
-  <span class="token comment">// accounting of which objects are being provided.</span>
-  <span class="token function">Provide</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> cid<span class="token punctuation">.</span>Cid<span class="token punctuation">,</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token builtin">error</span>
+<pre><code class="lang-go">// ContentRouting is a value provider layer of indirection. It is used to find
+// information about who has what content.
+//
+// Content is identified by CID (content identifier), which encodes a hash
+// of the identified content in a future-proof manner.
+type ContentRouting interface {
+  // Provide adds the given cid to the content routing system. If &apos;true&apos; is
+  // passed, it also announces it, otherwise it is just kept in the local
+  // accounting of which objects are being provided.
+  Provide(context.Context, cid.Cid, bool) error
 
-  <span class="token comment">// Search for peers who are able to provide a given key</span>
-  <span class="token comment">//</span>
-  <span class="token comment">// When count is 0, this method will return an unbounded number of</span>
-  <span class="token comment">// results.</span>
-  <span class="token function">FindProvidersAsync</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> cid<span class="token punctuation">.</span>Cid<span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">&lt;-</span><span class="token keyword">chan</span> peer<span class="token punctuation">.</span>AddrInfo
-<span class="token punctuation">}</span>
+  // Search for peers who are able to provide a given key
+  //
+  // When count is 0, this method will return an unbounded number of
+  // results.
+  FindProvidersAsync(context.Context, cid.Cid, int) &lt;-chan peer.AddrInfo
+}
 </code></pre>
 </li>
 <li>&#x5F97;&#x5230;&#x4E86;peerChan, &#x90A3;&#x4E48;&#x6700;&#x540E;&#x5C31;range&#x8FD9;&#x4E2A;peerChan, &#x5BF9;&#x6BCF;&#x4E2A;peer&#x90FD;Newstream&#x4E00;&#x628A;.</li>
@@ -3768,14 +3771,14 @@ discoveryNotifee&#x662F;&#x88AB;&#x901A;&#x77E5;&#x7684;&#x4E00;&#x65B9;. mdns&#
 <h3 id="&#x4EE3;&#x7801;_3"><a name="&#x4EE3;&#x7801;_3" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;_3"><i class="fa fa-link" aria-hidden="true"></i></a>3.7.1. &#x4EE3;&#x7801;</h3>
 <ul>
 <li><p>&#x8FD8;&#x662F;&#x9996;&#x5148;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x57FA;&#x672C;&#x7684;host, &#x4F7F;&#x7528;&#x7CFB;&#x7EDF;&#x5206;&#x914D;&#x7684;&#x7AEF;&#x53E3;</p>
-<pre class="language-"><code class="lang-go">  ctx <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre><code class="lang-go">  ctx := context.Background()
 
-  <span class="token comment">// create a new libp2p Host that listens on a random TCP port</span>
-  h<span class="token punctuation">,</span> err <span class="token operator">:=</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrStrings</span><span class="token punctuation">(</span><span class="token string">&quot;/ip4/0.0.0.0/tcp/0&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  // create a new libp2p Host that listens on a random TCP port
+  h, err := libp2p.New(ctx, libp2p.ListenAddrStrings(&quot;/ip4/0.0.0.0/tcp/0&quot;))
 </code></pre>
 </li>
-<li>&#x7528;gossipsub&#x534F;&#x8BAE;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;pubsub&#x670D;&#x52A1;<pre class="language-"><code class="lang-go">  <span class="token comment">// create a new PubSub service using the GossipSub router</span>
-  ps<span class="token punctuation">,</span> err <span class="token operator">:=</span> pubsub<span class="token punctuation">.</span><span class="token function">NewGossipSub</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> h<span class="token punctuation">)</span>
+<li>&#x7528;gossipsub&#x534F;&#x8BAE;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;pubsub&#x670D;&#x52A1;<pre><code class="lang-go">  // create a new PubSub service using the GossipSub router
+  ps, err := pubsub.NewGossipSub(ctx, h)
 </code></pre>
 </li>
 <li>&#x7528;&#x5230;&#x4E86;<code>libp2p/go-libp2p-pubsub</code>&#x5305;, &#x8FD9;&#x4E2A;&#x5305;&#x91CD;&#x5EA6;&#x4F7F;&#x7528;&#x4E86;map, &#x6709;&#x70B9;&#x590D;&#x6742;.</li>
@@ -3784,11 +3787,11 @@ discoveryNotifee&#x662F;&#x88AB;&#x901A;&#x77E5;&#x7684;&#x4E00;&#x65B9;. mdns&#
 <li>&#x7528;topic&#x7684;Subscribe&#x6765;&#x8BA2;&#x9605;&#x8FD4;&#x56DE;sub&#x5BF9;&#x8C61;, sub&#x5BF9;&#x8C61;&#x7684;Next&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E0B;&#x4E00;&#x6761;&#x6D88;&#x606F;.</li>
 <li>&#x6D88;&#x606F;&#x662F;&#x7528;protocol buf&#x6765;&#x5C01;&#x88C5;&#x7684;</li>
 <li>&#x914D;&#x5408;&#x5B98;&#x65B9;pubsub&#x8BF4;&#x660E;&#x6765;&#x7406;&#x89E3;: <a href="https://docs.libp2p.io/concepts/publish-subscribe/" target="_blank">https://docs.libp2p.io/concepts/publish-subscribe/</a></li>
-<li>&#x4F7F;&#x7528;mdns&#x534F;&#x8BAE;&#x5185;&#x7F51;&#x53D1;&#x73B0;, &#x9ED8;&#x8BA4;1&#x4E2A;&#x5C0F;&#x65F6;&#x66F4;&#x65B0;&#x4E00;&#x6B21;&#x5217;&#x8868;<pre class="language-"><code class="lang-go">  <span class="token comment">// setup local mDNS discovery</span>
-  err <span class="token operator">=</span> <span class="token function">setupDiscovery</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> h<span class="token punctuation">)</span>
+<li>&#x4F7F;&#x7528;mdns&#x534F;&#x8BAE;&#x5185;&#x7F51;&#x53D1;&#x73B0;, &#x9ED8;&#x8BA4;1&#x4E2A;&#x5C0F;&#x65F6;&#x66F4;&#x65B0;&#x4E00;&#x6B21;&#x5217;&#x8868;<pre><code class="lang-go">  // setup local mDNS discovery
+  err = setupDiscovery(ctx, h)
 </code></pre>
 </li>
-<li>&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x662F;&#x52A0;&#x5165;&#x804A;&#x5929;&#x5BA4;&#x5F00;&#x59CB;ui<pre class="language-"><code>  // join the chat room
+<li>&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x662F;&#x52A0;&#x5165;&#x804A;&#x5929;&#x5BA4;&#x5F00;&#x59CB;ui<pre><code>  // join the chat room
   cr, err := JoinChatRoom(ctx, ps, h.ID(), nick, room)
   // draw the UI
   ui := NewChatUI(cr)
@@ -3813,7 +3816,7 @@ cr := &amp;ChatRoom{
 </ul>
 <p>// start reading messages from the subscription in a loop
 go cr.readLoop()</p>
-<pre class="language-"><code>* ui&#x8D1F;&#x8D23;&#x6253;&#x5370;&#x6536;&#x5230;&#x7684;message.
+<pre><code>* ui&#x8D1F;&#x8D23;&#x6253;&#x5370;&#x6536;&#x5230;&#x7684;message.
 
 ## relay
 ### &#x4EE3;&#x7801;
@@ -3822,59 +3825,59 @@ go cr.readLoop()</p>
     // Tell the host use relays
     h1, err := libp2p.New(context.Background(), libp2p.EnableRelay())
 </code></pre><ul>
-<li>h2&#x80FD;&#x7ED9;&#x5176;&#x4ED6;node&#x63D0;&#x4F9B;relay&#x529F;&#x80FD;<pre class="language-"><code class="lang-go">  <span class="token comment">// Tell the host to relay connections for other peers (The ability to *use*</span>
-  <span class="token comment">// a relay vs the ability to *be* a relay)</span>
-  h2<span class="token punctuation">,</span> err <span class="token operator">:=</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> libp2p<span class="token punctuation">.</span><span class="token function">EnableRelay</span><span class="token punctuation">(</span>circuit<span class="token punctuation">.</span>OptHop<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<li>h2&#x80FD;&#x7ED9;&#x5176;&#x4ED6;node&#x63D0;&#x4F9B;relay&#x529F;&#x80FD;<pre><code class="lang-go">  // Tell the host to relay connections for other peers (The ability to *use*
+  // a relay vs the ability to *be* a relay)
+  h2, err := libp2p.New(context.Background(), libp2p.EnableRelay(circuit.OptHop))
 </code></pre>
 </li>
-<li>h3&#x6E05;&#x7A7A;&#x4E86;listen&#x5730;&#x5740;(&#x9ED8;&#x8BA4;&#x662F;&#x5168;&#x90E8;interface&#x76D1;&#x542C;), &#x8BA9;h3&#x53EA;&#x80FD;&#x901A;&#x8FC7;&#x4E0A;&#x9762;&#x7684;circuit relay&#x6765;&#x901A;&#x4FE1;<pre class="language-"><code class="lang-go">  <span class="token comment">// Zero out the listen addresses for the host, so it can only communicate</span>
-  <span class="token comment">// via p2p-circuit for our example</span>
-  h3<span class="token punctuation">,</span> err <span class="token operator">:=</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> libp2p<span class="token punctuation">.</span><span class="token function">EnableRelay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<li>h3&#x6E05;&#x7A7A;&#x4E86;listen&#x5730;&#x5740;(&#x9ED8;&#x8BA4;&#x662F;&#x5168;&#x90E8;interface&#x76D1;&#x542C;), &#x8BA9;h3&#x53EA;&#x80FD;&#x901A;&#x8FC7;&#x4E0A;&#x9762;&#x7684;circuit relay&#x6765;&#x901A;&#x4FE1;<pre><code class="lang-go">  // Zero out the listen addresses for the host, so it can only communicate
+  // via p2p-circuit for our example
+  h3, err := libp2p.New(context.Background(), libp2p.ListenAddrs(), libp2p.EnableRelay())
 </code></pre>
 </li>
-<li>&#x5206;&#x522B;&#x8FDE;&#x63A5;h1&#x548C;h3&#x5230;h2, &#x4F46;h1&#x548C;h3&#x4E0D;&#x76F4;&#x63A5;&#x8FDE;&#x63A5;<pre class="language-"><code class="lang-go">  h2info <span class="token operator">:=</span> peer<span class="token punctuation">.</span>AddrInfo<span class="token punctuation">{</span>
-      ID<span class="token punctuation">:</span>    h2<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-      Addrs<span class="token punctuation">:</span> h2<span class="token punctuation">.</span><span class="token function">Addrs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">}</span>
-  err <span class="token operator">:=</span> h1<span class="token punctuation">.</span><span class="token function">Connect</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> h2info<span class="token punctuation">)</span>
-  err <span class="token operator">:=</span> h3<span class="token punctuation">.</span><span class="token function">Connect</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> h2info<span class="token punctuation">)</span>
+<li>&#x5206;&#x522B;&#x8FDE;&#x63A5;h1&#x548C;h3&#x5230;h2, &#x4F46;h1&#x548C;h3&#x4E0D;&#x76F4;&#x63A5;&#x8FDE;&#x63A5;<pre><code class="lang-go">  h2info := peer.AddrInfo{
+      ID:    h2.ID(),
+      Addrs: h2.Addrs(),
+  }
+  err := h1.Connect(context.Background(), h2info)
+  err := h3.Connect(context.Background(), h2info)
 </code></pre>
 </li>
 <li><p>&#x6D4B;&#x8BD5;h1&#x5230;h3&#x7684;&#x8FDE;&#x901A;&#x6027;</p>
-<pre class="language-"><code class="lang-go">  <span class="token comment">// Now, to test things, let&apos;s set up a protocol handler on h3</span>
-  h3<span class="token punctuation">.</span><span class="token function">SetStreamHandler</span><span class="token punctuation">(</span><span class="token string">&quot;/cats&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>s network<span class="token punctuation">.</span>Stream<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Meow! It worked!&quot;</span><span class="token punctuation">)</span>
-      s<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<pre><code class="lang-go">  // Now, to test things, let&apos;s set up a protocol handler on h3
+  h3.SetStreamHandler(&quot;/cats&quot;, func(s network.Stream) {
+      log.Println(&quot;Meow! It worked!&quot;)
+      s.Close()
+  })
 
-  <span class="token comment">//&#x4E0B;&#x9762;&#x8FD9;&#x5757;&#x6F14;&#x793A;&#x4E86;&#x76F4;&#x63A5;&#x4ECE;h1&#x8FDE;&#x63A5;&#x5230;h3&#x662F;&#x4E0D;&#x884C;&#x7684;.</span>
-  <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> h1<span class="token punctuation">.</span><span class="token function">NewStream</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> h3<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;/cats&quot;</span><span class="token punctuation">)</span>
-  <span class="token keyword">if</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-      log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Didnt actually expect to get a stream here. What happened?&quot;</span><span class="token punctuation">)</span>
-      <span class="token keyword">return</span>
-  <span class="token punctuation">}</span>
-  log<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;Okay, no connection from h1 to h3: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
-  log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Just as we suspected&quot;</span><span class="token punctuation">)</span>
+  //&#x4E0B;&#x9762;&#x8FD9;&#x5757;&#x6F14;&#x793A;&#x4E86;&#x76F4;&#x63A5;&#x4ECE;h1&#x8FDE;&#x63A5;&#x5230;h3&#x662F;&#x4E0D;&#x884C;&#x7684;.
+  _, err = h1.NewStream(context.Background(), h3.ID(), &quot;/cats&quot;)
+  if err == nil {
+      log.Println(&quot;Didnt actually expect to get a stream here. What happened?&quot;)
+      return
+  }
+  log.Printf(&quot;Okay, no connection from h1 to h3: %v&quot;, err)
+  log.Println(&quot;Just as we suspected&quot;)
 
-  <span class="token comment">// Creates a relay address to h3 using h2 as the relay</span>
-  relayaddr<span class="token punctuation">,</span> err <span class="token operator">:=</span> ma<span class="token punctuation">.</span><span class="token function">NewMultiaddr</span><span class="token punctuation">(</span><span class="token string">&quot;/p2p/&quot;</span> <span class="token operator">+</span> h2<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Pretty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot;/p2p-circuit/ipfs/&quot;</span> <span class="token operator">+</span> h3<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Pretty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  // Creates a relay address to h3 using h2 as the relay
+  relayaddr, err := ma.NewMultiaddr(&quot;/p2p/&quot; + h2.ID().Pretty() + &quot;/p2p-circuit/ipfs/&quot; + h3.ID().Pretty())
 
-  <span class="token comment">//&#x5148;&#x6E05;&#x7406;h3, &#x56E0;&#x4E3A;&#x521A;&#x624D;&#x8FDE;&#x63A5;&#x5931;&#x8D25;&#x4E86;, &#x9ED8;&#x8BA4;&#x4E0D;&#x8BA9;&#x9A6C;&#x4E0A;&#x8FDE;</span>
-  <span class="token comment">// Since we just tried and failed to dial, the dialer system will, by default</span>
-  <span class="token comment">// prevent us from redialing again so quickly. Since we know what we&apos;re doing, we</span>
-  <span class="token comment">// can use this ugly hack (it&apos;s on our TODO list to make it a little cleaner)</span>
-  <span class="token comment">// to tell the dialer &quot;no, its okay, let&apos;s try this again&quot;</span>
-  h1<span class="token punctuation">.</span><span class="token function">Network</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>swarm<span class="token punctuation">.</span>Swarm<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Backoff</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Clear</span><span class="token punctuation">(</span>h3<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  //&#x5148;&#x6E05;&#x7406;h3, &#x56E0;&#x4E3A;&#x521A;&#x624D;&#x8FDE;&#x63A5;&#x5931;&#x8D25;&#x4E86;, &#x9ED8;&#x8BA4;&#x4E0D;&#x8BA9;&#x9A6C;&#x4E0A;&#x8FDE;
+  // Since we just tried and failed to dial, the dialer system will, by default
+  // prevent us from redialing again so quickly. Since we know what we&apos;re doing, we
+  // can use this ugly hack (it&apos;s on our TODO list to make it a little cleaner)
+  // to tell the dialer &quot;no, its okay, let&apos;s try this again&quot;
+  h1.Network().(*swarm.Swarm).Backoff().Clear(h3.ID())
 
-  <span class="token comment">//&#x4F7F;&#x7528;h3&#x7684;relay&#x5730;&#x5740;&#x8FDE;&#x63A5;</span>
-  h3relayInfo <span class="token operator">:=</span> peer<span class="token punctuation">.</span>AddrInfo<span class="token punctuation">{</span>
-      ID<span class="token punctuation">:</span>    h3<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-      Addrs<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>ma<span class="token punctuation">.</span>Multiaddr<span class="token punctuation">{</span>relayaddr<span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token punctuation">}</span>
-  <span class="token comment">//h1&#x53EF;&#x4EE5;&#x8FDE;&#x63A5;&#x5230;h3&#x4E86;</span>
-  h1<span class="token punctuation">.</span><span class="token function">Connect</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> h3relayInfo<span class="token punctuation">)</span>
-  s<span class="token punctuation">,</span> err <span class="token operator">:=</span> h1<span class="token punctuation">.</span><span class="token function">NewStream</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> h3<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;/cats&quot;</span><span class="token punctuation">)</span>
-  s<span class="token punctuation">.</span><span class="token function">Read</span><span class="token punctuation">(</span><span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// block until the handler closes the stream</span>
+  //&#x4F7F;&#x7528;h3&#x7684;relay&#x5730;&#x5740;&#x8FDE;&#x63A5;
+  h3relayInfo := peer.AddrInfo{
+      ID:    h3.ID(),
+      Addrs: []ma.Multiaddr{relayaddr},
+  }
+  //h1&#x53EF;&#x4EE5;&#x8FDE;&#x63A5;&#x5230;h3&#x4E86;
+  h1.Connect(context.Background(), h3relayInfo)
+  s, err := h1.NewStream(context.Background(), h3.ID(), &quot;/cats&quot;)
+  s.Read(make([]byte, 1)) // block until the handler closes the stream
 </code></pre>
 </li>
 </ul>
@@ -3885,99 +3888,99 @@ go cr.readLoop()</p>
 &#x5728;message&#x7EA7;&#x522B;&#x4F7F;&#x7528;libp2p protocol multiplexing</p>
 <h3 id="&#x4EE3;&#x7801;_4"><a name="&#x4EE3;&#x7801;_4" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;_4"><i class="fa fa-link" aria-hidden="true"></i></a>3.8.1. &#x4EE3;&#x7801;</h3>
 <ul>
-<li>Node&#x662F;&#x4E2A;&#x591A;&#x534F;&#x8BAE;&#x7684;&#x7EC4;&#x5408;&#x4F53;<pre class="language-"><code class="lang-go"><span class="token comment">// Node type - a p2p host implementing one or more p2p protocols</span>
-<span class="token keyword">type</span> Node <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  host<span class="token punctuation">.</span>Host     <span class="token comment">// lib-p2p host</span>
-  <span class="token operator">*</span>PingProtocol <span class="token comment">// ping protocol impl</span>
-  <span class="token operator">*</span>EchoProtocol <span class="token comment">// echo protocol impl</span>
-  <span class="token comment">// add other protocols here...</span>
-<span class="token punctuation">}</span>
+<li>Node&#x662F;&#x4E2A;&#x591A;&#x534F;&#x8BAE;&#x7684;&#x7EC4;&#x5408;&#x4F53;<pre><code class="lang-go">// Node type - a p2p host implementing one or more p2p protocols
+type Node struct {
+  host.Host     // lib-p2p host
+  *PingProtocol // ping protocol impl
+  *EchoProtocol // echo protocol impl
+  // add other protocols here...
+}
 </code></pre>
-new&#x4E00;&#x4E2A;Node&#x5C31;&#x662F;new ping&#x534F;&#x8BAE;&#x548C;echo&#x534F;&#x8BAE;<pre class="language-"><code class="lang-go"><span class="token comment">// Create a new node with its implemented protocols</span>
-<span class="token keyword">func</span> <span class="token function">NewNode</span><span class="token punctuation">(</span>host host<span class="token punctuation">.</span>Host<span class="token punctuation">,</span> done <span class="token keyword">chan</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token operator">*</span>Node <span class="token punctuation">{</span>
-  node <span class="token operator">:=</span> <span class="token operator">&amp;</span>Node<span class="token punctuation">{</span>Host<span class="token punctuation">:</span> host<span class="token punctuation">}</span>
-  node<span class="token punctuation">.</span>PingProtocol <span class="token operator">=</span> <span class="token function">NewPingProtocol</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> done<span class="token punctuation">)</span>
-  node<span class="token punctuation">.</span>EchoProtocol <span class="token operator">=</span> <span class="token function">NewEchoProtocol</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> done<span class="token punctuation">)</span>
-  <span class="token keyword">return</span> node
-<span class="token punctuation">}</span>
-</code></pre>
-</li>
-<li>ping&#x534F;&#x8BAE;&#x6709;&#x4E24;&#x7EA7;&#x7684;protocol&#x540D;<pre class="language-"><code class="lang-go"><span class="token comment">// pattern: /protocol-name/request-or-response-message/version</span>
-<span class="token keyword">const</span> pingRequest <span class="token operator">=</span> <span class="token string">&quot;/ping/pingreq/0.0.1&quot;</span>
-<span class="token keyword">const</span> pingResponse <span class="token operator">=</span> <span class="token string">&quot;/ping/pingresp/0.0.1&quot;</span>
+new&#x4E00;&#x4E2A;Node&#x5C31;&#x662F;new ping&#x534F;&#x8BAE;&#x548C;echo&#x534F;&#x8BAE;<pre><code class="lang-go">// Create a new node with its implemented protocols
+func NewNode(host host.Host, done chan bool) *Node {
+  node := &amp;Node{Host: host}
+  node.PingProtocol = NewPingProtocol(node, done)
+  node.EchoProtocol = NewEchoProtocol(node, done)
+  return node
+}
 </code></pre>
 </li>
-<li>ping&#x4F7F;&#x7528;&#x4E00;&#x4E2A;map&#x6765;&#x8BB0;&#x5F55;request&#x548C;response&#x7684;&#x5173;&#x7CFB;<pre class="language-"><code class="lang-go"><span class="token comment">// PingProtocol type</span>
-<span class="token keyword">type</span> PingProtocol <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-  node     <span class="token operator">*</span>Node                       <span class="token comment">// local host</span>
-  requests <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>p2p<span class="token punctuation">.</span>PingRequest <span class="token comment">// used to access request data from response handlers</span>
-  done     <span class="token keyword">chan</span> <span class="token builtin">bool</span>                   <span class="token comment">// only for demo purposes to stop main from terminating</span>
-<span class="token punctuation">}</span>
+<li>ping&#x534F;&#x8BAE;&#x6709;&#x4E24;&#x7EA7;&#x7684;protocol&#x540D;<pre><code class="lang-go">// pattern: /protocol-name/request-or-response-message/version
+const pingRequest = &quot;/ping/pingreq/0.0.1&quot;
+const pingResponse = &quot;/ping/pingresp/0.0.1&quot;
+</code></pre>
+</li>
+<li>ping&#x4F7F;&#x7528;&#x4E00;&#x4E2A;map&#x6765;&#x8BB0;&#x5F55;request&#x548C;response&#x7684;&#x5173;&#x7CFB;<pre><code class="lang-go">// PingProtocol type
+type PingProtocol struct {
+  node     *Node                       // local host
+  requests map[string]*p2p.PingRequest // used to access request data from response handlers
+  done     chan bool                   // only for demo purposes to stop main from terminating
+}
 </code></pre>
 </li>
 <li>NewPingProtocol&#x7684;&#x65F6;&#x5019;&#x8981;set&#x4E24;&#x4E2A;handler, pingreq&#x548C;pingresp&#x5206;&#x522B;&#x4E00;&#x4E2A;.
-&#x53E6;&#x5916;, &#x8FD9;&#x91CC;&#x8FD8;&#x7528;&#x5230;&#x4E86;&#x9AD8;&#x7EA7;&#x6280;&#x5DE7;: &#x65B9;&#x6CD5;&#x5F53;&#x4F5C;&#x51FD;&#x6570;<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">NewPingProtocol</span><span class="token punctuation">(</span>node <span class="token operator">*</span>Node<span class="token punctuation">,</span> done <span class="token keyword">chan</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token operator">*</span>PingProtocol <span class="token punctuation">{</span>
-  p <span class="token operator">:=</span> <span class="token operator">&amp;</span>PingProtocol<span class="token punctuation">{</span>node<span class="token punctuation">:</span> node<span class="token punctuation">,</span> requests<span class="token punctuation">:</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>p2p<span class="token punctuation">.</span>PingRequest<span class="token punctuation">)</span><span class="token punctuation">,</span> done<span class="token punctuation">:</span> done<span class="token punctuation">}</span>
-  node<span class="token punctuation">.</span><span class="token function">SetStreamHandler</span><span class="token punctuation">(</span>pingRequest<span class="token punctuation">,</span> p<span class="token punctuation">.</span>onPingRequest<span class="token punctuation">)</span>
-  node<span class="token punctuation">.</span><span class="token function">SetStreamHandler</span><span class="token punctuation">(</span>pingResponse<span class="token punctuation">,</span> p<span class="token punctuation">.</span>onPingResponse<span class="token punctuation">)</span>
-  <span class="token keyword">return</span> p
-<span class="token punctuation">}</span>
+&#x53E6;&#x5916;, &#x8FD9;&#x91CC;&#x8FD8;&#x7528;&#x5230;&#x4E86;&#x9AD8;&#x7EA7;&#x6280;&#x5DE7;: &#x65B9;&#x6CD5;&#x5F53;&#x4F5C;&#x51FD;&#x6570;<pre><code class="lang-go">func NewPingProtocol(node *Node, done chan bool) *PingProtocol {
+  p := &amp;PingProtocol{node: node, requests: make(map[string]*p2p.PingRequest), done: done}
+  node.SetStreamHandler(pingRequest, p.onPingRequest)
+  node.SetStreamHandler(pingResponse, p.onPingResponse)
+  return p
+}
 </code></pre>
 </li>
-<li>pingreq&#x7684;handler<pre class="language-"><code class="lang-go"><span class="token comment">// remote peer requests handler</span>
-<span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>PingProtocol<span class="token punctuation">)</span> <span class="token function">onPingRequest</span><span class="token punctuation">(</span>s network<span class="token punctuation">.</span>Stream<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token comment">//&#x5927;&#x6982;&#x6D41;&#x7A0B;&#x662F;&#x4ECE;s&#x8BFB;request, &#x7136;&#x540E;&#x9A6C;&#x4E0A;&#x5173;&#x95ED;s. &#x56E0;&#x4E3A;s&#x53EA;&#x5305;&#x62EC;&#x4E00;&#x6B21;request</span>
-  <span class="token comment">//&#x8BFB;&#x5230;data&#x5148;proto.Unmarshal&#x5230;&amp;p2p.PingRequest{}&#x7ED3;&#x6784;&#x4F53;</span>
-  data <span class="token operator">:=</span> <span class="token operator">&amp;</span>p2p<span class="token punctuation">.</span>PingRequest<span class="token punctuation">{</span><span class="token punctuation">}</span>
-  buf<span class="token punctuation">,</span> err <span class="token operator">:=</span> ioutil<span class="token punctuation">.</span><span class="token function">ReadAll</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-  s<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  proto<span class="token punctuation">.</span><span class="token function">Unmarshal</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> data<span class="token punctuation">)</span>
-  <span class="token comment">//&#x8FD9;&#x90E8;&#x5C31;&#x5173;&#x952E;&#x4E86;: &#x6BCF;&#x4E2A;request&#x90FD;&#x8981;&#x9A8C;&#x8BC1;&#x7B7E;&#x540D;</span>
-  valid <span class="token operator">:=</span> p<span class="token punctuation">.</span>node<span class="token punctuation">.</span><span class="token function">authenticateMessage</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> data<span class="token punctuation">.</span>MessageData<span class="token punctuation">)</span>
-  <span class="token comment">//&#x7136;&#x540E;&#x7EC4;&#x4E00;&#x4E2A;response, &#x5E76;&#x7B7E;&#x540D;</span>
-  resp <span class="token operator">:=</span> <span class="token operator">&amp;</span>p2p<span class="token punctuation">.</span>PingResponse<span class="token punctuation">{</span>MessageData<span class="token punctuation">:</span> p<span class="token punctuation">.</span>node<span class="token punctuation">.</span><span class="token function">NewMessageData</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>MessageData<span class="token punctuation">.</span>Id<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-      Message<span class="token punctuation">:</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;Ping response from %s&quot;</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>node<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
-  signature<span class="token punctuation">,</span> err <span class="token operator">:=</span> p<span class="token punctuation">.</span>node<span class="token punctuation">.</span><span class="token function">signProtoMessage</span><span class="token punctuation">(</span>resp<span class="token punctuation">)</span>
-  <span class="token comment">// add the signature to the message</span>
-  resp<span class="token punctuation">.</span>MessageData<span class="token punctuation">.</span>Sign <span class="token operator">=</span> signature
-  <span class="token comment">//&#x6700;&#x540E;&#x53D1;&#x9001;&#x8FD9;&#x4E2A;response, &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x6BCF;&#x6B21;&#x90FD;&#x4F1A;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;stream&#x6765;&#x53D1;&#x9001;. &#x5BF9;Lip2p&#x6765;&#x8BF4;, &#x56E0;&#x4E3A;&#x7528;&#x4E86;&#x591A;&#x8DEF;&#x590D;&#x7528;, &#x4E00;&#x4E2A;stream&#x597D;&#x50CF;&#x6CA1;&#x6709;&#x90A3;&#x4E48;&#x91CD;.</span>
-  p<span class="token punctuation">.</span>node<span class="token punctuation">.</span><span class="token function">sendProtoMessage</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">Conn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">RemotePeer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> pingResponse<span class="token punctuation">,</span> resp<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+<li>pingreq&#x7684;handler<pre><code class="lang-go">// remote peer requests handler
+func (p *PingProtocol) onPingRequest(s network.Stream) {
+  //&#x5927;&#x6982;&#x6D41;&#x7A0B;&#x662F;&#x4ECE;s&#x8BFB;request, &#x7136;&#x540E;&#x9A6C;&#x4E0A;&#x5173;&#x95ED;s. &#x56E0;&#x4E3A;s&#x53EA;&#x5305;&#x62EC;&#x4E00;&#x6B21;request
+  //&#x8BFB;&#x5230;data&#x5148;proto.Unmarshal&#x5230;&amp;p2p.PingRequest{}&#x7ED3;&#x6784;&#x4F53;
+  data := &amp;p2p.PingRequest{}
+  buf, err := ioutil.ReadAll(s)
+  s.Close()
+  proto.Unmarshal(buf, data)
+  //&#x8FD9;&#x90E8;&#x5C31;&#x5173;&#x952E;&#x4E86;: &#x6BCF;&#x4E2A;request&#x90FD;&#x8981;&#x9A8C;&#x8BC1;&#x7B7E;&#x540D;
+  valid := p.node.authenticateMessage(data, data.MessageData)
+  //&#x7136;&#x540E;&#x7EC4;&#x4E00;&#x4E2A;response, &#x5E76;&#x7B7E;&#x540D;
+  resp := &amp;p2p.PingResponse{MessageData: p.node.NewMessageData(data.MessageData.Id, false),
+      Message: fmt.Sprintf(&quot;Ping response from %s&quot;, p.node.ID())}
+  signature, err := p.node.signProtoMessage(resp)
+  // add the signature to the message
+  resp.MessageData.Sign = signature
+  //&#x6700;&#x540E;&#x53D1;&#x9001;&#x8FD9;&#x4E2A;response, &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x91CC;&#x9762;&#x6BCF;&#x6B21;&#x90FD;&#x4F1A;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;stream&#x6765;&#x53D1;&#x9001;. &#x5BF9;Lip2p&#x6765;&#x8BF4;, &#x56E0;&#x4E3A;&#x7528;&#x4E86;&#x591A;&#x8DEF;&#x590D;&#x7528;, &#x4E00;&#x4E2A;stream&#x597D;&#x50CF;&#x6CA1;&#x6709;&#x90A3;&#x4E48;&#x91CD;.
+  p.node.sendProtoMessage(s.Conn().RemotePeer(), pingResponse, resp)
+}
 </code></pre>
 </li>
-<li>pingrep&#x7684;handler&#x7C7B;&#x4F3C;&#x7684;, &#x903B;&#x8F91;&#x5F88;&#x7B80;&#x5355;, &#x5C31;&#x662F;&#x6536;&#x5230;&#x5BF9;&#x65B9;&#x7684;response, &#x8BF4;&#x660E;&#x5BF9;&#x65B9;&#x6536;&#x5230;&#x4E86;&#x6211;&#x4EEC;&#x7684;request, &#x5E76;&#x4E14;&#x56DE;&#x590D;&#x4E86;, &#x90A3;&#x6211;&#x4EEC;&#x5C31;&#x5220;&#x9664;&#x4E4B;&#x524D;&#x7684;reqeust map&#x91CC;&#x9762;&#x8BB0;&#x5F55;&#x7684;id.<pre class="language-"><code class="lang-go">  <span class="token comment">// locate request data and remove it if found</span>
-  <span class="token boolean">_</span><span class="token punctuation">,</span> ok <span class="token operator">:=</span> p<span class="token punctuation">.</span>requests<span class="token punctuation">[</span>data<span class="token punctuation">.</span>MessageData<span class="token punctuation">.</span>Id<span class="token punctuation">]</span>
-  <span class="token keyword">if</span> ok <span class="token punctuation">{</span>
-      <span class="token comment">// remove request from map as we have processed it here</span>
-      <span class="token function">delete</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>requests<span class="token punctuation">,</span> data<span class="token punctuation">.</span>MessageData<span class="token punctuation">.</span>Id<span class="token punctuation">)</span>
-  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-      log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Failed to locate request data boject for response&quot;</span><span class="token punctuation">)</span>
-      <span class="token keyword">return</span>
-  <span class="token punctuation">}</span>
+<li>pingrep&#x7684;handler&#x7C7B;&#x4F3C;&#x7684;, &#x903B;&#x8F91;&#x5F88;&#x7B80;&#x5355;, &#x5C31;&#x662F;&#x6536;&#x5230;&#x5BF9;&#x65B9;&#x7684;response, &#x8BF4;&#x660E;&#x5BF9;&#x65B9;&#x6536;&#x5230;&#x4E86;&#x6211;&#x4EEC;&#x7684;request, &#x5E76;&#x4E14;&#x56DE;&#x590D;&#x4E86;, &#x90A3;&#x6211;&#x4EEC;&#x5C31;&#x5220;&#x9664;&#x4E4B;&#x524D;&#x7684;reqeust map&#x91CC;&#x9762;&#x8BB0;&#x5F55;&#x7684;id.<pre><code class="lang-go">  // locate request data and remove it if found
+  _, ok := p.requests[data.MessageData.Id]
+  if ok {
+      // remove request from map as we have processed it here
+      delete(p.requests, data.MessageData.Id)
+  } else {
+      log.Println(&quot;Failed to locate request data boject for response&quot;)
+      return
+  }
 </code></pre>
 </li>
 <li>echo&#x534F;&#x8BAE;&#x4E5F;&#x975E;&#x5E38;&#x7C7B;&#x4F3C;</li>
 <li>main&#x6D41;&#x7A0B;&#x5982;&#x4E0B;: </li>
-<li>&#x5EFA;&#x7ACB;&#x4E24;&#x4E2A;&#x5BF9;&#x7B49;&#x7684;host, &#x6BD4;&#x8F83;&#x666E;&#x901A;&#x7684;&#x90A3;&#x79CD;<pre class="language-"><code class="lang-go">  priv<span class="token punctuation">,</span> <span class="token boolean">_</span><span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> crypto<span class="token punctuation">.</span><span class="token function">GenerateKeyPair</span><span class="token punctuation">(</span>crypto<span class="token punctuation">.</span>Secp256k1<span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">)</span>
-  listen<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> ma<span class="token punctuation">.</span><span class="token function">NewMultiaddr</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;/ip4/127.0.0.1/tcp/%d&quot;</span><span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  host<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> libp2p<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>
-      context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-      libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrs</span><span class="token punctuation">(</span>listen<span class="token punctuation">)</span><span class="token punctuation">,</span>
-      libp2p<span class="token punctuation">.</span><span class="token function">Identity</span><span class="token punctuation">(</span>priv<span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">)</span>
+<li>&#x5EFA;&#x7ACB;&#x4E24;&#x4E2A;&#x5BF9;&#x7B49;&#x7684;host, &#x6BD4;&#x8F83;&#x666E;&#x901A;&#x7684;&#x90A3;&#x79CD;<pre><code class="lang-go">  priv, _, _ := crypto.GenerateKeyPair(crypto.Secp256k1, 256)
+  listen, _ := ma.NewMultiaddr(fmt.Sprintf(&quot;/ip4/127.0.0.1/tcp/%d&quot;, port))
+  host, _ := libp2p.New(
+      context.Background(),
+      libp2p.ListenAddrs(listen),
+      libp2p.Identity(priv),
+  )
 </code></pre>
 </li>
 <li><p>&#x6700;&#x540E;run
 &#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x4E5F;&#x662F;&#x5148;Peerstore&#x6DFB;&#x52A0;peer&#x7684;&#x4FE1;&#x606F;, &#x4F46;&#x6CA1;&#x6709;&#x9A6C;&#x4E0A;connect. &#x800C;&#x662F;&#x7B49;&#x5230;&#x540E;&#x9762;NewStream&#x7684;&#x65F6;&#x5019;&#x518D;&#x8FDE;&#x63A5;.</p>
-<pre class="language-"><code class="lang-go">  <span class="token comment">// connect peers</span>
-  h1<span class="token punctuation">.</span><span class="token function">Peerstore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">AddAddrs</span><span class="token punctuation">(</span>h2<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> h2<span class="token punctuation">.</span><span class="token function">Addrs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> peerstore<span class="token punctuation">.</span>PermanentAddrTTL<span class="token punctuation">)</span>
-  h2<span class="token punctuation">.</span><span class="token function">Peerstore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">AddAddrs</span><span class="token punctuation">(</span>h1<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> h1<span class="token punctuation">.</span><span class="token function">Addrs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> peerstore<span class="token punctuation">.</span>PermanentAddrTTL<span class="token punctuation">)</span>
+<pre><code class="lang-go">  // connect peers
+  h1.Peerstore().AddAddrs(h2.ID(), h2.Addrs(), peerstore.PermanentAddrTTL)
+  h2.Peerstore().AddAddrs(h1.ID(), h1.Addrs(), peerstore.PermanentAddrTTL)
 
-  <span class="token comment">// send messages using the protocols</span>
-  h1<span class="token punctuation">.</span><span class="token function">Ping</span><span class="token punctuation">(</span>h2<span class="token punctuation">.</span>Host<span class="token punctuation">)</span>
-  h2<span class="token punctuation">.</span><span class="token function">Ping</span><span class="token punctuation">(</span>h1<span class="token punctuation">.</span>Host<span class="token punctuation">)</span>
-  h1<span class="token punctuation">.</span><span class="token function">Echo</span><span class="token punctuation">(</span>h2<span class="token punctuation">.</span>Host<span class="token punctuation">)</span>
-  h2<span class="token punctuation">.</span><span class="token function">Echo</span><span class="token punctuation">(</span>h1<span class="token punctuation">.</span>Host<span class="token punctuation">)</span>
+  // send messages using the protocols
+  h1.Ping(h2.Host)
+  h2.Ping(h1.Host)
+  h1.Echo(h2.Host)
+  h2.Echo(h1.Host)
 </code></pre>
 <h3 id="&#x603B;&#x7ED3;_3"><a name="&#x603B;&#x7ED3;_3" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;_3"><i class="fa fa-link" aria-hidden="true"></i></a>3.8.2. &#x603B;&#x7ED3;</h3>
 </li>
@@ -3995,24 +3998,24 @@ new&#x4E00;&#x4E2A;Node&#x5C31;&#x662F;new ping&#x534F;&#x8BAE;&#x548C;echo&#x53
 </ul>
 <h2 id="&#x6269;&#x5C55;"><a name="&#x6269;&#x5C55;" class="anchor-navigation-ex-anchor" href="#&#x6269;&#x5C55;"><i class="fa fa-link" aria-hidden="true"></i></a>3.10. &#x6269;&#x5C55;</h2>
 <ul>
-<li>host&#x7684;&#x5E95;&#x5C42;&#x662F;swarm(&#x8702;&#x5DE2;), &#x65B0;&#x5EFA;&#x4E00;&#x4E2A;swarm&#x9700;&#x8981;5&#x4E2A;&#x53C2;&#x6570;:<pre class="language-"><code class="lang-go">swarm<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">NewSwarm</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> laddrs<span class="token punctuation">,</span> pid<span class="token punctuation">,</span> pstore<span class="token punctuation">,</span> bwc<span class="token punctuation">)</span>
-ctx<span class="token punctuation">:</span> ctx
-laddrs<span class="token punctuation">:</span> an array of multiaddrs that the swarm will open up listeners <span class="token keyword">for</span>
-pid<span class="token punctuation">:</span> peer id<span class="token punctuation">.</span> &#x901A;&#x5E38;&#x662F;RSA&#x7684;key&#x751F;&#x6210;&#x7684;ID
-pstore<span class="token punctuation">:</span> &#x5B58;peer id&#x7528;&#x7684;
-bwc<span class="token punctuation">:</span> &#x7EDF;&#x8BA1;&#x7528;&#x7684;<span class="token punctuation">.</span>
+<li>host&#x7684;&#x5E95;&#x5C42;&#x662F;swarm(&#x8702;&#x5DE2;), &#x65B0;&#x5EFA;&#x4E00;&#x4E2A;swarm&#x9700;&#x8981;5&#x4E2A;&#x53C2;&#x6570;:<pre><code class="lang-go">swarm, err := NewSwarm(ctx, laddrs, pid, pstore, bwc)
+ctx: ctx
+laddrs: an array of multiaddrs that the swarm will open up listeners for
+pid: peer id. &#x901A;&#x5E38;&#x662F;RSA&#x7684;key&#x751F;&#x6210;&#x7684;ID
+pstore: &#x5B58;peer id&#x7528;&#x7684;
+bwc: &#x7EDF;&#x8BA1;&#x7528;&#x7684;.
 </code></pre>
 </li>
-<li>swarm&#x662F;&#x57FA;&#x4E8E;&#x591A;&#x8DEF;&#x590D;&#x7528;&#x7684;. stream&#x53EF;&#x4EE5;set handler<pre class="language-"><code class="lang-go">swrm<span class="token punctuation">.</span><span class="token function">SetStreamHandler</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span>s inet<span class="token punctuation">.</span>Stream<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">defer</span> s<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Got a stream from: &quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">SwarmConn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">RemotePeer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  fmt<span class="token punctuation">.</span><span class="token function">Fprintln</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token string">&quot;Hello Friend!&quot;</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<li>swarm&#x662F;&#x57FA;&#x4E8E;&#x591A;&#x8DEF;&#x590D;&#x7528;&#x7684;. stream&#x53EF;&#x4EE5;set handler<pre><code class="lang-go">swrm.SetStreamHandler(func(s inet.Stream) {
+  defer s.Close()
+  fmt.Println(&quot;Got a stream from: &quot;, s.SwarmConn().RemotePeer())
+  fmt.Fprintln(s, &quot;Hello Friend!&quot;)
+})
 </code></pre>
 </li>
-<li>&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8FDE;&#x63A5;NewStreamWithPeer<pre class="language-"><code class="lang-go">s<span class="token punctuation">,</span> err <span class="token operator">:=</span> swrm<span class="token punctuation">.</span><span class="token function">NewStreamWithPeer</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> rpid<span class="token punctuation">)</span>
-<span class="token keyword">defer</span> s<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-io<span class="token punctuation">.</span><span class="token function">Copy</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Stdout<span class="token punctuation">,</span> s<span class="token punctuation">)</span> <span class="token comment">// pipe the stream to stdout</span>
+<li>&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8FDE;&#x63A5;NewStreamWithPeer<pre><code class="lang-go">s, err := swrm.NewStreamWithPeer(ctx, rpid)
+defer s.Close()
+io.Copy(os.Stdout, s) // pipe the stream to stdout
 </code></pre>
 </li>
 <li>&#x5728;swarm&#x8FD9;&#x4E00;&#x5C42;, &#x6CA1;&#x6709;protocol ID; &#x540E;&#x8005;&#x662F;host&#x5C42;&#x52A0;&#x7684;.</li>
@@ -4030,59 +4033,59 @@ io<span class="token punctuation">.</span><span class="token function">Copy</spa
 </ul>
 <p>&#x53EF;&#x9009;&#x914D;&#x7F6E;&#x5982;&#x4E0B;:</p>
 <ul>
-<li>ListenAddrStrings: &#x6307;&#x5B9A;(&#x591A;&#x4E2A;)listen&#x5730;&#x5740;, &#x4F7F;&#x7528;&#x539F;&#x59CB;&#x5B57;&#x7B26;&#x4E32;&#x8868;&#x8FBE;<pre class="language-"><code class="lang-go">libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrStrings</span><span class="token punctuation">(</span><span class="token string">&quot;/ip4/0.0.0.0/tcp/0&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrStrings</span><span class="token punctuation">(</span>
-          <span class="token string">&quot;/ip4/0.0.0.0/tcp/9000&quot;</span><span class="token punctuation">,</span>      <span class="token comment">// regular tcp connections</span>
-          <span class="token string">&quot;/ip4/0.0.0.0/udp/9000/quic&quot;</span><span class="token punctuation">,</span> <span class="token comment">// a UDP endpoint for the QUIC transport</span>
-      <span class="token punctuation">)</span>
+<li>ListenAddrStrings: &#x6307;&#x5B9A;(&#x591A;&#x4E2A;)listen&#x5730;&#x5740;, &#x4F7F;&#x7528;&#x539F;&#x59CB;&#x5B57;&#x7B26;&#x4E32;&#x8868;&#x8FBE;<pre><code class="lang-go">libp2p.ListenAddrStrings(&quot;/ip4/0.0.0.0/tcp/0&quot;))
+libp2p.ListenAddrStrings(
+          &quot;/ip4/0.0.0.0/tcp/9000&quot;,      // regular tcp connections
+          &quot;/ip4/0.0.0.0/udp/9000/quic&quot;, // a UDP endpoint for the QUIC transport
+      )
 </code></pre>
 </li>
-<li>ListenAddrs: &#x6307;&#x5B9A;(&#x591A;&#x4E2A;)listen&#x5730;&#x5740;, &#x4F7F;&#x7528;Multiaddr&#x8868;&#x8FBE;<pre class="language-"><code class="lang-go">listen<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> ma<span class="token punctuation">.</span><span class="token function">NewMultiaddr</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;/ip4/127.0.0.1/tcp/%d&quot;</span><span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">)</span>
-libp2p<span class="token punctuation">.</span><span class="token function">ListenAddrs</span><span class="token punctuation">(</span>listen<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<li>ListenAddrs: &#x6307;&#x5B9A;(&#x591A;&#x4E2A;)listen&#x5730;&#x5740;, &#x4F7F;&#x7528;Multiaddr&#x8868;&#x8FBE;<pre><code class="lang-go">listen, _ := ma.NewMultiaddr(fmt.Sprintf(&quot;/ip4/127.0.0.1/tcp/%d&quot;, port))
+libp2p.ListenAddrs(listen),
 </code></pre>
 </li>
-<li>Security: &#x914D;&#x7F6E;transport&#x52A0;&#x5BC6;<pre class="language-"><code class="lang-go"><span class="token comment">// support TLS connections</span>
-libp2p<span class="token punctuation">.</span><span class="token function">Security</span><span class="token punctuation">(</span>libp2ptls<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> libp2ptls<span class="token punctuation">.</span>New<span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token comment">// support secio connections</span>
-libp2p<span class="token punctuation">.</span><span class="token function">Security</span><span class="token punctuation">(</span>secio<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> secio<span class="token punctuation">.</span>New<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<li>Security: &#x914D;&#x7F6E;transport&#x52A0;&#x5BC6;<pre><code class="lang-go">// support TLS connections
+libp2p.Security(libp2ptls.ID, libp2ptls.New),
+// support secio connections
+libp2p.Security(secio.ID, secio.New),
 </code></pre>
 </li>
 <li>NoSecurity: &#x4E0D;&#x52A0;&#x5BC6;</li>
 <li>Muxer: &#x914D;&#x7F6E;multiplexing</li>
-<li>Transport: &#x914D;&#x7F6E;&#x652F;&#x6301;&#x7684;transport<pre class="language-"><code class="lang-go"><span class="token comment">// support QUIC - experimental</span>
-libp2p<span class="token punctuation">.</span><span class="token function">Transport</span><span class="token punctuation">(</span>libp2pquic<span class="token punctuation">.</span>NewTransport<span class="token punctuation">)</span><span class="token punctuation">,</span>
-libp2p<span class="token punctuation">.</span>DefaultTransports<span class="token punctuation">,</span>  <span class="token comment">// DefaultTransports&#x662F;tcp&#x548C;websocket</span>
+<li>Transport: &#x914D;&#x7F6E;&#x652F;&#x6301;&#x7684;transport<pre><code class="lang-go">// support QUIC - experimental
+libp2p.Transport(libp2pquic.NewTransport),
+libp2p.DefaultTransports,  // DefaultTransports&#x662F;tcp&#x548C;websocket
 </code></pre>
 </li>
 <li>Peerstore: &#x914D;&#x7F6E;&#x4F7F;&#x7528;peerstore</li>
 <li>PrivateNetwork: &#x4FDD;&#x62A4;&#x79C1;&#x6709;&#x7F51;&#x7EDC;, &#x53EA;&#x6709;&#x540C;&#x6837;&#x7684;&#x79C1;&#x6709;&#x7F51;&#x7EDC;&#x6807;&#x8BC6;&#x624D;&#x80FD;&#x8FDE;&#x63A5;</li>
 <li>BandwidthReporter: &#x914D;&#x7F6E;&#x5E26;&#x5BBD;&#x62A5;&#x544A;</li>
-<li>Identity: &#x914D;&#x7F6E;key<pre class="language-"><code class="lang-go">priv<span class="token punctuation">,</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> crypto<span class="token punctuation">.</span><span class="token function">GenerateKeyPairWithReader</span><span class="token punctuation">(</span>crypto<span class="token punctuation">.</span>RSA<span class="token punctuation">,</span> <span class="token number">2048</span><span class="token punctuation">,</span> r<span class="token punctuation">)</span>
-libp2p<span class="token punctuation">.</span><span class="token function">Identity</span><span class="token punctuation">(</span>priv<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<li>Identity: &#x914D;&#x7F6E;key<pre><code class="lang-go">priv, _, err := crypto.GenerateKeyPairWithReader(crypto.RSA, 2048, r)
+libp2p.Identity(priv),
 </code></pre>
 </li>
-<li>ConnectionManager: &#x914D;&#x7F6E;&#x8FDE;&#x63A5;&#x7BA1;&#x7406;<pre class="language-"><code class="lang-go">libp2p<span class="token punctuation">.</span><span class="token function">ConnectionManager</span><span class="token punctuation">(</span>connmgr<span class="token punctuation">.</span><span class="token function">NewConnManager</span><span class="token punctuation">(</span>
-          <span class="token number">100</span><span class="token punctuation">,</span>         <span class="token comment">// Lowwater</span>
-          <span class="token number">400</span><span class="token punctuation">,</span>         <span class="token comment">// HighWater,</span>
-          time<span class="token punctuation">.</span>Minute<span class="token punctuation">,</span> <span class="token comment">// GracePeriod</span>
-      <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<li>ConnectionManager: &#x914D;&#x7F6E;&#x8FDE;&#x63A5;&#x7BA1;&#x7406;<pre><code class="lang-go">libp2p.ConnectionManager(connmgr.NewConnManager(
+          100,         // Lowwater
+          400,         // HighWater,
+          time.Minute, // GracePeriod
+      )),
 </code></pre>
 </li>
 <li>AddrsFactory: &#x5730;&#x5740;&#x5DE5;&#x5382;</li>
-<li>EnableRelay: &#x4F20;&#x5165;OptHop&#x4F1A;&#x8BA9;&#x8FD9;&#x4E2A;host &#x5E7F;&#x544A;&#x81EA;&#x5DF1;&#x53EF;&#x4EE5;&#x662F;relay hop<pre class="language-"><code class="lang-go">libp2p<span class="token punctuation">.</span><span class="token function">EnableRelay</span><span class="token punctuation">(</span>circuit<span class="token punctuation">.</span>OptHop<span class="token punctuation">)</span>
+<li>EnableRelay: &#x4F20;&#x5165;OptHop&#x4F1A;&#x8BA9;&#x8FD9;&#x4E2A;host &#x5E7F;&#x544A;&#x81EA;&#x5DF1;&#x53EF;&#x4EE5;&#x662F;relay hop<pre><code class="lang-go">libp2p.EnableRelay(circuit.OptHop)
 </code></pre>
 </li>
 <li>DisableRelay: &#x7981;&#x7528;relay. &#x9ED8;&#x8BA4;&#x4F7F;&#x80FD;</li>
-<li>EnableAutoRelay: &#x4F7F;&#x80FD;relay&#x670D;&#x52A1;(&#x5BF9;&#x522B;&#x4EBA;&#x63D0;&#x4F9B;relay&#x529F;&#x80FD;)<pre class="language-"><code class="lang-go">libp2p<span class="token punctuation">.</span><span class="token function">EnableAutoRelay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<li>EnableAutoRelay: &#x4F7F;&#x80FD;relay&#x670D;&#x52A1;(&#x5BF9;&#x522B;&#x4EBA;&#x63D0;&#x4F9B;relay&#x529F;&#x80FD;)<pre><code class="lang-go">libp2p.EnableAutoRelay(),
 </code></pre>
 </li>
 <li>StaticRelays: &#x914D;&#x7F6E;&#x9759;&#x6001;relay</li>
-<li>DefaultStaticRelays: &#x4F7F;&#x7528;&#x5185;&#x7F6E;&#x7684;&#x4EE3;&#x7801;&#x5199;&#x6B7B;&#x7684;relay&#x8282;&#x70B9;<pre class="language-"><code class="lang-go"><span class="token comment">// These are the known PL-operated relays</span>
-<span class="token keyword">var</span> DefaultRelays <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span>
-  <span class="token string">&quot;/ip4/147.75.80.110/tcp/4001/p2p/QmbFgm5zan8P6eWWmeyfncR5feYEMPbht5b1FW1C37aQ7y&quot;</span><span class="token punctuation">,</span>
-  <span class="token string">&quot;/ip4/147.75.195.153/tcp/4001/p2p/QmW9m57aiBDHAkKj9nmFSEn7ZqrcF1fZS4bipsTCHburei&quot;</span><span class="token punctuation">,</span>
-  <span class="token string">&quot;/ip4/147.75.70.221/tcp/4001/p2p/Qme8g49gm3q4Acp7xWBKg3nAa9fxZ1YmyDJdyGgoG6LsXh&quot;</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
+<li>DefaultStaticRelays: &#x4F7F;&#x7528;&#x5185;&#x7F6E;&#x7684;&#x4EE3;&#x7801;&#x5199;&#x6B7B;&#x7684;relay&#x8282;&#x70B9;<pre><code class="lang-go">// These are the known PL-operated relays
+var DefaultRelays = []string{
+  &quot;/ip4/147.75.80.110/tcp/4001/p2p/QmbFgm5zan8P6eWWmeyfncR5feYEMPbht5b1FW1C37aQ7y&quot;,
+  &quot;/ip4/147.75.195.153/tcp/4001/p2p/QmW9m57aiBDHAkKj9nmFSEn7ZqrcF1fZS4bipsTCHburei&quot;,
+  &quot;/ip4/147.75.70.221/tcp/4001/p2p/Qme8g49gm3q4Acp7xWBKg3nAa9fxZ1YmyDJdyGgoG6LsXh&quot;,
+}
 </code></pre>
 </li>
 <li>ForceReachabilityPublic: &#x5728;autoNAT&#x65F6;, &#x5F3A;&#x5236;&#x8BA9;&#x8FD9;&#x4E2A;host&#x76F8;&#x4FE1;&#x81EA;&#x5DF1;public&#x53EF;&#x8FBE;</li>
@@ -4093,11 +4096,11 @@ libp2p<span class="token punctuation">.</span><span class="token function">Ident
 <li>NATPortMap: &#x5C1D;&#x8BD5;&#x4F7F;&#x7528;&#x8DEF;&#x7531;&#x5668;&#x7684;UPnP&#x529F;&#x80FD;&#x6765;&#x7A7F;&#x900F;NAT</li>
 <li>NATManager: &#x4E0A;&#x9762;&#x7684;api&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x7684;nat manager, &#x8FD9;&#x4E2A;api&#x662F;&#x81EA;&#x5DF1;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;.</li>
 <li>Ping: &#x4F7F;&#x80FD;ping&#x670D;&#x52A1;. &#x9ED8;&#x8BA4;&#x4F7F;&#x80FD;</li>
-<li>Routing: <pre class="language-"><code class="lang-go">      <span class="token comment">// Let this host use the DHT to find other hosts</span>
-      libp2p<span class="token punctuation">.</span><span class="token function">Routing</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span>h host<span class="token punctuation">.</span>Host<span class="token punctuation">)</span> <span class="token punctuation">(</span>routing<span class="token punctuation">.</span>PeerRouting<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          idht<span class="token punctuation">,</span> err <span class="token operator">=</span> dht<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> h<span class="token punctuation">)</span>
-          <span class="token keyword">return</span> idht<span class="token punctuation">,</span> err
-      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<li>Routing: <pre><code class="lang-go">      // Let this host use the DHT to find other hosts
+      libp2p.Routing(func(h host.Host) (routing.PeerRouting, error) {
+          idht, err = dht.New(ctx, h)
+          return idht, err
+      }),
 </code></pre>
 </li>
 <li>NoListenAddrs: &#x914D;&#x7F6E;&#x8FD9;&#x4E2A;node&#x4E0D;listen</li>
@@ -4106,40 +4109,40 @@ libp2p<span class="token punctuation">.</span><span class="token function">Ident
 </ul>
 <h2 id="&#x9ED8;&#x8BA4;&#x503C;"><a name="&#x9ED8;&#x8BA4;&#x503C;" class="anchor-navigation-ex-anchor" href="#&#x9ED8;&#x8BA4;&#x503C;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. &#x9ED8;&#x8BA4;&#x503C;</h2>
 <p>&#x8FD9;&#x91CC;&#x63D0;&#x4F9B;&#x9ED8;&#x8BA4;&#x503C;&#x7684;&#x76EE;&#x7684;&#x662F;&#x8BA9;&#x7528;&#x6237;&#x6269;&#x5C55;&#x9009;&#x9879;, &#x540C;&#x65F6;&#x4E5F;&#x6709;&#x8FD9;&#x4E9B;&#x9ED8;&#x8BA4;&#x503C;</p>
-<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> DefaultSecurity <span class="token operator">=</span> <span class="token function">ChainOptions</span><span class="token punctuation">(</span>
-    <span class="token function">Security</span><span class="token punctuation">(</span>noise<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> noise<span class="token punctuation">.</span>New<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">Security</span><span class="token punctuation">(</span>tls<span class="token punctuation">.</span>ID<span class="token punctuation">,</span> tls<span class="token punctuation">.</span>New<span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span>
-<span class="token keyword">var</span> DefaultMuxers <span class="token operator">=</span> <span class="token function">ChainOptions</span><span class="token punctuation">(</span>
-    <span class="token function">Muxer</span><span class="token punctuation">(</span><span class="token string">&quot;/yamux/1.0.0&quot;</span><span class="token punctuation">,</span> yamux<span class="token punctuation">.</span>DefaultTransport<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">Muxer</span><span class="token punctuation">(</span><span class="token string">&quot;/mplex/6.7.0&quot;</span><span class="token punctuation">,</span> mplex<span class="token punctuation">.</span>DefaultTransport<span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span>
-<span class="token keyword">var</span> DefaultTransports <span class="token operator">=</span> <span class="token function">ChainOptions</span><span class="token punctuation">(</span>
-    <span class="token function">Transport</span><span class="token punctuation">(</span>tcp<span class="token punctuation">.</span>NewTCPTransport<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">Transport</span><span class="token punctuation">(</span>ws<span class="token punctuation">.</span>New<span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span>
-<span class="token comment">// DefaultPeerstore configures libp2p to use the default peerstore.</span>
-<span class="token keyword">var</span> DefaultPeerstore Option <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>cfg <span class="token operator">*</span>Config<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> cfg<span class="token punctuation">.</span><span class="token function">Apply</span><span class="token punctuation">(</span><span class="token function">Peerstore</span><span class="token punctuation">(</span>pstoremem<span class="token punctuation">.</span><span class="token function">NewPeerstore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-<span class="token comment">// RandomIdentity generates a random identity. (default behaviour)</span>
-<span class="token keyword">var</span> RandomIdentity <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>cfg <span class="token operator">*</span>Config<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
-    priv<span class="token punctuation">,</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> crypto<span class="token punctuation">.</span><span class="token function">GenerateKeyPairWithReader</span><span class="token punctuation">(</span>crypto<span class="token punctuation">.</span>RSA<span class="token punctuation">,</span> <span class="token number">2048</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> cfg<span class="token punctuation">.</span><span class="token function">Apply</span><span class="token punctuation">(</span><span class="token function">Identity</span><span class="token punctuation">(</span>priv<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-<span class="token comment">// DefaultListenAddrs configures libp2p to use default listen address.</span>
-<span class="token keyword">var</span> DefaultListenAddrs <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>cfg <span class="token operator">*</span>Config<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
-    defaultIP4ListenAddr<span class="token punctuation">,</span> err <span class="token operator">:=</span> multiaddr<span class="token punctuation">.</span><span class="token function">NewMultiaddr</span><span class="token punctuation">(</span><span class="token string">&quot;/ip4/0.0.0.0/tcp/0&quot;</span><span class="token punctuation">)</span>
-    defaultIP6ListenAddr<span class="token punctuation">,</span> err <span class="token operator">:=</span> multiaddr<span class="token punctuation">.</span><span class="token function">NewMultiaddr</span><span class="token punctuation">(</span><span class="token string">&quot;/ip6/::/tcp/0&quot;</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> cfg<span class="token punctuation">.</span><span class="token function">Apply</span><span class="token punctuation">(</span><span class="token function">ListenAddrs</span><span class="token punctuation">(</span>
-        defaultIP4ListenAddr<span class="token punctuation">,</span>
-        defaultIP6ListenAddr<span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-<span class="token comment">// DefaultEnableRelay enables relay dialing and listening by default.</span>
-<span class="token keyword">var</span> DefaultEnableRelay <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>cfg <span class="token operator">*</span>Config<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> cfg<span class="token punctuation">.</span><span class="token function">Apply</span><span class="token punctuation">(</span><span class="token function">EnableRelay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-go">var DefaultSecurity = ChainOptions(
+    Security(noise.ID, noise.New),
+    Security(tls.ID, tls.New),
+)
+var DefaultMuxers = ChainOptions(
+    Muxer(&quot;/yamux/1.0.0&quot;, yamux.DefaultTransport),
+    Muxer(&quot;/mplex/6.7.0&quot;, mplex.DefaultTransport),
+)
+var DefaultTransports = ChainOptions(
+    Transport(tcp.NewTCPTransport),
+    Transport(ws.New),
+)
+// DefaultPeerstore configures libp2p to use the default peerstore.
+var DefaultPeerstore Option = func(cfg *Config) error {
+    return cfg.Apply(Peerstore(pstoremem.NewPeerstore()))
+}
+// RandomIdentity generates a random identity. (default behaviour)
+var RandomIdentity = func(cfg *Config) error {
+    priv, _, err := crypto.GenerateKeyPairWithReader(crypto.RSA, 2048, rand.Reader)
+    return cfg.Apply(Identity(priv))
+}
+// DefaultListenAddrs configures libp2p to use default listen address.
+var DefaultListenAddrs = func(cfg *Config) error {
+    defaultIP4ListenAddr, err := multiaddr.NewMultiaddr(&quot;/ip4/0.0.0.0/tcp/0&quot;)
+    defaultIP6ListenAddr, err := multiaddr.NewMultiaddr(&quot;/ip6/::/tcp/0&quot;)
+    return cfg.Apply(ListenAddrs(
+        defaultIP4ListenAddr,
+        defaultIP6ListenAddr,
+    ))
+}
+// DefaultEnableRelay enables relay dialing and listening by default.
+var DefaultEnableRelay = func(cfg *Config) error {
+    return cfg.Apply(EnableRelay())
+}
 </code></pre>
 <h1 id="&#x89C4;&#x8303;"><a name="&#x89C4;&#x8303;" class="anchor-navigation-ex-anchor" href="#&#x89C4;&#x8303;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x89C4;&#x8303;</h1>
 <p>&#x5728; <a href="https://github.com/libp2p/specs" target="_blank">https://github.com/libp2p/specs</a></p>
@@ -4219,20 +4222,20 @@ multistream&#x4E5F;&#x53EB;multistream-select, &#x4F7F;&#x7528;utf8&#x7F16;&#x78
 <li>TURN: Traversal Using Relays around NAT (TURN), &#x57FA;&#x4E8E;&#x4E2D;&#x95F4;&#x8282;&#x70B9;</li>
 <li><a href="https://github.com/libp2p/specs/tree/master/relay" target="_blank">circuit relay v1</a>&#x548C;<a href="https://github.com/libp2p/specs/issues/314" target="_blank">circuit relay v2</a>: &#x53CC;&#x65B9;&#x90FD;&#x77E5;&#x6653;&#x8FD9;&#x4E2A;relay server&#x7684;&#x5B58;&#x5728;<br><img src="img/golang_libp2p_20220918111741.png" alt="">  </li>
 <li>relay&#x7684;&#x5730;&#x5740;&#x683C;&#x5F0F;:
-<code>[<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relay</span> <span class="token attr-name">peer</span> <span class="token attr-name">multiaddr</span><span class="token punctuation">&gt;</span></span>]/p2p-circuit/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>destination</span> <span class="token attr-name">peer</span> <span class="token attr-name">multiaddr</span><span class="token punctuation">&gt;</span></span></code></li>
+<code>[&lt;relay peer multiaddr&gt;]/p2p-circuit/&lt;destination peer multiaddr&gt;</code></li>
 </ul>
 <h5 id="addressing"><a name="addressing" class="anchor-navigation-ex-anchor" href="#addressing"><i class="fa fa-link" aria-hidden="true"></i></a>Addressing</h5>
 <p><code>/p2p-circuit</code> multiaddrs don&apos;t carry any meaning of their own. They need to encapsulate a <code>/p2p</code> address, or be encapsulated in a <code>/p2p</code> address, or both.</p>
 <p>As with all other multiaddrs, encapsulation of different protocols determines which metaphorical tubes to connect to each other.</p>
 <p>A <code>/p2p-circuit</code> circuit address, is formated following:</p>
-<p><code>[<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relay</span> <span class="token attr-name">peer</span> <span class="token attr-name">multiaddr</span><span class="token punctuation">&gt;</span></span>]/p2p-circuit/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>destination</span> <span class="token attr-name">peer</span> <span class="token attr-name">multiaddr</span><span class="token punctuation">&gt;</span></span></code></p>
+<p><code>[&lt;relay peer multiaddr&gt;]/p2p-circuit/&lt;destination peer multiaddr&gt;</code></p>
 <p>Examples:</p>
 <ul>
 <li><code>/p2p-circuit/p2p/QmVT6GYwjeeAF5TR485Yc58S3xRF5EFsZ5YAF4VcP3URHt</code> - Arbitrary relay node</li>
 <li><code>/ip4/127.0.0.1/tcp/5002/p2p/QmdPU7PfRyKehdrP5A3WqmjyD6bhVpU1mLGKppa2FjGDjZ/p2p-circuit/p2p/QmVT6GYwjeeAF5TR485Yc58S3xRF5EFsZ5YAF4VcP3URHt</code> - Specific relay node</li>
 </ul>
 <p>This opens the room for multiple hop relay, where the second relay is encapsulated in the first relay multiaddr, such as:</p>
-<p><code>&lt;1st relay&gt;/p2p-circuit/&lt;2nd relay&gt;/p2p-circuit/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dst</span> <span class="token attr-name">multiaddr</span><span class="token punctuation">&gt;</span></span></code></p>
+<p><code>&lt;1st relay&gt;/p2p-circuit/&lt;2nd relay&gt;/p2p-circuit/&lt;dst multiaddr&gt;</code></p>
 <p>A few examples:</p>
 <p>Using any relay available:</p>
 <ul>
@@ -4302,24 +4305,24 @@ multistream&#x4E5F;&#x53EB;multistream-select, &#x4F7F;&#x7528;utf8&#x7F16;&#x78
 <h2 id="peer-ids-and-keys"><a name="peer-ids-and-keys" class="anchor-navigation-ex-anchor" href="#peer-ids-and-keys"><i class="fa fa-link" aria-hidden="true"></i></a>5.2. Peer Ids and Keys</h2>
 <p>libp2p&#x4F7F;&#x7528;&#x4F7F;&#x7528;&#x5BC6;&#x94A5;&#x6765;&#x7ED9;message&#x7B7E;&#x540D;, &#x4EE5;&#x53CA;&#x751F;&#x6210;peer ID.
 &#x4E0B;&#x9762;&#x662F;key&#x7684;protobuf&#x5B9A;&#x4E49;</p>
-<pre class="language-"><code class="lang-go">syntax <span class="token operator">=</span> <span class="token string">&quot;proto2&quot;</span><span class="token punctuation">;</span>
+<pre><code class="lang-go">syntax = &quot;proto2&quot;;
 
-enum KeyType <span class="token punctuation">{</span>
-    RSA <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    Ed25519 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    Secp256k1 <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-    ECDSA <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+enum KeyType {
+    RSA = 0;
+    Ed25519 = 1;
+    Secp256k1 = 2;
+    ECDSA = 3;
+}
 
-message PublicKey <span class="token punctuation">{</span>
-    required KeyType Type <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    required bytes Data <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+message PublicKey {
+    required KeyType Type = 1;
+    required bytes Data = 2;
+}
 
-message PrivateKey <span class="token punctuation">{</span>
-    required KeyType Type <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    required bytes Data <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+message PrivateKey {
+    required KeyType Type = 1;
+    required bytes Data = 2;
+}
 </code></pre>
 <p>&#x5176;&#x4E2D;data&#x57DF;&#x53EF;&#x4EE5;&#x6709;&#x5176;&#x4ED6;&#x7684;&#x7F16;&#x7801;&#x65B9;&#x5F0F;
 PrivateKey&#x4E0D;&#x4F1A;&#x5728;&#x7EBF;&#x8DEF;&#x4E2D;&#x4F20;&#x8F93;, &#x4F46;&#x53EF;&#x4EE5;&#x4EE5;protobuf&#x7684;&#x7F16;&#x7801;&#x4FDD;&#x5B58;&#x5728;&#x672C;&#x5730;&#x5B58;&#x50A8;&#x4E0A;, &#x4ECE;&#x800C;&#x53EF;&#x4EE5;&#x88AB;load&#x6765;&#x91CD;&#x7528;&#x8FD9;&#x4E2A;key.</p>
@@ -4335,14 +4338,14 @@ PrivateKey&#x4E0D;&#x4F1A;&#x5728;&#x7EBF;&#x8DEF;&#x4E2D;&#x4F20;&#x8F93;, &#x4
 </ul>
 <h2 id="identify&#x534F;&#x8BAE;"><a name="identify&#x534F;&#x8BAE;" class="anchor-navigation-ex-anchor" href="#identify&#x534F;&#x8BAE;"><i class="fa fa-link" aria-hidden="true"></i></a>5.3. identify&#x534F;&#x8BAE;</h2>
 <p>&#x7528;<code>/ipfs/id/1.0.0</code>&#x548C;<code>/ipfs/id/push/1.0.0</code>&#x6765;&#x67E5;&#x8BE2;remote peer&#x548C;&#x5E7F;&#x64AD;&#x81EA;&#x5DF1;&#x7684;peerID.<br>&#x91CC;&#x9762;&#x5305;&#x542B;public key</p>
-<pre class="language-"><code class="lang-go">message Identify <span class="token punctuation">{</span>
-  optional <span class="token builtin">string</span> protocolVersion <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-  optional <span class="token builtin">string</span> agentVersion <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
-  optional bytes publicKey <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  repeated bytes listenAddrs <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-  optional bytes observedAddr <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
-  repeated <span class="token builtin">string</span> protocols <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre><code class="lang-go">message Identify {
+  optional string protocolVersion = 5;
+  optional string agentVersion = 6;
+  optional bytes publicKey = 1;
+  repeated bytes listenAddrs = 2;
+  optional bytes observedAddr = 4;
+  repeated string protocols = 3;
+}
 </code></pre>
 <h2 id="mplex&#x534F;&#x8BAE;"><a name="mplex&#x534F;&#x8BAE;" class="anchor-navigation-ex-anchor" href="#mplex&#x534F;&#x8BAE;"><i class="fa fa-link" aria-hidden="true"></i></a>5.4. mplex&#x534F;&#x8BAE;</h2>
 <p>mplex&#x662F;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x591A;&#x8DEF;&#x590D;&#x7528;&#x534F;&#x8BAE;, &#x6BD4;&#x5982;&#x7B80;&#x5355;&#x5230;&#x6CA1;&#x6709;&#x6D41;&#x63A7;.</p>
@@ -4476,10 +4479,11 @@ namespace&#x6700;&#x5927;255, &#x6700;&#x5927;&#x6CE8;&#x518C;&#x6570;1000</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Golang p2p网络","level":"1.7.13.3","depth":3,"next":{"title":"Rust","level":"1.8","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"Rust 入门系列","level":"1.8.1","depth":2,"path":"notes/rust_入门_brief.md","ref":"notes/rust_入门_brief.md","articles":[{"title":"Rust reference books","level":"1.8.1.1","depth":3,"path":"notes/rust_books.md","ref":"notes/rust_books.md","articles":[]},{"title":"Rust 安装和基础语法","level":"1.8.1.2","depth":3,"path":"notes/rust_入门1.md","ref":"notes/rust_入门1.md","articles":[]},{"title":"Rust 泛型和内存所有权","level":"1.8.1.3","depth":3,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},{"title":"Rust 闭包 容器 迭代器 生成器 线程","level":"1.8.1.4","depth":3,"path":"notes/rust_入门3.md","ref":"notes/rust_入门3.md","articles":[]},{"title":"Rust 工程构建","level":"1.8.1.5","depth":3,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]}]},{"title":"Rust 代码积累","level":"1.8.2","depth":2,"path":"notes/rust_coding_brief.md","ref":"notes/rust_coding_brief.md","articles":[{"title":"Rust 序列化原理","level":"1.8.2.1","depth":3,"path":"notes/rust_序列化.md","ref":"notes/rust_序列化.md","articles":[]},{"title":"Rust 知识点更新","level":"1.8.2.2","depth":3,"path":"notes/rust_知识点积累.md","ref":"notes/rust_知识点积累.md","articles":[]},{"title":"rust版本的adaptiveservice探索","level":"1.8.2.3","depth":3,"path":"notes/rust_adaptiveservice.md","ref":"notes/rust_adaptiveservice.md","articles":[]},{"title":"Rust 常用设施","level":"1.8.2.4","depth":3,"path":"notes/rust_常用设施.md","ref":"notes/rust_常用设施.md","articles":[]},{"title":"Rust 代码小段","level":"1.8.2.5","depth":3,"path":"notes/rust_代码小段.md","ref":"notes/rust_代码小段.md","articles":[]}]},{"title":"其他","level":"1.8.3","depth":2,"path":"notes/others.md","ref":"notes/others.md","articles":[{"title":"Rust 使用mdbook","level":"1.8.3.1","depth":3,"path":"notes/rust_mdbook_使用.md","ref":"notes/rust_mdbook_使用.md","articles":[]}]}]},"previous":{"title":"消息中间件mango","level":"1.7.13.2","depth":3,"path":"notes/golang_mango.md","ref":"notes/golang_mango.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_libp2p.md","mtime":"2022-10-11T14:47:23.674Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Golang p2p网络","level":"1.7.13.3","depth":3,"next":{"title":"Rust","level":"1.8","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"Rust 入门系列","level":"1.8.1","depth":2,"path":"notes/rust_入门_brief.md","ref":"notes/rust_入门_brief.md","articles":[{"title":"Rust reference books","level":"1.8.1.1","depth":3,"path":"notes/rust_books.md","ref":"notes/rust_books.md","articles":[]},{"title":"Rust 安装和基础语法","level":"1.8.1.2","depth":3,"path":"notes/rust_入门1.md","ref":"notes/rust_入门1.md","articles":[]},{"title":"Rust 泛型和内存所有权","level":"1.8.1.3","depth":3,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},{"title":"Rust 闭包 容器 迭代器 生成器 线程","level":"1.8.1.4","depth":3,"path":"notes/rust_入门3.md","ref":"notes/rust_入门3.md","articles":[]},{"title":"Rust 工程构建","level":"1.8.1.5","depth":3,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]}]},{"title":"Rust 代码积累","level":"1.8.2","depth":2,"path":"notes/rust_coding_brief.md","ref":"notes/rust_coding_brief.md","articles":[{"title":"Rust 序列化原理","level":"1.8.2.1","depth":3,"path":"notes/rust_序列化.md","ref":"notes/rust_序列化.md","articles":[]},{"title":"Rust 知识点更新","level":"1.8.2.2","depth":3,"path":"notes/rust_知识点积累.md","ref":"notes/rust_知识点积累.md","articles":[]},{"title":"rust版本的adaptiveservice探索","level":"1.8.2.3","depth":3,"path":"notes/rust_adaptiveservice.md","ref":"notes/rust_adaptiveservice.md","articles":[]},{"title":"Rust 常用设施","level":"1.8.2.4","depth":3,"path":"notes/rust_常用设施.md","ref":"notes/rust_常用设施.md","articles":[]},{"title":"Rust 代码小段","level":"1.8.2.5","depth":3,"path":"notes/rust_代码小段.md","ref":"notes/rust_代码小段.md","articles":[]}]},{"title":"其他","level":"1.8.3","depth":2,"path":"notes/others.md","ref":"notes/others.md","articles":[{"title":"Rust 使用mdbook","level":"1.8.3.1","depth":3,"path":"notes/rust_mdbook_使用.md","ref":"notes/rust_mdbook_使用.md","articles":[]}]}]},"previous":{"title":"消息中间件mango","level":"1.7.13.2","depth":3,"path":"notes/golang_mango.md","ref":"notes/golang_mango.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_libp2p.md","mtime":"2022-10-11T15:10:42.534Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -4518,6 +4522,7 @@ namespace&#x6700;&#x5927;255, &#x6700;&#x5927;&#x6CE8;&#x518C;&#x6570;1000</p>
         
     
 
+        
     </body>
 </html>
 

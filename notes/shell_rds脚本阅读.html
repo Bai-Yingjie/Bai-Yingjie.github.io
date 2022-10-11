@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2877,11 +2880,11 @@
 <ul>
 <li>&#x4F7F;&#x7528;&#x65B9;&#x6CD5;</li>
 </ul>
-<pre class="language-"><code class="lang-sh"><span class="token assign-left variable">BENCH_SERIES</span><span class="token operator">=</span>thunder_optimized_xfs <span class="token assign-left variable">MYSQL_TEMPLATES_NAME</span><span class="token operator">=</span>optimized <span class="token assign-left variable">SYSBENCH_MAX_TIME</span><span class="token operator">=</span><span class="token number">180</span> <span class="token function">bash</span> ./start_benchmarks.sh
+<pre><code class="lang-sh">BENCH_SERIES=thunder_optimized_xfs MYSQL_TEMPLATES_NAME=optimized SYSBENCH_MAX_TIME=180 bash ./start_benchmarks.sh
 
-<span class="token assign-left variable">SYSBENCH_MAX_TIME</span><span class="token operator">=</span><span class="token number">180</span> <span class="token assign-left variable">CHART_SERIES</span><span class="token operator">=</span>results/<span class="token punctuation">{</span>thx_optimized_60s,thx_network_60s,x86_baseline_60s<span class="token punctuation">}</span> <span class="token assign-left variable">CHART_NAME</span><span class="token operator">=</span><span class="token string">&quot;_optimized_vs_network_vs_x86&quot;</span> <span class="token function">sh</span> ./process_data.sh
+SYSBENCH_MAX_TIME=180 CHART_SERIES=results/{thx_optimized_60s,thx_network_60s,x86_baseline_60s} CHART_NAME=&quot;_optimized_vs_network_vs_x86&quot; sh ./process_data.sh
 
-<span class="token assign-left variable">SYSBENCH_MAX_TIME</span><span class="token operator">=</span><span class="token number">180</span> <span class="token assign-left variable">CHART_SERIES</span><span class="token operator">=</span>results/<span class="token punctuation">{</span>thx_optimized_60s,thx_network_60s,x86_baseline_60s<span class="token punctuation">}</span> <span class="token assign-left variable">CHART_NAME</span><span class="token operator">=</span><span class="token string">&quot;_optimized_vs_network_vs_x86&quot;</span> <span class="token function">sh</span> ./create_charts.sh
+SYSBENCH_MAX_TIME=180 CHART_SERIES=results/{thx_optimized_60s,thx_network_60s,x86_baseline_60s} CHART_NAME=&quot;_optimized_vs_network_vs_x86&quot; sh ./create_charts.sh
 </code></pre>
 <ul>
 <li><p>&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x662F;&#x628A;&#x6240;&#x6709;&#x7684;CHART_SERIES&#x7684;tps&#x548C;lat&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;, &#x5168;&#x90E8;&#x63D0;&#x53D6;&#x5230;&#x6587;&#x4EF6;&#x91CC;</p>
@@ -2889,26 +2892,26 @@
 <li><p><code>for series in $(eval echo $CHART_SERIES)</code>&#x91CC;&#x9762;<code>eval echo $CHART_SERIES</code>&#x7684;&#x4F5C;&#x7528;&#x662F;<strong>&#x5C55;&#x5F00;&#x53D8;&#x91CF;</strong></p>
 </li>
 </ul>
-<pre class="language-"><code class="lang-sh">$ <span class="token assign-left variable">CHART_SERIES</span><span class="token operator">=</span>results/<span class="token punctuation">{</span>thx_optimized_60s,thx_network_60s,x86_baseline_60s<span class="token punctuation">}</span>
+<pre><code class="lang-sh">$ CHART_SERIES=results/{thx_optimized_60s,thx_network_60s,x86_baseline_60s}
 
-$ <span class="token builtin class-name">echo</span> <span class="token variable">$CHART_SERIES</span>
+$ echo $CHART_SERIES
 
-results/<span class="token punctuation">{</span>thx_optimized_60s,thx_network_60s,x86_baseline_60s<span class="token punctuation">}</span>
+results/{thx_optimized_60s,thx_network_60s,x86_baseline_60s}
 
-$ <span class="token builtin class-name">eval</span> <span class="token builtin class-name">echo</span> <span class="token variable">$CHART_SERIES</span>
+$ eval echo $CHART_SERIES
 
 results/thx_optimized_60s results/thx_network_60s results/x86_baseline_60s
 </code></pre>
 <ul>
 <li>&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7684;shell&#x4ECE;usage&#x5F00;&#x59CB;</li>
 </ul>
-<pre class="language-"><code class="lang-shell"><span class="token function-name function">usage</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+<pre><code class="lang-shell">usage()
+{
+    cat &lt;&lt;EOF
 Usage:
-SYSBENCH_MAX_TIME=N CHART_SERIES=S CHART_NAME=S <span class="token variable">$0</span>
-EOF</span>
-<span class="token punctuation">}</span>
+SYSBENCH_MAX_TIME=N CHART_SERIES=S CHART_NAME=S $0
+EOF
+}
 </code></pre>
 <ul>
 <li><p><code>for conf in A200 B5 C1 C2 C4 C8</code>&#x91CD;&#x70B9;&#x662F;in&#x540E;&#x9762;&#x7684;&#x96C6;&#x5408;&#x5C31;&#x53EA;&#x662F;&#x7528;&#x7A7A;&#x683C;&#x9694;&#x5F00;</p>
@@ -2916,33 +2919,33 @@ EOF</span>
 <li><p>&#x8981;&#x628A;&#x4E00;&#x6BB5;&#x811A;&#x672C;&#x7684;&#x8F93;&#x51FA;&#x91CD;&#x5B9A;&#x5411;&#x5230;&#x6587;&#x4EF6;, &#x53EF;&#x4EE5;&#x8FD9;&#x6837;</p>
 </li>
 </ul>
-<pre class="language-"><code class="lang-sh"><span class="token punctuation">(</span>
+<pre><code class="lang-sh">(
 some commands
-<span class="token punctuation">)</span> <span class="token operator">&gt;</span> output-filename
+) &gt; output-filename
 </code></pre>
 <ul>
 <li>awk&#x7684;&#x4F8B;&#x5B50;</li>
 </ul>
-<pre class="language-"><code class="lang-shell"><span class="token function">awk</span> <span class="token string">&apos;
+<pre><code class="lang-shell">awk &apos;
 BEGIN {OFS=&quot;,&quot;}
 /tps:/ {
     sub(&quot;\\[ *&quot;, &quot;&quot;, $0);
     sub(&quot;s]&quot;,&quot;&quot;,$1);
     sub(&quot;,&quot;,&quot;&quot;,$5);
     sub(&quot;ms&quot;,&quot;&quot;,$12);
-    print &apos;</span><span class="token punctuation">\</span>&quot;<span class="token variable">$s</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$conf</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$threads</span><span class="token punctuation">\</span>&quot;,<span class="token variable"><span class="token variable">$((</span>counter<span class="token operator">*</span>duration<span class="token variable">))</span></span><span class="token string">&apos;+$1,$1,&quot;tps&quot;,$5;
-    print &apos;</span><span class="token punctuation">\</span>&quot;<span class="token variable">$s</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$conf</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$threads</span><span class="token punctuation">\</span>&quot;,<span class="token variable"><span class="token variable">$((</span>counter<span class="token operator">*</span>duration<span class="token variable">))</span></span><span class="token string">&apos;+$1,$1,&quot;lat&quot;,$12
-}&apos;</span> <span class="token variable">$filename</span>
+    print &apos;\&quot;$s\&quot;,\&quot;$conf\&quot;,\&quot;$threads\&quot;,$((counter*duration))&apos;+$1,$1,&quot;tps&quot;,$5;
+    print &apos;\&quot;$s\&quot;,\&quot;$conf\&quot;,\&quot;$threads\&quot;,$((counter*duration))&apos;+$1,$1,&quot;lat&quot;,$12
+}&apos; $filename
 </code></pre>
-<pre class="language-"><code class="lang-shell"><span class="token function">awk</span> <span class="token string">&apos;
+<pre><code class="lang-shell">awk &apos;
 BEGIN {OFS=&quot;,&quot;}
-/transactions:/ {sub(&quot;\\(&quot;,&quot;&quot;,$3); print &apos;</span><span class="token punctuation">\</span>&quot;<span class="token variable">$s</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$conf</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$threads</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;tps<span class="token punctuation">\</span>&quot;,<span class="token string">&apos;$3}
-/approx./ {sub(&quot;ms&quot;,&quot;&quot;,$4); print &apos;</span><span class="token punctuation">\</span>&quot;<span class="token variable">$s</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$conf</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$threads</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;lat<span class="token punctuation">\</span>&quot;,<span class="token string">&apos;$4}&apos;</span> <span class="token variable">$f</span>
+/transactions:/ {sub(&quot;\\(&quot;,&quot;&quot;,$3); print &apos;\&quot;$s\&quot;,\&quot;$conf\&quot;,\&quot;$threads\&quot;,\&quot;tps\&quot;,&apos;$3}
+/approx./ {sub(&quot;ms&quot;,&quot;&quot;,$4); print &apos;\&quot;$s\&quot;,\&quot;$conf\&quot;,\&quot;$threads\&quot;,\&quot;lat\&quot;,&apos;$4}&apos; $f
 </code></pre>
-<pre class="language-"><code class="lang-sh"><span class="token function">awk</span> <span class="token string">&apos;/search pattern1/ {Actions}
-     /search pattern2/ {Actions}&apos;</span> <span class="token function">file</span>
+<pre><code class="lang-sh">awk &apos;/search pattern1/ {Actions}
+     /search pattern2/ {Actions}&apos; file
 </code></pre>
-<pre class="language-"><code>- awk &apos;{pattern + action}&apos; {filenames}, &#x6309;&#x884C;&#x5904;&#x7406;, &#x5BF9;&#x5339;&#x914D;patten&#x7684;&#x884C;, &#x987A;&#x5E8F;&#x6267;&#x884C;{}&#x91CC;&#x9762;&#x7684;&#x64CD;&#x4F5C;
+<pre><code>- awk &apos;{pattern + action}&apos; {filenames}, &#x6309;&#x884C;&#x5904;&#x7406;, &#x5BF9;&#x5339;&#x914D;patten&#x7684;&#x884C;, &#x987A;&#x5E8F;&#x6267;&#x884C;{}&#x91CC;&#x9762;&#x7684;&#x64CD;&#x4F5C;
 - patten&#x5C31;&#x662F;//&#x91CC;&#x9762;&#x7684;&#x4E1C;&#x897F;
 - $0&#x4EE3;&#x8868;&#x6574;&#x884C;,$1&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;
 - sub(match, replace, string)&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x66FF;&#x6362;
@@ -2952,7 +2955,7 @@ BEGIN {OFS=&quot;,&quot;}
 </code></pre><ul>
 <li>&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6548;&#x679C;&#x5982;</li>
 </ul>
-<pre class="language-"><code>thunder_xfs,A200,1,tps,3737.49
+<pre><code>thunder_xfs,A200,1,tps,3737.49
 thunder_xfs,A200,1,lat,75.43
 thunder_xfs,A200,4,tps,5261.52
 thunder_xfs,A200,4,lat,216.29
@@ -2969,9 +2972,9 @@ thunder_xfs,B5,8,lat,50.93
 <li>&#x5148;&#x8981;&#x5B89;&#x88C5;R, &#x4F3C;&#x4E4E;&#x4E0D;&#x7528;&#x88C5;&#x90A3;&#x4E48;&#x591A;</li>
 </ul>
 <p><strong>apt install r-base</strong></p>
-<pre class="language-"><code>$ cat /etc/apt/sources.list
+<pre><code>$ cat /etc/apt/sources.list
 deb http://mirror.bjtu.edu.cn/cran/bin/linux/ubuntu trusty/
-</code></pre><pre class="language-"><code>apt install libxt-dev
+</code></pre><pre><code>apt install libxt-dev
 apt install libcurl4-openssl-dev
 apt install gfortran
 apt install libmpfr-dev
@@ -2979,105 +2982,105 @@ apt install liblapack-dev
 apt install r-base
 apt install r-cran*
 </code></pre><p>&#x8FD8;&#x8981;&#x8FDB;R&#x7684;shell</p>
-<pre class="language-"><code class="lang-r">install.packages<span class="token punctuation">(</span><span class="token string">&apos;ggplot2&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
-install.packages<span class="token punctuation">(</span><span class="token string">&apos;gridExtra&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
-install.packages<span class="token punctuation">(</span><span class="token string">&apos;reshape2&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
-install.packages<span class="token punctuation">(</span><span class="token string">&apos;plyr&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
-install.packages<span class="token punctuation">(</span><span class="token string">&apos;Matrix&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
+<pre><code class="lang-r">install.packages(&apos;ggplot2&apos;, dep = TRUE)
+install.packages(&apos;gridExtra&apos;, dep = TRUE)
+install.packages(&apos;reshape2&apos;, dep = TRUE)
+install.packages(&apos;plyr&apos;, dep = TRUE)
+install.packages(&apos;Matrix&apos;, dep = TRUE)
 </code></pre>
 <ul>
 <li>data.frame&#x662F;&#x4E2A;&#x8868;&#x683C;, &#x4E00;&#x822C;&#x6BCF;&#x4E2A;&#x5217;&#x90FD;&#x662F;&#x540C;&#x6837;&#x7C7B;&#x578B;&#x7684;&#x5143;&#x7D20;(&#x4F3C;&#x4E4E;&#x4E0D;&#x662F;&#x5FC5;&#x987B;?), &#x800C;&#x6BCF;&#x884C;&#x597D;&#x50CF;&#x662F;&#x6761;&#x8BB0;&#x5F55;&#x7684;&#x611F;&#x89C9;</li>
 </ul>
-<pre class="language-"><code class="lang-r"><span class="token operator">&gt;</span> student<span class="token operator">&lt;-</span>data.frame<span class="token punctuation">(</span>ID<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Name<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token string">&quot;Devin&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;Edward&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;Wenli&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Gender<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token string">&quot;M&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;M&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;F&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Birthdate<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token string">&quot;1984-12-29&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;1983-5-6&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;1986-8-8&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token operator">&gt;</span> student
+<pre><code class="lang-r">&gt; student&lt;-data.frame(ID=c(11,12,13),Name=c(&quot;Devin&quot;,&quot;Edward&quot;,&quot;Wenli&quot;),Gender=c(&quot;M&quot;,&quot;M&quot;,&quot;F&quot;),Birthdate=c(&quot;1984-12-29&quot;,&quot;1983-5-6&quot;,&quot;1986-8-8&quot;))
+&gt; student
   ID   Name Gender  Birthdate
-<span class="token number">1</span> <span class="token number">11</span>  Devin      M <span class="token number">1984</span><span class="token operator">-</span><span class="token number">12</span><span class="token operator">-</span><span class="token number">29</span>
-<span class="token number">2</span> <span class="token number">12</span> Edward      M   <span class="token number">1983</span><span class="token operator">-</span><span class="token number">5</span><span class="token operator">-</span><span class="token number">6</span>
-<span class="token number">3</span> <span class="token number">13</span>  Wenli      F   <span class="token number">1986</span><span class="token operator">-</span><span class="token number">8</span><span class="token operator">-</span><span class="token number">8</span>
+1 11  Devin      M 1984-12-29
+2 12 Edward      M   1983-5-6
+3 13  Wenli      F   1986-8-8
 </code></pre>
 <ul>
 <li>&#x4EE3;&#x7801;&#x6CE8;&#x91CA;&#x4E4B;tps&#x548C;latency</li>
 </ul>
-<pre class="language-"><code class="lang-r"><span class="token comment">#sb&#x662F;data.frame&#x7C7B;&#x578B;</span>
-sb<span class="token operator">&lt;-</span>read.table<span class="token punctuation">(</span><span class="token string">&quot;$r_data_file&quot;</span><span class="token punctuation">,</span>sep<span class="token operator">=</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">,</span>as.is<span class="token operator">=</span>T<span class="token punctuation">,</span>header<span class="token operator">=</span>F<span class="token punctuation">)</span>
-<span class="token comment">#c(&#x5404;&#x4E2A;&#x5143;&#x7D20;)&#x5F62;&#x6210;&#x4E00;&#x4E2A;list, &#x8FD9;&#x91CC;&#x7684;c&#x662F;&#x4E2A;&#x51FD;&#x6570;, &#x662F;combine&#x7684;&#x610F;&#x601D;</span>
-colnames<span class="token punctuation">(</span>sb<span class="token punctuation">)</span><span class="token operator">&lt;-</span>c<span class="token punctuation">(</span><span class="token string">&quot;series&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;conf&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;threads&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;metric&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;value&quot;</span><span class="token punctuation">)</span>
+<pre><code class="lang-r">#sb&#x662F;data.frame&#x7C7B;&#x578B;
+sb&lt;-read.table(&quot;$r_data_file&quot;,sep=&quot;,&quot;,as.is=T,header=F)
+#c(&#x5404;&#x4E2A;&#x5143;&#x7D20;)&#x5F62;&#x6210;&#x4E00;&#x4E2A;list, &#x8FD9;&#x91CC;&#x7684;c&#x662F;&#x4E2A;&#x51FD;&#x6570;, &#x662F;combine&#x7684;&#x610F;&#x601D;
+colnames(sb)&lt;-c(&quot;series&quot;,&quot;conf&quot;, &quot;threads&quot;, &quot;metric&quot;, &quot;value&quot;)
 
-<span class="token comment">#&#x8FD9;&#x91CC;&#x4F53;&#x73B0;&#x4E86;&#x51FD;&#x6570;&#x8BED;&#x8A00;&#x7684;&#x5F3A;&#x5927;&#x4E4B;&#x5904;, metric&#x4F5C;&#x4E3A;&#x5165;&#x53C2;&#x662F;&#x6CA1;&#x6709;&#x5B9A;&#x4E49;&#x7684;, &#x4F46;&#x4F20;&#x5230;sb&#x91CC;&#x9762;&#x65F6;, &#x5C31;&#x6709;&#x5B9A;&#x4E49;&#x4E86;.</span>
-sb_tps<span class="token operator">&lt;-</span>subset<span class="token punctuation">(</span>sb<span class="token punctuation">,</span>grepl<span class="token punctuation">(</span><span class="token string">&quot;tps&quot;</span><span class="token punctuation">,</span> metric<span class="token punctuation">)</span><span class="token punctuation">)</span>
-sb_lat<span class="token operator">&lt;-</span>subset<span class="token punctuation">(</span>sb<span class="token punctuation">,</span>grepl<span class="token punctuation">(</span><span class="token string">&quot;lat&quot;</span><span class="token punctuation">,</span> metric<span class="token punctuation">)</span><span class="token punctuation">)</span>
+#&#x8FD9;&#x91CC;&#x4F53;&#x73B0;&#x4E86;&#x51FD;&#x6570;&#x8BED;&#x8A00;&#x7684;&#x5F3A;&#x5927;&#x4E4B;&#x5904;, metric&#x4F5C;&#x4E3A;&#x5165;&#x53C2;&#x662F;&#x6CA1;&#x6709;&#x5B9A;&#x4E49;&#x7684;, &#x4F46;&#x4F20;&#x5230;sb&#x91CC;&#x9762;&#x65F6;, &#x5C31;&#x6709;&#x5B9A;&#x4E49;&#x4E86;.
+sb_tps&lt;-subset(sb,grepl(&quot;tps&quot;, metric))
+sb_lat&lt;-subset(sb,grepl(&quot;lat&quot;, metric))
 
-<span class="token comment">#&#x91CD;&#x70B9;&#x6765;&#x4E86;, ggplot&#x662F;&#x4E2A;&#x5F88;&#x5F3A;&#x5927;&#x7684;&#x51FD;&#x6570;, &#x5176;&#x57FA;&#x672C;&#x601D;&#x60F3;&#x662F;&#x7528;+&#x53F7;&#x6765;&#x53E0;&#x52A0;&#x56FE;&#x5C42;</span>
-<span class="token comment">#aes&#x5F88;&#x5F3A;&#x5927;, &#x53EF;&#x4EE5;&#x5728;ggplot&#x4E2D;&#x4F7F;&#x7528;(&#x76F8;&#x5F53;&#x4E8E;&#x5168;&#x5C40;), &#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x5C40;&#x90E8;&#x56FE;&#x5C42;&#x4F7F;&#x7528;.</span>
-<span class="token comment">#aes&#x91CC;&#x9762;&#x7684;&#x8FD9;&#x4E2A;as.factor&#x5E94;&#x8BE5;&#x662F;&#x628A;&#x4E00;&#x4E2A;vector&#x53D8;&#x6210;&#x4E00;&#x4E2A;factor(&#x56E0;&#x5B50;), &#x8FD9;&#x91CC;&#x9762;&#x662F;&#x6309;series&#x6765;&#x753B;&#x4E0D;&#x540C;&#x989C;&#x8272;</span>
-<span class="token comment">#group&#x662F;&#x8BF4;&#x6309;series&#x6765;&#x5206;&#x7EC4;&#x753B;?</span>
-q1<span class="token operator">&lt;-</span>ggplot<span class="token punctuation">(</span>data<span class="token operator">=</span>sb_tps<span class="token punctuation">,</span>
-           aes<span class="token punctuation">(</span>threads<span class="token punctuation">,</span>y<span class="token operator">=</span>value<span class="token punctuation">,</span>colour<span class="token operator">=</span>as.factor<span class="token punctuation">(</span>series<span class="token punctuation">)</span><span class="token punctuation">,</span>
-               group<span class="token operator">=</span>as.factor<span class="token punctuation">(</span>series<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  geom_line<span class="token punctuation">(</span>size<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  geom_point<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  scale_color_hue<span class="token punctuation">(</span>l<span class="token operator">=</span><span class="token number">55</span><span class="token punctuation">,</span>name<span class="token operator">=</span><span class="token string">&quot;&quot;</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  guides<span class="token punctuation">(</span>fill <span class="token operator">=</span> guide_legend<span class="token punctuation">(</span>title<span class="token operator">=</span><span class="token keyword">NULL</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">FALSE</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  ylab<span class="token punctuation">(</span><span class="token string">&quot;TPS&quot;</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  expand_limits<span class="token punctuation">(</span>y<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  xlab<span class="token punctuation">(</span><span class="token string">&quot;threads per instance&quot;</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  ggtitle<span class="token punctuation">(</span>paste<span class="token punctuation">(</span><span class="token string">&quot;simsim benchmark, 2 sockets, TPS&quot;</span> <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span>
+#&#x91CD;&#x70B9;&#x6765;&#x4E86;, ggplot&#x662F;&#x4E2A;&#x5F88;&#x5F3A;&#x5927;&#x7684;&#x51FD;&#x6570;, &#x5176;&#x57FA;&#x672C;&#x601D;&#x60F3;&#x662F;&#x7528;+&#x53F7;&#x6765;&#x53E0;&#x52A0;&#x56FE;&#x5C42;
+#aes&#x5F88;&#x5F3A;&#x5927;, &#x53EF;&#x4EE5;&#x5728;ggplot&#x4E2D;&#x4F7F;&#x7528;(&#x76F8;&#x5F53;&#x4E8E;&#x5168;&#x5C40;), &#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x5C40;&#x90E8;&#x56FE;&#x5C42;&#x4F7F;&#x7528;.
+#aes&#x91CC;&#x9762;&#x7684;&#x8FD9;&#x4E2A;as.factor&#x5E94;&#x8BE5;&#x662F;&#x628A;&#x4E00;&#x4E2A;vector&#x53D8;&#x6210;&#x4E00;&#x4E2A;factor(&#x56E0;&#x5B50;), &#x8FD9;&#x91CC;&#x9762;&#x662F;&#x6309;series&#x6765;&#x753B;&#x4E0D;&#x540C;&#x989C;&#x8272;
+#group&#x662F;&#x8BF4;&#x6309;series&#x6765;&#x5206;&#x7EC4;&#x753B;?
+q1&lt;-ggplot(data=sb_tps,
+           aes(threads,y=value,colour=as.factor(series),
+               group=as.factor(series)))+
+  geom_line(size=1)+
+  geom_point()+
+  scale_color_hue(l=55,name=&quot;&quot;)+
+  guides(fill = guide_legend(title=NULL, reverse=FALSE))+
+  ylab(&quot;TPS&quot;)+
+  expand_limits(y=0)+
+  xlab(&quot;threads per instance&quot;)+
+  ggtitle(paste(&quot;simsim benchmark, 2 sockets, TPS&quot; ))+
 
-  <span class="token comment">#&#x5728;&#x5E95;&#x90E8;&#x663E;&#x793A;legend(&#x56FE;&#x4F8B;&#x8BF4;&#x660E;)</span>
-  theme<span class="token punctuation">(</span>legend.position<span class="token operator">=</span><span class="token string">&quot;bottom&quot;</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  <span class="token comment">#&#x4EE5;2&#x4E3A;&#x5E95;&#x7684;&#x5BF9;&#x6570;, &#x4FDD;&#x8BC1;1 4 8 16&#x5728;x&#x8F74;&#x7B49;&#x8DDD;</span>
-  scale_x_continuous<span class="token punctuation">(</span>trans<span class="token operator">=</span>log2_trans<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                     breaks <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">,</span><span class="token number">32</span><span class="token punctuation">,</span><span class="token number">64</span><span class="token punctuation">,</span><span class="token number">128</span><span class="token punctuation">,</span><span class="token number">256</span><span class="token punctuation">,</span><span class="token number">512</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  <span class="token comment">#facet(&#x5206;&#x9762;), &#x8FD9;&#x91CC;. ~ conf&#x7684;&#x610F;&#x601D;&#x662F;&#x6C34;&#x5E73;&#x4E0D;&#x53D8;, &#x5782;&#x76F4;&#x4EE5;conf&#x4E3A;&#x7C7B;&#x522B;&#x6765;&#x5206;&#x9762;</span>
-  facet_grid<span class="token punctuation">(</span> . <span class="token operator">~</span> conf<span class="token punctuation">,</span> scales<span class="token operator">=</span><span class="token string">&quot;free_y&quot;</span><span class="token punctuation">)</span>
+  #&#x5728;&#x5E95;&#x90E8;&#x663E;&#x793A;legend(&#x56FE;&#x4F8B;&#x8BF4;&#x660E;)
+  theme(legend.position=&quot;bottom&quot;)+
+  #&#x4EE5;2&#x4E3A;&#x5E95;&#x7684;&#x5BF9;&#x6570;, &#x4FDD;&#x8BC1;1 4 8 16&#x5728;x&#x8F74;&#x7B49;&#x8DDD;
+  scale_x_continuous(trans=log2_trans(),
+                     breaks = c(1,4,8,16,32,64,128,256,512))+
+  #facet(&#x5206;&#x9762;), &#x8FD9;&#x91CC;. ~ conf&#x7684;&#x610F;&#x601D;&#x662F;&#x6C34;&#x5E73;&#x4E0D;&#x53D8;, &#x5782;&#x76F4;&#x4EE5;conf&#x4E3A;&#x7C7B;&#x522B;&#x6765;&#x5206;&#x9762;
+  facet_grid( . ~ conf, scales=&quot;free_y&quot;)
 
-svg<span class="token punctuation">(</span><span class="token string">&quot;charts/simsim_tps${CHART_NAME}.svg&quot;</span><span class="token punctuation">,</span> width<span class="token operator">=</span><span class="token number">17</span><span class="token punctuation">)</span>
-print<span class="token punctuation">(</span>q1<span class="token punctuation">)</span>
-dev.off<span class="token punctuation">(</span><span class="token punctuation">)</span>
+svg(&quot;charts/simsim_tps${CHART_NAME}.svg&quot;, width=17)
+print(q1)
+dev.off()
 </code></pre>
 <ul>
 <li>&#x4EE3;&#x7801;&#x6CE8;&#x91CA;&#x4E4B;variance</li>
 </ul>
-<pre class="language-"><code class="lang-r">sb<span class="token operator">&lt;-</span>read.table<span class="token punctuation">(</span><span class="token string">&quot;$r_data_file&quot;</span><span class="token punctuation">,</span>sep<span class="token operator">=</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">,</span>as.is<span class="token operator">=</span>T<span class="token punctuation">,</span>header<span class="token operator">=</span>F<span class="token punctuation">)</span>
-<span class="token comment">#&#x8FD9;&#x91CC;&#x591A;&#x4E86;&#x4E00;&#x4E2A;counter, &#x662F;time*threads, &#x4F5C;&#x4E3A;x&#x8F74;</span>
-colnames<span class="token punctuation">(</span>sb<span class="token punctuation">)</span><span class="token operator">&lt;-</span>c<span class="token punctuation">(</span><span class="token string">&quot;series&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;conf&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;threads&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;counter&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;time&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;metric&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;value&quot;</span><span class="token punctuation">)</span>
-sb_tps<span class="token operator">&lt;-</span>subset<span class="token punctuation">(</span>sb<span class="token punctuation">,</span>grepl<span class="token punctuation">(</span><span class="token string">&quot;tps&quot;</span><span class="token punctuation">,</span> metric<span class="token punctuation">)</span><span class="token punctuation">)</span>
-sb_lat<span class="token operator">&lt;-</span>subset<span class="token punctuation">(</span>sb<span class="token punctuation">,</span>grepl<span class="token punctuation">(</span><span class="token string">&quot;lat&quot;</span><span class="token punctuation">,</span> metric<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<pre><code class="lang-r">sb&lt;-read.table(&quot;$r_data_file&quot;,sep=&quot;,&quot;,as.is=T,header=F)
+#&#x8FD9;&#x91CC;&#x591A;&#x4E86;&#x4E00;&#x4E2A;counter, &#x662F;time*threads, &#x4F5C;&#x4E3A;x&#x8F74;
+colnames(sb)&lt;-c(&quot;series&quot;,&quot;conf&quot;, &quot;threads&quot;, &quot;counter&quot;, &quot;time&quot;, &quot;metric&quot;, &quot;value&quot;)
+sb_tps&lt;-subset(sb,grepl(&quot;tps&quot;, metric))
+sb_lat&lt;-subset(sb,grepl(&quot;lat&quot;, metric))
 
-<span class="token comment">#counter&#x4F5C;x&#x8F74;, &#x8FD8;&#x662F;&#x4EE5;series&#x4F5C;&#x4E3A;&#x7EC4;, &#x7528;&#x4E0D;&#x540C;&#x989C;&#x8272;&#x6807;&#x8BB0;</span>
-q1<span class="token operator">&lt;-</span>ggplot<span class="token punctuation">(</span>data<span class="token operator">=</span>sb_tps<span class="token punctuation">,</span>
-           aes<span class="token punctuation">(</span>counter<span class="token punctuation">,</span>y<span class="token operator">=</span>value<span class="token punctuation">,</span>colour<span class="token operator">=</span>as.factor<span class="token punctuation">(</span>series<span class="token punctuation">)</span><span class="token punctuation">,</span>
-               group<span class="token operator">=</span>as.factor<span class="token punctuation">(</span>series<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span>
+#counter&#x4F5C;x&#x8F74;, &#x8FD8;&#x662F;&#x4EE5;series&#x4F5C;&#x4E3A;&#x7EC4;, &#x7528;&#x4E0D;&#x540C;&#x989C;&#x8272;&#x6807;&#x8BB0;
+q1&lt;-ggplot(data=sb_tps,
+           aes(counter,y=value,colour=as.factor(series),
+               group=as.factor(series)))+
 
-<span class="token comment">#&#x56E0;&#x4E3A;&#x662F;&#x7ED8;&#x5236;&#x6296;&#x52A8;&#x56FE;, &#x53EA;&#x753B;&#x70B9;, &#x6CA1;&#x6709;&#x7EBF;</span>
-<span class="token comment">#  geom_line(size=1)+</span>
-  <span class="token comment">#&#x8FD9;&#x91CC;&#x7684;alpha&#x5E94;&#x8BE5;&#x662F;&#x900F;&#x660E;&#x5EA6;&#x7684;&#x610F;&#x601D;</span>
-  geom_point<span class="token punctuation">(</span>alpha<span class="token operator">=</span><span class="token number">8</span><span class="token operator">/</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  scale_color_hue<span class="token punctuation">(</span>l<span class="token operator">=</span><span class="token number">55</span><span class="token punctuation">,</span>name<span class="token operator">=</span><span class="token string">&quot;&quot;</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  guides<span class="token punctuation">(</span>fill <span class="token operator">=</span> guide_legend<span class="token punctuation">(</span>title<span class="token operator">=</span><span class="token keyword">NULL</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">FALSE</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  ylab<span class="token punctuation">(</span><span class="token string">&quot;TPS&quot;</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  expand_limits<span class="token punctuation">(</span>x<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>y<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  xlab<span class="token punctuation">(</span><span class="token string">&quot;time * threads per instance&quot;</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  ggtitle<span class="token punctuation">(</span>paste<span class="token punctuation">(</span><span class="token string">&quot;simsim benchmark, 2 sockets, TPS variance&quot;</span> <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span>
-  theme<span class="token punctuation">(</span>legend.position<span class="token operator">=</span><span class="token string">&quot;bottom&quot;</span><span class="token punctuation">)</span><span class="token operator">+</span>
+#&#x56E0;&#x4E3A;&#x662F;&#x7ED8;&#x5236;&#x6296;&#x52A8;&#x56FE;, &#x53EA;&#x753B;&#x70B9;, &#x6CA1;&#x6709;&#x7EBF;
+#  geom_line(size=1)+
+  #&#x8FD9;&#x91CC;&#x7684;alpha&#x5E94;&#x8BE5;&#x662F;&#x900F;&#x660E;&#x5EA6;&#x7684;&#x610F;&#x601D;
+  geom_point(alpha=8/10)+
+  scale_color_hue(l=55,name=&quot;&quot;)+
+  guides(fill = guide_legend(title=NULL, reverse=FALSE))+
+  ylab(&quot;TPS&quot;)+
+  expand_limits(x=1,y=0)+
+  xlab(&quot;time * threads per instance&quot;)+
+  ggtitle(paste(&quot;simsim benchmark, 2 sockets, TPS variance&quot; ))+
+  theme(legend.position=&quot;bottom&quot;)+
 
-  <span class="token comment">#&#x8FD9;&#x91CC;&#x91CD;&#x70B9;&#x4E86;, &#x7528;counter&#x4F5C;x&#x8F74;, &#x9996;&#x5148;counter&#x662F;&#x8FDE;&#x7EED;&#x7684;, &#x6982;&#x5FF5;&#x4E0A;&#x662F;&#x4EE5;&#x79D2;&#x4E3A;&#x5355;&#x4F4D;&#x7684;, &#x6309;&#x7167;1 4 8 16&#x7B49;threads&#x6570;&#x8DD1;&#x51FA;&#x6765;&#x7684;.</span>
-  <span class="token comment">#&#x4F46;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x4EBA;&#x4EEC;&#x5173;&#x6CE8;&#x7684;&#x662F;threads&#x6570;&#x4E0D;&#x540C;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x7684;&#x6296;&#x52A8;&#x56FE;, &#x5176;&#x5B9E;&#x5BF9;x&#x8F74;&#x5B9E;&#x9645;&#x7684;&#x6570;&#x503C;&#x5E76;&#x4E0D;&#x5173;&#x5FC3;.</span>
-  <span class="token comment">#&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x8BBE;&#x7F6E;&#x4E86;breaks&#x548C;labels&#x6765;&#x6807;&#x6CE8;threads&#x7684;&#x60C5;&#x51B5;</span>
+  #&#x8FD9;&#x91CC;&#x91CD;&#x70B9;&#x4E86;, &#x7528;counter&#x4F5C;x&#x8F74;, &#x9996;&#x5148;counter&#x662F;&#x8FDE;&#x7EED;&#x7684;, &#x6982;&#x5FF5;&#x4E0A;&#x662F;&#x4EE5;&#x79D2;&#x4E3A;&#x5355;&#x4F4D;&#x7684;, &#x6309;&#x7167;1 4 8 16&#x7B49;threads&#x6570;&#x8DD1;&#x51FA;&#x6765;&#x7684;.
+  #&#x4F46;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x4EBA;&#x4EEC;&#x5173;&#x6CE8;&#x7684;&#x662F;threads&#x6570;&#x4E0D;&#x540C;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x7684;&#x6296;&#x52A8;&#x56FE;, &#x5176;&#x5B9E;&#x5BF9;x&#x8F74;&#x5B9E;&#x9645;&#x7684;&#x6570;&#x503C;&#x5E76;&#x4E0D;&#x5173;&#x5FC3;.
+  #&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x8BBE;&#x7F6E;&#x4E86;breaks&#x548C;labels&#x6765;&#x6807;&#x6CE8;threads&#x7684;&#x60C5;&#x51B5;
 
-  scale_x_continuous<span class="token punctuation">(</span><span class="token comment">#trans=log2_trans()</span>
-                    breaks <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">$</span><span class="token punctuation">(</span><span class="token punctuation">(</span>duration<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">$</span><span class="token punctuation">(</span><span class="token punctuation">(</span>duration<span class="token operator">*</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                               <span class="token operator">$</span><span class="token punctuation">(</span><span class="token punctuation">(</span>duration<span class="token operator">*</span><span class="token number">3</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">$</span><span class="token punctuation">(</span><span class="token punctuation">(</span>duration<span class="token operator">*</span><span class="token number">4</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                               <span class="token operator">$</span><span class="token punctuation">(</span><span class="token punctuation">(</span>duration<span class="token operator">*</span><span class="token number">5</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">$</span><span class="token punctuation">(</span><span class="token punctuation">(</span>duration<span class="token operator">*</span><span class="token number">6</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                               <span class="token operator">$</span><span class="token punctuation">(</span><span class="token punctuation">(</span>duration<span class="token operator">*</span><span class="token number">7</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">$</span><span class="token punctuation">(</span><span class="token punctuation">(</span>duration<span class="token operator">*</span><span class="token number">8</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                    labels<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">,</span><span class="token number">32</span><span class="token punctuation">,</span><span class="token number">64</span><span class="token punctuation">,</span><span class="token number">128</span><span class="token punctuation">,</span><span class="token number">256</span><span class="token punctuation">,</span><span class="token number">512</span><span class="token punctuation">)</span>
-                     <span class="token punctuation">)</span><span class="token operator">+</span>
+  scale_x_continuous(#trans=log2_trans()
+                    breaks = c(1,$((duration+1)),$((duration*2+1)),
+                               $((duration*3+1)),$((duration*4+1)),
+                               $((duration*5+1)),$((duration*6+1)),
+                               $((duration*7+1)),$((duration*8+1))),
+                    labels=c(1,4,8,16,32,64,128,256,512)
+                     )+
 
-<span class="token comment">#  scale_y_continuous(trans=log10_trans()) +</span>
-  <span class="token comment">#&#x548C;&#x4E0A;&#x9762;&#x4E0D;&#x540C;, &#x8FD9;&#x91CC;&#x4EE5;conf&#x6765;&#x6C34;&#x5E73;&#x5206;&#x9762;</span>
-  facet_grid<span class="token punctuation">(</span>conf <span class="token operator">~</span> .<span class="token punctuation">,</span> scales<span class="token operator">=</span><span class="token string">&quot;free_y&quot;</span><span class="token punctuation">)</span>
-svg<span class="token punctuation">(</span><span class="token string">&quot;charts/simsim_variance_tps${CHART_NAME}.svg&quot;</span><span class="token punctuation">,</span> height<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> width<span class="token operator">=</span><span class="token number">17</span><span class="token punctuation">)</span>
-print<span class="token punctuation">(</span>q1<span class="token punctuation">)</span>
+#  scale_y_continuous(trans=log10_trans()) +
+  #&#x548C;&#x4E0A;&#x9762;&#x4E0D;&#x540C;, &#x8FD9;&#x91CC;&#x4EE5;conf&#x6765;&#x6C34;&#x5E73;&#x5206;&#x9762;
+  facet_grid(conf ~ ., scales=&quot;free_y&quot;)
+svg(&quot;charts/simsim_variance_tps${CHART_NAME}.svg&quot;, height=10, width=17)
+print(q1)
 </code></pre>
 <h2 id="rds-lua&#x811A;&#x672C;"><a name="rds-lua&#x811A;&#x672C;" class="anchor-navigation-ex-anchor" href="#rds-lua&#x811A;&#x672C;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. rds lua&#x811A;&#x672C;</h2>
 <ul>
@@ -3085,19 +3088,19 @@ print<span class="token punctuation">(</span>q1<span class="token punctuation">)
 </ul>
 <p>&#x5355;&#x884C;&#x6CE8;&#x91CA;<code>--</code></p>
 <p>&#x591A;&#x884C;&#x6CE8;&#x91CA;</p>
-<pre class="language-"><code class="lang-lua"><span class="token comment">--[[
+<pre><code class="lang-lua">--[[
 ****************************************************************************
 Input parameters:
 --simsim-databases = N: the number of databases to create/use (1 by default)
 
 ****************************************************************************
---]]</span>
+--]]
 </code></pre>
 <ul>
 <li><p>&#x611F;&#x89C9;&#x4E0A;lua&#x548C;shell&#x7684;&#x8BED;&#x6CD5;&#x7C7B;&#x4F3C;</p>
 </li>
 <li><p>sysbench&#x7684;lua&#x811A;&#x672C;&#x53EF;&#x4EE5;&#x7528;db&#x76F8;&#x5173;&#x64CD;&#x4F5C;</p>
-<pre class="language-"><code class="lang-lua"><span class="token function">db_query</span><span class="token punctuation">(</span><span class="token string">&quot;DROP DATABASE IF EXISTS &quot;</span> <span class="token operator">..</span> database_name<span class="token punctuation">)</span>      <span class="token function">db_query</span><span class="token punctuation">(</span><span class="token string">&quot;CREATE DATABASE &quot;</span> <span class="token operator">..</span> database_name<span class="token punctuation">)</span>
+<pre><code class="lang-lua">db_query(&quot;DROP DATABASE IF EXISTS &quot; .. database_name)      db_query(&quot;CREATE DATABASE &quot; .. database_name)
 </code></pre>
 </li>
 <li><p>&#x5728;<code>db_query(&quot;BEGIN&quot;)</code>&#x548C;<code>db_query(&quot;COMMIT&quot;)</code>&#x4E4B;&#x95F4;&#x7684;&#x4E1C;&#x897F;&#x5C31;&#x662F;&#x4E00;&#x6B21;transaction&#x7684;&#x5185;&#x5BB9;</p>
@@ -3105,15 +3108,15 @@ Input parameters:
 <li><p>&#x4E3B;&#x8981;&#x7684;&#x4E1C;&#x897F;&#x5728;event&#x91CC;&#x9762;, sysbench&#x7684;runner&#x7EBF;&#x7A0B;&#x4F1A;&#x8C03;&#x7528;</p>
 </li>
 </ul>
-<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token operator">*</span><span class="token function">runner_thread</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>arg<span class="token punctuation">)</span>
-    <span class="token keyword">do</span>
-        <span class="token function">execute_request</span><span class="token punctuation">(</span>test<span class="token punctuation">,</span> <span class="token operator">&amp;</span>request<span class="token punctuation">,</span> thread_id<span class="token punctuation">)</span>
-            test<span class="token operator">-&gt;</span>ops<span class="token punctuation">.</span><span class="token function">execute_request</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span> thread_id<span class="token punctuation">)</span>
-                <span class="token function">sb_lua_op_execute_request</span><span class="token punctuation">(</span><span class="token class-name">sb_request_t</span> <span class="token operator">*</span>sb_req<span class="token punctuation">,</span> <span class="token keyword">int</span> thread_id<span class="token punctuation">)</span>
-                    <span class="token function">lua_getglobal</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token string">&quot;event&quot;</span><span class="token punctuation">)</span> <span class="token comment">//&#x89C1;&#x4E0B;&#x9762;</span>
-                    <span class="token function">lua_pcall</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<pre><code class="lang-c">void *runner_thread(void *arg)
+    do
+        execute_request(test, &amp;request, thread_id)
+            test-&gt;ops.execute_request(r, thread_id)
+                sb_lua_op_execute_request(sb_request_t *sb_req, int thread_id)
+                    lua_getglobal(L, &quot;event&quot;) //&#x89C1;&#x4E0B;&#x9762;
+                    lua_pcall(L, 1, 1, 0)
 
-    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>request<span class="token punctuation">.</span>type <span class="token operator">!=</span> SB_REQ_TYPE_NULL<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token operator">!</span>sb_globals<span class="token punctuation">.</span>error<span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    while ((request.type != SB_REQ_TYPE_NULL) &amp;&amp; (!sb_globals.error) );
 </code></pre>
 <ul>
 <li>simsim&#x91CC;&#x9762;, event&#x91CC;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x662F;&#x5F88;&#x591A;insert&#x5230;&#x4E0D;&#x540C;&#x7684;&#x8868;, &#x8FD9;&#x4E9B;&#x8868;&#x7684;&#x683C;&#x5F0F;&#x90FD;&#x662F;&#x5728;prepare&#x9636;&#x6BB5;&#x51C6;&#x5907;&#x597D;&#x7684;.</li>
@@ -3134,8 +3137,8 @@ shell&#x5185;&#x5EFA;&#x7684;&#x547D;&#x4EE4;, &#x53EF;&#x4EE5;&#x7528;help xxx&
 <ul>
 <li>&#x540E;&#x53F0;&#x8FDB;&#x7A0B;id</li>
 </ul>
-<pre class="language-"><code class="lang-shell">mysqld --defaults-file<span class="token operator">=</span><span class="token variable">$mysql_basedir</span>/my.cnf <span class="token punctuation">\</span> 
-<span class="token parameter variable">--user</span><span class="token operator">=</span>root <span class="token operator">&gt;</span>/dev/null <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span>        pids<span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$!</span>
+<pre><code class="lang-shell">mysqld --defaults-file=$mysql_basedir/my.cnf \ 
+--user=root &gt;/dev/null 2&gt;&amp;1 &amp;        pids[$i]=$!
 </code></pre>
 <p><strong>&#x8FD9;&#x91CC;&#x9762;&#x6709;&#x4E24;&#x4E2A;&#x77E5;&#x8BC6;&#x70B9;, $!&#x662F;&#x6700;&#x65B0;&#x52A0;&#x5165;&#x540E;&#x53F0;&#x7684;&#x8FDB;&#x7A0B;id; pids&#x662F;&#x4E2A;&#x6570;&#x7EC4;, &#x5C55;&#x5F00;&#x540E;&#x5982;:pids[1]=1022</strong></p>
 <ul>
@@ -3156,7 +3159,7 @@ sysbench extra arguments:   $SYSBENCH_SIMSIM_ARGS
 Single run duration:        ${SYSBENCH_MAX_TIME}s</p>
 <hr>
 <p>EOF</p>
-<pre class="language-"><code>
+<pre><code>
 * wait&#x7528;&#x6765;&#x7B49;&#x5F85;&#x6240;&#x6709;&#x7684;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;&#x7ED3;&#x675F;
 
 &#x4E0D;&#x52A0;&#x53C2;&#x6570;&#x662F;&#x7B49;&#x5F85;&#x6240;&#x6709;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;, &#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;
@@ -3226,10 +3229,11 @@ Single run duration:        ${SYSBENCH_MAX_TIME}s</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"RDS脚本阅读","level":"1.10.7","depth":2,"next":{"title":"Project Euler","level":"1.10.8","depth":2,"path":"notes/Project_Euler.md","ref":"notes/Project_Euler.md","articles":[]},"previous":{"title":"lua记录","level":"1.10.6","depth":2,"path":"notes/lua_记录.md","ref":"notes/lua_记录.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/shell_rds脚本阅读.md","mtime":"2022-10-11T14:47:24.182Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"RDS脚本阅读","level":"1.10.7","depth":2,"next":{"title":"Project Euler","level":"1.10.8","depth":2,"path":"notes/Project_Euler.md","ref":"notes/Project_Euler.md","articles":[]},"previous":{"title":"lua记录","level":"1.10.6","depth":2,"path":"notes/lua_记录.md","ref":"notes/lua_记录.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/shell_rds脚本阅读.md","mtime":"2022-10-11T15:10:43.014Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3268,6 +3272,7 @@ Single run duration:        ${SYSBENCH_MAX_TIME}s</p>
         
     
 
+        
     </body>
 </html>
 

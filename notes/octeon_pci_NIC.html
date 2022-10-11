@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2934,7 +2937,7 @@
 <li>bar0: CN71xx SLI CSR; 16KB<br>SLI<em>WIN</em>* enable indirect access to all other CPU CSRs(or mem?)<br><img src="img/octeon_pci_NIC_20220922225412.png" alt="">  </li>
 <li>bar1: 64M, indirect access to L2/DRAM  </li>
 </ul>
-<pre class="language-"><code>EP: pcie bar1(64MB window)
+<pre><code>EP: pcie bar1(64MB window)
 
 38-bit L2/DRAM address referenced by the PCIe read/write operations in BAR1 space:
 37                         22|21                           0
@@ -2997,7 +3000,7 @@ The technical basics are mostly summarized on a stackoverflow QA: Mapping DMA bu
 <p>LDD chapter 15, page 435, Direct IO operations. Use kernel call of get_user_pages.
 Asynchronous IO may achieve the same result, but without userspace application having to wait for the read to finish.
 Check the infiband drivers which goes to much effort to make zero-copy DMA and RDMA to user space work.</p>
-<pre class="language-"><code>The person also commented: Doing DMA directly to user space memory mappings is full of problems. Copying DMA&#x2019;d data into the userspace buffers will save much of the grief.
+<pre><code>The person also commented: Doing DMA directly to user space memory mappings is full of problems. Copying DMA&#x2019;d data into the userspace buffers will save much of the grief.
 </code></pre><p>Preallcate n buffers with myAddr[i] = pci_alloc_consistent(blah,size,&amp;pci_addr[i]) until it fails. On a machine with 4G space usually it gets 2.5G of buffers each 4MiB. Cat /proc/buddyinfo to verify. Tell the device to DMA data into the buffer and send interrupt to tell the driver which buffer has been filled. In user space mmap the buffer, then wait on read or ioctl till the driver tells it which buffer is usable.
 get_user_pages to pin the user pages and to get an array of struct page <em> . dma_map_page on each struct page </em> to get the DMA addresses, this also creates an IOMMU mapping. Tell the device to do the DMA. dma_sync_single_for_cpu to flush etc. Then dma_unmap_page and put_page.
 Sometimes, all the normal operations as above will not work. The vendor (like on iMX51) provides special API for SDMA.</p>
@@ -3006,7 +3009,7 @@ Sometimes, all the normal operations as above will not work. The vendor (like on
 </li>
 </ul>
 <p>Though the topic is about DMA memory used by device operation, the approach is the same if a memory mapped memory is shared by multiple processes on different virtual mappings.</p>
-<pre class="language-"><code>
+<pre><code>
 
 # DPI(&#x4EE5;&#x4E0B;&#x4EE5;61xx&#x4E3A;&#x4F8B;)
 ![](img/octeon_pci_NIC_20220922231139.png)  
@@ -3039,15 +3042,15 @@ Sometimes, all the normal operations as above will not work. The vendor (like on
 ![](img/octeon_pci_NIC_20220922231731.png)  
 
 &#x5BF9;&#x6BCF;&#x4E2A;ring  
-SLI_PKT_DPADDR[DPTR<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>n</span><span class="token punctuation">&gt;</span></span>]=1&#x65F6;,  
+SLI_PKT_DPADDR[DPTR&lt;n&gt;]=1&#x65F6;,  
 
 &#x8FD9;&#x4E24;&#x4E2A;pointer&#x7684;format&#x662F;&#x4E0A;&#x9762;&#x7684;DPTR0  
-SLI_PKT_DPADDR[DPTR<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>n</span><span class="token punctuation">&gt;</span></span>]=0&#x65F6;, 
+SLI_PKT_DPADDR[DPTR&lt;n&gt;]=0&#x65F6;, 
 
 &#x8FD9;&#x4E24;&#x4E2A;pointer&#x7684;format&#x662F;&#x4E0A;&#x9762;&#x7684;DPTR1
 
 * output&#x6709;&#x4E24;&#x79CD;mode  
-SLI_PKT_IPTR[IPTR<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>n</span><span class="token punctuation">&gt;</span></span>]=1&#x65F6;,  Info-Pointer Mode  
+SLI_PKT_IPTR[IPTR&lt;n&gt;]=1&#x65F6;,  Info-Pointer Mode  
 &#x5F53;&#x62A5;&#x6587;&#x5C0F;&#x4E8E;&#x4E00;&#x4E2A;buffer size&#x7684;&#x65F6;&#x5019;, &#x5F88;&#x7B80;&#x5355;, DPI&#x628A;&#x62A5;&#x6587;&#x5199;&#x5165;buffer pointer&#x7684;&#x5730;&#x65B9;, &#x540C;&#x65F6;&#x628A;&#x5927;&#x5C0F;&#x5199;&#x5165;info pointer&#x7684;packet length;  
 &#x4F46;&#x62A5;&#x6587;&#x592A;&#x5927;&#x7684;&#x65F6;&#x5019;, DPI&#x628A;&#x62A5;&#x6587;&#x4F9D;&#x6B21;&#x5199;&#x5728;buffer pointer&#x91CC;&#x9762;, &#x4F46;&#x53EA;&#x7528;&#x7B2C;&#x4E00;&#x4E2A;&#x5BF9;&#x5E94;&#x7684;Info pointer, &#x8FD9;&#x91CC;&#x9762;&#x4F1A;&#x8BB0;&#x5F55;&#x6574;&#x4E2A;packet&#x7684;size  
 info&#x7684;&#x683C;&#x5F0F;  
@@ -3056,7 +3059,7 @@ info&#x7684;&#x683C;&#x5F0F;
 &#x6CE8;: &#x8FD9;&#x91CC;&#x9762;&#x7684;info bytes&#x7531;SLI_PKT(0..31)_OUT_SIZE[ISIZE]&#x51B3;&#x5B9A;, &#x6700;&#x591A;120  
 &#x540C;&#x65F6;SLI_PKT(0..31)_OUT_SIZE[BSIZE]&#x51B3;&#x5B9A;&#x4E86;buffer size, &#x6700;&#x591A;65536
 
-SLI_PKT_IPTR[IPTR<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>n</span><span class="token punctuation">&gt;</span></span>]=0&#x65F6;,  Buffer-Pointer-Only Mode  
+SLI_PKT_IPTR[IPTR&lt;n&gt;]=0&#x65F6;,  Buffer-Pointer-Only Mode  
 &#x5148;&#x5199;packet size, &#x7D27;&#x8DDF;&#x7740;&#x662F;data
 
 ## DPI DMA
@@ -3252,10 +3255,11 @@ DMA&#x4E0D;&#x8981;&#x6C42;octeon&#x548C;x86&#x7684;buffer&#x6570;&#x662F;&#x4E0
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon PCI NIC","level":"1.15.8.2","depth":3,"next":{"title":"octeon liquidIO","level":"1.15.8.3","depth":3,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"PCI-NIC 代码阅读 --app篇","level":"1.15.8.3.1","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读app篇.md","ref":"notes/smartNIC_liquidIO_代码阅读app篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --api篇","level":"1.15.8.3.2","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读api篇.md","ref":"notes/smartNIC_liquidIO_代码阅读api篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --driver篇之结构体","level":"1.15.8.3.3","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","ref":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","articles":[]},{"title":"PCI-NIC 代码阅读 --driver篇","level":"1.15.8.3.4","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读driver篇.md","ref":"notes/smartNIC_liquidIO_代码阅读driver篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --真NIC篇","level":"1.15.8.3.5","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读真NIC篇.md","ref":"notes/smartNIC_liquidIO_代码阅读真NIC篇.md","articles":[]}]},"previous":{"title":"智能网卡对比","level":"1.15.8.1","depth":3,"path":"notes/smartNIC_智能网卡对比.md","ref":"notes/smartNIC_智能网卡对比.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/octeon_pci_NIC.md","mtime":"2022-10-11T14:47:24.178Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon PCI NIC","level":"1.15.8.2","depth":3,"next":{"title":"octeon liquidIO","level":"1.15.8.3","depth":3,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"PCI-NIC 代码阅读 --app篇","level":"1.15.8.3.1","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读app篇.md","ref":"notes/smartNIC_liquidIO_代码阅读app篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --api篇","level":"1.15.8.3.2","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读api篇.md","ref":"notes/smartNIC_liquidIO_代码阅读api篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --driver篇之结构体","level":"1.15.8.3.3","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","ref":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","articles":[]},{"title":"PCI-NIC 代码阅读 --driver篇","level":"1.15.8.3.4","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读driver篇.md","ref":"notes/smartNIC_liquidIO_代码阅读driver篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --真NIC篇","level":"1.15.8.3.5","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读真NIC篇.md","ref":"notes/smartNIC_liquidIO_代码阅读真NIC篇.md","articles":[]}]},"previous":{"title":"智能网卡对比","level":"1.15.8.1","depth":3,"path":"notes/smartNIC_智能网卡对比.md","ref":"notes/smartNIC_智能网卡对比.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/octeon_pci_NIC.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3294,6 +3298,7 @@ DMA&#x4E0D;&#x8981;&#x6C42;octeon&#x548C;x86&#x7684;buffer&#x6570;&#x662F;&#x4E0
         
     
 
+        
     </body>
 </html>
 

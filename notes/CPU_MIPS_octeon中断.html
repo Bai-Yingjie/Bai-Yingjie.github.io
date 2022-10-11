@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2900,35 +2903,35 @@
 <p>&#x4E2D;&#x592E;&#x4E2D;&#x65AD;&#x63A7;&#x5236;&#x5668;<br>&#x4E0B;&#x56FE;&#x4E2D;, A&#x662F;SUM0, B&#x662F;SUM1;<br>SUM0&#x5171;&#x6709;9&#x4E2A;&#x5730;&#x5740;, &#x6BCF;&#x4E2A;core2&#x4E2A;. 4(core)*2+1(pcie RC); &#x4E5F;&#x6709;9&#x4E2A;&#x76F8;&#x5E94;&#x7684;en&#x5730;&#x5740;<br>SUM1&#x53EA;&#x6709;1&#x4E2A;&#x5730;&#x5740;, &#x6240;&#x6709;core&#x516C;&#x7528;. &#x4F46;&#x6709;9&#x4E2A;&#x5BF9;&#x5E94;&#x7684;en&#x5730;&#x5740;, &#x76EE;&#x7684;&#x662F;&#x6BCF;&#x4E2A;core&#x90FD;&#x80FD;&#x5355;&#x72EC;&#x4F7F;&#x80FD;&#x4E2D;&#x65AD;.<br>&#x8FD8;&#x6709;&#x4E2A;SUM4(0..3), &#x6BCF;&#x4E2A;core&#x4E00;&#x4E2A;, &#x5BF9;&#x5E94;IP4.<br><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924195718.png" alt=""><br><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924195940.png" alt=""><br><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924200100.png" alt=""><br><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924200132.png" alt=""><br><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924200210.png" alt=""><br><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924200251.png" alt=""><br><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924200344.png" alt="">  </p>
 <h1 id="kernel&#x4EE3;&#x7801;"><a name="kernel&#x4EE3;&#x7801;" class="anchor-navigation-ex-anchor" href="#kernel&#x4EE3;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>3. kernel&#x4EE3;&#x7801;</h1>
 <p>octeon-irq.c</p>
-<pre class="language-"><code>static __read_mostly u8 octeon_irq_ciu_to_irq[8][64];
+<pre><code>static __read_mostly u8 octeon_irq_ciu_to_irq[8][64];
 </code></pre><p>kernel/irq.c</p>
 <p><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924200648.png" alt="">  </p>
 <ul>
-<li>CIU: 8&#x4E2A;mips&#x4E2D;&#x65AD;<pre class="language-"><code class="lang-c"><span class="token function">octeon_irq_init_core</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-octeon_irq_ip2 <span class="token operator">=</span> octeon_irq_ip2_ciu
-octeon_irq_ip3 <span class="token operator">=</span> octeon_irq_ip3_ciu<span class="token punctuation">;</span>
-octeon_irq_ip4 <span class="token operator">=</span>  octeon_irq_ip4_ciu
-ciu_domain <span class="token operator">=</span> <span class="token function">irq_domain_add_tree</span><span class="token punctuation">(</span>ciu_node<span class="token punctuation">,</span> <span class="token operator">&amp;</span>octeon_irq_domain_ciu_ops<span class="token punctuation">,</span> dd<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">irq_set_default_host</span><span class="token punctuation">(</span>ciu_domain<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<li>CIU: 8&#x4E2A;mips&#x4E2D;&#x65AD;<pre><code class="lang-c">octeon_irq_init_core();
+octeon_irq_ip2 = octeon_irq_ip2_ciu
+octeon_irq_ip3 = octeon_irq_ip3_ciu;
+octeon_irq_ip4 =  octeon_irq_ip4_ciu
+ciu_domain = irq_domain_add_tree(ciu_node, &amp;octeon_irq_domain_ciu_ops, dd);
+irq_set_default_host(ciu_domain);
 </code></pre>
 </li>
-<li>GPIO:<pre class="language-"><code class="lang-c">gpiod<span class="token operator">-&gt;</span>base_hwirq <span class="token operator">=</span> base_hwirq
-<span class="token function">irq_domain_add_linear</span><span class="token punctuation">(</span>gpio_node<span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>octeon_irq_domain_gpio_ops<span class="token punctuation">,</span> gpiod<span class="token punctuation">)</span>
+<li>GPIO:<pre><code class="lang-c">gpiod-&gt;base_hwirq = base_hwirq
+irq_domain_add_linear(gpio_node, 16, &amp;octeon_irq_domain_gpio_ops, gpiod)
 </code></pre>
 </li>
-<li>CIB:<pre class="language-"><code class="lang-c">cib_domain <span class="token operator">=</span> <span class="token function">irq_domain_add_linear</span><span class="token punctuation">(</span>of_node<span class="token punctuation">,</span> host_data<span class="token operator">-&gt;</span>max_bits<span class="token punctuation">,</span><span class="token operator">&amp;</span>octeon_irq_domain_cib_ops<span class="token punctuation">,</span>host_data<span class="token punctuation">)</span><span class="token punctuation">;</span>
-r <span class="token operator">=</span> <span class="token function">request_irq</span><span class="token punctuation">(</span>parent_irq<span class="token punctuation">,</span> octeon_irq_cib_handler<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token string">&quot;cib&quot;</span><span class="token punctuation">,</span> cib_domain<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">request_threaded_irq</span><span class="token punctuation">(</span>irq<span class="token punctuation">,</span> handler<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> flags<span class="token punctuation">,</span> name<span class="token punctuation">,</span> dev<span class="token punctuation">)</span>
+<li>CIB:<pre><code class="lang-c">cib_domain = irq_domain_add_linear(of_node, host_data-&gt;max_bits,&amp;octeon_irq_domain_cib_ops,host_data);
+r = request_irq(parent_irq, octeon_irq_cib_handler, 0,&quot;cib&quot;, cib_domain);
+  request_threaded_irq(irq, handler, NULL, flags, name, dev)
 </code></pre>
 </li>
 </ul>
 <p>cib&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;&#x7684;&#x5904;&#x7406;&#x51FD;&#x6570;</p>
-<pre class="language-"><code class="lang-c"><span class="token function">octeon_irq_cib_handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre><code class="lang-c">octeon_irq_cib_handler()
     &#x627E;&#x51FA;&#x4E2D;&#x65AD;bit
-    <span class="token comment">//&#x5E94;&#x7B54;&#x76F8;&#x5E94;&#x4F4D;</span>
-    <span class="token function">cvmx_write_csr</span><span class="token punctuation">(</span>host_data<span class="token operator">-&gt;</span>raw_reg<span class="token punctuation">,</span> <span class="token number">1ull</span> <span class="token operator">&lt;&lt;</span> i<span class="token punctuation">)</span>
-    <span class="token comment">//&#x8C03;&#x7528;&#x901A;&#x7528;&#x5904;&#x7406;&#x51FD;&#x6570;</span>
-    <span class="token function">generic_handle_irq_desc</span><span class="token punctuation">(</span>irq<span class="token punctuation">,</span> desc<span class="token punctuation">)</span>
+    //&#x5E94;&#x7B54;&#x76F8;&#x5E94;&#x4F4D;
+    cvmx_write_csr(host_data-&gt;raw_reg, 1ull &lt;&lt; i)
+    //&#x8C03;&#x7528;&#x901A;&#x7528;&#x5904;&#x7406;&#x51FD;&#x6570;
+    generic_handle_irq_desc(irq, desc)
 </code></pre>
 <h2 id="generichandleirqdescirq-desc"><a name="generichandleirqdescirq-desc" class="anchor-navigation-ex-anchor" href="#generichandleirqdescirq-desc"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. generic_handle_irq_desc(irq, desc)</h2>
 <p>&#x57FA;&#x672C;&#x4E0A;, &#x6BCF;&#x4E2A;&#x4E2D;&#x65AD;&#x7EBF;&#x90FD;&#x6709;&#x4E00;&#x4E2A;handle, &#x5728;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x786E;&#x5B9A;. &#x4E00;&#x822C;handle&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;:</p>
@@ -2939,39 +2942,39 @@ r <span class="token operator">=</span> <span class="token function">request_irq
 <li>handle_simple_irq(unsigned int irq, struct irq_desc *desc)</li>
 </ul>
 <p>&#x6BD4;&#x5982;</p>
-<pre class="language-"><code class="lang-c"><span class="token function">handle_simple_irq</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span> irq<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">irq_desc</span> <span class="token operator">*</span>desc<span class="token punctuation">)</span>
-    <span class="token function">handle_irq_event</span><span class="token punctuation">(</span>desc<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">handle_irq_event_percpu</span><span class="token punctuation">(</span>desc<span class="token punctuation">,</span> action<span class="token punctuation">)</span>
-            <span class="token comment">//&#x5148;&#x8C03;&#x7528;request_irq()&#x6CE8;&#x518C;&#x7684;handler, &#x6CE8;&#x610F;action&#x662F;&#x4E2A;&#x94FE;&#x8868;</span>
-            <span class="token comment">//&#x5BF9;&#x6BCF;&#x4E2A;&#x94FE;&#x8868;action</span>
-            res <span class="token operator">=</span> action<span class="token operator">-&gt;</span><span class="token function">handler</span><span class="token punctuation">(</span>irq<span class="token punctuation">,</span> action<span class="token operator">-&gt;</span>dev_id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            &#x6839;&#x636E;&#x8FD4;&#x56DE;&#x503C;<span class="token punctuation">,</span> 
-            IRQ_WAKE_THREAD<span class="token operator">:</span>&#x5219;&#x8C03;&#x7528;action<span class="token operator">-&gt;</span><span class="token function">thread_fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-                <span class="token function">irq_wake_thread</span><span class="token punctuation">(</span>desc<span class="token punctuation">,</span> action<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            IRQ_HANDLED<span class="token operator">:</span>&#x4E0D;&#x8C03;&#x7528;<span class="token function">thread_fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre><code class="lang-c">handle_simple_irq(unsigned int irq, struct irq_desc *desc)
+    handle_irq_event(desc);
+        handle_irq_event_percpu(desc, action)
+            //&#x5148;&#x8C03;&#x7528;request_irq()&#x6CE8;&#x518C;&#x7684;handler, &#x6CE8;&#x610F;action&#x662F;&#x4E2A;&#x94FE;&#x8868;
+            //&#x5BF9;&#x6BCF;&#x4E2A;&#x94FE;&#x8868;action
+            res = action-&gt;handler(irq, action-&gt;dev_id);
+            &#x6839;&#x636E;&#x8FD4;&#x56DE;&#x503C;, 
+            IRQ_WAKE_THREAD:&#x5219;&#x8C03;&#x7528;action-&gt;thread_fn()
+                irq_wake_thread(desc, action);
+            IRQ_HANDLED:&#x4E0D;&#x8C03;&#x7528;thread_fn()
 </code></pre>
 <h2 id="&#x4E2D;&#x65AD;&#x521D;&#x59CB;&#x5316;"><a name="&#x4E2D;&#x65AD;&#x521D;&#x59CB;&#x5316;" class="anchor-navigation-ex-anchor" href="#&#x4E2D;&#x65AD;&#x521D;&#x59CB;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x4E2D;&#x65AD;&#x521D;&#x59CB;&#x5316;</h2>
-<pre class="language-"><code class="lang-c"><span class="token function">init_IRQ</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> NR_IRQS<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token comment">//#define NR_IRQS OCTEON_IRQ_LAST</span>
-        <span class="token function">irq_set_noprobe</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-    <span class="token function">arch_init_irq</span><span class="token punctuation">(</span>ciu_types<span class="token punctuation">)</span>
-        <span class="token function">of_irq_init</span><span class="token punctuation">(</span>ciu_types<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                     <span class="token keyword">while</span> &#x6240;&#x6709;&#x7684;compatible
-                        <span class="token comment">//&#x8C03;&#x7528;&#x6BCF;&#x4E2A;compatible&#x7684;init</span>
-                        irq_init_cb <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">of_irq_init_cb_t</span><span class="token punctuation">)</span>match<span class="token operator">-&gt;</span>data
-                        ret <span class="token operator">=</span> <span class="token function">irq_init_cb</span><span class="token punctuation">(</span>desc<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> desc<span class="token operator">-&gt;</span>interrupt_parent<span class="token punctuation">)</span>
-                <span class="token function">octeon_irq_init_ciu</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device_node</span> <span class="token operator">*</span>ciu_node<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">device_node</span> <span class="token operator">*</span>parent<span class="token punctuation">)</span>
+<pre><code class="lang-c">init_IRQ()
+    for (i = 0; i &lt; NR_IRQS; i++) //#define NR_IRQS OCTEON_IRQ_LAST
+        irq_set_noprobe(i)
+    arch_init_irq(ciu_types)
+        of_irq_init(ciu_types);
+                     while &#x6240;&#x6709;&#x7684;compatible
+                        //&#x8C03;&#x7528;&#x6BCF;&#x4E2A;compatible&#x7684;init
+                        irq_init_cb = (of_irq_init_cb_t)match-&gt;data
+                        ret = irq_init_cb(desc-&gt;dev, desc-&gt;interrupt_parent)
+                octeon_irq_init_ciu(struct device_node *ciu_node, struct device_node *parent)
 </code></pre>
 <p><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924202526.png" alt=""><br><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924202557.png" alt="">  </p>
 <h2 id="irq&#x53F7;"><a name="irq&#x53F7;" class="anchor-navigation-ex-anchor" href="#irq&#x53F7;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. irq&#x53F7;</h2>
 <p>&#x6709;&#x786C;&#x4EF6;irq&#x53F7;&#x548C;linux irq&#x53F7;&#x4E4B;&#x5206;:  </p>
 <ul>
 <li>&#x786C;&#x4EF6;irq&#x53F7; hw: irq_hw_number_t hw</li>
-<li>&#x6839;&#x636E;&#x786C;&#x4EF6;irq&#x53F7;&#x7B97;&#x51FA;line&#x548C;bit<pre class="language-"><code class="lang-c"><span class="token keyword">unsigned</span> <span class="token keyword">int</span> line <span class="token operator">=</span> hw <span class="token operator">&gt;&gt;</span> <span class="token number">6</span><span class="token punctuation">;</span>
-<span class="token keyword">unsigned</span> <span class="token keyword">int</span> bit <span class="token operator">=</span> hw <span class="token operator">&amp;</span> <span class="token number">63</span><span class="token punctuation">;</span>
+<li>&#x6839;&#x636E;&#x786C;&#x4EF6;irq&#x53F7;&#x7B97;&#x51FA;line&#x548C;bit<pre><code class="lang-c">unsigned int line = hw &gt;&gt; 6;
+unsigned int bit = hw &amp; 63;
 </code></pre>
 </li>
-<li>line&#x548C;bit&#x7528;&#x4E8E;&#x7B97;&#x51FA;linux irq&#x53F7;<pre class="language-"><code class="lang-c">linux_irq <span class="token operator">=</span> octeon_irq_ciu_to_irq<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">[</span>bit<span class="token punctuation">]</span>
+<li>line&#x548C;bit&#x7528;&#x4E8E;&#x7B97;&#x51FA;linux irq&#x53F7;<pre><code class="lang-c">linux_irq = octeon_irq_ciu_to_irq[line][bit]
 </code></pre>
 &#x4F8B;&#x5982;&#x5BF9;lmc&#x4E2D;&#x65AD;&#x6765;&#x8BF4;, line&#x662F;1, bit&#x662F;52, &#x5C31;&#x80FD;&#x67E5;&#x8868;&#x5F97;&#x51FA;linux irq&#x53F7;</li>
 <li>&#x6BCF;&#x4E2A;domain&#x90FD;&#x6709;&#x4E00;&#x4E2A;map&#x51FD;&#x6570;, &#x7528;&#x4E8E;hw irq&#x548C;&#x865A;&#x62DF;irq&#x4E4B;&#x95F4;&#x8F6C;&#x6362;</li>
@@ -2981,148 +2984,148 @@ r <span class="token operator">=</span> <span class="token function">request_irq
 <p>&#x4F46;linux irq&#x53F7;&#x600E;&#x4E48;&#x5F97;&#x5230;?</p>
 <h3 id="&#x4ECE;hw-irq&#x53F7;&#x5F97;&#x5230;"><a name="&#x4ECE;hw-irq&#x53F7;&#x5F97;&#x5230;" class="anchor-navigation-ex-anchor" href="#&#x4ECE;hw-irq&#x53F7;&#x5F97;&#x5230;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.1. &#x4ECE;hw irq&#x53F7;&#x5F97;&#x5230;</h3>
 <p>&#x7528;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x6765;map&#x4E00;&#x4E2A;hw irq, &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;linux irq. &#x5FC5;&#x987B;&#x5148;&#x6709;&#x4E00;&#x4E2A;&#x865A;&#x62DF;irq&#x624D;&#x80FD;&#x5F00;&#x59CB;&#x7528;&#x4E2D;&#x65AD;</p>
-<pre class="language-"><code>unsigned int irq_create_mapping(struct irq_domain *domain, irq_hw_number_t hwirq)
+<pre><code>unsigned int irq_create_mapping(struct irq_domain *domain, irq_hw_number_t hwirq)
 </code></pre><p>&#x8FD9;&#x91CC;&#x9762;&#x7684;&#x5173;&#x952E;&#x662F;&#x7406;&#x89E3;&#x5230;&#x5E95;&#x90A3;&#x4E2A;hwirq&#x662F;&#x4F60;&#x8981;&#x6CE8;&#x518C;&#x7684;&#x4E2D;&#x65AD;, &#x8FD9;&#x8981;&#x770B;&#x8FD9;&#x4E2A;domain&#x7684;map&#x51FD;&#x6570;  </p>
 <p>&#x5F97;&#x5230;</p>
 <h3 id="&#x4ECE;platformdevice&#x5F97;&#x5230;"><a name="&#x4ECE;platformdevice&#x5F97;&#x5230;" class="anchor-navigation-ex-anchor" href="#&#x4ECE;platformdevice&#x5F97;&#x5230;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.2. &#x4ECE;platform_device&#x5F97;&#x5230;</h3>
-<pre class="language-"><code class="lang-c">irq <span class="token operator">=</span> <span class="token function">platform_get_irq</span><span class="token punctuation">(</span>pdev<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">irq = platform_get_irq(pdev, 0);
 
-result <span class="token operator">=</span> <span class="token function">devm_request_irq</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pdev<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> i2c<span class="token operator">-&gt;</span>irq<span class="token punctuation">,</span> octeon_i2c_isr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> DRV_NAME<span class="token punctuation">,</span> i2c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+result = devm_request_irq(&amp;pdev-&gt;dev, i2c-&gt;irq, octeon_i2c_isr, 0, DRV_NAME, i2c);
 </code></pre>
 <h3 id="&#x4ECE;ofnode&#x5F97;&#x5230;"><a name="&#x4ECE;ofnode&#x5F97;&#x5230;" class="anchor-navigation-ex-anchor" href="#&#x4ECE;ofnode&#x5F97;&#x5230;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.3. &#x4ECE;of_node&#x5F97;&#x5230;</h3>
-<pre class="language-"><code class="lang-c">parent_irq <span class="token operator">=</span> <span class="token function">irq_of_parse_and_map</span><span class="token punctuation">(</span>ciu_node<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">of_irq_map_one</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> index<span class="token punctuation">,</span> <span class="token operator">&amp;</span>oirq<span class="token punctuation">)</span>
-    <span class="token function">irq_create_of_mapping</span><span class="token punctuation">(</span>oirq<span class="token punctuation">.</span>controller<span class="token punctuation">,</span> oirq<span class="token punctuation">.</span>specifier<span class="token punctuation">,</span>oirq<span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">parent_irq = irq_of_parse_and_map(ciu_node, 0);
+    of_irq_map_one(dev, index, &amp;oirq)
+    irq_create_of_mapping(oirq.controller, oirq.specifier,oirq.size);
 
-r <span class="token operator">=</span> <span class="token function">request_irq</span><span class="token punctuation">(</span>parent_irq<span class="token punctuation">,</span> octeon_irq_cib_handler<span class="token punctuation">,</span>IRQF_NO_THREAD<span class="token punctuation">,</span> <span class="token string">&quot;cib&quot;</span><span class="token punctuation">,</span> cib_domain<span class="token punctuation">)</span><span class="token punctuation">;</span>
+r = request_irq(parent_irq, octeon_irq_cib_handler,IRQF_NO_THREAD, &quot;cib&quot;, cib_domain);
 </code></pre>
 <h2 id="&#x4E2D;&#x65AD;&#x89E6;&#x53D1;&#x65B9;&#x5F0F;&#x7684;&#x5224;&#x65AD;"><a name="&#x4E2D;&#x65AD;&#x89E6;&#x53D1;&#x65B9;&#x5F0F;&#x7684;&#x5224;&#x65AD;" class="anchor-navigation-ex-anchor" href="#&#x4E2D;&#x65AD;&#x89E6;&#x53D1;&#x65B9;&#x5F0F;&#x7684;&#x5224;&#x65AD;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. &#x4E2D;&#x65AD;&#x89E6;&#x53D1;&#x65B9;&#x5F0F;&#x7684;&#x5224;&#x65AD;</h2>
-<pre class="language-"><code class="lang-c"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">irqd_get_trigger_type</span><span class="token punctuation">(</span>irq_data<span class="token punctuation">)</span> <span class="token operator">&amp;</span> IRQ_TYPE_EDGE_BOTH<span class="token punctuation">)</span>
-<span class="token comment">//&#x8BBE;&#x7F6E;&#x4E2D;&#x65AD;&#x7C7B;&#x578B;</span>
-<span class="token function">irq_set_irq_type</span><span class="token punctuation">(</span>virq<span class="token punctuation">,</span> type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">if (irqd_get_trigger_type(irq_data) &amp; IRQ_TYPE_EDGE_BOTH)
+//&#x8BBE;&#x7F6E;&#x4E2D;&#x65AD;&#x7C7B;&#x578B;
+irq_set_irq_type(virq, type);
 </code></pre>
 <h2 id="&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x8FC7;&#x7A0B;"><a name="&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x8FC7;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x8FC7;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.6. &#x4E2D;&#x65AD;&#x5904;&#x7406;&#x8FC7;&#x7A0B;</h2>
-<pre class="language-"><code class="lang-c">asmlinkage <span class="token keyword">void</span> <span class="token function">plat_irq_dispatch</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-    <span class="token comment">//&#x91CD;&#x70B9;&#x662F;&#x8FD9;&#x4E2A;&#x5FAA;&#x73AF;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">:</span>
+<pre><code class="lang-c">asmlinkage void plat_irq_dispatch(void)
+    //&#x91CD;&#x70B9;&#x662F;&#x8FD9;&#x4E2A;&#x5FAA;&#x73AF;
+    while (1):
         &#x8BFB;&#x51FA;cop0_cause&#x548C;cop0_status
-        <span class="token comment">//&#x5904;&#x7406;ip2</span>
+        //&#x5904;&#x7406;ip2
         octeon_irq_ip2
-        <span class="token comment">//&#x5904;&#x7406;ip3</span>
+        //&#x5904;&#x7406;ip3
         octeon_irq_ip3
             &#x8BFB;SUM1&#x5BC4;&#x5B58;&#x5668;
-            <span class="token comment">//&#x627E;&#x5230;&#x6700;&#x540E;&#x4E00;&#x4F4D;1</span>
-            <span class="token keyword">int</span> bit <span class="token operator">=</span> <span class="token function">fls64</span><span class="token punctuation">(</span>ciu_sum<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token comment">//&#x8F6C;&#x6362;&#x4E3A;linux irq</span>
-            <span class="token keyword">int</span> irq <span class="token operator">=</span> octeon_irq_ciu_to_irq<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>bit<span class="token punctuation">]</span>
-            <span class="token function">do_IRQ</span><span class="token punctuation">(</span>irq<span class="token punctuation">)</span>
-                <span class="token function">generic_handle_irq</span><span class="token punctuation">(</span>irq<span class="token punctuation">)</span>
-                    <span class="token function">generic_handle_irq_desc</span><span class="token punctuation">(</span>irq<span class="token punctuation">,</span> desc<span class="token punctuation">)</span>
-                        desc<span class="token operator">-&gt;</span><span class="token function">handle_irq</span><span class="token punctuation">(</span>irq<span class="token punctuation">,</span> desc<span class="token punctuation">)</span>
-        <span class="token comment">//&#x5904;&#x7406;ip4</span>
+            //&#x627E;&#x5230;&#x6700;&#x540E;&#x4E00;&#x4F4D;1
+            int bit = fls64(ciu_sum) - 1;
+            //&#x8F6C;&#x6362;&#x4E3A;linux irq
+            int irq = octeon_irq_ciu_to_irq[1][bit]
+            do_IRQ(irq)
+                generic_handle_irq(irq)
+                    generic_handle_irq_desc(irq, desc)
+                        desc-&gt;handle_irq(irq, desc)
+        //&#x5904;&#x7406;ip4
         octeon_irq_ip4
-        <span class="token function">do_IRQ</span><span class="token punctuation">(</span><span class="token function">fls</span><span class="token punctuation">(</span>cop0_cause<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">9</span> <span class="token operator">+</span> MIPS_CPU_IRQ_BASE<span class="token punctuation">)</span>
+        do_IRQ(fls(cop0_cause) - 9 + MIPS_CPU_IRQ_BASE)
 </code></pre>
 <ul>
 <li><p>&#x4E0A;&#x9762;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4F1A;&#x88AB;&#x9501;&#x5230;cache&#x91CC;, &#x5728;<code>cavium-octeon/setup.c</code>&#x91CC;&#x9762;</p>
-<pre class="language-"><code class="lang-c"><span class="token function">cvmx_l2c_lock_mem_region</span><span class="token punctuation">(</span><span class="token function">__pa_symbol</span><span class="token punctuation">(</span>handle_int<span class="token punctuation">)</span><span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">cvmx_l2c_lock_mem_region</span><span class="token punctuation">(</span><span class="token function">__pa_symbol</span><span class="token punctuation">(</span>plat_irq_dispatch<span class="token punctuation">)</span><span class="token punctuation">,</span> len2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">cvmx_l2c_lock_mem_region(__pa_symbol(handle_int), len);
+cvmx_l2c_lock_mem_region(__pa_symbol(plat_irq_dispatch), len2);
 </code></pre>
 </li>
 <li><p>&#x5728;<code>arch/mips/kernel/genex.S</code>&#x4E2D;&#x4F1A;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;<br>&#x66F4;&#x8BE6;&#x7EC6;&#x4EE3;&#x7801;&#x89C1;<code>arch/mips/kernel/entry.S</code>&#x548C;<code>arch/mips/kernel/process.c</code><br>&#x6C47;&#x7F16;&#x91CC;&#x9762;&#x7684;<code>handle_int()</code>&#x51FD;&#x6570;:  </p>
-<pre class="language-"><code class="lang-c"><span class="token comment">//&#x8FD9;&#x6B65;&#x5F88;&#x725B;, &#x76F4;&#x63A5;&#x9501;&#x5B9A;&#x8FD4;&#x56DE;&#x5730;&#x5740;&#x662F;ret_from_irq</span>
-PTR_LA  ra<span class="token punctuation">,</span> ret_from_irq
-<span class="token comment">//&#x8FD9;&#x662F;&#x4E2A;c&#x51FD;&#x6570;, &#x6240;&#x4EE5;&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x6307;&#x4EE4;&#x80AF;&#x5B9A;&#x662F; jr ra. &#x6240;&#x4EE5;&#x5C31;&#x8DF3;&#x5230;ret_from_irq()&#x91CC;&#x9762;&#x53BB;&#x4E86;</span>
-PTR_LA  v0<span class="token punctuation">,</span> plat_irq_dispatch
-<span class="token comment">//&#x76F4;&#x63A5;&#x8DF3;&#x8FC7;&#x53BB;. &#x8FD9;&#x662F;&#x4E2A;&#x4EFB;&#x610F;&#x5730;&#x5740;&#x8DF3;&#x8F6C;&#x6307;&#x4EE4;</span>
+<pre><code class="lang-c">//&#x8FD9;&#x6B65;&#x5F88;&#x725B;, &#x76F4;&#x63A5;&#x9501;&#x5B9A;&#x8FD4;&#x56DE;&#x5730;&#x5740;&#x662F;ret_from_irq
+PTR_LA  ra, ret_from_irq
+//&#x8FD9;&#x662F;&#x4E2A;c&#x51FD;&#x6570;, &#x6240;&#x4EE5;&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x6307;&#x4EE4;&#x80AF;&#x5B9A;&#x662F; jr ra. &#x6240;&#x4EE5;&#x5C31;&#x8DF3;&#x5230;ret_from_irq()&#x91CC;&#x9762;&#x53BB;&#x4E86;
+PTR_LA  v0, plat_irq_dispatch
+//&#x76F4;&#x63A5;&#x8DF3;&#x8FC7;&#x53BB;. &#x8FD9;&#x662F;&#x4E2A;&#x4EFB;&#x610F;&#x5730;&#x5740;&#x8DF3;&#x8F6C;&#x6307;&#x4EE4;
 jr  v0
 </code></pre>
 </li>
 </ul>
 <h3 id="&#x54EA;&#x91CC;&#x8C03;&#x7528;&#x4E86;handleint---&#x76F4;&#x63A5;&#x5199;&#x8FDB;&#x4E2D;&#x65AD;&#x5411;&#x91CF;&#x8868;0&#x53F7;&#x4F4D;&#x7F6E;"><a name="&#x54EA;&#x91CC;&#x8C03;&#x7528;&#x4E86;handleint---&#x76F4;&#x63A5;&#x5199;&#x8FDB;&#x4E2D;&#x65AD;&#x5411;&#x91CF;&#x8868;0&#x53F7;&#x4F4D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x54EA;&#x91CC;&#x8C03;&#x7528;&#x4E86;handleint---&#x76F4;&#x63A5;&#x5199;&#x8FDB;&#x4E2D;&#x65AD;&#x5411;&#x91CF;&#x8868;0&#x53F7;&#x4F4D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>3.6.1. &#x54EA;&#x91CC;&#x8C03;&#x7528;&#x4E86;handle_int()? --&#x76F4;&#x63A5;&#x5199;&#x8FDB;&#x4E2D;&#x65AD;&#x5411;&#x91CF;&#x8868;0&#x53F7;&#x4F4D;&#x7F6E;</h3>
-<pre class="language-"><code class="lang-c"><span class="token keyword">extern</span> asmlinkage <span class="token keyword">void</span> <span class="token function">handle_int</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-@init<span class="token operator">/</span>main<span class="token punctuation">.</span>c
-asmlinkage <span class="token keyword">void</span> __init <span class="token function">start_kernel</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-    @arch<span class="token operator">/</span>mips<span class="token operator">/</span>kernel<span class="token operator">/</span>traps<span class="token punctuation">.</span>c
-    <span class="token function">trap_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        ebase<span class="token operator">=</span><span class="token number">0xffffffff80000000</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>cpu_has_mips_r2<span class="token punctuation">)</span>
-            ebase <span class="token operator">+=</span> <span class="token punctuation">(</span><span class="token function">read_c0_ebase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0x3ffff000</span><span class="token punctuation">)</span>
-        <span class="token function">set_handler</span><span class="token punctuation">(</span><span class="token number">0x180</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>except_vec3_generic<span class="token punctuation">,</span> <span class="token number">0x80</span><span class="token punctuation">)</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">31</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-            <span class="token function">set_except_vector</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> handle_reserved<span class="token punctuation">)</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">23</span><span class="token punctuation">,</span> handle_watch<span class="token punctuation">)</span>
-        <span class="token function">set_handler</span><span class="token punctuation">(</span><span class="token number">0x200</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>except_vec4<span class="token punctuation">,</span> <span class="token number">0x8</span><span class="token punctuation">)</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token function">using_rollback_handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">?</span> rollback_handle_int<span class="token operator">:</span> handle_int<span class="token punctuation">)</span><span class="token punctuation">;</span> 
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> handle_tlbm<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> handle_tlbl<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> handle_tlbs<span class="token punctuation">)</span><span class="token punctuation">;</span> 
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> handle_adel<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> handle_ades<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span> handle_ibe<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span> handle_dbe<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> handle_sys<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">,</span> handle_bp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> rdhwr_noopt <span class="token operator">?</span> handle_ri <span class="token operator">:</span><span class="token punctuation">(</span>cpu_has_vtag_icache <span class="token operator">?</span>handle_ri_rdhwr_vivt <span class="token operator">:</span> handle_ri_rdhwr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span> handle_cpu<span class="token punctuation">)</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span> handle_ov<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">13</span><span class="token punctuation">,</span> handle_tr<span class="token punctuation">)</span><span class="token punctuation">;</span> 
-        <span class="token function">board_nmi_handler_setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">,</span> handle_fpe<span class="token punctuation">)</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">22</span><span class="token punctuation">,</span> handle_mdmx<span class="token punctuation">)</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">,</span> handle_mcheck<span class="token punctuation">)</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">25</span><span class="token punctuation">,</span> handle_mt<span class="token punctuation">)</span>
-        <span class="token function">set_except_vector</span><span class="token punctuation">(</span><span class="token number">26</span><span class="token punctuation">,</span> handle_dsp<span class="token punctuation">)</span>
-        <span class="token function">board_cache_error_setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token function">set_handler</span><span class="token punctuation">(</span><span class="token number">0x080</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>except_vec3_generic<span class="token punctuation">,</span> <span class="token number">0x80</span><span class="token punctuation">)</span>
+<pre><code class="lang-c">extern asmlinkage void handle_int(void)
+@init/main.c
+asmlinkage void __init start_kernel(void)
+    @arch/mips/kernel/traps.c
+    trap_init()
+        ebase=0xffffffff80000000
+        if (cpu_has_mips_r2)
+            ebase += (read_c0_ebase() &amp; 0x3ffff000)
+        set_handler(0x180, &amp;except_vec3_generic, 0x80)
+        for (i = 0; i &lt;= 31; i++)
+            set_except_vector(i, handle_reserved)
+        set_except_vector(23, handle_watch)
+        set_handler(0x200, &amp;except_vec4, 0x8)
+        set_except_vector(0, using_rollback_handler() ? rollback_handle_int: handle_int); 
+        set_except_vector(1, handle_tlbm);
+        set_except_vector(2, handle_tlbl);
+        set_except_vector(3, handle_tlbs); 
+        set_except_vector(4, handle_adel);
+        set_except_vector(5, handle_ades);
+        set_except_vector(6, handle_ibe);
+        set_except_vector(7, handle_dbe);
+        set_except_vector(8, handle_sys);
+        set_except_vector(9, handle_bp);
+        set_except_vector(10, rdhwr_noopt ? handle_ri :(cpu_has_vtag_icache ?handle_ri_rdhwr_vivt : handle_ri_rdhwr));
+        set_except_vector(11, handle_cpu)
+        set_except_vector(12, handle_ov);
+        set_except_vector(13, handle_tr); 
+        board_nmi_handler_setup()
+        set_except_vector(15, handle_fpe)
+        set_except_vector(22, handle_mdmx)
+        set_except_vector(24, handle_mcheck)
+        set_except_vector(25, handle_mt)
+        set_except_vector(26, handle_dsp)
+        board_cache_error_setup()
+        set_handler(0x080, &amp;except_vec3_generic, 0x80)
 </code></pre>
 <p>&#x4EE5;&#x4E0A;&#x8FD9;&#x4E2A;&#x8868;&#x548C;mips&#x5F02;&#x5E38;&#x8868;&#x80FD;&#x5BF9;&#x8D77;&#x6765;<br>&#x4E0A;&#x8FF0;&#x7684;<code>handle_int</code>, <code>handle_sys</code>, <code>handle_adel</code>, <code>handle_ades</code>, <code>handle_ibe</code>, <code>handle_dbe</code> ... &#x7531;&#x4E0B;&#x9762;&#x7684;&#x5B8F;&#x751F;&#x6210;&#xFF1A;</p>
-<pre class="language-"><code class="lang-c"><span class="token punctuation">[</span>arch<span class="token operator">/</span>mips<span class="token operator">/</span>kernel<span class="token operator">/</span>genex<span class="token punctuation">.</span>S<span class="token punctuation">]</span>
-    BUILD_HANDLER adel ade ade silent       <span class="token comment">/* #4  */</span>
-    BUILD_HANDLER ades ade ade silent       <span class="token comment">/* #5  */</span>
-    BUILD_HANDLER ibe be cli silent         <span class="token comment">/* #6  */</span>
-    BUILD_HANDLER dbe be cli silent         <span class="token comment">/* #7  */</span>
-    BUILD_HANDLER bp bp sti silent          <span class="token comment">/* #9  */</span>
-    BUILD_HANDLER ri ri sti silent          <span class="token comment">/* #10 */</span>
-    BUILD_HANDLER cpu cpu sti silent        <span class="token comment">/* #11 */</span>
-    BUILD_HANDLER ov ov sti silent          <span class="token comment">/* #12 */</span>
-    BUILD_HANDLER tr tr sti silent          <span class="token comment">/* #13 */</span>
-    BUILD_HANDLER fpe fpe fpe silent        <span class="token comment">/* #15 */</span>
-    BUILD_HANDLER mdmx mdmx sti silent      <span class="token comment">/* #22 */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span>  <span class="token expression">CONFIG_HARDWARE_WATCHPOINTS</span></span>
-    <span class="token comment">/*
+<pre><code class="lang-c">[arch/mips/kernel/genex.S]
+    BUILD_HANDLER adel ade ade silent       /* #4  */
+    BUILD_HANDLER ades ade ade silent       /* #5  */
+    BUILD_HANDLER ibe be cli silent         /* #6  */
+    BUILD_HANDLER dbe be cli silent         /* #7  */
+    BUILD_HANDLER bp bp sti silent          /* #9  */
+    BUILD_HANDLER ri ri sti silent          /* #10 */
+    BUILD_HANDLER cpu cpu sti silent        /* #11 */
+    BUILD_HANDLER ov ov sti silent          /* #12 */
+    BUILD_HANDLER tr tr sti silent          /* #13 */
+    BUILD_HANDLER fpe fpe fpe silent        /* #15 */
+    BUILD_HANDLER mdmx mdmx sti silent      /* #22 */
+#ifdef  CONFIG_HARDWARE_WATCHPOINTS
+    /*
      * For watch, interrupts will be enabled after the watch
      * registers are read.
-     */</span>
-    BUILD_HANDLER watch watch cli silent        <span class="token comment">/* #23 */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">else</span></span>
-    BUILD_HANDLER watch watch sti verbose       <span class="token comment">/* #23 */</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
-    BUILD_HANDLER mcheck mcheck cli verbose     <span class="token comment">/* #24 */</span>
-    BUILD_HANDLER mt mt sti silent          <span class="token comment">/* #25 */</span>
-    BUILD_HANDLER dsp dsp sti silent        <span class="token comment">/* #26 */</span>
-    BUILD_HANDLER reserved reserved sti verbose <span class="token comment">/* others */</span>
+     */
+    BUILD_HANDLER watch watch cli silent        /* #23 */
+#else
+    BUILD_HANDLER watch watch sti verbose       /* #23 */
+#endif
+    BUILD_HANDLER mcheck mcheck cli verbose     /* #24 */
+    BUILD_HANDLER mt mt sti silent          /* #25 */
+    BUILD_HANDLER dsp dsp sti silent        /* #26 */
+    BUILD_HANDLER reserved reserved sti verbose /* others */
 </code></pre>
 <p>BUILD_HANDLER &#x5B9A;&#x4E49;&#x4E3A;&#xFF1A;</p>
-<pre class="language-"><code class="lang-c">    <span class="token punctuation">.</span>macro  BUILD_HANDLER exception handler clear verbose
+<pre><code class="lang-c">    .macro  BUILD_HANDLER exception handler clear verbose
     __BUILD_HANDLER \exception \handler \clear \verbose _int
 
-    <span class="token punctuation">.</span>endm
+    .endm
 
-   <span class="token punctuation">.</span>macro  __BUILD_HANDLER exception handler clear verbose ext
-    <span class="token punctuation">.</span>align  <span class="token number">5</span>
-    <span class="token function">NESTED</span><span class="token punctuation">(</span>handle_\exception<span class="token punctuation">,</span> PT_SIZE<span class="token punctuation">,</span> sp<span class="token punctuation">)</span>
-    <span class="token punctuation">.</span>set    noat
+   .macro  __BUILD_HANDLER exception handler clear verbose ext
+    .align  5
+    NESTED(handle_\exception, PT_SIZE, sp)
+    .set    noat
     SAVE_ALL
-    <span class="token function">FEXPORT</span><span class="token punctuation">(</span>handle_\exception\ext<span class="token punctuation">)</span>
+    FEXPORT(handle_\exception\ext)
     __BUILD_clear_\clear
-    <span class="token punctuation">.</span>set    at
+    .set    at
     __BUILD_\verbose \exception
-    move    a0<span class="token punctuation">,</span> sp
-    PTR_LA  ra<span class="token punctuation">,</span> ret_from_exception
-    j   do_\handler <span class="token comment">//&#x8FD9;&#x91CC;&#x5C31;&#x662F;&#x8C03;&#x7528;traps.c&#x91CC;&#x9762;&#x7684;do_*&#x51FD;&#x6570;, &#x5982;do_bp, do_tr, do_ri</span>
-    <span class="token function">END</span><span class="token punctuation">(</span>handle_\exception<span class="token punctuation">)</span>
-    <span class="token punctuation">.</span>endm
+    move    a0, sp
+    PTR_LA  ra, ret_from_exception
+    j   do_\handler //&#x8FD9;&#x91CC;&#x5C31;&#x662F;&#x8C03;&#x7528;traps.c&#x91CC;&#x9762;&#x7684;do_*&#x51FD;&#x6570;, &#x5982;do_bp, do_tr, do_ri
+    END(handle_\exception)
+    .endm
 </code></pre>
 <h1 id="gpio&#x4E2D;&#x65AD;"><a name="gpio&#x4E2D;&#x65AD;" class="anchor-navigation-ex-anchor" href="#gpio&#x4E2D;&#x65AD;"><i class="fa fa-link" aria-hidden="true"></i></a>4. gpio&#x4E2D;&#x65AD;</h1>
 <h2 id="&#x95EE;&#x9898;&#x73B0;&#x8C61;"><a name="&#x95EE;&#x9898;&#x73B0;&#x8C61;" class="anchor-navigation-ex-anchor" href="#&#x95EE;&#x9898;&#x73B0;&#x8C61;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. &#x95EE;&#x9898;&#x73B0;&#x8C61;</h2>
@@ -3130,61 +3133,61 @@ asmlinkage <span class="token keyword">void</span> __init <span class="token fun
 <p><img src="img/CPU_MIPS_octeon&#x4E2D;&#x65AD;_20220924223914.png" alt="">  </p>
 <h2 id="&#x53C2;&#x8003;&#x4EE3;&#x7801;"><a name="&#x53C2;&#x8003;&#x4EE3;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#x4EE3;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. &#x53C2;&#x8003;&#x4EE3;&#x7801;</h2>
 <p>GPIO&#x4E2D;&#x65AD;&#x914D;&#x7F6E;<br><code>~/repo/hg/OCTEON-SDK-3.1.0/linux/kernel/linux/arch/mips/cavium-octeon/octeon-irq.c</code></p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">octeon_irq_gpio_setup</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">irq_data</span> <span class="token operator">*</span>data<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">union</span> cvmx_gpio_bit_cfgx cfg<span class="token punctuation">;</span>
-    <span class="token keyword">struct</span> <span class="token class-name">octeon_ciu_chip_data</span> <span class="token operator">*</span>cd<span class="token punctuation">;</span>
-    u32 t <span class="token operator">=</span> <span class="token function">irqd_get_trigger_type</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">static void octeon_irq_gpio_setup(struct irq_data *data)
+{
+    union cvmx_gpio_bit_cfgx cfg;
+    struct octeon_ciu_chip_data *cd;
+    u32 t = irqd_get_trigger_type(data);
 
-    cd <span class="token operator">=</span> <span class="token function">irq_data_get_irq_chip_data</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cd = irq_data_get_irq_chip_data(data);
 
-    cfg<span class="token punctuation">.</span>u64 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    cfg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>int_en <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    cfg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>int_type <span class="token operator">=</span> <span class="token punctuation">(</span>t <span class="token operator">&amp;</span> IRQ_TYPE_EDGE_BOTH<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    cfg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>rx_xor <span class="token operator">=</span> <span class="token punctuation">(</span>t <span class="token operator">&amp;</span> <span class="token punctuation">(</span>IRQ_TYPE_LEVEL_LOW <span class="token operator">|</span> IRQ_TYPE_EDGE_FALLING<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    cfg.u64 = 0;
+    cfg.s.int_en = 1;
+    cfg.s.int_type = (t &amp; IRQ_TYPE_EDGE_BOTH) != 0;
+    cfg.s.rx_xor = (t &amp; (IRQ_TYPE_LEVEL_LOW | IRQ_TYPE_EDGE_FALLING)) != 0;
 
-    <span class="token comment">/* 140 nS glitch filter*/</span>
-    cfg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>fil_cnt <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
-    cfg<span class="token punctuation">.</span>s<span class="token punctuation">.</span>fil_sel <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+    /* 140 nS glitch filter*/
+    cfg.s.fil_cnt = 7;
+    cfg.s.fil_sel = 3;
 
-    <span class="token function">cvmx_write_csr</span><span class="token punctuation">(</span><span class="token function">CVMX_GPIO_BIT_CFGX</span><span class="token punctuation">(</span>cd<span class="token operator">-&gt;</span>gpio_line<span class="token punctuation">)</span><span class="token punctuation">,</span> cfg<span class="token punctuation">.</span>u64<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+    cvmx_write_csr(CVMX_GPIO_BIT_CFGX(cd-&gt;gpio_line), cfg.u64);
+}
 </code></pre>
 <p><code>linux/kernel/linux/Documentation/devicetree/bindings/gpio/cavium-octeon-gpio.txt</code></p>
-<pre class="language-"><code class="lang-c">Example<span class="token operator">:</span>
+<pre><code class="lang-c">Example:
 
-    gpio<span class="token operator">-</span>controller@<span class="token number">1070000000800</span> <span class="token punctuation">{</span>
-        <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">gpio</span><span class="token expression"><span class="token operator">-</span>cells <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token number">2</span><span class="token operator">&gt;</span><span class="token punctuation">;</span></span></span>
-        compatible <span class="token operator">=</span> <span class="token string">&quot;cavium,octeon-3860-gpio&quot;</span><span class="token punctuation">;</span>
-        reg <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token number">0x10700</span> <span class="token number">0x00000800</span> <span class="token number">0x0</span> <span class="token number">0x100</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
-        gpio<span class="token operator">-</span>controller<span class="token punctuation">;</span>
-        <span class="token comment">/* Interrupts are specified by two parts:
+    gpio-controller@1070000000800 {
+        #gpio-cells = &lt;2&gt;;
+        compatible = &quot;cavium,octeon-3860-gpio&quot;;
+        reg = &lt;0x10700 0x00000800 0x0 0x100&gt;;
+        gpio-controller;
+        /* Interrupts are specified by two parts:
          * 1) GPIO pin number (0..15)
          * 2) Triggering (1 - edge rising
          *          2 - edge falling
          *          4 - level active high
          *          8 - level active low)
-         */</span>
-        interrupt<span class="token operator">-</span>controller<span class="token punctuation">;</span>
-        <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">interrupt</span><span class="token expression"><span class="token operator">-</span>cells <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token number">2</span><span class="token operator">&gt;</span><span class="token punctuation">;</span></span></span>
-        <span class="token comment">/* The GPIO pin connect to 16 consecutive CUI bits */</span>
-        interrupts <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">16</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">17</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">18</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">19</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
-                 <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">20</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">21</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">22</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">23</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
-                 <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">24</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">25</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">26</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">27</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
-                 <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">28</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">29</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">30</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token number">0</span> <span class="token number">31</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+         */
+        interrupt-controller;
+        #interrupt-cells = &lt;2&gt;;
+        /* The GPIO pin connect to 16 consecutive CUI bits */
+        interrupts = &lt;0 16&gt;, &lt;0 17&gt;, &lt;0 18&gt;, &lt;0 19&gt;,
+                 &lt;0 20&gt;, &lt;0 21&gt;, &lt;0 22&gt;, &lt;0 23&gt;,
+                 &lt;0 24&gt;, &lt;0 25&gt;, &lt;0 26&gt;, &lt;0 27&gt;,
+                 &lt;0 28&gt;, &lt;0 29&gt;, &lt;0 30&gt;, &lt;0 31&gt;;
+    };
 </code></pre>
 <p>GPIO&#x4E2D;&#x65AD;&#x5E94;&#x7B54;</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">octeon_irq_ciu_gpio_ack</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">irq_data</span> <span class="token operator">*</span>data<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">struct</span> <span class="token class-name">octeon_ciu_chip_data</span> <span class="token operator">*</span>cd<span class="token punctuation">;</span>
-    u64 mask<span class="token punctuation">;</span>
+<pre><code class="lang-c">static void octeon_irq_ciu_gpio_ack(struct irq_data *data)
+{
+    struct octeon_ciu_chip_data *cd;
+    u64 mask;
 
-    cd <span class="token operator">=</span> <span class="token function">irq_data_get_irq_chip_data</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    mask <span class="token operator">=</span> <span class="token number">1ull</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>cd<span class="token operator">-&gt;</span>gpio_line<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cd = irq_data_get_irq_chip_data(data);
+    mask = 1ull &lt;&lt; (cd-&gt;gpio_line);
 
-    <span class="token function">cvmx_write_csr</span><span class="token punctuation">(</span>CVMX_GPIO_INT_CLR<span class="token punctuation">,</span> mask<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+    cvmx_write_csr(CVMX_GPIO_INT_CLR, mask);
+}
 </code></pre>
 
                                 
@@ -3229,10 +3232,11 @@ asmlinkage <span class="token keyword">void</span> __init <span class="token fun
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon 中断","level":"1.16.3.9","depth":3,"next":{"title":"octeon 原子操作","level":"1.16.3.10","depth":3,"path":"notes/CPU_MIPS_octeon原子操作.md","ref":"notes/CPU_MIPS_octeon原子操作.md","articles":[]},"previous":{"title":"octeon reboot调试和DDR中断","level":"1.16.3.8","depth":3,"path":"notes/CPU_MIPS_octeon_reboot调试和ddr中断.md","ref":"notes/CPU_MIPS_octeon_reboot调试和ddr中断.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon中断.md","mtime":"2022-10-11T14:47:23.666Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon 中断","level":"1.16.3.9","depth":3,"next":{"title":"octeon 原子操作","level":"1.16.3.10","depth":3,"path":"notes/CPU_MIPS_octeon原子操作.md","ref":"notes/CPU_MIPS_octeon原子操作.md","articles":[]},"previous":{"title":"octeon reboot调试和DDR中断","level":"1.16.3.8","depth":3,"path":"notes/CPU_MIPS_octeon_reboot调试和ddr中断.md","ref":"notes/CPU_MIPS_octeon_reboot调试和ddr中断.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon中断.md","mtime":"2022-10-11T15:10:42.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3271,6 +3275,7 @@ asmlinkage <span class="token keyword">void</span> __init <span class="token fun
         
     
 
+        
     </body>
 </html>
 

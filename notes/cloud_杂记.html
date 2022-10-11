@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2874,7 +2877,7 @@
 <h1 id="nginx&#x8D1F;&#x8F7D;&#x5747;&#x8861;"><a name="nginx&#x8D1F;&#x8F7D;&#x5747;&#x8861;" class="anchor-navigation-ex-anchor" href="#nginx&#x8D1F;&#x8F7D;&#x5747;&#x8861;"><i class="fa fa-link" aria-hidden="true"></i></a>1. nginx&#x8D1F;&#x8F7D;&#x5747;&#x8861;</h1>
 <p>nginx&#x53EF;&#x4EE5;&#x505A;URL&#x7684;&#x9759;&#x6001;&#x8DEF;&#x7531;&#x548C;&#x8D1F;&#x8F7D;&#x5747;&#x8861;, &#x5206;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x5E94;&#x7528;&#x5FAE;&#x670D;&#x52A1;:
 &#x6BD4;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x914D;&#x7F6E;&#x4F7F;&#x7528;round robin&#x65B9;&#x5F0F;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x5230;&#x4E24;&#x4E2A;&#x670D;&#x52A1;&#x5668;</p>
-<pre class="language-"><code>http {
+<pre><code>http {
     upstream backend {
         server backend1.example.com;
         server backend2.example.com;
@@ -2889,21 +2892,21 @@
 }
 </code></pre><h2 id="&#x8D1F;&#x8F7D;&#x5747;&#x8861;mode"><a name="&#x8D1F;&#x8F7D;&#x5747;&#x8861;mode" class="anchor-navigation-ex-anchor" href="#&#x8D1F;&#x8F7D;&#x5747;&#x8861;mode"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x8D1F;&#x8F7D;&#x5747;&#x8861;mode</h2>
 <p>&#x9ED8;&#x8BA4;&#x662F;Round Robin, &#x8FD8;&#x6709;least_conn, ip_hash, least_time, random&#x7B49;&#x7B49;, i.e.</p>
-<pre class="language-"><code>upstream backend {
+<pre><code>upstream backend {
     least_conn;
     server backend1.example.com;
     server backend2.example.com;
 }
 </code></pre><h2 id="server-&#x6743;&#x91CD;"><a name="server-&#x6743;&#x91CD;" class="anchor-navigation-ex-anchor" href="#server-&#x6743;&#x91CD;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. server &#x6743;&#x91CD;</h2>
 <p>&#x53EF;&#x4EE5;&#x914D;&#x6743;&#x91CD;&#x6765;&#x53CD;&#x5E94;&#x4E0D;&#x540C;server&#x7684;&#x6027;&#x80FD;&#x914D;&#x7F6E;, weight&#x9ED8;&#x8BA4;&#x662F;1, &#x6027;&#x80FD;&#x8D8A;&#x597D;&#x7684;, weight&#x8D8A;&#x9AD8;.</p>
-<pre class="language-"><code>upstream backend {
+<pre><code>upstream backend {
     server backend1.example.com weight=5;
     server backend2.example.com;
     server 192.0.0.1 backup;
 }
 </code></pre><h2 id="&#x7528;dns&#x670D;&#x52A1;&#x6765;&#x66F4;&#x65B0;server&#x7684;ip"><a name="&#x7528;dns&#x670D;&#x52A1;&#x6765;&#x66F4;&#x65B0;server&#x7684;ip" class="anchor-navigation-ex-anchor" href="#&#x7528;dns&#x670D;&#x52A1;&#x6765;&#x66F4;&#x65B0;server&#x7684;ip"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. &#x7528;DNS&#x670D;&#x52A1;&#x6765;&#x66F4;&#x65B0;server&#x7684;IP</h2>
 <p>nginx&#x4F1A;&#x5468;&#x671F;&#x7684;&#x8DDF;10.0.0.1 check, &#x66F4;&#x65B0;backend1.example.com&#x548C;backend2.example.com&#x7684;ip&#x5730;&#x5740;, &#x5982;&#x679C;&#x66F4;&#x6362;server&#x4E86;, &#x53EA;&#x8981;&#x57DF;&#x540D;&#x4E0D;&#x53D8;, ip&#x53EF;&#x4EE5;run time&#x53D8;&#x66F4;, &#x4E0D;&#x7528;&#x91CD;&#x542F;.</p>
-<pre class="language-"><code>http {
+<pre><code>http {
     resolver 10.0.0.1 valid=300s ipv6=off;
     resolver_timeout 10s;
     server {
@@ -2962,10 +2965,11 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"云杂记","level":"1.11.1","depth":2,"next":{"title":"当代容器读书笔记","level":"1.11.2","depth":2,"path":"notes/container_当代容器读书笔记.md","ref":"notes/container_当代容器读书笔记.md","articles":[]},"previous":{"title":"cloud和容器相关","level":"1.11","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"云杂记","level":"1.11.1","depth":2,"path":"notes/cloud_杂记.md","ref":"notes/cloud_杂记.md","articles":[]},{"title":"当代容器读书笔记","level":"1.11.2","depth":2,"path":"notes/container_当代容器读书笔记.md","ref":"notes/container_当代容器读书笔记.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/cloud_杂记.md","mtime":"2022-10-11T14:47:23.670Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"云杂记","level":"1.11.1","depth":2,"next":{"title":"当代容器读书笔记","level":"1.11.2","depth":2,"path":"notes/container_当代容器读书笔记.md","ref":"notes/container_当代容器读书笔记.md","articles":[]},"previous":{"title":"cloud和容器相关","level":"1.11","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"云杂记","level":"1.11.1","depth":2,"path":"notes/cloud_杂记.md","ref":"notes/cloud_杂记.md","articles":[]},{"title":"当代容器读书笔记","level":"1.11.2","depth":2,"path":"notes/container_当代容器读书笔记.md","ref":"notes/container_当代容器读书笔记.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/cloud_杂记.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3004,6 +3008,7 @@
         
     
 
+        
     </body>
 </html>
 

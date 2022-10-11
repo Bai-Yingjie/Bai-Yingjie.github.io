@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -3022,21 +3025,21 @@ It is all about on X86, then how about on MIPS? So we decided to write a simple 
 <p>When benchmarking, run the program enough times and count the time spent as the performance index.</p>
 <h3 id="compile-and-run-the-benchmark-on-mips-board"><a name="compile-and-run-the-benchmark-on-mips-board" class="anchor-navigation-ex-anchor" href="#compile-and-run-the-benchmark-on-mips-board"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. compile and run the benchmark on MIPS board</h3>
 <p>For C implementation, we need libjansson</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#install libjansson, we are on Gentoo linux, we use emerge</span>
-<span class="token comment">#for X86, it is &apos;apt install libjansson-dev&apos;</span>
-emerge <span class="token parameter variable">-av</span> dev-libs/jansson
-<span class="token comment">#compile, into a.out</span>
-gcc <span class="token parameter variable">-O2</span> json_load.c <span class="token parameter variable">-ljansson</span>
-<span class="token comment">#benchmark it</span>
-<span class="token function">time</span> ./a.out test.json <span class="token number">100</span> <span class="token operator">&gt;</span> /dev/null
+<pre><code class="lang-sh">#install libjansson, we are on Gentoo linux, we use emerge
+#for X86, it is &apos;apt install libjansson-dev&apos;
+emerge -av dev-libs/jansson
+#compile, into a.out
+gcc -O2 json_load.c -ljansson
+#benchmark it
+time ./a.out test.json 100 &gt; /dev/null
 </code></pre>
 <p>For Go implementation, no other package needed.</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#compile</span>
+<pre><code class="lang-sh">#compile
 go build json_load.go
-<span class="token comment">#run, Go run time will automatically starts several threads</span>
-<span class="token function">time</span> ./json_load <span class="token parameter variable">-fileName</span> test.json <span class="token parameter variable">-loopNum</span> <span class="token number">100</span> <span class="token operator">&gt;</span> /dev/null
-<span class="token comment">#force single core</span>
-taskset <span class="token parameter variable">-c</span> <span class="token number">1</span> <span class="token function">time</span> ./json_load <span class="token parameter variable">-fileName</span> test.json <span class="token parameter variable">-loopNum</span> <span class="token number">100</span> <span class="token operator">&gt;</span> /dev/null
+#run, Go run time will automatically starts several threads
+time ./json_load -fileName test.json -loopNum 100 &gt; /dev/null
+#force single core
+taskset -c 1 time ./json_load -fileName test.json -loopNum 100 &gt; /dev/null
 </code></pre>
 <h3 id="runtime-status"><a name="runtime-status" class="anchor-navigation-ex-anchor" href="#runtime-status"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.2. runtime status</h3>
 <p>There are 6 threads(starts with M), with 8 goroutines(starts with G) running on top of them. P represents Processor on the system.
@@ -3101,10 +3104,11 @@ I would say the extra static size and about 30% of a single core overhead is the
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"next":{"title":"Gentoo on mips board and build go","level":"1.7.9.3.5","depth":4,"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","ref":"notes/golang_gentoo_on_mips_board_and_build_go.md","articles":[]},"previous":{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part4.md","mtime":"2022-10-11T14:47:23.674Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"next":{"title":"Gentoo on mips board and build go","level":"1.7.9.3.5","depth":4,"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","ref":"notes/golang_gentoo_on_mips_board_and_build_go.md","articles":[]},"previous":{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part4.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3143,6 +3147,7 @@ I would say the extra static size and about 30% of a single core overhead is the
         
     
 
+        
     </body>
 </html>
 

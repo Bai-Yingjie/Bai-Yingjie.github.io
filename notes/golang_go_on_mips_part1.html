@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2887,21 +2890,21 @@
 <h1 id="background"><a name="background" class="anchor-navigation-ex-anchor" href="#background"><i class="fa fa-link" aria-hidden="true"></i></a>1. Background</h1>
 <p>In order to run go app on the board, we need to have a go compiler that compiles go sources into go executables. 
 Here we have a simple hello example: <code>hello.go</code></p>
-<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
+<pre><code class="lang-go">package main
 
-<span class="token keyword">import</span> <span class="token string">&quot;fmt&quot;</span>
+import &quot;fmt&quot;
 
-<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, World!&quot;</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+func main() {
+    fmt.Println(&quot;Hello, World!&quot;)
+}
 </code></pre>
 <p>For go is a modern programing language, it is pretty straightforward to do this in the cloud/server x86 environment:</p>
-<pre class="language-"><code class="lang-sh">$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> golang-go
+<pre><code class="lang-sh">$ sudo apt install golang-go
 $ go build hello.go 
-$ <span class="token function">ls</span>
+$ ls
 hello hello.go
 $ ./hello 
-Hello, World<span class="token operator">!</span>
+Hello, World!
 </code></pre>
 <p>OK, job is done, you can stop reading if you work on a system that uses Ubuntu/CentOS on X86, or even ARM64.</p>
 <p>But for people who work in embedded environment like buildroot system on MIPS, please continue.</p>
@@ -2932,7 +2935,7 @@ see</p>
 Here we need to build a cross compiler, <code>GO_GOARCH</code> is used for this purpose, eg: for fglt-b, <code>GO_GOARCH = mips64</code>
 If all things go well, the toolchain will be installed to <code>buildroot/output/host/lib/go</code>.
 The complete build steps:</p>
-<pre class="language-"><code>Building Go cmd/dist using /repo/yingjieb/ms/buildroot/output/host/lib/go-1.4.3.
+<pre><code>Building Go cmd/dist using /repo/yingjieb/ms/buildroot/output/host/lib/go-1.4.3.
 Building Go toolchain1 using /repo/yingjieb/ms/buildroot/output/host/lib/go-1.4.3.
 Building Go bootstrap cmd/go (go_bootstrap) using Go toolchain1.
 Building Go toolchain2 using go_bootstrap and Go toolchain1.
@@ -2949,11 +2952,11 @@ See: <a href="https://github.com/karalabe/xgo/issues/46" target="_blank">https:/
 The consequence is any go app that depends on BR2_PACKAGE_HOST_GO_CGO_LINKING_SUPPORTS is unable to compile, even not selectable by buildroot menuconfig.
 Nearly all go packages depend on BR2_PACKAGE_HOST_GO_CGO_LINKING_SUPPORTS, they are: docker-proxy, docker-containerd, docker-engine, docker-cli, flannel, mender, runc.
 For MIPS octeon family specifically, which is used widely by LTs, the error message is:</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment"># runtime/cgo</span>
-/repo/yingjieb/ms/buildroot/output/host/opt/ext-toolchain/bin/<span class="token punctuation">..</span>/lib/gcc/mips64-octeon-linux-gnu/4.7.0/<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/mips64-octeon-linux-gnu/bin/ld: skipping incompatible /repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libpthread.so when searching <span class="token keyword">for</span> <span class="token parameter variable">-lpthread</span>
-/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not <span class="token builtin class-name">read</span> symbols: File <span class="token keyword">in</span> wrong <span class="token function">format</span>
-collect2: error: ld returned <span class="token number">1</span> <span class="token builtin class-name">exit</span> status
-go tool dist: FAILED: /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/pkg/tool/linux_amd64/go_bootstrap <span class="token function">install</span> <span class="token parameter variable">-gcflags</span><span class="token operator">=</span>all<span class="token operator">=</span> <span class="token parameter variable">-ldflags</span><span class="token operator">=</span>all<span class="token operator">=</span> <span class="token parameter variable">-v</span> std cmd: <span class="token builtin class-name">exit</span> status <span class="token number">2</span>
+<pre><code class="lang-sh"># runtime/cgo
+/repo/yingjieb/ms/buildroot/output/host/opt/ext-toolchain/bin/../lib/gcc/mips64-octeon-linux-gnu/4.7.0/../../../../mips64-octeon-linux-gnu/bin/ld: skipping incompatible /repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libpthread.so when searching for -lpthread
+/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not read symbols: File in wrong format
+collect2: error: ld returned 1 exit status
+go tool dist: FAILED: /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/pkg/tool/linux_amd64/go_bootstrap install -gcflags=all= -ldflags=all= -v std cmd: exit status 2
 </code></pre>
 <h2 id="cgo-use-gcc-compiler"><a name="cgo-use-gcc-compiler" class="anchor-navigation-ex-anchor" href="#cgo-use-gcc-compiler"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. Cgo use gcc compiler</h2>
 <p>cgo enables go packages call C code, so it must require a C compiler for the C code part. 
@@ -2967,16 +2970,16 @@ In fact, this toolchain is a wrapper executable, which wraps external gcc toolch
 </blockquote>
 <p>Basically, N32 uses 64 bit registers in a 32 bit address space, meaning that pointers are 32 bit.</p>
 <p>However, for some unknown reason, the actual output objects are N64 ABI:</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#cgo puts its generated C files to /tmp dir:</span>
+<pre><code class="lang-sh">#cgo puts its generated C files to /tmp dir:
 yingjieb@FNSHA190 /tmp/go-build164444988/b032
-$ <span class="token function">ls</span>
+$ ls
 _cgo_export.c _cgo_flags _cgo_main.c _x001.o _x003.o _x005.o _x007.o _x009.o cgo.cgo1.go
 _cgo_export.h _cgo_gotypes.go _cgo_main.o _x002.o _x004.o _x006.o _x008.o _x010.o cgo.cgo2.c
 
-<span class="token comment"># the default ABI is N64</span>
+# the default ABI is N64
 yingjieb@FNSHA190 /tmp/go-build164444988/b032
-$ <span class="token function">file</span> _cgo_main.o
-_cgo_main.o: ELF <span class="token number">64</span>-bit MSB relocatable, MIPS, MIPS64 rel2 version <span class="token number">1</span> <span class="token punctuation">(</span>SYSV<span class="token punctuation">)</span>, with unknown capability 0x410000000f676e75 <span class="token operator">=</span> 0x1000000070401, not stripped
+$ file _cgo_main.o
+_cgo_main.o: ELF 64-bit MSB relocatable, MIPS, MIPS64 rel2 version 1 (SYSV), with unknown capability 0x410000000f676e75 = 0x1000000070401, not stripped
 </code></pre>
 <p>The reason maybe that Gcc toolchain uses N64 ABI by default to generates objects.
 One can explicitly set <code>-mabi=n32</code> to <code>CFLAGS</code>, that&apos;s how we config buildroot to use N32 ABI for our MIPS octeon family boards.</p>
@@ -2984,42 +2987,42 @@ One can explicitly set <code>-mabi=n32</code> to <code>CFLAGS</code>, that&apos;
 <p>So, let&apos;s get back to the cgo compiling issue, basically, ld complains about the format of the to be linked shared objects are incompatible. 
 We can direct cgo to generate N32 ABI object.</p>
 <ul>
-<li>Add below to <code>src/runtime/cgo/cgo.go</code><pre class="language-"><code>#cgo mips64 CFLAGS: -mabi=n32
+<li>Add below to <code>src/runtime/cgo/cgo.go</code><pre><code>#cgo mips64 CFLAGS: -mabi=n32
 #cgo mips64 LDFLAGS: -Wl,-m,elf32btsmipn32
 </code></pre></li>
 <li>Do <code>export CGO_LDFLAGS_ALLOW=&quot;.*&quot;</code> before building go package</li>
 </ul>
 <p>Let&apos;s compile it again...
 This time the previous errors are gone, but we have new errors now:</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment"># runtime/cgo</span>
-In <span class="token function">file</span> included from _cgo_export.c:4:0:
-cgo-gcc-export-header-prolog:25:14: error: size of array <span class="token string">&apos;_check_for_64_bit_pointer_matching_GoInt&apos;</span> is negative
+<pre><code class="lang-sh"># runtime/cgo
+In file included from _cgo_export.c:4:0:
+cgo-gcc-export-header-prolog:25:14: error: size of array &apos;_check_for_64_bit_pointer_matching_GoInt&apos; is negative
 </code></pre>
 <p><code>_cgo_export.c</code> is an generated c file, located in <code>/tmp/go-buildxxxxxxxxx</code> where xxxxxxxxx is a random number generated by the build system, so as <code>_cgo_export.h</code>, which has the assertion:</p>
-<pre class="language-"><code class="lang-c"><span class="token keyword">typedef</span> GoInt64 GoInt<span class="token punctuation">;</span>
-<span class="token comment">/*
+<pre><code class="lang-c">typedef GoInt64 GoInt;
+/*
   static assertion to make sure the file is being used on architecture
   at least with matching size of GoInt.
-*/</span>
-<span class="token keyword">typedef</span> <span class="token keyword">char</span> _check_for_64_bit_pointer_matching_GoInt<span class="token punctuation">[</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">64</span><span class="token operator">/</span><span class="token number">8</span> <span class="token operator">?</span> <span class="token number">1</span><span class="token operator">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+*/
+typedef char _check_for_64_bit_pointer_matching_GoInt[sizeof(void*)==64/8 ? 1:-1];
 </code></pre>
 <p><code>src/cmd/cgo/out.go</code> is used to genertate <code>_cgo_export.h</code>:
 It seems that cgo expects a goInt to be 64 bit, but N32&apos;s pointer is 32 bit, that&apos;s why we have the error message.
 Disable the check temporally:</p>
-<pre class="language-"><code class="lang-c"><span class="token comment">//typedef char _check_for_GOINTBITS_bit_pointer_matching_GoInt[sizeof(void*)==GOINTBITS/8 ? 1:-1];</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">temporary</span> <span class="token expression">workaroud this check</span></span>
-<span class="token keyword">typedef</span> <span class="token keyword">char</span> _check_for_GOINTBITS_bit_pointer_matching_GoInt<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<pre><code class="lang-c">//typedef char _check_for_GOINTBITS_bit_pointer_matching_GoInt[sizeof(void*)==GOINTBITS/8 ? 1:-1];
+#temporary workaroud this check
+typedef char _check_for_GOINTBITS_bit_pointer_matching_GoInt[1];
 </code></pre>
 <p>Let&apos;s rebuild it...
 cgo build seems to pass, but after it we have more errors:</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment"># plugin</span>
-/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libdl.so: could not <span class="token builtin class-name">read</span> symbols:File <span class="token keyword">in</span> wrong <span class="token function">format</span> 
-<span class="token comment"># os/signal/internal/pty</span>
-/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not <span class="token builtin class-name">read</span> symbols: File <span class="token keyword">in</span> wrong <span class="token function">format</span>
-<span class="token comment"># os/user</span>
-/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not <span class="token builtin class-name">read</span> symbols: File <span class="token keyword">in</span> wrong <span class="token function">format</span>
-<span class="token comment"># net</span>
-/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not <span class="token builtin class-name">read</span> symbols: File <span class="token keyword">in</span> wrong <span class="token function">format</span>
+<pre><code class="lang-sh"># plugin
+/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libdl.so: could not read symbols:File in wrong format 
+# os/signal/internal/pty
+/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not read symbols: File in wrong format
+# os/user
+/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not read symbols: File in wrong format
+# net
+/repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not read symbols: File in wrong format
 </code></pre>
 <p>Same issue, apply our changes to these files:</p>
 <ul>
@@ -3032,40 +3035,40 @@ cgo build seems to pass, but after it we have more errors:</p>
 <li>src/net/cgo_linux.go</li>
 </ul>
 <p>Rebuild, OK, then the error message leads to:</p>
-<pre class="language-"><code class="lang-sh">/tmp/go-link-436592583/go.o: In <span class="token keyword">function</span> <span class="token variable"><span class="token variable">`</span>runtime.save_g&apos;:                                                           
-/repo/yingjieb/ms/buildroot/output/host/lib/go/src/runtime/tls_mips64x.s:20:<span class="token punctuation">(</span>.text+0x6d24c<span class="token punctuation">)</span>: relocation truncated to fit: R_MIPS_TLS_TPREL_LO16 against <span class="token variable">`</span></span>runtime.tls_g&apos;
+<pre><code class="lang-sh">/tmp/go-link-436592583/go.o: In function `runtime.save_g&apos;:                                                           
+/repo/yingjieb/ms/buildroot/output/host/lib/go/src/runtime/tls_mips64x.s:20:(.text+0x6d24c): relocation truncated to fit: R_MIPS_TLS_TPREL_LO16 against `runtime.tls_g&apos;
 </code></pre>
 <p>It seems to have come to the final stage to build the executable &quot;go&quot;(the go compiler), but apparently there is something wrong in <code>tls_mips64x.s</code>.
 The file is not long, but requires some longer study time to adapt for N32 mode if we still want to go this way...</p>
-<pre class="language-"><code class="lang-go"><span class="token comment">// If !iscgo, this is a no-op.</span>
-<span class="token comment">//</span>
-<span class="token comment">// NOTE: mcall() assumes this clobbers only R23 (REGTMP).</span>
-TEXT <span class="token function">runtime_save_g</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span>NOSPLIT<span class="token operator">|</span>NOFRAME<span class="token punctuation">,</span>$<span class="token number">0</span><span class="token operator">-</span><span class="token number">0</span>
-    MOVB <span class="token function">runtime_iscgo</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span> R23
-    BEQ R23<span class="token punctuation">,</span> nocgo
+<pre><code class="lang-go">// If !iscgo, this is a no-op.
+//
+// NOTE: mcall() assumes this clobbers only R23 (REGTMP).
+TEXT runtime_save_g(SB),NOSPLIT|NOFRAME,$0-0
+    MOVB runtime_iscgo(SB), R23
+    BEQ R23, nocgo
 
-    MOVV R3<span class="token punctuation">,</span> R23 <span class="token comment">// save R3</span>
-    MOVV g<span class="token punctuation">,</span> <span class="token function">runtime_tls_g</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span> <span class="token comment">// TLS relocation clobbers R3</span>
-    MOVV R23<span class="token punctuation">,</span> R3 <span class="token comment">// restore R3</span>
+    MOVV R3, R23 // save R3
+    MOVV g, runtime_tls_g(SB) // TLS relocation clobbers R3
+    MOVV R23, R3 // restore R3
 
-nocgo<span class="token punctuation">:</span>
+nocgo:
     RET
 
-TEXT <span class="token function">runtime_load_g</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span>NOSPLIT<span class="token operator">|</span>NOFRAME<span class="token punctuation">,</span>$<span class="token number">0</span><span class="token operator">-</span><span class="token number">0</span>
-    MOVV <span class="token function">runtime_tls_g</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span> g <span class="token comment">// TLS relocation clobbers R3</span>
+TEXT runtime_load_g(SB),NOSPLIT|NOFRAME,$0-0
+    MOVV runtime_tls_g(SB), g // TLS relocation clobbers R3
     RET
 
-GLOBL <span class="token function">runtime_tls_g</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span> TLSBSS<span class="token punctuation">,</span> $<span class="token number">8</span>
+GLOBL runtime_tls_g(SB), TLSBSS, $8
 </code></pre>
 <p>There are high possibilities that other .s files need to be adapted.
 A rough estimation is: there are 505 .s files, with 446 line containing &quot;cgo&quot; key word together.</p>
-<pre class="language-"><code class="lang-sh">yingjieb@FNSHA190 /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/src
-$ <span class="token function">find</span> <span class="token parameter variable">-name</span> <span class="token string">&quot;*.s&quot;</span> <span class="token operator">|</span> <span class="token function">wc</span> <span class="token parameter variable">-l</span>
-<span class="token number">505</span>
+<pre><code class="lang-sh">yingjieb@FNSHA190 /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/src
+$ find -name &quot;*.s&quot; | wc -l
+505
 
 yingjieb@FNSHA190 /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/src
-$ <span class="token function">find</span> <span class="token parameter variable">-name</span> <span class="token string">&quot;*.s&quot;</span> <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">cat</span> <span class="token operator">|</span> <span class="token function">grep</span> cgo <span class="token operator">|</span> <span class="token function">wc</span> <span class="token parameter variable">-l</span>
-<span class="token number">446</span>
+$ find -name &quot;*.s&quot; | xargs cat | grep cgo | wc -l
+446
 </code></pre>
 <p>So, enabling N32 ABI which is used by all our MIPS boards for Go is not something can be done in a short time.</p>
 <h1 id="how-to-proceed-if-cgo-is-not-working"><a name="how-to-proceed-if-cgo-is-not-working" class="anchor-navigation-ex-anchor" href="#how-to-proceed-if-cgo-is-not-working"><i class="fa fa-link" aria-hidden="true"></i></a>5. How to proceed if cgo is not working?</h1>
@@ -3073,7 +3076,7 @@ $ <span class="token function">find</span> <span class="token parameter variable
 <h2 id="disable-cgo-support"><a name="disable-cgo-support" class="anchor-navigation-ex-anchor" href="#disable-cgo-support"><i class="fa fa-link" aria-hidden="true"></i></a>5.1. disable cgo support</h2>
 <p>add <code>HOST_GO_CGO_ENABLED = 0</code> to <code>package/go/go.mk</code>, which means the gc go toolchian will not have cgo support, which further results the libraries that depend on cgo are not available. 
 I am not an export of go, but I did a simple counter, there are 208 lines in the toolchain src use cgo.</p>
-<pre class="language-"><code>yingjieb@FNSHA190 /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/src
+<pre><code>yingjieb@FNSHA190 /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/src
 $ grep -r &apos;import &quot;C&quot;&apos; | wc -l
 208
 </code></pre><h2 id="use-n64-abi-for-mips64"><a name="use-n64-abi-for-mips64" class="anchor-navigation-ex-anchor" href="#use-n64-abi-for-mips64"><i class="fa fa-link" aria-hidden="true"></i></a>5.2. use N64 ABI for MIPS64</h2>
@@ -3087,7 +3090,7 @@ $ grep -r &apos;import &quot;C&quot;&apos; | wc -l
 <p>Finally, we come to our task, thanks for the <strong>complicities</strong> of <strong>embedded</strong> world and <strong>weak</strong> ecosystem of MIPS.
 Now that we have the gc go toolchain built, yes, with cgo disabled.
 In Buildroot, we leverage the make framework to construct go packages, for example, I added below files:</p>
-<pre class="language-"><code>M package/Nokia/Config.in
+<pre><code>M package/Nokia/Config.in
 M package/go/Config.in.host
 M package/go/go.mk
 A package/Nokia/go-prototype/Config.in
@@ -3098,13 +3101,13 @@ Here I want to skip the details of how to create a package in Buildroot, which i
 Be noted that our hello.go doesn&apos;t need cgo, since it does not <code>import &quot;C&quot;</code>
 Then on our board, I am using cfnt-b, which has the same CPU with fglt-b:</p>
 <p>Type</p>
-<pre class="language-"><code class="lang-sh">/isam/slot_default/run <span class="token comment"># hello</span>
-Hello, World<span class="token operator">!</span>
-First go program on cfnt-b<span class="token operator">!</span>
-/isam/slot_default/run <span class="token comment"># which hello</span>
+<pre><code class="lang-sh">/isam/slot_default/run # hello
+Hello, World!
+First go program on cfnt-b!
+/isam/slot_default/run # which hello
 /usr/bin/hello
-/isam/slot_default/run <span class="token comment"># ls -lh /usr/bin/hello</span>
--rwxr-xr-x <span class="token number">1</span> root root <span class="token number">1</span>.4M Jun <span class="token number">28</span> <span class="token number">2019</span> /usr/bin/hello
+/isam/slot_default/run # ls -lh /usr/bin/hello
+-rwxr-xr-x 1 root root 1.4M Jun 28 2019 /usr/bin/hello
 </code></pre>
 <p>OK, we are good to run hello.go</p>
 <h1 id="works-next"><a name="works-next" class="anchor-navigation-ex-anchor" href="#works-next"><i class="fa fa-link" aria-hidden="true"></i></a>7. Works next</h1>
@@ -3157,10 +3160,11 @@ First go program on cfnt-b<span class="token operator">!</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"part 1: cross compile go","level":"1.7.9.3.1","depth":4,"next":{"title":"part 2: build native go compiler","level":"1.7.9.3.2","depth":4,"path":"notes/golang_go_on_mips_part2.md","ref":"notes/golang_go_on_mips_part2.md","articles":[]},"previous":{"title":"go on mips boards(not so updated)","level":"1.7.9.3","depth":3,"path":"notes/golang_go_on_mips.md","ref":"notes/golang_go_on_mips.md","articles":[{"title":"part 1: cross compile go","level":"1.7.9.3.1","depth":4,"path":"notes/golang_go_on_mips_part1.md","ref":"notes/golang_go_on_mips_part1.md","articles":[]},{"title":"part 2: build native go compiler","level":"1.7.9.3.2","depth":4,"path":"notes/golang_go_on_mips_part2.md","ref":"notes/golang_go_on_mips_part2.md","articles":[]},{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"path":"notes/golang_go_on_mips_part4.md","ref":"notes/golang_go_on_mips_part4.md","articles":[]},{"title":"Gentoo on mips board and build go","level":"1.7.9.3.5","depth":4,"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","ref":"notes/golang_gentoo_on_mips_board_and_build_go.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part1.md","mtime":"2022-10-11T14:47:23.674Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"part 1: cross compile go","level":"1.7.9.3.1","depth":4,"next":{"title":"part 2: build native go compiler","level":"1.7.9.3.2","depth":4,"path":"notes/golang_go_on_mips_part2.md","ref":"notes/golang_go_on_mips_part2.md","articles":[]},"previous":{"title":"go on mips boards(not so updated)","level":"1.7.9.3","depth":3,"path":"notes/golang_go_on_mips.md","ref":"notes/golang_go_on_mips.md","articles":[{"title":"part 1: cross compile go","level":"1.7.9.3.1","depth":4,"path":"notes/golang_go_on_mips_part1.md","ref":"notes/golang_go_on_mips_part1.md","articles":[]},{"title":"part 2: build native go compiler","level":"1.7.9.3.2","depth":4,"path":"notes/golang_go_on_mips_part2.md","ref":"notes/golang_go_on_mips_part2.md","articles":[]},{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"path":"notes/golang_go_on_mips_part4.md","ref":"notes/golang_go_on_mips_part4.md","articles":[]},{"title":"Gentoo on mips board and build go","level":"1.7.9.3.5","depth":4,"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","ref":"notes/golang_gentoo_on_mips_board_and_build_go.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part1.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3199,6 +3203,7 @@ First go program on cfnt-b<span class="token operator">!</span>
         
     
 
+        
     </body>
 </html>
 

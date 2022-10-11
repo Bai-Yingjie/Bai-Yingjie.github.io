@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2897,7 +2900,7 @@
 <li><a href="#&#x4F7F;&#x7528;&#x5206;&#x79BB;&#x7684;cpio&#x505A;initramfs">&#x4F7F;&#x7528;&#x5206;&#x79BB;&#x7684;cpio&#x505A;initramfs</a></li>
 </ul>
 <h1 id="uboot&#x4ECE;usb-load&#x5230;spi-flash"><a name="uboot&#x4ECE;usb-load&#x5230;spi-flash" class="anchor-navigation-ex-anchor" href="#uboot&#x4ECE;usb-load&#x5230;spi-flash"><i class="fa fa-link" aria-hidden="true"></i></a>1. uboot&#x4ECE;usb load&#x5230;spi flash</h1>
-<pre class="language-"><code>usb start
+<pre><code>usb start
 usb info
 usb storage
 usb tree
@@ -2911,402 +2914,402 @@ sf update $(fileaddr) 0x10000 $(filesize)
 fatload usb 0:1 0 /78/u-boot-octeon_ebb7800.bin
 sf update $(fileaddr) 0x100000 $(filesize)
 </code></pre><h1 id="&#x7F16;&#x8BD1;kerneldebian&#x5E76;&#x8FD0;&#x884C;"><a name="&#x7F16;&#x8BD1;kerneldebian&#x5E76;&#x8FD0;&#x884C;" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;kerneldebian&#x5E76;&#x8FD0;&#x884C;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x7F16;&#x8BD1;kernel+debian&#x5E76;&#x8FD0;&#x884C;</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x7F16;&#x8BD1;&#x5185;&#x6838;</span>
-<span class="token comment">#&#x5230;linux&#x4E0B;&#x9762;</span>
-<span class="token function">make</span> kernel-deb
-<span class="token comment">#&#x7F16;&#x8BD1;debian&#x5E76;&#x70E7;&#x5230;U&#x76D8;&#x4E2D;&#xFF0C;&#x6CE8;&#x610F;&#x8FD9;&#x91CC;sdc&#x662F;&#x65B0;&#x63D2;&#x5165;&#x7684;U&#x76D8;</span>
-<span class="token comment">#&#x5230;dabian&#x76EE;&#x5F55;&#x4E0B;</span>
-<span class="token variable">$sudo</span> <span class="token function">make</span> <span class="token assign-left variable">DISK</span><span class="token operator">=</span>/dev/sdc compact-flash <span class="token assign-left variable">OCTEON_ROOT</span><span class="token operator">=</span>/home/byj/repo/hg/OCTEON-SDK-3.1-pristine
-Octeon ebb6100<span class="token comment"># fatload ide0 0 0 vmlinux.64</span>
-Octeon ebb6100<span class="token comment"># printenv loadaddr </span>
-<span class="token assign-left variable">loadaddr</span><span class="token operator">=</span>0x20000000
-Octeon ebb6100<span class="token comment"># bootoctlinux 0 coremask=0xf root=/dev/sda2 loglevel=8</span>
-<span class="token comment">#&#x6CE8;&#x610F;:&#x9ED8;&#x8BA4;&#x6709;&#x4E2A;run level&#x7684;&#x95EE;&#x9898;, &#x4E0D;&#x6307;&#x5B9A;&#x4F1A;&#x5230;init 0</span>
-Octeon ebb6100<span class="token comment"># fatload mmc 0 0 vmlinux.64</span>
-Octeon ebb6100<span class="token comment"># printenv loadaddr </span>
-<span class="token assign-left variable">loadaddr</span><span class="token operator">=</span>0x20000000
-Octeon ebb6100<span class="token comment"># bootoctlinux 0 coremask=0xf root=/dev/sda2 rw 3 loglevel=8</span>
-<span class="token comment">#&#x4FDD;&#x5B58;&#x5230;uboot&#x547D;&#x4EE4;, &#x6CE8;&#x610F;&#x5206;&#x53F7;&#x524D;&#x9762;&#x9700;&#x8981;&#x8F6C;&#x4E49;</span>
-setenv sda2boot fatload mmc <span class="token number">0</span> <span class="token number">0</span> vmlinux.64<span class="token punctuation">\</span><span class="token punctuation">;</span>bootoctlinux <span class="token number">0</span> <span class="token assign-left variable">coremask</span><span class="token operator">=</span>0xf <span class="token assign-left variable">root</span><span class="token operator">=</span>/dev/sda2 rw <span class="token number">3</span> <span class="token assign-left variable">mem</span><span class="token operator">=</span>4G
+<pre><code class="lang-sh">#&#x7F16;&#x8BD1;&#x5185;&#x6838;
+#&#x5230;linux&#x4E0B;&#x9762;
+make kernel-deb
+#&#x7F16;&#x8BD1;debian&#x5E76;&#x70E7;&#x5230;U&#x76D8;&#x4E2D;&#xFF0C;&#x6CE8;&#x610F;&#x8FD9;&#x91CC;sdc&#x662F;&#x65B0;&#x63D2;&#x5165;&#x7684;U&#x76D8;
+#&#x5230;dabian&#x76EE;&#x5F55;&#x4E0B;
+$sudo make DISK=/dev/sdc compact-flash OCTEON_ROOT=/home/byj/repo/hg/OCTEON-SDK-3.1-pristine
+Octeon ebb6100# fatload ide0 0 0 vmlinux.64
+Octeon ebb6100# printenv loadaddr 
+loadaddr=0x20000000
+Octeon ebb6100# bootoctlinux 0 coremask=0xf root=/dev/sda2 loglevel=8
+#&#x6CE8;&#x610F;:&#x9ED8;&#x8BA4;&#x6709;&#x4E2A;run level&#x7684;&#x95EE;&#x9898;, &#x4E0D;&#x6307;&#x5B9A;&#x4F1A;&#x5230;init 0
+Octeon ebb6100# fatload mmc 0 0 vmlinux.64
+Octeon ebb6100# printenv loadaddr 
+loadaddr=0x20000000
+Octeon ebb6100# bootoctlinux 0 coremask=0xf root=/dev/sda2 rw 3 loglevel=8
+#&#x4FDD;&#x5B58;&#x5230;uboot&#x547D;&#x4EE4;, &#x6CE8;&#x610F;&#x5206;&#x53F7;&#x524D;&#x9762;&#x9700;&#x8981;&#x8F6C;&#x4E49;
+setenv sda2boot fatload mmc 0 0 vmlinux.64\;bootoctlinux 0 coremask=0xf root=/dev/sda2 rw 3 mem=4G
 run sda2boot
 </code></pre>
 <h2 id="&#x5B89;&#x88C5;&#x5FC5;&#x987B;&#x7684;&#x5305;"><a name="&#x5B89;&#x88C5;&#x5FC5;&#x987B;&#x7684;&#x5305;" class="anchor-navigation-ex-anchor" href="#&#x5B89;&#x88C5;&#x5FC5;&#x987B;&#x7684;&#x5305;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x5B89;&#x88C5;&#x5FC5;&#x987B;&#x7684;&#x5305;</h2>
-<pre class="language-"><code>apt install build-essential
+<pre><code>apt install build-essential
 apt install libncurses5-dev
 apt install flex bison
 apt install automake
 </code></pre><h2 id="&#x7F16;&#x8BD1;&#x524D;&#x914D;&#x7F6E;&#x597D;&#x73AF;&#x5883;&#x53D8;&#x91CF;"><a name="&#x7F16;&#x8BD1;&#x524D;&#x914D;&#x7F6E;&#x597D;&#x73AF;&#x5883;&#x53D8;&#x91CF;" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;&#x524D;&#x914D;&#x7F6E;&#x597D;&#x73AF;&#x5883;&#x53D8;&#x91CF;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. &#x7F16;&#x8BD1;&#x524D;&#x914D;&#x7F6E;&#x597D;&#x73AF;&#x5883;&#x53D8;&#x91CF;</h2>
-<pre class="language-"><code>cd OCTEON-SDK-3.1
+<pre><code>cd OCTEON-SDK-3.1
 source env-setup OCTEON_CN71XX
 </code></pre><h2 id="make-hello"><a name="make-hello" class="anchor-navigation-ex-anchor" href="#make-hello"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. make hello</h2>
-<pre class="language-"><code>cd examples/hello
+<pre><code>cd examples/hello
 make run
 </code></pre><h1 id="&#x5347;&#x7EA7;uboot"><a name="&#x5347;&#x7EA7;uboot" class="anchor-navigation-ex-anchor" href="#&#x5347;&#x7EA7;uboot"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x5347;&#x7EA7;uboot</h1>
 <p>&#x5148;<code>tftp</code>
 &#x518D;<code>bootloaderupdate</code></p>
 <h1 id="rootfs-over-nfs"><a name="rootfs-over-nfs" class="anchor-navigation-ex-anchor" href="#rootfs-over-nfs"><i class="fa fa-link" aria-hidden="true"></i></a>4. rootfs over nfs</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x5B89;&#x88C5;nfs, server&#x7AEF;&#x548C;client&#x7AEF;&#x90FD;&#x8981;&#x88C5;</span>
-yum <span class="token function">install</span> nfs-utils nfs-utils-lib
-<span class="token function">apt-get</span> <span class="token function">install</span> nfs-utils nfs-utils-lib
-<span class="token comment">#&#x914D;&#x7F6E;nfs</span>
-<span class="token variable">$vi</span> /etc/exports
-<span class="token variable">$cat</span> /etc/exports 
-/home/yingjie/gentoo4oct/hg-nfsroot/nfsroot *<span class="token punctuation">(</span>async,rw,no_root_squash,no_subtree_check<span class="token punctuation">)</span>
-<span class="token variable">$sudo</span> exportfs <span class="token parameter variable">-a</span>
-<span class="token comment">#&#x5F00;&#x59CB;nfs&#x670D;&#x52A1;</span>
-<span class="token function">chkconfig</span> nfs on
-<span class="token function">service</span> nfs start
+<pre><code class="lang-sh">#&#x5B89;&#x88C5;nfs, server&#x7AEF;&#x548C;client&#x7AEF;&#x90FD;&#x8981;&#x88C5;
+yum install nfs-utils nfs-utils-lib
+apt-get install nfs-utils nfs-utils-lib
+#&#x914D;&#x7F6E;nfs
+$vi /etc/exports
+$cat /etc/exports 
+/home/yingjie/gentoo4oct/hg-nfsroot/nfsroot *(async,rw,no_root_squash,no_subtree_check)
+$sudo exportfs -a
+#&#x5F00;&#x59CB;nfs&#x670D;&#x52A1;
+chkconfig nfs on
+service nfs start
 /etc/init.d/nfs start
-<span class="token comment">#&#x5BA2;&#x6237;&#x7AEF;</span>
-<span class="token comment">#&#x5728;mint&#x4E0A;&#x6D4B;&#x8BD5;, &#x9700;&#x8981;&#x6309;&#x7167;</span>
-$ <span class="token function">apt</span> <span class="token function">install</span> nfs-client
-$ <span class="token function">sudo</span> <span class="token function">mount</span> <span class="token parameter variable">-t</span> nfs <span class="token parameter variable">-o</span> nolock <span class="token number">192.168</span>.1.99:/home/yingjie/gentoo4oct/hg-nfsroot/nfsroot nfsroot/
-<span class="token comment">#&#x4F46;&#x662F;&#x63D0;&#x793A;</span>
-mount.nfs: access denied by server <span class="token keyword">while</span> mounting <span class="token number">192.168</span>.1.99:/home/yingjie/gentoo4oct/hg-nfsroot/nfsroot
-<span class="token comment">#&#x7F51;&#x4E0A;&#x63D0;&#x793A;&#x9700;&#x8981;&#x5728;server&#x7AEF;&#x8FD0;&#x884C;</span>
-<span class="token function">sudo</span> exportfs <span class="token parameter variable">-a</span>
-<span class="token comment">#&#x518D;&#x6B21;&#x5728;client&#x7AEF;mount&#x5C31;&#x597D;&#x4E86;</span>
+#&#x5BA2;&#x6237;&#x7AEF;
+#&#x5728;mint&#x4E0A;&#x6D4B;&#x8BD5;, &#x9700;&#x8981;&#x6309;&#x7167;
+$ apt install nfs-client
+$ sudo mount -t nfs -o nolock 192.168.1.99:/home/yingjie/gentoo4oct/hg-nfsroot/nfsroot nfsroot/
+#&#x4F46;&#x662F;&#x63D0;&#x793A;
+mount.nfs: access denied by server while mounting 192.168.1.99:/home/yingjie/gentoo4oct/hg-nfsroot/nfsroot
+#&#x7F51;&#x4E0A;&#x63D0;&#x793A;&#x9700;&#x8981;&#x5728;server&#x7AEF;&#x8FD0;&#x884C;
+sudo exportfs -a
+#&#x518D;&#x6B21;&#x5728;client&#x7AEF;mount&#x5C31;&#x597D;&#x4E86;
 
-<span class="token comment">#&#x53EF;&#x4EE5;&#x5728;client&#x4E0A;&#x67E5;&#x770B;server export&#x54EA;&#x4E9B;&#x76EE;&#x5F55;</span>
-$ showmount <span class="token parameter variable">-e</span> <span class="token number">192.168</span>.1.99
-Export list <span class="token keyword">for</span> <span class="token number">192.168</span>.1.99:
+#&#x53EF;&#x4EE5;&#x5728;client&#x4E0A;&#x67E5;&#x770B;server export&#x54EA;&#x4E9B;&#x76EE;&#x5F55;
+$ showmount -e 192.168.1.99
+Export list for 192.168.1.99:
 /home/yingjie/gentoo4oct/hg-nfsroot/nfsroot *
 </code></pre>
 <h1 id="78xx-uboot-nfs"><a name="78xx-uboot-nfs" class="anchor-navigation-ex-anchor" href="#78xx-uboot-nfs"><i class="fa fa-link" aria-hidden="true"></i></a>5. 78xx uboot nfs</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x9700;&#x8981;&#x5185;&#x6838;&#x652F;&#x6301;NFS&#x548C;DNS</span>
-Octeon ebb7800<span class="token comment"># setenv ipaddr 192.168.1.113</span>
-Octeon ebb7800<span class="token comment"># setenv serverip 192.168.1.99</span>
-Octeon ebb7800<span class="token comment"># setenv gatewayip 192.168.1.1</span>
-Octeon ebb7800<span class="token comment"># setenv netmask 255.255.255.0</span>
-Octeon ebb7800<span class="token comment"># setenv nfsroot /home/yingjie/gentoo4oct/hg-nfsroot/nfsroot</span>
-Octeon ebb7800<span class="token comment"># tftp $(loadaddr) $(serverip):vmlinux.78nfs.strip</span>
-Octeon ebb7800<span class="token comment"># bootoctlinux $(loadaddr) numcores=$(numcores) root=/dev/nfs rw nfsroot=$(serverip):$(nfsroot),nolock,tcp ip=$(ipaddr):$(serverip):$(gatewayip):$(netmask)::eth0:off mem=128G</span>
-<span class="token comment">#&#x4FDD;&#x5B58;&#x4E3A;&#x547D;&#x4EE4;, &#x6CE8;&#x610F;$&#x548C;;&#x524D;&#x9762;&#x7684;\</span>
-Octeon ebb7800<span class="token comment"># setenv nfsboot tftp \$(loadaddr) \$(serverip):vmlinux.78nfs.strip\;bootoctlinux \$(loadaddr) numcores=\$(numcores) root=/dev/nfs rw nfsroot=\$(serverip):\$(nfsroot),nolock,tcp ip=\$(ipaddr):\$(serverip):\$(gatewayip):\$(netmask)::eth0:off mem=128G</span>
-Octeon ebb7800<span class="token comment"># run nfsboot</span>
+<pre><code class="lang-sh">#&#x9700;&#x8981;&#x5185;&#x6838;&#x652F;&#x6301;NFS&#x548C;DNS
+Octeon ebb7800# setenv ipaddr 192.168.1.113
+Octeon ebb7800# setenv serverip 192.168.1.99
+Octeon ebb7800# setenv gatewayip 192.168.1.1
+Octeon ebb7800# setenv netmask 255.255.255.0
+Octeon ebb7800# setenv nfsroot /home/yingjie/gentoo4oct/hg-nfsroot/nfsroot
+Octeon ebb7800# tftp $(loadaddr) $(serverip):vmlinux.78nfs.strip
+Octeon ebb7800# bootoctlinux $(loadaddr) numcores=$(numcores) root=/dev/nfs rw nfsroot=$(serverip):$(nfsroot),nolock,tcp ip=$(ipaddr):$(serverip):$(gatewayip):$(netmask)::eth0:off mem=128G
+#&#x4FDD;&#x5B58;&#x4E3A;&#x547D;&#x4EE4;, &#x6CE8;&#x610F;$&#x548C;;&#x524D;&#x9762;&#x7684;\
+Octeon ebb7800# setenv nfsboot tftp \$(loadaddr) \$(serverip):vmlinux.78nfs.strip\;bootoctlinux \$(loadaddr) numcores=\$(numcores) root=/dev/nfs rw nfsroot=\$(serverip):\$(nfsroot),nolock,tcp ip=\$(ipaddr):\$(serverip):\$(gatewayip):\$(netmask)::eth0:off mem=128G
+Octeon ebb7800# run nfsboot
 </code></pre>
 <h1 id="&#x5173;&#x95ED;nmi-wdt"><a name="&#x5173;&#x95ED;nmi-wdt" class="anchor-navigation-ex-anchor" href="#&#x5173;&#x95ED;nmi-wdt"><i class="fa fa-link" aria-hidden="true"></i></a>6. &#x5173;&#x95ED;nmi wdt</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#78</span>
-devmem 0x1010000020000 <span class="token number">64</span> <span class="token number">0</span>
-<span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">`</span><span class="token function">seq</span> <span class="token number">0</span> <span class="token number">47</span><span class="token variable">`</span></span><span class="token punctuation">;</span><span class="token keyword">do</span> busybox devmem <span class="token variable"><span class="token variable">$((</span>i<span class="token operator">*</span><span class="token number">8</span><span class="token operator">+</span><span class="token number">0x1010000020000</span><span class="token variable">))</span></span> <span class="token number">64</span><span class="token punctuation">;</span><span class="token keyword">done</span>
-<span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">`</span><span class="token function">seq</span> <span class="token number">0</span> <span class="token number">47</span><span class="token variable">`</span></span><span class="token punctuation">;</span><span class="token keyword">do</span> busybox devmem <span class="token variable"><span class="token variable">$((</span>i<span class="token operator">*</span><span class="token number">8</span><span class="token operator">+</span><span class="token number">0x1010000020000</span><span class="token variable">))</span></span> <span class="token number">64</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token keyword">done</span>
-<span class="token comment">#68</span>
+<pre><code class="lang-sh">#78
+devmem 0x1010000020000 64 0
+for i in `seq 0 47`;do busybox devmem $((i*8+0x1010000020000)) 64;done
+for i in `seq 0 47`;do busybox devmem $((i*8+0x1010000020000)) 64 0;done
+#68
 0x0001070100100000
-<span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">`</span><span class="token function">seq</span> <span class="token number">2</span> <span class="token number">27</span><span class="token variable">`</span></span><span class="token punctuation">;</span><span class="token keyword">do</span> busybox devmem <span class="token variable"><span class="token variable">$((</span>i<span class="token operator">*</span><span class="token number">8</span><span class="token operator">+</span><span class="token number">0x0001070100100000</span><span class="token variable">))</span></span> <span class="token number">64</span><span class="token punctuation">;</span><span class="token keyword">done</span>
-<span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">`</span><span class="token function">seq</span> <span class="token number">2</span> <span class="token number">31</span><span class="token variable">`</span></span><span class="token punctuation">;</span><span class="token keyword">do</span> busybox devmem <span class="token variable"><span class="token variable">$((</span>i<span class="token operator">*</span><span class="token number">8</span><span class="token operator">+</span><span class="token number">0x0001070100100000</span><span class="token variable">))</span></span> <span class="token number">64</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token keyword">done</span>
+for i in `seq 2 27`;do busybox devmem $((i*8+0x0001070100100000)) 64;done
+for i in `seq 2 31`;do busybox devmem $((i*8+0x0001070100100000)) 64 0;done
 </code></pre>
 <h1 id="&#x4F7F;&#x7528;sd&#x5361;&#x7F16;&#x8BD1;debian"><a name="&#x4F7F;&#x7528;sd&#x5361;&#x7F16;&#x8BD1;debian" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;sd&#x5361;&#x7F16;&#x8BD1;debian"><i class="fa fa-link" aria-hidden="true"></i></a>7. &#x4F7F;&#x7528;SD&#x5361;&#x7F16;&#x8BD1;debian</h1>
-<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">.</span> env-setup OCTEON_CN70XX
-<span class="token builtin class-name">cd</span> linux/
-<span class="token function">make</span> kernel-deb
-<span class="token builtin class-name">cd</span> linux/debian/
-<span class="token function">make</span> <span class="token assign-left variable">DISK</span><span class="token operator">=</span>/dev/mmcblk0 <span class="token assign-left variable">P1</span><span class="token operator">=</span>p1 <span class="token assign-left variable">P2</span><span class="token operator">=</span>p2 <span class="token assign-left variable">P1_SIZE</span><span class="token operator">=</span>256M compact-flash
+<pre><code class="lang-sh">. env-setup OCTEON_CN70XX
+cd linux/
+make kernel-deb
+cd linux/debian/
+make DISK=/dev/mmcblk0 P1=p1 P2=p2 P1_SIZE=256M compact-flash
 </code></pre>
 <h1 id="&#x65B0;&#x7248;uboot&#x8D77;kernel"><a name="&#x65B0;&#x7248;uboot&#x8D77;kernel" class="anchor-navigation-ex-anchor" href="#&#x65B0;&#x7248;uboot&#x8D77;kernel"><i class="fa fa-link" aria-hidden="true"></i></a>8. &#x65B0;&#x7248;uboot&#x8D77;kernel</h1>
-<pre class="language-"><code>mem=2G
+<pre><code>mem=2G
 </code></pre><h1 id="evb7000-sff-sd"><a name="evb7000-sff-sd" class="anchor-navigation-ex-anchor" href="#evb7000-sff-sd"><i class="fa fa-link" aria-hidden="true"></i></a>9. evb7000-sff sd</h1>
-<pre class="language-"><code class="lang-sh">Octeon evb7000_sff<span class="token comment"># fatls mmc 1</span>
-Octeon evb7000_sff<span class="token comment"># fatload mmc 1 0 octboot2.bin</span>
-<span class="token punctuation">[</span>root@dev-lnx1 OCTEON-SDK<span class="token punctuation">]</span><span class="token comment"># . env-setup OCTEON_CN71XX</span>
-<span class="token punctuation">[</span>root@dev-lnx1 OCTEON-SDK<span class="token punctuation">]</span><span class="token comment"># cd linux/</span>
-<span class="token punctuation">[</span>root@dev-lnx1 linux<span class="token punctuation">]</span><span class="token comment"># make kernel</span>
-Octeon evb7000_sff<span class="token comment"># tftp 0 vmlinux.64</span>
+<pre><code class="lang-sh">Octeon evb7000_sff# fatls mmc 1
+Octeon evb7000_sff# fatload mmc 1 0 octboot2.bin
+[root@dev-lnx1 OCTEON-SDK]# . env-setup OCTEON_CN71XX
+[root@dev-lnx1 OCTEON-SDK]# cd linux/
+[root@dev-lnx1 linux]# make kernel
+Octeon evb7000_sff# tftp 0 vmlinux.64
 tftp:
-Octeon evb7000_sff<span class="token comment"># tftp 0 passthrough</span>
-Octeon evb7000_sff<span class="token comment"># bootoct 0 numcores=4</span>
+Octeon evb7000_sff# tftp 0 passthrough
+Octeon evb7000_sff# bootoct 0 numcores=4
 sd:
-Octeon evb7000_sff<span class="token comment"># fatload mmc 1 0 passthrough</span>
-Octeon evb7000_sff<span class="token comment"># bootoct 0 numcores=4</span>
+Octeon evb7000_sff# fatload mmc 1 0 passthrough
+Octeon evb7000_sff# bootoct 0 numcores=4
 example:
 
 
-<span class="token comment">#&#x4E3A;&#x5565;&#x538B;&#x7F29;&#x4E86;&#x5C31;&#x4E0D;&#x884C;&#x5462;&#xFF1F;</span>
-Octeon evb7000_sff<span class="token comment"># fatls mmc 1</span>
-  <span class="token number">8271440</span> vmlinux.64 
- <span class="token number">21950338</span> vmlinux-br-testbench-2014-10-08.strip.lzma
-Octeon evb7000_sff<span class="token comment"># fatload mmc 1 0x30000000 vmlinux-br-testbench-2014-10-08.strip.lzma</span>
+#&#x4E3A;&#x5565;&#x538B;&#x7F29;&#x4E86;&#x5C31;&#x4E0D;&#x884C;&#x5462;&#xFF1F;
+Octeon evb7000_sff# fatls mmc 1
+  8271440 vmlinux.64 
+ 21950338 vmlinux-br-testbench-2014-10-08.strip.lzma
+Octeon evb7000_sff# fatload mmc 1 0x30000000 vmlinux-br-testbench-2014-10-08.strip.lzma
 reading vmlinux-br-testbench-2014-10-08.strip.lzma
-<span class="token number">21950338</span> bytes <span class="token builtin class-name">read</span> <span class="token keyword">in</span> <span class="token number">2617</span> ms <span class="token punctuation">(</span><span class="token number">8</span> MiB/s<span class="token punctuation">)</span>
-Octeon evb7000_sff<span class="token comment"># unlzma 0x30000000 $(loadaddr)</span>
-Uncompressed size: <span class="token number">29469392</span> <span class="token operator">=</span> 0x1C1AAD0
-Octeon evb7000_sff<span class="token comment"># bootoctlinux $(loadaddr) numcores=$(numcores) mem=2G</span>
+21950338 bytes read in 2617 ms (8 MiB/s)
+Octeon evb7000_sff# unlzma 0x30000000 $(loadaddr)
+Uncompressed size: 29469392 = 0x1C1AAD0
+Octeon evb7000_sff# bootoctlinux $(loadaddr) numcores=$(numcores) mem=2G
 
 
-<span class="token comment">#&#x8FD9;&#x4E2A;&#x53EF;&#x4EE5;</span>
-<span class="token comment"># mount /dev/mmcblk0p2 rootfs/</span>
+#&#x8FD9;&#x4E2A;&#x53EF;&#x4EE5;
+# mount /dev/mmcblk0p2 rootfs/
 debian
-fatload mmc <span class="token number">1</span> <span class="token number">0</span> vmlinux.64
-bootoctlinux <span class="token variable"><span class="token variable">$(</span>loadaddr<span class="token variable">)</span></span> <span class="token assign-left variable">numcores</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>numcores<span class="token variable">)</span></span> <span class="token assign-left variable">mem</span><span class="token operator">=</span>2G <span class="token assign-left variable">root</span><span class="token operator">=</span>/dev/mmcblk0p2
+fatload mmc 1 0 vmlinux.64
+bootoctlinux $(loadaddr) numcores=$(numcores) mem=2G root=/dev/mmcblk0p2
 embedded
-Octeon evb7000_sff<span class="token comment"># fatls mmc 1</span>
-  <span class="token number">8271440</span> vmlinux.64 
- <span class="token number">21950338</span> vmlinux-br-testbench-2014-10-08.strip.lzma 
- <span class="token number">29469392</span> vmlinux-br-tb.strip 
-<span class="token number">3</span> file<span class="token punctuation">(</span>s<span class="token punctuation">)</span>, <span class="token number">0</span> dir<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-Octeon evb7000_sff<span class="token comment"># fatload mmc 1 0 vmlinux-br-tb.strip</span>
+Octeon evb7000_sff# fatls mmc 1
+  8271440 vmlinux.64 
+ 21950338 vmlinux-br-testbench-2014-10-08.strip.lzma 
+ 29469392 vmlinux-br-tb.strip 
+3 file(s), 0 dir(s)
+Octeon evb7000_sff# fatload mmc 1 0 vmlinux-br-tb.strip
 reading vmlinux-br-tb.strip
-<span class="token number">29469392</span> bytes <span class="token builtin class-name">read</span> <span class="token keyword">in</span> <span class="token number">3437</span> ms <span class="token punctuation">(</span><span class="token number">8.2</span> MiB/s<span class="token punctuation">)</span>
-Octeon evb7000_sff<span class="token comment"># bootoctlinux $(loadaddr) numcores=$(numcores) mem=2G</span>
-argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>: <span class="token assign-left variable">numcores</span><span class="token operator">=</span><span class="token number">4</span>
-argv<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>: <span class="token assign-left variable">mem</span><span class="token operator">=</span>2G
-Allocating memory <span class="token keyword">for</span> ELF segment: addr: 0xffffffff80100000 <span class="token punctuation">(</span>adjusted to: 0x100000<span class="token punctuation">)</span>, size 0x1d89ce0
-<span class="token comment">## Loading big-endian Linux kernel with entry point: 0xffffffff806cf260 ...</span>
+29469392 bytes read in 3437 ms (8.2 MiB/s)
+Octeon evb7000_sff# bootoctlinux $(loadaddr) numcores=$(numcores) mem=2G
+argv[2]: numcores=4
+argv[3]: mem=2G
+Allocating memory for ELF segment: addr: 0xffffffff80100000 (adjusted to: 0x100000), size 0x1d89ce0
+## Loading big-endian Linux kernel with entry point: 0xffffffff806cf260 ...
 Bootloader: Done loading app on coremask: 0xf
 Starting cores:
  0xf
 </code></pre>
 <h1 id="&#x7F16;&#x8BD1;se"><a name="&#x7F16;&#x8BD1;se" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;se"><i class="fa fa-link" aria-hidden="true"></i></a>10. &#x7F16;&#x8BD1;SE</h1>
-<pre class="language-"><code>cd examples/hello
+<pre><code>cd examples/hello
 make run
 </code></pre><h1 id="uboot&#x8FD0;&#x884C;se"><a name="uboot&#x8FD0;&#x884C;se" class="anchor-navigation-ex-anchor" href="#uboot&#x8FD0;&#x884C;se"><i class="fa fa-link" aria-hidden="true"></i></a>11. uboot&#x8FD0;&#x884C;SE</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x8FD0;&#x884C;SE, tftp&#x65B9;&#x5F0F;&#x4E0B;&#x8F7D;:</span>
-Octeon evb7000_sff<span class="token comment"># tftp 0 passthrough</span>
-Octeon evb7000_sff<span class="token comment"># bootoct 0 numcores=4</span>
-<span class="token comment">#&#x8FD0;&#x884C;SE, &#x4ECE;sd&#x52A0;&#x8F7D;:</span>
-Octeon evb7000_sff<span class="token comment"># fatload mmc 1 0 passthrough</span>
-Octeon evb7000_sff<span class="token comment"># bootoct 0 numcores=4</span>
+<pre><code class="lang-sh">#&#x8FD0;&#x884C;SE, tftp&#x65B9;&#x5F0F;&#x4E0B;&#x8F7D;:
+Octeon evb7000_sff# tftp 0 passthrough
+Octeon evb7000_sff# bootoct 0 numcores=4
+#&#x8FD0;&#x884C;SE, &#x4ECE;sd&#x52A0;&#x8F7D;:
+Octeon evb7000_sff# fatload mmc 1 0 passthrough
+Octeon evb7000_sff# bootoct 0 numcores=4
 </code></pre>
 <h1 id="uboot&#x9759;&#x6001;ip"><a name="uboot&#x9759;&#x6001;ip" class="anchor-navigation-ex-anchor" href="#uboot&#x9759;&#x6001;ip"><i class="fa fa-link" aria-hidden="true"></i></a>12. uboot&#x9759;&#x6001;ip</h1>
-<pre class="language-"><code>setenv ethact octeth0
+<pre><code>setenv ethact octeth0
 setenv ethprime octeth0
 setenv serverip 192.168.1.100
 setenv ipaddr 192.168.1.33
 saveenv
 </code></pre><h1 id="uboot&#x81EA;&#x52A8;&#x8D77;linux"><a name="uboot&#x81EA;&#x52A8;&#x8D77;linux" class="anchor-navigation-ex-anchor" href="#uboot&#x81EA;&#x52A8;&#x8D77;linux"><i class="fa fa-link" aria-hidden="true"></i></a>13. uboot&#x81EA;&#x52A8;&#x8D77;linux</h1>
-<pre class="language-"><code class="lang-sh">Octeon evb7000_sff<span class="token comment"># setenv bootcmd run linux_mmc</span>
-Octeon evb7000_sff<span class="token comment"># printenv</span>
-<span class="token assign-left variable">autoload</span><span class="token operator">=</span>n
-<span class="token assign-left variable">baudrate</span><span class="token operator">=</span><span class="token number">115200</span>
-<span class="token assign-left variable">bf</span><span class="token operator">=</span>bootoct <span class="token variable"><span class="token variable">$(</span>flash_unused_addr<span class="token variable">)</span></span> forceboot <span class="token assign-left variable">numcores</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>numcores<span class="token variable">)</span></span>
-<span class="token assign-left variable">boardname</span><span class="token operator">=</span>evb7000_sff
-<span class="token assign-left variable">bootcmd</span><span class="token operator">=</span>linux_mmc
-<span class="token assign-left variable">bootdelay</span><span class="token operator">=</span><span class="token number">0</span>
-<span class="token assign-left variable">bootloader_flash_update</span><span class="token operator">=</span>bootloaderupdate
-<span class="token assign-left variable">burn_app</span><span class="token operator">=</span>erase <span class="token variable"><span class="token variable">$(</span>flash_unused_addr<span class="token variable">)</span></span> +<span class="token variable"><span class="token variable">$(</span>filesize<span class="token variable">)</span></span><span class="token punctuation">;</span>cp.b <span class="token variable"><span class="token variable">$(</span>fileaddr<span class="token variable">)</span></span> <span class="token variable"><span class="token variable">$(</span>flash_unused_addr<span class="token variable">)</span></span> <span class="token variable"><span class="token variable">$(</span>filesize<span class="token variable">)</span></span>
-<span class="token assign-left variable">dram_size_mbytes</span><span class="token operator">=</span><span class="token number">1024</span>
-<span class="token assign-left variable">env_addr</span><span class="token operator">=</span>1fbf0000
-<span class="token assign-left variable">env_size</span><span class="token operator">=</span><span class="token number">10000</span>
-<span class="token assign-left variable">eth1addr</span><span class="token operator">=</span>02:54:71:69:f3:01
-<span class="token assign-left variable">eth2addr</span><span class="token operator">=</span>02:54:71:69:f3:02
-<span class="token assign-left variable">eth3addr</span><span class="token operator">=</span>02:54:71:69:f3:03
-<span class="token assign-left variable">eth4addr</span><span class="token operator">=</span>02:54:71:69:f3:04
-<span class="token assign-left variable">eth5addr</span><span class="token operator">=</span>02:54:71:69:f3:05
-<span class="token assign-left variable">eth6addr</span><span class="token operator">=</span>02:54:71:69:f3:06
-<span class="token assign-left variable">eth7addr</span><span class="token operator">=</span>02:54:71:69:f3:07
-<span class="token assign-left variable">eth8addr</span><span class="token operator">=</span>02:54:71:69:f3:08
-<span class="token assign-left variable">ethact</span><span class="token operator">=</span>octeth0
-<span class="token assign-left variable">ethaddr</span><span class="token operator">=</span>02:54:71:69:f3:00
-<span class="token assign-left variable">flash_base_addr</span><span class="token operator">=</span>1f400000
-<span class="token assign-left variable">flash_size</span><span class="token operator">=</span><span class="token number">800000</span>
-<span class="token assign-left variable">flash_unused_addr</span><span class="token operator">=</span>1f680000
-<span class="token assign-left variable">flash_unused_size</span><span class="token operator">=</span><span class="token number">580000</span>
-<span class="token assign-left variable">ipaddr</span><span class="token operator">=</span><span class="token number">192.168</span>.1.112
-<span class="token assign-left variable">linux_mmc</span><span class="token operator">=</span>fatload mmc <span class="token number">0</span> <span class="token variable"><span class="token variable">$(</span>loadaddr<span class="token variable">)</span></span> vmlinux.64<span class="token punctuation">;</span>bootoctlinux <span class="token variable"><span class="token variable">$(</span>loadaddr<span class="token variable">)</span></span>
-<span class="token assign-left variable">loadaddr</span><span class="token operator">=</span>0x20000000
-<span class="token assign-left variable">ls</span><span class="token operator">=</span>fatls mmc <span class="token number">0</span>
-<span class="token assign-left variable">numcores</span><span class="token operator">=</span><span class="token number">4</span>
-<span class="token assign-left variable">octeon_failsafe_mode</span><span class="token operator">=</span><span class="token number">0</span>
-<span class="token assign-left variable">octeon_ram_mode</span><span class="token operator">=</span><span class="token number">0</span>
-serial<span class="token comment">#=2.0G1409-000206</span>
-<span class="token assign-left variable">serverip</span><span class="token operator">=</span><span class="token number">192.168</span>.1.99
-<span class="token assign-left variable">stderr</span><span class="token operator">=</span>serial
-<span class="token assign-left variable">stdin</span><span class="token operator">=</span>serial,pci,bootcmd
-<span class="token assign-left variable">stdout</span><span class="token operator">=</span>serial
-<span class="token assign-left variable">uboot_flash_addr</span><span class="token operator">=</span>bf520000
-<span class="token assign-left variable">uboot_flash_size</span><span class="token operator">=</span><span class="token number">60160000</span>
-<span class="token assign-left variable">ver</span><span class="token operator">=</span>U-Boot <span class="token number">2013.07</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>U-BOOT build: <span class="token number">93</span>, SDK version: <span class="token number">3.1</span>.1-525<span class="token punctuation">)</span>, svnversion: u-boot:99862M, exec:<span class="token punctuation">)</span>-svn99835 <span class="token punctuation">(</span>Build time: Jun 07 <span class="token number">2014</span> - 07:13:20<span class="token punctuation">)</span>
+<pre><code class="lang-sh">Octeon evb7000_sff# setenv bootcmd run linux_mmc
+Octeon evb7000_sff# printenv
+autoload=n
+baudrate=115200
+bf=bootoct $(flash_unused_addr) forceboot numcores=$(numcores)
+boardname=evb7000_sff
+bootcmd=linux_mmc
+bootdelay=0
+bootloader_flash_update=bootloaderupdate
+burn_app=erase $(flash_unused_addr) +$(filesize);cp.b $(fileaddr) $(flash_unused_addr) $(filesize)
+dram_size_mbytes=1024
+env_addr=1fbf0000
+env_size=10000
+eth1addr=02:54:71:69:f3:01
+eth2addr=02:54:71:69:f3:02
+eth3addr=02:54:71:69:f3:03
+eth4addr=02:54:71:69:f3:04
+eth5addr=02:54:71:69:f3:05
+eth6addr=02:54:71:69:f3:06
+eth7addr=02:54:71:69:f3:07
+eth8addr=02:54:71:69:f3:08
+ethact=octeth0
+ethaddr=02:54:71:69:f3:00
+flash_base_addr=1f400000
+flash_size=800000
+flash_unused_addr=1f680000
+flash_unused_size=580000
+ipaddr=192.168.1.112
+linux_mmc=fatload mmc 0 $(loadaddr) vmlinux.64;bootoctlinux $(loadaddr)
+loadaddr=0x20000000
+ls=fatls mmc 0
+numcores=4
+octeon_failsafe_mode=0
+octeon_ram_mode=0
+serial#=2.0G1409-000206
+serverip=192.168.1.99
+stderr=serial
+stdin=serial,pci,bootcmd
+stdout=serial
+uboot_flash_addr=bf520000
+uboot_flash_size=60160000
+ver=U-Boot 2013.07 ( (U-BOOT build: 93, SDK version: 3.1.1-525), svnversion: u-boot:99862M, exec:)-svn99835 (Build time: Jun 07 2014 - 07:13:20)
 
-Environment size: <span class="token number">1246</span>/65532 bytes
+Environment size: 1246/65532 bytes
 </code></pre>
 <h1 id="strip-vmlinux"><a name="strip-vmlinux" class="anchor-navigation-ex-anchor" href="#strip-vmlinux"><i class="fa fa-link" aria-hidden="true"></i></a>14. strip vmlinux</h1>
-<pre class="language-"><code class="lang-sh">/home/byj/repo/hg/xrepo/buildroot/output/host/usr/bin/mips64-octeon-linux-gnu-strip <span class="token parameter variable">-o</span> vmlinux.strip vmlinux
+<pre><code class="lang-sh">/home/byj/repo/hg/xrepo/buildroot/output/host/usr/bin/mips64-octeon-linux-gnu-strip -o vmlinux.strip vmlinux
 yingjie@aircraft ~/xrepo/buildroot/output/images
-<span class="token punctuation">..</span>/host/usr/bin/mips64-octeon-linux-gnu-strip <span class="token parameter variable">-o</span> vmlinux.strip vmlinux
+../host/usr/bin/mips64-octeon-linux-gnu-strip -o vmlinux.strip vmlinux
 </code></pre>
 <h1 id="oct-sim"><a name="oct-sim" class="anchor-navigation-ex-anchor" href="#oct-sim"><i class="fa fa-link" aria-hidden="true"></i></a>15. oct-sim</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#terminal1:</span>
+<pre><code class="lang-sh">#terminal1:
 byj@byj-mint ~/repo/hg/OCTEON-SDK-3.1-pristine/linux/kernel
-<span class="token variable">$oct</span>-sim /home/byj/repo/hg/xrepo/buildroot/output/images/vmlinux.strip <span class="token parameter variable">-envfile</span><span class="token operator">=</span>u-boot-env <span class="token parameter variable">-memsize</span><span class="token operator">=</span><span class="token number">2048</span> <span class="token parameter variable">-uart0</span><span class="token operator">=</span><span class="token number">2020</span> <span class="token parameter variable">-noperf</span> <span class="token parameter variable">-numcores</span><span class="token operator">=</span><span class="token number">1</span> <span class="token parameter variable">-quiet</span>
-<span class="token comment">#terminal2:</span>
-<span class="token variable">$telnet</span> localhost <span class="token number">2020</span>
+$oct-sim /home/byj/repo/hg/xrepo/buildroot/output/images/vmlinux.strip -envfile=u-boot-env -memsize=2048 -uart0=2020 -noperf -numcores=1 -quiet
+#terminal2:
+$telnet localhost 2020
 </code></pre>
 <h1 id="tftp-vmlinux"><a name="tftp-vmlinux" class="anchor-navigation-ex-anchor" href="#tftp-vmlinux"><i class="fa fa-link" aria-hidden="true"></i></a>16. tftp vmlinux</h1>
-<pre class="language-"><code class="lang-sh">Octeon evb7000_sff<span class="token comment"># dhcp</span>
-Octeon evb7000_sff<span class="token comment"># tftp 192.168.1.99:vmlinux.strip</span>
-Octeon evb7000_sff<span class="token comment"># bootoctlinux $(loadaddr) numcores=$(numcores) mem=2G</span>
+<pre><code class="lang-sh">Octeon evb7000_sff# dhcp
+Octeon evb7000_sff# tftp 192.168.1.99:vmlinux.strip
+Octeon evb7000_sff# bootoctlinux $(loadaddr) numcores=$(numcores) mem=2G
 </code></pre>
 <h1 id="tftpboot"><a name="tftpboot" class="anchor-navigation-ex-anchor" href="#tftpboot"><i class="fa fa-link" aria-hidden="true"></i></a>17. tftpboot</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x5B89;&#x88C5;&#x548C;&#x914D;&#x7F6E;atftpd</span>
-<span class="token variable">$apt</span> <span class="token function">install</span> atftpd
-<span class="token variable">$mkdir</span> <span class="token parameter variable">-p</span> /home/byj/tmp/tftpboot
-<span class="token variable">$sudo</span> <span class="token function">chmod</span> <span class="token parameter variable">-R</span> <span class="token number">777</span> /home/byj/tmp/tftpboot
-<span class="token variable">$sudo</span> <span class="token function">chown</span> <span class="token parameter variable">-R</span> nobody /home/byj/tmp/tftpboot
-<span class="token variable">$sudo</span> <span class="token function">vi</span> /etc/default/atftpd
-<span class="token comment">#&#x586B;&#x4E0B;&#x9762;&#x7684;</span>
-<span class="token assign-left variable">USE_INETD</span><span class="token operator">=</span>false
-<span class="token assign-left variable">OPTIONS</span><span class="token operator">=</span><span class="token string">&quot;--daemon --tftpd-timeout 300 --retry-timeout 5 --mcast-port 1758 --mcast-addr 239.239.239.0-255 --mcast-ttl 1 --maxthread 100 --verbose=5 /home/byj/tmp/tftpboot&quot;</span>
-<span class="token variable">$sudo</span> invoke-rc.d atftpd start
-<span class="token comment">#&#x6216;&#x8005;</span>
-<span class="token variable">$sudo</span> /etc/init.d/atftpd start
-<span class="token comment">#&#x91CD;&#x65B0;&#x914D;&#x7F6E;&#x7684;&#x8BDD;&#x9700;&#x8981;</span>
-<span class="token variable">$sudo</span> /etc/init.d/atftpd restart
-<span class="token comment">#&#x505C;&#x6B62;</span>
-<span class="token variable">$sudo</span> /etc/init.d/atftpd stop
+<pre><code class="lang-sh">#&#x5B89;&#x88C5;&#x548C;&#x914D;&#x7F6E;atftpd
+$apt install atftpd
+$mkdir -p /home/byj/tmp/tftpboot
+$sudo chmod -R 777 /home/byj/tmp/tftpboot
+$sudo chown -R nobody /home/byj/tmp/tftpboot
+$sudo vi /etc/default/atftpd
+#&#x586B;&#x4E0B;&#x9762;&#x7684;
+USE_INETD=false
+OPTIONS=&quot;--daemon --tftpd-timeout 300 --retry-timeout 5 --mcast-port 1758 --mcast-addr 239.239.239.0-255 --mcast-ttl 1 --maxthread 100 --verbose=5 /home/byj/tmp/tftpboot&quot;
+$sudo invoke-rc.d atftpd start
+#&#x6216;&#x8005;
+$sudo /etc/init.d/atftpd start
+#&#x91CD;&#x65B0;&#x914D;&#x7F6E;&#x7684;&#x8BDD;&#x9700;&#x8981;
+$sudo /etc/init.d/atftpd restart
+#&#x505C;&#x6B62;
+$sudo /etc/init.d/atftpd stop
 
 
-<span class="token comment">#&#x677F;&#x5B50;&#x4E0A;</span>
-<span class="token comment">#&#x914D;&#x7F51;&#x53E3;</span>
-Octeon evb7000_sff<span class="token comment"># dhcp</span>
-Octeon evb7000_sff<span class="token comment"># tftp 0 192.168.1.16:filename</span>
+#&#x677F;&#x5B50;&#x4E0A;
+#&#x914D;&#x7F51;&#x53E3;
+Octeon evb7000_sff# dhcp
+Octeon evb7000_sff# tftp 0 192.168.1.16:filename
 </code></pre>
 <h1 id="&#x8FD0;&#x884C;iperf&#x6D4B;&#x8BD5;"><a name="&#x8FD0;&#x884C;iperf&#x6D4B;&#x8BD5;" class="anchor-navigation-ex-anchor" href="#&#x8FD0;&#x884C;iperf&#x6D4B;&#x8BD5;"><i class="fa fa-link" aria-hidden="true"></i></a>18. &#x8FD0;&#x884C;iperf&#x6D4B;&#x8BD5;</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x670D;&#x52A1;&#x5668;&#x4E0A;</span>
-<span class="token punctuation">[</span>yingjie@aircraft temp<span class="token punctuation">]</span>$ iperf3 <span class="token parameter variable">-s</span> <span class="token parameter variable">-p</span> <span class="token number">12345</span> <span class="token parameter variable">-i</span> <span class="token number">1</span>
+<pre><code class="lang-sh">#&#x670D;&#x52A1;&#x5668;&#x4E0A;
+[yingjie@aircraft temp]$ iperf3 -s -p 12345 -i 1
 
-<span class="token comment">#&#x677F;&#x5B50;&#x4E0A;</span>
-root@octeon:~<span class="token comment"># iperf3 -c 192.168.1.99 -p 12345 -i 1 -t 10 -f M</span>
+#&#x677F;&#x5B50;&#x4E0A;
+root@octeon:~# iperf3 -c 192.168.1.99 -p 12345 -i 1 -t 10 -f M
 </code></pre>
 <h1 id="debian-&#x6253;&#x5F00;dhcp-client&#x52A8;&#x6001;&#x83B7;&#x53D6;ip"><a name="debian-&#x6253;&#x5F00;dhcp-client&#x52A8;&#x6001;&#x83B7;&#x53D6;ip" class="anchor-navigation-ex-anchor" href="#debian-&#x6253;&#x5F00;dhcp-client&#x52A8;&#x6001;&#x83B7;&#x53D6;ip"><i class="fa fa-link" aria-hidden="true"></i></a>19. debian &#x6253;&#x5F00;dhcp client&#x52A8;&#x6001;&#x83B7;&#x53D6;ip</h1>
 <p><a href="https://wiki.debian.org/NetworkConfiguration" target="_blank">https://wiki.debian.org/NetworkConfiguration</a></p>
-<pre class="language-"><code class="lang-sh">root@octeon:~<span class="token comment"># dhclient</span>
-<span class="token comment">#&#x67E5;&#x770B;&#x8DEF;&#x7531;&#x662F;&#x5426;&#x6B63;&#x786E;</span>
-root@octeon:~<span class="token comment"># route</span>
-root@octeon:~<span class="token comment"># ip route</span>
+<pre><code class="lang-sh">root@octeon:~# dhclient
+#&#x67E5;&#x770B;&#x8DEF;&#x7531;&#x662F;&#x5426;&#x6B63;&#x786E;
+root@octeon:~# route
+root@octeon:~# ip route
 </code></pre>
 <h1 id="&#x67E5;kernel&#x7248;&#x672C;&#xFF08;&#x7F16;&#x8BD1;&#x65F6;&#xFF09;"><a name="&#x67E5;kernel&#x7248;&#x672C;&#xFF08;&#x7F16;&#x8BD1;&#x65F6;&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x67E5;kernel&#x7248;&#x672C;&#xFF08;&#x7F16;&#x8BD1;&#x65F6;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>20. &#x67E5;kernel&#x7248;&#x672C;&#xFF08;&#x7F16;&#x8BD1;&#x65F6;&#xFF09;</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x5185;&#x6838;&#x6E90;&#x7801;&#x6811;&#x4E0B;</span>
-<span class="token function">make</span> kernelrelease <span class="token assign-left variable">ARCH</span><span class="token operator">=</span>mips <span class="token assign-left variable">CROSS_COMPILE</span><span class="token operator">=</span>mips64-octeon-linux-gnu-
+<pre><code class="lang-sh">#&#x5185;&#x6838;&#x6E90;&#x7801;&#x6811;&#x4E0B;
+make kernelrelease ARCH=mips CROSS_COMPILE=mips64-octeon-linux-gnu-
 </code></pre>
 <h2 id="linux&#x7F16;&#x8BD1;"><a name="linux&#x7F16;&#x8BD1;" class="anchor-navigation-ex-anchor" href="#linux&#x7F16;&#x8BD1;"><i class="fa fa-link" aria-hidden="true"></i></a>20.1. linux&#x7F16;&#x8BD1;</h2>
-<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">cd</span> linux
+<pre><code class="lang-sh">cd linux
 byj@byj-mint ~/repo/hg/OCTEON-SDK-3.1/linux
-<span class="token variable">$make</span> <span class="token builtin class-name">help</span>
-grep: kernel/linux/.config: No such <span class="token function">file</span> or directory
+$make help
+grep: kernel/linux/.config: No such file or directory
 Supply the build target:
     kernel - Build the Linux kernel supporting all Cavium Octeon reference boards
     kernel-deb - Linux kernel without the rootfs
     sim - Octeon simulation environment
-    setup-octeon2 - Enable config options <span class="token keyword">for</span> running on OcteonII hardware
-    setup-octeon2-sim - Enable config options <span class="token keyword">for</span> running on OcteonII simulation
-    flash - Copy kernel onto compact flash at <span class="token function">mount</span> /mnt/cf1
+    setup-octeon2 - Enable config options for running on OcteonII hardware
+    setup-octeon2-sim - Enable config options for running on OcteonII simulation
+    flash - Copy kernel onto compact flash at mount /mnt/cf1
     strip - Strip symbols out of the kernel image
     tftp - Copy a stripped kernel to /tftpboot
-    <span class="token builtin class-name">test</span> - Test an existing simulator build
+    test - Test an existing simulator build
     clean - Remove all generated files and the KERNEL CONFIG
-<span class="token function">sudo</span> <span class="token function">make</span> kernel-deb
-<span class="token function">make</span> menuconfig <span class="token assign-left variable">ARCH</span><span class="token operator">=</span>mips
+sudo make kernel-deb
+make menuconfig ARCH=mips
 </code></pre>
 <h1 id="&#x53EA;&#x7F16;&#x8BD1;debian&#x76EE;&#x5F55;"><a name="&#x53EA;&#x7F16;&#x8BD1;debian&#x76EE;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x53EA;&#x7F16;&#x8BD1;debian&#x76EE;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>21. &#x53EA;&#x7F16;&#x8BD1;debian&#x76EE;&#x5F55;</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x9700;&#x8981;&#x8FDB;&#x5165;root&#x6A21;&#x5F0F;</span>
-<span class="token comment">#&#x4E4B;&#x524D;&#x7F16;&#x8BD1;&#x8FC7;kernel-deb&#xFF08;&#x6216;&#x8005;&#x5728;&#x5185;&#x6838;&#x6E90;&#x7801;&#x6811;&#x91CC;&#x9762;make vmlinux.64 modules ARCH=mips CROSS_COMPILE=mips64-octeon-linux-gnu-&#xFF09;</span>
-<span class="token builtin class-name">cd</span> linux/debian/
-<span class="token function">make</span> target-dir
-<span class="token comment">#&#x73B0;&#x5728;&#x5728;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x4F1A;&#x6709;target-dir&#x76EE;&#x5F55;&#xFF0C;&#x8FD9;&#x4E2A;&#x5C31;&#x662F;debian&#x7684;rootfs</span>
-<span class="token comment">#&#x7136;&#x540E;&#x7684;&#x95EE;&#x9898;&#x662F;&#xFF0C;&#x5982;&#x4F55;&#x628A;debian&#x8FD9;&#x4E2A;rootfs&#x96C6;&#x6210;&#x5230;kernel&#x91CC;&#xFF1F;</span>
-<span class="token comment">#&#x53C2;&#x8003;gentoo&#x7684;&#x8FD9;&#x7BC7;&#x6587;&#x6863; http://wiki.gentoo.org/wiki/Custom_Initramfs</span>
-<span class="token comment">#&#x8FDB;&#x5165;linux/kernel/linux</span>
-<span class="token function">make</span> menuconfig <span class="token assign-left variable">ARCH</span><span class="token operator">=</span>mips &#x6CE8;&#x610F;&#x8981;&#x52A0;ARCH&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;
---<span class="token operator">&gt;</span>General setup
-      --<span class="token operator">&gt;</span><span class="token punctuation">[</span>*<span class="token punctuation">]</span>Initial RAM filesystem and RAM disk <span class="token punctuation">(</span>initramfs/initrd<span class="token punctuation">)</span> support
-      --<span class="token operator">&gt;</span>&#x586B;&#x597D;rootfs&#x7684;&#x76EE;&#x5F55;&#xFF08;<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/debian/target-dir&#xFF09;
+<pre><code class="lang-sh">#&#x9700;&#x8981;&#x8FDB;&#x5165;root&#x6A21;&#x5F0F;
+#&#x4E4B;&#x524D;&#x7F16;&#x8BD1;&#x8FC7;kernel-deb&#xFF08;&#x6216;&#x8005;&#x5728;&#x5185;&#x6838;&#x6E90;&#x7801;&#x6811;&#x91CC;&#x9762;make vmlinux.64 modules ARCH=mips CROSS_COMPILE=mips64-octeon-linux-gnu-&#xFF09;
+cd linux/debian/
+make target-dir
+#&#x73B0;&#x5728;&#x5728;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x4F1A;&#x6709;target-dir&#x76EE;&#x5F55;&#xFF0C;&#x8FD9;&#x4E2A;&#x5C31;&#x662F;debian&#x7684;rootfs
+#&#x7136;&#x540E;&#x7684;&#x95EE;&#x9898;&#x662F;&#xFF0C;&#x5982;&#x4F55;&#x628A;debian&#x8FD9;&#x4E2A;rootfs&#x96C6;&#x6210;&#x5230;kernel&#x91CC;&#xFF1F;
+#&#x53C2;&#x8003;gentoo&#x7684;&#x8FD9;&#x7BC7;&#x6587;&#x6863; http://wiki.gentoo.org/wiki/Custom_Initramfs
+#&#x8FDB;&#x5165;linux/kernel/linux
+make menuconfig ARCH=mips &#x6CE8;&#x610F;&#x8981;&#x52A0;ARCH&#xFF01;&#xFF01;&#xFF01;&#xFF01;&#xFF01;
+--&gt;General setup
+      --&gt;[*]Initial RAM filesystem and RAM disk (initramfs/initrd) support
+      --&gt;&#x586B;&#x597D;rootfs&#x7684;&#x76EE;&#x5F55;&#xFF08;../../debian/target-dir&#xFF09;
 
 
-<span class="token comment">#&#x6700;&#x540E;&#x7ED3;&#x679C;&#x662F;&#xFF1A;</span>
-<span class="token comment">#&#x592A;&#x5927;&#x4E86;&#x7F16;&#x4E0D;&#x4E0B;&#xFF01;debian&#x76EE;&#x5F55;target-dir&#x6709;1.7&#x4E2A;G&#xFF0C;&#x538B;&#x7F29;&#x540E;&#x7684;cpio&#x8FD8;&#x6709;500M</span>
+#&#x6700;&#x540E;&#x7ED3;&#x679C;&#x662F;&#xFF1A;
+#&#x592A;&#x5927;&#x4E86;&#x7F16;&#x4E0D;&#x4E0B;&#xFF01;debian&#x76EE;&#x5F55;target-dir&#x6709;1.7&#x4E2A;G&#xFF0C;&#x538B;&#x7F29;&#x540E;&#x7684;cpio&#x8FD8;&#x6709;500M
 root@byj-mint /home/byj/repo/hg/OCTEON-SDK-3.1-pristine/linux/kernel/linux
-<span class="token comment">#llh usr/</span>
-total <span class="token number">1</span>.5G
--rw-r--r-- <span class="token number">1</span> root root 511M <span class="token number">9</span>&#x6708; <span class="token number">21</span> <span class="token number">21</span>:50 built-in.o
--rwxr-xr-x <span class="token number">1</span> root root 19K <span class="token number">9</span>&#x6708; <span class="token number">21</span> <span class="token number">21</span>:13 gen_init_cpio
--rw-r--r-- <span class="token number">1</span> byj byj 13K <span class="token number">9</span>&#x6708; <span class="token number">13</span> <span class="token number">11</span>:32 gen_init_cpio.c
--rw-r--r-- <span class="token number">1</span> root root 511M <span class="token number">9</span>&#x6708; <span class="token number">21</span> <span class="token number">21</span>:49 initramfs_data.cpio.gz
--rw-r--r-- <span class="token number">1</span> root root 511M <span class="token number">9</span>&#x6708; <span class="token number">21</span> <span class="token number">21</span>:49 initramfs_data.o
--rw-r--r-- <span class="token number">1</span> byj byj <span class="token number">1</span>.3K <span class="token number">9</span>&#x6708; <span class="token number">13</span> <span class="token number">11</span>:32 initramfs_data.S
--rw-r--r-- <span class="token number">1</span> byj byj <span class="token number">5</span>.4K <span class="token number">9</span>&#x6708; <span class="token number">13</span> <span class="token number">11</span>:32 Kconfig
--rw-r--r-- <span class="token number">1</span> byj byj <span class="token number">2</span>.4K <span class="token number">9</span>&#x6708; <span class="token number">13</span> <span class="token number">11</span>:32 Makefile
--rw-r--r-- <span class="token number">1</span> root root <span class="token number">0</span> <span class="token number">9</span>&#x6708; <span class="token number">21</span> <span class="token number">21</span>:22 modules.builtin
--rw-r--r-- <span class="token number">1</span> root root <span class="token number">0</span> <span class="token number">9</span>&#x6708; <span class="token number">21</span> <span class="token number">21</span>:50 modules.order
+#llh usr/
+total 1.5G
+-rw-r--r-- 1 root root 511M 9&#x6708; 21 21:50 built-in.o
+-rwxr-xr-x 1 root root 19K 9&#x6708; 21 21:13 gen_init_cpio
+-rw-r--r-- 1 byj byj 13K 9&#x6708; 13 11:32 gen_init_cpio.c
+-rw-r--r-- 1 root root 511M 9&#x6708; 21 21:49 initramfs_data.cpio.gz
+-rw-r--r-- 1 root root 511M 9&#x6708; 21 21:49 initramfs_data.o
+-rw-r--r-- 1 byj byj 1.3K 9&#x6708; 13 11:32 initramfs_data.S
+-rw-r--r-- 1 byj byj 5.4K 9&#x6708; 13 11:32 Kconfig
+-rw-r--r-- 1 byj byj 2.4K 9&#x6708; 13 11:32 Makefile
+-rw-r--r-- 1 root root 0 9&#x6708; 21 21:22 modules.builtin
+-rw-r--r-- 1 root root 0 9&#x6708; 21 21:50 modules.order
 </code></pre>
 <h1 id="debain&#x542F;&#x52A8;runlevel-0"><a name="debain&#x542F;&#x52A8;runlevel-0" class="anchor-navigation-ex-anchor" href="#debain&#x542F;&#x52A8;runlevel-0"><i class="fa fa-link" aria-hidden="true"></i></a>22. debain&#x542F;&#x52A8;runlevel 0</h1>
-<pre class="language-"><code>&#x5728;bootoctlinux 0 root=/dev/sda2 &#x4E4B;&#x540E;&#x7D27;&#x63A5;&#x7740;&#x4F20;&#x4E00;&#x4E2A;runlevel&#x53C2;&#x6570;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C; &#x5C31;&#x662F;&#x90A3;&#x4E2A;3
+<pre><code>&#x5728;bootoctlinux 0 root=/dev/sda2 &#x4E4B;&#x540E;&#x7D27;&#x63A5;&#x7740;&#x4F20;&#x4E00;&#x4E2A;runlevel&#x53C2;&#x6570;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C; &#x5C31;&#x662F;&#x90A3;&#x4E2A;3
 cat /proc/cmdline
 bootoctlinux 0 root=/dev/sda2 3 console=ttyS0,115200
 </code></pre><h1 id="&#x4F7F;&#x7528;&#x5206;&#x79BB;&#x7684;cpio&#x505A;initramfs"><a name="&#x4F7F;&#x7528;&#x5206;&#x79BB;&#x7684;cpio&#x505A;initramfs" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;&#x5206;&#x79BB;&#x7684;cpio&#x505A;initramfs"><i class="fa fa-link" aria-hidden="true"></i></a>23. &#x4F7F;&#x7528;&#x5206;&#x79BB;&#x7684;cpio&#x505A;initramfs</h1>
-<pre class="language-"><code class="lang-sh">$ <span class="token builtin class-name">cd</span> linux
-$ <span class="token function">make</span> kernel-deb
-$ <span class="token function">cp</span> kernel/linux/vmlinux.64 /var/lib/tftpboot/
-$ <span class="token builtin class-name">cd</span> linux/embedded_rootfs
-$ <span class="token function">make</span> initramfs
-$ <span class="token function">ls</span> <span class="token parameter variable">-l</span> rootfs.cpio.gz <span class="token operator">|</span> <span class="token function">gawk</span> -- <span class="token string">&apos;{printf &quot;%x\n&quot;, ($5 + 0x10000) - ($5 % 0x10000)}&apos;</span>
+<pre><code class="lang-sh">$ cd linux
+$ make kernel-deb
+$ cp kernel/linux/vmlinux.64 /var/lib/tftpboot/
+$ cd linux/embedded_rootfs
+$ make initramfs
+$ ls -l rootfs.cpio.gz | gawk -- &apos;{printf &quot;%x\n&quot;, ($5 + 0x10000) - ($5 % 0x10000)}&apos;
 2e0000
-$ <span class="token function">cp</span> rootfs.cpio.gz /var/lib/tftpboot/
-Octeon ebh5600<span class="token comment"># freeprint</span>
+$ cp rootfs.cpio.gz /var/lib/tftpboot/
+Octeon ebh5600# freeprint
 
 
-Printing bootmem block list, descriptor: 0x0000000000024108, <span class="token function">head</span> is 0x00000000081c0940
-Descriptor version: <span class="token number">3.0</span>
+Printing bootmem block list, descriptor: 0x0000000000024108, head is 0x00000000081c0940
+Descriptor version: 3.0
 Block address: 0x00000000081c0940, size: 0x0000000007e2d2c0, next: 0x0000000026000000
 Block address: 0x0000000026000000, size: 0x00000000da000000, next: 0x0000000410000000
 Block address: 0x0000000410000000, size: 0x000000000ff00000, next: 0x0000000000000000
 
-Octeon ebh5600<span class="token comment"># namedalloc my_initrd 0x2e0000 0x81d0000</span>
+Octeon ebh5600# namedalloc my_initrd 0x2e0000 0x81d0000
 Allocated 0x00000000002e0000 bytes at address: 0x00000000081d0000, name: my_initrd
 
-Octeon ebh5600<span class="token comment"># tftpboot 0x81d0000 rootfs.cpio.gz</span>
+Octeon ebh5600# tftpboot 0x81d0000 rootfs.cpio.gz
 Using octmgmt0 device
-TFTP from server <span class="token number">10.1</span>.1.1<span class="token punctuation">;</span> our IP address is <span class="token number">10.2</span>.0.33
-Filename <span class="token string">&apos;rootfs.cpio.gz&apos;</span><span class="token builtin class-name">.</span>
+TFTP from server 10.1.1.1; our IP address is 10.2.0.33
+Filename &apos;rootfs.cpio.gz&apos;.
 Load address: 0x81d0000
-Loading: <span class="token comment">#####################</span>
-<span class="token keyword">done</span>
-Bytes transferred <span class="token operator">=</span> <span class="token number">3000755</span> <span class="token punctuation">(</span>2dc9b3 hex<span class="token punctuation">)</span>, <span class="token number">6398</span> Kbytes/sec
+Loading: #####################
+done
+Bytes transferred = 3000755 (2dc9b3 hex), 6398 Kbytes/sec
 WARNING: Data loaded outside of the reserved load area, memory corruption may occur.
-WARNING: Please refer to the bootloader memory map documentation <span class="token keyword">for</span> <span class="token function">more</span> information.
+WARNING: Please refer to the bootloader memory map documentation for more information.
 
-Octeon ebh5600<span class="token comment"># tftpboot $(loadaddr) vmlinux.64</span>
+Octeon ebh5600# tftpboot $(loadaddr) vmlinux.64
 Using octmgmt0 device
-TFTP from server <span class="token number">10.1</span>.1.1<span class="token punctuation">;</span> our IP address is <span class="token number">10.2</span>.0.33
-Filename <span class="token string">&apos;vmlinux.64&apos;</span><span class="token builtin class-name">.</span>
+TFTP from server 10.1.1.1; our IP address is 10.2.0.33
+Filename &apos;vmlinux.64&apos;.
 Load address: 0x20000000
-Loading: <span class="token comment">#################################################################</span>
-     <span class="token comment">#################################################################</span>
-     <span class="token comment">#################################################################</span>
-     <span class="token comment">#################################################################</span>
-     <span class="token comment">#################################################################</span>
-     <span class="token comment">#################################################################</span>
-     <span class="token comment">###############################</span>
-<span class="token keyword">done</span>
-Bytes transferred <span class="token operator">=</span> <span class="token number">60285919</span> <span class="token punctuation">(</span>397e3df hex<span class="token punctuation">)</span>, <span class="token number">6930</span> Kbytes/sec
+Loading: #################################################################
+     #################################################################
+     #################################################################
+     #################################################################
+     #################################################################
+     #################################################################
+     ###############################
+done
+Bytes transferred = 60285919 (397e3df hex), 6930 Kbytes/sec
 
-Octeon ebh5600<span class="token comment"># bootoctlinux $(loadaddr) numcores=$(numcores) endbootargs rd_name=my_initrd mem=1024M</span>
-argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>: <span class="token assign-left variable">numcores</span><span class="token operator">=</span><span class="token number">12</span>
-argv<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>: endbootargs
-ELF <span class="token function">file</span> is <span class="token number">64</span> bit
-Attempting to allocate memory <span class="token keyword">for</span> ELF segment: addr: 0xffffffff81100000 <span class="token punctuation">(</span>adjusted to: 0x0000000001100000<span class="token punctuation">)</span>, size 0x9fc080
-Allocated memory <span class="token keyword">for</span> ELF segment: addr: 0xffffffff81100000, size 0x9fc080
-Processing PHDR <span class="token number">0</span>
+Octeon ebh5600# bootoctlinux $(loadaddr) numcores=$(numcores) endbootargs rd_name=my_initrd mem=1024M
+argv[2]: numcores=12
+argv[3]: endbootargs
+ELF file is 64 bit
+Attempting to allocate memory for ELF segment: addr: 0xffffffff81100000 (adjusted to: 0x0000000001100000), size 0x9fc080
+Allocated memory for ELF segment: addr: 0xffffffff81100000, size 0x9fc080
+Processing PHDR 0
   Loading 984c80 bytes at ffffffff81100000
-  Clearing <span class="token number">77400</span> bytes at ffffffff81a84c80
-<span class="token comment">## Loading Linux kernel with entry point: 0xffffffff81105f90 ...</span>
+  Clearing 77400 bytes at ffffffff81a84c80
+## Loading Linux kernel with entry point: 0xffffffff81105f90 ...
 Bootloader: Done loading app on coremask: 0xfff
-Linux version <span class="token number">2.6</span>.32.13-Cavium-Octeon <span class="token punctuation">(</span>hello@xyz.zzz<span class="token punctuation">)</span> <span class="token punctuation">(</span>gcc version <span class="token number">4.3</span>.3 <span class="token punctuation">(</span>Cavium Inc. Development Version<span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token comment">#251 SMP Tue Jun 15 17:27:41 PDT 2010</span>
-CVMSEG size: <span class="token number">2</span> cache lines <span class="token punctuation">(</span><span class="token number">256</span> bytes<span class="token punctuation">)</span>
-bootconsole <span class="token punctuation">[</span>early0<span class="token punctuation">]</span> enabled
-CPU revision is: 000d0409 <span class="token punctuation">(</span>Cavium Octeon+<span class="token punctuation">)</span>
-Checking <span class="token keyword">for</span> the multiply/shift bug<span class="token punctuation">..</span>. no.
-Checking <span class="token keyword">for</span> the daddiu bug<span class="token punctuation">..</span>. no.
+Linux version 2.6.32.13-Cavium-Octeon (hello@xyz.zzz) (gcc version 4.3.3 (Cavium Inc. Development Version) ) #251 SMP Tue Jun 15 17:27:41 PDT 2010
+CVMSEG size: 2 cache lines (256 bytes)
+bootconsole [early0] enabled
+CPU revision is: 000d0409 (Cavium Octeon+)
+Checking for the multiply/shift bug... no.
+Checking for the daddiu bug... no.
 Determined physical RAM map:
-memory: 00000000002e0000 @ 00000000081d0000 <span class="token punctuation">(</span>usable after init<span class="token punctuation">)</span>
-memory: 000000000004a000 @ 0000000001a46000 <span class="token punctuation">(</span>usable<span class="token punctuation">)</span>
-memory: 0000000006400000 @ 0000000001b00000 <span class="token punctuation">(</span>usable<span class="token punctuation">)</span>
-memory: 0000000007800000 @ 0000000008500000 <span class="token punctuation">(</span>usable<span class="token punctuation">)</span>
-memory: 0000000032400000 @ 0000000020000000 <span class="token punctuation">(</span>usable<span class="token punctuation">)</span>
-Wasting <span class="token number">376656</span> bytes <span class="token keyword">for</span> tracking <span class="token number">6726</span> unused pages
-Initial ramdisk at: 0xa8000000081d0000 <span class="token punctuation">(</span><span class="token number">3014656</span> bytes<span class="token punctuation">)</span>
+memory: 00000000002e0000 @ 00000000081d0000 (usable after init)
+memory: 000000000004a000 @ 0000000001a46000 (usable)
+memory: 0000000006400000 @ 0000000001b00000 (usable)
+memory: 0000000007800000 @ 0000000008500000 (usable)
+memory: 0000000032400000 @ 0000000020000000 (usable)
+Wasting 376656 bytes for tracking 6726 unused pages
+Initial ramdisk at: 0xa8000000081d0000 (3014656 bytes)
 Zone PFN ranges:
-  Normal 0x00001a46 -<span class="token operator">&gt;</span> 0x00052400
-Movable zone start PFN <span class="token keyword">for</span> each <span class="token function">node</span>
-early_node_map<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> active PFN ranges
+  Normal 0x00001a46 -&gt; 0x00052400
+Movable zone start PFN for each node
+early_node_map[5] active PFN ranges
 </code></pre>
 
                                 
@@ -3351,10 +3354,11 @@ early_node_map<span class="token punctuation">[</span><span class="token number"
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon 操作记录","level":"1.16.3.2","depth":3,"next":{"title":"octeon 系列处理器包处理性能","level":"1.16.3.3","depth":3,"path":"notes/CPU_MIPS_octeon_包处理性能.md","ref":"notes/CPU_MIPS_octeon_包处理性能.md","articles":[]},"previous":{"title":"octeon 地址空间和寄存器访问","level":"1.16.3.1","depth":3,"path":"notes/CPU_MIPS_octeon地址空间和寄存器访问.md","ref":"notes/CPU_MIPS_octeon地址空间和寄存器访问.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon操作记录.md","mtime":"2022-10-11T14:47:23.666Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon 操作记录","level":"1.16.3.2","depth":3,"next":{"title":"octeon 系列处理器包处理性能","level":"1.16.3.3","depth":3,"path":"notes/CPU_MIPS_octeon_包处理性能.md","ref":"notes/CPU_MIPS_octeon_包处理性能.md","articles":[]},"previous":{"title":"octeon 地址空间和寄存器访问","level":"1.16.3.1","depth":3,"path":"notes/CPU_MIPS_octeon地址空间和寄存器访问.md","ref":"notes/CPU_MIPS_octeon地址空间和寄存器访问.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon操作记录.md","mtime":"2022-10-11T15:10:42.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3393,6 +3397,7 @@ early_node_map<span class="token punctuation">[</span><span class="token number"
         
     
 
+        
     </body>
 </html>
 

@@ -21,10 +21,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-base16-ateliersulphurpool.light.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -90,9 +86,16 @@
     </head>
     <body>
         
+
+
 <div class="book">
     <div class="book-summary">
         
+            <div class="theme-code-header">
+                <a href="" class="link">
+                    <h1 class="title">My Notes</h1>
+                </a>
+            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2824,8 +2827,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            本书使用 GitBook 发布
+        <a href="" target="_blank" class="gitbook-link">
+            Author: Bai Yingjie
         </a>
     </li>
 </ul>
@@ -2996,40 +2999,40 @@
 </tr>
 </tbody>
 </table>
-<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x589E;&#x52A0;32G&#x7684;hugepage</span>
-<span class="token function">sudo</span> <span class="token function">bash</span> <span class="token parameter variable">-c</span> <span class="token string">&quot;echo 64 &gt; /sys/kernel/mm/hugepages/hugepages-524288kB/nr_hugepages&quot;</span>
-<span class="token comment">#&#x5F00;&#x59CB;ovs</span>
-<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/usr/local/share/openvswitch/scripts
-<span class="token function">sudo</span> ovs-ctl start
-<span class="token comment">#&#x6253;&#x5F00;&#x786C;&#x4EF6;offload, 2.10&#x624D;&#x6709;; 2.9.3&#x6CA1;&#x6548;&#x679C;</span>
-<span class="token comment">#miniflow_extract, dpcls_lookup&#x7B49;&#x51FD;&#x6570;&#x88AB;offload&#x4E86;</span>
-<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:hw-offload<span class="token operator">=</span>true
-<span class="token comment">#&#x591A;&#x6761;&#x6D41;&#x4F1A;&#x6709;&#x7528;? :&#x63D0;&#x9AD8;~15%</span>
-<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:smc-enable<span class="token operator">=</span>true
+<pre><code class="lang-bash">#&#x589E;&#x52A0;32G&#x7684;hugepage
+sudo bash -c &quot;echo 64 &gt; /sys/kernel/mm/hugepages/hugepages-524288kB/nr_hugepages&quot;
+#&#x5F00;&#x59CB;ovs
+export PATH=$PATH:/usr/local/share/openvswitch/scripts
+sudo ovs-ctl start
+#&#x6253;&#x5F00;&#x786C;&#x4EF6;offload, 2.10&#x624D;&#x6709;; 2.9.3&#x6CA1;&#x6548;&#x679C;
+#miniflow_extract, dpcls_lookup&#x7B49;&#x51FD;&#x6570;&#x88AB;offload&#x4E86;
+sudo ovs-vsctl --no-wait set Open_vSwitch . other_config:hw-offload=true
+#&#x591A;&#x6761;&#x6D41;&#x4F1A;&#x6709;&#x7528;? :&#x63D0;&#x9AD8;~15%
+sudo ovs-vsctl --no-wait set Open_vSwitch . other_config:smc-enable=true
 
-<span class="token comment">#&#x6253;&#x5F00;dpdk&#x521D;&#x59CB;&#x5316;</span>
-<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:dpdk-init<span class="token operator">=</span>true
-<span class="token comment">#&#x65B0;&#x589E;&#x4E00;&#x4E2A;bridge, &#x4F7F;&#x7528;&#x7528;&#x6237;&#x6001;datapath&#x6A21;&#x5F0F;</span>
-<span class="token function">sudo</span> ovs-vsctl add-br ovsbr0 -- <span class="token builtin class-name">set</span> bridge ovsbr0 <span class="token assign-left variable">datapath_type</span><span class="token operator">=</span>netdev
-<span class="token comment">#&#x914D;&#x7F6E;pmd&#x8DD1;&#x5728;8&#x4E2A;&#x6838;&#x4E0A;, core 32 33 34 35 36 37 38 39</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:pmd-cpu-mask<span class="token operator">=</span>FF00000000
-<span class="token comment">#&#x914D;&#x7F6E;&#x4F7F;&#x7528;node0&#x7684;16G&#x5185;&#x5B58;.</span>
-<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:dpdk-socket-mem<span class="token operator">=</span><span class="token string">&quot;16384&quot;</span>
+#&#x6253;&#x5F00;dpdk&#x521D;&#x59CB;&#x5316;
+sudo ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-init=true
+#&#x65B0;&#x589E;&#x4E00;&#x4E2A;bridge, &#x4F7F;&#x7528;&#x7528;&#x6237;&#x6001;datapath&#x6A21;&#x5F0F;
+sudo ovs-vsctl add-br ovsbr0 -- set bridge ovsbr0 datapath_type=netdev
+#&#x914D;&#x7F6E;pmd&#x8DD1;&#x5728;8&#x4E2A;&#x6838;&#x4E0A;, core 32 33 34 35 36 37 38 39
+sudo ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=FF00000000
+#&#x914D;&#x7F6E;&#x4F7F;&#x7528;node0&#x7684;16G&#x5185;&#x5B58;.
+sudo ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-socket-mem=&quot;16384&quot;
 
-<span class="token comment">#&#x589E;&#x52A0;&#x7269;&#x7406;port, &#x5BF9;&#x5E94;&#x7269;&#x7406;NIC</span>
-<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkp0 -- <span class="token builtin class-name">set</span> Interface dpdkp0 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdk options:dpdk-devargs<span class="token operator">=</span>0004:01:00.0
-<span class="token comment">#&#x589E;&#x52A0;&#x4E24;&#x4E2A;port, &#x7C7B;&#x578B;&#x662F;dpdkvhostuserclient</span>
-<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkvhostuser0 -- <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdkvhostuserclient
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 options:vhost-server-path<span class="token operator">=</span><span class="token string">&quot;/tmp/dpdkvhostuser0&quot;</span>
-<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkvhostuser1 -- <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdkvhostuserclient
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 options:vhost-server-path<span class="token operator">=</span><span class="token string">&quot;/tmp/dpdkvhostuser1&quot;</span>
+#&#x589E;&#x52A0;&#x7269;&#x7406;port, &#x5BF9;&#x5E94;&#x7269;&#x7406;NIC
+sudo ovs-vsctl add-port ovsbr0 dpdkp0 -- set Interface dpdkp0 type=dpdk options:dpdk-devargs=0004:01:00.0
+#&#x589E;&#x52A0;&#x4E24;&#x4E2A;port, &#x7C7B;&#x578B;&#x662F;dpdkvhostuserclient
+sudo ovs-vsctl add-port ovsbr0 dpdkvhostuser0 -- set Interface dpdkvhostuser0 type=dpdkvhostuserclient
+sudo ovs-vsctl set Interface dpdkvhostuser0 options:vhost-server-path=&quot;/tmp/dpdkvhostuser0&quot;
+sudo ovs-vsctl add-port ovsbr0 dpdkvhostuser1 -- set Interface dpdkvhostuser1 type=dpdkvhostuserclient
+sudo ovs-vsctl set Interface dpdkvhostuser1 options:vhost-server-path=&quot;/tmp/dpdkvhostuser1&quot;
 
-<span class="token comment">#&#x4EE5;&#x4E0B;&#x4E3A;&#x53EF;&#x9009;&#x914D;&#x7F6E;</span>
-<span class="token comment">#&#x914D;&#x7F6E;&#x591A;queue, &#x7ED1;&#x5B9A;pmd core</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 options:n_rxq<span class="token operator">=</span><span class="token number">2</span> other_config:pmd-rxq-affinity<span class="token operator">=</span><span class="token string">&quot;0:34,1:35&quot;</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 options:n_rxq<span class="token operator">=</span><span class="token number">2</span> other_config:pmd-rxq-affinity<span class="token operator">=</span><span class="token string">&quot;0:36,1:37&quot;</span>
-<span class="token comment">#&#x8BBE;&#x7F6E;&#x7269;&#x7406;port&#x4F7F;&#x7528;2&#x4E2A;q</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkp0 options:n_rxq<span class="token operator">=</span><span class="token number">2</span> other_config:pmd-rxq-affinity<span class="token operator">=</span><span class="token string">&quot;0:32,1:33&quot;</span>
+#&#x4EE5;&#x4E0B;&#x4E3A;&#x53EF;&#x9009;&#x914D;&#x7F6E;
+#&#x914D;&#x7F6E;&#x591A;queue, &#x7ED1;&#x5B9A;pmd core
+sudo ovs-vsctl set Interface dpdkvhostuser0 options:n_rxq=2 other_config:pmd-rxq-affinity=&quot;0:34,1:35&quot;
+sudo ovs-vsctl set Interface dpdkvhostuser1 options:n_rxq=2 other_config:pmd-rxq-affinity=&quot;0:36,1:37&quot;
+#&#x8BBE;&#x7F6E;&#x7269;&#x7406;port&#x4F7F;&#x7528;2&#x4E2A;q
+sudo ovs-vsctl set Interface dpdkp0 options:n_rxq=2 other_config:pmd-rxq-affinity=&quot;0:32,1:33&quot;
 </code></pre>
 <h2 id="vm&#x914D;&#x7F6E;"><a name="vm&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#vm&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. VM&#x914D;&#x7F6E;</h2>
 <p>&#x9884;&#x7F6E;&#x6761;&#x4EF6;: libvirtd&#x5DF2;&#x7ECF;&#x6210;&#x529F;&#x542F;&#x52A8;
@@ -3042,26 +3045,26 @@ Disk | hxt-centos7.5-01.qcow2 32G | hxt-centos7.5-02.qcow2 32G
 NIC(for external Net) | virtio NAT |  virtio NAT
 NIC(for test) | vhostuser0 | vhostuser0
 NIC(for test) | vhostuser1 | vhostuser1</p>
-<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x542F;&#x52A8;libvirtd&#x670D;&#x52A1;</span>
-<span class="token function">sudo</span> systemctl start libvirtd
-<span class="token comment">#&#x542F;&#x52A8;virt-manager</span>
-<span class="token function">sudo</span> xauth <span class="token function">add</span> <span class="token variable"><span class="token variable">$(</span>xauth <span class="token parameter variable">-f</span> /home/bai/.Xauthority list <span class="token operator">|</span> <span class="token function">tail</span> <span class="token parameter variable">-1</span><span class="token variable">)</span></span> 
-<span class="token function">sudo</span> virt-manager <span class="token parameter variable">-c</span> <span class="token string">&apos;qemu+unix:///system?socket=/usr/local/var/run/libvirt/libvirt-sock&apos;</span>
-<span class="token comment">#&#x542F;&#x52A8;&#x4E00;&#x4E2A;VM, &#x8FD9;&#x4E2A;VM&#x914D;&#x7F6E;&#x5982;&#x4E0A;</span>
-<span class="token function">sudo</span> <span class="token function">virsh</span> create ~/repo/save/vm/2vhostuser.xml
+<pre><code class="lang-bash">#&#x542F;&#x52A8;libvirtd&#x670D;&#x52A1;
+sudo systemctl start libvirtd
+#&#x542F;&#x52A8;virt-manager
+sudo xauth add $(xauth -f /home/bai/.Xauthority list | tail -1) 
+sudo virt-manager -c &apos;qemu+unix:///system?socket=/usr/local/var/run/libvirt/libvirt-sock&apos;
+#&#x542F;&#x52A8;&#x4E00;&#x4E2A;VM, &#x8FD9;&#x4E2A;VM&#x914D;&#x7F6E;&#x5982;&#x4E0A;
+sudo virsh create ~/repo/save/vm/2vhostuser.xml
 </code></pre>
 <h1 id="4q&#x6D4B;&#x8BD5;"><a name="4q&#x6D4B;&#x8BD5;" class="anchor-navigation-ex-anchor" href="#4q&#x6D4B;&#x8BD5;"><i class="fa fa-link" aria-hidden="true"></i></a>4. 4q&#x6D4B;&#x8BD5;</h1>
-<pre class="language-"><code class="lang-bash"><span class="token comment"># 4&#x4E2A;q</span>
-<span class="token comment">## OVS&#x9ED8;&#x8BA4;&#x4E00;&#x4E2A;core&#x4E00;&#x6761;&#x6D41;, dpdkp0&#x4E0A;&#x51E0;&#x4E2A;core&#x51B3;&#x5B9A;&#x51E0;&#x6761;&#x6D41;(&#x6216;&#x8005;&#x51E0;&#x4E2A;q&#x771F;&#x6B63;&#x5E72;&#x6D3B;)</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkp0 options:n_rxq<span class="token operator">=</span><span class="token number">4</span> other_config:pmd-rxq-affinity<span class="token operator">=</span><span class="token string">&quot;0:32,1:33,2:34,3:35&quot;</span>
-<span class="token comment">## dpdkvhostuser0&#x5B9E;&#x9645;&#x7A7A;&#x8DD1;, &#x7ED1;&#x5B9A;&#x6838;&#x548C;dpdkp0&#x4E00;&#x6837;</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 options:n_rxq<span class="token operator">=</span><span class="token number">4</span> other_config:pmd-rxq-affinity<span class="token operator">=</span><span class="token string">&quot;0:32,1:33,2:34,3:35&quot;</span>
-<span class="token comment">## &#x74F6;&#x9888;&#x5728;dpdkvhostuser1, &#x7ED1;&#x5B9A;4&#x4E2A;&#x72EC;&#x7ACB;&#x7684;core</span>
-<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 options:n_rxq<span class="token operator">=</span><span class="token number">4</span> other_config:pmd-rxq-affinity<span class="token operator">=</span><span class="token string">&quot;0:36,1:37,2:38,3:39&quot;</span>
+<pre><code class="lang-bash"># 4&#x4E2A;q
+## OVS&#x9ED8;&#x8BA4;&#x4E00;&#x4E2A;core&#x4E00;&#x6761;&#x6D41;, dpdkp0&#x4E0A;&#x51E0;&#x4E2A;core&#x51B3;&#x5B9A;&#x51E0;&#x6761;&#x6D41;(&#x6216;&#x8005;&#x51E0;&#x4E2A;q&#x771F;&#x6B63;&#x5E72;&#x6D3B;)
+sudo ovs-vsctl set Interface dpdkp0 options:n_rxq=4 other_config:pmd-rxq-affinity=&quot;0:32,1:33,2:34,3:35&quot;
+## dpdkvhostuser0&#x5B9E;&#x9645;&#x7A7A;&#x8DD1;, &#x7ED1;&#x5B9A;&#x6838;&#x548C;dpdkp0&#x4E00;&#x6837;
+sudo ovs-vsctl set Interface dpdkvhostuser0 options:n_rxq=4 other_config:pmd-rxq-affinity=&quot;0:32,1:33,2:34,3:35&quot;
+## &#x74F6;&#x9888;&#x5728;dpdkvhostuser1, &#x7ED1;&#x5B9A;4&#x4E2A;&#x72EC;&#x7ACB;&#x7684;core
+sudo ovs-vsctl set Interface dpdkvhostuser1 options:n_rxq=4 other_config:pmd-rxq-affinity=&quot;0:36,1:37,2:38,3:39&quot;
 
-<span class="token comment"># VM</span>
-<span class="token comment">## &#x8981;&#x7528;3&#x4E2A;core, 1&#x4E2A;core&#x6700;&#x5927;&#x8F6C;&#x53D1;6.9Mpps; &#x4F46;3&#x4E2A;core, &#x6709;&#x4E00;&#x4E2A;core&#x662F;&quot;&#x7A7A;&#x95F2;&quot;&#x7684;</span>
-<span class="token function">sudo</span> arm64-armv8a-linuxapp-gcc/app/testpmd --socket-mem <span class="token number">1024</span> -- <span class="token parameter variable">--stat</span> <span class="token number">2</span> --nb-cores<span class="token operator">=</span><span class="token number">3</span> <span class="token parameter variable">--rxq</span><span class="token operator">=</span><span class="token number">4</span> <span class="token parameter variable">--txq</span><span class="token operator">=</span><span class="token number">4</span> <span class="token parameter variable">--rxd</span><span class="token operator">=</span><span class="token number">512</span> <span class="token parameter variable">--txd</span><span class="token operator">=</span><span class="token number">512</span> <span class="token parameter variable">--burst</span><span class="token operator">=</span><span class="token number">64</span> --port-topology<span class="token operator">=</span>paired --forward-mode<span class="token operator">=</span>mac <span class="token parameter variable">-a</span>
+# VM
+## &#x8981;&#x7528;3&#x4E2A;core, 1&#x4E2A;core&#x6700;&#x5927;&#x8F6C;&#x53D1;6.9Mpps; &#x4F46;3&#x4E2A;core, &#x6709;&#x4E00;&#x4E2A;core&#x662F;&quot;&#x7A7A;&#x95F2;&quot;&#x7684;
+sudo arm64-armv8a-linuxapp-gcc/app/testpmd --socket-mem 1024 -- --stat 2 --nb-cores=3 --rxq=4 --txq=4 --rxd=512 --txd=512 --burst=64 --port-topology=paired --forward-mode=mac -a
 </code></pre>
 
                                 
@@ -3106,10 +3109,11 @@ NIC(for test) | vhostuser1 | vhostuser1</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"OVS-DPDK for ARM server 性能测试环境","level":"1.14.2.3","depth":3,"next":{"title":"DPDK Mellanox","level":"1.14.2.4","depth":3,"path":"notes/DPDK_Mellanox.md","ref":"notes/DPDK_Mellanox.md","articles":[]},"previous":{"title":"OVS架构和代码","level":"1.14.2.2","depth":3,"path":"notes/OVS_架构和代码.md","ref":"notes/OVS_架构和代码.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","prism-themes","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-base16-ateliersulphurpool.light.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-themes":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/OVS_DPDK_performance_HXT_ARM_server.md","mtime":"2022-10-11T14:47:23.666Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T14:48:29.887Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"OVS-DPDK for ARM server 性能测试环境","level":"1.14.2.3","depth":3,"next":{"title":"DPDK Mellanox","level":"1.14.2.4","depth":3,"path":"notes/DPDK_Mellanox.md","ref":"notes/DPDK_Mellanox.md","articles":[]},"previous":{"title":"OVS架构和代码","level":"1.14.2.2","depth":3,"path":"notes/OVS_架构和代码.md","ref":"notes/OVS_架构和代码.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/OVS_DPDK_performance_HXT_ARM_server.md","mtime":"2022-10-11T15:10:42.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
+
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3148,6 +3152,7 @@ NIC(for test) | vhostuser1 | vhostuser1</p>
         
     
 
+        
     </body>
 </html>
 
