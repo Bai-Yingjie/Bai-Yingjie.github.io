@@ -244,7 +244,7 @@ extern const char *__stop___trace_bprintk_fmt[];
     VMLINUX_SYMBOL(__stop___trace_bprintk_fmt) = .;
 ```
 
-OK, 再来看看`trace_printk()`的定义:
+OK, 再来看看`trace_printk()`的定义:  
 ![](img/c_编程杂记高级篇_20221011161009.png)  
 
 原来, trace_printk()的入参fmt, 是保存在`__trace_printk_fmt`这个section的, 用trace_printk_fmt指针指向它.
@@ -426,6 +426,7 @@ closelog ();
 
 # 使用宏拼接
 * 定义寄存器表board_cpld_registers.h, 注意不要加头文件卫士  
+
 ```c
 cpld_declare_reg(CIPHER1,                   0x00,   0,  8)
 cpld_declare_reg(CIPHER2,                   0x01,   0,  8)
@@ -439,7 +440,9 @@ cpld_declare_reg(BPSW,                      0x0b,   4,  3)
 cpld_declare_reg(GICI_P,                    0x0b,   7,  1)
 cpld_declare_reg(REG_NTR_STAT,              0x0e,   0,  8)
 ```
+
 * 在公共头文件里定义宏接口, 使用宏拼接##来简化操作  
+
 ```c
 extern spinlock_t cpld_lock;
  
