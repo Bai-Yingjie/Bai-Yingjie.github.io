@@ -62,7 +62,6 @@
 - [待解决问题](#待解决问题)
   - [netperf over OVS-DPDK性能差](#netperf-over-ovs-dpdk性能差)
   - [VM同时添加sriov和vhost-user导致OVS崩溃重启](#vm同时添加sriov和vhost-user导致ovs崩溃重启)
-    - [待验证libvhost.patch from Zhiqiang](#待验证libvhostpatch-from-zhiqiang)
 
 > 本文在HXT ARM服务器上做网络虚拟化的测试, 首先考察功能是否完备, 有无功能缺失和异常; 其次考察性能, 但不对比X86数据.
 
@@ -1048,7 +1047,7 @@ vhostuser是c-s模式, ovs是server, qemu是client. 当OVS由于某种异常自�
 ## VM同时添加sriov和vhost-user导致OVS崩溃重启
 现象是单独添加sriov或vhost-user正常, 同时添加则ovs-vswitchd会马上崩溃重启
 error log
-```tao
+```sh
 2018-09-07T05:20:01.091Z|00074|dpdk|INFO|VHOST_CONFIG: read message VHOST_USER_SET_VRING_KICK
 2018-09-07T05:20:01.091Z|00075|dpdk|INFO|VHOST_CONFIG: vring kick idx:3 file:110
 2018-09-07T05:20:01.091Z|00076|dpdk|INFO|VHOST_CONFIG: virtio is now ready for processing.

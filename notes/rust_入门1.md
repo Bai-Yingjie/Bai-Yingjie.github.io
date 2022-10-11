@@ -112,7 +112,7 @@ rustfmt
 ```
 如果是在你的CI环境下只想用rustc来编译, 可以指定profile为minimal
 比如
-```dockerfile
+```docker
 ## install RUST
 ARG RUST_TOOLCHAIN="1.60.0"
 RUN mkdir $CARGO_HOME && chmod 777 $CARGO_HOME

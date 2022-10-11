@@ -58,7 +58,6 @@
     - [VF的QoS](#vf的qos)
   - [vxlan相关](#vxlan相关)
   - [QinQ](#qinq)
-    - [802.1ad 双tag](#8021ad-双tag)
 - [VM相关](#vm相关)
   - [两个VM用vhost-user连OVS](#两个vm用vhost-user连ovs)
   - [virt-manager](#virt-manager)
@@ -546,7 +545,7 @@ port config mtu X value
 * 因为不经过kernel网络栈, 用ip或ifconfig命令看不到收发包统计; 用`ethtool -S`可以看到物理层收发包统计.
 * 最简单的一条流(stream)的基本的逻辑是: 一个CPU从一个rxq里收包, 做处理, 再发包到txq
 * rxq/txq的数目和cpu的数目(nbcore)要匹配, testpmd会自动安排多流, 比如配了2个core, 4个q
-```oxygene
+```sh
 testpmd> show config fwd                                                                                
 flowgen packet forwarding - ports=1 - cores=2 - streams=4 - NUMA support enabled, MP over anonymous pages disabled  
 Logical Core 38 (socket 0) forwards packets on 2 streams:  
@@ -972,7 +971,7 @@ ip link set dev <PF device> vf <UM> state [enable| disable| auto]
 cat /sys/class/infiniband/mlx5_2/device/sriov/2/stats
 ```
 ### VF和port的关系
-```oxygene
+```sh
 ip link
 61: p1p1: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
 link/ether 00:02:c9:f1:72:e0 brd ff:ff:ff:ff:ff:ff

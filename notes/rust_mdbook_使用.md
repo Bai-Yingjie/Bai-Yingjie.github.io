@@ -55,7 +55,7 @@ https://github.com/rust-lang/mdBook/blob/master/guide/book.toml
 
 ## SUMMARY.md
 这个文件在src目录下, 定义了chapter结构:
-```md
+```
 # Summary
 
 [Introduction](README.md)

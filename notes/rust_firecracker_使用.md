@@ -119,7 +119,7 @@ rustup component add clippy-preview
 rustup install "stable"
 ```
 * 使用了开源的init程序, 静态编译版本
-```dockerfile
+```docker
 # Add the tini init binary.
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION_TAG}/tini-static-amd64 /sbin/tini
 RUN chmod +x /sbin/tini
