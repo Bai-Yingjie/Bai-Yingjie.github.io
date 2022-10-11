@@ -54,7 +54,7 @@ $ docker run -it --cpu-period=100000 --cpu-quota=50000 ubuntu /bin/bash
 
 # 使用nsenter进入容器
 1. `docker ps`找到container ID, 比如是`908592cfba96`
-2. 找到这个容器的pid `docker inspect -f{{.State.Pid}} 908592cfba96`, 比如得到10394
+2. 找到这个容器的pid `docker inspect -f{ {.State.Pid} } 908592cfba96`, 比如得到10394
 3. 进入容器(需要root): `nsenter -m -t 10394 bash`
 4. 容器里看到的和`docker exec -it 908592cfba96 bash`一样
 注: 这个10394进程一般就是对应containerd-shim的子进程.
@@ -255,7 +255,7 @@ docker exec -it ceph-mon2 /bin/bash
 
 # 获取每个container的ip
 ```sh
-docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress}}' $(docker ps -aq)
+docker inspect -f '{ {.Name} } - { {.NetworkSettings.IPAddress} }' $(docker ps -aq)
 ```
 
 # docker run
@@ -366,11 +366,11 @@ $ docker ps
 CONTAINER ID       IMAGE               COMMAND             CREATED             STATUS              PORTS              NAMES
 c3f279d17e0a        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            desperate_dubinsky
 197387f1b436        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            focused_hamilton
-$ docker inspect -f "{{ .Config.Env }}" c3f279d17e0a
+$ docker inspect -f "{ { .Config.Env } }" c3f279d17e0a
 [HOME=/ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin]
 $ docker commit --change "ENV DEBUG true" c3f279d17e0a  svendowideit/testimage:version3
 f5283438590d
-$ docker inspect -f "{{ .Config.Env }}" f5283438590d
+$ docker inspect -f "{ { .Config.Env } }" f5283438590d
 [HOME=/ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin DEBUG=true]
 ```
 更改CMD和EXPOSE
