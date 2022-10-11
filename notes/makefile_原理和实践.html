@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2884,7 +2881,7 @@
 </ul>
 <h1 id="targetlib&#x7684;makefile"><a name="targetlib&#x7684;makefile" class="anchor-navigation-ex-anchor" href="#targetlib&#x7684;makefile"><i class="fa fa-link" aria-hidden="true"></i></a>1. target_lib&#x7684;makefile</h1>
 <p>&#x8FD9;&#x4E2A;Makefile&#x7528;&#x6765;&#x751F;&#x6210;&#x52A8;&#x6001;&#x5E93;</p>
-<pre><code>VERSION  = 1
+<pre class="language-"><code>VERSION  = 1
 RELEASE  = 0.0 
 NAME     = libapp-config.so
 SONAME   = $(NAME).$(VERSION)
@@ -2916,20 +2913,20 @@ clean:
     rm -f *~ *.o $(LIB)
 </code></pre><h1 id="makefile&#x8FDB;&#x9636;"><a name="makefile&#x8FDB;&#x9636;" class="anchor-navigation-ex-anchor" href="#makefile&#x8FDB;&#x9636;"><i class="fa fa-link" aria-hidden="true"></i></a>2. Makefile&#x8FDB;&#x9636;</h1>
 <h2 id="&#x6839;&#x636E;target&#x6539;&#x53D8;&#x53D8;&#x91CF;"><a name="&#x6839;&#x636E;target&#x6539;&#x53D8;&#x53D8;&#x91CF;" class="anchor-navigation-ex-anchor" href="#&#x6839;&#x636E;target&#x6539;&#x53D8;&#x53D8;&#x91CF;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x6839;&#x636E;target&#x6539;&#x53D8;&#x53D8;&#x91CF;</h2>
-<pre><code class="lang-makefile">BLDTAGS := stdlib,adaptiveservice
-LDFLAGS = -X &apos;github.com/godevsig/gshellos.version=$(GIT_TAG)&apos; -X &apos;github.com/godevsig/gshellos.buildTags=$(BLDTAGS)&apos;
+<pre class="language-"><code class="lang-makefile">BLDTAGS <span class="token operator">:=</span> stdlib,adaptiveservice
+LDFLAGS <span class="token operator">=</span> -X <span class="token string">&apos;github.com/godevsig/gshellos.version=$(GIT_TAG)&apos;</span> -X <span class="token string">&apos;github.com/godevsig/gshellos.buildTags=$(BLDTAGS)&apos;</span>
 
-build: dep
-    @go build -tags $(BLDTAGS) -ldflags=&quot;$(LDFLAGS)&quot; -o bin ./cmd/gshell
+<span class="token target symbol">build</span><span class="token punctuation">:</span> dep
+    <span class="token operator">@</span>go build -tags <span class="token variable">$</span><span class="token punctuation">(</span>BLDTAGS<span class="token punctuation">)</span> -ldflags<span class="token operator">=</span><span class="token string">&quot;$(LDFLAGS)&quot;</span> -o bin ./cmd/gshell
 
-debug: BLDTAGS := $(BLDTAGS),debug
-debug: build ## Build debug binary to bin dir
+<span class="token target symbol">debug</span><span class="token punctuation">:</span> BLDTAGS <span class="token operator">:=</span> <span class="token variable">$</span><span class="token punctuation">(</span>BLDTAGS<span class="token punctuation">)</span>,debug
+<span class="token target symbol">debug</span><span class="token punctuation">:</span> build <span class="token comment">## Build debug binary to bin dir</span>
 
-lite: BLDTAGS := $(BLDTAGS)
-lite: build ## Build lite release binary to bin dir
+<span class="token target symbol">lite</span><span class="token punctuation">:</span> BLDTAGS <span class="token operator">:=</span> <span class="token variable">$</span><span class="token punctuation">(</span>BLDTAGS<span class="token punctuation">)</span>
+<span class="token target symbol">lite</span><span class="token punctuation">:</span> build <span class="token comment">## Build lite release binary to bin dir</span>
 
-full: BLDTAGS := $(BLDTAGS),echart,database
-full: build ## Build full release binary to bin dir
+<span class="token target symbol">full</span><span class="token punctuation">:</span> BLDTAGS <span class="token operator">:=</span> <span class="token variable">$</span><span class="token punctuation">(</span>BLDTAGS<span class="token punctuation">)</span>,echart,database
+<span class="token target symbol">full</span><span class="token punctuation">:</span> build <span class="token comment">## Build full release binary to bin dir</span>
 </code></pre>
 <p>&#x5173;&#x952E;&#x662F;
 <code>target &#x2026; : variable-assignment</code></p>
@@ -2940,7 +2937,7 @@ full: build ## Build full release binary to bin dir
 <ul>
 <li><p><strong>From environment</strong> - each environment variable is transformed into a makefile variable with the same name and value.</p>
 <p>You may also want to set <code>-e</code> option (aka <code>--environments-override</code>) on, and your environment variables will override assignments made into makefile (unless these assignments themselves use the <a href="http://www.gnu.org/software/make/manual/make.html#Override-Directive" target="_blank"><code>override</code> directive</a> . However, it&apos;s not recommended, and it&apos;s much better and flexible to use <code>?=</code> assignment (the conditional variable assignment operator, it only has an effect if the variable is not yet defined):</p>
-<pre><code class="lang-makefile">FOO?=default_value_if_not_set_in_environment
+<pre class="language-"><code class="lang-makefile">FOO<span class="token operator">?=</span>default_value_if_not_set_in_environment
 </code></pre>
 <p>Note that certain variables are not inherited from environment:</p>
 <ul>
@@ -2949,45 +2946,45 @@ full: build ## Build full release binary to bin dir
 </ul>
 </li>
 <li><p><strong>From command line</strong> - <code>make</code> can take variable assignments as part of his command line, mingled with targets:</p>
-<pre><code class="lang-sh">make target FOO=bar
+<pre class="language-"><code class="lang-sh"><span class="token function">make</span> target <span class="token assign-left variable">FOO</span><span class="token operator">=</span>bar
 </code></pre>
 <p>But then <em>all assignments to <code>FOO</code> variable within the makefile will be ignored</em> unless you use the <a href="http://www.gnu.org/software/make/manual/make.html#Override-Directive" target="_blank"><code>override</code> directive</a> in assignment. (The effect is the same as with <code>-e</code> option for environment variables).</p>
 </li>
 <li><p><strong>Exporting from the parent Make</strong> - if you call Make from a Makefile, you usually shouldn&apos;t explicitly write variable assignments like this:</p>
-<pre><code class="lang-makefile"># Don&apos;t do this!
-target:
-        $(MAKE) -C target CC=$(CC) CFLAGS=$(CFLAGS)
+<pre class="language-"><code class="lang-makefile"><span class="token comment"># Don&apos;t do this!</span>
+<span class="token target symbol">target</span><span class="token punctuation">:</span>
+        <span class="token variable">$</span><span class="token punctuation">(</span>MAKE<span class="token punctuation">)</span> -C target CC<span class="token operator">=</span><span class="token variable">$</span><span class="token punctuation">(</span>CC<span class="token punctuation">)</span> CFLAGS<span class="token operator">=</span><span class="token variable">$</span><span class="token punctuation">(</span>CFLAGS<span class="token punctuation">)</span>
 </code></pre>
 <p>Instead, better solution might be to export these variables. Exporting a variable makes it into the environment of every shell invocation, and Make calls from these commands pick these environment variable as specified above.</p>
-<pre><code class="lang-makefile"># Do like this
-CFLAGS=-g
-export CFLAGS
-target:
-        $(MAKE) -C target
+<pre class="language-"><code class="lang-makefile"><span class="token comment"># Do like this</span>
+CFLAGS<span class="token operator">=</span>-g
+<span class="token keyword">export</span> CFLAGS
+<span class="token target symbol">target</span><span class="token punctuation">:</span>
+        <span class="token variable">$</span><span class="token punctuation">(</span>MAKE<span class="token punctuation">)</span> -C target
 </code></pre>
 <p>You can also export <em>all</em> variables by using <code>export</code> without arguments.</p>
 </li>
 </ul>
 <h2 id="makefile&#x914D;&#x65B9;&#x4F20;&#x9012;&#x53D8;&#x91CF;"><a name="makefile&#x914D;&#x65B9;&#x4F20;&#x9012;&#x53D8;&#x91CF;" class="anchor-navigation-ex-anchor" href="#makefile&#x914D;&#x65B9;&#x4F20;&#x9012;&#x53D8;&#x91CF;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. Makefile&#x914D;&#x65B9;&#x4F20;&#x9012;&#x53D8;&#x91CF;</h2>
 <p>&#x6BD4;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x7528;gofmt&#x68C0;&#x67E5;go&#x6587;&#x4EF6;&#x7684;code&#x683C;&#x5F0F;, &#x6709;&#x5DEE;&#x5F02;&#x5C31;&#x51FA;&#x9519;</p>
-<pre><code class="lang-makefile">format: ## Check coding style
-    @DIFF=`gofmt -d .`; echo &quot;$$DIFF&quot;; test -z &quot;$$DIFF&quot;
+<pre class="language-"><code class="lang-makefile"><span class="token target symbol">format</span><span class="token punctuation">:</span> <span class="token comment">## Check coding style</span>
+    <span class="token operator">@</span>DIFF<span class="token operator">=</span>`gofmt -d .`<span class="token punctuation">;</span> echo <span class="token string">&quot;$$DIFF&quot;</span><span class="token punctuation">;</span> test -z <span class="token string">&quot;$$DIFF&quot;</span>
 </code></pre>
 <p>&#x6BD4;&#x5982;&#x683C;&#x5F0F;&#x4E0D;&#x5BF9;:</p>
-<pre><code class="lang-sh">$ make format
-diff -u log/log.go.orig log/log.go
---- log/log.go.orig     2020-09-22 12:53:25.561731789 +0000
-+++ log/log.go  2020-09-22 12:53:25.561731789 +0000
+<pre class="language-"><code class="lang-sh">$ <span class="token function">make</span> <span class="token function">format</span>
+<span class="token function">diff</span> <span class="token parameter variable">-u</span> log/log.go.orig log/log.go
+--- log/log.go.orig     <span class="token number">2020</span>-09-22 <span class="token number">12</span>:53:25.561731789 +0000
++++ log/log.go  <span class="token number">2020</span>-09-22 <span class="token number">12</span>:53:25.561731789 +0000
 @@ -30,7 +30,7 @@
 
  // All predefined loglevels
- const (
--       Ltrace  Loglevel = 1
-+       Ltrace Loglevel = 1
-        Ldebug Loglevel = 2
-        Linfo  Loglevel = 3
-        Lwarn  Loglevel = 4
-make: *** [Makefile:8: format] Error 1
+ const <span class="token punctuation">(</span>
+-       Ltrace  Loglevel <span class="token operator">=</span> <span class="token number">1</span>
++       Ltrace Loglevel <span class="token operator">=</span> <span class="token number">1</span>
+        Ldebug Loglevel <span class="token operator">=</span> <span class="token number">2</span>
+        Linfo  Loglevel <span class="token operator">=</span> <span class="token number">3</span>
+        Lwarn  Loglevel <span class="token operator">=</span> <span class="token number">4</span>
+make: *** <span class="token punctuation">[</span>Makefile:8: format<span class="token punctuation">]</span> Error <span class="token number">1</span>
 </code></pre>
 <p>&#x8981;&#x70B9;:</p>
 <ul>
@@ -2998,10 +2995,10 @@ make: *** [Makefile:8: format] Error 1
 </ul>
 <p>&#x7ED3;&#x8BBA;: makefile&#x91CC;&#x9762;&#x7684;&#x914D;&#x65B9;(recipe)&#x662F;&#x7279;&#x6B8A;&#x7684;&#x8BED;&#x6CD5;, &#x5148;&#x7531;make&#x89E3;&#x6790;&#x4E00;&#x904D;&#x518D;&#x8C03;&#x7528;shell&#x547D;&#x4EE4;. &#x5177;&#x4F53;&#x6765;&#x8BB2;, &#x662F;make&#x5148;&#x5C55;&#x5F00;&#x53D8;&#x91CF;, &#x6240;&#x4EE5;&#x4E00;&#x4E2A;<code>$</code>&#x5C31;&#x4F1A;&#x88AB;make&#x76F4;&#x63A5;&#x5C55;&#x5F00;. &#x8981;&#x628A;<code>$</code>&#x4F20;&#x9012;&#x7ED9;<code>shell</code>, &#x5C31;&#x8981;&#x8F6C;&#x4E49;<code>$</code></p>
 <p>&#x6BD4;&#x5982;</p>
-<pre><code class="lang-makefile">COVER_GOAL := 90
-coverage: ## Generate global code coverage report
-    @OUT=$$(./tools/coverage.sh &quot;${PKG_LIST}&quot;); echo &quot;$$OUT&quot;; \
-    echo &quot;$$OUT&quot; | tail -n1 | awk -F&quot;\t*| *|%&quot; &apos;{if ($$3&lt;${COVER_GOAL}) {print &quot;Coverage goal: ${COVER_GOAL}% not reached&quot;; exit 1}}&apos;
+<pre class="language-"><code class="lang-makefile">COVER_GOAL <span class="token operator">:=</span> 90
+<span class="token target symbol">coverage</span><span class="token punctuation">:</span> <span class="token comment">## Generate global code coverage report</span>
+    <span class="token operator">@</span>OUT<span class="token operator">=</span><span class="token variable">$$</span><span class="token punctuation">(</span>./tools/coverage.sh <span class="token string">&quot;${PKG_LIST}&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> echo <span class="token string">&quot;$$OUT&quot;</span><span class="token punctuation">;</span> \
+    echo <span class="token string">&quot;$$OUT&quot;</span> <span class="token operator">|</span> tail -n1 <span class="token operator">|</span> awk -F<span class="token string">&quot;\t*| *|%&quot;</span> <span class="token string">&apos;{if ($$3&lt;${COVER_GOAL}) {print &quot;Coverage goal: ${COVER_GOAL}% not reached&quot;; exit 1}}&apos;</span>
 </code></pre>
 <ul>
 <li>COVER_GOAL&#x5C31;&#x662F;&#x4E00;&#x4E2A;<code>$</code>&#x76F4;&#x63A5;&#x5C55;&#x5F00;&#x7684;</li>
@@ -3019,7 +3016,7 @@ coverage: ## Generate global code coverage report
 </li>
 <li>&#x53D8;&#x91CF;&#x7684;&#x5C55;&#x5F00;&#x89C4;&#x5219;&#x662F;: &#x7ACB;&#x5373;&#x5C55;&#x5F00;&#x53D1;&#x751F;&#x5728;&#x7B2C;&#x4E00;&#x9636;&#x6BB5;; &#x5EF6;&#x8FDF;&#x5C55;&#x5F00;&#x53D1;&#x751F;&#x5728;&#x9700;&#x8981;&#x65F6;</li>
 </ul>
-<pre><code>immediate = deferred
+<pre class="language-"><code>immediate = deferred
 immediate ?= deferred
 immediate := immediate
 immediate ::= immediate
@@ -3056,39 +3053,39 @@ endef
 </code></pre><ul>
 <li>&#x89C4;&#x5219;&#x4E5F;&#x6709;&#x7ACB;&#x5373;&#x5C55;&#x5F00;&#x548C;&#x5EF6;&#x8FDF;&#x5C55;&#x5F00;&#x7684;&#x533A;&#x522B;</li>
 </ul>
-<pre><code>immediate : immediate ; deferred
+<pre class="language-"><code>immediate : immediate ; deferred
         deferred
 </code></pre><h2 id="&#x7B2C;&#x4E00;&#x7248;"><a name="&#x7B2C;&#x4E00;&#x7248;" class="anchor-navigation-ex-anchor" href="#&#x7B2C;&#x4E00;&#x7248;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x7B2C;&#x4E00;&#x7248;</h2>
-<pre><code class="lang-makefile">build: godev/godev-tools
+<pre class="language-"><code class="lang-makefile"><span class="token target symbol">build</span><span class="token punctuation">:</span> godev/godev-tools
 
-godev/godev-tools: godev/vscode godev/gobin godev/go3rdparty
+<span class="token target symbol">godev/godev-tools</span><span class="token punctuation">:</span> godev/vscode godev/gobin godev/go3rdparty
 
-godev/%: Dockerfile.%
-    @docker build -f $&lt; -t $@ .
-    @mkdir -p godev &amp;&amp; touch $@
+<span class="token target symbol">godev/%</span><span class="token punctuation">:</span> Dockerfile.%
+    <span class="token operator">@</span>docker build -f <span class="token variable">$&lt;</span> -t <span class="token variable">$@</span> .
+    <span class="token operator">@</span>mkdir -p godev &amp;&amp; touch <span class="token variable">$@</span>
 </code></pre>
 <ul>
 <li><code>godev/godev-tools</code>&#x5B9E;&#x9645;&#x4E0A;&#x5339;&#x914D;&#x4E86;&#x4E24;&#x4E2A;&#x89C4;&#x5219;, &#x4E00;&#x4E2A;&#x662F;&#x663E;&#x5F0F;&#x7684;&#x89C4;&#x5219;, &#x4E00;&#x4E2A;&#x662F;%&#x89C4;&#x5219;; &#x6548;&#x679C;&#x662F;&#x540C;&#x65F6;&#x751F;&#x6548;</li>
 <li>&#x591A;&#x4E2A;%&#x89C4;&#x5219;&#x5339;&#x914D;&#x76EE;&#x6807;&#x7684;&#x8BDD;, &#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x751F;&#x6548;; &#x5728;&#x4F9D;&#x8D56;&#x90FD;&#x5B58;&#x5728;&#x7684;&#x524D;&#x63D0;&#x4E0B;, make&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x6700;&quot;&#x5177;&#x4F53;&quot;&#x7684;%&#x89C4;&#x5219;</li>
 </ul>
 <h2 id="&#x7B2C;&#x4E8C;&#x7248;"><a name="&#x7B2C;&#x4E8C;&#x7248;" class="anchor-navigation-ex-anchor" href="#&#x7B2C;&#x4E8C;&#x7248;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x7B2C;&#x4E8C;&#x7248;</h2>
-<pre><code class="lang-makefile">goVersions := 1.10 1.11 1.12 1.13 1.14
+<pre class="language-"><code class="lang-makefile">goVersions <span class="token operator">:=</span> 1.10 1.11 1.12 1.13 1.14
 
-build: 1.13
+<span class="token target symbol">build</span><span class="token punctuation">:</span> 1.13
 
-$(goVersions): %: godev/godev-tools\:%
+<span class="token target symbol"><span class="token variable">$</span>(goVersions)</span><span class="token punctuation">:</span> %<span class="token punctuation">:</span> godev/godev-tools\<span class="token punctuation">:</span>%
 
-godev/godev-tools\:%: Dockerfile.godev-tools godev/vscode\:v2 godev/gobin\:1.13 godev/go3rdparty\:1.13
-    docker build --build-arg TAG=$* -f $&lt; -t $@ .
+<span class="token target symbol">godev/godev-tools\</span><span class="token punctuation">:</span>%<span class="token punctuation">:</span> Dockerfile.godev-tools godev/vscode\<span class="token punctuation">:</span>v2 godev/gobin\<span class="token punctuation">:</span>1.13 godev/go3rdparty\<span class="token punctuation">:</span>1.13
+    docker build --build-arg TAG<span class="token operator">=</span><span class="token variable">$*</span> -f <span class="token variable">$&lt;</span> -t <span class="token variable">$@</span> .
 
-godev/vscode\:%: Dockerfile.vscode
-    docker build --build-arg TAG=$* -f $&lt; -t $@ .
+<span class="token target symbol">godev/vscode\</span><span class="token punctuation">:</span>%<span class="token punctuation">:</span> Dockerfile.vscode
+    docker build --build-arg TAG<span class="token operator">=</span><span class="token variable">$*</span> -f <span class="token variable">$&lt;</span> -t <span class="token variable">$@</span> .
 
-godev/gobin\:%: Dockerfile.gobin
-    docker build --build-arg TAG=$* -f $&lt; -t $@ .
+<span class="token target symbol">godev/gobin\</span><span class="token punctuation">:</span>%<span class="token punctuation">:</span> Dockerfile.gobin
+    docker build --build-arg TAG<span class="token operator">=</span><span class="token variable">$*</span> -f <span class="token variable">$&lt;</span> -t <span class="token variable">$@</span> .
 
-godev/go3rdparty\:%: Dockerfile.go3rdparty
-    docker build --build-arg TAG=$* -f $&lt; -t $@ .
+<span class="token target symbol">godev/go3rdparty\</span><span class="token punctuation">:</span>%<span class="token punctuation">:</span> Dockerfile.go3rdparty
+    docker build --build-arg TAG<span class="token operator">=</span><span class="token variable">$*</span> -f <span class="token variable">$&lt;</span> -t <span class="token variable">$@</span> .
 </code></pre>
 <ul>
 <li>&#x7528;<code>make 1.14 --dry-run</code>&#x6765;&#x6A21;&#x62DF;&#x6267;&#x884C;&#x914D;&#x65B9;(recipe)</li>
@@ -3096,28 +3093,28 @@ godev/go3rdparty\:%: Dockerfile.go3rdparty
 <li>&#x5220;&#x6389;&#x4E86;touch&#x6587;&#x4EF6;&#x90E8;&#x5206;, &#x56E0;&#x4E3A;docker build&#x4F1A;&#x4F7F;&#x7528;cache&#x529F;&#x80FD;, &#x5373;&#x4F7F;&#x91CD;&#x65B0;&#x6784;&#x5EFA;&#x6CA1;&#x6709;&#x6539;&#x52A8;&#x4E5F;&#x5F88;&#x5FEB;</li>
 </ul>
 <h2 id="&#x7B2C;&#x4E09;&#x7248;"><a name="&#x7B2C;&#x4E09;&#x7248;" class="anchor-navigation-ex-anchor" href="#&#x7B2C;&#x4E09;&#x7248;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. &#x7B2C;&#x4E09;&#x7248;</h2>
-<pre><code class="lang-makefile">goVersions := 1.10 1.11 1.12 1.13 1.14
-dockerFiles := $(wildcard Dockerfile.*)
-images := $(subst Dockerfile.,, $(dockerFiles))
+<pre class="language-"><code class="lang-makefile">goVersions <span class="token operator">:=</span> 1.10 1.11 1.12 1.13 1.14
+dockerFiles <span class="token operator">:=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">wildcard</span> Dockerfile.*<span class="token punctuation">)</span>
+images <span class="token operator">:=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">subst</span> Dockerfile.,, <span class="token variable">$</span><span class="token punctuation">(</span>dockerFiles<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-build: 1.13
+<span class="token target symbol">build</span><span class="token punctuation">:</span> 1.13
 
-$(goVersions): %: godev/godev-tools\:%
+<span class="token target symbol"><span class="token variable">$</span>(goVersions)</span><span class="token punctuation">:</span> %<span class="token punctuation">:</span> godev/godev-tools\<span class="token punctuation">:</span>%
 
-define GEN_TOOLS_RULE
-godev/godev-tools\:$(version): godev/vscode\:v2
-godev/godev-tools\:$(version): godev/gobin\:1.13
-godev/godev-tools\:$(version): godev/go3rdparty\:1.13
-endef
+<span class="token keyword">define</span> GEN_TOOLS_RULE
+<span class="token target symbol">godev/godev-tools\</span><span class="token punctuation">:</span><span class="token variable">$</span><span class="token punctuation">(</span>version<span class="token punctuation">)</span><span class="token punctuation">:</span> godev/vscode\<span class="token punctuation">:</span>v2
+<span class="token target symbol">godev/godev-tools\</span><span class="token punctuation">:</span><span class="token variable">$</span><span class="token punctuation">(</span>version<span class="token punctuation">)</span><span class="token punctuation">:</span> godev/gobin\<span class="token punctuation">:</span>1.13
+<span class="token target symbol">godev/godev-tools\</span><span class="token punctuation">:</span><span class="token variable">$</span><span class="token punctuation">(</span>version<span class="token punctuation">)</span><span class="token punctuation">:</span> godev/go3rdparty\<span class="token punctuation">:</span>1.13
+<span class="token keyword">endef</span>
 
-$(foreach version, $(goVersions), $(eval $(GEN_TOOLS_RULE)))
+<span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">foreach</span> version, <span class="token variable">$</span><span class="token punctuation">(</span>goVersions<span class="token punctuation">)</span>, <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">eval</span> <span class="token variable">$</span><span class="token punctuation">(</span>GEN_TOOLS_RULE<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-define GEN_IMG_RULE
-godev/$(image)\:%: Dockerfile.$(image)
-    docker build --build-arg TAG=$$* -f $$&lt; -t $$@ .
-endef
+<span class="token keyword">define</span> GEN_IMG_RULE
+<span class="token target symbol">godev/<span class="token variable">$</span>(image)\</span><span class="token punctuation">:</span>%<span class="token punctuation">:</span> Dockerfile.<span class="token variable">$</span><span class="token punctuation">(</span>image<span class="token punctuation">)</span>
+    docker build --build-arg TAG<span class="token operator">=</span><span class="token variable">$$*</span> -f <span class="token variable">$$&lt;</span> -t <span class="token variable">$$@</span> .
+<span class="token keyword">endef</span>
 
-$(foreach image, $(images), $(eval $(GEN_IMG_RULE)))
+<span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">foreach</span> image, <span class="token variable">$</span><span class="token punctuation">(</span>images<span class="token punctuation">)</span>, <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">eval</span> <span class="token variable">$</span><span class="token punctuation">(</span>GEN_IMG_RULE<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre>
 <ul>
 <li>&#x8FD9;&#x4E2A;&#x7248;&#x672C;&#x7528;foreach&#x548C;eval&#x81EA;&#x52A8;&#x751F;&#x6210;&#x89C4;&#x5219;</li>
@@ -3126,38 +3123,38 @@ $(foreach image, $(images), $(eval $(GEN_IMG_RULE)))
 <li>&#x8FD9;&#x4E2A;&#x7248;&#x672C;&#x7A0D;&#x663E;&#x7E41;&#x7410;, &#x4F46;&#x7ED3;&#x6784;&#x66F4;&#x6E05;&#x6670;, &#x907F;&#x514D;&#x4E86;&#x91CD;&#x590D;; &#x53EA;&#x662F;&#x4E3A;&#x4E86;&#x6F14;&#x793A;makefile&#x7684;&#x80FD;&#x529B;; &#x5B9E;&#x9645;&#x8FD8;&#x662F;&#x7B2C;&#x4E8C;&#x4E2A;&#x7248;&#x672C;&#x7B80;&#x6D01;</li>
 </ul>
 <h2 id="&#x5C01;&#x5B58;&#x7248;"><a name="&#x5C01;&#x5B58;&#x7248;" class="anchor-navigation-ex-anchor" href="#&#x5C01;&#x5B58;&#x7248;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. &#x5C01;&#x5B58;&#x7248;</h2>
-<pre><code class="lang-makefile">goVersions := 1.10.8 1.11.13 1.12.17 1.13.12 1.14.4
-officialTags := $(foreach v, $(goVersions), official-$(v))
-repoHead := $(shell git rev-parse --short HEAD)
-artifactory := artifactory-blr1.int.net.nokia.com
-godevsigArtifactory := godevsig-docker-local.$(artifactory)
-img := godevsig/devtool
+<pre class="language-"><code class="lang-makefile">goVersions <span class="token operator">:=</span> 1.10.8 1.11.13 1.12.17 1.13.12 1.14.4
+officialTags <span class="token operator">:=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">foreach</span> v, <span class="token variable">$</span><span class="token punctuation">(</span>goVersions<span class="token punctuation">)</span>, official-<span class="token variable">$</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">)</span>
+repoHead <span class="token operator">:=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token function">shell</span> git rev-parse --short HEAD<span class="token punctuation">)</span>
+artifactory <span class="token operator">:=</span> artifactory-blr1.int.net.nokia.com
+godevsigArtifactory <span class="token operator">:=</span> godevsig-docker-local.<span class="token variable">$</span><span class="token punctuation">(</span>artifactory<span class="token punctuation">)</span>
+img <span class="token operator">:=</span> godevsig/devtool
 
-define docker_push #from,to
-    @echo Are you sure to push $(1) to $(2) ?
-    @read -p &quot;if not press Ctrl+C - enter to continue&quot; tmp
-    docker tag $(1) $(2)
-    docker push $(2)
-endef
+<span class="token keyword">define</span> docker_push <span class="token comment">#from,to</span>
+    <span class="token operator">@</span>echo Are you sure to push <span class="token variable">$</span><span class="token punctuation">(</span>1<span class="token punctuation">)</span> to <span class="token variable">$</span><span class="token punctuation">(</span>2<span class="token punctuation">)</span> ?
+    <span class="token operator">@</span>read -p <span class="token string">&quot;if not press Ctrl+C - enter to continue&quot;</span> tmp
+    docker tag <span class="token variable">$</span><span class="token punctuation">(</span>1<span class="token punctuation">)</span> <span class="token variable">$</span><span class="token punctuation">(</span>2<span class="token punctuation">)</span>
+    docker push <span class="token variable">$</span><span class="token punctuation">(</span>2<span class="token punctuation">)</span>
+<span class="token keyword">endef</span>
 
-default: godevsig
-    $(call docker_push,$(img):latest,$(godevsigArtifactory)/$(img):latest)
+<span class="token target symbol">default</span><span class="token punctuation">:</span> godevsig
+<span class="token target symbol">    <span class="token variable">$</span>(call docker_push,<span class="token variable">$</span>(img)</span><span class="token punctuation">:</span>latest,<span class="token variable">$</span><span class="token punctuation">(</span>godevsigArtifactory<span class="token punctuation">)</span>/<span class="token variable">$</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">:</span>latest<span class="token punctuation">)</span>
 
-#customized by godevsig(https://gitlabe1.ext.net.nokia.com/godevsig) with gccgo supporting ppc/ppc64 
-godevsig: godevsig-$(repoHead)
-    docker tag $(img):$&lt; $(img):latest
-    $(call docker_push,$(img):$&lt;,$(godevsigArtifactory)/$(img):$&lt;)
+<span class="token comment">#customized by godevsig(https://gitlabe1.ext.net.nokia.com/godevsig) with gccgo supporting ppc/ppc64 </span>
+<span class="token target symbol">godevsig</span><span class="token punctuation">:</span> godevsig-<span class="token variable">$</span><span class="token punctuation">(</span>repoHead<span class="token punctuation">)</span>
+<span class="token target symbol">    docker tag <span class="token variable">$</span>(img)</span><span class="token punctuation">:</span><span class="token variable">$&lt;</span> <span class="token variable">$</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">:</span>latest
+<span class="token target symbol">    <span class="token variable">$</span>(call docker_push,<span class="token variable">$</span>(img)</span><span class="token punctuation">:</span><span class="token variable">$&lt;,$</span><span class="token punctuation">(</span>godevsigArtifactory<span class="token punctuation">)</span>/<span class="token variable">$</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token variable">$&lt;</span><span class="token punctuation">)</span>
 
-godevsig-%: Dockerfile.gccgo
-    docker build -f $&lt; -t $(img):$@ .
+<span class="token target symbol">godevsig-%</span><span class="token punctuation">:</span> Dockerfile.gccgo
+<span class="token target symbol">    docker build -f <span class="token variable">$&lt;</span> -t <span class="token variable">$</span>(img)</span><span class="token punctuation">:</span><span class="token variable">$@</span> .
 
-#official gc go toolchain
-official: official-1.13.12
-    docker tag $(img):$&lt; $(img):latest
-    $(call docker_push,$(img):$&lt;,$(godevsigArtifactory)/$(img):$&lt;)
+<span class="token comment">#official gc go toolchain</span>
+<span class="token target symbol">official</span><span class="token punctuation">:</span> official-1.13.12
+<span class="token target symbol">    docker tag <span class="token variable">$</span>(img)</span><span class="token punctuation">:</span><span class="token variable">$&lt;</span> <span class="token variable">$</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">:</span>latest
+<span class="token target symbol">    <span class="token variable">$</span>(call docker_push,<span class="token variable">$</span>(img)</span><span class="token punctuation">:</span><span class="token variable">$&lt;,$</span><span class="token punctuation">(</span>godevsigArtifactory<span class="token punctuation">)</span>/<span class="token variable">$</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token variable">$&lt;</span><span class="token punctuation">)</span>
 
-$(officialTags): official-%: Dockerfile.gc
-    docker build --build-arg GOLANG_VERSION=$* -f $&lt; -t $(img):$@ .
+<span class="token target symbol"><span class="token variable">$</span>(officialTags)</span><span class="token punctuation">:</span> official-%<span class="token punctuation">:</span> Dockerfile.gc
+    docker build --build-arg GOLANG_VERSION<span class="token operator">=</span><span class="token variable">$*</span> -f <span class="token variable">$&lt;</span> -t <span class="token variable">$</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token variable">$@</span> .
 </code></pre>
 
                                 
@@ -3202,11 +3199,10 @@ $(officialTags): official-%: Dockerfile.gc
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"makefile","level":"1.9.2","depth":2,"next":{"title":"C编程杂记高级篇","level":"1.9.3","depth":2,"path":"notes/c_编程杂记高级篇.md","ref":"notes/c_编程杂记高级篇.md","articles":[]},"previous":{"title":"automake autoconf","level":"1.9.1","depth":2,"path":"notes/c_automake_autoconf.md","ref":"notes/c_automake_autoconf.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/makefile_原理和实践.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"makefile","level":"1.9.2","depth":2,"next":{"title":"C编程杂记高级篇","level":"1.9.3","depth":2,"path":"notes/c_编程杂记高级篇.md","ref":"notes/c_编程杂记高级篇.md","articles":[]},"previous":{"title":"automake autoconf","level":"1.9.1","depth":2,"path":"notes/c_automake_autoconf.md","ref":"notes/c_automake_autoconf.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/makefile_原理和实践.md","mtime":"2022-10-11T15:39:07.950Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3245,7 +3241,6 @@ $(officialTags): official-%: Dockerfile.gc
         
     
 
-        
     </body>
 </html>
 

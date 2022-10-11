@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2884,81 +2881,81 @@
 ovs-vswitchd&#x662F;&#x7531;systemd&#x542F;&#x52A8;&#x7684;&#x4E00;&#x7EC4;&#x7EBF;&#x7A0B;
 &#x4E0B;&#x9762;&#x6211;&#x60F3;&#x67E5;&#x770B;&#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x5728;&#x5E72;&#x4EC0;&#x4E48;&#xFF0C;&#x5BFC;&#x81F4;cpu&#x5360;&#x7528;100%</p>
 <h2 id="pmap-&#x67E5;&#x770B;&#x5730;&#x5740;&#x7A7A;&#x95F4;"><a name="pmap-&#x67E5;&#x770B;&#x5730;&#x5740;&#x7A7A;&#x95F4;" class="anchor-navigation-ex-anchor" href="#pmap-&#x67E5;&#x770B;&#x5730;&#x5740;&#x7A7A;&#x95F4;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. pmap &#x67E5;&#x770B;&#x5730;&#x5740;&#x7A7A;&#x95F4;</h2>
-<pre><code class="lang-sh">$ sudo pmap -p 41246 -x
+<pre class="language-"><code class="lang-sh">$ <span class="token function">sudo</span> pmap <span class="token parameter variable">-p</span> <span class="token number">41246</span> <span class="token parameter variable">-x</span>
 Address           Kbytes     RSS   Dirty Mode  Mapping
-0000000000400000    1856    1856       0 r-x-- /usr/local/sbin/ovs-vswitchd
-00000000005d0000     256     256     256 rw--- /usr/local/sbin/ovs-vswitchd
-0000fff780000000  524288       0       0 rw-s- /dev/hugepages/rtemap_0
-0000fff7a0000000  524288       0       0 rw-s- /dev/hugepages/rtemap_1
-0000fff7c0000000  524288       0       0 rw-s- /dev/hugepages/rtemap_127
-0000fff7e0000000  524288       0       0 rw-s- /dev/hugepages/rtemap_126
-0000ffff983d0000      64       0       0 -w-s- /dev/infiniband/uverbs1
-0000ffff983e0000      64       0       0 -w-s- /dev/infiniband/uverbs0
-0000ffff998d0000      64      64      64 r---- /usr/lib64/libmlx5.so.1.3.16.0
-0000ffff99b00000      64      64      64 r---- /usr/lib64/libc-2.17.so
-0000ffff99f50000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_vhost.so.4.1 (deleted)
-0000ffff99f60000     128     128     128 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_vhost.so.4.1 (deleted)
-0000ffff99f80000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_timer.so.1.1 (deleted)
-0000ffff99f90000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_timer.so.1.1 (deleted)
-0000ffff99fa0000     128      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_table.so.3.1 (deleted)
-0000ffff99fc0000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_table.so.3.1 (deleted)
-0000ffff99fd0000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_security.so.1.1 (deleted)
-0000ffff99fe0000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_security.so.1.1 (deleted)
-0000ffff99ff0000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_sched.so.1.1 (deleted)
-0000ffff9a000000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_sched.so.1.1 (deleted)
-0000ffff9a010000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_ring.so.1.1 (deleted)
-0000ffff9a020000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_ring.so.1.1 (deleted)
-0000ffff9a030000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_reorder.so.1.1 (deleted)
-0000ffff9a040000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_reorder.so.1.1 (deleted)
-0000ffff9a050000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_power.so.1.1 (deleted)
-0000ffff9a060000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_power.so.1.1 (deleted)
-0000ffff9a080000     128      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_port.so.3.1 (deleted)
-0000ffff9a0a0000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_port.so.3.1 (deleted)
-0000ffff9a0b0000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_vmxnet3_uio.so.1.1 (deleted)
-0000ffff9a0c0000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_vmxnet3_uio.so.1.1 (deleted)
-0000ffff9a0d0000     128     128       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_virtio.so.1.1 (deleted)
-0000ffff9a0f0000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_virtio.so.1.1 (deleted)
-0000ffff9a100000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_vhost.so.2.1 (deleted)
-0000ffff9a110000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_vhost.so.2.1 (deleted)
-0000ffff9a120000     128     128       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_thunderx_nicvf.so.1.1 (deleted)
-0000ffff9a140000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_thunderx_nicvf.so.1.1 (deleted)
-0000ffff9a150000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_tap.so.1.1 (deleted)
-0000ffff9a160000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_tap.so.1.1 (deleted)
-0000ffff9a170000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_sw_event.so.1.1 (deleted)
-0000ffff9a180000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_sw_event.so.1.1 (deleted)
-0000ffff9a190000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_softnic.so.1.1 (deleted)
-0000ffff9a1a0000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_softnic.so.1.1 (deleted)
-0000ffff9a1b0000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_skeleton_event.so.1.1 (deleted)
-0000ffff9a1c0000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_skeleton_event.so.1.1 (deleted)
-0000ffff9a1d0000      64      64       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_ring.so.2.1 (deleted)
-0000ffff9a1e0000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_ring.so.2.1 (deleted)
-0000ffff9a1f0000     320     128       0 r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_qede.so.1.1 (deleted)
-0000ffff9a240000      64      64      64 rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_qede.so.1.1 (deleted)
+0000000000400000    <span class="token number">1856</span>    <span class="token number">1856</span>       <span class="token number">0</span> r-x-- /usr/local/sbin/ovs-vswitchd
+00000000005d0000     <span class="token number">256</span>     <span class="token number">256</span>     <span class="token number">256</span> rw--- /usr/local/sbin/ovs-vswitchd
+0000fff780000000  <span class="token number">524288</span>       <span class="token number">0</span>       <span class="token number">0</span> rw-s- /dev/hugepages/rtemap_0
+0000fff7a0000000  <span class="token number">524288</span>       <span class="token number">0</span>       <span class="token number">0</span> rw-s- /dev/hugepages/rtemap_1
+0000fff7c0000000  <span class="token number">524288</span>       <span class="token number">0</span>       <span class="token number">0</span> rw-s- /dev/hugepages/rtemap_127
+0000fff7e0000000  <span class="token number">524288</span>       <span class="token number">0</span>       <span class="token number">0</span> rw-s- /dev/hugepages/rtemap_126
+0000ffff983d0000      <span class="token number">64</span>       <span class="token number">0</span>       <span class="token number">0</span> -w-s- /dev/infiniband/uverbs1
+0000ffff983e0000      <span class="token number">64</span>       <span class="token number">0</span>       <span class="token number">0</span> -w-s- /dev/infiniband/uverbs0
+0000ffff998d0000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> r---- /usr/lib64/libmlx5.so.1.3.16.0
+0000ffff99b00000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> r---- /usr/lib64/libc-2.17.so
+0000ffff99f50000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_vhost.so.4.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff99f60000     <span class="token number">128</span>     <span class="token number">128</span>     <span class="token number">128</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_vhost.so.4.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff99f80000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_timer.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff99f90000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_timer.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff99fa0000     <span class="token number">128</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_table.so.3.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff99fc0000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_table.so.3.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff99fd0000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_security.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff99fe0000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_security.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff99ff0000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_sched.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a000000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_sched.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a010000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_ring.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a020000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_ring.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a030000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_reorder.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a040000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_reorder.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a050000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_power.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a060000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_power.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a080000     <span class="token number">128</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_port.so.3.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a0a0000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_port.so.3.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a0b0000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_vmxnet3_uio.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a0c0000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_vmxnet3_uio.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a0d0000     <span class="token number">128</span>     <span class="token number">128</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_virtio.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a0f0000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_virtio.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a100000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_vhost.so.2.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a110000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_vhost.so.2.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a120000     <span class="token number">128</span>     <span class="token number">128</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_thunderx_nicvf.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a140000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_thunderx_nicvf.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a150000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_tap.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a160000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_tap.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a170000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_sw_event.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a180000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_sw_event.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a190000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_softnic.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a1a0000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_softnic.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a1b0000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_skeleton_event.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a1c0000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_skeleton_event.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a1d0000      <span class="token number">64</span>      <span class="token number">64</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_ring.so.2.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a1e0000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_ring.so.2.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a1f0000     <span class="token number">320</span>     <span class="token number">128</span>       <span class="token number">0</span> r-x-- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_qede.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
+0000ffff9a240000      <span class="token number">64</span>      <span class="token number">64</span>      <span class="token number">64</span> rw--- /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_pmd_qede.so.1.1 <span class="token punctuation">(</span>deleted<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x6CE8;&#xFF1A;mmap&#x7684;file&#x5E76;&#x4E0D;&#x662F;&#x628A;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x590D;&#x5236;&#x5230;&#x5185;&#x5B58;&#x91CC;&#xFF0C;&#x800C;&#x662F;&#x628A;&#x6587;&#x4EF6;&#x6620;&#x5C04;&#x5230;&#x8FDB;&#x7A0B;&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF0C;&#x8FDB;&#x7A0B;&#x5BF9;&#x8FD9;&#x5757;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x8BFB;&#x5199;&#x7684;&#x65F6;&#x5019;&#xFF0C;OS&#x4F1A;&#x4EE5;page&#x4E3A;&#x5355;&#x4F4D;&#xFF0C;
 &#x6839;&#x636E;&#x60C5;&#x51B5;&#x6765;&#x9009;&#x62E9;&#x771F;&#x6B63;&#x8BFB;&#x6587;&#x4EF6;/&#x5199;&#x6587;&#x4EF6;&#x7684;&#x65F6;&#x673A;&#xFF0C;&#x6BD4;&#x5982;&#x4F60;&#x5199;&#x4E86;&#x4E00;&#x6BB5;&#x6570;&#x636E;&#xFF0C;&#x8FD9;&#x6BB5;&#x6570;&#x636E;&#x6240;&#x5728;&#x7684;page&#x5728;&#x540E;&#x9762;&#x7684;&#x67D0;&#x4E2A;&#x65F6;&#x523B;&#xFF0C;OS&#x51B3;&#x5B9A;&#x6362;&#x51FA;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x4F1A;&#x88AB;OS&#x771F;&#x6B63;&#x5199;&#x5165;
 &#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x800C;&#x8FD9;&#x4E2A;&#x5199;&#x5165;&#x7684;&#x52A8;&#x4F5C;&#x53EF;&#x80FD;&#x53C8;&#x7ECF;&#x5386;&#x4E86;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF; -&gt; page caching -&gt; IO&#x9A71;&#x52A8; -&gt; &#x7269;&#x7406;&#x786C;&#x4EF6;&#x7684;&#x590D;&#x6742;&#x8FC7;&#x7A0B;&#x3002;</p>
 <h2 id="lsof-&#x67E5;&#x770B;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;"><a name="lsof-&#x67E5;&#x770B;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#lsof-&#x67E5;&#x770B;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. lsof &#x67E5;&#x770B;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;</h2>
-<pre><code class="lang-sh">$ sudo lsof -p 41246
-ovs-vswit 41246 root  txt       REG                8,5  14113280 3527027728 /usr/local/sbin/ovs-vswitchd
-ovs-vswit 41246 root  mem-R     REG               0,40 536870912     968169 /dev/hugepages/rtemap_0
-ovs-vswit 41246 root  mem-R     REG               0,40 536870912     968170 /dev/hugepages/rtemap_1
-ovs-vswit 41246 root  mem-R     REG               0,40 536870912     968296 /dev/hugepages/rtemap_127
-ovs-vswit 41246 root  mem-R     REG               0,40 536870912     968295 /dev/hugepages/rtemap_126
-ovs-vswit 41246 root  mem       CHR            231,193                27211 /dev/infiniband/uverbs1
-ovs-vswit 41246 root  mem       CHR            231,192                27210 /dev/infiniband/uverbs0
-ovs-vswit 41246 root  mem-w     REG               0,23    208420     789242 /run/.rte_config
-ovs-vswit 41246 root    3w      REG                8,5    283688 3527027762 /usr/local/var/log/openvswitch/ovs-vswitchd.log
-ovs-vswit 41246 root   15u      CHR             10,196       0t0       2155 /dev/vfio/vfio
-ovs-vswit 41246 root   12u  netlink                          0t0     968157 ROUTE
-ovs-vswit 41246 root   21u  a_inode               0,13         0       9112 [eventpoll]
-ovs-vswit 41246 root   36u      CHR             10,200       0t0       2153 /dev/net/tun
-ovs-vswit 41246 root   47u     unix 0xffff8017d901f300       0t0     946033 /usr/local/var/run/openvswitch/ovs-br0.snoop
-ovs-vswit 41246 root   51u     unix 0xffff8017d6540000       0t0     953826 /usr/local/var/run/openvswitch/ovs-br0.mgmt
-ovs-vswit 41246 root   53u     unix 0xffff8017d6540d80       0t0     953887 /usr/local/var/run/openvswitch/vhost-user0
-ovs-vswit 41246 root   58u     unix 0xffff8017d901f780       0t0     946094 /usr/local/var/run/openvswitch/vhost-user1
-ovs-vswit 41246 root   59u     unix 0xffff8017d6ee9480       0t0     953199 /usr/local/var/run/openvswitch/vhost-user2
-ovs-vswit 41246 root   60u     unix 0xffff8017d6ee5e80       0t0     953211 /usr/local/var/run/openvswitch/vhost-user3
+<pre class="language-"><code class="lang-sh">$ <span class="token function">sudo</span> <span class="token function">lsof</span> <span class="token parameter variable">-p</span> <span class="token number">41246</span>
+ovs-vswit <span class="token number">41246</span> root  txt       REG                <span class="token number">8,5</span>  <span class="token number">14113280</span> <span class="token number">3527027728</span> /usr/local/sbin/ovs-vswitchd
+ovs-vswit <span class="token number">41246</span> root  mem-R     REG               <span class="token number">0,40</span> <span class="token number">536870912</span>     <span class="token number">968169</span> /dev/hugepages/rtemap_0
+ovs-vswit <span class="token number">41246</span> root  mem-R     REG               <span class="token number">0,40</span> <span class="token number">536870912</span>     <span class="token number">968170</span> /dev/hugepages/rtemap_1
+ovs-vswit <span class="token number">41246</span> root  mem-R     REG               <span class="token number">0,40</span> <span class="token number">536870912</span>     <span class="token number">968296</span> /dev/hugepages/rtemap_127
+ovs-vswit <span class="token number">41246</span> root  mem-R     REG               <span class="token number">0,40</span> <span class="token number">536870912</span>     <span class="token number">968295</span> /dev/hugepages/rtemap_126
+ovs-vswit <span class="token number">41246</span> root  mem       CHR            <span class="token number">231,193</span>                <span class="token number">27211</span> /dev/infiniband/uverbs1
+ovs-vswit <span class="token number">41246</span> root  mem       CHR            <span class="token number">231,192</span>                <span class="token number">27210</span> /dev/infiniband/uverbs0
+ovs-vswit <span class="token number">41246</span> root  mem-w     REG               <span class="token number">0,23</span>    <span class="token number">208420</span>     <span class="token number">789242</span> /run/.rte_config
+ovs-vswit <span class="token number">41246</span> root    3w      REG                <span class="token number">8,5</span>    <span class="token number">283688</span> <span class="token number">3527027762</span> /usr/local/var/log/openvswitch/ovs-vswitchd.log
+ovs-vswit <span class="token number">41246</span> root   15u      CHR             <span class="token number">10,196</span>       0t0       <span class="token number">2155</span> /dev/vfio/vfio
+ovs-vswit <span class="token number">41246</span> root   12u  netlink                          0t0     <span class="token number">968157</span> ROUTE
+ovs-vswit <span class="token number">41246</span> root   21u  a_inode               <span class="token number">0,13</span>         <span class="token number">0</span>       <span class="token number">9112</span> <span class="token punctuation">[</span>eventpoll<span class="token punctuation">]</span>
+ovs-vswit <span class="token number">41246</span> root   36u      CHR             <span class="token number">10,200</span>       0t0       <span class="token number">2153</span> /dev/net/tun
+ovs-vswit <span class="token number">41246</span> root   47u     unix 0xffff8017d901f300       0t0     <span class="token number">946033</span> /usr/local/var/run/openvswitch/ovs-br0.snoop
+ovs-vswit <span class="token number">41246</span> root   51u     unix 0xffff8017d6540000       0t0     <span class="token number">953826</span> /usr/local/var/run/openvswitch/ovs-br0.mgmt
+ovs-vswit <span class="token number">41246</span> root   53u     unix 0xffff8017d6540d80       0t0     <span class="token number">953887</span> /usr/local/var/run/openvswitch/vhost-user0
+ovs-vswit <span class="token number">41246</span> root   58u     unix 0xffff8017d901f780       0t0     <span class="token number">946094</span> /usr/local/var/run/openvswitch/vhost-user1
+ovs-vswit <span class="token number">41246</span> root   59u     unix 0xffff8017d6ee9480       0t0     <span class="token number">953199</span> /usr/local/var/run/openvswitch/vhost-user2
+ovs-vswit <span class="token number">41246</span> root   60u     unix 0xffff8017d6ee5e80       0t0     <span class="token number">953211</span> /usr/local/var/run/openvswitch/vhost-user3
 </code></pre>
 <p>&#x6CE8;&#xFF1A;</p>
 <ul>
@@ -2966,7 +2963,7 @@ ovs-vswit 41246 root   60u     unix 0xffff8017d6ee5e80       0t0     953211 /usr
 <li>&#x8FD9;&#x91CC;&#x770B;&#x5230;&#x6709;&#x4E2A;log&#x6587;&#x4EF6;&#xFF0C;&#x8FD9;&#x662F;&#x8C03;&#x67E5;&#x7684;&#x597D;&#x5165;&#x53E3;</li>
 </ul>
 <h2 id="strace-&#x8C03;&#x67E5;&#x7A0B;&#x5E8F;&#x52A8;&#x6001;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;"><a name="strace-&#x8C03;&#x67E5;&#x7A0B;&#x5E8F;&#x52A8;&#x6001;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;" class="anchor-navigation-ex-anchor" href="#strace-&#x8C03;&#x67E5;&#x7A0B;&#x5E8F;&#x52A8;&#x6001;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. strace &#x8C03;&#x67E5;&#x7A0B;&#x5E8F;&#x52A8;&#x6001;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;</h2>
-<pre><code>$ sudo strace -p 41246
+<pre class="language-"><code>$ sudo strace -p 41246
 strace: Process 41246 attached
 ppoll([{fd=11, events=POLLIN}, {fd=49, events=POLLIN}, {fd=10, events=POLLIN}, {fd=9, events=POLLIN}, {fd=12, events=POLLIN}, {fd=51, events=POLLIN}, {fd=36, events=POLLIN}, {fd=20, events=POLLIN}, {fd=7, eve
 nts=POLLIN}, {fd=30, events=POLLIN}, {fd=47, events=POLLIN}], 11, {3, 310381239}, NULL, 0) = 1 ([{fd=30, revents=POLLIN}], left {3, 247386583})
@@ -3017,17 +3014,17 @@ accept(9, 0xffffee68fac0, 0xffffee68fabc) = -1 EAGAIN (Resource temporarily unav
 &#x4F3C;&#x4E4E;&#x4E0D;&#x5BF9;&#xFF0C;&#x5E94;&#x8BE5;&#x662F;&#x7528;&#x6237;&#x6001;&#x6536;&#x53D1;&#x5305;&#x624D;&#x5BF9;&#x5440;&#xFF1F;</li>
 </ul>
 <h2 id="pstack-&#x6293;&#x8C03;&#x7528;&#x6808;"><a name="pstack-&#x6293;&#x8C03;&#x7528;&#x6808;" class="anchor-navigation-ex-anchor" href="#pstack-&#x6293;&#x8C03;&#x7528;&#x6808;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. pstack &#x6293;&#x8C03;&#x7528;&#x6808;</h2>
-<pre><code>$ sudo pstack 41320
-#0  0x000000000053e91c in netdev_dpdk_vhost_rxq_recv (rxq=&lt;optimized out&gt;, batch=&lt;optimized out&gt;) at lib/netdev-dpdk.c:1943
-#1  0x0000000000491d98 in netdev_rxq_recv (rx=&lt;optimized out&gt;, batch=0xffff767fe2c0, batch@entry=0xffff767fe300) at lib/netdev.c:701
+<pre class="language-"><code>$ sudo pstack 41320
+#0  0x000000000053e91c in netdev_dpdk_vhost_rxq_recv (rxq=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optimized</span> <span class="token attr-name">out</span><span class="token punctuation">&gt;</span></span>, batch=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optimized</span> <span class="token attr-name">out</span><span class="token punctuation">&gt;</span></span>) at lib/netdev-dpdk.c:1943
+#1  0x0000000000491d98 in netdev_rxq_recv (rx=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optimized</span> <span class="token attr-name">out</span><span class="token punctuation">&gt;</span></span>, batch=0xffff767fe2c0, batch@entry=0xffff767fe300) at lib/netdev.c:701
 #2  0x000000000046dd0c in dp_netdev_process_rxq_port (pmd=pmd@entry=0xffff94180010, rxq=0x24f4620, port_no=4) at lib/dpif-netdev.c:3279
 #3  0x000000000046e0a8 in pmd_thread_main (f_=0xffff94180010) at lib/dpif-netdev.c:4146
-#4  0x00000000004e452c in ovsthread_wrapper (aux_=&lt;optimized out&gt;) at lib/ovs-thread.c:348
+#4  0x00000000004e452c in ovsthread_wrapper (aux_=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optimized</span> <span class="token attr-name">out</span><span class="token punctuation">&gt;</span></span>) at lib/ovs-thread.c:348
 #5  0x0000ffff99c47bb0 in start_thread () from /lib64/libpthread.so.0
 #6  0x0000ffff99a6b4c0 in thread_start () from /lib64/libc.so.6
 </code></pre><p>&#x6CE8;&#xFF1A;&#x6CA1;&#x770B;&#x51FA;&#x5565;&#x6765;...</p>
 <h2 id="perf-top&#x5230;hot-spot"><a name="perf-top&#x5230;hot-spot" class="anchor-navigation-ex-anchor" href="#perf-top&#x5230;hot-spot"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. perf top&#x5230;hot spot</h2>
-<pre><code>$ sudo perf top
+<pre class="language-"><code>$ sudo perf top
 Samples: 360K of event &apos;cycles:ppp&apos;, Event count (approx.): 42373494756
 Overhead  Shared Object            Symbol
   40.02%  ovs-vswitchd             [.] dp_netdev_process_rxq_port
@@ -3040,100 +3037,100 @@ Overhead  Shared Object            Symbol
    1.67%  libpthread-2.17.so       [.] __pthread_once
    1.65%  libc-2.17.so             [.] __clock_gettime
    1.15%  [vdso]                   [.] __kernel_clock_gettime
-</code></pre><pre><code class="lang-sh">#9382&#x662F;&#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684;pid
-#&#x8FDB;&#x7A0B;&#x53EF;&#x80FD;&#x91CD;&#x542F;&#x4E86;&#xFF0C;&#x53D8;&#x6210;&#x4E86;9382
-$ sudo perf top -p 9382
-Samples: 193K of event &apos;cycles:ppp&apos;, Event count (approx.): 38607322931
+</code></pre><pre class="language-"><code class="lang-sh"><span class="token comment">#9382&#x662F;&#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x7684;pid</span>
+<span class="token comment">#&#x8FDB;&#x7A0B;&#x53EF;&#x80FD;&#x91CD;&#x542F;&#x4E86;&#xFF0C;&#x53D8;&#x6210;&#x4E86;9382</span>
+$ <span class="token function">sudo</span> perf <span class="token function">top</span> <span class="token parameter variable">-p</span> <span class="token number">9382</span>
+Samples: 193K of event <span class="token string">&apos;cycles:ppp&apos;</span>, Event count <span class="token punctuation">(</span>approx.<span class="token punctuation">)</span>: <span class="token number">38607322931</span>
 Overhead  Shared Object        Symbol
-  55.02%  ovs-vswitchd         [.] dp_netdev_process_rxq_port
-  21.43%  librte_vhost.so.4.1  [.] rte_vhost_dequeue_burst
-  10.78%  ovs-vswitchd         [.] netdev_dpdk_vhost_rxq_recv
-   3.43%  ovs-vswitchd         [.] pmd_thread_main
-   2.92%  librte_vhost.so.4.1  [.] get_device
-   2.82%  [vdso]               [.] monotonic
-   1.94%  ovs-vswitchd         [.] netdev_rxq_recv
-   0.41%  ovs-vswitchd         [.] rte_vhost_dequeue_burst@plt
-   0.31%  ovs-vswitchd         [.] time_timespec__
-   0.26%  ovs-vswitchd         [.] time_usec
-   0.21%  libc-2.17.so         [.] __clock_gettime
-   0.12%  libpthread-2.17.so   [.] __pthread_once
-   0.11%  [vdso]               [.] __kernel_clock_gettime
-   0.03%  ovs-vswitchd         [.] clock_gettime@plt
-   0.02%  ovs-vswitchd         [.] pthread_once@plt
-   0.02%  [kernel]             [k] _raw_spin_unlock_irqrestore
-   0.01%  libpthread-2.17.so   [.] pthread_mutex_unlock
-   0.01%  [kernel]             [k] sys_futex
-   0.01%  [kernel]             [k] futex_wake
-   0.01%  libc-2.17.so         [.] _int_free
-   0.01%  ovs-vswitchd         [.] single_threaded
-   0.01%  libc-2.17.so         [.] __poll
+  <span class="token number">55.02</span>%  ovs-vswitchd         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> dp_netdev_process_rxq_port
+  <span class="token number">21.43</span>%  librte_vhost.so.4.1  <span class="token punctuation">[</span>.<span class="token punctuation">]</span> rte_vhost_dequeue_burst
+  <span class="token number">10.78</span>%  ovs-vswitchd         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> netdev_dpdk_vhost_rxq_recv
+   <span class="token number">3.43</span>%  ovs-vswitchd         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> pmd_thread_main
+   <span class="token number">2.92</span>%  librte_vhost.so.4.1  <span class="token punctuation">[</span>.<span class="token punctuation">]</span> get_device
+   <span class="token number">2.82</span>%  <span class="token punctuation">[</span>vdso<span class="token punctuation">]</span>               <span class="token punctuation">[</span>.<span class="token punctuation">]</span> monotonic
+   <span class="token number">1.94</span>%  ovs-vswitchd         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> netdev_rxq_recv
+   <span class="token number">0.41</span>%  ovs-vswitchd         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> rte_vhost_dequeue_burst@plt
+   <span class="token number">0.31</span>%  ovs-vswitchd         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> time_timespec__
+   <span class="token number">0.26</span>%  ovs-vswitchd         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> time_usec
+   <span class="token number">0.21</span>%  libc-2.17.so         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> __clock_gettime
+   <span class="token number">0.12</span>%  libpthread-2.17.so   <span class="token punctuation">[</span>.<span class="token punctuation">]</span> __pthread_once
+   <span class="token number">0.11</span>%  <span class="token punctuation">[</span>vdso<span class="token punctuation">]</span>               <span class="token punctuation">[</span>.<span class="token punctuation">]</span> __kernel_clock_gettime
+   <span class="token number">0.03</span>%  ovs-vswitchd         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> clock_gettime@plt
+   <span class="token number">0.02</span>%  ovs-vswitchd         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> pthread_once@plt
+   <span class="token number">0.02</span>%  <span class="token punctuation">[</span>kernel<span class="token punctuation">]</span>             <span class="token punctuation">[</span>k<span class="token punctuation">]</span> _raw_spin_unlock_irqrestore
+   <span class="token number">0.01</span>%  libpthread-2.17.so   <span class="token punctuation">[</span>.<span class="token punctuation">]</span> pthread_mutex_unlock
+   <span class="token number">0.01</span>%  <span class="token punctuation">[</span>kernel<span class="token punctuation">]</span>             <span class="token punctuation">[</span>k<span class="token punctuation">]</span> sys_futex
+   <span class="token number">0.01</span>%  <span class="token punctuation">[</span>kernel<span class="token punctuation">]</span>             <span class="token punctuation">[</span>k<span class="token punctuation">]</span> futex_wake
+   <span class="token number">0.01</span>%  libc-2.17.so         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> _int_free
+   <span class="token number">0.01</span>%  ovs-vswitchd         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> single_threaded
+   <span class="token number">0.01</span>%  libc-2.17.so         <span class="token punctuation">[</span>.<span class="token punctuation">]</span> __poll
 </code></pre>
 <p>&#x6CE8;&#xFF1A;&#x4EE5;&#x4E0A;&#x4E24;&#x4E2A;&#xFF0C;&#x51FD;&#x6570;dp_netdev_process_rxq_port&#x90FD;&#x51FA;&#x73B0;&#x5728;&#x7B2C;&#x4E00;&#x4F4D;
 &#x770B;&#x4E00;&#x4E0B;&#x6C47;&#x7F16;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre><code class="lang-sh">Percent&#x2502;       sub    x2, x2, x3   
-       &#x2502;       add    x2, x2, x1    
-       &#x2502;       str    x2, [x0]  
-       &#x2502; cc:   ldr    x2, [x29,#88]     
-       &#x2502;       str    x0, [x19,#520]        
-       &#x2502;       add    x0, x20, #0x20 
+<pre class="language-"><code class="lang-sh">Percent&#x2502;       sub    x2, x2, x3   
+       &#x2502;       <span class="token function">add</span>    x2, x2, x1    
+       &#x2502;       str    x2, <span class="token punctuation">[</span>x0<span class="token punctuation">]</span>  
+       &#x2502; cc:   ldr    x2, <span class="token punctuation">[</span>x29,<span class="token comment">#88]     </span>
+       &#x2502;       str    x0, <span class="token punctuation">[</span>x19,<span class="token comment">#520]        </span>
+       &#x2502;       <span class="token function">add</span>    x0, x20, <span class="token comment">#0x20 </span>
        &#x2502;       sub    x1, x1, x2 
        &#x2502;     &#x2192; bl     non_atomic_ullong_add
-       &#x2502;       ldr    w0, [x19,#312]
+       &#x2502;       ldr    w0, <span class="token punctuation">[</span>x19,<span class="token comment">#312]</span>
        &#x2502;     &#x2193; cbnz   w0, 1d0
-  0.19 &#x2502; e8:   str    xzr, [x19,#248]  
+  <span class="token number">0.19</span> &#x2502; e8:   str    xzr, <span class="token punctuation">[</span>x19,<span class="token comment">#248]  </span>
        &#x2502;       mov    w0, w23  
-       &#x2502;       ldp    x19, x20, [sp,#16]
-  0.72 &#x2502;       ldp    x21, x22, [sp,#32]   
-  0.08 &#x2502;       ldp    x23, x24, [sp,#48]  
-       &#x2502;       ldr    x25, [sp,#64]     
-  0.77 &#x2502;       ldp    x29, x30, [sp],#384   
+       &#x2502;       ldp    x19, x20, <span class="token punctuation">[</span>sp,<span class="token comment">#16]</span>
+  <span class="token number">0.72</span> &#x2502;       ldp    x21, x22, <span class="token punctuation">[</span>sp,<span class="token comment">#32]   </span>
+  <span class="token number">0.08</span> &#x2502;       ldp    x23, x24, <span class="token punctuation">[</span>sp,<span class="token comment">#48]  </span>
+       &#x2502;       ldr    x25, <span class="token punctuation">[</span>sp,<span class="token comment">#64]     </span>
+  <span class="token number">0.77</span> &#x2502;       ldp    x29, x30, <span class="token punctuation">[</span>sp<span class="token punctuation">]</span>,<span class="token comment">#384   </span>
        &#x2502;     &#x2190; ret      
-  0.09 &#x2502;108:   ldr    x0, [x23,#16] 
-       &#x2502;       cmp    x0, x22    
+  <span class="token number">0.09</span> &#x2502;108:   ldr    x0, <span class="token punctuation">[</span>x23,<span class="token comment">#16] </span>
+       &#x2502;       <span class="token function">cmp</span>    x0, x22    
        &#x2502;     &#x2193; b.ne   1b0       
- 39.26 &#x2502;       mrs    x2, cntvct_el0  
-  0.08 &#x2502;       ldr    x0, [x29,#104]   
-  3.68 &#x2502;       str    x2, [x19,#512]     
-       &#x2502;     &#x2193; cbz    x0, 134       
-       &#x2502;       ldp    x1, x3, [x0]   
+ <span class="token number">39.26</span> &#x2502;       mrs    x2, cntvct_el0  
+  <span class="token number">0.08</span> &#x2502;       ldr    x0, <span class="token punctuation">[</span>x29,<span class="token comment">#104]   </span>
+  <span class="token number">3.68</span> &#x2502;       str    x2, <span class="token punctuation">[</span>x19,<span class="token comment">#512]     </span>
+       &#x2502;     &#x2193; cbz    x0, <span class="token number">134</span>       
+       &#x2502;       ldp    x1, x3, <span class="token punctuation">[</span>x0<span class="token punctuation">]</span>   
        &#x2502;       sub    x1, x1, x3    
-       &#x2502;       add    x1, x1, x2 
-       &#x2502;       str    x1, [x0]    
-  0.14 &#x2502;134:   str    x0, [x19,#520]  
-  7.96 &#x2502;       cmp    w21, #0x5f 
-       &#x2502;       mov    w23, #0x0                       // #0  
-       &#x2502;       ccmp   w21, #0xb, #0x4, ne   
- 36.43 &#x2502;     &#x2191; b.eq   e8     
-       &#x2502;       adrp   x22, 5dc000 &lt;rl.7549+0x20&gt;     
-       &#x2502;       add    x22, x22, #0x138    
-       &#x2502;       ldr    w0, [x22,#36]     
-       &#x2502;       cmp    w0, #0x1  
+       &#x2502;       <span class="token function">add</span>    x1, x1, x2 
+       &#x2502;       str    x1, <span class="token punctuation">[</span>x0<span class="token punctuation">]</span>    
+  <span class="token number">0.14</span> &#x2502;134:   str    x0, <span class="token punctuation">[</span>x19,<span class="token comment">#520]  </span>
+  <span class="token number">7.96</span> &#x2502;       <span class="token function">cmp</span>    w21, <span class="token comment">#0x5f </span>
+       &#x2502;       mov    w23, <span class="token comment">#0x0                       // #0  </span>
+       &#x2502;       ccmp   w21, <span class="token comment">#0xb, #0x4, ne   </span>
+ <span class="token number">36.43</span> &#x2502;     &#x2191; b.eq   e8     
+       &#x2502;       adrp   x22, 5dc000 <span class="token operator">&lt;</span>rl.7549+0x2<span class="token operator"><span class="token file-descriptor important">0</span>&gt;</span>     
+       &#x2502;       <span class="token function">add</span>    x22, x22, <span class="token comment">#0x138    </span>
+       &#x2502;       ldr    w0, <span class="token punctuation">[</span>x22,<span class="token comment">#36]     </span>
+       &#x2502;       <span class="token function">cmp</span>    w0, <span class="token comment">#0x1  </span>
        &#x2502;     &#x2191; b.ls   e8    
-       &#x2502;       ldr    x0, [x20,#8]  
+       &#x2502;       ldr    x0, <span class="token punctuation">[</span>x20,<span class="token comment">#8]  </span>
        &#x2502;     &#x2192; bl     netdev_rxq_get_name   
        &#x2502;       mov    x20, x0   
        &#x2502;       mov    w0, w21    
        &#x2502;     &#x2192; bl     ovs_strerror 
        &#x2502;       mov    x4, x20    
        &#x2502;       mov    x5, x0                  
-       &#x2502;       add    x2, x22, #0x160         
+       &#x2502;       <span class="token function">add</span>    x2, x22, <span class="token comment">#0x160         </span>
        &#x2502;       mov    x0, x22            
-       &#x2502;       mov    w1, #0x2                        // #2
+       &#x2502;       mov    w1, <span class="token comment">#0x2                        // #2</span>
 </code></pre>
 <p>&#x6CE8;&#x610F;&#x4EE5;&#x4E0B;&#x4E24;&#x6761;&#x6C47;&#x7F16;&#x5360;&#x7528;&#x5F88;&#x9AD8;
 mrs    x2, cntvct_el0
 b.eq   e8
 &#x6839;&#x636E;ARM&#x624B;&#x518C;&#xFF0C; cntvct_el0&#x662F;&#x4E2A;64bit&#x7684;Virtual Timer Count register&#xFF0C;&#x53EA;&#x8BFB;&#x7684;<br>&#x53EF;&#x53C2;&#x8003;<a href="https://patchwork.kernel.org/patch/9290801/" target="_blank">https://patchwork.kernel.org/patch/9290801/</a></p>
-<pre><code class="lang-sh">$ sudo perf stat -e cycles,stalled-cycles-frontend,stalled-cycles-backend,branch-misses,cache-references,cache-misses -p 9382
+<pre class="language-"><code class="lang-sh">$ <span class="token function">sudo</span> perf <span class="token function">stat</span> <span class="token parameter variable">-e</span> cycles,stalled-cycles-frontend,stalled-cycles-backend,branch-misses,cache-references,cache-misses <span class="token parameter variable">-p</span> <span class="token number">9382</span>
 ^C
- Performance counter stats for process id &apos;9382&apos;:
-     9,670,958,313      cycles
-       324,264,597      stalled-cycles-frontend   #    3.35% frontend cycles idle
-     6,355,584,509      stalled-cycles-backend    #   65.72% backend cycles idle
-         5,210,609      branch-misses
-     4,424,834,814      cache-references
-        48,121,592      cache-misses              #    1.088 % of all cache refs
-       3.867804140 seconds time elapsed
+ Performance counter stats <span class="token keyword">for</span> process <span class="token function">id</span> <span class="token string">&apos;9382&apos;</span><span class="token builtin class-name">:</span>
+     <span class="token number">9,670</span>,958,313      cycles
+       <span class="token number">324,264</span>,597      stalled-cycles-frontend   <span class="token comment">#    3.35% frontend cycles idle</span>
+     <span class="token number">6,355</span>,584,509      stalled-cycles-backend    <span class="token comment">#   65.72% backend cycles idle</span>
+         <span class="token number">5,210</span>,609      branch-misses
+     <span class="token number">4,424</span>,834,814      cache-references
+        <span class="token number">48,121</span>,592      cache-misses              <span class="token comment">#    1.088 % of all cache refs</span>
+       <span class="token number">3.867804140</span> seconds <span class="token function">time</span> elapsed
 </code></pre>
 <p>&#x8FD9;&#x91CC;stalled-cycles-backend&#x5F88;&#x9AD8;&#xFF0C;&#x53EF;&#x80FD;&#x662F;data cache&#x95EE;&#x9898;&#x3002;&#x590D;&#x4E60;&#x4E00;&#x4E0B;data cache&#xFF1A;</p>
 <ul>
@@ -3151,17 +3148,17 @@ b.eq   e8
 <p>ovs-vswitchd&#x7684;&#x6240;&#x6709;&#x7EBF;&#x7A0B;&#x90FD;100%&#xFF0C;&#x6628;&#x5929;&#x8FD8;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x662F;...</p>
 <ul>
 <li>strace&#x51FA;&#x6765;&#x5927;&#x90E8;&#x5206;&#x90FD;&#x662F;futex&#x7CFB;&#x7EDF;&#x8C03;&#x7528;</li>
-<li>ifconfig&#x4E5F;&#x6CA1;&#x770B;&#x5230;&#x6709;&#x6D41;&#x91CF;&#xFF0C;&#x7528;<code>ip -s addr</code><pre><code>$ sudo pstack 27680
+<li>ifconfig&#x4E5F;&#x6CA1;&#x770B;&#x5230;&#x6709;&#x6D41;&#x91CF;&#xFF0C;&#x7528;<code>ip -s addr</code><pre class="language-"><code>$ sudo pstack 27680
 Thread 1 (process 27680):
 #0  0x0000ffffa29a048c in monotonic () at arch/arm64/kernel/vdso/gettimeofday.S:241
 #1  0x0000ffffa15eeb28 in clock_gettime () from /lib64/libc.so.6
-#2  0x000000000050f99c in xclock_gettime (ts=0xffff7969e3c0, id=&lt;optimized out&gt;) at lib/timeval.c:503
-#3  time_timespec__ (c=0x690e70 &lt;monotonic_clock&gt;, ts=0xffff7969e3c0) at lib/timeval.c:155
-#4  0x000000000050fbf4 in time_usec__ (c=0x690e70 &lt;monotonic_clock&gt;) at lib/timeval.c:246
+#2  0x000000000050f99c in xclock_gettime (ts=0xffff7969e3c0, id=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optimized</span> <span class="token attr-name">out</span><span class="token punctuation">&gt;</span></span>) at lib/timeval.c:503
+#3  time_timespec__ (c=0x690e70 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>monotonic_clock</span><span class="token punctuation">&gt;</span></span>, ts=0xffff7969e3c0) at lib/timeval.c:155
+#4  0x000000000050fbf4 in time_usec__ (c=0x690e70 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>monotonic_clock</span><span class="token punctuation">&gt;</span></span>) at lib/timeval.c:246
 #5  time_usec () at lib/timeval.c:247
 #6  0x000000000046e1dc in pmd_thread_ctx_time_update (pmd=0xffff796a0010) at lib/dpif-netdev.c:777
 #7  pmd_thread_main (f_=0xffff796a0010) at lib/dpif-netdev.c:4156
-#8  0x00000000004e452c in ovsthread_wrapper (aux_=&lt;optimized out&gt;) at lib/ovs-thread.c:348
+#8  0x00000000004e452c in ovsthread_wrapper (aux_=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optimized</span> <span class="token attr-name">out</span><span class="token punctuation">&gt;</span></span>) at lib/ovs-thread.c:348
 #9  0x0000ffffa17b7bb0 in start_thread () from /lib64/libpthread.so.0
 #10 0x0000ffffa15db4c0 in thread_start () from /lib64/libc.so.6
 bai@CentOS-21 ~/tmp
@@ -3170,7 +3167,7 @@ Thread 1 (process 27680):
 #0  0x0000000000491d90 in netdev_rxq_recv (rx=0xfff7ed43a100, batch=0xffff7969e2c0, batch@entry=0xffff7969e300) at lib/netdev.c:701
 #1  0x000000000046dd0c in dp_netdev_process_rxq_port (pmd=pmd@entry=0xffff796a0010, rxq=0x1ea85bd0, port_no=4) at lib/dpif-netdev.c:3279
 #2  0x000000000046e0a8 in pmd_thread_main (f_=0xffff796a0010) at lib/dpif-netdev.c:4146
-#3  0x00000000004e452c in ovsthread_wrapper (aux_=&lt;optimized out&gt;) at lib/ovs-thread.c:348
+#3  0x00000000004e452c in ovsthread_wrapper (aux_=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optimized</span> <span class="token attr-name">out</span><span class="token punctuation">&gt;</span></span>) at lib/ovs-thread.c:348
 #4  0x0000ffffa17b7bb0 in start_thread () from /lib64/libpthread.so.0
 #5  0x0000ffffa15db4c0 in thread_start () from /lib64/libc.so.6
 bai@CentOS-21 ~/tmp
@@ -3178,11 +3175,11 @@ $ sudo pstack 27680
 Thread 1 (process 27680):
 #0  0x0000ffffa1ad5420 in get_device () from /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_vhost.so.4.1
 #1  0x0000ffffa1adab60 in rte_vhost_dequeue_burst () from /usr/src/dpdk-stable-17.11.3/arm64-armv8a-linuxapp-gcc/lib/librte_vhost.so.4.1
-#2  0x000000000053e740 in netdev_dpdk_vhost_rxq_recv (rxq=&lt;optimized out&gt;, batch=0xffff7969e2c0) at lib/netdev-dpdk.c:1918
-#3  0x0000000000491d98 in netdev_rxq_recv (rx=&lt;optimized out&gt;, batch=0xffff7969e2c0, batch@entry=0xffff7969e300) at lib/netdev.c:701
+#2  0x000000000053e740 in netdev_dpdk_vhost_rxq_recv (rxq=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optimized</span> <span class="token attr-name">out</span><span class="token punctuation">&gt;</span></span>, batch=0xffff7969e2c0) at lib/netdev-dpdk.c:1918
+#3  0x0000000000491d98 in netdev_rxq_recv (rx=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optimized</span> <span class="token attr-name">out</span><span class="token punctuation">&gt;</span></span>, batch=0xffff7969e2c0, batch@entry=0xffff7969e300) at lib/netdev.c:701
 #4  0x000000000046dd0c in dp_netdev_process_rxq_port (pmd=pmd@entry=0xffff796a0010, rxq=0x1eb3c0e0, port_no=5) at lib/dpif-netdev.c:3279
 #5  0x000000000046e0a8 in pmd_thread_main (f_=0xffff796a0010) at lib/dpif-netdev.c:4146
-#6  0x00000000004e452c in ovsthread_wrapper (aux_=&lt;optimized out&gt;) at lib/ovs-thread.c:348
+#6  0x00000000004e452c in ovsthread_wrapper (aux_=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optimized</span> <span class="token attr-name">out</span><span class="token punctuation">&gt;</span></span>) at lib/ovs-thread.c:348
 #7  0x0000ffffa17b7bb0 in start_thread () from /lib64/libpthread.so.0
 #8  0x0000ffffa15db4c0 in thread_start () from /lib64/libc.so.6
 </code></pre></li>
@@ -3232,11 +3229,10 @@ Thread 1 (process 27680):
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"OVS进程调查","level":"1.3.2","depth":2,"next":{"title":"ping流程和函数调用解析","level":"1.3.3","depth":2,"path":"notes/performance_ping流程和函数调用解析.md","ref":"notes/performance_ping流程和函数调用解析.md","articles":[]},"previous":{"title":"bcc和ebpf(starting)","level":"1.3.1","depth":2,"path":"notes/system_analysis_bcc和ebpf.md","ref":"notes/system_analysis_bcc和ebpf.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/performance_ovs进程调查.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"OVS进程调查","level":"1.3.2","depth":2,"next":{"title":"ping流程和函数调用解析","level":"1.3.3","depth":2,"path":"notes/performance_ping流程和函数调用解析.md","ref":"notes/performance_ping流程和函数调用解析.md","articles":[]},"previous":{"title":"bcc和ebpf(starting)","level":"1.3.1","depth":2,"path":"notes/system_analysis_bcc和ebpf.md","ref":"notes/system_analysis_bcc和ebpf.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/performance_ovs进程调查.md","mtime":"2022-10-11T15:39:07.954Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3275,7 +3271,6 @@ Thread 1 (process 27680):
         
     
 
-        
     </body>
 </html>
 

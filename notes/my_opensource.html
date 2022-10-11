@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2908,99 +2905,99 @@
 <h2 id="hello&#x4F8B;&#x5B50;"><a name="hello&#x4F8B;&#x5B50;" class="anchor-navigation-ex-anchor" href="#hello&#x4F8B;&#x5B50;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. hello&#x4F8B;&#x5B50;</h2>
 <h3 id="client&#x7AEF;"><a name="client&#x7AEF;" class="anchor-navigation-ex-anchor" href="#client&#x7AEF;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. client&#x7AEF;</h3>
 <p>client&#x8981;&#x5148;&#x53D1;&#x73B0;&#x5E76;&#x8FDE;&#x63A5;&#x5230;&#x670D;&#x52A1;, &#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x6536;&#x53D1;&#x6D88;&#x606F;.</p>
-<pre><code class="lang-go">package main
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
 
-import (
-    &quot;fmt&quot;
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;fmt&quot;</span>
 
-    as &quot;github.com/godevsig/adaptiveservice&quot;
-    msg &quot;github.com/godevsig/adaptiveservice/examples/hello/message&quot;
-)
+    as <span class="token string">&quot;github.com/godevsig/adaptiveservice&quot;</span>
+    msg <span class="token string">&quot;github.com/godevsig/adaptiveservice/examples/hello/message&quot;</span>
+<span class="token punctuation">)</span>
 
-func main() {
-    c := as.NewClient()
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    c <span class="token operator">:=</span> as<span class="token punctuation">.</span><span class="token function">NewClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-    conn := &lt;-c.Discover(&quot;example&quot;, &quot;hello&quot;)
-    if conn == nil {
-        fmt.Println(as.ErrServiceNotFound(&quot;example&quot;, &quot;hello&quot;))
-        return
-    }
-    defer conn.Close()
+    conn <span class="token operator">:=</span> <span class="token operator">&lt;-</span>c<span class="token punctuation">.</span><span class="token function">Discover</span><span class="token punctuation">(</span><span class="token string">&quot;example&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;hello&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> conn <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>as<span class="token punctuation">.</span><span class="token function">ErrServiceNotFound</span><span class="token punctuation">(</span><span class="token string">&quot;example&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;hello&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">defer</span> conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-    request := msg.HelloRequest{Who: &quot;John&quot;, Question: &quot;who are you&quot;}
-    var reply msg.HelloReply
-    if err := conn.SendRecv(request, &amp;reply); err != nil {
-        fmt.Println(err)
-        return
-    }
-    fmt.Println(reply.Answer)
-}
+    request <span class="token operator">:=</span> msg<span class="token punctuation">.</span>HelloRequest<span class="token punctuation">{</span>Who<span class="token punctuation">:</span> <span class="token string">&quot;John&quot;</span><span class="token punctuation">,</span> Question<span class="token punctuation">:</span> <span class="token string">&quot;who are you&quot;</span><span class="token punctuation">}</span>
+    <span class="token keyword">var</span> reply msg<span class="token punctuation">.</span>HelloReply
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> conn<span class="token punctuation">.</span><span class="token function">SendRecv</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token operator">&amp;</span>reply<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>reply<span class="token punctuation">.</span>Answer<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h3 id="server&#x7AEF;"><a name="server&#x7AEF;" class="anchor-navigation-ex-anchor" href="#server&#x7AEF;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. server&#x7AEF;</h3>
 <p>server&#x7AEF;&#x9700;&#x8981;&#x5B9A;&#x4E49;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x7684;struct, &#x4EE5;&#x53CA;&#x5176;handler. &#x5728;&#x8FD9;&#x4E2A;struct&#x5230;&#x8FBE;server&#x7AEF;&#x7684;&#x65F6;&#x5019;, &#x6846;&#x67B6;&#x5728;worker pool&#x91CC;&#x5206;&#x914D;worker, handler&#x88AB;&#x6846;&#x67B6;&#x5728;worker&#x4E2D;&#x8C03;&#x7528;.</p>
 <p>message.go&#x4E2D;&#x5B9A;&#x4E49;&#x6D88;&#x606F;struct&#x5982;&#x4E0B;:</p>
-<pre><code class="lang-go">
-package message
+<pre class="language-"><code class="lang-go">
+<span class="token keyword">package</span> message
 
-import (
-    &quot;strings&quot;
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;strings&quot;</span>
 
-    as &quot;github.com/godevsig/adaptiveservice&quot;
-)
+    as <span class="token string">&quot;github.com/godevsig/adaptiveservice&quot;</span>
+<span class="token punctuation">)</span>
 
-// HelloRequest is the request from clients
-type HelloRequest struct {
-    Who      string
-    Question string
-}
+<span class="token comment">// HelloRequest is the request from clients</span>
+<span class="token keyword">type</span> HelloRequest <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Who      <span class="token builtin">string</span>
+    Question <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
 
-// HelloReply is the reply of HelloRequest to clients
-type HelloReply struct {
-    Answer string
-}
+<span class="token comment">// HelloReply is the reply of HelloRequest to clients</span>
+<span class="token keyword">type</span> HelloReply <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Answer <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
 
-// Handle handles msg.
-func (msg HelloRequest) Handle(stream as.ContextStream) (reply interface{}) {
-    answer := &quot;I don&apos;t know&quot;
+<span class="token comment">// Handle handles msg.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>msg HelloRequest<span class="token punctuation">)</span> <span class="token function">Handle</span><span class="token punctuation">(</span>stream as<span class="token punctuation">.</span>ContextStream<span class="token punctuation">)</span> <span class="token punctuation">(</span>reply <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    answer <span class="token operator">:=</span> <span class="token string">&quot;I don&apos;t know&quot;</span>
 
-    question := strings.ToLower(msg.Question)
-    switch {
-    case strings.Contains(question, &quot;who are you&quot;):
-        answer = &quot;I am hello server&quot;
-    case strings.Contains(question, &quot;how are you&quot;):
-        answer = &quot;I am good&quot;
-    }
-    return HelloReply{answer + &quot;, &quot; + msg.Who}
-}
+    question <span class="token operator">:=</span> strings<span class="token punctuation">.</span><span class="token function">ToLower</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>Question<span class="token punctuation">)</span>
+    <span class="token keyword">switch</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> strings<span class="token punctuation">.</span><span class="token function">Contains</span><span class="token punctuation">(</span>question<span class="token punctuation">,</span> <span class="token string">&quot;who are you&quot;</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        answer <span class="token operator">=</span> <span class="token string">&quot;I am hello server&quot;</span>
+    <span class="token keyword">case</span> strings<span class="token punctuation">.</span><span class="token function">Contains</span><span class="token punctuation">(</span>question<span class="token punctuation">,</span> <span class="token string">&quot;how are you&quot;</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        answer <span class="token operator">=</span> <span class="token string">&quot;I am good&quot;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> HelloReply<span class="token punctuation">{</span>answer <span class="token operator">+</span> <span class="token string">&quot;, &quot;</span> <span class="token operator">+</span> msg<span class="token punctuation">.</span>Who<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-func init() {
-    as.RegisterType(HelloRequest{})
-    as.RegisterType(HelloReply{})
-}
+<span class="token keyword">func</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    as<span class="token punctuation">.</span><span class="token function">RegisterType</span><span class="token punctuation">(</span>HelloRequest<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    as<span class="token punctuation">.</span><span class="token function">RegisterType</span><span class="token punctuation">(</span>HelloReply<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>helloserver.go&#x4E2D;&#x542F;&#x52A8;service:</p>
-<pre><code class="lang-go">package main
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
 
-import (
-    &quot;fmt&quot;
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;fmt&quot;</span>
 
-    as &quot;github.com/godevsig/adaptiveservice&quot;
-    msg &quot;github.com/godevsig/adaptiveservice/examples/hello/message&quot;
-)
+    as <span class="token string">&quot;github.com/godevsig/adaptiveservice&quot;</span>
+    msg <span class="token string">&quot;github.com/godevsig/adaptiveservice/examples/hello/message&quot;</span>
+<span class="token punctuation">)</span>
 
-func main() {
-    s := as.NewServer().SetPublisher(&quot;example&quot;)
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    s <span class="token operator">:=</span> as<span class="token punctuation">.</span><span class="token function">NewServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">SetPublisher</span><span class="token punctuation">(</span><span class="token string">&quot;example&quot;</span><span class="token punctuation">)</span>
 
-    knownMsgs := []as.KnownMessage{msg.HelloRequest{}}
-    if err := s.Publish(&quot;hello&quot;, knownMsgs); err != nil {
-        fmt.Println(err)
-        return
-    }
+    knownMsgs <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>as<span class="token punctuation">.</span>KnownMessage<span class="token punctuation">{</span>msg<span class="token punctuation">.</span>HelloRequest<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">Publish</span><span class="token punctuation">(</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> knownMsgs<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
 
-    if err := s.Serve(); err != nil { // ctrl+c to exit
-        fmt.Println(err)
-    }
-}
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">Serve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span> <span class="token comment">// ctrl+c to exit</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h1 id="gshell"><a name="gshell" class="anchor-navigation-ex-anchor" href="#gshell"><i class="fa fa-link" aria-hidden="true"></i></a>2. gshell</h1>
 <p><a href="https://github.com/godevsig/gshellos" target="_blank">godevsig/gshellos</a>&#x662F;&#x57FA;&#x4E8E;adaptive service&#x7684;&#x4E00;&#x4E2A;go&#x670D;&#x52A1;&#x7F16;&#x6392;&#x7684;&#x6846;&#x67B6;. gshellos&#x4F7F;&#x7528;&#x4E86;go&#x89E3;&#x91CA;&#x5668;<a href="https://github.com/traefik/yaegi" target="_blank">yaegi</a>, &#x4F7F;gshell&#x6846;&#x67B6;&#x5F97;&#x4EE5;&#x5728;&#x4EFB;&#x610F;gshell&#x8282;&#x70B9;&#x8FD0;&#x884C;&#x4F4D;&#x4E8E;&#x4E2D;&#x592E;&#x4ED3;&#x5E93;<a href="https://github.com/godevsig/grepo" target="_blank">grepo</a>&#x4E0B;&#x7684;go&#x4EE3;&#x7801;.</p>
@@ -3059,11 +3056,10 @@ func main() {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"我的开源项目","level":"1.2.1","depth":2,"next":{"title":"我的upstream commit","level":"1.2.2","depth":2,"path":"notes/my_upstream.md","ref":"notes/my_upstream.md","articles":[]},"previous":{"title":"开源","level":"1.2","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"我的开源项目","level":"1.2.1","depth":2,"path":"notes/my_opensource.md","ref":"notes/my_opensource.md","articles":[]},{"title":"我的upstream commit","level":"1.2.2","depth":2,"path":"notes/my_upstream.md","ref":"notes/my_upstream.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/my_opensource.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"我的开源项目","level":"1.2.1","depth":2,"next":{"title":"我的upstream commit","level":"1.2.2","depth":2,"path":"notes/my_upstream.md","ref":"notes/my_upstream.md","articles":[]},"previous":{"title":"开源","level":"1.2","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"我的开源项目","level":"1.2.1","depth":2,"path":"notes/my_opensource.md","ref":"notes/my_opensource.md","articles":[]},{"title":"我的upstream commit","level":"1.2.2","depth":2,"path":"notes/my_upstream.md","ref":"notes/my_upstream.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/my_opensource.md","mtime":"2022-10-11T15:39:07.950Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3102,7 +3098,6 @@ func main() {
         
     
 
-        
     </body>
 </html>
 

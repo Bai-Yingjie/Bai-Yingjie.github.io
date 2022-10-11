@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2868,85 +2865,85 @@
                                 
                                 <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x603B;&#x4F53;pcie&#x64CD;&#x4F5C;&#x96C6;-&#x63D0;&#x4F9B;&#x4E0A;&#x5C42;&#x4F7F;&#x7528;&#x7684;&#x56DE;&#x8C03;"><b>1. </b>&#x603B;&#x4F53;pcie&#x64CD;&#x4F5C;&#x96C6;, &#x63D0;&#x4F9B;&#x4E0A;&#x5C42;&#x4F7F;&#x7528;&#x7684;&#x56DE;&#x8C03;</a></li><ul><li><span class="title-icon "></span><a href="#pciopen"><b>1.1. </b>pci_open</a></li><li><span class="title-icon "></span><a href="#pcireadcsr"><b>1.2. </b>pci_read_csr</a></li><li><span class="title-icon "></span><a href="#pciwritemem"><b>1.3. </b>pci_write_mem</a></li></ul></ul></div><a href="#&#x603B;&#x4F53;pcie&#x64CD;&#x4F5C;&#x96C6;-&#x63D0;&#x4F9B;&#x4E0A;&#x5C42;&#x4F7F;&#x7528;&#x7684;&#x56DE;&#x8C03;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><p>host/remote-lib/octeon-remote-pci.c&#x9605;&#x8BFB;</p>
 <h1 id="&#x603B;&#x4F53;pcie&#x64CD;&#x4F5C;&#x96C6;-&#x63D0;&#x4F9B;&#x4E0A;&#x5C42;&#x4F7F;&#x7528;&#x7684;&#x56DE;&#x8C03;"><a name="&#x603B;&#x4F53;pcie&#x64CD;&#x4F5C;&#x96C6;-&#x63D0;&#x4F9B;&#x4E0A;&#x5C42;&#x4F7F;&#x7528;&#x7684;&#x56DE;&#x8C03;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x4F53;pcie&#x64CD;&#x4F5C;&#x96C6;-&#x63D0;&#x4F9B;&#x4E0A;&#x5C42;&#x4F7F;&#x7528;&#x7684;&#x56DE;&#x8C03;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x603B;&#x4F53;pcie&#x64CD;&#x4F5C;&#x96C6;, &#x63D0;&#x4F9B;&#x4E0A;&#x5C42;&#x4F7F;&#x7528;&#x7684;&#x56DE;&#x8C03;</h1>
-<pre><code class="lang-c">int octeon_remote_pci(octeon_remote_funcs_t *remote_funcs)
-{
-    remote_funcs-&gt;open = pci_open;
-    remote_funcs-&gt;close = pci_close;
-    remote_funcs-&gt;read_csr = pci_read_csr;
-    remote_funcs-&gt;write_csr = pci_write_csr;
-    remote_funcs-&gt;read_csr32 = pci_read_csr32;
-    remote_funcs-&gt;write_csr32 = pci_write_csr32;
-    remote_funcs-&gt;read_mem = pci_read_mem;
-    remote_funcs-&gt;write_mem = pci_write_mem;
-    remote_funcs-&gt;get_model = pci_get_model;
-    remote_funcs-&gt;start_cores = pci_start_cores;
-    remote_funcs-&gt;stop_cores = pci_stop_cores;
-    remote_funcs-&gt;get_running_cores = pci_get_running_cores;
-    remote_funcs-&gt;get_num_cores = pci_get_num_cores;
-    remote_funcs-&gt;get_core_state = pci_get_core_state;
-    remote_funcs-&gt;set_core_state = pci_set_core_state;
-    remote_funcs-&gt;reset = pci_reset;
-    remote_funcs-&gt;get_sample = pci_get_sample;
+<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">octeon_remote_pci</span><span class="token punctuation">(</span><span class="token class-name">octeon_remote_funcs_t</span> <span class="token operator">*</span>remote_funcs<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    remote_funcs<span class="token operator">-&gt;</span>open <span class="token operator">=</span> pci_open<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>close <span class="token operator">=</span> pci_close<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>read_csr <span class="token operator">=</span> pci_read_csr<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>write_csr <span class="token operator">=</span> pci_write_csr<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>read_csr32 <span class="token operator">=</span> pci_read_csr32<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>write_csr32 <span class="token operator">=</span> pci_write_csr32<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>read_mem <span class="token operator">=</span> pci_read_mem<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>write_mem <span class="token operator">=</span> pci_write_mem<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>get_model <span class="token operator">=</span> pci_get_model<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>start_cores <span class="token operator">=</span> pci_start_cores<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>stop_cores <span class="token operator">=</span> pci_stop_cores<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>get_running_cores <span class="token operator">=</span> pci_get_running_cores<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>get_num_cores <span class="token operator">=</span> pci_get_num_cores<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>get_core_state <span class="token operator">=</span> pci_get_core_state<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>set_core_state <span class="token operator">=</span> pci_set_core_state<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>reset <span class="token operator">=</span> pci_reset<span class="token punctuation">;</span>
+    remote_funcs<span class="token operator">-&gt;</span>get_sample <span class="token operator">=</span> pci_get_sample<span class="token punctuation">;</span>
 
-    if (getenv(&quot;OCTEON_PCI_DEBUG&quot;))
-        remote_funcs-&gt;debug++;
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">getenv</span><span class="token punctuation">(</span><span class="token string">&quot;OCTEON_PCI_DEBUG&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        remote_funcs<span class="token operator">-&gt;</span>debug<span class="token operator">++</span><span class="token punctuation">;</span>
 
-    return 0;
-}
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h2 id="pciopen"><a name="pciopen" class="anchor-navigation-ex-anchor" href="#pciopen"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. pci_open</h2>
-<pre><code class="lang-c">int pci_open(const char *remote_spec)
-  pci_get_device(int device)
-    in = fopen(&quot;/proc/bus/pci/devices&quot;, &quot;r&quot;);
-    //&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x91CC;&#x9762;&#x6BCF;&#x884C;&#x90FD;&#x662F;&#x4E2A;pcie&#x8BBE;&#x5907;
-    while (!feof(in))
-      //&#x7528;fscanf&#x8BFB;&#x51FA;&#x76F8;&#x5173;&#x4FE1;&#x606F;
-      fscanf(in, &quot;%2x%2x %8x %x %Lx %Lx %Lx %Lx %Lx %Lx %Lx %Lx %Lx %Lx&quot;,&#x7701;&#x7565;)
-      //&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;id, &#x5F97;&#x5230;br0&#x548C;br1&#x7684;&#x5730;&#x5740;&#x548C;&#x5927;&#x5C0F;(&#x7269;&#x7406;&#x5730;&#x5740;)
+<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">pci_open</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>remote_spec<span class="token punctuation">)</span>
+  <span class="token function">pci_get_device</span><span class="token punctuation">(</span><span class="token keyword">int</span> device<span class="token punctuation">)</span>
+    in <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">&quot;/proc/bus/pci/devices&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;r&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x91CC;&#x9762;&#x6BCF;&#x884C;&#x90FD;&#x662F;&#x4E2A;pcie&#x8BBE;&#x5907;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">feof</span><span class="token punctuation">(</span>in<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token comment">//&#x7528;fscanf&#x8BFB;&#x51FA;&#x76F8;&#x5173;&#x4FE1;&#x606F;</span>
+      <span class="token function">fscanf</span><span class="token punctuation">(</span>in<span class="token punctuation">,</span> <span class="token string">&quot;%2x%2x %8x %x %Lx %Lx %Lx %Lx %Lx %Lx %Lx %Lx %Lx %Lx&quot;</span><span class="token punctuation">,</span>&#x7701;&#x7565;<span class="token punctuation">)</span>
+      <span class="token comment">//&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;id, &#x5F97;&#x5230;br0&#x548C;br1&#x7684;&#x5730;&#x5740;&#x548C;&#x5927;&#x5C0F;(&#x7269;&#x7406;&#x5730;&#x5740;)</span>
       octeon_pci_bar0_address octeon_pci_bar1_address octeon_pci_bar0_size octeon_pci_bar1_size
-      //&#x68C0;&#x67E5;&#x662F;&#x5426;&#x6253;&#x5F00;&#x4E86;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x7684;master&#x4F4D;, &#x6CE8;&#x610F;&#x5199;/proc/bus/pci/devices&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;
-  //&#x4F7F;&#x7528;/dev/mem&#x6765;mmap64&#x5F97;&#x5230;&#x865A;&#x62DF;&#x5730;&#x5740;
-  octeon_pci_bar0_ptr = octeon_remote_map(octeon_pci_bar0_address, octeon_pci_bar0_size, &amp;bar0_cookie);
-    mmap64(NULL, alength, PROT_READ|PROT_WRITE, MAP_SHARED, file_handle, physical_address &amp; (int64_t)pagemask);
-  //&#x540C;&#x6837;&#x7684;, &#x83B7;&#x5F97;bar1&#x865A;&#x62DF;&#x5730;&#x5740;
-  //&#x8FD9;&#x91CC;&#x662F;&#x4E00;&#x4E9B;&#x6709;&#x5173;pcie&#x53D8;&#x91CF;&#x7684;&#x521D;&#x59CB;&#x5316;?
-  setup_globals()
+      <span class="token comment">//&#x68C0;&#x67E5;&#x662F;&#x5426;&#x6253;&#x5F00;&#x4E86;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x7684;master&#x4F4D;, &#x6CE8;&#x610F;&#x5199;/proc/bus/pci/devices&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;</span>
+  <span class="token comment">//&#x4F7F;&#x7528;/dev/mem&#x6765;mmap64&#x5F97;&#x5230;&#x865A;&#x62DF;&#x5730;&#x5740;</span>
+  octeon_pci_bar0_ptr <span class="token operator">=</span> <span class="token function">octeon_remote_map</span><span class="token punctuation">(</span>octeon_pci_bar0_address<span class="token punctuation">,</span> octeon_pci_bar0_size<span class="token punctuation">,</span> <span class="token operator">&amp;</span>bar0_cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">mmap64</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">,</span> alength<span class="token punctuation">,</span> PROT_READ<span class="token operator">|</span>PROT_WRITE<span class="token punctuation">,</span> MAP_SHARED<span class="token punctuation">,</span> file_handle<span class="token punctuation">,</span> physical_address <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token class-name">int64_t</span><span class="token punctuation">)</span>pagemask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//&#x540C;&#x6837;&#x7684;, &#x83B7;&#x5F97;bar1&#x865A;&#x62DF;&#x5730;&#x5740;</span>
+  <span class="token comment">//&#x8FD9;&#x91CC;&#x662F;&#x4E00;&#x4E9B;&#x6709;&#x5173;pcie&#x53D8;&#x91CF;&#x7684;&#x521D;&#x59CB;&#x5316;?</span>
+  <span class="token function">setup_globals</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <h2 id="pcireadcsr"><a name="pcireadcsr" class="anchor-navigation-ex-anchor" href="#pcireadcsr"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. pci_read_csr</h2>
-<pre><code class="lang-c">uint64_t pci_read_csr(uint64_t physical_address)
+<pre class="language-"><code class="lang-c"><span class="token class-name">uint64_t</span> <span class="token function">pci_read_csr</span><span class="token punctuation">(</span><span class="token class-name">uint64_t</span> physical_address<span class="token punctuation">)</span>
   octeon2
     OCTEON_SLI_ADDR&#x76F4;&#x63A5;&#x8BBF;&#x95EE;
-    &#x5176;&#x4ED6;&#x901A;&#x8FC7;&#x7A97;&#x53E3;&#x5BC4;&#x5B58;&#x5668;(octeon_pci_bar0_win_rd_addr)&#x8F6C;
+    &#x5176;&#x4ED6;&#x901A;&#x8FC7;&#x7A97;&#x53E3;&#x5BC4;&#x5B58;&#x5668;<span class="token punctuation">(</span>octeon_pci_bar0_win_rd_addr<span class="token punctuation">)</span>&#x8F6C;
   octeon3
     &#x90FD;&#x901A;&#x8FC7;octeon_pci_bar0_win_rd_addr&#x8F6C;
 </code></pre>
 <h2 id="pciwritemem"><a name="pciwritemem" class="anchor-navigation-ex-anchor" href="#pciwritemem"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. pci_write_mem</h2>
-<pre><code class="lang-c">void pci_write_mem(uint64_t physical_address, const void *buffer_ptr, int length)
-    //&#x539F;&#x5219;&#x4E0A;&#x6309;&#x7167;4M&#x4E00;&#x5757;&#x6765;&#x5199;(&#x8FD8;&#x8BB0;&#x5F97;&#x5417;, bar1&#x662F;16*4M&#x7684;&#x8BBF;&#x95EE;&#x6A21;&#x5F0F;)
-    //&#x4F46;&#x8FD9;&#x91CC;&#x6709;&#x4E2A;&#x95EE;&#x9898;, &#x5C31;&#x662F;physical_address&#x5E94;&#x8BE5;&#x662F;&#x4E2A;&#x4EFB;&#x610F;&#x5730;&#x5740;, &#x800C;&#x4E14;length&#x4E5F;&#x5E94;&#x8BE5;&#x662F;&#x4EFB;&#x610F;&#x7684;
-    //&#x6240;&#x4EE5;&#x662F;&#x8FD9;&#x6837;&#x8BBF;&#x95EE;, &#x628A;physical_address...length&#x5206;&#x6210;&#x4E09;&#x5927;&#x90E8;&#x5206;
-    //&#x4E0D;&#x5230;4M&#x7684;&#x5934;+n*4M&#x4E2D;&#x95F4;&#x7684;+&#x4E0D;&#x5230;4M&#x7684;&#x5C3E;
-    char *buffer = (char*)buffer_ptr;
-    uint32_t block_mask = (1&lt;&lt;22) - 1;
-    uint64_t end_address = physical_address + length;
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token function">pci_write_mem</span><span class="token punctuation">(</span><span class="token class-name">uint64_t</span> physical_address<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span>buffer_ptr<span class="token punctuation">,</span> <span class="token keyword">int</span> length<span class="token punctuation">)</span>
+    <span class="token comment">//&#x539F;&#x5219;&#x4E0A;&#x6309;&#x7167;4M&#x4E00;&#x5757;&#x6765;&#x5199;(&#x8FD8;&#x8BB0;&#x5F97;&#x5417;, bar1&#x662F;16*4M&#x7684;&#x8BBF;&#x95EE;&#x6A21;&#x5F0F;)</span>
+    <span class="token comment">//&#x4F46;&#x8FD9;&#x91CC;&#x6709;&#x4E2A;&#x95EE;&#x9898;, &#x5C31;&#x662F;physical_address&#x5E94;&#x8BE5;&#x662F;&#x4E2A;&#x4EFB;&#x610F;&#x5730;&#x5740;, &#x800C;&#x4E14;length&#x4E5F;&#x5E94;&#x8BE5;&#x662F;&#x4EFB;&#x610F;&#x7684;</span>
+    <span class="token comment">//&#x6240;&#x4EE5;&#x662F;&#x8FD9;&#x6837;&#x8BBF;&#x95EE;, &#x628A;physical_address...length&#x5206;&#x6210;&#x4E09;&#x5927;&#x90E8;&#x5206;</span>
+    <span class="token comment">//&#x4E0D;&#x5230;4M&#x7684;&#x5934;+n*4M&#x4E2D;&#x95F4;&#x7684;+&#x4E0D;&#x5230;4M&#x7684;&#x5C3E;</span>
+    <span class="token keyword">char</span> <span class="token operator">*</span>buffer <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>buffer_ptr<span class="token punctuation">;</span>
+    <span class="token class-name">uint32_t</span> block_mask <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span><span class="token number">22</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token class-name">uint64_t</span> end_address <span class="token operator">=</span> physical_address <span class="token operator">+</span> length<span class="token punctuation">;</span>
 
 
-    /* We need to do writes in 4MB aligned chunks. This way we only need to
-        mess with one BAR1 index register */
-    do
-    {
-        void *ptr = octeon_pci_bar1_ptr + (physical_address &amp; block_mask);
-        if (end_address &gt; (physical_address &amp; ~(uint64_t)block_mask) + block_mask + 1)
-            length = block_mask + 1 - (physical_address &amp; block_mask);
-        else
-            length = end_address - physical_address;
-        //&#x53EA;&#x7528;&#x5230;16&#x4E2A;&#x7A97;&#x53E3;&#x7684;index0, &#x4FEE;&#x6539;&#x5176;&#x57FA;&#x5740;
-        pci_bar1_setup(physical_address);
-        //&#x6839;&#x636E;&#x5730;&#x5740;&#x5BF9;&#x9F50;&#x65B9;&#x5F0F;&#x6765;&#x62F7;&#x8D1D;
-        fast_memcpy(ptr, buffer, length);
-        buffer += length;
-        physical_address += length;
-    } while (physical_address &lt; end_address);
+    <span class="token comment">/* We need to do writes in 4MB aligned chunks. This way we only need to
+        mess with one BAR1 index register */</span>
+    <span class="token keyword">do</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">void</span> <span class="token operator">*</span>ptr <span class="token operator">=</span> octeon_pci_bar1_ptr <span class="token operator">+</span> <span class="token punctuation">(</span>physical_address <span class="token operator">&amp;</span> block_mask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>end_address <span class="token operator">&gt;</span> <span class="token punctuation">(</span>physical_address <span class="token operator">&amp;</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token class-name">uint64_t</span><span class="token punctuation">)</span>block_mask<span class="token punctuation">)</span> <span class="token operator">+</span> block_mask <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            length <span class="token operator">=</span> block_mask <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">-</span> <span class="token punctuation">(</span>physical_address <span class="token operator">&amp;</span> block_mask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            length <span class="token operator">=</span> end_address <span class="token operator">-</span> physical_address<span class="token punctuation">;</span>
+        <span class="token comment">//&#x53EA;&#x7528;&#x5230;16&#x4E2A;&#x7A97;&#x53E3;&#x7684;index0, &#x4FEE;&#x6539;&#x5176;&#x57FA;&#x5740;</span>
+        <span class="token function">pci_bar1_setup</span><span class="token punctuation">(</span>physical_address<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//&#x6839;&#x636E;&#x5730;&#x5740;&#x5BF9;&#x9F50;&#x65B9;&#x5F0F;&#x6765;&#x62F7;&#x8D1D;</span>
+        <span class="token function">fast_memcpy</span><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> buffer<span class="token punctuation">,</span> length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        buffer <span class="token operator">+=</span> length<span class="token punctuation">;</span>
+        physical_address <span class="token operator">+=</span> length<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">while</span> <span class="token punctuation">(</span>physical_address <span class="token operator">&lt;</span> end_address<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
                                 
@@ -2991,11 +2988,10 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon remote-pci.c阅读","level":"1.15.6","depth":2,"next":{"title":"VFIO简介","level":"1.15.7","depth":2,"path":"notes/Device_VFIO_notes.md","ref":"notes/Device_VFIO_notes.md","articles":[]},"previous":{"title":"Nand flash概率写失败问题分析","level":"1.15.5.2","depth":3,"path":"notes/device_driver_nand概率写失败问题分析.md","ref":"notes/device_driver_nand概率写失败问题分析.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/octeon_remote_pci.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon remote-pci.c阅读","level":"1.15.6","depth":2,"next":{"title":"VFIO简介","level":"1.15.7","depth":2,"path":"notes/Device_VFIO_notes.md","ref":"notes/Device_VFIO_notes.md","articles":[]},"previous":{"title":"Nand flash概率写失败问题分析","level":"1.15.5.2","depth":3,"path":"notes/device_driver_nand概率写失败问题分析.md","ref":"notes/device_driver_nand概率写失败问题分析.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/octeon_remote_pci.md","mtime":"2022-10-11T15:39:07.954Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3034,7 +3030,6 @@
         
     
 
-        
     </body>
 </html>
 

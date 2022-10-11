@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2883,33 +2880,33 @@ you must have a <strong>public server(relay server)</strong> 122.235.139.194(sh_
 <p><code>homeserver~$ ssh -fN -R 10022:localhost:22 sh_cvmx@122.235.139.194</code>
 10022 is an unused port on relay server</p>
 <h2 id="login-to-relay-server"><a name="login-to-relay-server" class="anchor-navigation-ex-anchor" href="#login-to-relay-server"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. login to relay server</h2>
-<pre><code class="lang-sh">ssh sh_cvmx@122.235.139.194
-shanghaicavm!
+<pre class="language-"><code class="lang-sh"><span class="token function">ssh</span> sh_cvmx@122.235.139.194
+shanghaicavm<span class="token operator">!</span>
 </code></pre>
 <p>check 10022 port, shoud be like this:</p>
-<pre><code class="lang-sh">relayserver~$ sudo netstat -nap | grep 10022
-tcp      0    0 127.0.0.1:10022          0.0.0.0:*               LISTEN      8493/sshd
+<pre class="language-"><code class="lang-sh">relayserver~$ <span class="token function">sudo</span> <span class="token function">netstat</span> <span class="token parameter variable">-nap</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">10022</span>
+tcp      <span class="token number">0</span>    <span class="token number">0</span> <span class="token number">127.0</span>.0.1:10022          <span class="token number">0.0</span>.0.0:*               LISTEN      <span class="token number">8493</span>/sshd
 </code></pre>
 <h2 id="from-any-pc"><a name="from-any-pc" class="anchor-navigation-ex-anchor" href="#from-any-pc"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. from any PC</h2>
 <p>login to relay server</p>
-<pre><code class="lang-sh">ssh sh_cvmx@122.235.139.194
-shanghaicavm!
+<pre class="language-"><code class="lang-sh"><span class="token function">ssh</span> sh_cvmx@122.235.139.194
+shanghaicavm<span class="token operator">!</span>
 </code></pre>
 <p>Then on relay server, login to home server:</p>
-<pre><code>relayserver~$ ssh -p 10022 cvm@localhost
+<pre class="language-"><code>relayserver~$ ssh -p 10022 cvm@localhost
 cvmx@sh
 </code></pre><h2 id="ssh-keep-alive"><a name="ssh-keep-alive" class="anchor-navigation-ex-anchor" href="#ssh-keep-alive"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. ssh keep alive</h2>
-<pre><code class="lang-sh"># vim /etc/ssh/ssh_config
+<pre class="language-"><code class="lang-sh"><span class="token comment"># vim /etc/ssh/ssh_config</span>
 Host *
-    ServerAliveInterval 60
-    ServerAliveCountMax 2
+    ServerAliveInterval <span class="token number">60</span>
+    ServerAliveCountMax <span class="token number">2</span>
 </code></pre>
 <p><code>sudo service ssh restart</code></p>
 <h2 id="make-it-persistent"><a name="make-it-persistent" class="anchor-navigation-ex-anchor" href="#make-it-persistent"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. make it persistent</h2>
 <ol>
 <li><p>passwordless ssh login, on home server</p>
-<pre><code class="lang-sh">ssh-keygen -t rsa -P &apos;&apos;
-cat ~/.ssh/id_rsa.pub | ssh root@112.74.210.173 &quot;cat &gt;&gt; ~/.ssh/authorized_keys&quot;
+<pre class="language-"><code class="lang-sh">ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-P</span> <span class="token string">&apos;&apos;</span>
+<span class="token function">cat</span> ~/.ssh/id_rsa.pub <span class="token operator">|</span> <span class="token function">ssh</span> root@112.74.210.173 <span class="token string">&quot;cat &gt;&gt; ~/.ssh/authorized_keys&quot;</span>
 </code></pre>
 <p>&#x6CE8;: &#x6709;&#x7684;&#x65F6;&#x5019;&#x8FD8;&#x662F;&#x4E0D;&#x80FD;&#x514D;&#x5BC6;&#x767B;&#x5F55;, &#x6B64;&#x65F6;&#x8981;&#x8BE5;&#x670D;&#x52A1;&#x7AEF;&#x7684;&#x6743;&#x9650; chmod 600 authorized_keys</p>
 </li>
@@ -2962,11 +2959,10 @@ cat ~/.ssh/id_rsa.pub | ssh root@112.74.210.173 &quot;cat &gt;&gt; ~/.ssh/author
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"ssh relay","level":"1.6.4","depth":2,"next":{"title":"gitlab CI","level":"1.6.5","depth":2,"path":"notes/gitlab_ci.md","ref":"notes/gitlab_ci.md","articles":[]},"previous":{"title":"向kernel提交补丁","level":"1.6.3","depth":2,"path":"notes/向kernel提交补丁.md","ref":"notes/向kernel提交补丁.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/linux_ssh_relay.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"ssh relay","level":"1.6.4","depth":2,"next":{"title":"gitlab CI","level":"1.6.5","depth":2,"path":"notes/gitlab_ci.md","ref":"notes/gitlab_ci.md","articles":[]},"previous":{"title":"向kernel提交补丁","level":"1.6.3","depth":2,"path":"notes/向kernel提交补丁.md","ref":"notes/向kernel提交补丁.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/linux_ssh_relay.md","mtime":"2022-10-11T15:39:07.950Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3005,7 +3001,6 @@ cat ~/.ssh/id_rsa.pub | ssh root@112.74.210.173 &quot;cat &gt;&gt; ~/.ssh/author
         
     
 
-        
     </body>
 </html>
 

@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2888,93 +2885,93 @@
 <li>git clone portage&#x5E93;
 <a href="https://anongit.gentoo.org/git/repo/gentoo.git" target="_blank">https://anongit.gentoo.org/git/repo/gentoo.git</a></li>
 </ul>
-<pre><code class="lang-sh">#&#x5728;mint&#x865A;&#x62DF;&#x673A;&#x4E0A;, &#x6253;&#x5F00;&#x76F8;&#x5173;&#x670D;&#x52A1;&#x548C;&#x8F6C;&#x53D1;
-sudo sysctl -w net.ipv4.ip_forward=1
-sudo iptables -t nat -A POSTROUTING -j MASQUERADE -s 192.168.2.12/32 -o enp0s10
-cat /etc/exports
-/home/yingjieb/work 192.168.2.0/24(rw,sync,insecure,no_subtree_check,no_root_squash,fsid=0)
-sudo systemctl start nfs-kernel-server.service
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x5728;mint&#x865A;&#x62DF;&#x673A;&#x4E0A;, &#x6253;&#x5F00;&#x76F8;&#x5173;&#x670D;&#x52A1;&#x548C;&#x8F6C;&#x53D1;</span>
+<span class="token function">sudo</span> <span class="token function">sysctl</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">net.ipv4.ip_forward</span><span class="token operator">=</span><span class="token number">1</span>
+<span class="token function">sudo</span> iptables <span class="token parameter variable">-t</span> nat <span class="token parameter variable">-A</span> POSTROUTING <span class="token parameter variable">-j</span> MASQUERADE <span class="token parameter variable">-s</span> <span class="token number">192.168</span>.2.12/32 <span class="token parameter variable">-o</span> enp0s10
+<span class="token function">cat</span> /etc/exports
+/home/yingjieb/work <span class="token number">192.168</span>.2.0/24<span class="token punctuation">(</span>rw,sync,insecure,no_subtree_check,no_root_squash,fsid<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token function">sudo</span> systemctl start nfs-kernel-server.service
 
 
-#&#x7528;root&#x64CD;&#x4F5C;
-sudo -s
-cd ~/work/nfsroot
-mkdir mipsroot
-tar xvf stage3-mips64_multilib-20140904.tar.bz2 -C mipsroot
-#&#x628A;portage&#x5E93;&#x62F7;&#x5230;usr/portage, &#x5E26;.git&#x4E00;&#x8D77;&#x62F7;, &#x540E;&#x9762;&#x8FD8;&#x8981;&#x64CD;&#x4F5C;
-cp -a gentoo.git mipsroot/usr/portage
-#&#x5230;mipsroot&#x76EE;&#x5F55;&#x4E0B;&#x64CD;&#x4F5C;, &#x8FD9;&#x4E5F;&#x662F;&#x677F;&#x5B50;&#x7684;rootfs
-cd mipsroot
+<span class="token comment">#&#x7528;root&#x64CD;&#x4F5C;</span>
+<span class="token function">sudo</span> <span class="token parameter variable">-s</span>
+<span class="token builtin class-name">cd</span> ~/work/nfsroot
+<span class="token function">mkdir</span> mipsroot
+<span class="token function">tar</span> xvf stage3-mips64_multilib-20140904.tar.bz2 <span class="token parameter variable">-C</span> mipsroot
+<span class="token comment">#&#x628A;portage&#x5E93;&#x62F7;&#x5230;usr/portage, &#x5E26;.git&#x4E00;&#x8D77;&#x62F7;, &#x540E;&#x9762;&#x8FD8;&#x8981;&#x64CD;&#x4F5C;</span>
+<span class="token function">cp</span> <span class="token parameter variable">-a</span> gentoo.git mipsroot/usr/portage
+<span class="token comment">#&#x5230;mipsroot&#x76EE;&#x5F55;&#x4E0B;&#x64CD;&#x4F5C;, &#x8FD9;&#x4E5F;&#x662F;&#x677F;&#x5B50;&#x7684;rootfs</span>
+<span class="token builtin class-name">cd</span> mipsroot
 </code></pre>
 <p>&#x677F;&#x5B50;&#x8D77;&#x5230;linux, &#x914D;&#x597D;&#x7F51;&#x7EDC;</p>
-<pre><code class="lang-sh">#&#x677F;&#x5B50;&#x4E0A;&#x64CD;&#x4F5C;, 192.168.2.11&#x662F;mint&#x7684;ip, &#x76F4;&#x8FDE;&#x7684;
-ifconfig agl0 192.168.2.12 up
-ifconfig eth-mgnt 192.168.2.12 up
-route add default gw 192.168.2.11
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x677F;&#x5B50;&#x4E0A;&#x64CD;&#x4F5C;, 192.168.2.11&#x662F;mint&#x7684;ip, &#x76F4;&#x8FDE;&#x7684;</span>
+<span class="token function">ifconfig</span> agl0 <span class="token number">192.168</span>.2.12 up
+<span class="token function">ifconfig</span> eth-mgnt <span class="token number">192.168</span>.2.12 up
+route <span class="token function">add</span> default gw <span class="token number">192.168</span>.2.11
 /etc/init.d/S50dropbear start
 
 
-#mount nfs4
-mkdir -p /root/remote
-mount -t nfs4 192.168.2.11:nfsroot/mipsroot /root/remote -o nolock     //nfsv4
+<span class="token comment">#mount nfs4</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /root/remote
+<span class="token function">mount</span> <span class="token parameter variable">-t</span> nfs4 <span class="token number">192.168</span>.2.11:nfsroot/mipsroot /root/remote <span class="token parameter variable">-o</span> nolock     //nfsv4
 
-mount 192.168.2.11:/home/yingjieb/work/nfsroot/mipsroot /root/remote -o nolock     //nfsv3&#x662F;&#x8FD9;&#x4E48;&#x5199;
-
-
-#&#x51C6;&#x5907;chroot
-mount /dev/pts -o remount,gid=5
-ln -s /proc/self/fd /dev/fd
+<span class="token function">mount</span> <span class="token number">192.168</span>.2.11:/home/yingjieb/work/nfsroot/mipsroot /root/remote <span class="token parameter variable">-o</span> nolock     //nfsv3&#x662F;&#x8FD9;&#x4E48;&#x5199;
 
 
-cd /root
-#mount
-mount -o bind /dev remote/dev
-mount -o bind /dev/pts remote/dev/pts
-mount -o bind /proc remote/proc
-mount -o bind /sys remote/sys
-mount -o bind /run remote/run
+<span class="token comment">#&#x51C6;&#x5907;chroot</span>
+<span class="token function">mount</span> /dev/pts <span class="token parameter variable">-o</span> remount,gid<span class="token operator">=</span><span class="token number">5</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> /proc/self/fd /dev/fd
 
 
-#umount
-umount remote/dev/pts
-umount remote/dev
-umount remote/proc
-umount remote/sys
-umount remote/run
-umount remote
+<span class="token builtin class-name">cd</span> /root
+<span class="token comment">#mount</span>
+<span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token builtin class-name">bind</span> /dev remote/dev
+<span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token builtin class-name">bind</span> /dev/pts remote/dev/pts
+<span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token builtin class-name">bind</span> /proc remote/proc
+<span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token builtin class-name">bind</span> /sys remote/sys
+<span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token builtin class-name">bind</span> /run remote/run
+
+
+<span class="token comment">#umount</span>
+<span class="token function">umount</span> remote/dev/pts
+<span class="token function">umount</span> remote/dev
+<span class="token function">umount</span> remote/proc
+<span class="token function">umount</span> remote/sys
+<span class="token function">umount</span> remote/run
+<span class="token function">umount</span> remote
 </code></pre>
 <h1 id="chroot"><a name="chroot" class="anchor-navigation-ex-anchor" href="#chroot"><i class="fa fa-link" aria-hidden="true"></i></a>2. chroot</h1>
-<pre><code class="lang-sh">#&#x6700;&#x597D;ssh&#x5230;&#x677F;&#x5B50;&#x64CD;&#x4F5C;
-ssh root@192.168.2.12
-chroot remote /bin/bash
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x6700;&#x597D;ssh&#x5230;&#x677F;&#x5B50;&#x64CD;&#x4F5C;</span>
+<span class="token function">ssh</span> root@192.168.2.12
+<span class="token function">chroot</span> remote /bin/bash
 
 
-#&#x4E00;&#x6B21;&#x6027;&#x64CD;&#x4F5C;
-#&#x7F51;&#x7EDC;
-ping 135.245.48.34
-route add default gw 192.168.2.11
-echo &quot;nameserver 172.24.213.251&quot; &gt; /etc/resolv.conf
-#&#x65F6;&#x95F4;
-date -s 20190705
-#profile, &#x91CD;&#x8981;
-cd /etc/portage
-ln -sf ../../usr/portage/profiles/default/linux/mips/13.0/multilib/n64 make.profile
+<span class="token comment">#&#x4E00;&#x6B21;&#x6027;&#x64CD;&#x4F5C;</span>
+<span class="token comment">#&#x7F51;&#x7EDC;</span>
+<span class="token function">ping</span> <span class="token number">135.245</span>.48.34
+route <span class="token function">add</span> default gw <span class="token number">192.168</span>.2.11
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;nameserver 172.24.213.251&quot;</span> <span class="token operator">&gt;</span> /etc/resolv.conf
+<span class="token comment">#&#x65F6;&#x95F4;</span>
+<span class="token function">date</span> <span class="token parameter variable">-s</span> <span class="token number">20190705</span>
+<span class="token comment">#profile, &#x91CD;&#x8981;</span>
+<span class="token builtin class-name">cd</span> /etc/portage
+<span class="token function">ln</span> <span class="token parameter variable">-sf</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/usr/portage/profiles/default/linux/mips/13.0/multilib/n64 make.profile
 
 
-#&#x4E00;&#x822C;&#x64CD;&#x4F5C;
-export http_proxy=&quot;http://135.245.48.34:8000&quot;
-export https_proxy=$http_proxy
-export ftp_proxy=$http_proxy
-export rsync_proxy=$http_proxy
+<span class="token comment">#&#x4E00;&#x822C;&#x64CD;&#x4F5C;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">http_proxy</span><span class="token operator">=</span><span class="token string">&quot;http://135.245.48.34:8000&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">https_proxy</span><span class="token operator">=</span><span class="token variable">$http_proxy</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ftp_proxy</span><span class="token operator">=</span><span class="token variable">$http_proxy</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">rsync_proxy</span><span class="token operator">=</span><span class="token variable">$http_proxy</span>
 
 
-# gentoo&#x4F7F;&#x7528;
-#&#x7559;core0&#x8DD1;&#x7F51;&#x7EDC;
-taskset -c 1,2,3 emerge -avtuDN @world
+<span class="token comment"># gentoo&#x4F7F;&#x7528;</span>
+<span class="token comment">#&#x7559;core0&#x8DD1;&#x7F51;&#x7EDC;</span>
+taskset <span class="token parameter variable">-c</span> <span class="token number">1,2</span>,3 emerge <span class="token parameter variable">-avtuDN</span> @world
 </code></pre>
 <h2 id="&#x66F4;&#x65B0;gentoo"><a name="&#x66F4;&#x65B0;gentoo" class="anchor-navigation-ex-anchor" href="#&#x66F4;&#x65B0;gentoo"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x66F4;&#x65B0;Gentoo</h2>
-<pre><code class="lang-sh">#etc/portage/make.conf
-GENTOO_MIRRORS=&quot;http://distfiles.gentoo.org/ http://bbgentoo.ilb.ru/&quot;
+<pre class="language-"><code class="lang-sh"><span class="token comment">#etc/portage/make.conf</span>
+<span class="token assign-left variable">GENTOO_MIRRORS</span><span class="token operator">=</span><span class="token string">&quot;http://distfiles.gentoo.org/ http://bbgentoo.ilb.ru/&quot;</span>
 </code></pre>
 <h1 id="build-go-toolchain"><a name="build-go-toolchain" class="anchor-navigation-ex-anchor" href="#build-go-toolchain"><i class="fa fa-link" aria-hidden="true"></i></a>3. build go toolchain</h1>
 <p>git clone go&#x7684;&#x6E90;&#x7801;:
@@ -2987,112 +2984,112 @@ GENTOO_MIRRORS=&quot;http://distfiles.gentoo.org/ http://bbgentoo.ilb.ru/&quot;
 </ul>
 <h2 id="&#x5148;&#x5728;x86&#x4E0A;build-bootstrap-for-mips"><a name="&#x5148;&#x5728;x86&#x4E0A;build-bootstrap-for-mips" class="anchor-navigation-ex-anchor" href="#&#x5148;&#x5728;x86&#x4E0A;build-bootstrap-for-mips"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x5148;&#x5728;x86&#x4E0A;build bootstrap for mips</h2>
 <p>&#x5728;mint&#x673A;&#x5668;&#x4E0A;, &#x5148;&#x7F16;&#x8BD1;go1.4</p>
-<pre><code class="lang-sh">git clone https://go.googlesource.com/go $HOME/go1.4
-cd $HOME/go1.4/src
-git checkout release-branch.go1.4
+<pre class="language-"><code class="lang-sh"><span class="token function">git</span> clone https://go.googlesource.com/go <span class="token environment constant">$HOME</span>/go1.4
+<span class="token builtin class-name">cd</span> <span class="token environment constant">$HOME</span>/go1.4/src
+<span class="token function">git</span> checkout release-branch.go1.4
 ./make.bash
 </code></pre>
 <p>&#x518D;&#x7F16;&#x8BD1;go1.12, &#x8FD9;&#x4E2A;&#x7248;&#x672C;&#x652F;&#x6301;&#x751F;&#x6210;cross toolchain</p>
-<pre><code class="lang-sh">git clone https://go.googlesource.com/go $HOME/go
-cd $HOME/go/src
-git checkout release-branch.go1.12
-env GOROOT_BOOTSTRAP=$HOME/go1.4 ./make.bash
+<pre class="language-"><code class="lang-sh"><span class="token function">git</span> clone https://go.googlesource.com/go <span class="token environment constant">$HOME</span>/go
+<span class="token builtin class-name">cd</span> <span class="token environment constant">$HOME</span>/go/src
+<span class="token function">git</span> checkout release-branch.go1.12
+<span class="token function">env</span> <span class="token assign-left variable">GOROOT_BOOTSTRAP</span><span class="token operator">=</span><span class="token environment constant">$HOME</span>/go1.4 ./make.bash
 </code></pre>
 <p>&#x7528;go1.12&#x7F16;&#x8BD1;target&#x4E0A;&#x7684;boot strap toolchain</p>
-<pre><code class="lang-sh">#&#x8FD8;&#x662F;go1.12&#x76EE;&#x5F55;
-cd $HOME/go/src
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x8FD8;&#x662F;go1.12&#x76EE;&#x5F55;</span>
+<span class="token builtin class-name">cd</span> <span class="token environment constant">$HOME</span>/go/src
 
-env GOOS=linux GOARCH=mips64 ./bootstrap.bash
-#&#x6210;&#x529F;&#x540E;, &#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x548C;&#x4E00;&#x4E2A;&#x538B;&#x7F29;&#x5305;
+<span class="token function">env</span> <span class="token assign-left variable">GOOS</span><span class="token operator">=</span>linux <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>mips64 ./bootstrap.bash
+<span class="token comment">#&#x6210;&#x529F;&#x540E;, &#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x548C;&#x4E00;&#x4E2A;&#x538B;&#x7F29;&#x5305;</span>
 go-linux-mips64-bootstrap
 go-linux-mips64-bootstrap.tbz
 </code></pre>
 <h2 id="&#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go-toolchain"><a name="&#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go-toolchain" class="anchor-navigation-ex-anchor" href="#&#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go-toolchain"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x540E;&#x5728;&#x677F;&#x5B50;&#x4E0A;&#x7F16;&#x8BD1;go toolchain</h2>
 <p>&#x62F7;&#x8D1D;<code>go-linux-mips64-bootstrap.tbz</code>&#x5230;&#x677F;&#x5B50;&#x4E0A;, &#x5E76;&#x89E3;&#x538B;
 &#x6CE8;&#x610F;: cgo&#x9ED8;&#x8BA4;&#x5F00;&#x542F;, &#x4F46;&#x9700;&#x8981;&#x677F;&#x5B50;&#x4E0A;&#x6709;gcc&#x5DE5;&#x5177;&#x94FE;, &#x4EE5;&#x652F;&#x6301;cgo</p>
-<pre><code class="lang-sh">#&#x6B63;&#x5E38;&#x5E94;&#x8BE5;git clone https://go.googlesource.com/go
-#&#x4F46;&#x6211;&#x662F;&#x5728;&#x677F;&#x5B50;&#x4E0A;, &#x6CA1;&#x6709;git; &#x6240;&#x4EE5;&#x76F4;&#x63A5;&#x7528;nfs&#x5171;&#x4EAB;&#x7684;
-#cd&#x5230;go 1.12&#x6E90;&#x7801;go-mips64
-cd go-mips64/src
-#&#x7F16;&#x8BD1;go 1.12 for mips64
-#all.bash&#x4F1A;&#x505A;test, &#x6709;&#x529F;&#x80FD;&#x548C;&#x6027;&#x80FD;&#x7684;&#x6D4B;&#x8BD5;
-env GOROOT_BOOTSTRAP=/root/go-linux-mips64-bootstrap ./all.bash
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x6B63;&#x5E38;&#x5E94;&#x8BE5;git clone https://go.googlesource.com/go</span>
+<span class="token comment">#&#x4F46;&#x6211;&#x662F;&#x5728;&#x677F;&#x5B50;&#x4E0A;, &#x6CA1;&#x6709;git; &#x6240;&#x4EE5;&#x76F4;&#x63A5;&#x7528;nfs&#x5171;&#x4EAB;&#x7684;</span>
+<span class="token comment">#cd&#x5230;go 1.12&#x6E90;&#x7801;go-mips64</span>
+<span class="token builtin class-name">cd</span> go-mips64/src
+<span class="token comment">#&#x7F16;&#x8BD1;go 1.12 for mips64</span>
+<span class="token comment">#all.bash&#x4F1A;&#x505A;test, &#x6709;&#x529F;&#x80FD;&#x548C;&#x6027;&#x80FD;&#x7684;&#x6D4B;&#x8BD5;</span>
+<span class="token function">env</span> <span class="token assign-left variable">GOROOT_BOOTSTRAP</span><span class="token operator">=</span>/root/go-linux-mips64-bootstrap ./all.bash
 
-isam-reborn src # env GOROOT_BOOTSTRAP=/root/go-linux-mips64-bootstrap ./all.bash
+isam-reborn src <span class="token comment"># env GOROOT_BOOTSTRAP=/root/go-linux-mips64-bootstrap ./all.bash</span>
 Building Go cmd/dist using /root/go-linux-mips64-bootstrap.
 Building Go toolchain1 using /root/go-linux-mips64-bootstrap.
-Building Go bootstrap cmd/go (go_bootstrap) using Go toolchain1.
+Building Go bootstrap cmd/go <span class="token punctuation">(</span>go_bootstrap<span class="token punctuation">)</span> using Go toolchain1.
 Building Go toolchain2 using go_bootstrap and Go toolchain1.
 Building Go toolchain3 using go_bootstrap and Go toolchain2.
-Building packages and commands for linux/mips64.
+Building packages and commands <span class="token keyword">for</span> linux/mips64.
 </code></pre>
 <h2 id="hellogo-&#x548C;-cgotestgo"><a name="hellogo-&#x548C;-cgotestgo" class="anchor-navigation-ex-anchor" href="#hellogo-&#x548C;-cgotestgo"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. hello.go &#x548C; cgotest.go</h2>
-<pre><code class="lang-go">root@yingjieb-VirtualBox ~/work/nfsroot/mipsroot.go.ok/root
-Linux Mint 19.1 Tessa # cat hello.go
-package main
+<pre class="language-"><code class="lang-go">root@yingjieb<span class="token operator">-</span>VirtualBox ~<span class="token operator">/</span>work<span class="token operator">/</span>nfsroot<span class="token operator">/</span>mipsroot<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">.</span>ok<span class="token operator">/</span>root
+Linux Mint <span class="token number">19.1</span> Tessa # cat hello<span class="token punctuation">.</span><span class="token keyword">go</span>
+<span class="token keyword">package</span> main
 
 
-import &quot;fmt&quot;
+<span class="token keyword">import</span> <span class="token string">&quot;fmt&quot;</span>
 
 
-func main() {
-        fmt.Println(&quot;Hello, World!&quot;)
-        fmt.Println(&quot;First go program on cfnt-b!&quot;)
-}
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, World!&quot;</span><span class="token punctuation">)</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;First go program on cfnt-b!&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
 
-root@yingjieb-VirtualBox ~/work/nfsroot/mipsroot.go.ok/root
-Linux Mint 19.1 Tessa # cat cgotest.go
-package main
+root@yingjieb<span class="token operator">-</span>VirtualBox ~<span class="token operator">/</span>work<span class="token operator">/</span>nfsroot<span class="token operator">/</span>mipsroot<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">.</span>ok<span class="token operator">/</span>root
+Linux Mint <span class="token number">19.1</span> Tessa # cat cgotest<span class="token punctuation">.</span><span class="token keyword">go</span>
+<span class="token keyword">package</span> main
 
 
-//int Add(int a, int b){
-// return a+b;
-//}
-import &quot;C&quot;
-import &quot;fmt&quot;
+<span class="token comment">//int Add(int a, int b){</span>
+<span class="token comment">// return a+b;</span>
+<span class="token comment">//}</span>
+<span class="token keyword">import</span> <span class="token string">&quot;C&quot;</span>
+<span class="token keyword">import</span> <span class="token string">&quot;fmt&quot;</span>
 
 
-func main() {
-    a := C.int(10)
-    b := C.int(20)
-    c := C.Add(a, b)
-    fmt.Println(c) // 30
-}
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a <span class="token operator">:=</span> C<span class="token punctuation">.</span><span class="token function">int</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+    b <span class="token operator">:=</span> C<span class="token punctuation">.</span><span class="token function">int</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
+    c <span class="token operator">:=</span> C<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token comment">// 30</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h1 id="go-env"><a name="go-env" class="anchor-navigation-ex-anchor" href="#go-env"><i class="fa fa-link" aria-hidden="true"></i></a>4. go env</h1>
-<pre><code class="lang-sh">Linux Mint 19.1 Tessa # ls
+<pre class="language-"><code class="lang-sh">Linux Mint <span class="token number">19.1</span> Tessa <span class="token comment"># ls</span>
 bin go-linux-mips64 go-linux-mips64-bootstrap go-linux-mips64-bootstrap.tbz src
 
 
-isam-reborn ~ # go env
-GOARCH=&quot;mips64&quot;
-GOBIN=&quot;&quot;
-GOCACHE=&quot;/root/.cache/go-build&quot;
-GOEXE=&quot;&quot;
-GOFLAGS=&quot;&quot;
-GOHOSTARCH=&quot;mips64&quot;
-GOHOSTOS=&quot;linux&quot;
-GOOS=&quot;linux&quot;
-GOPATH=&quot;/root&quot;
-GOPROXY=&quot;&quot;
-GORACE=&quot;&quot;
-GOROOT=&quot;/root/go-linux-mips64&quot;
-GOTMPDIR=&quot;&quot;
-GOTOOLDIR=&quot;/root/go-linux-mips64/pkg/tool/linux_mips64&quot;
-GCCGO=&quot;gccgo&quot;
-GOMIPS64=&quot;hardfloat&quot;
-CC=&quot;gcc&quot;
-CXX=&quot;g++&quot;
-CGO_ENABLED=&quot;1&quot;
-GOMOD=&quot;&quot;
-CGO_CFLAGS=&quot;-g -O2&quot;
-CGO_CPPFLAGS=&quot;&quot;
-CGO_CXXFLAGS=&quot;-g -O2&quot;
-CGO_FFLAGS=&quot;-g -O2&quot;
-CGO_LDFLAGS=&quot;-g -O2&quot;
-PKG_CONFIG=&quot;pkg-config&quot;
-GOGCCFLAGS=&quot;-fPIC -mabi=64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build357009098=/tmp/go-build -gno-record-gcc-switches&quot;
+isam-reborn ~ <span class="token comment"># go env</span>
+<span class="token assign-left variable">GOARCH</span><span class="token operator">=</span><span class="token string">&quot;mips64&quot;</span>
+<span class="token assign-left variable">GOBIN</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GOCACHE</span><span class="token operator">=</span><span class="token string">&quot;/root/.cache/go-build&quot;</span>
+<span class="token assign-left variable">GOEXE</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GOFLAGS</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GOHOSTARCH</span><span class="token operator">=</span><span class="token string">&quot;mips64&quot;</span>
+<span class="token assign-left variable">GOHOSTOS</span><span class="token operator">=</span><span class="token string">&quot;linux&quot;</span>
+<span class="token assign-left variable">GOOS</span><span class="token operator">=</span><span class="token string">&quot;linux&quot;</span>
+<span class="token assign-left variable">GOPATH</span><span class="token operator">=</span><span class="token string">&quot;/root&quot;</span>
+<span class="token assign-left variable">GOPROXY</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GORACE</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GOROOT</span><span class="token operator">=</span><span class="token string">&quot;/root/go-linux-mips64&quot;</span>
+<span class="token assign-left variable">GOTMPDIR</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">GOTOOLDIR</span><span class="token operator">=</span><span class="token string">&quot;/root/go-linux-mips64/pkg/tool/linux_mips64&quot;</span>
+<span class="token assign-left variable">GCCGO</span><span class="token operator">=</span><span class="token string">&quot;gccgo&quot;</span>
+<span class="token assign-left variable">GOMIPS64</span><span class="token operator">=</span><span class="token string">&quot;hardfloat&quot;</span>
+<span class="token assign-left variable">CC</span><span class="token operator">=</span><span class="token string">&quot;gcc&quot;</span>
+<span class="token assign-left variable">CXX</span><span class="token operator">=</span><span class="token string">&quot;g++&quot;</span>
+<span class="token assign-left variable">CGO_ENABLED</span><span class="token operator">=</span><span class="token string">&quot;1&quot;</span>
+<span class="token assign-left variable">GOMOD</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">CGO_CFLAGS</span><span class="token operator">=</span><span class="token string">&quot;-g -O2&quot;</span>
+<span class="token assign-left variable">CGO_CPPFLAGS</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token assign-left variable">CGO_CXXFLAGS</span><span class="token operator">=</span><span class="token string">&quot;-g -O2&quot;</span>
+<span class="token assign-left variable">CGO_FFLAGS</span><span class="token operator">=</span><span class="token string">&quot;-g -O2&quot;</span>
+<span class="token assign-left variable">CGO_LDFLAGS</span><span class="token operator">=</span><span class="token string">&quot;-g -O2&quot;</span>
+<span class="token assign-left variable">PKG_CONFIG</span><span class="token operator">=</span><span class="token string">&quot;pkg-config&quot;</span>
+<span class="token assign-left variable">GOGCCFLAGS</span><span class="token operator">=</span><span class="token string">&quot;-fPIC -mabi=64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build357009098=/tmp/go-build -gno-record-gcc-switches&quot;</span>
 </code></pre>
 <h1 id="&#x622A;&#x56FE;"><a name="&#x622A;&#x56FE;" class="anchor-navigation-ex-anchor" href="#&#x622A;&#x56FE;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x622A;&#x56FE;</h1>
 <p><img src="img/golang_gentoo_on_mips_board_and_build_go_20220908230429.png" alt=""><br><img src="img/golang_gentoo_on_mips_board_and_build_go_20220908230454.png" alt=""><br><img src="img/golang_gentoo_on_mips_board_and_build_go_20220908230514.png" alt="">  </p>
@@ -3143,11 +3140,10 @@ GOGCCFLAGS=&quot;-fPIC -mabi=64 -pthread -fmessage-length=0 -fdebug-prefix-map=/
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Gentoo on mips board and build go","level":"1.7.9.3.5","depth":4,"next":{"title":"微服务","level":"1.7.10","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"go-micro和micro","level":"1.7.10.1","depth":3,"path":"notes/golang_micro.md","ref":"notes/golang_micro.md","articles":[]},{"title":"微服务概念","level":"1.7.10.2","depth":3,"path":"notes/golang_微服务概念.md","ref":"notes/golang_微服务概念.md","articles":[]}]},"previous":{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"path":"notes/golang_go_on_mips_part4.md","ref":"notes/golang_go_on_mips_part4.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Gentoo on mips board and build go","level":"1.7.9.3.5","depth":4,"next":{"title":"微服务","level":"1.7.10","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"go-micro和micro","level":"1.7.10.1","depth":3,"path":"notes/golang_micro.md","ref":"notes/golang_micro.md","articles":[]},{"title":"微服务概念","level":"1.7.10.2","depth":3,"path":"notes/golang_微服务概念.md","ref":"notes/golang_微服务概念.md","articles":[]}]},"previous":{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"path":"notes/golang_go_on_mips_part4.md","ref":"notes/golang_go_on_mips_part4.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","mtime":"2022-10-11T15:39:07.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3186,7 +3182,6 @@ GOGCCFLAGS=&quot;-fPIC -mabi=64 -pthread -fmessage-length=0 -fdebug-prefix-map=/
         
     
 
-        
     </body>
 </html>
 

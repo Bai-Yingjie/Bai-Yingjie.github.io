@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2890,57 +2887,57 @@
 <h1 id="&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x8BBE;&#x5907;"><a name="&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x8BBE;&#x5907;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;&#x521B;&#x5EFA;&#x8BBE;&#x5907;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x5982;&#x4F55;&#x521B;&#x5EFA;&#x8BBE;&#x5907;?</h1>
 <p>&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x6CD5;:</p>
 <h2 id="&#x65B9;&#x6CD5;1-&#x5728;&#x7236;&#x8282;&#x70B9;&#x8C03;&#x7528;"><a name="&#x65B9;&#x6CD5;1-&#x5728;&#x7236;&#x8282;&#x70B9;&#x8C03;&#x7528;" class="anchor-navigation-ex-anchor" href="#&#x65B9;&#x6CD5;1-&#x5728;&#x7236;&#x8282;&#x70B9;&#x8C03;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x65B9;&#x6CD5;1: &#x5728;&#x7236;&#x8282;&#x70B9;&#x8C03;&#x7528;</h2>
-<pre><code class="lang-c">of_platform_bus_probe(pdev-&gt;dev.of_node, cpld_child_ids, &amp;pdev-&gt;dev)
+<pre class="language-"><code class="lang-c"><span class="token function">of_platform_bus_probe</span><span class="token punctuation">(</span>pdev<span class="token operator">-&gt;</span>dev<span class="token punctuation">.</span>of_node<span class="token punctuation">,</span> cpld_child_ids<span class="token punctuation">,</span> <span class="token operator">&amp;</span>pdev<span class="token operator">-&gt;</span>dev<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;&#x5728;cpld probe&#x9636;&#x6BB5;&#x8C03;&#x7528;&#x7684;, &#x4F1A;&#x6839;&#x636E;cpld_child_ids&#x6765;&#x5339;&#x914D;&#x5176;&#x5B50;&#x8282;&#x70B9;, &#x5E76;&#x4E3A;&#x5339;&#x914D;&#x4E0A;&#x7684;&#x8282;&#x70B9;&#x53CA;&#x5176;&#x5B50;&#x8282;&#x70B9;&#x521B;&#x5EFA;device.</p>
-<pre><code class="lang-c">static struct of_device_id cpld_child_ids[] = {
-    { .compatible = &quot;cpld-leds&quot;, },
-    {},
-};
+<pre class="language-"><code class="lang-c"><span class="token keyword">static</span> <span class="token keyword">struct</span> <span class="token class-name">of_device_id</span> cpld_child_ids<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">{</span> <span class="token punctuation">.</span>compatible <span class="token operator">=</span> <span class="token string">&quot;cpld-leds&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x521B;&#x5EFA;&#x597D;device&#x4EE5;&#x540E;, &#x5BF9;&#x5E94;&#x7684;driver&#x7684;probe&#x51FD;&#x6570;&#x624D;&#x80FD;&#x88AB;&#x8C03;&#x7528;.</p>
 <p>&#x6BD4;&#x5982;&#x5728;cpld&#x8FD9;&#x4E00;&#x7EA7;&#x8C03;&#x7528;<code>of_platform_bus_probe()</code>, &#x90A3;&#x4E48;cpld&#x7684;&#x5B50;&#x8282;&#x70B9;leds&#x7684;driver&#x624D;&#x80FD;&#x627E;&#x5230;leds&#x7684;device</p>
 <p>&#x5728;leds&#x7684;driver&#x91CC;&#x9762;&#x8C03;&#x7528;  </p>
-<pre><code class="lang-c">led_classdev_register(&amp;pdev-&gt;dev, &amp;led_dat-&gt;cdev)
+<pre class="language-"><code class="lang-c"><span class="token function">led_classdev_register</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pdev<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> <span class="token operator">&amp;</span>led_dat<span class="token operator">-&gt;</span>cdev<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x6765;&#x521B;&#x5EFA;led.</p>
 <p>&#x6210;&#x529F;&#x540E;&#x5728;<code>/sys/class/leds</code>&#x91CC;&#x80FD;&#x770B;&#x5230;led.</p>
 <h2 id="&#x65B9;&#x6CD5;2-&#x76F4;&#x63A5;&#x5728;dts&#x91CC;&#x58F0;&#x660E;"><a name="&#x65B9;&#x6CD5;2-&#x76F4;&#x63A5;&#x5728;dts&#x91CC;&#x58F0;&#x660E;" class="anchor-navigation-ex-anchor" href="#&#x65B9;&#x6CD5;2-&#x76F4;&#x63A5;&#x5728;dts&#x91CC;&#x58F0;&#x660E;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x65B9;&#x6CD5;2: &#x76F4;&#x63A5;&#x5728;dts&#x91CC;&#x58F0;&#x660E;</h2>
 <p>&#x628A;simple-bus&#x52A0;&#x8FDB;cpld&#x7684;compatible </p>
-<pre><code>compatible = &quot;alu,cpld&quot;, &quot;simple-bus&quot;;
+<pre class="language-"><code>compatible = &quot;alu,cpld&quot;, &quot;simple-bus&quot;;
 </code></pre><p>&#x539F;&#x7406;:</p>
 <p>&#x8FD8;&#x662F;&#x5728;<code>arch/mips/cavium-octeon/octeon-platform.c</code>&#x91CC;&#x9762;<br>&#x6709;&#x4E2A;<code>octeon_ids</code>&#x5217;&#x8868;, &#x91CC;&#x9762;&#x6709;</p>
-<pre><code class="lang-c">static struct of_device_id __initdata octeon_ids[] = { 
-    { .compatible = &quot;simple-bus&quot;, },
-    { .compatible = &quot;cavium,octeon-6335-uctl&quot;, },
-    { .compatible = &quot;cavium,octeon-5750-usbn&quot;, },
-    { .compatible = &quot;cavium,octeon-3860-bootbus&quot;, },
-    { .compatible = &quot;cavium,mdio-mux&quot;, },
-    { .compatible = &quot;gpio-leds&quot;, },
-    { .compatible = &quot;cavium,octeon-7130-usb-uctl&quot;, },
-    { .compatible = &quot;cavium,octeon-7130-sata-uctl&quot;, },
-    {}, 
-};
+<pre class="language-"><code class="lang-c"><span class="token keyword">static</span> <span class="token keyword">struct</span> <span class="token class-name">of_device_id</span> __initdata octeon_ids<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> 
+    <span class="token punctuation">{</span> <span class="token punctuation">.</span>compatible <span class="token operator">=</span> <span class="token string">&quot;simple-bus&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token punctuation">.</span>compatible <span class="token operator">=</span> <span class="token string">&quot;cavium,octeon-6335-uctl&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token punctuation">.</span>compatible <span class="token operator">=</span> <span class="token string">&quot;cavium,octeon-5750-usbn&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token punctuation">.</span>compatible <span class="token operator">=</span> <span class="token string">&quot;cavium,octeon-3860-bootbus&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token punctuation">.</span>compatible <span class="token operator">=</span> <span class="token string">&quot;cavium,mdio-mux&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token punctuation">.</span>compatible <span class="token operator">=</span> <span class="token string">&quot;gpio-leds&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token punctuation">.</span>compatible <span class="token operator">=</span> <span class="token string">&quot;cavium,octeon-7130-usb-uctl&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token punctuation">.</span>compatible <span class="token operator">=</span> <span class="token string">&quot;cavium,octeon-7130-sata-uctl&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x5E76;&#x5728;<code>device_initcall</code>&#x7684;&#x65F6;&#x5019;&#x8C03;&#x7528;, &#x8D1F;&#x8D23;&#x521B;&#x5EFA;&#x5168;&#x90E8;&#x7684;of_device</p>
-<pre><code class="lang-c">static int __init octeon_publish_devices(void)
-{
-    return of_platform_bus_probe(NULL, octeon_ids, NULL);
-}
-device_initcall(octeon_publish_devices);
+<pre class="language-"><code class="lang-c"><span class="token keyword">static</span> <span class="token keyword">int</span> __init <span class="token function">octeon_publish_devices</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">of_platform_bus_probe</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">,</span> octeon_ids<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">device_initcall</span><span class="token punctuation">(</span>octeon_publish_devices<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h1 id="mips-kernel"><a name="mips-kernel" class="anchor-navigation-ex-anchor" href="#mips-kernel"><i class="fa fa-link" aria-hidden="true"></i></a>2. mips kernel</h1>
 <h2 id="mips-64bit&#x7A7A;&#x95F4;"><a name="mips-64bit&#x7A7A;&#x95F4;" class="anchor-navigation-ex-anchor" href="#mips-64bit&#x7A7A;&#x95F4;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. mips 64bit&#x7A7A;&#x95F4;</h2>
 <p>&#x89C1;<code>arch/mips/include/asm/mach-cavium-octeon/spaces.h</code></p>
-<pre><code class="lang-c">#ifdef CONFIG_64BIT
-/* They are all the same and some OCTEON II cores cannot handle 0xa8.. */
-#define CAC_BASE        _AC(0x8000000000000000, UL)
-#define UNCAC_BASE      _AC(0x8000000000000000, UL)
-#define IO_BASE         _AC(0x8000000000000000, UL)
-#endif /* CONFIG_64BIT */
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">CONFIG_64BIT</span></span>
+<span class="token comment">/* They are all the same and some OCTEON II cores cannot handle 0xa8.. */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">CAC_BASE</span>        <span class="token expression"><span class="token function">_AC</span><span class="token punctuation">(</span><span class="token number">0x8000000000000000</span><span class="token punctuation">,</span> UL<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">UNCAC_BASE</span>      <span class="token expression"><span class="token function">_AC</span><span class="token punctuation">(</span><span class="token number">0x8000000000000000</span><span class="token punctuation">,</span> UL<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">IO_BASE</span>         <span class="token expression"><span class="token function">_AC</span><span class="token punctuation">(</span><span class="token number">0x8000000000000000</span><span class="token punctuation">,</span> UL<span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span> <span class="token comment">/* CONFIG_64BIT */</span></span>
 </code></pre>
 <h2 id="mips-ioremap"><a name="mips-ioremap" class="anchor-navigation-ex-anchor" href="#mips-ioremap"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. mips ioremap</h2>
-<pre><code>/*
+<pre class="language-"><code>/*
  * ioremap     -   map bus memory into CPU space
  * @offset:    bus address of the memory
  * @size:      size of the resource to map
@@ -2958,102 +2955,102 @@ device_initcall(octeon_publish_devices);
             return (void __iomem *) (unsigned long) (base + offset)
 </code></pre><p>&#x7EFC;&#x4E0A;: &#x76F8;&#x5F53;&#x4E8E;&#x628A;&#x7269;&#x7406;&#x5730;&#x5740;&#x6700;&#x9AD8;&#x4F4D;&#x6216;&#x4E0A;1
 &#x4F7F;&#x7528;&#x65F6;  </p>
-<pre><code class="lang-c">flash_map.virt = ioremap(flash_map.phys, flash_map.size);
+<pre class="language-"><code class="lang-c">flash_map<span class="token punctuation">.</span>virt <span class="token operator">=</span> <span class="token function">ioremap</span><span class="token punctuation">(</span>flash_map<span class="token punctuation">.</span>phys<span class="token punctuation">,</span> flash_map<span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="ioread8&#x7684;&#x5165;&#x53C2;&#x5E94;&#x8BE5;&#x662F;&#x4E2A;cpu&#x5730;&#x5740;-&#x800C;&#x4E0D;&#x662F;&#x7269;&#x7406;&#x5730;&#x5740;"><a name="ioread8&#x7684;&#x5165;&#x53C2;&#x5E94;&#x8BE5;&#x662F;&#x4E2A;cpu&#x5730;&#x5740;-&#x800C;&#x4E0D;&#x662F;&#x7269;&#x7406;&#x5730;&#x5740;" class="anchor-navigation-ex-anchor" href="#ioread8&#x7684;&#x5165;&#x53C2;&#x5E94;&#x8BE5;&#x662F;&#x4E2A;cpu&#x5730;&#x5740;-&#x800C;&#x4E0D;&#x662F;&#x7269;&#x7406;&#x5730;&#x5740;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. ioread8&#x7684;&#x5165;&#x53C2;&#x5E94;&#x8BE5;&#x662F;&#x4E2A;CPU&#x5730;&#x5740;, &#x800C;&#x4E0D;&#x662F;&#x7269;&#x7406;&#x5730;&#x5740;</h2>
-<pre><code class="lang-c">ioread8()
-    readb(addr)
-        return *(const volatile u8 __force *) addr
+<pre class="language-"><code class="lang-c"><span class="token function">ioread8</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">readb</span><span class="token punctuation">(</span>addr<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">volatile</span> u8 __force <span class="token operator">*</span><span class="token punctuation">)</span> addr
 </code></pre>
 <h2 id="&#x7F16;&#x8BD1;&#x65F6;&#x7684;&#x6761;&#x4EF6;&#x68C0;&#x6D4B;&#xFF0C;&#x6761;&#x4EF6;&#x4E3A;&#x771F;&#x5219;&#x5BFC;&#x81F4;&#x7F16;&#x8BD1;&#x9519;&#x8BEF;"><a name="&#x7F16;&#x8BD1;&#x65F6;&#x7684;&#x6761;&#x4EF6;&#x68C0;&#x6D4B;&#xFF0C;&#x6761;&#x4EF6;&#x4E3A;&#x771F;&#x5219;&#x5BFC;&#x81F4;&#x7F16;&#x8BD1;&#x9519;&#x8BEF;" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;&#x65F6;&#x7684;&#x6761;&#x4EF6;&#x68C0;&#x6D4B;&#xFF0C;&#x6761;&#x4EF6;&#x4E3A;&#x771F;&#x5219;&#x5BFC;&#x81F4;&#x7F16;&#x8BD1;&#x9519;&#x8BEF;"><i class="fa fa-link" aria-hidden="true"></i></a>2.4. &#x7F16;&#x8BD1;&#x65F6;&#x7684;&#x6761;&#x4EF6;&#x68C0;&#x6D4B;&#xFF0C;&#x6761;&#x4EF6;&#x4E3A;&#x771F;&#x5219;&#x5BFC;&#x81F4;&#x7F16;&#x8BD1;&#x9519;&#x8BEF;</h2>
-<pre><code class="lang-c">#include linux/kernel.h
-BUILD_BUG_ON(sizeof(struct lock_class_key) &gt; sizeof(struct lockdep_map));
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token expression">linux<span class="token operator">/</span>kernel<span class="token punctuation">.</span>h</span></span>
+<span class="token function">BUILD_BUG_ON</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">lock_class_key</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">lockdep_map</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x539F;&#x7406;&#xFF1A;</p>
-<pre><code class="lang-c">#define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">BUILD_BUG_ON</span><span class="token expression"><span class="token punctuation">(</span>condition<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">[</span><span class="token number">1</span> <span class="token operator">-</span> <span class="token number">2</span><span class="token operator">*</span><span class="token operator">!</span><span class="token operator">!</span><span class="token punctuation">(</span>condition<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
 </code></pre>
 <h2 id="&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x6761;&#x4EF6;&#x68C0;&#x6D4B;&#xFF0C;&#x6761;&#x4EF6;&#x4E3A;&#x771F;&#x5219;&#x89E6;&#x53D1;&#x8FD0;&#x884C;&#x65F6;exception"><a name="&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x6761;&#x4EF6;&#x68C0;&#x6D4B;&#xFF0C;&#x6761;&#x4EF6;&#x4E3A;&#x771F;&#x5219;&#x89E6;&#x53D1;&#x8FD0;&#x884C;&#x65F6;exception" class="anchor-navigation-ex-anchor" href="#&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x6761;&#x4EF6;&#x68C0;&#x6D4B;&#xFF0C;&#x6761;&#x4EF6;&#x4E3A;&#x771F;&#x5219;&#x89E6;&#x53D1;&#x8FD0;&#x884C;&#x65F6;exception"><i class="fa fa-link" aria-hidden="true"></i></a>2.5. &#x8FD0;&#x884C;&#x65F6;&#x7684;&#x6761;&#x4EF6;&#x68C0;&#x6D4B;&#xFF0C;&#x6761;&#x4EF6;&#x4E3A;&#x771F;&#x5219;&#x89E6;&#x53D1;&#x8FD0;&#x884C;&#x65F6;exception</h2>
-<pre><code class="lang-c">#include asm/bug.h
-BUG_ON(i != pos);
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token expression"><span class="token keyword">asm</span><span class="token operator">/</span>bug<span class="token punctuation">.</span>h</span></span>
+<span class="token function">BUG_ON</span><span class="token punctuation">(</span>i <span class="token operator">!=</span> pos<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x6216;&#x76F4;&#x63A5;&#x8C03;&#x7528;<code>BUG()</code></p>
 <p>&#x539F;&#x7406;&#xFF1A;&#x5229;&#x7528;mips&#x65AD;&#x70B9;&#x548C;&#x81EA;&#x9677;&#x6307;&#x4EE4;break&#x548C;tne&#x505A;&#x8FD0;&#x884C;&#x65F6;&#x68C0;&#x6D4B;</p>
-<pre><code class="lang-c">__asm__ __volatile__(&quot;tne $0, %0, %1&quot;
-                 : : &quot;r&quot; (condition), &quot;i&quot; (BRK_BUG));
-__asm__ __volatile__(&quot;break %0&quot; : : &quot;i&quot; (BRK_BUG));
+<pre class="language-"><code class="lang-c">__asm__ <span class="token function">__volatile__</span><span class="token punctuation">(</span><span class="token string">&quot;tne $0, %0, %1&quot;</span>
+                 <span class="token operator">:</span> <span class="token operator">:</span> <span class="token string">&quot;r&quot;</span> <span class="token punctuation">(</span>condition<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;i&quot;</span> <span class="token punctuation">(</span>BRK_BUG<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+__asm__ <span class="token function">__volatile__</span><span class="token punctuation">(</span><span class="token string">&quot;break %0&quot;</span> <span class="token operator">:</span> <span class="token operator">:</span> <span class="token string">&quot;i&quot;</span> <span class="token punctuation">(</span>BRK_BUG<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="jiffies-jiffies64&#x548C;hz"><a name="jiffies-jiffies64&#x548C;hz" class="anchor-navigation-ex-anchor" href="#jiffies-jiffies64&#x548C;hz"><i class="fa fa-link" aria-hidden="true"></i></a>2.6. jiffies jiffies_64&#x548C;HZ</h2>
 <p>&#x5728;jiffies.h&#x4E2D;&#x6709; jiffies&#x548C;jiffies_64&#x58F0;&#x660E;</p>
-<pre><code class="lang-c">extern u64 __jiffy_data jiffies_64;
-extern unsigned long volatile __jiffy_data jiffies;
+<pre class="language-"><code class="lang-c"><span class="token keyword">extern</span> u64 __jiffy_data jiffies_64<span class="token punctuation">;</span>
+<span class="token keyword">extern</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">volatile</span> __jiffy_data jiffies<span class="token punctuation">;</span>
 </code></pre>
 <p>linux&#x4E2D;&#xFF0C;&#x7528;jiffies&#x8BB0;&#x5F55;&#x7CFB;&#x7EDF;&#x542F;&#x52A8;&#x4EE5;&#x6765;&#x7684;&#x65F6;&#x949F;&#x6EF4;&#x7B54;&#x6570;&#x3002;<br>HZ&#x662F;&#x4E00;&#x79D2;&#x949F;&#x7684;&#x65F6;&#x949F;&#x6EF4;&#x7B54;&#x6570;&#xFF0C;&#x88AB;&#x5B9A;&#x4E49;&#x4E3A;CONFIG_HZ&#xFF0C;&#x8FD9;&#x662F;menuconfig&#x65F6;&#x6307;&#x5B9A;&#x7684;&#x503C;&#x3002;
 &#x6240;&#x4EE5;&#xFF0C;HZ&#x4E3A;100&#x65F6;&#xFF0C;jiffies&#x4E00;&#x79D2;&#x949F;&#x589E;&#x5927;100&#xFF0C;32&#x4F4D;&#x673A;&#x4E0B;&#xFF0C;497&#x5929;&#x6EA2;&#x51FA;&#x3002;</p>
 <p>&#x4E3A;&#x4E86;&#x9632;&#x6B62;jiffies&#x6EA2;&#x51FA;&#x5BFC;&#x81F4;&#x95EE;&#x9898;&#xFF0C;linux&#x5B9A;&#x4E49;&#x4E86;jiffies_64&#xFF0C;&#x8FD9;&#x6837;&#x80FD;&#x4FDD;&#x8BC1;&#x51E0;&#x767E;&#x5E74;&#x90FD;&#x4E0D;&#x6EA2;&#x51FA;&#x3002;</p>
 <p><code>jiffies_64</code>&#x662F;&#x5728;<code>/kernel/timer.c</code>&#x4E2D;&#x5B9A;&#x4E49;&#x7684;</p>
-<pre><code>u64 jiffies_64 __cacheline_aligned_in_smp = INITIAL_JIFFIES;
+<pre class="language-"><code>u64 jiffies_64 __cacheline_aligned_in_smp = INITIAL_JIFFIES;
 </code></pre><p>&#x800C;jiffies&#x5E76;&#x6CA1;&#x6709;&#x5B9A;&#x4E49;&#xFF0C;&#x53EA;&#x6709;&#x4E2A;&#x58F0;&#x660E;&#x3002;&#x4F46;&#x4EE3;&#x7801;&#x91CC;&#x5374;&#x5927;&#x91CF;&#x4F7F;&#x7528;&#x5B83;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x5230;&#x5E95;&#x5728;&#x54EA;&#x91CC;&#x5462;&#xFF1F;</p>
 <p>&#x5728;&#x94FE;&#x63A5;&#x811A;&#x672C;<code>vmlinux.lds.S</code>&#x4E2D;&#xFF0C;&#x6709;</p>
-<pre><code>jiffies = jiffies_64 + 4;
+<pre class="language-"><code>jiffies = jiffies_64 + 4;
 </code></pre><p>&#x6CE8;&#x610F;&#xFF0C;&#x94FE;&#x63A5;&#x811A;&#x672C;&#x7684;<code>=</code>&#x53F7;&#x5E76;&#x4E0D;&#x662F;&#x8D4B;&#x503C;&#xFF0C;&#x800C;&#x662F;&quot;&#x8D4B;&#x5730;&#x5740;&quot;&#xFF0C;&#x5728;&#x8FD9;&#x91CC;&#xFF0C;<code>jiffies</code>&#x7684;&#x5730;&#x5740;&#x662F;<code>jiffies_64</code>&#x5730;&#x5740;&#x5411;&#x540E;&#x504F;&#x79FB;<code>4</code>&#x5B57;&#x8282;&#xFF0C;&#x5728;&#x5927;&#x7AEF;CPU&#x4E0A;&#xFF0C;&#x5C31;&#x662F;<code>jiffies_64</code>&#x7684;&#x4F4E;32&#x4F4D;&#x3002;
 &#x6240;&#x4EE5;&#xFF0C;<code>jiffies</code>&#x5C31;&#x662F;<code>jiffies_64</code>&#x7684;&#x4F4E;32&#x4F4D;&#xFF0C;&#x51E0;&#x4E4E;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x3002;</p>
 <p>&#x6BCF;&#x6B21;&#x65F6;&#x949F;&#x4E2D;&#x65AD;&#x5230;&#x6765;&#xFF0C;&#x4F1A;&#x8C03;&#x7528;do_timer&#x51FD;&#x6570;&#xFF0C;jiffies&#x5C31;&#x4F1A;&#x589E;&#x52A0;&#x4E86;&#x3002;</p>
-<pre><code class="lang-c">void do_timer(unsigned long ticks)
-{
-    jiffies_64 += ticks;
-    update_times(ticks);
-}
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token function">do_timer</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span> ticks<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    jiffies_64 <span class="token operator">+=</span> ticks<span class="token punctuation">;</span>
+    <span class="token function">update_times</span><span class="token punctuation">(</span>ticks<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x4E0E;jiffies&#x6709;&#x5173;&#x7684;&#x5B8F;&#xFF1A;&#x7528;&#x4E8E;&#x786E;&#x5B9A;&#x65F6;&#x95F4;&#x5173;&#x7CFB;&#xFF0C;&#x5E38;&#x548C;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x5B8F;<code>cpu_relax()</code>&#x4E00;&#x8D77;&#xFF0C;&#x7528;&#x4E8E;&#x5FD9;&#x7B49;&#x5F85;&#x3002;</p>
-<pre><code class="lang-c">time_after(a,b)
-time_before(a,b)
+<pre class="language-"><code class="lang-c"><span class="token function">time_after</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span>
+<span class="token function">time_before</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span>
 </code></pre>
 <h2 id="localirqdisable--&#x5173;&#x4E2D;&#x65AD;"><a name="localirqdisable--&#x5173;&#x4E2D;&#x65AD;" class="anchor-navigation-ex-anchor" href="#localirqdisable--&#x5173;&#x4E2D;&#x65AD;"><i class="fa fa-link" aria-hidden="true"></i></a>2.7. local_irq_disable()  &#x5173;&#x4E2D;&#x65AD;</h2>
 <p>&#x5173;&#x4E2D;&#x65AD;&#xFF0C;&#x5E76;&#x4FDD;&#x5B58;SR&#x5230;flags</p>
-<pre><code class="lang-c">#include linux/irqflags.h
-local_irq_save(flags)
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token expression">linux<span class="token operator">/</span>irqflags<span class="token punctuation">.</span>h</span></span>
+<span class="token function">local_irq_save</span><span class="token punctuation">(</span>flags<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x539F;&#x7406;&#xFF1A;&quot;di&quot;&#xFF0C;&#x6C47;&#x7F16;&#x6307;&#x4EE4;&#xFF0C;&#x5173;&#x4E2D;&#x65AD;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;<code>SR(IE) = 0</code> </p>
 <h2 id="current-&#x8868;&#x793A;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;"><a name="current-&#x8868;&#x793A;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#current-&#x8868;&#x793A;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>2.8. current &#x8868;&#x793A;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;</h2>
 <p>mips&#x7528;<code>$28(gp)</code>&#x4FDD;&#x5B58;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x7684;<code>thread_info</code><br>&#x800C;current&#x5B8F;&#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x7684;&#x8FDB;&#x7A0B;&#x63CF;&#x8FF0;&#x7B26;</p>
-<pre><code class="lang-c">current = $28-&gt;task
+<pre class="language-"><code class="lang-c">current <span class="token operator">=</span> $<span class="token number">28</span><span class="token operator">-&gt;</span>task
 </code></pre>
 <p>&#x4EE3;&#x7801;&#xFF1A;</p>
-<pre><code class="lang-c">register struct thread_info *__current_thread_info __asm__(&quot;$28&quot;);
-#define current_thread_info()  __current_thread_info
+<pre class="language-"><code class="lang-c"><span class="token keyword">register</span> <span class="token keyword">struct</span> <span class="token class-name">thread_info</span> <span class="token operator">*</span>__current_thread_info <span class="token function">__asm__</span><span class="token punctuation">(</span><span class="token string">&quot;$28&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">current_thread_info</span><span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">)</span>  __current_thread_info</span></span>
 
-static inline struct task_struct * get_current(void)
-{
-    return current_thread_info()-&gt;task;
-}
+<span class="token keyword">static</span> <span class="token keyword">inline</span> <span class="token keyword">struct</span> <span class="token class-name">task_struct</span> <span class="token operator">*</span> <span class="token function">get_current</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">current_thread_info</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span>task<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-#define current        get_current()
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">current</span>        <span class="token expression"><span class="token function">get_current</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span>
 </code></pre>
 <h2 id="preemptdisable-&#x7981;&#x6B62;&#x62A2;&#x5360;"><a name="preemptdisable-&#x7981;&#x6B62;&#x62A2;&#x5360;" class="anchor-navigation-ex-anchor" href="#preemptdisable-&#x7981;&#x6B62;&#x62A2;&#x5360;"><i class="fa fa-link" aria-hidden="true"></i></a>2.9. preempt_disable() &#x7981;&#x6B62;&#x62A2;&#x5360;</h2>
-<pre><code class="lang-c">#include linux/preempt.h
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token expression">linux<span class="token operator">/</span>preempt<span class="token punctuation">.</span>h</span></span>
 </code></pre>
 <p>&#x539F;&#x7406;&#xFF1A;&#x6BCF;&#x4E2A;thread&#x90FD;&#x6709;&#x4E2A;<code>preempt_count</code>&#xFF0C;&#x53EA;&#x6709;&#x4E3A;0&#x7684;&#x65F6;&#x5019;&#x624D;&#x80FD;&#x62A2;&#x5360;</p>
-<pre><code class="lang-c">current_thread_info()-&gt;preempt_count += 1
+<pre class="language-"><code class="lang-c"><span class="token function">current_thread_info</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span>preempt_count <span class="token operator">+=</span> <span class="token number">1</span>
 </code></pre>
 <h2 id="&#x81EA;&#x65CB;&#x9501;spinlock"><a name="&#x81EA;&#x65CB;&#x9501;spinlock" class="anchor-navigation-ex-anchor" href="#&#x81EA;&#x65CB;&#x9501;spinlock"><i class="fa fa-link" aria-hidden="true"></i></a>2.10. &#x81EA;&#x65CB;&#x9501;spin_lock()</h2>
-<pre><code class="lang-c">#include linux/spinlock.h
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token expression">linux<span class="token operator">/</span>spinlock<span class="token punctuation">.</span>h</span></span>
 </code></pre>
 <p>&#x539F;&#x578B;&#xFF1A;</p>
-<pre><code class="lang-c">typedef struct {
-    raw_spinlock_t raw_lock;
-} spinlock_t;
+<pre class="language-"><code class="lang-c"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    <span class="token class-name">raw_spinlock_t</span> raw_lock<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token class-name">spinlock_t</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x5B9A;&#x4E49;</p>
-<pre><code class="lang-c">static DEFINE_SPINLOCK(logbuf_lock); //&#x9ED8;&#x8BA4;&#x521D;&#x503C;&#x4E3A;unlock
+<pre class="language-"><code class="lang-c"><span class="token keyword">static</span> <span class="token function">DEFINE_SPINLOCK</span><span class="token punctuation">(</span>logbuf_lock<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&#x9ED8;&#x8BA4;&#x521D;&#x503C;&#x4E3A;unlock</span>
 </code></pre>
 <p>&#x521D;&#x59CB;&#x5316;</p>
-<pre><code class="lang-c">spin_lock_init(&amp;logbuf_lock); //&#x521D;&#x59CB;&#x5316;&#x4E3A;unlock
+<pre class="language-"><code class="lang-c"><span class="token function">spin_lock_init</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>logbuf_lock<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&#x521D;&#x59CB;&#x5316;&#x4E3A;unlock</span>
 </code></pre>
 <p>&#x4F7F;&#x7528;&#x65F6;&#x914D;&#x5BF9;</p>
-<pre><code class="lang-c">spin_lock()/spin_unlock()                      //&#x7981;&#x6B62;&#x62A2;&#x5360;&#xFF0C;&#x7528;&#x4E8E;&#x53EA;&#x548C;&#x5176;&#x4ED6;cpu&#x4E92;&#x65A5;
-spin_lock_irq()/spin_unlock_irq()&#xFF0C;            //&#x7981;&#x6B62;&#x62A2;&#x5360;&#xFF0C;&#x5173;&#x4E2D;&#x65AD;&#xFF0C;&#x7528;&#x4E8E;&#x548C;&#x5176;&#x4ED6;cpu&#x4E92;&#x65A5;+&#x548C;&#x4E2D;&#x65AD;&#x4E92;&#x65A5;
-spin_lock_irqsave/spin_unlock_irqrestore()     //&#x7981;&#x6B62;&#x62A2;&#x5360;&#xFF0C;&#x5173;&#x4E2D;&#x65AD;&#xFF0C;&#x5E76;&#x4FDD;&#x5B58;SR&#x5BC4;&#x5B58;&#x5668;&#xFF0C;&#x7528;&#x4E8E;&#x548C;&#x5176;&#x4ED6;cpu&#x4E92;&#x65A5;+&#x548C;&#x4E2D;&#x65AD;&#x4E92;&#x65A5;
-spin_lock_bh()/spin_unlock_bh()                //&#x7981;&#x6B62;&#x62A2;&#x5360;&#xFF0C;&#x5173;&#x4E0B;&#x534A;&#x90E8;&#xFF0C;&#x7528;&#x4E8E;&#x548C;&#x5176;&#x4ED6;cpu&#x4E92;&#x65A5;+&#x548C;bh&#x4E92;&#x65A5;
+<pre class="language-"><code class="lang-c"><span class="token function">spin_lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token function">spin_unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                      <span class="token comment">//&#x7981;&#x6B62;&#x62A2;&#x5360;&#xFF0C;&#x7528;&#x4E8E;&#x53EA;&#x548C;&#x5176;&#x4ED6;cpu&#x4E92;&#x65A5;</span>
+<span class="token function">spin_lock_irq</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token function">spin_unlock_irq</span><span class="token punctuation">(</span><span class="token punctuation">)</span>&#xFF0C;            <span class="token comment">//&#x7981;&#x6B62;&#x62A2;&#x5360;&#xFF0C;&#x5173;&#x4E2D;&#x65AD;&#xFF0C;&#x7528;&#x4E8E;&#x548C;&#x5176;&#x4ED6;cpu&#x4E92;&#x65A5;+&#x548C;&#x4E2D;&#x65AD;&#x4E92;&#x65A5;</span>
+spin_lock_irqsave<span class="token operator">/</span><span class="token function">spin_unlock_irqrestore</span><span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token comment">//&#x7981;&#x6B62;&#x62A2;&#x5360;&#xFF0C;&#x5173;&#x4E2D;&#x65AD;&#xFF0C;&#x5E76;&#x4FDD;&#x5B58;SR&#x5BC4;&#x5B58;&#x5668;&#xFF0C;&#x7528;&#x4E8E;&#x548C;&#x5176;&#x4ED6;cpu&#x4E92;&#x65A5;+&#x548C;&#x4E2D;&#x65AD;&#x4E92;&#x65A5;</span>
+<span class="token function">spin_lock_bh</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token function">spin_unlock_bh</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                <span class="token comment">//&#x7981;&#x6B62;&#x62A2;&#x5360;&#xFF0C;&#x5173;&#x4E0B;&#x534A;&#x90E8;&#xFF0C;&#x7528;&#x4E8E;&#x548C;&#x5176;&#x4ED6;cpu&#x4E92;&#x65A5;+&#x548C;bh&#x4E92;&#x65A5;</span>
 </code></pre>
 <p>&#x539F;&#x7406;&#xFF1A;<br>linux&#x63D0;&#x4F9B;spin_lock&#x7528;&#x4E8E;SMP&#x73AF;&#x5883;&#x4E0B;&#x4FDD;&#x62A4;&#x4E34;&#x754C;&#x533A;&#xFF0C;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;&#x7528;&#x4E8E;&#x591A;CPU&#x4E92;&#x65A5;&#x3002;&#x5728;&#x6CA1;&#x6709;&#x914D;&#x7F6E;CONFIG_SMP&#x65F6;&#xFF0C;&#x6CA1;&#x6709;&#x771F;&#x6B63;&#x7684;&#x9501;&#x64CD;&#x4F5C;&#xFF0C;&#x53EA;&#x662F;&#x8C03;&#x7528;&#x4E86;<code>preempt_disable()</code>&#x3002;
 SMP&#x65F6;&#xFF0C;<code>spin_lock()</code>&#x4F1A;&#x5148;&#x8C03;&#x7528;<code>preempt_disable()</code>&#x6765;&#x7981;&#x6B62;&#x62A2;&#x5360;&#xFF0C;&#x6700;&#x540E;&#x4F1A;&#x8C03;&#x7528;<code>__raw_spin_lock(raw_spinlock_t *lock)</code>&#x6765;&#x5B8C;&#x6210;&#x771F;&#x6B63;&#x7684;&#x83B7;&#x53D6;&#x9501;&#x64CD;&#x4F5C;&#x3002;</p>
@@ -3065,7 +3062,7 @@ SMP&#x65F6;&#xFF0C;<code>spin_lock()</code>&#x4F1A;&#x5148;&#x8C03;&#x7528;<code
 <li>&#x5728;&#x5FC5;&#x987B;&#x83B7;&#x53D6;&#x591A;&#x4E2A;&#x9501;&#x65F6;, &#x59CB;&#x7EC8;&#x4EE5;&#x76F8;&#x540C;&#x7684;&#x987A;&#x5E8F;&#x83B7;&#x5F97;.</li>
 </ul>
 <h2 id="arraysizearr"><a name="arraysizearr" class="anchor-navigation-ex-anchor" href="#arraysizearr"><i class="fa fa-link" aria-hidden="true"></i></a>2.11. ARRAY_SIZE(arr)</h2>
-<pre><code class="lang-c">#include linux/kernel.h
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token expression">linux<span class="token operator">/</span>kernel<span class="token punctuation">.</span>h</span></span>
 </code></pre>
 
                                 
@@ -3110,11 +3107,10 @@ SMP&#x65F6;&#xFF0C;<code>spin_lock()</code>&#x4F1A;&#x5148;&#x8C03;&#x7528;<code
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"kernel和驱动原理相关","level":"1.15.3","depth":2,"next":{"title":"CPLD做8bit到16bit转换","level":"1.15.4","depth":2,"path":"notes/device_localbus_16bit读写.md","ref":"notes/device_localbus_16bit读写.md","articles":[]},"previous":{"title":"驱动调试杂记","level":"1.15.2","depth":2,"path":"notes/device_driver_杂记.md","ref":"notes/device_driver_杂记.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/device_driver_原理相关.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"kernel和驱动原理相关","level":"1.15.3","depth":2,"next":{"title":"CPLD做8bit到16bit转换","level":"1.15.4","depth":2,"path":"notes/device_localbus_16bit读写.md","ref":"notes/device_localbus_16bit读写.md","articles":[]},"previous":{"title":"驱动调试杂记","level":"1.15.2","depth":2,"path":"notes/device_driver_杂记.md","ref":"notes/device_driver_杂记.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/device_driver_原理相关.md","mtime":"2022-10-11T15:39:07.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3153,7 +3149,6 @@ SMP&#x65F6;&#xFF0C;<code>spin_lock()</code>&#x4F1A;&#x5148;&#x8C03;&#x7528;<code
         
     
 
-        
     </body>
 </html>
 

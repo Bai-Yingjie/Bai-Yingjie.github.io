@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2955,58 +2952,58 @@
 </blockquote>
 <h2 id="char&#x7C7B;&#x578B;&#x5728;arm&#x548C;x86&#x4E0A;&#x4E0D;&#x4E00;&#x6837;"><a name="char&#x7C7B;&#x578B;&#x5728;arm&#x548C;x86&#x4E0A;&#x4E0D;&#x4E00;&#x6837;" class="anchor-navigation-ex-anchor" href="#char&#x7C7B;&#x578B;&#x5728;arm&#x548C;x86&#x4E0A;&#x4E0D;&#x4E00;&#x6837;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. char&#x7C7B;&#x578B;&#x5728;arm&#x548C;x86&#x4E0A;&#x4E0D;&#x4E00;&#x6837;</h2>
 <p>toku db&#x6709;&#x51E0;&#x4E2A;&#x6D4B;&#x8BD5;&#x9879;fail</p>
-<pre><code>rds.tokudb_bug_811, rds.tokudb_file_length, 
+<pre class="language-"><code>rds.tokudb_bug_811, rds.tokudb_file_length, 
 rds.tokudb_ftclose_checkpoint and the result mismatch with rds.tokudb_zstd_compression
 </code></pre><p>&#x539F;&#x56E0;&#x662F;: <strong>x86&#x7684;char&#x662F;&#x6709;&#x7B26;&#x53F7;&#x7684;, &#x800C;arm&#x4E0A;char&#x662F;&#x65E0;&#x7B26;&#x53F7;&#x7684;!</strong></p>
-<pre><code class="lang-diff">--- a/storage/tokudb/ft-index/ft/serialize/compress.cc
-+++ b/storage/tokudb/ft-index/ft/serialize/compress.cc
+<pre class="language-"><code class="lang-diff"><span class="token coord">--- a/storage/tokudb/ft-index/ft/serialize/compress.cc</span>
+<span class="token coord">+++ b/storage/tokudb/ft-index/ft/serialize/compress.cc</span>
 @@ -295,7 +295,7 @@ void toku_decompress (Bytef       *dest,   uLongf 
 destLen,
-          strm.zalloc = Z_NULL;
-          strm.zfree = Z_NULL;
-          strm.opaque = Z_NULL;
--        char windowBits = source[1];
-+        int8_t windowBits = source[1];
-          int r = inflateInit2(&amp;strm, windowBits);
-          lazy_assert(r == Z_OK);
-          strm.next_out = dest;
-</code></pre>
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">         strm.zalloc = Z_NULL;
+</span><span class="token prefix unchanged"> </span><span class="token line">         strm.zfree = Z_NULL;
+</span><span class="token prefix unchanged"> </span><span class="token line">         strm.opaque = Z_NULL;
+</span></span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line">        char windowBits = source[1];
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">        int8_t windowBits = source[1];
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">         int r = inflateInit2(&amp;strm, windowBits);
+</span><span class="token prefix unchanged"> </span><span class="token line">         lazy_assert(r == Z_OK);
+</span><span class="token prefix unchanged"> </span><span class="token line">         strm.next_out = dest;
+</span></span></code></pre>
 <h2 id="&#x9AD8;&#x7CBE;&#x5EA6;&#x65F6;&#x949F;"><a name="&#x9AD8;&#x7CBE;&#x5EA6;&#x65F6;&#x949F;" class="anchor-navigation-ex-anchor" href="#&#x9AD8;&#x7CBE;&#x5EA6;&#x65F6;&#x949F;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x9AD8;&#x7CBE;&#x5EA6;&#x65F6;&#x949F;</h2>
 <p>&#x5728;&#x7F16;&#x8BD1;tokudb&#x7684;&#x4EE3;&#x7801;&#x65F6;, &#x9700;&#x8981;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x51FD;&#x6570;</p>
-<pre><code class="lang-c">static inline tokutime_t toku_time_now(void) {
-    uint32_t lo, hi;
-    __asm__ __volatile__ (&quot;rdtsc&quot; : &quot;=a&quot; (lo), &quot;=d&quot; (hi));
-    return (uint64_t)hi &lt;&lt; 32 | lo;
-}
+<pre class="language-"><code class="lang-c"><span class="token keyword">static</span> <span class="token keyword">inline</span> <span class="token class-name">tokutime_t</span> <span class="token function">toku_time_now</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">uint32_t</span> lo<span class="token punctuation">,</span> hi<span class="token punctuation">;</span>
+    __asm__ <span class="token function">__volatile__</span> <span class="token punctuation">(</span><span class="token string">&quot;rdtsc&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;=a&quot;</span> <span class="token punctuation">(</span>lo<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;=d&quot;</span> <span class="token punctuation">(</span>hi<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">uint64_t</span><span class="token punctuation">)</span>hi <span class="token operator">&lt;&lt;</span> <span class="token number">32</span> <span class="token operator">|</span> lo<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x8FD9;&#x91CC;&#x9762;&#x7528;&#x4E86;x86&#x7684;&#x6C47;&#x7F16;. &#x9700;&#x8981;&#x5728;ARM64&#x4E0A;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x529F;&#x80FD;
 &#x5177;&#x4F53;&#x7684;&#x5B9E;&#x73B0;&#x5E94;&#x8BE5;&#x662F;<code>__asm __volatile__ (&quot;mrs %[rt],cntvct_el0&quot; : [rt] &quot;=r&quot; (result));</code>
 &#x6216;&#x8005;&#x8FD9;&#x6837;</p>
-<pre><code class="lang-c">unsigned long long get_ticks(void)
-{
-    unsigned long long tv;
-#if defined(AARCH64)
-    asm volatile(&quot;mrs %0, cntvct_el0&quot; : &quot;=r&quot; (tv));
-#elif defined(X64)
-    asm volatile (&quot;rdtsc&quot; : &quot;=a&quot;(tv));
-#endif
-    return tv;
-}
+<pre class="language-"><code class="lang-c"><span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> <span class="token function">get_ticks</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> tv<span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression"><span class="token function">defined</span><span class="token punctuation">(</span>AARCH64<span class="token punctuation">)</span></span></span>
+    <span class="token keyword">asm</span> <span class="token keyword">volatile</span><span class="token punctuation">(</span><span class="token string">&quot;mrs %0, cntvct_el0&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;=r&quot;</span> <span class="token punctuation">(</span>tv<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">elif</span> <span class="token expression"><span class="token function">defined</span><span class="token punctuation">(</span>X64<span class="token punctuation">)</span></span></span>
+    <span class="token keyword">asm</span> <span class="token keyword">volatile</span> <span class="token punctuation">(</span><span class="token string">&quot;rdtsc&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;=a&quot;</span><span class="token punctuation">(</span>tv<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+    <span class="token keyword">return</span> tv<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h2 id="io&#x4F18;&#x5316;"><a name="io&#x4F18;&#x5316;" class="anchor-navigation-ex-anchor" href="#io&#x4F18;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. io&#x4F18;&#x5316;</h2>
-<pre><code class="lang-sh">echo 150 &gt; /sys/block/sda/device/timeout
-echo deadline &gt; /sys/block/sdb/queue/scheduler
-echo deadline &gt; /sys/block/sda/queue/scheduler
-echo 500&gt; /sys/block/sdb/queue/nr_requests
+<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">echo</span> <span class="token number">150</span> <span class="token operator">&gt;</span> /sys/block/sda/device/timeout
+<span class="token builtin class-name">echo</span> deadline <span class="token operator">&gt;</span> /sys/block/sdb/queue/scheduler
+<span class="token builtin class-name">echo</span> deadline <span class="token operator">&gt;</span> /sys/block/sda/queue/scheduler
+<span class="token builtin class-name">echo</span> <span class="token number">50</span><span class="token operator"><span class="token file-descriptor important">0</span>&gt;</span> /sys/block/sdb/queue/nr_requests
 /etc/default/irqbalance
-#Configuration for the irqbalance daemon
-#Should irqbalance be enabled?
-ENABLED=&quot;1&quot;
-#Balance the IRQs only once?
-ONESHOT=&quot;0&quot;
-IRQBALANCE_BANNED_CPUS=&quot;ffffffffffffffffffffffff&quot;
+<span class="token comment">#Configuration for the irqbalance daemon</span>
+<span class="token comment">#Should irqbalance be enabled?</span>
+<span class="token assign-left variable">ENABLED</span><span class="token operator">=</span><span class="token string">&quot;1&quot;</span>
+<span class="token comment">#Balance the IRQs only once?</span>
+<span class="token assign-left variable">ONESHOT</span><span class="token operator">=</span><span class="token string">&quot;0&quot;</span>
+<span class="token assign-left variable">IRQBALANCE_BANNED_CPUS</span><span class="token operator">=</span><span class="token string">&quot;ffffffffffffffffffffffff&quot;</span>
 </code></pre>
-<pre><code>Here are some potential optimizations to get the best performance:
+<pre class="language-"><code>Here are some potential optimizations to get the best performance:
 Regarding the MegaRAID controller  
     If you are using SSD as data volumes, use LSI MegaRAID Fast Path and tune the OS as described below.  Click here for a KB article with a trial key .
     Use SSD as caching along with disk drives and LSI MegaRAID CacheCade or CacheCade Pro 2.0 Click here for a trial key 
@@ -3044,11 +3041,11 @@ Under Linux (some of these are specific to SSDs, as indicated below):
         This setting reverts to the default after a system reboot.  You may want to create a start up script that will automatically run this tuning   parameter after every reboot.
         Newer kernels (e.g. RHEL 6.4) allow this setting to be &apos;2&apos;, which will cause the block layer softirq to run on the exact same CPU that issued the I/O.
 </code></pre><h2 id="openssl"><a name="openssl" class="anchor-navigation-ex-anchor" href="#openssl"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. openssl</h2>
-<pre><code>I&apos;ve tested the RSA2048 performance with this cmd
+<pre class="language-"><code>I&apos;ve tested the RSA2048 performance with this cmd
 openssl speed rsa2048 -multi 32 
 And intel 2630 got about:  6911, 2650 with 32 core and -multi 32 thread got about 7907.7
 runing the same cmd in one of ten machine (2 sockets) on my hand(evb3 maybe) and with option: multi 96 got about 6509.9.
-</code></pre><pre><code>Today, I try to run openssl speed rsa2048 on ThunderX CRB-1s (ThunderX CPU @ 2.0GHz , 48Cores).
+</code></pre><pre class="language-"><code>Today, I try to run openssl speed rsa2048 on ThunderX CRB-1s (ThunderX CPU @ 2.0GHz , 48Cores).
 &#x201C;./openssl speed rsa2048 -multi 32&#x201D; test result is: 5505.3
 &#x201C;./openssl speed rsa2048 -multi 48&#x201D; test result is: 8104.6
 </code></pre><h2 id="ccpi-lattency"><a name="ccpi-lattency" class="anchor-navigation-ex-anchor" href="#ccpi-lattency"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. CCPI lattency</h2>
@@ -3075,7 +3072,7 @@ runing the same cmd in one of ten machine (2 sockets) on my hand(evb3 maybe) and
 <li></li>
 </ul>
 <h2 id="perf-frontend-backend-stall-from-arm"><a name="perf-frontend-backend-stall-from-arm" class="anchor-navigation-ex-anchor" href="#perf-frontend-backend-stall-from-arm"><i class="fa fa-link" aria-hidden="true"></i></a>1.8. perf frontend backend stall from ARM</h2>
-<pre><code>Hi Bai,
+<pre class="language-"><code>Hi Bai,
 As we discussed on-site at Alibaba, I think it would be good to backport the patches that add support for the frontend stall and backend stall performance counters.
 This was implemented earlier this year by Jan Glauber from Cavium, and appeared in the 4.6 kernel.
 As discussed, these counters are very valuable when you need to analyze the root cause of a CPU performance problem, following the top-down methodology (see https://moodle.technion.ac.il/pluginfile.php/560599/mod_resource/content/1/Vtune%20%20-%20Top%20Down%20Performance%20Analysis%20,%20by%20Ahmad%20Yasin.pdf for the paper).
@@ -3103,7 +3100,7 @@ If the support could be backported to linux kernel 4.2, it means Alibaba could u
 <h2 id="qemu&#x5982;&#x4F55;&#x8FDB;&#x5165;monitor&#x547D;&#x4EE4;&#x884C;"><a name="qemu&#x5982;&#x4F55;&#x8FDB;&#x5165;monitor&#x547D;&#x4EE4;&#x884C;" class="anchor-navigation-ex-anchor" href="#qemu&#x5982;&#x4F55;&#x8FDB;&#x5165;monitor&#x547D;&#x4EE4;&#x884C;"><i class="fa fa-link" aria-hidden="true"></i></a>1.10. qemu&#x5982;&#x4F55;&#x8FDB;&#x5165;monitor&#x547D;&#x4EE4;&#x884C;</h2>
 <p><code>Crtl+a c</code></p>
 <h2 id="&#x66F4;&#x65B0;grub"><a name="&#x66F4;&#x65B0;grub" class="anchor-navigation-ex-anchor" href="#&#x66F4;&#x65B0;grub"><i class="fa fa-link" aria-hidden="true"></i></a>1.11. &#x66F4;&#x65B0;grub</h2>
-<pre><code>vim /etc/default/grub
+<pre class="language-"><code>vim /etc/default/grub
 grub2-mkconfig  -o /boot/efi/EFI/centos/grub.cfg
 reboot
 </code></pre><h2 id="docker"><a name="docker" class="anchor-navigation-ex-anchor" href="#docker"><i class="fa fa-link" aria-hidden="true"></i></a>1.12. docker</h2>
@@ -3157,7 +3154,7 @@ Thunder&#x673A;&#x5668;&#x5148;&#x662F;&#x901A;&#x8FC7;DHCP&#x83B7;&#x53D6;IP&#x
 <code>trace_i2c_read(...)</code></li>
 </ul>
 <h2 id="ssh&#x914D;&#x7F6E;&#x6587;&#x4EF6;"><a name="ssh&#x914D;&#x7F6E;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#ssh&#x914D;&#x7F6E;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>1.16. ssh&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h2>
-<pre><code>baiyingjie@mserver-dell ~/.ssh
+<pre class="language-"><code>baiyingjie@mserver-dell ~/.ssh
 $ chmod 600 config
 $ cat config 
 Host ali6
@@ -3197,7 +3194,7 @@ Host rdsgclient
 <li>&#x51E0;&#x4F55;&#x5E73;&#x5747;&#x6570;&#x662F;&#x8FD9;n&#x4E2A;&#x6570;&#x7684;&#x79EF;&#x7684;&#x7279;&#x5F81;, &#x8003;&#x5BDF;&#x7684;&#x6F5C;&#x5728;&#x76EE;&#x6807;&#x662F;&#x4E58;&#x79EF;.</li>
 </ul>
 <h2 id="kernel&#x8865;&#x4E01;"><a name="kernel&#x8865;&#x4E01;" class="anchor-navigation-ex-anchor" href="#kernel&#x8865;&#x4E01;"><i class="fa fa-link" aria-hidden="true"></i></a>1.19. kernel&#x8865;&#x4E01;</h2>
-<pre><code>git format-patch 
+<pre class="language-"><code>git format-patch 
 git apply --check  newpatch.patch
 git am --signoff &lt; newpatch.patch
 </code></pre><h2 id="&#x7ED9;alibaba&#x63D0;&#x52A8;kernel&#x8865;&#x4E01;&#x7684;&#x8FC7;&#x7A0B;"><a name="&#x7ED9;alibaba&#x63D0;&#x52A8;kernel&#x8865;&#x4E01;&#x7684;&#x8FC7;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x7ED9;alibaba&#x63D0;&#x52A8;kernel&#x8865;&#x4E01;&#x7684;&#x8FC7;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>1.20. &#x7ED9;alibaba&#x63D0;&#x52A8;kernel&#x8865;&#x4E01;&#x7684;&#x8FC7;&#x7A0B;</h2>
@@ -3214,16 +3211,16 @@ git cherry-pick&#x53EF;&#x4EE5;&#x628A;&#x522B;&#x7684;&#x5206;&#x652F;&#x4E0A;&
 <li>ali&#x5E94;&#x7528;patch&#x7684;&#x65F6;&#x5019;, &#x53EF;&#x4EE5;git apply</li>
 </ul>
 <h2 id="&#x542F;&#x52A8;&#x65F6;&#x52A0;&#x6A21;&#x5757;&#x7684;&#x53C2;&#x6570;"><a name="&#x542F;&#x52A8;&#x65F6;&#x52A0;&#x6A21;&#x5757;&#x7684;&#x53C2;&#x6570;" class="anchor-navigation-ex-anchor" href="#&#x542F;&#x52A8;&#x65F6;&#x52A0;&#x6A21;&#x5757;&#x7684;&#x53C2;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>1.21. &#x542F;&#x52A8;&#x65F6;&#x52A0;&#x6A21;&#x5757;&#x7684;&#x53C2;&#x6570;</h2>
-<pre><code class="lang-shell">root@Tfedora /etc/modprobe.d
-# cat megaraid_sas.conf 
-options megaraid_sas msix_disable=1
+<pre class="language-"><code class="lang-shell">root@Tfedora /etc/modprobe.d
+<span class="token comment"># cat megaraid_sas.conf </span>
+options megaraid_sas <span class="token assign-left variable">msix_disable</span><span class="token operator">=</span><span class="token number">1</span>
 </code></pre>
 <h2 id="ssd&#x7684;strim&#x662F;&#x4EC0;&#x4E48;&#x4E1C;&#x4E1C;-discard-fstrimdiscard"><a name="ssd&#x7684;strim&#x662F;&#x4EC0;&#x4E48;&#x4E1C;&#x4E1C;-discard-fstrimdiscard" class="anchor-navigation-ex-anchor" href="#ssd&#x7684;strim&#x662F;&#x4EC0;&#x4E48;&#x4E1C;&#x4E1C;-discard-fstrimdiscard"><i class="fa fa-link" aria-hidden="true"></i></a>1.22. ssd&#x7684;strim&#x662F;&#x4EC0;&#x4E48;&#x4E1C;&#x4E1C;? discard? Fstrim/discard</h2>
-<pre><code>I suspect the reason for this may be SSD garbage collection. The only 
+<pre class="language-"><code>I suspect the reason for this may be SSD garbage collection. The only 
 known solution to it that I&apos;m aware of is trim: 
 https://en.wikipedia.org/wiki/Trim_%28computing%29
 </code></pre><h2 id="&#x8C03;&#x8BD5;rds-tps&#x53D8;&#x4E3A;0&#x7684;&#x95EE;&#x9898;"><a name="&#x8C03;&#x8BD5;rds-tps&#x53D8;&#x4E3A;0&#x7684;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x8C03;&#x8BD5;rds-tps&#x53D8;&#x4E3A;0&#x7684;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>1.23. &#x8C03;&#x8BD5;RDS tps&#x53D8;&#x4E3A;0&#x7684;&#x95EE;&#x9898;</h2>
-<pre><code>When TPS drops to zero, run this:
+<pre class="language-"><code>When TPS drops to zero, run this:
 gdb -ex &quot;set pagination 0&quot; -ex &quot;thread apply all bt&quot; \
    --batch -p $(pidof mysqld) &gt; pmp.txt
 </code></pre><ul>
@@ -3258,30 +3255,30 @@ l3fwd: 9.3 mpps/cor</p>
 <p>/lib/modules${kernel}/build&#x662F;&#x8F6F;&#x94FE;&#x63A5;, &#x6307;&#x5411;&#x672C;&#x5730;&#x7F16;&#x8BD1;kernel&#x7684;&#x8DEF;&#x5F84;, &#x6709;&#x4E86;&#x5B83;, &#x6211;&#x4EEC;&#x5728;&#x7F16;&#x8BD1;module&#x7684;&#x65F6;&#x5019;&#x5C31;&#x80FD;&#x65B9;&#x4FBF;&#x7684;&#x627E;&#x5230;kernel&#x7684;&#x6E90;&#x7801;&#x6811;.</p>
 <h2 id="&#x901A;&#x8FC7;&#x5176;&#x4ED6;&#x673A;&#x5668;&#x4E0A;&#x5916;&#x7F51;"><a name="&#x901A;&#x8FC7;&#x5176;&#x4ED6;&#x673A;&#x5668;&#x4E0A;&#x5916;&#x7F51;" class="anchor-navigation-ex-anchor" href="#&#x901A;&#x8FC7;&#x5176;&#x4ED6;&#x673A;&#x5668;&#x4E0A;&#x5916;&#x7F51;"><i class="fa fa-link" aria-hidden="true"></i></a>1.26. &#x901A;&#x8FC7;&#x5176;&#x4ED6;&#x673A;&#x5668;&#x4E0A;&#x5916;&#x7F51;</h2>
 <p>on 192.168.10.2</p>
-<pre><code>sysctl -w net.ipv4.ip_forward=1
+<pre class="language-"><code>sysctl -w net.ipv4.ip_forward=1
 iptables -t nat -A POSTROUTING -j MASQUERADE -s 192.168.10.0/24 -o enP9p144s0f0
 </code></pre><ul>
 <li>enP10p88s0f0&#x662F;&#x53EF;&#x4EE5;&#x4E0A;&#x5916;&#x7F51;&#x7684;interface</li>
 <li>192.168.10.0/24 &#x662F;&#x5185;&#x7F51;&#x7F51;&#x6BB5;
-on 192.168.10.3<pre><code>route add default gw 192.168.10.2
+on 192.168.10.3<pre class="language-"><code>route add default gw 192.168.10.2
 echo &quot;nameserver 10.65.0.1&quot; &gt; /etc/resolv.conf
 </code></pre></li>
 </ul>
 <h2 id="&#x89E3;&#x51B3;polkitd&#x7684;&#x95EE;&#x9898;"><a name="&#x89E3;&#x51B3;polkitd&#x7684;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x89E3;&#x51B3;polkitd&#x7684;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>1.27. &#x89E3;&#x51B3;polkitd&#x7684;&#x95EE;&#x9898;</h2>
-<pre><code class="lang-shell">root@Tfedora /usr/share/dbus-1/system-services
-# cat org.freedesktop.PolicyKit1.service
-[D-BUS Service]
-#Name=org.freedesktop.PolicyKit1
-#Exec=/usr/lib/polkit-1/polkitd --no-debug
-#User=root
-#SystemdService=polkit.service
+<pre class="language-"><code class="lang-shell">root@Tfedora /usr/share/dbus-1/system-services
+<span class="token comment"># cat org.freedesktop.PolicyKit1.service</span>
+<span class="token punctuation">[</span>D-BUS Service<span class="token punctuation">]</span>
+<span class="token comment">#Name=org.freedesktop.PolicyKit1</span>
+<span class="token comment">#Exec=/usr/lib/polkit-1/polkitd --no-debug</span>
+<span class="token comment">#User=root</span>
+<span class="token comment">#SystemdService=polkit.service</span>
 </code></pre>
 <p>or </p>
-<pre><code>mv org.freedesktop.PolicyKit1.service org.freedesktop.PolicyKit1.service.bak
+<pre class="language-"><code>mv org.freedesktop.PolicyKit1.service org.freedesktop.PolicyKit1.service.bak
 </code></pre><h2 id="sysbench&#x91CC;&#x9762;&#x968F;&#x673A;&#x51FD;&#x6570;lrand48&#x95EE;&#x9898;"><a name="sysbench&#x91CC;&#x9762;&#x968F;&#x673A;&#x51FD;&#x6570;lrand48&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#sysbench&#x91CC;&#x9762;&#x968F;&#x673A;&#x51FD;&#x6570;lrand48&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>1.28. sysbench&#x91CC;&#x9762;&#x968F;&#x673A;&#x51FD;&#x6570;lrand48&#x95EE;&#x9898;</h2>
 <p>&#x5728;sysbench&#x91CC;&#x9762;&#x7528;&#x4E86;lrand48&#x51FD;&#x6570;, &#x5728;&#x591A;&#x7EBF;&#x7A0B;&#x8DD1;&#x7684;&#x65F6;&#x5019;, &#x5728;thunder&#x4E0A;&#x6709;&#x7684;&#x968F;&#x673A;&#x6570;&#x4F1A;&#x91CD;&#x590D;, &#x6982;&#x7387;&#x5F88;&#x5927;, &#x4F46;x86&#x4E0A;&#x5C31;&#x6CA1;&#x6709;.
 man lrand48&#x5F97;&#x77E5;:</p>
-<pre><code>$ man lrand48
+<pre class="language-"><code>$ man lrand48
 ATTRIBUTES
    Multithreading (see pthreads(7))
        The drand48(), erand48(), lrand48(), nrand48(), mrand48(), jrand48(), srand48(), seed48(), and lcong48() functions record global state information for the random
@@ -3301,27 +3298,27 @@ ServerAliveInterval 60 &#xFF03;client&#x6BCF;&#x9694;60&#x79D2;&#x53D1;&#x9001;&
 ServerAliveCountMax 3  &#xFF03;client&#x53D1;&#x51FA;&#x8BF7;&#x6C42;&#x540E;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x6CA1;&#x6709;&#x54CD;&#x5E94;&#x5F97;&#x6B21;&#x6570;&#x8FBE;&#x5230;3&#xFF0C;&#x5C31;&#x81EA;&#x52A8;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#xFF0C;&#x6B63;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;server&#x4E0D;&#x4F1A;&#x4E0D;&#x54CD;&#x5E94;</li>
 </ol>
 <h2 id="git&#x751F;&#x6210;patch"><a name="git&#x751F;&#x6210;patch" class="anchor-navigation-ex-anchor" href="#git&#x751F;&#x6210;patch"><i class="fa fa-link" aria-hidden="true"></i></a>1.30. git&#x751F;&#x6210;patch</h2>
-<pre><code class="lang-shell">byj@mint ~/repo/git/thunder/RDS/alisql
-$ git diff cavium_baseline cavium_optimized &gt; RDS_Cavium.patch
+<pre class="language-"><code class="lang-shell">byj@mint ~/repo/git/thunder/RDS/alisql
+$ <span class="token function">git</span> <span class="token function">diff</span> cavium_baseline cavium_optimized <span class="token operator">&gt;</span> RDS_Cavium.patch
 </code></pre>
 <h2 id="&#x6DFB;&#x52A0;&#x548C;&#x5220;&#x9664;&#x7F51;&#x5173;"><a name="&#x6DFB;&#x52A0;&#x548C;&#x5220;&#x9664;&#x7F51;&#x5173;" class="anchor-navigation-ex-anchor" href="#&#x6DFB;&#x52A0;&#x548C;&#x5220;&#x9664;&#x7F51;&#x5173;"><i class="fa fa-link" aria-hidden="true"></i></a>1.31. &#x6DFB;&#x52A0;&#x548C;&#x5220;&#x9664;&#x7F51;&#x5173;</h2>
-<pre><code class="lang-shell">ip route show
-ip route add default via 10.97.219.247 dev eth2
-ip route del 10.0.0.0/8
+<pre class="language-"><code class="lang-shell"><span class="token function">ip</span> route show
+<span class="token function">ip</span> route <span class="token function">add</span> default via <span class="token number">10.97</span>.219.247 dev eth2
+<span class="token function">ip</span> route del <span class="token number">10.0</span>.0.0/8
 </code></pre>
 <h2 id="&#x4E00;&#x6B21;&#x6027;top"><a name="&#x4E00;&#x6B21;&#x6027;top" class="anchor-navigation-ex-anchor" href="#&#x4E00;&#x6B21;&#x6027;top"><i class="fa fa-link" aria-hidden="true"></i></a>1.32. &#x4E00;&#x6B21;&#x6027;top</h2>
 <p>$ ./alldo.sh &apos;top -bn1 | head -15&apos;</p>
 <h2 id="coredump"><a name="coredump" class="anchor-navigation-ex-anchor" href="#coredump"><i class="fa fa-link" aria-hidden="true"></i></a>1.33. coredump</h2>
-<pre><code class="lang-shell">root@ARM ~/src/git/LuaJIT/src
-# ulimit -c unlimited
+<pre class="language-"><code class="lang-shell">root@ARM ~/src/git/LuaJIT/src
+<span class="token comment"># ulimit -c unlimited</span>
 root@ARM ~/src/git/LuaJIT/src
-# ./luajit --version
-Segmentation fault (core dumped)
+<span class="token comment"># ./luajit --version</span>
+Segmentation fault <span class="token punctuation">(</span>core dumped<span class="token punctuation">)</span>
 root@ARM ~/src/git/LuaJIT/src
-# ls core.15262 -lh
--rw------- 1 root root 1.6M 1&#x6708;  12 15:17 core.15262
+<span class="token comment"># ls core.15262 -lh</span>
+-rw------- <span class="token number">1</span> root root <span class="token number">1</span>.6M <span class="token number">1</span>&#x6708;  <span class="token number">12</span> <span class="token number">15</span>:17 core.15262
 root@ARM ~/src/git/LuaJIT/src
-# gdb luajit core.15262
+<span class="token comment"># gdb luajit core.15262</span>
 </code></pre>
 <ul>
 <li>&#x9700;&#x8981;&#x5148;&#x662F;&#x80FD;core&#x673A;&#x5236; <code>ulimit -c unlimited</code></li>
@@ -3329,23 +3326,23 @@ root@ARM ~/src/git/LuaJIT/src
 <li>gdb&#x53EF;&#x4EE5;&#x76F4;&#x63A5;debug&#x8FD9;&#x4E2A;core&#x6587;&#x4EF6; <code>gdb program core-file-name</code></li>
 </ul>
 <h2 id="&#x5728;thunder&#x4E0A;&#x7684;sysdig-&#x597D;&#x50CF;&#x7528;&#x4E0D;&#x8D77;&#x6765;"><a name="&#x5728;thunder&#x4E0A;&#x7684;sysdig-&#x597D;&#x50CF;&#x7528;&#x4E0D;&#x8D77;&#x6765;" class="anchor-navigation-ex-anchor" href="#&#x5728;thunder&#x4E0A;&#x7684;sysdig-&#x597D;&#x50CF;&#x7528;&#x4E0D;&#x8D77;&#x6765;"><i class="fa fa-link" aria-hidden="true"></i></a>1.34. &#x5728;thunder&#x4E0A;&#x7684;sysdig &#x597D;&#x50CF;&#x7528;&#x4E0D;&#x8D77;&#x6765;...</h2>
-<pre><code>cmake -DUSE_BUNDLED_LUAJIT=OFF ..
+<pre class="language-"><code>cmake -DUSE_BUNDLED_LUAJIT=OFF ..
 </code></pre><h2 id="sysdig&#x521D;&#x4F53;&#x9A8C;"><a name="sysdig&#x521D;&#x4F53;&#x9A8C;" class="anchor-navigation-ex-anchor" href="#sysdig&#x521D;&#x4F53;&#x9A8C;"><i class="fa fa-link" aria-hidden="true"></i></a>1.35. sysdig&#x521D;&#x4F53;&#x9A8C;</h2>
 <p>&#x5B89;&#x88C5;: &#x6211;&#x662F;&#x53BB;sysdig&#x5B98;&#x7F51;&#x4E0B;&#x7684;deb&#x5B89;&#x88C5;&#x5305;</p>
 <ul>
 <li>&#x57FA;&#x672C;&#x4F7F;&#x7528;
 sysdig&#x4E0D;&#x52A0;&#x53C2;&#x6570;&#x4F1A;&#x8F93;&#x51FA;&#x7CFB;&#x7EDF;&#x5B9E;&#x65F6;&#x7684;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;, &#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x7684;, &#x611F;&#x89C9;&#x6CA1;&#x4EC0;&#x4E48;&#x5927;&#x7528;.
 <code>sudo sysdig proc.name=sshd</code> &#x8FD9;&#x79CD;&#x53EA;&#x89C2;&#x5BDF;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x683C;&#x5F0F;&#x53EF;&#x80FD;&#x66F4;&#x6709;&#x7528;&#x4E00;&#x70B9;, &#x4F46;&#x5176;&#x5B9E;&#x548C;strace -p&#x5DEE;&#x4E0D;&#x591A;.
-&#x6240;&#x6709;&#x7684;&#x8F93;&#x51FA;&#x53EF;&#x4EE5;&#x5148;&#x5199;&#x5230;&#x6587;&#x4EF6;&#x91CC;, &#x7136;&#x540E;&#x8BFB;&#x51FA;&#x6765;, &#x6BD4;&#x5982;<pre><code class="lang-shell">sysdig -w mint.scap
-sysdig -r mint.scap
+&#x6240;&#x6709;&#x7684;&#x8F93;&#x51FA;&#x53EF;&#x4EE5;&#x5148;&#x5199;&#x5230;&#x6587;&#x4EF6;&#x91CC;, &#x7136;&#x540E;&#x8BFB;&#x51FA;&#x6765;, &#x6BD4;&#x5982;<pre class="language-"><code class="lang-shell">sysdig <span class="token parameter variable">-w</span> mint.scap
+sysdig <span class="token parameter variable">-r</span> mint.scap
 </code></pre>
 </li>
 <li>&#x51FF;&#x5B50;
 sysdig&#x91CC;&#x9762;&#x6709;&#x4E2A;&#x5F88;&#x6709;&#x610F;&#x601D;&#x7684;&#x65B0;&#x540D;&#x8BCD;chisel(&#x51FF;&#x5B50;), &#x5B83;&#x662F;sysdig&#x7528;&#x6765;&#x5206;&#x6790;&#x4E0A;&#x9762;&#x7684;&#x4E8B;&#x4EF6;&#x6D41;&#x7684;&#x4E00;&#x4E9B;&#x811A;&#x672C;, &#x7528;
 <code>sysdig -cl</code>&#x6765;&#x67E5;&#x770B;&#x6240;&#x6709;&#x652F;&#x6301;&#x7684;chisel, &#x6309;app, cpu, net, io, performance&#x7B49;&#x7B49;&#x6765;&#x5206;&#x4E86;&#x597D;&#x51E0;&#x7C7B;
-&#x6BD4;&#x5982;<pre><code class="lang-shell">sudo sysdig -c topprocs_net &#x663E;&#x793A;&#x6700;&#x5360;&#x7F51;&#x7EDC;&#x7684;&#x7A0B;&#x5E8F;
-sudo sysdig -c topprocs_time &#x663E;&#x793A;&#x6700;&#x5360;&#x65F6;&#x95F4;&#x7684;&#x6587;&#x4EF6;
-sudo sysdig -c topprocs_file &#x663E;&#x793A;&#x8BFB;&#x5199;&#x6587;&#x4EF6;&#x6700;&#x591A;&#x7684;&#x8FDB;&#x7A0B;
+&#x6BD4;&#x5982;<pre class="language-"><code class="lang-shell"><span class="token function">sudo</span> sysdig <span class="token parameter variable">-c</span> topprocs_net &#x663E;&#x793A;&#x6700;&#x5360;&#x7F51;&#x7EDC;&#x7684;&#x7A0B;&#x5E8F;
+<span class="token function">sudo</span> sysdig <span class="token parameter variable">-c</span> topprocs_time &#x663E;&#x793A;&#x6700;&#x5360;&#x65F6;&#x95F4;&#x7684;&#x6587;&#x4EF6;
+<span class="token function">sudo</span> sysdig <span class="token parameter variable">-c</span> topprocs_file &#x663E;&#x793A;&#x8BFB;&#x5199;&#x6587;&#x4EF6;&#x6700;&#x591A;&#x7684;&#x8FDB;&#x7A0B;
 </code></pre>
 </li>
 <li>&#x5B9E;&#x4F8B;
@@ -3357,7 +3354,7 @@ sudo sysdig -c topprocs_file &#x663E;&#x793A;&#x8BFB;&#x5199;&#x6587;&#x4EF6;&#x
 <code>sysdig -i fileslower</code> &#x7528;-i&#x9009;&#x9879;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x5982;&#x4F55;&#x4F7F;&#x7528;
 <code>sudo sysdig -c spy_users</code> &#x8FD9;&#x4E2A;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x7CFB;&#x7EDF;&#x4E2D;&#x6240;&#x6709;&#x7528;&#x6237;&#x7684;&#x64CD;&#x4F5C;
 <code>sudo sysdig -A -c spy_ip 192.168.2.13</code> &#x8FD9;&#x4E2A;&#x5389;&#x5BB3;&#x4E86;, &#x53EF;&#x4EE5;&#x68C0;&#x6D4B;&#x548C;192.168.2.13&#x7684;&#x6570;&#x636E;&#x4F20;&#x8F93;. &#x4F46;&#x4F3C;&#x4E4E;ping&#x62A5;&#x6587;&#x6CA1;&#x6CD5;&#x76D1;&#x63A7;. -A&#x7684;&#x610F;&#x601D;&#x662F;ascii&#x65B9;&#x5F0F;&#x663E;&#x793A;
-&#x663E;&#x793A;cat&#x6253;&#x5F00;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x7684;&#x540D;&#x79F0;, &#x6CE8;&#x610F;evt.arg.name&#x5C31;&#x8868;&#x793A;&#x8FD9;&#x4E2A;&#x540D;&#x79F0;, -p%&#x662F;&#x6253;&#x5370;&#x683C;&#x5F0F;<pre><code class="lang-shell">$ sudo sysdig -p&quot;%evt.arg.name&quot; proc.name=cat and evt.type=open
+&#x663E;&#x793A;cat&#x6253;&#x5F00;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x7684;&#x540D;&#x79F0;, &#x6CE8;&#x610F;evt.arg.name&#x5C31;&#x8868;&#x793A;&#x8FD9;&#x4E2A;&#x540D;&#x79F0;, -p%&#x662F;&#x6253;&#x5370;&#x683C;&#x5F0F;<pre class="language-"><code class="lang-shell">$ <span class="token function">sudo</span> sysdig -p<span class="token string">&quot;%evt.arg.name&quot;</span> <span class="token assign-left variable">proc.name</span><span class="token operator">=</span>cat and <span class="token assign-left variable">evt.type</span><span class="token operator">=</span>open
 /etc/ld.so.cache
 /lib/x86_64-linux-gnu/libc.so.6
 /usr/lib/locale/locale-archive
@@ -3367,11 +3364,11 @@ sudo sysdig -c topprocs_file &#x663E;&#x793A;&#x8BFB;&#x5199;&#x6587;&#x4EF6;&#x
 &#x8FC7;&#x6EE4;&#x5668;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6BD4;&#x8F83;&#x64CD;&#x4F5C;&#x7B26; &#x5982;  (=, !=, &lt;, &lt;=, &gt;, &gt;=, contains) &#x4E14;&#x53EF;&#x4EE5;&#x8054;&#x5408;&#x5E03;&#x5C14;&#x64CD;&#x4F5C;&#x7B26; (and, or and not) &#x8FD8;&#x6709;&#x62EC;&#x53F7;</li>
 </ul>
 <h2 id="ulimit&#x8FDB;&#x7A0B;&#x6570;&#x9650;&#x5236;"><a name="ulimit&#x8FDB;&#x7A0B;&#x6570;&#x9650;&#x5236;" class="anchor-navigation-ex-anchor" href="#ulimit&#x8FDB;&#x7A0B;&#x6570;&#x9650;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>1.36. ulimit&#x8FDB;&#x7A0B;&#x6570;&#x9650;&#x5236;</h2>
-<pre><code class="lang-shell">vim /etc/security/limits.conf
-vim /etc/security/limits.d/20-nproc.conf
+<pre class="language-"><code class="lang-shell"><span class="token function">vim</span> /etc/security/limits.conf
+<span class="token function">vim</span> /etc/security/limits.d/20-nproc.conf
 </code></pre>
 <h2 id="&#x5728;thunder&#x4E0A;&#x505A;&#x76D8;"><a name="&#x5728;thunder&#x4E0A;&#x505A;&#x76D8;" class="anchor-navigation-ex-anchor" href="#&#x5728;thunder&#x4E0A;&#x505A;&#x76D8;"><i class="fa fa-link" aria-hidden="true"></i></a>1.37. &#x5728;thunder&#x4E0A;&#x505A;&#x76D8;</h2>
-<pre><code class="lang-shell">export THUNDER_ROOT=/root/src/ThunderX-SDK
+<pre class="language-"><code class="lang-shell"><span class="token builtin class-name">export</span> <span class="token assign-left variable">THUNDER_ROOT</span><span class="token operator">=</span>/root/src/ThunderX-SDK
 lsblk
 ./create_disk.sh --raw-disk /dev/sdb
 </code></pre>
@@ -3385,44 +3382,44 @@ lsblk
 <li>&#x5173;&#x952E;&#x8BCD;: softirq smp_function_call IPI</li>
 <li>&#x5173;&#x4E8E;smp function call, &#x5B83;&#x7684;&#x76EE;&#x7684;&#x662F;<strong>&#x8BA9;&#x53E6;&#x5916;&#x4E00;&#x4E2A;cpu&#x6765;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x51FD;&#x6570;</strong>
 linux/kernel/linux-aarch64/block/blk-softirq.c
-&#x6BD4;&#x5982;&#x5728;&#x672C;cpu&#x4E0A;&#x6267;&#x884C;<pre><code class="lang-c">/*
+&#x6BD4;&#x5982;&#x5728;&#x672C;cpu&#x4E0A;&#x6267;&#x884C;<pre class="language-"><code class="lang-c"><span class="token comment">/*
 * Setup and invoke a run of &apos;trigger_softirq&apos; on the given cpu.
-*/
-static int raise_blk_irq(int cpu, struct request *rq)
-{
-if (cpu_online(cpu)) {
-struct call_single_data *data = &amp;rq-&gt;csd;
-data-&gt;func = trigger_softirq;
-data-&gt;info = rq;
-data-&gt;flags = 0;
-smp_call_function_single_async(cpu, data);
-return 0;
-}
-return 1;
-}
+*/</span>
+<span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">raise_blk_irq</span><span class="token punctuation">(</span><span class="token keyword">int</span> cpu<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">request</span> <span class="token operator">*</span>rq<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">cpu_online</span><span class="token punctuation">(</span>cpu<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">struct</span> <span class="token class-name">call_single_data</span> <span class="token operator">*</span>data <span class="token operator">=</span> <span class="token operator">&amp;</span>rq<span class="token operator">-&gt;</span>csd<span class="token punctuation">;</span>
+data<span class="token operator">-&gt;</span>func <span class="token operator">=</span> trigger_softirq<span class="token punctuation">;</span>
+data<span class="token operator">-&gt;</span>info <span class="token operator">=</span> rq<span class="token punctuation">;</span>
+data<span class="token operator">-&gt;</span>flags <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token function">smp_call_function_single_async</span><span class="token punctuation">(</span>cpu<span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
-&#x5B83;&#x7528;IPI(&#x6838;&#x95F4;&#x4E2D;&#x65AD;)&#x6765;&#x901A;&#x77E5;&#x53E6;&#x4E00;&#x4E2A;CPU&#x6765;&#x6267;&#x884C;&#x4E0B;&#x9762;&#x7684;&#x51FD;&#x6570;, &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;<pre><code class="lang-c">static void trigger_softirq(void *data)
-{
-struct request *rq = data;
-unsigned long flags;
-struct list_head *list;
-local_irq_save(flags);
-list = this_cpu_ptr(&amp;blk_cpu_done);
-list_add_tail(&amp;rq-&gt;ipi_list, list);
-if (list-&gt;next == &amp;rq-&gt;ipi_list)
-raise_softirq_irqoff(BLOCK_SOFTIRQ);
-local_irq_restore(flags);
-}
+&#x5B83;&#x7528;IPI(&#x6838;&#x95F4;&#x4E2D;&#x65AD;)&#x6765;&#x901A;&#x77E5;&#x53E6;&#x4E00;&#x4E2A;CPU&#x6765;&#x6267;&#x884C;&#x4E0B;&#x9762;&#x7684;&#x51FD;&#x6570;, &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;<pre class="language-"><code class="lang-c"><span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">trigger_softirq</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>data<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+<span class="token keyword">struct</span> <span class="token class-name">request</span> <span class="token operator">*</span>rq <span class="token operator">=</span> data<span class="token punctuation">;</span>
+<span class="token keyword">unsigned</span> <span class="token keyword">long</span> flags<span class="token punctuation">;</span>
+<span class="token keyword">struct</span> <span class="token class-name">list_head</span> <span class="token operator">*</span>list<span class="token punctuation">;</span>
+<span class="token function">local_irq_save</span><span class="token punctuation">(</span>flags<span class="token punctuation">)</span><span class="token punctuation">;</span>
+list <span class="token operator">=</span> <span class="token function">this_cpu_ptr</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>blk_cpu_done<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">list_add_tail</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>rq<span class="token operator">-&gt;</span>ipi_list<span class="token punctuation">,</span> list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>list<span class="token operator">-&gt;</span>next <span class="token operator">==</span> <span class="token operator">&amp;</span>rq<span class="token operator">-&gt;</span>ipi_list<span class="token punctuation">)</span>
+<span class="token function">raise_softirq_irqoff</span><span class="token punctuation">(</span>BLOCK_SOFTIRQ<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">local_irq_restore</span><span class="token punctuation">(</span>flags<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 </li>
 </ul>
 <h2 id="&#x4F7F;&#x7528;native-gcc&#x7684;&#x53D8;&#x91CF;&#x8BBE;&#x7F6E;"><a name="&#x4F7F;&#x7528;native-gcc&#x7684;&#x53D8;&#x91CF;&#x8BBE;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;native-gcc&#x7684;&#x53D8;&#x91CF;&#x8BBE;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>1.40. &#x4F7F;&#x7528;native gcc&#x7684;&#x53D8;&#x91CF;&#x8BBE;&#x7F6E;</h2>
-<pre><code class="lang-shell">#!/bin/sh
-export MY_ROOT_DIR=`pwd`
-#export PATH=$MY_ROOT_DIR/gcc5-native/bin:$PATH
-#export LD_LIBRARY_PATH=$MY_ROOT_DIR/gcc5-native/lib64
-export PATH=$MY_ROOT_DIR/thunderx-tools-414/aarch64-thunderx-linux-gnu/sys-root/usr/bin:$PATH
-export LD_LIBRARY_PATH=$MY_ROOT_DIR/thunderx-tools-414/aarch64-thunderx-linux-gnu/sys-root/lib64
+<pre class="language-"><code class="lang-shell"><span class="token shebang important">#!/bin/sh</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">MY_ROOT_DIR</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">pwd</span><span class="token variable">`</span></span>
+<span class="token comment">#export PATH=$MY_ROOT_DIR/gcc5-native/bin:$PATH</span>
+<span class="token comment">#export LD_LIBRARY_PATH=$MY_ROOT_DIR/gcc5-native/lib64</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token variable">$MY_ROOT_DIR</span>/thunderx-tools-414/aarch64-thunderx-linux-gnu/sys-root/usr/bin:<span class="token environment constant">$PATH</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">LD_LIBRARY_PATH</span><span class="token operator">=</span><span class="token variable">$MY_ROOT_DIR</span>/thunderx-tools-414/aarch64-thunderx-linux-gnu/sys-root/lib64
 </code></pre>
 <h2 id="smpaffinity&#x548C;rpscpus"><a name="smpaffinity&#x548C;rpscpus" class="anchor-navigation-ex-anchor" href="#smpaffinity&#x548C;rpscpus"><i class="fa fa-link" aria-hidden="true"></i></a>1.41. smp_affinity&#x548C;rps_cpus</h2>
 <p>&#x7B80;&#x5355;&#x7684;&#x8BF4;, &#x4E24;&#x4E2A;&#x90FD;&#x662F;&#x5747;&#x8861;&#x7F51;&#x5361;&#x4E2D;&#x65AD;&#x7684;, &#x533A;&#x522B;&#x4F3C;&#x4E4E;&#x662F;:</p>
@@ -3441,7 +3438,7 @@ export LD_LIBRARY_PATH=$MY_ROOT_DIR/thunderx-tools-414/aarch64-thunderx-linux-gn
 &#x7136;&#x540E;&#x662F;&#x7528;perf&#x6765;&#x5206;&#x6790;hotpot&#x4EE3;&#x7801;
 &#x6700;&#x540E;&#x662F;debug&#x4EE3;&#x7801;&#x7684;&#x624B;&#x6BB5;:
 &#x6BD4;&#x5982;<code>pstack</code>&#x548C;<code>gdb</code>&#x7684;&#x4F7F;&#x7528;, &#x5982;&#x679C;&#x7A0B;&#x5E8F;&#x8DD1;&#x5230;&#x4E86;&#x4E00;&#x4E2A;&#x6301;&#x7EED;&#x7684;&#x5F02;&#x5E38;&#x72B6;&#x6001;, &#x6BD4;&#x5982;sysbench&#x6D4B;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x6BCF;&#x79D2;&#x7EDF;&#x8BA1;&#x90FD;&#x662F;0, &#x8FD9;&#x65F6;&#x9700;&#x8981;&#x5148;<code>pstack</code>&#x6765;&#x67E5;&#x8C03;&#x7528;&#x6808;, &#x5728;<code>pstack</code>&#x6267;&#x884C;&#x671F;&#x95F4;, &#x8FD9;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x6240;&#x6709;&#x7EBF;&#x7A0B;&#x90FD;&#x4F1A;&#x88AB;&#x505C;&#x4F4F;, &#x4ECE;&#x8C03;&#x7528;&#x6808;&#x91CC;&#x9762;&#x67E5;&#x770B;&#x7AEF;&#x502A;. &#x4E0B;&#x4E00;&#x6B65;&#x5C31;&#x662F;&#x7528;<code>gdb -p</code>&#x53BB;&#x8DDF;.</p>
-<pre><code>pstack -p
+<pre class="language-"><code>pstack -p
 strace -p
 gdb -p
 sysdig
@@ -3464,28 +3461,28 @@ on many CPUs and mysql threads frequently get context switched. Hence low perfor
 always saw better performance with leaving cores 0-8 aside and pinning mysql to CPUs 9-47 (of node0). 
 If possible, can you try one experiment (with below settings) and see if that benefits.
 Replace eth0 with whatever interface you are using.</p>
-<pre><code class="lang-shell">echo 0 &gt; /sys/class/net/eth0/queues/rx-0/rps_cpus
-echo 0 &gt; /sys/class/net/eth0/queues/rx-1/rps_cpus
-echo 0 &gt; /sys/class/net/eth0/queues/rx-2/rps_cpus
-echo 0 &gt; /sys/class/net/eth0/queues/rx-3/rps_cpus
-echo 0 &gt; /sys/class/net/eth0/queues/rx-4/rps_cpus
-echo 0 &gt; /sys/class/net/eth0/queues/rx-5/rps_cpus
-echo 0 &gt; /sys/class/net/eth0/queues/rx-6/rps_cpus
-echo 0 &gt; /sys/class/net/eth0/queues/rx-7/rps_cpus
-echo 32768 &gt; /proc/sys/net/core/rps_sock_flow_entries
-echo 4096 &gt; /sys/class/net/eth0/queues/rx-0/rps_flow_cnt
-echo 4096 &gt; /sys/class/net/eth0/queues/rx-1/rps_flow_cnt
-echo 4096 &gt; /sys/class/net/eth0/queues/rx-2/rps_flow_cnt
-echo 4096 &gt; /sys/class/net/eth0/queues/rx-3/rps_flow_cnt
-echo 4096 &gt; /sys/class/net/eth0/queues/rx-4/rps_flow_cnt
-echo 4096 &gt; /sys/class/net/eth0/queues/rx-5/rps_flow_cnt
-echo 4096 &gt; /sys/class/net/eth0/queues/rx-6/rps_flow_cnt
-echo 4096 &gt; /sys/class/net/eth0/queues/rx-7/rps_flow_cnt
+<pre class="language-"><code class="lang-shell"><span class="token builtin class-name">echo</span> <span class="token number">0</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-0/rps_cpus
+<span class="token builtin class-name">echo</span> <span class="token number">0</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-1/rps_cpus
+<span class="token builtin class-name">echo</span> <span class="token number">0</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-2/rps_cpus
+<span class="token builtin class-name">echo</span> <span class="token number">0</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-3/rps_cpus
+<span class="token builtin class-name">echo</span> <span class="token number">0</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-4/rps_cpus
+<span class="token builtin class-name">echo</span> <span class="token number">0</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-5/rps_cpus
+<span class="token builtin class-name">echo</span> <span class="token number">0</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-6/rps_cpus
+<span class="token builtin class-name">echo</span> <span class="token number">0</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-7/rps_cpus
+<span class="token builtin class-name">echo</span> <span class="token number">32768</span> <span class="token operator">&gt;</span> /proc/sys/net/core/rps_sock_flow_entries
+<span class="token builtin class-name">echo</span> <span class="token number">4096</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-0/rps_flow_cnt
+<span class="token builtin class-name">echo</span> <span class="token number">4096</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-1/rps_flow_cnt
+<span class="token builtin class-name">echo</span> <span class="token number">4096</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-2/rps_flow_cnt
+<span class="token builtin class-name">echo</span> <span class="token number">4096</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-3/rps_flow_cnt
+<span class="token builtin class-name">echo</span> <span class="token number">4096</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-4/rps_flow_cnt
+<span class="token builtin class-name">echo</span> <span class="token number">4096</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-5/rps_flow_cnt
+<span class="token builtin class-name">echo</span> <span class="token number">4096</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-6/rps_flow_cnt
+<span class="token builtin class-name">echo</span> <span class="token number">4096</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/queues/rx-7/rps_flow_cnt
 </code></pre>
 </blockquote>
 <h2 id="&#x89E3;&#x51B3;sync-flood&#x95EE;&#x9898;"><a name="&#x89E3;&#x51B3;sync-flood&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x89E3;&#x51B3;sync-flood&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>1.44. &#x89E3;&#x51B3;sync flood&#x95EE;&#x9898;</h2>
 <ul>
-<li>&#x73B0;&#x8C61;&#x662F;<pre><code>[142943.335106] TCP: request_sock_TCP: Possible SYN flooding on port 25616. Sending cookies.  Check SNMP counters.
+<li>&#x73B0;&#x8C61;&#x662F;<pre class="language-"><code>[142943.335106] TCP: request_sock_TCP: Possible SYN flooding on port 25616. Sending cookies.  Check SNMP counters.
 [143245.955016] TCP: request_sock_TCP: Possible SYN flooding on port 25616. Sending cookies.  Check SNMP counters.
 [143397.874323] TCP: request_sock_TCP: Possible SYN flooding on port 25616. Sending cookies.  Check SNMP counters.
 [146560.278277] TCP: request_sock_TCP: Possible SYN flooding on port 25616. Sending cookies.  Check SNMP counters.
@@ -3522,12 +3519,12 @@ Kopytov Alexey <a href="mailto:kaamos@yandex.ru" target="_blank">kaamos@yandex.r
 <p>numactl&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x4EE5;&#x53CA;&#x4ED6;&#x7684;&#x6240;&#x6709;&#x5B50;&#x8FDB;&#x7A0B;&#x7684;numa&#x8FD0;&#x884C;&#x6A21;&#x5F0F;, &#x6BD4;&#x5982;&#x7ED1;&#x5B9A;&#x5230;&#x67D0;&#x4E2A;node&#x4E0A;.</p>
 <h2 id="&#x9884;&#x53D6;-prefetch"><a name="&#x9884;&#x53D6;-prefetch" class="anchor-navigation-ex-anchor" href="#&#x9884;&#x53D6;-prefetch"><i class="fa fa-link" aria-hidden="true"></i></a>1.50. &#x9884;&#x53D6; prefetch</h2>
 <p>&#x5982;&#x679C; perf&#x53D1;&#x73B0;&#x70ED;&#x70B9;&#x4EE3;&#x7801;&#x5728;ldr xxx, &#x8BF4;&#x660E;&#x5B83;&#x5728;&#x4E0D;&#x65AD;load&#x4EC0;&#x4E48;&#x4E1C;&#x897F;. &#x6B64;&#x65F6;&#x7528;prefetch&#x4F1A;&#x597D;&#x70B9;.</p>
-<pre><code class="lang-c++">#define PRFM(x,y) asm(&quot;prfm pldl1strm, [%x[a], %[off] ]&quot; : : [a]&quot;r&quot;(x), [off]&quot;i&quot;(y))
+<pre class="language-"><code class="lang-c++">#define PRFM(x,y) asm(&quot;prfm pldl1strm, [%x[a], %[off] ]&quot; : : [a]&quot;r&quot;(x), [off]&quot;i&quot;(y))
 float Decoder::CalcModelScore( Hypothesis* hypo ) {
     float score = 0.0;
     size_t i = 0;
-    std::vector&lt;float&gt; &amp;mfw = m_model-&gt;m_featWeights;
-    std::vector&lt;float&gt;::const_iterator mfwi = mfw.begin();
+    std::vector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>float</span><span class="token punctuation">&gt;</span></span> &amp;mfw = m_model-&gt;m_featWeights;
+    std::vector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>float</span><span class="token punctuation">&gt;</span></span>::const_iterator mfwi = mfw.begin();
     float *hmfs = hypo-&gt;m_featureScoreVec;
     size_t limit = m_model-&gt;m_featNumber;
     PRFM(hmfs, 0);
@@ -3579,13 +3576,13 @@ git remote set-url origin git://cagit1.caveonetworks.com/thunder/sdk/linux-aarch
 git remote set-branches origin aj-alibaba
 git remote set-head origin aj-alibaba</p>
 <h2 id="&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;kernel"><a name="&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;kernel" class="anchor-navigation-ex-anchor" href="#&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;kernel"><i class="fa fa-link" aria-hidden="true"></i></a>1.53. &#x4EA4;&#x53C9;&#x7F16;&#x8BD1;kernel</h2>
-<pre><code class="lang-shell">export ARCH=arm64
-export CROSS_COMPILE=aarch64-thunderx-linux-gnu-
-export PATH=/home/byj/repo/git/thunder/new/sdk-master.change/tools/bin:$PATH
-cp alibaba.config .config
-make olddefconfig
-make Image -j4
-make modules -j4
+<pre class="language-"><code class="lang-shell"><span class="token builtin class-name">export</span> <span class="token assign-left variable">ARCH</span><span class="token operator">=</span>arm64
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CROSS_COMPILE</span><span class="token operator">=</span>aarch64-thunderx-linux-gnu-
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span>/home/byj/repo/git/thunder/new/sdk-master.change/tools/bin:<span class="token environment constant">$PATH</span>
+<span class="token function">cp</span> alibaba.config .config
+<span class="token function">make</span> olddefconfig
+<span class="token function">make</span> Image <span class="token parameter variable">-j4</span>
+<span class="token function">make</span> modules <span class="token parameter variable">-j4</span>
 </code></pre>
 <h2 id="pssh&#x53EF;&#x4EE5;&#x5728;&#x591A;&#x4E2A;&#x673A;&#x5668;&#x540C;&#x65F6;&#x6267;&#x884C;&#x547D;&#x4EE4;"><a name="pssh&#x53EF;&#x4EE5;&#x5728;&#x591A;&#x4E2A;&#x673A;&#x5668;&#x540C;&#x65F6;&#x6267;&#x884C;&#x547D;&#x4EE4;" class="anchor-navigation-ex-anchor" href="#pssh&#x53EF;&#x4EE5;&#x5728;&#x591A;&#x4E2A;&#x673A;&#x5668;&#x540C;&#x65F6;&#x6267;&#x884C;&#x547D;&#x4EE4;"><i class="fa fa-link" aria-hidden="true"></i></a>1.54. pssh&#x53EF;&#x4EE5;&#x5728;&#x591A;&#x4E2A;&#x673A;&#x5668;&#x540C;&#x65F6;&#x6267;&#x884C;&#x547D;&#x4EE4;</h2>
 <p>pssh&#x53EF;&#x4EE5;&#x505A;&#x4E0B;&#x9762;&#x811A;&#x672C;&#x7684;&#x4E8B;&#x60C5;
@@ -3594,15 +3591,15 @@ apt install pssh
 &#x5728;ali&#x6709;10&#x53F0;&#x673A;&#x5668;, &#x7ECF;&#x5E38;&#x8981;&#x540C;&#x65F6;&#x6267;&#x884C;&#x540C;&#x6837;&#x7684;&#x547D;&#x4EE4;. &#x4E00;&#x53F0;&#x4E00;&#x53F0;&#x6765;&#x6267;&#x884C;&#x592A;&#x9EBB;&#x70E6;, &#x6709;&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x811A;&#x672C;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x6267;&#x884C;&#x5462;?
 &#x6709;, &#x7528;&#x5230;&#x4E86;&#x4E0B;&#x9762;&#x7684;ssh&#x514D;&#x5BC6;&#x7801;&#x529F;&#x80FD;, &#x4EE5;&#x53CA;ssh&#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x540E;&#x9762;&#x8DDF;&#x5B57;&#x7B26;&#x4E32;&#x6765;&#x5728;&#x8FDC;&#x7AEF;&#x673A;&#x5668;&#x4E0A;&#x6267;&#x884C;.
 &#x4EE5;&#x53CA;eval</p>
-<pre><code class="lang-shell">#! /bin/bash
-B=&quot;\033[1;37;40m&quot;
-N=&quot;\033[0m&quot;
-atlocal=F
-servers=&quot;
+<pre class="language-"><code class="lang-shell"><span class="token shebang important">#! /bin/bash</span>
+<span class="token assign-left variable">B</span><span class="token operator">=</span><span class="token string">&quot;<span class="token entity" title="\033">\033</span>[1;37;40m&quot;</span>
+<span class="token assign-left variable">N</span><span class="token operator">=</span><span class="token string">&quot;<span class="token entity" title="\033">\033</span>[0m&quot;</span>
+<span class="token assign-left variable">atlocal</span><span class="token operator">=</span>F
+<span class="token assign-left variable">servers</span><span class="token operator">=</span><span class="token string">&quot;
 yingjie@192.168.85.10
 byj@localhost
-&quot;
-cvmservers=&quot;
+&quot;</span>
+<span class="token assign-left variable">cvmservers</span><span class="token operator">=</span><span class="token string">&quot;
 root@10.97.219.6
 root@10.97.219.55
 root@10.97.219.21
@@ -3613,30 +3610,30 @@ root@10.97.219.214
 root@10.97.219.13
 root@10.97.219.47
 root@10.97.219.69
-&quot;
-if [ &quot;$1&quot; = &quot;-l&quot; ]; then
-    atlocal=T
-    shift
-fi
-for i in $servers; do
-    ip=${i#*@}
-    echo
-    echo -e $B&quot;&gt;&gt;&gt;$i&quot;$N
-    if [ &quot;$atlocal&quot; = &quot;T&quot; ]; then
-        eval &quot;$*&quot;
-    else
-        ssh $i &quot;$*&quot;
-    fi
-done
+&quot;</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable">$1</span>&quot;</span> <span class="token operator">=</span> <span class="token string">&quot;-l&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">atlocal</span><span class="token operator">=</span>T
+    <span class="token builtin class-name">shift</span>
+<span class="token keyword">fi</span>
+<span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable">$servers</span><span class="token punctuation">;</span> <span class="token keyword">do</span>
+    <span class="token assign-left variable">ip</span><span class="token operator">=</span><span class="token variable">${i<span class="token operator">#</span>*@}</span>
+    <span class="token builtin class-name">echo</span>
+    <span class="token builtin class-name">echo</span> <span class="token parameter variable">-e</span> <span class="token variable">$B</span><span class="token string">&quot;&gt;&gt;&gt;<span class="token variable">$i</span>&quot;</span><span class="token variable">$N</span>
+    <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable">$atlocal</span>&quot;</span> <span class="token operator">=</span> <span class="token string">&quot;T&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+        <span class="token builtin class-name">eval</span> <span class="token string">&quot;<span class="token variable">$*</span>&quot;</span>
+    <span class="token keyword">else</span>
+        <span class="token function">ssh</span> <span class="token variable">$i</span> <span class="token string">&quot;<span class="token variable">$*</span>&quot;</span>
+    <span class="token keyword">fi</span>
+<span class="token keyword">done</span>
 </code></pre>
 <p>&#x4F7F;&#x7528;&#x65F6;:</p>
 <ol>
-<li>&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x8981;&#x5728;10&#x53F0;&#x673A;&#x5668;&#x4E0A;&#x6267;&#x884C;<pre><code class="lang-shell">byj@mint ~/repo/git/thunder/new/alibaba
-$ ./alldo.sh ls
+<li>&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x8981;&#x5728;10&#x53F0;&#x673A;&#x5668;&#x4E0A;&#x6267;&#x884C;<pre class="language-"><code class="lang-shell">byj@mint ~/repo/git/thunder/new/alibaba
+$ ./alldo.sh <span class="token function">ls</span>
 </code></pre>
 </li>
-<li>&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x8981;&#x5728;&#x672C;&#x5730;&#x673A;&#x5668;&#x6267;&#x884C;, &#x4F46;&#x8981;&#x5BF9;&#x6BCF;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x7684;ip&#x8FDB;&#x884C;&#x67D0;&#x79CD;&#x64CD;&#x4F5C;<pre><code class="lang-shell">byj@mint ~/repo/git/thunder/new/alibaba
-$ ./alldo.sh -l ping \$ip
+<li>&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x8981;&#x5728;&#x672C;&#x5730;&#x673A;&#x5668;&#x6267;&#x884C;, &#x4F46;&#x8981;&#x5BF9;&#x6BCF;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x7684;ip&#x8FDB;&#x884C;&#x67D0;&#x79CD;&#x64CD;&#x4F5C;<pre class="language-"><code class="lang-shell">byj@mint ~/repo/git/thunder/new/alibaba
+$ ./alldo.sh <span class="token parameter variable">-l</span> <span class="token function">ping</span> <span class="token punctuation">\</span><span class="token variable">$ip</span>
 </code></pre>
 &#x6CE8;&#x610F;&#x9700;&#x8981;&#x7528;\&#x6765;&#x8F6C;&#x4E49;$, &#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5E0C;&#x671B;$ip&#x4F5C;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#x4F20;&#x7ED9;&#x811A;&#x672C;, &#x811A;&#x672C;&#x91CC;&#x9762;&#x7528;<code>eval &quot;$*&quot;</code>&#x6765;&#x6267;&#x884C;. &#x6CE8;&#x610F;, &#x5982;&#x679C;&#x8FD9;&#x91CC;&#x4E0D;&#x7528;eval&#x7684;&#x8BDD;, &#x811A;&#x672C;&#x91CC;&#x9762;&#x7684;$ip&#x662F;&#x4E0D;&#x4F1A;&#x88AB;&#x4F20;&#x9012;&#x5230;&#x547D;&#x4EE4;&#x7684;.
 &lt;<shell中的eval学习与应用>&gt;&#x91CC;&#x9762;&#x6709;&#x8BE6;&#x7EC6;&#x7684;eval&#x7684;&#x539F;&#x7406;&#x7684;&#x89E3;&#x91CA;.&#x6211;&#x7684;&#x7406;&#x89E3;&#x662F;:</shell中的eval学习与应用></li>
@@ -3648,22 +3645,22 @@ $ ./alldo.sh -l ping \$ip
 <p>&quot;&#x516C;&#x79C1;&#x94A5;&quot;&#x8BA4;&#x8BC1;&#x65B9;&#x5F0F;&#x7B80;&#x5355;&#x7684;&#x89E3;&#x91CA;:&#x9996;&#x5148;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x4E0A;&#x521B;&#x5EFA;&#x4E00;&#x5BF9;&#x516C;&#x79C1;&#x94A5; &#xFF08;&#x516C;&#x94A5;&#x6587;&#x4EF6;&#xFF1A;~/.ssh/id_rsa.pub&#xFF1B; &#x79C1;&#x94A5;&#x6587;&#x4EF6;&#xFF1A;~/.ssh/id_rsa&#xFF09;&#x3002;&#x7136;&#x540E;&#x628A;&#x516C;&#x94A5;&#x653E;&#x5230;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#xFF08;~/.ssh/authorized_keys&#xFF09;, &#x81EA;&#x5DF1;&#x4FDD;&#x7559;&#x597D;&#x79C1;&#x94A5;.&#x5728;&#x4F7F;&#x7528;ssh&#x767B;&#x5F55;&#x65F6;,ssh&#x7A0B;&#x5E8F;&#x4F1A;&#x53D1;&#x9001;&#x79C1;&#x94A5;&#x53BB;&#x548C;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x7684;&#x516C;&#x94A5;&#x505A;&#x5339;&#x914D;.&#x5982;&#x679C;&#x5339;&#x914D;&#x6210;&#x529F;&#x5C31;&#x53EF;&#x4EE5;&#x767B;&#x5F55;&#x4E86;&#x3002;
 &#x7528;A&#x767B;&#x5F55;B
 &#x5728;A&#x4E0A;</p>
-<pre><code>ssh-keygen -t rsa -P &apos;&apos;
+<pre class="language-"><code>ssh-keygen -t rsa -P &apos;&apos;
 </code></pre><p>&#x5B83;&#x5728;/home/byj/.ssh/&#x4E0B;&#x9762;&#x751F;&#x6210;&#x79C1;&#x94A5;id_rsa&#x548C;&#x516C;&#x94A5;id_rsa.pub
 &#x7136;&#x540E;&#x628A;&#x516C;&#x94A5;/home/byj/.ssh/id_rsa.pub&#x5199;&#x5230;B&#x7684;&#x6587;&#x4EF6;~/.ssh/authorized_keys&#x91CC;</p>
-<pre><code>cat ~/.ssh/id_rsa.pub | ssh yingjie@192.168.85.10 &quot;cat &gt;&gt; ~/.ssh/authorized_keys&quot;
+<pre class="language-"><code>cat ~/.ssh/id_rsa.pub | ssh yingjie@192.168.85.10 &quot;cat &gt;&gt; ~/.ssh/authorized_keys&quot;
 </code></pre><p>&#x9700;&#x8981;&#x7684;&#x8BDD;&#x8981;&#x6539;B&#x4E0A;&#x7684;&#x8BBF;&#x95EE;&#x6743;&#x9650;</p>
-<pre><code>chmod 700 .ssh; chmod 640 .ssh/authorized_keys
+<pre class="language-"><code>chmod 700 .ssh; chmod 640 .ssh/authorized_keys
 </code></pre><p>&#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4ECE;A&#x767B;&#x5F55;&#x5230;B&#x4E86;</p>
-<pre><code>ssh yingjie@192.168.85.10
+<pre class="language-"><code>ssh yingjie@192.168.85.10
 </code></pre><h2 id="ssh&#x8FDC;&#x7A0B;&#x6267;&#x884C;&#x547D;&#x4EE4;"><a name="ssh&#x8FDC;&#x7A0B;&#x6267;&#x884C;&#x547D;&#x4EE4;" class="anchor-navigation-ex-anchor" href="#ssh&#x8FDC;&#x7A0B;&#x6267;&#x884C;&#x547D;&#x4EE4;"><i class="fa fa-link" aria-hidden="true"></i></a>1.56. ssh&#x8FDC;&#x7A0B;&#x6267;&#x884C;&#x547D;&#x4EE4;</h2>
 <p>ssh&#x4F1A;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;, &#x767B;&#x5F55;&#x540E;&#x5728;&#x76EE;&#x7684;&#x673A;&#x5668;&#x6267;&#x884C;</p>
-<pre><code>ssh xxx@xxx &quot;command;next command;next command&quot;
+<pre class="language-"><code>ssh xxx@xxx &quot;command;next command;next command&quot;
 </code></pre><h2 id="cpu-offline-&#x52A8;&#x6001;"><a name="cpu-offline-&#x52A8;&#x6001;" class="anchor-navigation-ex-anchor" href="#cpu-offline-&#x52A8;&#x6001;"><i class="fa fa-link" aria-hidden="true"></i></a>1.57. cpu offline &#x52A8;&#x6001;</h2>
-<pre><code>#echo 0 &gt; /sys/devices/system/cpu/cpuX/online
+<pre class="language-"><code>#echo 0 &gt; /sys/devices/system/cpu/cpuX/online
 cat /proc/cpuinfo | grep nid | wc -l
 </code></pre><h2 id="dd&#x539F;&#x7406;-&#x6BCF;&#x4E2A;&#x5B57;&#x8282;&#x90FD;&#x88AB;&#x590D;&#x5236;"><a name="dd&#x539F;&#x7406;-&#x6BCF;&#x4E2A;&#x5B57;&#x8282;&#x90FD;&#x88AB;&#x590D;&#x5236;" class="anchor-navigation-ex-anchor" href="#dd&#x539F;&#x7406;-&#x6BCF;&#x4E2A;&#x5B57;&#x8282;&#x90FD;&#x88AB;&#x590D;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>1.58. dd&#x539F;&#x7406; &#x6BCF;&#x4E2A;&#x5B57;&#x8282;&#x90FD;&#x88AB;&#x590D;&#x5236;</h2>
-<pre><code>dd if=/dev/sdX of=/dev/sdY bs=512 conv=noerror,sync
+<pre class="language-"><code>dd if=/dev/sdX of=/dev/sdY bs=512 conv=noerror,sync
 </code></pre><blockquote>
 <p>This will clone the entire drive, including the MBR (and therefore bootloader), all partitions, UUIDs, and data.
    noerror instructs dd to continue operation, ignoring all read errors. Default behavior for dd is to halt at any error.
@@ -3674,7 +3671,7 @@ cat /proc/cpuinfo | grep nid | wc -l
 <p>&#x672C;&#x6765;&#x60F3;&#x7528;
 <code>root=UUID=xxx</code>&#x6765;&#x6307;&#x5B9A;UUID, &#x4F46;&#x662F;kernel&#x4E0D;&#x8BA4;, &#x7CFB;&#x7EDF;&#x4F1A;&#x4E00;&#x76F4;&#x7B49;&#x5F85;.
 &#x8FD9;&#x6837;&#x5199;&#x5C31;OK&#x4E86;:</p>
-<pre><code>menuentry &apos;Thunder Fedora default Boot&apos; {
+<pre class="language-"><code>menuentry &apos;Thunder Fedora default Boot&apos; {
     linux /boot/Image root=PARTUUID=5105e002-fe7d-4fc6-8b78-c9fc7cad3d84 console=ttyAMA0,115200n8 earlycon=pl011,0x87e024000000 coherent_pool=16M rootwait rw transparent_hugepage=never
     boot
 }
@@ -3691,7 +3688,7 @@ kernel-parameters.txt:
     root=       [KNL] Root filesystem
             See name_to_dev_t comment in init/do_mounts.c.
 init/do_mounts.c:</p>
-<pre><code class="lang-c">/*
+<pre class="language-"><code class="lang-c"><span class="token comment">/*
  *  Convert a name into device number.  We accept the following variants:
  *
  *  1) device number in hexadecimal represents itself
@@ -3714,7 +3711,7 @@ init/do_mounts.c:</p>
  *  block_class is used to check if something is a disk name. If the disk
  *  name contains slashes, the device name has them replaced with
  *  bangs.
- */
+ */</span>
 </code></pre>
 <p>So I guess that the real answer is that the kernel does not support root=UUID, only root=PARTUUID. If you want to use a filesystem UUID, I guess you need an initramfs that can handle mounting filesystems by UUID.
 Just to clarify UUIDs are the only reliable way for the kernel to identify hard drives. There are two types: UUID, which is stored in the filesystem and is not available to the kernel at boot-time, and PARTUUID, which is stored in the partition table and IS available at boot time. So you have to use
@@ -3729,56 +3726,56 @@ So, if you use a non-empty initramfs, you can have all three! With an empty init
 </blockquote>
 <h2 id="&#x91CD;&#x505A;fedora"><a name="&#x91CD;&#x505A;fedora" class="anchor-navigation-ex-anchor" href="#&#x91CD;&#x505A;fedora"><i class="fa fa-link" aria-hidden="true"></i></a>1.60. &#x91CD;&#x505A;fedora</h2>
 <p>&#x9700;&#x8981;root</p>
-<pre><code class="lang-shell">cd /home/byj/repo/git/thunder/new/sdk-master
-. env-setup BOARD_TYPE=crb-2s
-cd /home/byj/repo/git/thunder/new/sdk-master/host/bin
+<pre class="language-"><code class="lang-shell"><span class="token builtin class-name">cd</span> /home/byj/repo/git/thunder/new/sdk-master
+<span class="token builtin class-name">.</span> env-setup <span class="token assign-left variable">BOARD_TYPE</span><span class="token operator">=</span>crb-2s
+<span class="token builtin class-name">cd</span> /home/byj/repo/git/thunder/new/sdk-master/host/bin
 ./create_disk.sh --raw-disk /dev/sdc
-cd /home/byj/repo/git/thunder/new/fs
-mount /dev/sdc2 mnt
-cd mnt
-tar xvf ../fedora-with-native-kernel-repo-gcc-update-to-20150423-factory.tar.bz2
-cd ..
-umount mnt
-cd /home/byj/repo/git/thunder/new/sdk-master/host/bin
+<span class="token builtin class-name">cd</span> /home/byj/repo/git/thunder/new/fs
+<span class="token function">mount</span> /dev/sdc2 mnt
+<span class="token builtin class-name">cd</span> mnt
+<span class="token function">tar</span> xvf <span class="token punctuation">..</span>/fedora-with-native-kernel-repo-gcc-update-to-20150423-factory.tar.bz2
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+<span class="token function">umount</span> mnt
+<span class="token builtin class-name">cd</span> /home/byj/repo/git/thunder/new/sdk-master/host/bin
 ./create_disk.sh --install-grub2 /dev/sdc1 /dev/sdc2 /boot
 ./create_disk.sh --install-modules /dev/sdc2
 </code></pre>
 <h2 id="fedora&#x7F51;&#x53E3;&#x914D;&#x7F6E;"><a name="fedora&#x7F51;&#x53E3;&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#fedora&#x7F51;&#x53E3;&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>1.61. fedora&#x7F51;&#x53E3;&#x914D;&#x7F6E;</h2>
 <ul>
-<li>&#x9759;&#x6001;IP<pre><code class="lang-shell">root@ARM /etc
-# cat ./sysconfig/network-scripts/ifcfg-enP2p1s0f1
-DEVICE=enP2p1s0f1
-USERCTL=no
-ONBOOT=yes
-BOOTPROTO=none
-USERCTL=no
-IPADDR=10.97.219.47
-NETMASK=255.255.255.0
-GATEWAY=10.97.219.247
-DNS1=10.137.59.1
+<li>&#x9759;&#x6001;IP<pre class="language-"><code class="lang-shell">root@ARM /etc
+<span class="token comment"># cat ./sysconfig/network-scripts/ifcfg-enP2p1s0f1</span>
+<span class="token assign-left variable">DEVICE</span><span class="token operator">=</span>enP2p1s0f1
+<span class="token assign-left variable">USERCTL</span><span class="token operator">=</span>no
+<span class="token assign-left variable">ONBOOT</span><span class="token operator">=</span>yes
+<span class="token assign-left variable">BOOTPROTO</span><span class="token operator">=</span>none
+<span class="token assign-left variable">USERCTL</span><span class="token operator">=</span>no
+<span class="token assign-left variable">IPADDR</span><span class="token operator">=</span><span class="token number">10.97</span>.219.47
+<span class="token assign-left variable">NETMASK</span><span class="token operator">=</span><span class="token number">255.255</span>.255.0
+<span class="token assign-left variable">GATEWAY</span><span class="token operator">=</span><span class="token number">10.97</span>.219.247
+<span class="token assign-left variable">DNS1</span><span class="token operator">=</span><span class="token number">10.137</span>.59.1
 </code></pre>
 </li>
-<li>bond<pre><code class="lang-shell">root@ARM /etc/sysconfig/network-scripts
-# cat ifcfg-bond0 
-DEVICE=bond0
-ONBOOT=no
-BOOTPROTO=none
-USERCTL=no
-BONDING_OPTS=&quot;mode=4 miimon=100 xmit_hash_policy=1&quot;
+<li>bond<pre class="language-"><code class="lang-shell">root@ARM /etc/sysconfig/network-scripts
+<span class="token comment"># cat ifcfg-bond0 </span>
+<span class="token assign-left variable">DEVICE</span><span class="token operator">=</span>bond0
+<span class="token assign-left variable">ONBOOT</span><span class="token operator">=</span>no
+<span class="token assign-left variable">BOOTPROTO</span><span class="token operator">=</span>none
+<span class="token assign-left variable">USERCTL</span><span class="token operator">=</span>no
+<span class="token assign-left variable">BONDING_OPTS</span><span class="token operator">=</span><span class="token string">&quot;mode=4 miimon=100 xmit_hash_policy=1&quot;</span>
 root@ARM /etc/sysconfig/network-scripts
-# cat ifcfg-enP6p1s0f1 
-DEVICE=enP6p1s0f1
-USERCTL=no
-ONBOOT=no
-BOOTPROTO=none
+<span class="token comment"># cat ifcfg-enP6p1s0f1 </span>
+<span class="token assign-left variable">DEVICE</span><span class="token operator">=</span>enP6p1s0f1
+<span class="token assign-left variable">USERCTL</span><span class="token operator">=</span>no
+<span class="token assign-left variable">ONBOOT</span><span class="token operator">=</span>no
+<span class="token assign-left variable">BOOTPROTO</span><span class="token operator">=</span>none
 </code></pre>
 </li>
 </ul>
 <h2 id="&#x67E5;&#x770B;10&#x53F0;&#x7CFB;&#x7EDF;&#x662F;&#x5426;online"><a name="&#x67E5;&#x770B;10&#x53F0;&#x7CFB;&#x7EDF;&#x662F;&#x5426;online" class="anchor-navigation-ex-anchor" href="#&#x67E5;&#x770B;10&#x53F0;&#x7CFB;&#x7EDF;&#x662F;&#x5426;online"><i class="fa fa-link" aria-hidden="true"></i></a>1.62. &#x67E5;&#x770B;10&#x53F0;&#x7CFB;&#x7EDF;&#x662F;&#x5426;online</h2>
-<pre><code class="lang-shell">$ cat macip.table | cut -d &apos; &apos; -f2 | xargs -i ping {} -c 3 | egrep -i &quot;statistics|transmitted&quot;
+<pre class="language-"><code class="lang-shell">$ <span class="token function">cat</span> macip.table <span class="token operator">|</span> <span class="token function">cut</span> <span class="token parameter variable">-d</span> <span class="token string">&apos; &apos;</span> <span class="token parameter variable">-f2</span> <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token parameter variable">-i</span> <span class="token function">ping</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token parameter variable">-c</span> <span class="token number">3</span> <span class="token operator">|</span> <span class="token function">egrep</span> <span class="token parameter variable">-i</span> <span class="token string">&quot;statistics|transmitted&quot;</span>
 </code></pre>
 <h2 id="check-cpld-&#x7248;&#x672C;"><a name="check-cpld-&#x7248;&#x672C;" class="anchor-navigation-ex-anchor" href="#check-cpld-&#x7248;&#x672C;"><i class="fa fa-link" aria-hidden="true"></i></a>1.63. check cpld &#x7248;&#x672C;</h2>
-<pre><code class="lang-shell">/usr/local/bin/cpldaccess --get-data 0x29
+<pre class="language-"><code class="lang-shell">/usr/local/bin/cpldaccess --get-data 0x29
 </code></pre>
 <h2 id="&#x5199;mac&#x5730;&#x5740;"><a name="&#x5199;mac&#x5730;&#x5740;" class="anchor-navigation-ex-anchor" href="#&#x5199;mac&#x5730;&#x5740;"><i class="fa fa-link" aria-hidden="true"></i></a>1.64. &#x5199;mac&#x5730;&#x5740;</h2>
 <ol>
@@ -3788,44 +3785,44 @@ BOOTPROTO=none
 </ol>
 <h2 id="&#x7F16;&#x8BD1;gcc"><a name="&#x7F16;&#x8BD1;gcc" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;gcc"><i class="fa fa-link" aria-hidden="true"></i></a>1.65. &#x7F16;&#x8BD1;gcc</h2>
 <ul>
-<li>&#x9700;&#x8981;&#x5148;&#x88C5;&#x4E00;&#x4E9B;&#x4F9D;&#x8D56;&#x5305;<pre><code class="lang-shell">yum install gcc-c++ texi2html
-yum install texi2html -y
-yum install vim
-yum install makeinfo
-yum install texinfo
-yum install make
-yum install termcap
-yum install ncurses
-yum install m4
-yum install flex bison -y
-yum install ncurses-devel.aarch64
-yum install gmp
-yum install gmp-devel
-yum install mpfr-devel mpc-dev -y
-yum install mpc-devel -y
-yum install gmpc-devel.aarch64
-yum install mpc.aarch64
-yum install libmpc-devel.aarch64
+<li>&#x9700;&#x8981;&#x5148;&#x88C5;&#x4E00;&#x4E9B;&#x4F9D;&#x8D56;&#x5305;<pre class="language-"><code class="lang-shell">yum <span class="token function">install</span> gcc-c++ texi2html
+yum <span class="token function">install</span> texi2html <span class="token parameter variable">-y</span>
+yum <span class="token function">install</span> <span class="token function">vim</span>
+yum <span class="token function">install</span> makeinfo
+yum <span class="token function">install</span> texinfo
+yum <span class="token function">install</span> <span class="token function">make</span>
+yum <span class="token function">install</span> termcap
+yum <span class="token function">install</span> ncurses
+yum <span class="token function">install</span> m4
+yum <span class="token function">install</span> flex bison <span class="token parameter variable">-y</span>
+yum <span class="token function">install</span> ncurses-devel.aarch64
+yum <span class="token function">install</span> gmp
+yum <span class="token function">install</span> gmp-devel
+yum <span class="token function">install</span> mpfr-devel mpc-dev <span class="token parameter variable">-y</span>
+yum <span class="token function">install</span> mpc-devel <span class="token parameter variable">-y</span>
+yum <span class="token function">install</span> gmpc-devel.aarch64
+yum <span class="token function">install</span> mpc.aarch64
+yum <span class="token function">install</span> libmpc-devel.aarch64
 </code></pre>
 </li>
-<li>&#x7F16;&#x8BD1;gcc<pre><code class="lang-shell">INSTALL_DIR=${HOME}/gcc5-native
-rm -Rf ${INSTALL_DIR}
-cd binutils
-rm -Rf objdir
-mkdir objdir
-cd objdir
-../configure --disable-libsanitizer --prefix=${INSTALL_DIR} --with-cpu=thunderx --enable-languages=c,c++,fortran --disable-werror
-make -j48
-make install
-cd ../../
-cd gcc
-rm -Rf objdir
-mkdir objdir
-cd objdir
-../configure --disable-libsanitizer --prefix=${INSTALL_DIR} --with-cpu=thunderx --enable-languages=c,c++,fortran --disable-werror
-make -j48
-make install
-cd ../../
+<li>&#x7F16;&#x8BD1;gcc<pre class="language-"><code class="lang-shell"><span class="token assign-left variable">INSTALL_DIR</span><span class="token operator">=</span><span class="token variable">${<span class="token environment constant">HOME</span>}</span>/gcc5-native
+<span class="token function">rm</span> <span class="token parameter variable">-Rf</span> <span class="token variable">${INSTALL_DIR}</span>
+<span class="token builtin class-name">cd</span> binutils
+<span class="token function">rm</span> <span class="token parameter variable">-Rf</span> objdir
+<span class="token function">mkdir</span> objdir
+<span class="token builtin class-name">cd</span> objdir
+<span class="token punctuation">..</span>/configure --disable-libsanitizer <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token variable">${INSTALL_DIR}</span> --with-cpu<span class="token operator">=</span>thunderx --enable-languages<span class="token operator">=</span>c,c++,fortran --disable-werror
+<span class="token function">make</span> <span class="token parameter variable">-j48</span>
+<span class="token function">make</span> <span class="token function">install</span>
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/
+<span class="token builtin class-name">cd</span> gcc
+<span class="token function">rm</span> <span class="token parameter variable">-Rf</span> objdir
+<span class="token function">mkdir</span> objdir
+<span class="token builtin class-name">cd</span> objdir
+<span class="token punctuation">..</span>/configure --disable-libsanitizer <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token variable">${INSTALL_DIR}</span> --with-cpu<span class="token operator">=</span>thunderx --enable-languages<span class="token operator">=</span>c,c++,fortran --disable-werror
+<span class="token function">make</span> <span class="token parameter variable">-j48</span>
+<span class="token function">make</span> <span class="token function">install</span>
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/
 </code></pre>
 </li>
 </ul>
@@ -3838,7 +3835,7 @@ cd ../../
 dmesg | tail -30
 &#x7136;&#x540E;, &#x901A;&#x8FC7;&#x6765;&#x8C03;&#x8BD5;. &#x5927;&#x725B;&#x7684;&#x529E;&#x6CD5;&#x662F;, &#x6253;&#x5F00;core dump&#x529F;&#x80FD;, &#x8FD9;&#x6837;&#x5F53;&#x67D0;&#x4E2A;worker&#x6302;&#x6389;&#x7684;&#x65F6;&#x5019;, &#x4F1A;&#x4EA7;&#x751F;core&#x6587;&#x4EF6;.
 &#x8FD9;&#x91CC;&#x6211;&#x628A;&#x7528;&#x5230;&#x7684;&#x547D;&#x4EE4;&#x5927;&#x7EA6;&#x5217;&#x4EE5;&#x4E0B;:</p>
-<pre><code>thread apply all bt
+<pre class="language-"><code>thread apply all bt
 info sharedlibrary
 info thread
 thread 84
@@ -3853,14 +3850,14 @@ someclass-&gt;run()
 &#x4E3A;&#x4EC0;&#x4E48;&#x662F;0&#x5462;?
 &#x6700;&#x540E;&#x5206;&#x6790;&#x5230;&#x9501;&#x7684;&#x95EE;&#x9898;.
 &#x4E00;&#x822C;&#x9501;&#x7684;&#x6D41;&#x7A0B;&#x662F;&#x8FD9;&#x6837;&#x7684;</p>
-<pre><code>lock(v)
+<pre class="language-"><code>lock(v)
 modify(something)
 unlock(v)
 </code></pre><p>&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x51FA;&#x73B0;&#x7684;&#x80CC;&#x666F;&#x662F;:
 <strong>Thunder&#x6709;&#x4E2A;write buffer, &#x4F1A;&#x505A;merge, &#x5BFC;&#x81F4;&#x5185;&#x5B58;&#x5199;&#x662F;out of order&#x7684;.</strong>
 &#x9501;&#x7684;&#x672C;&#x8D28;&#x662F;&#x4ECE;0(&#x53EF;&#x83B7;&#x53D6;&#x9501;) &#x5230;1(&#x5360;&#x6709;&#x9501;) &#x518D;&#x5230;0(&#x91CA;&#x653E;&#x9501;, &#x6B64;&#x65F6;&#x522B;&#x4EBA;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x9501;)
 &#x800C;&#x6309;&#x7167;&#x4E0A;&#x9762;&#x4E0A;&#x9501;&#x7684;&#x6D41;&#x7A0B;, &#x8FD9;&#x4E09;&#x53E5;&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x662F;</p>
-<pre><code>lock=1
+<pre class="language-"><code>lock=1
 some_var=any
 lock=0
 </code></pre><p>&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x6709;write buffer, &#x6240;&#x4EE5;&#x6709;&#x53EF;&#x80FD;lock=1 &#x548C;lock=0&#x88AB;merge&#x4E86;, &#x51C6;&#x786E;&#x7684;&#x8BF4;, lock=1&#x8FDB;&#x5165;
@@ -3868,24 +3865,24 @@ write buffer&#x505A;&#x4E3A;entry 0, &#x7136;&#x540E;&#x4FEE;&#x6539;&#x88AB;&#x
 merge&#x5230;entry0, &#x5BFC;&#x81F4;lock&#x4ECE;0&#x5230;1&#x518D;0&#x7684;&#x8FC7;&#x7A0B;&#x5728;wirte buffer&#x91CC;&#x53EA;&#x6709;0.
 &#x4ECE;&#x5916;&#x9762;&#x7684;&#x6838;&#x770B;&#x8D77;&#x6765;, &#x8FD9;&#x4E2A;&#x9501;&#x4E00;&#x76F4;&#x90FD;&#x662F;0. &#x6240;&#x4EE5;&#x522B;&#x4EBA;&#x4E5F;&#x5728;&#x6539;&#x90A3;&#x4E2A;&#x5173;&#x952E;&#x53D8;&#x91CF;, &#x5BFC;&#x81F4;&#x95EE;&#x9898;.
 &#x89E3;&#x51B3;&#x529E;&#x6CD5;&#x662F;, &#x5728;unlock&#x4E4B;&#x524D;&#x52A0;<code>mb()</code>, memory barriar</p>
-<pre><code>lock(v)
+<pre class="language-"><code>lock(v)
 modify(something)
 --&#x5728;&#x8FD9;&#x91CC;&#x52A0;mb(), &#x5BF9;ARM&#x6765;&#x8BF4;&#x662F;DMB&#x6307;&#x4EE4;.
 unlock(v)
 </code></pre><p>&#x539F;&#x6765;&#x7684;&#x4EE3;&#x7801;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF1A;</p>
-<pre><code>easy/src/include/easy_atomic.h
+<pre class="language-"><code>easy/src/include/easy_atomic.h
 easy_atomic_barrier() {__asm__ (&quot;&quot; ::: &quot;memory&quot;);}
 easy_trylock(lock)  (*(lock) == 0 &amp;&amp; easy_atomic_cmp_set(lock, 0, 1))
 easy_unlock(lock)   {__asm__ (&quot;&quot; ::: &quot;memory&quot;); *(lock) = 0;}
 </code></pre><p>&#x65B0;&#x7684;&#x4EE3;&#x7801;:</p>
-<pre><code>easy/src/include/easy_atomic.h
+<pre class="language-"><code>easy/src/include/easy_atomic.h
 easy_atomic_barrier() {__asm__ (&quot;dmb ish&quot; ::: &quot;memory&quot;);}
 easy_trylock(lock)  (*(lock) == 0 &amp;&amp; easy_atomic_cmp_set(lock, 0, 1))
 easy_unlock(lock)   {__asm__ (&quot;dmb ish&quot; ::: &quot;memory&quot;); *(lock) = 0;}
 </code></pre><p>[byj]&#x6CE8;:gcc4.9.2&#x63D0;&#x4F9B;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;
 <code>void __atomic_thread_fence (int memmodel)</code>
 &#x53CD;&#x6C47;&#x7F16;&#x4E5F;&#x662F;:dmb ish</p>
-<pre><code>0000000000000000 &lt;foo&gt;:
+<pre class="language-"><code>0000000000000000 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>foo</span><span class="token punctuation">&gt;</span></span>:
    0:   d5033bbf        dmb     ish
    4:   d65f03c0        ret
 </code></pre><h2 id="&#x5173;&#x4E8E;rpscpus"><a name="&#x5173;&#x4E8E;rpscpus" class="anchor-navigation-ex-anchor" href="#&#x5173;&#x4E8E;rpscpus"><i class="fa fa-link" aria-hidden="true"></i></a>1.67. &#x5173;&#x4E8E;rps_cpus</h2>
@@ -3901,7 +3898,7 @@ si&#x8FD9;&#x4E00;&#x9879;&#x5728;&#x6240;&#x6709;CPU&#x4E0A;&#x90FD;&#x6709;&#x
 <code>echo 0 &gt; /sys/class/net/eth4/queues/rx-0/rps_cpus</code>
 &#x5728;&#x6D4B;&#x8BD5;ODPS&#x7684;&#x65F6;&#x5019;, &#x7F51;&#x7EDC;&#x6027;&#x80FD;&#x5F88;&#x5DEE;, 10G&#x7684;&#x63A5;&#x53E3;&#x53EA;&#x6709;2G&#x5DE6;&#x53F3;&#x7684;&#x5E26;&#x5BBD;.
 &#x5728;&#x8C03;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;, rps_cpus&#x662F;&#x5168;f</p>
-<pre><code>cd /sys/class/net/neP6p1s0f1/queues/rx-0
+<pre class="language-"><code>cd /sys/class/net/neP6p1s0f1/queues/rx-0
 cat rps_cpus
 ffffffff,fffdffff,ffffffff
 </code></pre><p>&#x8FD9;&#x91CC;&#x5C31;&#x6709;&#x4E2A;&#x95EE;&#x9898;, &#x8FD9;&#x4E2A;&#x662F;2&#x4E2A;node&#x7684;&#x7CFB;&#x7EDF;, &#x8FD9;&#x91CC;&#x628A;&#x6240;&#x6709;cpu&#x7684;rps&#x90FD;&#x6253;&#x5F00;&#x4E86;, &#x90A3;&#x4E48;&#x4F1A;&#x6709;&#x5F88;&#x5927;&#x53EF;&#x80FD;&#x662F;node1&#x6765;&#x5904;&#x7406;node0&#x7684;&#x8F6F;&#x4E2D;&#x65AD;,
@@ -3912,64 +3909,64 @@ ffffffff,fffdffff,ffffffff
 <p>&#x5BF9;&#x5E94;&#x7684;, &#x6709;&#x4E2A;xps_cpu&#x7684;&#x4E1C;&#x4E1C;.
 &#x6211;&#x7406;&#x89E3;, CPU&#x53D1;&#x5305;, &#x90A3;&#x4E48;&#x6B64;&#x65F6;CPU&#x662F;&#x56FA;&#x5B9A;&#x7684;, &#x4E0B;&#x9762;&#x5C31;&#x662F;&#x9009;&#x62E9;&#x5F80;&#x90A3;&#x4E2A;q&#x91CC;&#x9762;&#x53D1;, &#x8FD9;&#x4E2A;q&#x4E00;&#x822C;&#x662F;hash&#x6765;&#x7684;, &#x8FD9;&#x5C31;&#x5BFC;&#x81F4;&#x4E86;&#x4ECE;&#x5168;&#x5C40;&#x6765;&#x770B;, CPU&#x548C;q&#x662F;&#x591A;&#x5BF9;&#x591A;&#x7684;&#x5173;&#x7CFB;, &#x800C;xps_cpu&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x6BCF;&#x4E2A;q&#x7684;&#x4E00;&#x4E2A;CPU set&#x7684;&#x9650;&#x5236;, &#x4E5F;&#x5C31;&#x662F;&#x8BF4;, &#x4E00;&#x4E2A;q, &#x53EA;&#x80FD;&#x5BF9;&#x5E94;&#x8FD9;&#x4E2A;set&#x91CC;&#x9762;&#x7684;CPU, &#x8981;&#x83B7;&#x5F97;&#x66F4;&#x597D;&#x7684;&#x5C40;&#x90E8;&#x6027;, &#x4E2A;&#x4EBA;&#x89C9;&#x5F97;&#x53EF;&#x4EE5;&#x4E00;&#x5BF9;&#x4E00;.
 &#x8FD9;&#x4E2A;patch&#x4E3B;&#x8981;&#x662F;&#x9488;&#x5BF9;&#x591A;&#x961F;&#x5217;&#x7684;&#x7F51;&#x5361;&#x53D1;&#x9001;&#x65F6;&#x7684;&#x4F18;&#x5316;&#xFF0C;&#x5F53;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5305;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5B83;&#x4F1A;&#x6839;&#x636E;cpu&#x6765;&#x9009;&#x62E9;&#x5BF9;&#x5E94;&#x7684;&#x961F;&#x5217;&#xFF0C;&#x800C;&#x8FD9;&#x4E2A;cpu map&#x53EF;&#x4EE5;&#x901A;&#x8FC7;sysctl&#x6765;&#x8BBE;&#x7F6E;&#xFF1A;
-<code>/sys/class/net/eth&lt;n&gt;/queues/tx-&lt;n&gt;/xps_cpus</code>
+<code>/sys/class/net/eth<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>n</span><span class="token punctuation">&gt;</span></span>/queues/tx-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>n</span><span class="token punctuation">&gt;</span></span>/xps_cpus</code>
 &#x8FD9;&#x91CC;xps_cpus&#x662F;&#x4E00;&#x4E2A;cpu&#x63A9;&#x7801;&#xFF0C;&#x8868;&#x793A;&#x5F53;&#x524D;&#x961F;&#x5217;&#x5BF9;&#x5E94;&#x7684;cpu&#x3002;
 &#x800C;xps&#x4E3B;&#x8981;&#x5C31;&#x662F;&#x63D0;&#x9AD8;&#x591A;&#x5BF9;&#x5217;&#x4E0B;&#x7684;&#x6570;&#x636E;&#x5305;&#x53D1;&#x9001;&#x541E;&#x5410;&#x91CF;&#xFF0C;&#x5177;&#x4F53;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x63D0;&#x9AD8;&#x4E86;&#x53D1;&#x9001;&#x6570;&#x636E;&#x7684;&#x5C40;&#x90E8;&#x6027;&#x3002;&#x6309;&#x7167;&#x4F5C;&#x8005;&#x7684;benchmark&#xFF0C;&#x80FD;&#x591F;&#x63D0;&#x9AD8;20%.
 &#x539F;&#x7406;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5C31;&#x662F;&#x6839;&#x636E;&#x5F53;&#x524D;skb&#x5BF9;&#x5E94;&#x7684;hash&#x503C;(&#x5982;&#x679C;&#x5F53;&#x524D;socket&#x6709;hash&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F7F;&#x7528;&#x5F53;&#x524D;socket&#x7684;)&#x6765;&#x6563;&#x5217;&#x5230;xps_cpus&#x8FD9;&#x4E2A;&#x63A9;&#x7801;&#x6240; &#x8BBE;&#x7F6E;&#x7684;cpu&#x4E0A;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;cpu&#x548C;&#x961F;&#x5217;&#x662F;&#x4E00;&#x4E2A;1&#x5BF9;1&#xFF0C;&#x6216;&#x8005;1&#x5BF9;&#x591A;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x961F;&#x5217;&#x53EA;&#x53EF;&#x80FD;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;cpu&#xFF0C;&#x4ECE;&#x800C;&#x63D0;&#x9AD8;&#x4E86;&#x4F20;&#x8F93;&#x7ED3;&#x6784;&#x7684;&#x5C40;&#x90E8;&#x6027;&#x3002;
 &#x6CA1;&#x6709;xps&#x4E4B;&#x524D;&#x7684;&#x505A;&#x6CD5;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF0C;&#x5F53;&#x524D;&#x7684;cpu&#x6839;&#x636E;&#x4E00;&#x4E2A;skb&#x7684;4&#x5143;&#x7EC4;hash&#x6765;&#x9009;&#x62E9;&#x961F;&#x5217;&#x53D1;&#x9001;&#x6570;&#x636E;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;cpu&#x548C;&#x961F;&#x5217;&#x662F;&#x4E00;&#x4E2A;&#x591A;&#x5BF9;&#x591A;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x800C;&#x8FD9;&#x6837;&#x81EA;&#x7136;&#x5C31;&#x4F1A;&#x5BFC;&#x81F4;&#x4F20;&#x8F93;&#x7ED3;&#x6784;&#x7684;cache line bouncing&#x3002;</p>
 <h2 id="&#x7F51;&#x7EDC;&#x65F6;&#x95F4;"><a name="&#x7F51;&#x7EDC;&#x65F6;&#x95F4;" class="anchor-navigation-ex-anchor" href="#&#x7F51;&#x7EDC;&#x65F6;&#x95F4;"><i class="fa fa-link" aria-hidden="true"></i></a>1.69. &#x7F51;&#x7EDC;&#x65F6;&#x95F4;</h2>
-<pre><code>ntpdate &lt;ntp&#x670D;&#x52A1;&#x5668;&#x7684;ip&gt;
+<pre class="language-"><code>ntpdate <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ntp&#x670D;&#x52A1;&#x5668;&#x7684;ip</span><span class="token punctuation">&gt;</span></span>
 ntpdate s2g.time.edu.cn
 </code></pre><h2 id="irq&#x7ED1;&#x5B9A;"><a name="irq&#x7ED1;&#x5B9A;" class="anchor-navigation-ex-anchor" href="#irq&#x7ED1;&#x5B9A;"><i class="fa fa-link" aria-hidden="true"></i></a>1.70. irq&#x7ED1;&#x5B9A;</h2>
-<pre><code class="lang-shell">irq_set_affinity() #(eth, irq, desired_core)
-{
-    DEV=&quot;$1&quot;
-    IRQ=&quot;$2&quot;
-    VEC=&quot;$3&quot;
-    MASK_FILL=&quot;&quot;
-    MASK_ZERO=&quot;00000000&quot;
-    let &quot;IDX = $VEC / 32&quot;
-    for ((i=1; i&lt;=$IDX; i++))
-    do
-        MASK_FILL=&quot;${MASK_FILL},${MASK_ZERO}&quot;
-    done
-    let &quot;VEC -= 32 * $IDX&quot;
-    MASK_TMP=$((1&lt;&lt;$VEC))
-    MASK=`printf &quot;%X%s&quot; $MASK_TMP $MASK_FILL`
-    printf &quot;%s mask=%s for /proc/irq/%d/smp_affinity\n&quot; $DEV $MASK $IRQ
-    printf &quot;%s&quot; $MASK &gt; /proc/irq/$IRQ/smp_affinity
-}
+<pre class="language-"><code class="lang-shell">irq_set_affinity<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">#(eth, irq, desired_core)</span>
+<span class="token punctuation">{</span>
+    <span class="token assign-left variable">DEV</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">$1</span>&quot;</span>
+    <span class="token assign-left variable">IRQ</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">$2</span>&quot;</span>
+    <span class="token assign-left variable">VEC</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">$3</span>&quot;</span>
+    <span class="token assign-left variable">MASK_FILL</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+    <span class="token assign-left variable">MASK_ZERO</span><span class="token operator">=</span><span class="token string">&quot;00000000&quot;</span>
+    <span class="token builtin class-name">let</span> <span class="token string">&quot;IDX = <span class="token variable">$VEC</span> / 32&quot;</span>
+    <span class="token keyword">for</span> <span class="token variable"><span class="token punctuation">((</span>i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>$IDX<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">))</span></span>
+    <span class="token keyword">do</span>
+        <span class="token assign-left variable">MASK_FILL</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${MASK_FILL}</span>,<span class="token variable">${MASK_ZERO}</span>&quot;</span>
+    <span class="token keyword">done</span>
+    <span class="token builtin class-name">let</span> <span class="token string">&quot;VEC -= 32 * <span class="token variable">$IDX</span>&quot;</span>
+    <span class="token assign-left variable">MASK_TMP</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$((</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>$VEC<span class="token variable">))</span></span>
+    <span class="token assign-left variable">MASK</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">printf</span> <span class="token string">&quot;%X%s&quot;</span> $MASK_TMP $MASK_FILL<span class="token variable">`</span></span>
+    <span class="token builtin class-name">printf</span> <span class="token string">&quot;%s mask=%s for /proc/irq/%d/smp_affinity<span class="token entity" title="\n">\n</span>&quot;</span> <span class="token variable">$DEV</span> <span class="token variable">$MASK</span> <span class="token variable">$IRQ</span>
+    <span class="token builtin class-name">printf</span> <span class="token string">&quot;%s&quot;</span> <span class="token variable">$MASK</span> <span class="token operator">&gt;</span> /proc/irq/<span class="token variable">$IRQ</span>/smp_affinity
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x4F7F;&#x7528;&#x65F6;, &#x6BD4;&#x5982;&#x5BF9;&#x7B2C;161&#x53F7;&#x4E2D;&#x65AD;, &#x7ED1;&#x5B9A;&#x5230;core95&#x4E0A;, &#x6B64;&#x65F6;eth0&#x6CA1;&#x7528;</p>
-<pre><code>$ irq_set_affinity eth0 161 95
+<pre class="language-"><code>$ irq_set_affinity eth0 161 95
 eth0 mask=80000000,00000000,00000000 for /proc/irq/161/smp_affinity
-</code></pre><pre><code class="lang-shell">q_set_affinity() #(eth, queue_num, desired_core)
-{
-    DEV=&quot;$1&quot;
-    QUE=&quot;$2&quot;
-    VEC=&quot;$3&quot;
-    MASK_FILL=&quot;&quot;
-    MASK_ZERO=&quot;00000000&quot;
-    let &quot;IDX = $VEC / 32&quot;
-    for ((i=1; i&lt;=$IDX; i++))
-    do
-        MASK_FILL=&quot;${MASK_FILL},${MASK_ZERO}&quot;
-    done
-    let &quot;VEC -= 32 * $IDX&quot;
-    MASK_TMP=$((1&lt;&lt;$VEC))
-    MASK=`printf &quot;%X%s&quot; $MASK_TMP $MASK_FILL`
-    IRQ=`cat /proc/interrupts | grep -i $DEV-TxRx-$QUE | cut  -d:  -f1 | sed &quot;s/ //g&quot;`
-    printf &quot;%s mask=%s for /proc/irq/%d/smp_affinity\n&quot; $DEV $MASK $IRQ
-    # printf &quot;%s&quot; $MASK &gt; /proc/irq/$IRQ/smp_affinity
-}
+</code></pre><pre class="language-"><code class="lang-shell">q_set_affinity<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">#(eth, queue_num, desired_core)</span>
+<span class="token punctuation">{</span>
+    <span class="token assign-left variable">DEV</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">$1</span>&quot;</span>
+    <span class="token assign-left variable">QUE</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">$2</span>&quot;</span>
+    <span class="token assign-left variable">VEC</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">$3</span>&quot;</span>
+    <span class="token assign-left variable">MASK_FILL</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+    <span class="token assign-left variable">MASK_ZERO</span><span class="token operator">=</span><span class="token string">&quot;00000000&quot;</span>
+    <span class="token builtin class-name">let</span> <span class="token string">&quot;IDX = <span class="token variable">$VEC</span> / 32&quot;</span>
+    <span class="token keyword">for</span> <span class="token variable"><span class="token punctuation">((</span>i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>$IDX<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">))</span></span>
+    <span class="token keyword">do</span>
+        <span class="token assign-left variable">MASK_FILL</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${MASK_FILL}</span>,<span class="token variable">${MASK_ZERO}</span>&quot;</span>
+    <span class="token keyword">done</span>
+    <span class="token builtin class-name">let</span> <span class="token string">&quot;VEC -= 32 * <span class="token variable">$IDX</span>&quot;</span>
+    <span class="token assign-left variable">MASK_TMP</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$((</span><span class="token number">1</span><span class="token operator">&lt;&lt;</span>$VEC<span class="token variable">))</span></span>
+    <span class="token assign-left variable">MASK</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">printf</span> <span class="token string">&quot;%X%s&quot;</span> $MASK_TMP $MASK_FILL<span class="token variable">`</span></span>
+    <span class="token assign-left variable">IRQ</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token function">cat</span> /proc/interrupts <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-i</span> $DEV-TxRx-$QUE <span class="token operator">|</span> <span class="token function">cut</span>  -d:  <span class="token parameter variable">-f1</span> <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">&quot;s/ //g&quot;</span><span class="token variable">`</span></span>
+    <span class="token builtin class-name">printf</span> <span class="token string">&quot;%s mask=%s for /proc/irq/%d/smp_affinity<span class="token entity" title="\n">\n</span>&quot;</span> <span class="token variable">$DEV</span> <span class="token variable">$MASK</span> <span class="token variable">$IRQ</span>
+    <span class="token comment"># printf &quot;%s&quot; $MASK &gt; /proc/irq/$IRQ/smp_affinity</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x4F7F;&#x7528;&#x65F6;, &#x5BF9;eth9&#x7684;&#x7B2C;15&#x4E2A;q&#x7ED1;&#x5B9A;&#x5230;core35&#x4E0A;</p>
-<pre><code>$ q_set_affinity eth9 15 35
+<pre class="language-"><code>$ q_set_affinity eth9 15 35
 eth9 mask=8,00000000 for /proc/irq/125/smp_affinity
 </code></pre><h2 id="tubo&#x9519;&#x8BEF;&#x5206;&#x6790;"><a name="tubo&#x9519;&#x8BEF;&#x5206;&#x6790;" class="anchor-navigation-ex-anchor" href="#tubo&#x9519;&#x8BEF;&#x5206;&#x6790;"><i class="fa fa-link" aria-hidden="true"></i></a>1.71. tubo&#x9519;&#x8BEF;&#x5206;&#x6790;</h2>
 <p>tubo[85270]: unhandled level 1 translation fault (11) at 0xffffff1c000bc8, esr 0x92000005
 <img src="index_files/844610781.png" alt=""></p>
-<pre><code>&gt;&gt;&gt; dr(0x92000005,[31,26],25,[24,0])
+<pre class="language-"><code>&gt;&gt;&gt; dr(0x92000005,[31,26],25,[24,0])
 [31-26]
 Bin: 100100
 Dec: 36
@@ -4004,7 +4001,7 @@ ali&#x81EA;&#x5DF1;&#x5199;&#x7684;&#x4EE3;&#x7801;&#x91CC;&#x9762;, &#x624B;&#x
 <p>&#x8FD9;&#x4E2A;&#x628A;eth3&#x7684;q&#x8BBE;&#x4E3A;8&#x4E2A;
 <code>ethtool eth3 -L combined 8</code>
 &#x7528;&#x5C0F;l&#x53EF;&#x4EE5;&#x67E5;&#x5F53;&#x524D;&#x7684;&#x914D;&#x7F6E;</p>
-<pre><code>[root@cavium tmp]# ethtool -l eth8
+<pre class="language-"><code>[root@cavium tmp]# ethtool -l eth8
 Channel parameters for eth8:
 Pre-set maximums:
 RX:             0
@@ -4036,17 +4033,17 @@ Combined:       16
 <h2 id="atomic&#x89E3;&#x51B3;mysql&#x5D29;&#x6E83;&#x95EE;&#x9898;-weak-order"><a name="atomic&#x89E3;&#x51B3;mysql&#x5D29;&#x6E83;&#x95EE;&#x9898;-weak-order" class="anchor-navigation-ex-anchor" href="#atomic&#x89E3;&#x51B3;mysql&#x5D29;&#x6E83;&#x95EE;&#x9898;-weak-order"><i class="fa fa-link" aria-hidden="true"></i></a>1.74. atomic&#x89E3;&#x51B3;mysql&#x5D29;&#x6E83;&#x95EE;&#x9898;, weak order</h2>
 <p>&#x4FEE;&#x6539;&#x539F;&#x5B50;&#x9501;&#xFF1A;
 &#x6B63;&#x786E;&#x7684;&#x4FEE;&#x6539;&#x539F;&#x5B50;&#x9501;&#x65B9;&#x6CD5;</p>
-<pre><code class="lang-c">vim storage/innobase/include/os0sync.h
-# define os_atomic_test_and_set_byte(ptr, new_val) \
-        __atomic_exchange_n (ptr,new_val, __ATOMIC_ACQ_REL)
-        /*__sync_lock_test_and_set(ptr, (byte) new_val)*/
-# define os_atomic_test_and_set_ulint(ptr, new_val) \
-        __atomic_exchange_n (ptr,new_val, __ATOMIC_ACQ_REL)
-        /*__sync_lock_test_and_set(ptr, new_val)*/
-vim ./include/atomic/gcc_builtins.h
-#define make_atomic_fas_body(S)                     \
-  v= __atomic_exchange_n (a,v, __ATOMIC_ACQ_REL);
-/*  v= __sync_lock_test_and_set(a, v);*/
+<pre class="language-"><code class="lang-c">vim storage<span class="token operator">/</span>innobase<span class="token operator">/</span>include<span class="token operator">/</span>os0sync<span class="token punctuation">.</span>h
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">define</span> <span class="token macro-name function">os_atomic_test_and_set_byte</span><span class="token expression"><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> new_val<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
+        <span class="token expression"><span class="token function">__atomic_exchange_n</span> <span class="token punctuation">(</span>ptr<span class="token punctuation">,</span>new_val<span class="token punctuation">,</span> __ATOMIC_ACQ_REL<span class="token punctuation">)</span></span></span>
+        <span class="token comment">/*__sync_lock_test_and_set(ptr, (byte) new_val)*/</span>
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">define</span> <span class="token macro-name function">os_atomic_test_and_set_ulint</span><span class="token expression"><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> new_val<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
+        <span class="token expression"><span class="token function">__atomic_exchange_n</span> <span class="token punctuation">(</span>ptr<span class="token punctuation">,</span>new_val<span class="token punctuation">,</span> __ATOMIC_ACQ_REL<span class="token punctuation">)</span></span></span>
+        <span class="token comment">/*__sync_lock_test_and_set(ptr, new_val)*/</span>
+vim <span class="token punctuation">.</span><span class="token operator">/</span>include<span class="token operator">/</span>atomic<span class="token operator">/</span>gcc_builtins<span class="token punctuation">.</span>h
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">make_atomic_fas_body</span><span class="token expression"><span class="token punctuation">(</span>S<span class="token punctuation">)</span>                     </span><span class="token punctuation">\</span>
+  <span class="token expression">v<span class="token operator">=</span> <span class="token function">__atomic_exchange_n</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span>v<span class="token punctuation">,</span> __ATOMIC_ACQ_REL<span class="token punctuation">)</span><span class="token punctuation">;</span></span></span>
+<span class="token comment">/*  v= __sync_lock_test_and_set(a, v);*/</span>
 </code></pre>
 
                                 
@@ -4091,11 +4088,10 @@ vim ./include/atomic/gcc_builtins.h
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Arm server 杂记","level":"1.4.1","depth":2,"next":{"title":"嵌入式系统开发调试","level":"1.5","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"嵌入式调试杂记","level":"1.5.1","depth":2,"path":"notes/embedded_debugging.md","ref":"notes/embedded_debugging.md","articles":[]},{"title":"uboot杂记","level":"1.5.2","depth":2,"path":"notes/uboot_杂记.md","ref":"notes/uboot_杂记.md","articles":[]},{"title":"buildroot杂记","level":"1.5.3","depth":2,"path":"notes/buildroot_杂记.md","ref":"notes/buildroot_杂记.md","articles":[]},{"title":"升级GCC7.3问题解决","level":"1.5.4","depth":2,"path":"notes/toolchain_升级gcc问题解决.md","ref":"notes/toolchain_升级gcc问题解决.md","articles":[]}]},"previous":{"title":"ARM server","level":"1.4","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"Arm server 杂记","level":"1.4.1","depth":2,"path":"notes/arm_server_杂记.md","ref":"notes/arm_server_杂记.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/arm_server_杂记.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Arm server 杂记","level":"1.4.1","depth":2,"next":{"title":"嵌入式系统开发调试","level":"1.5","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"嵌入式调试杂记","level":"1.5.1","depth":2,"path":"notes/embedded_debugging.md","ref":"notes/embedded_debugging.md","articles":[]},{"title":"uboot杂记","level":"1.5.2","depth":2,"path":"notes/uboot_杂记.md","ref":"notes/uboot_杂记.md","articles":[]},{"title":"buildroot杂记","level":"1.5.3","depth":2,"path":"notes/buildroot_杂记.md","ref":"notes/buildroot_杂记.md","articles":[]},{"title":"升级GCC7.3问题解决","level":"1.5.4","depth":2,"path":"notes/toolchain_升级gcc问题解决.md","ref":"notes/toolchain_升级gcc问题解决.md","articles":[]}]},"previous":{"title":"ARM server","level":"1.4","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"Arm server 杂记","level":"1.4.1","depth":2,"path":"notes/arm_server_杂记.md","ref":"notes/arm_server_杂记.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/arm_server_杂记.md","mtime":"2022-10-11T15:39:07.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -4134,7 +4130,6 @@ vim ./include/atomic/gcc_builtins.h
         
     
 
-        
     </body>
 </html>
 

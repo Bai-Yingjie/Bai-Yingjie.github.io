@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -3005,53 +3002,53 @@
 <h4 id="&#x63CF;&#x8FF0;&#x7B26;&#x683C;&#x5F0F;"><a name="&#x63CF;&#x8FF0;&#x7B26;&#x683C;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x63CF;&#x8FF0;&#x7B26;&#x683C;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x63CF;&#x8FF0;&#x7B26;&#x683C;&#x5F0F;</h4>
 <p>buffer&#x5206;&#x4E3A;&#x53EF;&#x8BFB;&#x7684;&#x548C;&#x53EF;&#x5199;&#x7684;, &#x4E00;&#x4E2A;&#x63CF;&#x8FF0;&#x7B26;&#x53EA;&#x80FD;&#x662F;&#x4E8C;&#x8005;&#x4E4B;&#x4E00;.
 addr&#x662F;&#x5728;guest&#x5185;&#x5B58;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;.</p>
-<pre><code class="lang-c">struct virtq_desc { 
-        /* Address (guest-physical). */ 
-        le64 addr; 
-        /* Length. */ 
-        le32 len; 
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtq_desc</span> <span class="token punctuation">{</span> 
+        <span class="token comment">/* Address (guest-physical). */</span> 
+        le64 addr<span class="token punctuation">;</span> 
+        <span class="token comment">/* Length. */</span> 
+        le32 len<span class="token punctuation">;</span> 
 
-/* This marks a buffer as continuing via the next field. */ 
-#define VIRTQ_DESC_F_NEXT   1 
-/* This marks a buffer as device write-only (otherwise device read-only). */ 
-#define VIRTQ_DESC_F_WRITE     2 
-/* This means the buffer contains a list of buffer descriptors. */ 
-#define VIRTQ_DESC_F_INDIRECT   4 
-        /* The flags as indicated above. */ 
-        le16 flags; 
-        /* Next field if flags &amp; NEXT */ 
-        le16 next; 
-};
+<span class="token comment">/* This marks a buffer as continuing via the next field. */</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTQ_DESC_F_NEXT</span>   <span class="token expression"><span class="token number">1</span> </span></span>
+<span class="token comment">/* This marks a buffer as device write-only (otherwise device read-only). */</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTQ_DESC_F_WRITE</span>     <span class="token expression"><span class="token number">2</span> </span></span>
+<span class="token comment">/* This means the buffer contains a list of buffer descriptors. */</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTQ_DESC_F_INDIRECT</span>   <span class="token expression"><span class="token number">4</span> </span></span>
+        <span class="token comment">/* The flags as indicated above. */</span> 
+        le16 flags<span class="token punctuation">;</span> 
+        <span class="token comment">/* Next field if flags &amp; NEXT */</span> 
+        le16 next<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="virtqueue-available-ring&#x683C;&#x5F0F;"><a name="virtqueue-available-ring&#x683C;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#virtqueue-available-ring&#x683C;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>Virtqueue Available Ring&#x683C;&#x5F0F;</h4>
-<pre><code class="lang-c">struct virtq_avail { 
-#define VIRTQ_AVAIL_F_NO_INTERRUPT      1 
-        le16 flags; 
-        le16 idx; 
-        le16 ring[ /* Queue Size */ ]; 
-        le16 used_event; /* Only if VIRTIO_F_EVENT_IDX */ 
-};
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtq_avail</span> <span class="token punctuation">{</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTQ_AVAIL_F_NO_INTERRUPT</span>      <span class="token expression"><span class="token number">1</span> </span></span>
+        le16 flags<span class="token punctuation">;</span> 
+        le16 idx<span class="token punctuation">;</span> 
+        le16 ring<span class="token punctuation">[</span> <span class="token comment">/* Queue Size */</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> 
+        le16 used_event<span class="token punctuation">;</span> <span class="token comment">/* Only if VIRTIO_F_EVENT_IDX */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x8FD9;&#x4E2A;avail ring&#x662F;&#x9A71;&#x52A8;&#x5199;, device&#x8BFB;&#x7684;, &#x7528;&#x4E8E;&#x9A71;&#x52A8;&#x5411;device&#x63D0;&#x4F9B;buffer. &#x4E00;&#x4E2A;entry&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;descriptor table&#x91CC;&#x7684;entry(&#x5982;&#x679C;&#x662F;&#x94FE;&#x7684;&#x8BDD;, &#x5BF9;&#x5E94;&#x94FE;&#x8868;&#x5934;&#x7684;&#x90A3;&#x4E2A;entry)
 idx&#x8868;&#x793A;&#x9A71;&#x52A8;&#x4F1A;&#x628A;&#x4E0B;&#x4E00;&#x4E2A;descriptor&#x653E;&#x5728;ring&#x7684;&#x54EA;&#x91CC;.</p>
 <h4 id="&#x4E2D;&#x65AD;&#x6291;&#x5236;"><a name="&#x4E2D;&#x65AD;&#x6291;&#x5236;" class="anchor-navigation-ex-anchor" href="#&#x4E2D;&#x65AD;&#x6291;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E2D;&#x65AD;&#x6291;&#x5236;</h4>
 <p>&#x641C;&#x7D22;VIRTIO_F_EVENT_IDX feature bit</p>
 <h4 id="virtqueue-used-ring"><a name="virtqueue-used-ring" class="anchor-navigation-ex-anchor" href="#virtqueue-used-ring"><i class="fa fa-link" aria-hidden="true"></i></a>Virtqueue Used Ring</h4>
-<pre><code class="lang-c">struct virtq_used { 
-#define VIRTQ_USED_F_NO_NOTIFY  1 
-        le16 flags; 
-        le16 idx; 
-        struct virtq_used_elem ring[ /* Queue Size */]; 
-        le16 avail_event; /* Only if VIRTIO_F_EVENT_IDX */ 
-}; 
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtq_used</span> <span class="token punctuation">{</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTQ_USED_F_NO_NOTIFY</span>  <span class="token expression"><span class="token number">1</span> </span></span>
+        le16 flags<span class="token punctuation">;</span> 
+        le16 idx<span class="token punctuation">;</span> 
+        <span class="token keyword">struct</span> <span class="token class-name">virtq_used_elem</span> ring<span class="token punctuation">[</span> <span class="token comment">/* Queue Size */</span><span class="token punctuation">]</span><span class="token punctuation">;</span> 
+        le16 avail_event<span class="token punctuation">;</span> <span class="token comment">/* Only if VIRTIO_F_EVENT_IDX */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span> 
 
-/* le32 is used here for ids for padding reasons. */ 
-struct virtq_used_elem { 
-        /* Index of start of used descriptor chain. */ 
-        le32 id; 
-        /* Total length of the descriptor chain which was used (written to) */ 
-        le32 len; 
-};
+<span class="token comment">/* le32 is used here for ids for padding reasons. */</span> 
+<span class="token keyword">struct</span> <span class="token class-name">virtq_used_elem</span> <span class="token punctuation">{</span> 
+        <span class="token comment">/* Index of start of used descriptor chain. */</span> 
+        le32 id<span class="token punctuation">;</span> 
+        <span class="token comment">/* Total length of the descriptor chain which was used (written to) */</span> 
+        le32 len<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x8BBE;&#x5907;&#x5199;, &#x9A71;&#x52A8;&#x8BFB;. &#x8868;&#x793A;&#x8BBE;&#x5907;&#x628A;&#x7528;&#x5B8C;&#x7684;buffer&#x8FD8;&#x7ED9;&#x9A71;&#x52A8;.</p>
 <h4 id="&#x901A;&#x77E5;&#x6291;&#x5236;"><a name="&#x901A;&#x77E5;&#x6291;&#x5236;" class="anchor-navigation-ex-anchor" href="#&#x901A;&#x77E5;&#x6291;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x901A;&#x77E5;&#x6291;&#x5236;</h4>
@@ -3115,49 +3112,49 @@ device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x5305;&#x62EC;&#x4EE5;&#x4E0B;&#
 </ul>
 <p>&#x6BCF;&#x90E8;&#x5206;&#x90FD;&#x53EF;&#x4EE5;&#x5206;&#x522B;&#x7528;bar(Base Address register)&#x6765;map&#x5230;&#x7269;&#x7406;&#x5730;&#x5740;&#x7A7A;&#x95F4;; &#x6216;&#x8005;&#x7528;PCI&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x7684;&#x7279;&#x6B8A;&#x5BC4;&#x5B58;&#x5668;VIRTIO_PCI_CAP_PCI_CFG&#x6765;&#x8BBF;&#x95EE;.</p>
 <p>&#x4F7F;&#x7528;pci&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x7684;capability list&#x6765;&#x914D;&#x7F6E;&#x4EE5;&#x4E0A;5&#x4E2A;&#x90E8;&#x5206;.</p>
-<pre><code class="lang-c">struct virtio_pci_cap { 
-        u8 cap_vndr;    /* Generic PCI field: PCI_CAP_ID_VNDR */ 
-        u8 cap_next;    /* Generic PCI field: next ptr. */ 
-        u8 cap_len;     /* Generic PCI field: capability length */ 
-        u8 cfg_type;    /* Identifies the structure. &#x5E8F;&#x53F7;&#x5982;&#x4E0A; */ 
-        u8 bar;         /* Where to find it. 0x0&#x5230;0x5, &#x8868;&#x793A;&#x7528;&#x54EA;&#x4E2A;bar&#x6765;map&#x4E0A;&#x9762;&#x7684;cfg_type*/ 
-        u8 padding[3];  /* Pad to full dword. */ 
-        le32 offset;    /* Offset within bar. */ 
-        le32 length;    /* Length of the structure, in bytes. */ 
-};
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_pci_cap</span> <span class="token punctuation">{</span> 
+        u8 cap_vndr<span class="token punctuation">;</span>    <span class="token comment">/* Generic PCI field: PCI_CAP_ID_VNDR */</span> 
+        u8 cap_next<span class="token punctuation">;</span>    <span class="token comment">/* Generic PCI field: next ptr. */</span> 
+        u8 cap_len<span class="token punctuation">;</span>     <span class="token comment">/* Generic PCI field: capability length */</span> 
+        u8 cfg_type<span class="token punctuation">;</span>    <span class="token comment">/* Identifies the structure. &#x5E8F;&#x53F7;&#x5982;&#x4E0A; */</span> 
+        u8 bar<span class="token punctuation">;</span>         <span class="token comment">/* Where to find it. 0x0&#x5230;0x5, &#x8868;&#x793A;&#x7528;&#x54EA;&#x4E2A;bar&#x6765;map&#x4E0A;&#x9762;&#x7684;cfg_type*/</span> 
+        u8 padding<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>  <span class="token comment">/* Pad to full dword. */</span> 
+        le32 offset<span class="token punctuation">;</span>    <span class="token comment">/* Offset within bar. */</span> 
+        le32 length<span class="token punctuation">;</span>    <span class="token comment">/* Length of the structure, in bytes. */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="common-configuration-cfgtype-1"><a name="common-configuration-cfgtype-1" class="anchor-navigation-ex-anchor" href="#common-configuration-cfgtype-1"><i class="fa fa-link" aria-hidden="true"></i></a>Common configuration, cfg_type 1</h4>
 <p>&#x7528;&#x4E8E;&#x548C;driver&#x534F;&#x5546;feature, queue&#x4E2A;&#x6570;, queue size, desc table, avail ring&#x548C;used ring&#x7684;&#x5730;&#x5740;.</p>
-<pre><code class="lang-c">struct virtio_pci_common_cfg {
-    /* About the whole device. */
-    le32 device_feature_select; /* read-write */
-    le32 device_feature; /* read-only for driver */
-    le32 driver_feature_select; /* read-write */
-    le32 driver_feature; /* read-write */
-    le16 msix_config; /* read-write */
-    le16 num_queues; /* read-only for driver */
-    u8 device_status; /* read-write */
-    u8 config_generation; /* read-only for driver */
-    /* About a specific virtqueue. */
-    le16 queue_select; /* read-write */
-    le16 queue_size; /* read-write */
-    le16 queue_msix_vector; /* read-write */
-    le16 queue_enable; /* read-write */
-    le16 queue_notify_off; /* read-only for driver */
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_pci_common_cfg</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* About the whole device. */</span>
+    le32 device_feature_select<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le32 device_feature<span class="token punctuation">;</span> <span class="token comment">/* read-only for driver */</span>
+    le32 driver_feature_select<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le32 driver_feature<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 msix_config<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 num_queues<span class="token punctuation">;</span> <span class="token comment">/* read-only for driver */</span>
+    u8 device_status<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    u8 config_generation<span class="token punctuation">;</span> <span class="token comment">/* read-only for driver */</span>
+    <span class="token comment">/* About a specific virtqueue. */</span>
+    le16 queue_select<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 queue_size<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 queue_msix_vector<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 queue_enable<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 queue_notify_off<span class="token punctuation">;</span> <span class="token comment">/* read-only for driver */</span>
 
-    //&#x4EE5;&#x4E0B;&#x5C31;&#x662F;&#x63CF;&#x8FF0;&#x7B26;&#x533A;, driver&#x533A;, device&#x533A;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;
-    //guest driver&#x628A;&#x7269;&#x7406;&#x5730;&#x5740;&#x5199;&#x5165;&#x4E0B;&#x9762;&#x4E09;&#x4E2A;&#x5BC4;&#x5B58;&#x5668;, &#x5206;&#x522B;&#x5BF9;&#x5E94;desc&#x533A;, avail&#x533A;&#x548C;used&#x533A;.
-    le64 queue_desc; /* read-write */
-    le64 queue_avail; /* read-write */ 
-    le64 queue_used; /* read-write */ 
-};
+    <span class="token comment">//&#x4EE5;&#x4E0B;&#x5C31;&#x662F;&#x63CF;&#x8FF0;&#x7B26;&#x533A;, driver&#x533A;, device&#x533A;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;</span>
+    <span class="token comment">//guest driver&#x628A;&#x7269;&#x7406;&#x5730;&#x5740;&#x5199;&#x5165;&#x4E0B;&#x9762;&#x4E09;&#x4E2A;&#x5BC4;&#x5B58;&#x5668;, &#x5206;&#x522B;&#x5BF9;&#x5E94;desc&#x533A;, avail&#x533A;&#x548C;used&#x533A;.</span>
+    le64 queue_desc<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le64 queue_avail<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span> 
+    le64 queue_used<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="notification-structure-cfgtype-2"><a name="notification-structure-cfgtype-2" class="anchor-navigation-ex-anchor" href="#notification-structure-cfgtype-2"><i class="fa fa-link" aria-hidden="true"></i></a>Notification structure, cfg_type 2</h4>
 <p>This capability is immediately followed by an additional field, like so:</p>
-<pre><code class="lang-c">struct virtio_pci_notify_cap { 
-        struct virtio_pci_cap cap; 
-        le32 notify_off_multiplier; /* Multiplier for queue_notify_off. */ 
-};
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_pci_notify_cap</span> <span class="token punctuation">{</span> 
+        <span class="token keyword">struct</span> <span class="token class-name">virtio_pci_cap</span> cap<span class="token punctuation">;</span> 
+        le32 notify_off_multiplier<span class="token punctuation">;</span> <span class="token comment">/* Multiplier for queue_notify_off. */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x8FD9;&#x4E2A;notify_off_multiplier&#x548C;&#x5176;&#x4ED6;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x4E00;&#x8D77;, &#x53EF;&#x4EE5;&#x8BA1;&#x7B97;&#x51FA;queue notification&#x5728;bar&#x5185;&#x7684;&#x504F;&#x79FB;&#x5730;&#x5740;:<br><code>cap.offset + queue_notify_off * notify_off_multiplier</code><br>The cap.offset and notify_off_multiplier are taken from the notification capability structure above, and the queue_notify_off is taken from the common configuration structure. Note: For example, if notifier_off_multiplier is 0, the device uses the same Queue Notify address for all queues.</p>
 <h4 id="isr-status&#x5BC4;&#x5B58;&#x5668;-cfgtype-3"><a name="isr-status&#x5BC4;&#x5B58;&#x5668;-cfgtype-3" class="anchor-navigation-ex-anchor" href="#isr-status&#x5BC4;&#x5B58;&#x5668;-cfgtype-3"><i class="fa fa-link" aria-hidden="true"></i></a>ISR status&#x5BC4;&#x5B58;&#x5668;, cfg_type 3</h4>
@@ -3165,10 +3162,10 @@ device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x5305;&#x62EC;&#x4EE5;&#x4E0B;&#
 <h4 id="pci-configuration-access-capability-cfgtype-5"><a name="pci-configuration-access-capability-cfgtype-5" class="anchor-navigation-ex-anchor" href="#pci-configuration-access-capability-cfgtype-5"><i class="fa fa-link" aria-hidden="true"></i></a>PCI configuration access capability, cfg_type 5</h4>
 <p>&#x63D0;&#x4F9B;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x8BBF;&#x95EE;device&#x914D;&#x7F6E;&#x7A7A;&#x95F4;(cfg_type 1, 2,, 3, 4)&#x7684;&#x65B9;&#x6CD5;.
 The capability is immediately followed by an additional field like so:</p>
-<pre><code class="lang-c">struct virtio_pci_cfg_cap { 
-        struct virtio_pci_cap cap; 
-        u8 pci_cfg_data[4]; /* Data for BAR access. */ 
-};
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_pci_cfg_cap</span> <span class="token punctuation">{</span> 
+        <span class="token keyword">struct</span> <span class="token class-name">virtio_pci_cap</span> cap<span class="token punctuation">;</span> 
+        u8 pci_cfg_data<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">/* Data for BAR access. */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The fields cap.bar, cap.length, cap.offset and pci_cfg_data are read-write (RW) for the driver.</p>
 <p>To access a device region, the driver writes into the capability structure (ie. within the PCI configuration space) as follows:</p>
@@ -3228,12 +3225,12 @@ The memory mapped virtio device behaviour is based on the PCI device specificati
 <h3 id="mmio-device-discovery"><a name="mmio-device-discovery" class="anchor-navigation-ex-anchor" href="#mmio-device-discovery"><i class="fa fa-link" aria-hidden="true"></i></a>1.5.1. MMIO Device Discovery</h3>
 <p>mmio&#x7684;virtio&#x8BBE;&#x5907;&#x4E00;&#x822C;&#x9700;&#x8981;&#x914D;dts, &#x56E0;&#x4E3A;mmio&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x53D1;&#x73B0;&#x673A;&#x5236;
 Unlike PCI, MMIO provides no generic device discovery mechanism. For each device, the guest OS will need to know the location of the registers and interrupt(s) used. The suggested binding for systems using flattened device trees is shown in this example:</p>
-<pre><code class="lang-c">// EXAMPLE: virtio_block device taking 512 bytes at 0x1e000, interrupt 42. 
-virtio_block@1e000 { 
-        compatible = &quot;virtio,mmio&quot;; 
-        reg = &lt;0x1e000 0x200&gt;; 
-        interrupts = &lt;42&gt;; 
-}
+<pre class="language-"><code class="lang-c"><span class="token comment">// EXAMPLE: virtio_block device taking 512 bytes at 0x1e000, interrupt 42. </span>
+virtio_block@<span class="token number">1e000</span> <span class="token punctuation">{</span> 
+        compatible <span class="token operator">=</span> <span class="token string">&quot;virtio,mmio&quot;</span><span class="token punctuation">;</span> 
+        reg <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token number">0x1e000</span> <span class="token number">0x200</span><span class="token operator">&gt;</span><span class="token punctuation">;</span> 
+        interrupts <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token number">42</span><span class="token operator">&gt;</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
 </code></pre>
 <h3 id="mmio-device-register-layout"><a name="mmio-device-register-layout" class="anchor-navigation-ex-anchor" href="#mmio-device-register-layout"><i class="fa fa-link" aria-hidden="true"></i></a>1.5.2. MMIO Device Register Layout</h3>
 <p>virtio&#x7684;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;&#x90FD;&#x4EE5;&#x4E0A;&#x9762;&#x7684;base&#x5730;&#x5740;&#x4E3A;&#x5F00;&#x59CB;, &#x4F9D;&#x6B21;&#x6392;&#x5217;
@@ -3292,27 +3289,27 @@ All register values are organized as Little Endian.
 <h3 id="network-device"><a name="network-device" class="anchor-navigation-ex-anchor" href="#network-device"><i class="fa fa-link" aria-hidden="true"></i></a>1.6.1. Network Device</h3>
 <ul>
 <li>virtqueue<br>network&#x8BBE;&#x5907;&#x7684;virtqueue&#x662F;&#x4E00;&#x5BF9;&#x6216;&#x591A;&#x5BF9;receiveq&#x548C;transmitq, &#x6700;&#x540E;&#x4E00;&#x4E2A;&#x662F;controlq<br>0 receiveq1<br>1 transmitq1<br>&#x2026;<br>2(N-1) receiveqN<br>2(N-1)+1 transmitqN<br>2N controlq</li>
-<li>&#x8981;&#x53D1;&#x9001;&#x7684;<code>&#x62A5;&#x6587;&#x5934;+&#x62A5;&#x6587;</code>&#x88AB;&#x653E;&#x5230;transmitq, &#x63A5;&#x6536;&#x5230;&#x7684;<code>&#x62A5;&#x6587;&#x5934;+&#x62A5;&#x6587;</code>&#x88AB;&#x653E;&#x5230;receiveq<br>&#x8FD9;&#x4E2A;&#x62A5;&#x6587;&#x5934;&#x7684;&#x683C;&#x5F0F;&#x5982;&#x4E0B;:  <pre><code class="lang-c">struct virtio_net_hdr { 
-#define VIRTIO_NET_HDR_F_NEEDS_CSUM    1 
-#define VIRTIO_NET_HDR_F_DATA_VALID    2 
-#define VIRTIO_NET_HDR_F_RSC_INFO      4 
-      u8 flags; 
-#define VIRTIO_NET_HDR_GSO_NONE        0 
-#define VIRTIO_NET_HDR_GSO_TCPV4       1 
-#define VIRTIO_NET_HDR_GSO_UDP         3 
-#define VIRTIO_NET_HDR_GSO_TCPV6       4 
-#define VIRTIO_NET_HDR_GSO_UDP_L4      5 
-#define VIRTIO_NET_HDR_GSO_ECN      0x80 
-      u8 gso_type; 
-      le16 hdr_len; 
-      le16 gso_size; 
-      le16 csum_start; 
-      le16 csum_offset; 
-      le16 num_buffers; 
-      le32 hash_value;        (Only if VIRTIO_NET_F_HASH_REPORT negotiated) 
-      le16 hash_report;       (Only if VIRTIO_NET_F_HASH_REPORT negotiated) 
-      le16 padding_reserved;  (Only if VIRTIO_NET_F_HASH_REPORT negotiated) 
-};
+<li>&#x8981;&#x53D1;&#x9001;&#x7684;<code>&#x62A5;&#x6587;&#x5934;+&#x62A5;&#x6587;</code>&#x88AB;&#x653E;&#x5230;transmitq, &#x63A5;&#x6536;&#x5230;&#x7684;<code>&#x62A5;&#x6587;&#x5934;+&#x62A5;&#x6587;</code>&#x88AB;&#x653E;&#x5230;receiveq<br>&#x8FD9;&#x4E2A;&#x62A5;&#x6587;&#x5934;&#x7684;&#x683C;&#x5F0F;&#x5982;&#x4E0B;:  <pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_net_hdr</span> <span class="token punctuation">{</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_F_NEEDS_CSUM</span>    <span class="token expression"><span class="token number">1</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_F_DATA_VALID</span>    <span class="token expression"><span class="token number">2</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_F_RSC_INFO</span>      <span class="token expression"><span class="token number">4</span> </span></span>
+      u8 flags<span class="token punctuation">;</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_NONE</span>        <span class="token expression"><span class="token number">0</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_TCPV4</span>       <span class="token expression"><span class="token number">1</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_UDP</span>         <span class="token expression"><span class="token number">3</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_TCPV6</span>       <span class="token expression"><span class="token number">4</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_UDP_L4</span>      <span class="token expression"><span class="token number">5</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_ECN</span>      <span class="token expression"><span class="token number">0x80</span> </span></span>
+      u8 gso_type<span class="token punctuation">;</span> 
+      le16 hdr_len<span class="token punctuation">;</span> 
+      le16 gso_size<span class="token punctuation">;</span> 
+      le16 csum_start<span class="token punctuation">;</span> 
+      le16 csum_offset<span class="token punctuation">;</span> 
+      le16 num_buffers<span class="token punctuation">;</span> 
+      le32 hash_value<span class="token punctuation">;</span>        <span class="token punctuation">(</span>Only <span class="token keyword">if</span> VIRTIO_NET_F_HASH_REPORT negotiated<span class="token punctuation">)</span> 
+      le16 hash_report<span class="token punctuation">;</span>       <span class="token punctuation">(</span>Only <span class="token keyword">if</span> VIRTIO_NET_F_HASH_REPORT negotiated<span class="token punctuation">)</span> 
+      le16 padding_reserved<span class="token punctuation">;</span>  <span class="token punctuation">(</span>Only <span class="token keyword">if</span> VIRTIO_NET_F_HASH_REPORT negotiated<span class="token punctuation">)</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 </li>
 </ul>
@@ -3320,49 +3317,49 @@ All register values are organized as Little Endian.
 <p>The virtio block device is a simple virtual block device (ie. disk). Read and write requests (and other exotic requests) are placed in one of its queues, and serviced (probably out of order) by the device except where noted.</p>
 <ul>
 <li>virtqueue<br>0 requestq1<br>&#x2026;<br>N-1 requestqN<br>N=1 if VIRTIO_BLK_F_MQ is not negotiated, otherwise N is set by num_queues.</li>
-<li>&#x9A71;&#x52A8;&#x628A;virtio_blk_req&#x653E;&#x5230;virtqueues, layout&#x5982;&#x4E0B;  <pre><code class="lang-c">struct virtio_blk_req { 
-      le32 type; //io&#x6709;&#x5F88;&#x591A;&#x79CD;&#x64CD;&#x4F5C;, &#x8BFB;/&#x5199;/flush/erase&#x7B49;&#x7B49;
-      le32 reserved; 
-      le64 sector; 
-      u8 data[]; 
-      u8 status; 
-};
+<li>&#x9A71;&#x52A8;&#x628A;virtio_blk_req&#x653E;&#x5230;virtqueues, layout&#x5982;&#x4E0B;  <pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_blk_req</span> <span class="token punctuation">{</span> 
+      le32 type<span class="token punctuation">;</span> <span class="token comment">//io&#x6709;&#x5F88;&#x591A;&#x79CD;&#x64CD;&#x4F5C;, &#x8BFB;/&#x5199;/flush/erase&#x7B49;&#x7B49;</span>
+      le32 reserved<span class="token punctuation">;</span> 
+      le64 sector<span class="token punctuation">;</span> 
+      u8 data<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span> 
+      u8 status<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 </li>
-<li>configuration layout  <pre><code class="lang-c">struct virtio_blk_config { 
-      le64 capacity; 
-      le32 size_max; 
-      le32 seg_max; 
-      struct virtio_blk_geometry { 
-              le16 cylinders; 
-              u8 heads; 
-              u8 sectors; 
-      } geometry; 
-      le32 blk_size; 
-      struct virtio_blk_topology { 
-              // # of logical blocks per physical block (log2) 
-              u8 physical_block_exp; 
-              // offset of first aligned logical block 
-              u8 alignment_offset; 
-              // suggested minimum I/O size in blocks 
-              le16 min_io_size; 
-              // optimal (suggested maximum) I/O size in blocks 
-              le32 opt_io_size; 
-      } topology; 
-      u8 writeback; 
-      u8 unused0; 
-      u16 num_queues; 
-      le32 max_discard_sectors; 
-      le32 max_discard_seg; 
-      le32 discard_sector_alignment; 
-      le32 max_write_zeroes_sectors; 
-      le32 max_write_zeroes_seg; 
-      u8 write_zeroes_may_unmap; 
-      u8 unused1[3]; 
-      le32 max_secure_erase_sectors; 
-      le32 max_secure_erase_seg; 
-      le32 secure_erase_sector_alignment; 
-};
+<li>configuration layout  <pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_blk_config</span> <span class="token punctuation">{</span> 
+      le64 capacity<span class="token punctuation">;</span> 
+      le32 size_max<span class="token punctuation">;</span> 
+      le32 seg_max<span class="token punctuation">;</span> 
+      <span class="token keyword">struct</span> <span class="token class-name">virtio_blk_geometry</span> <span class="token punctuation">{</span> 
+              le16 cylinders<span class="token punctuation">;</span> 
+              u8 heads<span class="token punctuation">;</span> 
+              u8 sectors<span class="token punctuation">;</span> 
+      <span class="token punctuation">}</span> geometry<span class="token punctuation">;</span> 
+      le32 blk_size<span class="token punctuation">;</span> 
+      <span class="token keyword">struct</span> <span class="token class-name">virtio_blk_topology</span> <span class="token punctuation">{</span> 
+              <span class="token comment">// # of logical blocks per physical block (log2) </span>
+              u8 physical_block_exp<span class="token punctuation">;</span> 
+              <span class="token comment">// offset of first aligned logical block </span>
+              u8 alignment_offset<span class="token punctuation">;</span> 
+              <span class="token comment">// suggested minimum I/O size in blocks </span>
+              le16 min_io_size<span class="token punctuation">;</span> 
+              <span class="token comment">// optimal (suggested maximum) I/O size in blocks </span>
+              le32 opt_io_size<span class="token punctuation">;</span> 
+      <span class="token punctuation">}</span> topology<span class="token punctuation">;</span> 
+      u8 writeback<span class="token punctuation">;</span> 
+      u8 unused0<span class="token punctuation">;</span> 
+      u16 num_queues<span class="token punctuation">;</span> 
+      le32 max_discard_sectors<span class="token punctuation">;</span> 
+      le32 max_discard_seg<span class="token punctuation">;</span> 
+      le32 discard_sector_alignment<span class="token punctuation">;</span> 
+      le32 max_write_zeroes_sectors<span class="token punctuation">;</span> 
+      le32 max_write_zeroes_seg<span class="token punctuation">;</span> 
+      u8 write_zeroes_may_unmap<span class="token punctuation">;</span> 
+      u8 unused1<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span> 
+      le32 max_secure_erase_sectors<span class="token punctuation">;</span> 
+      le32 max_secure_erase_seg<span class="token punctuation">;</span> 
+      le32 secure_erase_sector_alignment<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 </li>
 </ul>
@@ -3394,14 +3391,14 @@ All register values are organized as Little Endian.
 <li>Available Ring - occupies the Driver Area, &#x53EA;&#x53EF;driver&#x5199;</li>
 <li>Used Ring - occupies the Device Area, &#x53EA;&#x53EF;device&#x5199;</li>
 </ul>
-<pre><code class="lang-c">//&#x4EE3;&#x7801;: linux/include/uapi/linux/virtio_ring.h
-struct vring {
- unsigned int num;
- struct vring_desc *desc;
- struct vring_avail *avail;
- struct vring_used *used;
-};
-/* The standard layout for the ring is a continuous chunk of memory which looks
+<pre class="language-"><code class="lang-c"><span class="token comment">//&#x4EE3;&#x7801;: linux/include/uapi/linux/virtio_ring.h</span>
+<span class="token keyword">struct</span> <span class="token class-name">vring</span> <span class="token punctuation">{</span>
+ <span class="token keyword">unsigned</span> <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+ <span class="token keyword">struct</span> <span class="token class-name">vring_desc</span> <span class="token operator">*</span>desc<span class="token punctuation">;</span>
+ <span class="token keyword">struct</span> <span class="token class-name">vring_avail</span> <span class="token operator">*</span>avail<span class="token punctuation">;</span>
+ <span class="token keyword">struct</span> <span class="token class-name">vring_used</span> <span class="token operator">*</span>used<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">/* The standard layout for the ring is a continuous chunk of memory which looks
  * like this. We assume num is a power of 2.
  *
  * struct vring
@@ -3424,7 +3421,7 @@ struct vring {
  * struct vring_used_elem used[num];
  * __virtio16 avail_event_idx;
  * };
- */
+ */</span>
 </code></pre>
 <h2 id="queue&#x7684;&#x64CD;&#x4F5C;"><a name="queue&#x7684;&#x64CD;&#x4F5C;" class="anchor-navigation-ex-anchor" href="#queue&#x7684;&#x64CD;&#x4F5C;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. queue&#x7684;&#x64CD;&#x4F5C;</h2>
 <p>&#x6BD4;&#x5982;NIC&#x9A71;&#x52A8;, &#x6709;&#x4E24;&#x4E2A;&#x961F;&#x5217;: &#x53D1;&#x9001;&#x961F;&#x5217;(transmit virtqueue)&#x548C;&#x63A5;&#x6536;&#x961F;&#x5217;(receive virtqueue)<br>driver&#x628A;&#x51FA;&#x62A5;&#x6587;&#x52A0;&#x5230;&#x53D1;&#x9001;&#x961F;&#x5217;, &#x5728;&#x62A5;&#x6587;buffer&#x88AB;device&#x4F7F;&#x7528;&#x5B8C;&#x540E;&#x518D;free&#x62A5;&#x6587;buffer<br>device&#x628A;&#x5165;&#x62A5;&#x6587;&#x52A0;&#x5230;&#x63A5;&#x6536;&#x961F;&#x5217;; &#x66F4;&#x65B0;used index, &#x540E;&#x9762;driver&#x518D;&#x5904;&#x7406;.<br><img src="img/virtualization_virtio&#x89C4;&#x8303;&#x9605;&#x8BFB;&#x7B14;&#x8BB0;_20221006225325.png" alt="">  </p>
@@ -3460,29 +3457,29 @@ struct vring {
 packed queue&#x6700;&#x5927;&#x652F;&#x6301;32768&#x4E2A;entry
 &#x4E5F;&#x6709;&#x4E09;&#x90E8;&#x5206;: </p>
 <ul>
-<li>descriptor ring - &#x63CF;&#x8FF0;&#x7B26;&#x533A;<pre><code class="lang-c">struct pvirtq_desc {
-  /* Buffer Address. */
-  le64 addr;
-  /* Buffer Length. */
-  le32 len;
-  /* Buffer ID. */
-  le16 id;
-  /* The flags depending on descriptor type. */
-  le16 flags;
-};
+<li>descriptor ring - &#x63CF;&#x8FF0;&#x7B26;&#x533A;<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">pvirtq_desc</span> <span class="token punctuation">{</span>
+  <span class="token comment">/* Buffer Address. */</span>
+  le64 addr<span class="token punctuation">;</span>
+  <span class="token comment">/* Buffer Length. */</span>
+  le32 len<span class="token punctuation">;</span>
+  <span class="token comment">/* Buffer ID. */</span>
+  le16 id<span class="token punctuation">;</span>
+  <span class="token comment">/* The flags depending on descriptor type. */</span>
+  le16 flags<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 </li>
 <li>driver event suppression - driver&#x5199;, device&#x8BFB;; &#x63A7;&#x5236;device&#x53D1;used buffer&#x901A;&#x77E5;&#x7684;&#x9891;&#x7387;? &#x51CF;&#x5C0F;&#x901A;&#x77E5;&#x53D1;&#x9001;&#x6B21;&#x6570;</li>
-<li>device event suppression - device&#x5199;, driver&#x8BFB;; &#x63A7;&#x5236;driver&#x53D1;available buffer&#x901A;&#x77E5;&#x7684;&#x9891;&#x7387;? &#x51CF;&#x5C0F;&#x901A;&#x77E5;&#x53D1;&#x9001;&#x6B21;&#x6570;<pre><code class="lang-c">struct pvirtq_event_suppress {
-  le16 {
-      desc_event_off : 15; /* Descriptor Ring Change Event Offset */
-      desc_event_wrap : 1; /* Descriptor Ring Change Event Wrap Counter */
-  } desc; /* If desc_event_flags set to RING_EVENT_FLAGS_DESC */
-  le16 {
-      desc_event_flags : 2, /* Descriptor Ring Change Event Flags */
-      reserved : 14; /* Reserved, set to 0 */
-  } flags;
-};
+<li>device event suppression - device&#x5199;, driver&#x8BFB;; &#x63A7;&#x5236;driver&#x53D1;available buffer&#x901A;&#x77E5;&#x7684;&#x9891;&#x7387;? &#x51CF;&#x5C0F;&#x901A;&#x77E5;&#x53D1;&#x9001;&#x6B21;&#x6570;<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">pvirtq_event_suppress</span> <span class="token punctuation">{</span>
+  le16 <span class="token punctuation">{</span>
+      desc_event_off <span class="token operator">:</span> <span class="token number">15</span><span class="token punctuation">;</span> <span class="token comment">/* Descriptor Ring Change Event Offset */</span>
+      desc_event_wrap <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">/* Descriptor Ring Change Event Wrap Counter */</span>
+  <span class="token punctuation">}</span> desc<span class="token punctuation">;</span> <span class="token comment">/* If desc_event_flags set to RING_EVENT_FLAGS_DESC */</span>
+  le16 <span class="token punctuation">{</span>
+      desc_event_flags <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token comment">/* Descriptor Ring Change Event Flags */</span>
+      reserved <span class="token operator">:</span> <span class="token number">14</span><span class="token punctuation">;</span> <span class="token comment">/* Reserved, set to 0 */</span>
+  <span class="token punctuation">}</span> flags<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 </li>
 </ul>
@@ -3537,11 +3534,10 @@ packed queue&#x6700;&#x5927;&#x652F;&#x6301;32768&#x4E2A;entry
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"virtio规范阅读笔记.md","level":"1.13.3","depth":2,"next":{"title":"qemu OVS 虚拟化环境准备","level":"1.13.4","depth":2,"path":"notes/qemu_ovs_虚拟化环境.md","ref":"notes/qemu_ovs_虚拟化环境.md","articles":[]},"previous":{"title":"cloud hypervisor问题与解决","level":"1.13.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/virtualization_virtio规范阅读笔记.md","mtime":"2022-10-11T15:10:43.018Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"virtio规范阅读笔记.md","level":"1.13.3","depth":2,"next":{"title":"qemu OVS 虚拟化环境准备","level":"1.13.4","depth":2,"path":"notes/qemu_ovs_虚拟化环境.md","ref":"notes/qemu_ovs_虚拟化环境.md","articles":[]},"previous":{"title":"cloud hypervisor问题与解决","level":"1.13.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/virtualization_virtio规范阅读笔记.md","mtime":"2022-10-11T15:39:07.962Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3580,7 +3576,6 @@ packed queue&#x6700;&#x5927;&#x652F;&#x6301;32768&#x4E2A;entry
         
     
 
-        
     </body>
 </html>
 

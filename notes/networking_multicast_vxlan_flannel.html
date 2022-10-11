@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2913,7 +2910,7 @@
 <a href="http://www.steves-internet-guide.com/introduction-multicasting/" target="_blank">http://www.steves-internet-guide.com/introduction-multicasting/</a></p>
 <h2 id="&#x7EC4;&#x64AD;&#x7F51;&#x6BB5;"><a name="&#x7EC4;&#x64AD;&#x7F51;&#x6BB5;" class="anchor-navigation-ex-anchor" href="#&#x7EC4;&#x64AD;&#x7F51;&#x6BB5;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x7EC4;&#x64AD;&#x7F51;&#x6BB5;</h2>
 <p>ipv4&#x91CC;&#x9762;, &#x4F20;&#x7EDF;&#x4E0A;&#x5206;&#x4E3A;A B C D&#x7C7B;&#x5730;&#x5740;, &#x7EC4;&#x64AD;&#x5C5E;&#x4E8E;D&#x7C7B;:</p>
-<pre><code>   Bit --&gt;  0                           31            Address Range:
+<pre class="language-"><code>   Bit --&gt;  0                           31            Address Range:
            +-+----------------------------+
            |0|       Class A Address      |       0.0.0.0 - 127.255.255.255
            +-+----------------------------+
@@ -2951,34 +2948,34 @@
 <p><img src="img/networking_multicast_vxlan_flannel_20221006232434.png" alt="">  </p>
 <h1 id="vxlan&#x4ECB;&#x7ECD;"><a name="vxlan&#x4ECB;&#x7ECD;" class="anchor-navigation-ex-anchor" href="#vxlan&#x4ECB;&#x7ECD;"><i class="fa fa-link" aria-hidden="true"></i></a>2. vxlan&#x4ECB;&#x7ECD;</h1>
 <p>vxlan&#x662F;&#x4E00;&#x79CD;overlay&#x7684;&#x7F51;&#x7EDC;&#x6280;&#x672F;, &#x5728;udp&#x4E4B;&#x4E0A;&#x5C01;&#x88C5;&#x4E86;vxlan&#x7684;&#x62A5;&#x6587;, &#x901A;&#x8FC7;ip&#x5C42;&#x4F20;&#x8F93;, &#x7EC4;&#x6210;&#x4E00;&#x4E2A;&#x8DE8;&#x7F51;&#x7EDC;&#x7684;L2&#x5B50;&#x7F51;.</p>
-<pre><code class="lang-sh">#&#x5728;eth0&#x63A5;&#x53E3;(&#x6211;&#x8FD9;&#x91CC;&#x662F;192.168.0.14)&#x7684;udp port&#x4E0A;&#x5EFA;&#x7ACB;vxlan0
-#&#x4E0A;&#x5C42;&#x6765;&#x7684;&#x5230;vxlan0&#x7684;&#x62A5;&#x6587;&#x4F1A;&#x88AB;&#x52A0;&#x4E0A;&#x5916;&#x5C42;L2, src ip&#x662F;192.168.0.14, dst port&#x662F;4789
-#kernel&#x63A5;&#x6536;&#x5230;dst port&#x662F;4789&#x7684;udp&#x62A5;&#x6587;, &#x4F1A;&#x88AB;kernel&quot;&#x53D1;&#x9001;&#x5230;&quot;&#x8FD9;&#x4E2A;vxlan0&#x63A5;&#x53E3;
-sudo ip link add vxlan0 type vxlan id 42 dev eth0 dstport 4789
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x5728;eth0&#x63A5;&#x53E3;(&#x6211;&#x8FD9;&#x91CC;&#x662F;192.168.0.14)&#x7684;udp port&#x4E0A;&#x5EFA;&#x7ACB;vxlan0</span>
+<span class="token comment">#&#x4E0A;&#x5C42;&#x6765;&#x7684;&#x5230;vxlan0&#x7684;&#x62A5;&#x6587;&#x4F1A;&#x88AB;&#x52A0;&#x4E0A;&#x5916;&#x5C42;L2, src ip&#x662F;192.168.0.14, dst port&#x662F;4789</span>
+<span class="token comment">#kernel&#x63A5;&#x6536;&#x5230;dst port&#x662F;4789&#x7684;udp&#x62A5;&#x6587;, &#x4F1A;&#x88AB;kernel&quot;&#x53D1;&#x9001;&#x5230;&quot;&#x8FD9;&#x4E2A;vxlan0&#x63A5;&#x53E3;</span>
+<span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token function">add</span> vxlan0 <span class="token builtin class-name">type</span> vxlan <span class="token function">id</span> <span class="token number">42</span> dev eth0 dstport <span class="token number">4789</span>
 
-1. Create vxlan device
- # ip link add vxlan0 type vxlan id 42 group 239.1.1.1 dev eth1 dstport 4789
+<span class="token number">1</span>. Create vxlan device
+ <span class="token comment"># ip link add vxlan0 type vxlan id 42 group 239.1.1.1 dev eth1 dstport 4789</span>
 
 This creates a new device named vxlan0.  The device uses the multicast
-group 239.1.1.1 over eth1 to handle traffic for which there is no
-entry in the forwarding table.  The destination port number is set to
-the IANA-assigned value of 4789.  The Linux implementation of VXLAN
+group <span class="token number">239.1</span>.1.1 over eth1 to handle traffic <span class="token keyword">for</span> <span class="token function">which</span> there is no
+entry <span class="token keyword">in</span> the forwarding table.  The destination port number is <span class="token builtin class-name">set</span> to
+the IANA-assigned value of <span class="token number">4789</span>.  The Linux implementation of VXLAN
 pre-dates the IANA&apos;s selection of a standard destination port number
 and uses the Linux-selected value by default to maintain backwards
 compatibility.
 
-# Delete vxlan device
-ip link delete vxlan0
+<span class="token comment"># Delete vxlan device</span>
+<span class="token function">ip</span> <span class="token function">link</span> delete vxlan0
 
-# Show vxlan info
-ip -d link show vxlan0
+<span class="token comment"># Show vxlan info</span>
+<span class="token function">ip</span> <span class="token parameter variable">-d</span> <span class="token function">link</span> show vxlan0
 
-# &#x7528;bridge&#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x67E5;&#x770B;vxlan0&#x7684;&#x8F6C;&#x53D1;&#x8868;
+<span class="token comment"># &#x7528;bridge&#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x67E5;&#x770B;vxlan0&#x7684;&#x8F6C;&#x53D1;&#x8868;</span>
 bridge fdb show dev vxlan0
 
-# &#x8F6C;&#x53D1;&#x8868;fdb&#x53EF;&#x4EE5;add&#x548C;remove
-# bridge fdb add &lt;remote_host_mac&gt; dev &lt;vxlan_interface&gt; dst &lt;remote_host_ip&gt;
-bridge fdb add to 00:17:42:8a:b4:05 dst 192.19.0.2 dev vxlan0
+<span class="token comment"># &#x8F6C;&#x53D1;&#x8868;fdb&#x53EF;&#x4EE5;add&#x548C;remove</span>
+<span class="token comment"># bridge fdb add &lt;remote_host_mac&gt; dev &lt;vxlan_interface&gt; dst &lt;remote_host_ip&gt;</span>
+bridge fdb <span class="token function">add</span> to 00:17:42:8a:b4:05 dst <span class="token number">192.19</span>.0.2 dev vxlan0
 bridge fdb delete 00:17:42:8a:b4:05 dev vxlan0
 </code></pre>
 <p>&#x8FD9;&#x91CC;&#x7684;vxlan0&#x5C31;&#x662F;VTEP</p>
@@ -3049,33 +3046,33 @@ bridge fdb delete 00:17:42:8a:b4:05 dev vxlan0
 <p>&#x800C;k8s&#x7684;&#x6BCF;&#x4E2A;pod&#x90FD;&#x6709;&#x72EC;&#x7ACB;&#x7684;IP, &#x5185;&#x90E8;container&#x7684;port&#x80FD;&#x76F4;&#x63A5;&#x4F5C;&#x7528;&#x5728;&#x8FD9;&#x4E2A;IP&#x4E0A;, &#x800C;&#x4E14;&#x8FD9;&#x4E2A;IP&#x53EF;&#x4EE5;&#x88AB;&#x96C6;&#x7FA4;&#x5185;&#x90E8;&#x8BBF;&#x95EE;&#x5230;.</p>
 <h2 id="&#x5728;&#x96C6;&#x7FA4;&#x7684;&#x6241;&#x5E73;&#x7F51;&#x7EDC;&#x91CC;run-nginx-pods-&#x76F4;&#x63A5;ipport&#x8BBF;&#x95EE;"><a name="&#x5728;&#x96C6;&#x7FA4;&#x7684;&#x6241;&#x5E73;&#x7F51;&#x7EDC;&#x91CC;run-nginx-pods-&#x76F4;&#x63A5;ipport&#x8BBF;&#x95EE;" class="anchor-navigation-ex-anchor" href="#&#x5728;&#x96C6;&#x7FA4;&#x7684;&#x6241;&#x5E73;&#x7F51;&#x7EDC;&#x91CC;run-nginx-pods-&#x76F4;&#x63A5;ipport&#x8BBF;&#x95EE;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x5728;&#x96C6;&#x7FA4;&#x7684;&#x6241;&#x5E73;&#x7F51;&#x7EDC;&#x91CC;run nginx pods, &#x76F4;&#x63A5;ip:port&#x8BBF;&#x95EE;</h2>
 <p>&#x7528;&#x4E0B;&#x9762;&#x7684;yaml <code>run-my-nginx.yaml</code></p>
-<pre><code class="lang-yaml">apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: my-nginx
-spec:
-  selector:
-    matchLabels:
-      run: my-nginx
-  replicas: 2
-  template:
-    metadata:
-      labels:
-        run: my-nginx
-    spec:
-      containers:
-      - name: my-nginx
-        image: nginx
-        ports:
-        - containerPort: 80
+<pre class="language-"><code class="lang-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">run</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">2</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
 </code></pre>
 <p>&#x5F00;&#x542F;&#x4E24;&#x4E2A;nginx&#x7684;pod, &#x6BCF;&#x4E2A;pod&#x90FD;&#x6709;&#x72EC;&#x7ACB;IP, &#x800C;&#x4E14;&#x90FD;&#x4F7F;&#x7528;&#x76F8;&#x540C;&#x7684;80&#x7AEF;&#x53E3;</p>
-<pre><code class="lang-sh">kubectl apply -f ./run-my-nginx.yaml
-kubectl get pods -l run=my-nginx -o wide
+<pre class="language-"><code class="lang-sh">kubectl apply <span class="token parameter variable">-f</span> ./run-my-nginx.yaml
+kubectl get pods <span class="token parameter variable">-l</span> <span class="token assign-left variable">run</span><span class="token operator">=</span>my-nginx <span class="token parameter variable">-o</span> wide
 
 NAME                        READY     STATUS    RESTARTS   AGE       IP            NODE
-my-nginx-3800858182-jr4a2   1/1       Running   0          13s       10.244.3.4    kubernetes-minion-905m
-my-nginx-3800858182-kna2y   1/1       Running   0          13s       10.244.2.5    kubernetes-minion-ljyd
+my-nginx-3800858182-jr4a2   <span class="token number">1</span>/1       Running   <span class="token number">0</span>          13s       <span class="token number">10.244</span>.3.4    kubernetes-minion-905m
+my-nginx-3800858182-kna2y   <span class="token number">1</span>/1       Running   <span class="token number">0</span>          13s       <span class="token number">10.244</span>.2.5    kubernetes-minion-ljyd
 </code></pre>
 <h2 id="&#x4F7F;&#x7528;service&#x6765;&#x5904;&#x7406;ip&#x53D8;&#x5316;"><a name="&#x4F7F;&#x7528;service&#x6765;&#x5904;&#x7406;ip&#x53D8;&#x5316;" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;service&#x6765;&#x5904;&#x7406;ip&#x53D8;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x4F7F;&#x7528;service&#x6765;&#x5904;&#x7406;IP&#x53D8;&#x5316;</h2>
 <p>&#x8BBE;&#x60F3;&#x4E00;&#x4E2A;&#x573A;&#x666F;, &#x6211;&#x7528;pod ip:80&#x8BBF;&#x95EE;&#x4E00;&#x4E2A;nginx&#x597D;&#x597D;&#x7684;, &#x4F46;&#x7A81;&#x7136;node&#x6302;&#x4E86;, &#x91CC;&#x9762;&#x7684;pods&#x4E5F;&#x6302;&#x4E86;, k8s&#x91CD;&#x65B0;&#x62C9;&#x8D77;&#x6765;&#x65B0;&#x7684;pods, &#x4F46;IP&#x53D8;&#x4E86;. &#x6211;&#x8BE5;&#x600E;&#x4E48;&#x7EE7;&#x7EED;&#x8BBF;&#x95EE;?</p>
@@ -3087,41 +3084,41 @@ my-nginx-3800858182-kna2y   1/1       Running   0          13s       10.244.2.5 
 &#x7528;&#x547D;&#x4EE4;:
 <code>kubectl expose deployment/my-nginx</code>
 &#x6216;&#x8005;<code>kubectl apply -f</code>&#x4E0B;&#x9762;&#x7684;yaml</p>
-<pre><code class="lang-yaml">apiVersion: v1
-kind: Service
-metadata:
-  name: my-nginx
-  labels:
-    run: my-nginx
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-  selector:
-    run: my-nginx
+<pre class="language-"><code class="lang-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">run</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">run</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>nginx
 </code></pre>
 <p>&#x67E5;&#x770B;svc</p>
-<pre><code class="lang-sh"># kubectl get svc my-nginx
-NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
-my-nginx   ClusterIP   10.0.162.149   &lt;none&gt;        80/TCP    21s
+<pre class="language-"><code class="lang-sh"><span class="token comment"># kubectl get svc my-nginx</span>
+NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>   AGE
+my-nginx   ClusterIP   <span class="token number">10.0</span>.162.149   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">80</span>/TCP    21s
 </code></pre>
 <p>&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;:</p>
-<pre><code class="lang-sh"># kubectl describe svc my-nginx
+<pre class="language-"><code class="lang-sh"><span class="token comment"># kubectl describe svc my-nginx</span>
 Name:                my-nginx
 Namespace:           default
-Labels:              run=my-nginx
-Annotations:         &lt;none&gt;
-Selector:            run=my-nginx
+Labels:              <span class="token assign-left variable">run</span><span class="token operator">=</span>my-nginx
+Annotations:         <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Selector:            <span class="token assign-left variable">run</span><span class="token operator">=</span>my-nginx
 Type:                ClusterIP
-IP:                  10.0.162.149
-Port:                &lt;unset&gt; 80/TCP
-Endpoints:           10.244.2.5:80,10.244.3.4:80
+IP:                  <span class="token number">10.0</span>.162.149
+Port:                <span class="token operator">&lt;</span>unset<span class="token operator">&gt;</span> <span class="token number">80</span>/TCP
+Endpoints:           <span class="token number">10.244</span>.2.5:80,10.244.3.4:80
 Session Affinity:    None
-Events:              &lt;none&gt;
+Events:              <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
 
-# kubectl get ep my-nginx
+<span class="token comment"># kubectl get ep my-nginx</span>
 NAME       ENDPOINTS                     AGE
-my-nginx   10.244.2.5:80,10.244.3.4:80   1m
+my-nginx   <span class="token number">10.244</span>.2.5:80,10.244.3.4:80   1m
 </code></pre>
 <p>&#x9700;&#x8981;&#x8BF4;&#x660E;&#x7684;&#x662F;, service&#x7684;IP&#x662F;&#x865A;&#x62DF;&#x7684;, &#x8BE6;&#x89C1;<a href="https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies" target="_blank">service proxy</a></p>
 <h1 id="flannel&#x4F7F;&#x7528;vxlan&#x505A;backend"><a name="flannel&#x4F7F;&#x7528;vxlan&#x505A;backend" class="anchor-navigation-ex-anchor" href="#flannel&#x4F7F;&#x7528;vxlan&#x505A;backend"><i class="fa fa-link" aria-hidden="true"></i></a>4. flannel&#x4F7F;&#x7528;vxlan&#x505A;backend</h1>
@@ -3177,51 +3174,51 @@ Then, as each remote host is discovered (either on startup or when they are adde
 </ol>
 <p>In this scheme the scaling of table entries is linear to the number of remote hosts - 1 route, 1 arp entry and 1 FDB entry per host</p>
 <h3 id="&#x521B;&#x5EFA;vxlan&#x8BBE;&#x5907;"><a name="&#x521B;&#x5EFA;vxlan&#x8BBE;&#x5907;" class="anchor-navigation-ex-anchor" href="#&#x521B;&#x5EFA;vxlan&#x8BBE;&#x5907;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1.2. &#x521B;&#x5EFA;vxlan&#x8BBE;&#x5907;</h3>
-<pre><code class="lang-go">    if config.EnableIPv4 {
-        devAttrs := vxlanDeviceAttrs{
-            vni:       uint32(cfg.VNI),
-            name:      fmt.Sprintf(&quot;flannel.%v&quot;, cfg.VNI),
-            vtepIndex: be.extIface.Iface.Index,
-            vtepAddr:  be.extIface.IfaceAddr,
-            vtepPort:  cfg.Port,
-            gbp:       cfg.GBP,
-            learning:  cfg.Learning,
-        }
+<pre class="language-"><code class="lang-go">    <span class="token keyword">if</span> config<span class="token punctuation">.</span>EnableIPv4 <span class="token punctuation">{</span>
+        devAttrs <span class="token operator">:=</span> vxlanDeviceAttrs<span class="token punctuation">{</span>
+            vni<span class="token punctuation">:</span>       <span class="token function">uint32</span><span class="token punctuation">(</span>cfg<span class="token punctuation">.</span>VNI<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            name<span class="token punctuation">:</span>      fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;flannel.%v&quot;</span><span class="token punctuation">,</span> cfg<span class="token punctuation">.</span>VNI<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            vtepIndex<span class="token punctuation">:</span> be<span class="token punctuation">.</span>extIface<span class="token punctuation">.</span>Iface<span class="token punctuation">.</span>Index<span class="token punctuation">,</span>
+            vtepAddr<span class="token punctuation">:</span>  be<span class="token punctuation">.</span>extIface<span class="token punctuation">.</span>IfaceAddr<span class="token punctuation">,</span>
+            vtepPort<span class="token punctuation">:</span>  cfg<span class="token punctuation">.</span>Port<span class="token punctuation">,</span>
+            gbp<span class="token punctuation">:</span>       cfg<span class="token punctuation">.</span>GBP<span class="token punctuation">,</span>
+            learning<span class="token punctuation">:</span>  cfg<span class="token punctuation">.</span>Learning<span class="token punctuation">,</span>
+        <span class="token punctuation">}</span>
 
-        //&#x8C03;&#x7528;netlink&#x5305;&#x521B;&#x5EFA;vxlan
-        dev, err = newVXLANDevice(&amp;devAttrs)
-        if err != nil {
-            return nil, err
-        }
-        dev.directRouting = cfg.DirectRouting
-    }
+        <span class="token comment">//&#x8C03;&#x7528;netlink&#x5305;&#x521B;&#x5EFA;vxlan</span>
+        dev<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">newVXLANDevice</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>devAttrs<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+        <span class="token punctuation">}</span>
+        dev<span class="token punctuation">.</span>directRouting <span class="token operator">=</span> cfg<span class="token punctuation">.</span>DirectRouting
+    <span class="token punctuation">}</span>
 </code></pre>
 <p>vxlan&#x8BBE;&#x5907;&#x63D0;&#x4F9B;AddFDB()&#x548C;DelFDB()&#x7B49;API&#x6765;&#x7BA1;&#x7406;&#x8F6C;&#x53D1;&#x8868;.</p>
-<pre><code class="lang-go">func (dev *vxlanDevice) AddFDB(n neighbor) error {
-    log.V(4).Infof(&quot;calling AddFDB: %v, %v&quot;, n.IP, n.MAC)
-    return netlink.NeighSet(&amp;netlink.Neigh{
-        LinkIndex:    dev.link.Index,
-        State:        netlink.NUD_PERMANENT,
-        Family:       syscall.AF_BRIDGE,
-        Flags:        netlink.NTF_SELF,
-        IP:           n.IP.ToIP(),
-        HardwareAddr: n.MAC,
-    })
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>dev <span class="token operator">*</span>vxlanDevice<span class="token punctuation">)</span> <span class="token function">AddFDB</span><span class="token punctuation">(</span>n neighbor<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;calling AddFDB: %v, %v&quot;</span><span class="token punctuation">,</span> n<span class="token punctuation">.</span>IP<span class="token punctuation">,</span> n<span class="token punctuation">.</span>MAC<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> netlink<span class="token punctuation">.</span><span class="token function">NeighSet</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>netlink<span class="token punctuation">.</span>Neigh<span class="token punctuation">{</span>
+        LinkIndex<span class="token punctuation">:</span>    dev<span class="token punctuation">.</span>link<span class="token punctuation">.</span>Index<span class="token punctuation">,</span>
+        State<span class="token punctuation">:</span>        netlink<span class="token punctuation">.</span>NUD_PERMANENT<span class="token punctuation">,</span>
+        Family<span class="token punctuation">:</span>       syscall<span class="token punctuation">.</span>AF_BRIDGE<span class="token punctuation">,</span>
+        Flags<span class="token punctuation">:</span>        netlink<span class="token punctuation">.</span>NTF_SELF<span class="token punctuation">,</span>
+        IP<span class="token punctuation">:</span>           n<span class="token punctuation">.</span>IP<span class="token punctuation">.</span><span class="token function">ToIP</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        HardwareAddr<span class="token punctuation">:</span> n<span class="token punctuation">.</span>MAC<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h3 id="&#x7528;&#x5230;&#x7684;&#x5E93;"><a name="&#x7528;&#x5230;&#x7684;&#x5E93;" class="anchor-navigation-ex-anchor" href="#&#x7528;&#x5230;&#x7684;&#x5E93;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1.3. &#x7528;&#x5230;&#x7684;&#x5E93;</h3>
-<pre><code class="lang-go">import (
-    &quot;encoding/json&quot;
-    &quot;fmt&quot;
-    &quot;net&quot;
-    &quot;sync&quot;
+<pre class="language-"><code class="lang-go"><span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;encoding/json&quot;</span>
+    <span class="token string">&quot;fmt&quot;</span>
+    <span class="token string">&quot;net&quot;</span>
+    <span class="token string">&quot;sync&quot;</span>
 
-    &quot;github.com/flannel-io/flannel/backend&quot;
-    &quot;github.com/flannel-io/flannel/pkg/ip&quot;
-    &quot;github.com/flannel-io/flannel/subnet&quot;
-    &quot;golang.org/x/net/context&quot;
-    log &quot;k8s.io/klog&quot;
-)
+    <span class="token string">&quot;github.com/flannel-io/flannel/backend&quot;</span>
+    <span class="token string">&quot;github.com/flannel-io/flannel/pkg/ip&quot;</span>
+    <span class="token string">&quot;github.com/flannel-io/flannel/subnet&quot;</span>
+    <span class="token string">&quot;golang.org/x/net/context&quot;</span>
+    log <span class="token string">&quot;k8s.io/klog&quot;</span>
+<span class="token punctuation">)</span>
 </code></pre>
 <h2 id="vxlan&#x5982;&#x4F55;broadcast"><a name="vxlan&#x5982;&#x4F55;broadcast" class="anchor-navigation-ex-anchor" href="#vxlan&#x5982;&#x4F55;broadcast"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. vxlan&#x5982;&#x4F55;broadcast</h2>
 <p><a href="https://techhub.hpe.com/eginfolib/networking/docs/switches/5710/5200-5004_vxlan_cg/content/517705095.htm" target="_blank">https://techhub.hpe.com/eginfolib/networking/docs/switches/5710/5200-5004_vxlan_cg/content/517705095.htm</a>
@@ -3232,7 +3229,7 @@ Then, as each remote host is discovered (either on startup or when they are adde
 <li>head end&#x65B9;&#x5F0F;</li>
 </ul>
 <p>We can replace multicast by head-end replication of BUM frames to a statically configured lists of remote VTEPs:</p>
-<pre><code>ip -6 link add vxlan100 type vxlan \
+<pre class="language-"><code>ip -6 link add vxlan100 type vxlan \
   id 100 \
   dstport 4789 \
   local 2001:db8:1::1
@@ -3291,11 +3288,10 @@ bridge fdb append 00:00:00:00:00:00 dev vxlan100 dst 2001:db8:3::1
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"multicast vxlan和flannel","level":"1.14.3.2","depth":3,"next":{"title":"virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV","level":"1.14.3.3","depth":3,"path":"notes/networking_virtio网络介绍.md","ref":"notes/networking_virtio网络介绍.md","articles":[]},"previous":{"title":"Connecting a veth device to tap","level":"1.14.3.1","depth":3,"path":"notes/networking_tc_filter_连接veth和tap.md","ref":"notes/networking_tc_filter_连接veth和tap.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/networking_multicast_vxlan_flannel.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"multicast vxlan和flannel","level":"1.14.3.2","depth":3,"next":{"title":"virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV","level":"1.14.3.3","depth":3,"path":"notes/networking_virtio网络介绍.md","ref":"notes/networking_virtio网络介绍.md","articles":[]},"previous":{"title":"Connecting a veth device to tap","level":"1.14.3.1","depth":3,"path":"notes/networking_tc_filter_连接veth和tap.md","ref":"notes/networking_tc_filter_连接veth和tap.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/networking_multicast_vxlan_flannel.md","mtime":"2022-10-11T15:39:07.950Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3334,7 +3330,6 @@ bridge fdb append 00:00:00:00:00:00 dev vxlan100 dst 2001:db8:3::1
         
     
 
-        
     </body>
 </html>
 

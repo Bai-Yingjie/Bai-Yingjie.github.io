@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2870,146 +2867,146 @@
 <li><a href="#pktgen-lua&#x811A;&#x672C;">pktgen lua&#x811A;&#x672C;</a></li>
 </ul>
 <h1 id="pktgen-lua&#x811A;&#x672C;"><a name="pktgen-lua&#x811A;&#x672C;" class="anchor-navigation-ex-anchor" href="#pktgen-lua&#x811A;&#x672C;"><i class="fa fa-link" aria-hidden="true"></i></a>1. pktgen lua&#x811A;&#x672C;</h1>
-<pre><code class="lang-lua">package.path = package.path ..&quot;;?.lua;test/?.lua;app/?.lua;../?.lua&quot;
+<pre class="language-"><code class="lang-lua">package<span class="token punctuation">.</span>path <span class="token operator">=</span> package<span class="token punctuation">.</span>path <span class="token operator">..</span><span class="token string">&quot;;?.lua;test/?.lua;app/?.lua;../?.lua&quot;</span>
 
 
--- &#x52A0;&#x8F7D;Pktgen.lua, &#x8BE5;&#x6587;&#x4EF6;&#x4F4D;&#x4E8E;pktgen&#x6839;&#x76EE;&#x5F55;&#x4E0B;, &#x63D0;&#x4F9B;&#x4E00;&#x4E9B;&#x8F85;&#x52A9;&#x51FD;&#x6570;
-require &quot;Pktgen&quot;;
+<span class="token comment">-- &#x52A0;&#x8F7D;Pktgen.lua, &#x8BE5;&#x6587;&#x4EF6;&#x4F4D;&#x4E8E;pktgen&#x6839;&#x76EE;&#x5F55;&#x4E0B;, &#x63D0;&#x4F9B;&#x4E00;&#x4E9B;&#x8F85;&#x52A9;&#x51FD;&#x6570;</span>
+require <span class="token string">&quot;Pktgen&quot;</span><span class="token punctuation">;</span>
 
 
-function number2ip(number)
-    -- string.format&#x548C;printf&#x633A;&#x50CF;
-    local str=string.format(&quot;%08x&quot;, number);
-    -- &#x5206;&#x7EC4;&#x5339;&#x914D;, &#x8FDE;&#x7EED;&#x8D4B;&#x503C;&#x5F88;&#x8D5E;
-    local s4,s3,s2,s1 = str:match(&quot;(%x%x)(%x%x)(%x%x)(%x%x)&quot;);
-    -- ..&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x8FDE;&#x63A5;
-    return string.format(&quot;%d.%d.%d.%d&quot;, &quot;0x&quot;..s4,&quot;0x&quot;..s3,&quot;0x&quot;..s2,&quot;0x&quot;..s1);
-end
+<span class="token keyword">function</span> <span class="token function">number2ip</span><span class="token punctuation">(</span>number<span class="token punctuation">)</span>
+    <span class="token comment">-- string.format&#x548C;printf&#x633A;&#x50CF;</span>
+    <span class="token keyword">local</span> str<span class="token operator">=</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">&quot;%08x&quot;</span><span class="token punctuation">,</span> number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">-- &#x5206;&#x7EC4;&#x5339;&#x914D;, &#x8FDE;&#x7EED;&#x8D4B;&#x503C;&#x5F88;&#x8D5E;</span>
+    <span class="token keyword">local</span> s4<span class="token punctuation">,</span>s3<span class="token punctuation">,</span>s2<span class="token punctuation">,</span>s1 <span class="token operator">=</span> str<span class="token punctuation">:</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token string">&quot;(%x%x)(%x%x)(%x%x)(%x%x)&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">-- ..&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x8FDE;&#x63A5;</span>
+    <span class="token keyword">return</span> string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">&quot;%d.%d.%d.%d&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;0x&quot;</span><span class="token operator">..</span>s4<span class="token punctuation">,</span><span class="token string">&quot;0x&quot;</span><span class="token operator">..</span>s3<span class="token punctuation">,</span><span class="token string">&quot;0x&quot;</span><span class="token operator">..</span>s2<span class="token punctuation">,</span><span class="token string">&quot;0x&quot;</span><span class="token operator">..</span>s1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span>
 
 
-function number2mac(number)
-    local str=string.format(&quot;%012x&quot;, number);
-    local s6,s5,s4,s3,s2,s1 = str:match(&quot;(%x%x)(%x%x)(%x%x)(%x%x)(%x%x)(%x%x)&quot;);
-    return string.format(&quot;%s:%s:%s:%s:%s:%s&quot;, s6,s5,s4,s3,s2,s1);
-end
+<span class="token keyword">function</span> <span class="token function">number2mac</span><span class="token punctuation">(</span>number<span class="token punctuation">)</span>
+    <span class="token keyword">local</span> str<span class="token operator">=</span>string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">&quot;%012x&quot;</span><span class="token punctuation">,</span> number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">local</span> s6<span class="token punctuation">,</span>s5<span class="token punctuation">,</span>s4<span class="token punctuation">,</span>s3<span class="token punctuation">,</span>s2<span class="token punctuation">,</span>s1 <span class="token operator">=</span> str<span class="token punctuation">:</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token string">&quot;(%x%x)(%x%x)(%x%x)(%x%x)(%x%x)(%x%x)&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> string<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">&quot;%s:%s:%s:%s:%s:%s&quot;</span><span class="token punctuation">,</span> s6<span class="token punctuation">,</span>s5<span class="token punctuation">,</span>s4<span class="token punctuation">,</span>s3<span class="token punctuation">,</span>s2<span class="token punctuation">,</span>s1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span>
 
 
-function setFlow(port, pkt_size, nb_L2, nb_L3, nb_L4)
-    pktgen.range.ip_proto(port, &quot;udp&quot;);
+<span class="token keyword">function</span> <span class="token function">setFlow</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> pkt_size<span class="token punctuation">,</span> nb_L2<span class="token punctuation">,</span> nb_L3<span class="token punctuation">,</span> nb_L4<span class="token punctuation">)</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">ip_proto</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;udp&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-    pktgen.range.pkt_size(port, &quot;start&quot;, pkt_size);
-    pktgen.range.pkt_size(port, &quot;inc&quot;, 0);
-    pktgen.range.pkt_size(port, &quot;min&quot;, pkt_size);
-    pktgen.range.pkt_size(port, &quot;max&quot;, pkt_size);
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">pkt_size</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;start&quot;</span><span class="token punctuation">,</span> pkt_size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">pkt_size</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;inc&quot;</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">pkt_size</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;min&quot;</span><span class="token punctuation">,</span> pkt_size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">pkt_size</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;max&quot;</span><span class="token punctuation">,</span> pkt_size<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-    pktgen.range.dst_mac(port, &quot;inc&quot;, &quot;00:00:00:00:00:00&quot;);
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">dst_mac</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;inc&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;00:00:00:00:00:00&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-    pktgen.range.src_mac(port, &quot;start&quot;, &quot;00:00:00:00:00:01&quot;);
-    pktgen.range.src_mac(port, &quot;inc&quot;, &quot;00:00:00:00:00:01&quot;);
-    pktgen.range.src_mac(port, &quot;min&quot;, &quot;00:00:00:00:00:01&quot;);
-    pktgen.range.src_mac(port, &quot;max&quot;, number2mac(nb_L2));
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">src_mac</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;start&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;00:00:00:00:00:01&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">src_mac</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;inc&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;00:00:00:00:00:01&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">src_mac</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;min&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;00:00:00:00:00:01&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">src_mac</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;max&quot;</span><span class="token punctuation">,</span> <span class="token function">number2mac</span><span class="token punctuation">(</span>nb_L2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-    pktgen.range.dst_ip(port, &quot;start&quot;, &quot;0.0.0.1&quot;);
-    pktgen.range.dst_ip(port, &quot;inc&quot;, &quot;0.0.0.1&quot;);
-    pktgen.range.dst_ip(port, &quot;min&quot;, &quot;0.0.0.1&quot;);
-    pktgen.range.dst_ip(port, &quot;max&quot;, number2ip(nb_L3));
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">dst_ip</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;start&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;0.0.0.1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">dst_ip</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;inc&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;0.0.0.1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">dst_ip</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;min&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;0.0.0.1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">dst_ip</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;max&quot;</span><span class="token punctuation">,</span> <span class="token function">number2ip</span><span class="token punctuation">(</span>nb_L3<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-    pktgen.range.src_ip(port, &quot;inc&quot;, &quot;0.0.0.0&quot;);
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">src_ip</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;inc&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;0.0.0.0&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-    pktgen.range.dst_port(port, &quot;inc&quot;, 0);
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">dst_port</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;inc&quot;</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-    pktgen.range.src_port(port, &quot;start&quot;, 1);
-    pktgen.range.src_port(port, &quot;inc&quot;, 1);
-    pktgen.range.src_port(port, &quot;min&quot;, 1);
-    pktgen.range.src_port(port, &quot;max&quot;, nb_L4);
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">src_port</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;start&quot;</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">src_port</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;inc&quot;</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">src_port</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;min&quot;</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span>range<span class="token punctuation">.</span><span class="token function">src_port</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;max&quot;</span><span class="token punctuation">,</span> nb_L4<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    pktgen.set_range(port, &quot;on&quot;);
-end
-
-
--- run 64B signle flow 10s or 100000000 packets, full rate, log performance data to file &quot;whatever_64B_1L2-1L3-1L4_flow.data&quot;
--- runFlowTest(&quot;whatever&quot;, 0, 0, 100, 64, 1, 1, 1, 10, 100000000)
+    pktgen<span class="token punctuation">.</span><span class="token function">set_range</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">&quot;on&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span>
 
 
--- run from pktgen shell
--- Pktgen:/&gt; load /home/bai/repo/save/pktgen/range-flow.lua
--- Pktgen:/&gt; lua &apos;runFlowTest(&quot;single&quot;, 0, 0, 100, 64, 1, 1, 1, 10, 0)&apos;
--- Pktgen:/&gt; lua &apos;runFlowTest(&quot;single&quot;, 0, 0, 100, 64, 1, 1, 1, 0, 100000000)&apos;
--- Pktgen:/&gt; lua &apos;runFlowTest(&quot;multi&quot;, 0, 0, 100, 64, 2000, 128, 128, 10, 0)&apos;
+<span class="token comment">-- run 64B signle flow 10s or 100000000 packets, full rate, log performance data to file &quot;whatever_64B_1L2-1L3-1L4_flow.data&quot;</span>
+<span class="token comment">-- runFlowTest(&quot;whatever&quot;, 0, 0, 100, 64, 1, 1, 1, 10, 100000000)</span>
 
 
-function runFlowTest(mark, sendport, recvport, rate, pkt_size, nb_L2, nb_L3, nb_L4, duration, nb_pkts)  
-    sendport = tostring(sendport);
-    recvport = tostring(recvport);
-    local datafile = tostring(mark) .. &quot;_&quot; .. pkt_size .. &quot;B_&quot; .. nb_L2 .. &quot;L2-&quot; .. nb_L3 .. &quot;L3-&quot; .. nb_L4 .. &quot;L4_flow.data&quot;
-    local file = io.open(datafile, &quot;w&quot;);
+<span class="token comment">-- run from pktgen shell</span>
+<span class="token comment">-- Pktgen:/&gt; load /home/bai/repo/save/pktgen/range-flow.lua</span>
+<span class="token comment">-- Pktgen:/&gt; lua &apos;runFlowTest(&quot;single&quot;, 0, 0, 100, 64, 1, 1, 1, 10, 0)&apos;</span>
+<span class="token comment">-- Pktgen:/&gt; lua &apos;runFlowTest(&quot;single&quot;, 0, 0, 100, 64, 1, 1, 1, 0, 100000000)&apos;</span>
+<span class="token comment">-- Pktgen:/&gt; lua &apos;runFlowTest(&quot;multi&quot;, 0, 0, 100, 64, 2000, 128, 128, 10, 0)&apos;</span>
 
 
-    pktgen.stop(&quot;all&quot;);
-    pktgen.clr();
-    pktgen.set(sendport, &quot;rate&quot;, rate);
-    pktgen.set(sendport, &quot;count&quot;, nb_pkts);
-    pktgen.latency(&quot;all&quot;, &quot;enable&quot;);
+<span class="token keyword">function</span> <span class="token function">runFlowTest</span><span class="token punctuation">(</span>mark<span class="token punctuation">,</span> sendport<span class="token punctuation">,</span> recvport<span class="token punctuation">,</span> rate<span class="token punctuation">,</span> pkt_size<span class="token punctuation">,</span> nb_L2<span class="token punctuation">,</span> nb_L3<span class="token punctuation">,</span> nb_L4<span class="token punctuation">,</span> duration<span class="token punctuation">,</span> nb_pkts<span class="token punctuation">)</span>  
+    sendport <span class="token operator">=</span> <span class="token function">tostring</span><span class="token punctuation">(</span>sendport<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    recvport <span class="token operator">=</span> <span class="token function">tostring</span><span class="token punctuation">(</span>recvport<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">local</span> datafile <span class="token operator">=</span> <span class="token function">tostring</span><span class="token punctuation">(</span>mark<span class="token punctuation">)</span> <span class="token operator">..</span> <span class="token string">&quot;_&quot;</span> <span class="token operator">..</span> pkt_size <span class="token operator">..</span> <span class="token string">&quot;B_&quot;</span> <span class="token operator">..</span> nb_L2 <span class="token operator">..</span> <span class="token string">&quot;L2-&quot;</span> <span class="token operator">..</span> nb_L3 <span class="token operator">..</span> <span class="token string">&quot;L3-&quot;</span> <span class="token operator">..</span> nb_L4 <span class="token operator">..</span> <span class="token string">&quot;L4_flow.data&quot;</span>
+    <span class="token keyword">local</span> file <span class="token operator">=</span> io<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>datafile<span class="token punctuation">,</span> <span class="token string">&quot;w&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-    setFlow(sendport, pkt_size, nb_L2, nb_L3, nb_L4);
+    pktgen<span class="token punctuation">.</span><span class="token function">stop</span><span class="token punctuation">(</span><span class="token string">&quot;all&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span><span class="token function">clr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>sendport<span class="token punctuation">,</span> <span class="token string">&quot;rate&quot;</span><span class="token punctuation">,</span> rate<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>sendport<span class="token punctuation">,</span> <span class="token string">&quot;count&quot;</span><span class="token punctuation">,</span> nb_pkts<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span><span class="token function">latency</span><span class="token punctuation">(</span><span class="token string">&quot;all&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;enable&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-    pktgen.start(sendport);
-    print(&quot;Running flow test and collecting data to &quot; .. datafile);
-    -- local&#x5982;&#x679C;&#x5728;&#x4E0B;&#x9762;&#x7684;repeat&#x8BED;&#x53E5;&#x5757;&#x91CC;, &#x5C31;&#x53EA;&#x5728;&#x8BE5;&#x8BED;&#x53E5;&#x5757;&#x5185;&#x53EF;&#x89C1;;
-    local rateTx, rateRx;
-    -- lua&#x7684;table&#x5C31;&#x662F;shell&#x7684;&#x5173;&#x7CFB;&#x6570;&#x7EC4;, python&#x7684;map
+    <span class="token function">setFlow</span><span class="token punctuation">(</span>sendport<span class="token punctuation">,</span> pkt_size<span class="token punctuation">,</span> nb_L2<span class="token punctuation">,</span> nb_L3<span class="token punctuation">,</span> nb_L4<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    local ppsTxTable = {};
-    local ppsRxTable = {};
-    local i = 0;
-    repeat
-    pktgen.delay(1 * 1000);
-    rateTx = pktgen.portStats(sendport, &quot;rate&quot;)[tonumber(sendport)];
-    rateRx = pktgen.portStats(recvport, &quot;rate&quot;)[tonumber(recvport)];
-    i = i + 1;
-    -- lua&#x4ECE;1&#x5F00;&#x59CB;&#x8BA1;&#x6570;
-    ppsTxTable[i] = rateTx.pkts_tx;
-    ppsRxTable[i] = rateRx.pkts_rx;
-    until(i == duration or rateTx.pkts_tx == 0)
 
-    pktgen.stop(sendport);
+    pktgen<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span>sendport<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">&quot;Running flow test and collecting data to &quot;</span> <span class="token operator">..</span> datafile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">-- local&#x5982;&#x679C;&#x5728;&#x4E0B;&#x9762;&#x7684;repeat&#x8BED;&#x53E5;&#x5757;&#x91CC;, &#x5C31;&#x53EA;&#x5728;&#x8BE5;&#x8BED;&#x53E5;&#x5757;&#x5185;&#x53EF;&#x89C1;;</span>
+    <span class="token keyword">local</span> rateTx<span class="token punctuation">,</span> rateRx<span class="token punctuation">;</span>
+    <span class="token comment">-- lua&#x7684;table&#x5C31;&#x662F;shell&#x7684;&#x5173;&#x7CFB;&#x6570;&#x7EC4;, python&#x7684;map</span>
 
-    pktgen.delay(1 * 1000);
-    -- i//2&#x662F;&quot;&#x5730;&#x677F;&#x9664;&#x6CD5;&quot;, lua&#x6570;&#x5B57;&#x90FD;&#x662F;&#x6D6E;&#x70B9;, &#x6240;&#x4EE5;&#x4F7F;&#x7528;&quot;&#x5730;&#x677F;&#x9664;&#x6CD5;&quot;, &#x53EA;&#x4FDD;&#x7559;&#x6574;&#x6570;&#x90E8;&#x5206;. 
-    local ppsTx = ppsTxTable[i//2];
-    local ppsRx = ppsRxTable[i//2];
+    <span class="token keyword">local</span> ppsTxTable <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">local</span> ppsRxTable <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">local</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">repeat</span>
+    pktgen<span class="token punctuation">.</span><span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    rateTx <span class="token operator">=</span> pktgen<span class="token punctuation">.</span><span class="token function">portStats</span><span class="token punctuation">(</span>sendport<span class="token punctuation">,</span> <span class="token string">&quot;rate&quot;</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token function">tonumber</span><span class="token punctuation">(</span>sendport<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    rateRx <span class="token operator">=</span> pktgen<span class="token punctuation">.</span><span class="token function">portStats</span><span class="token punctuation">(</span>recvport<span class="token punctuation">,</span> <span class="token string">&quot;rate&quot;</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token function">tonumber</span><span class="token punctuation">(</span>recvport<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">-- lua&#x4ECE;1&#x5F00;&#x59CB;&#x8BA1;&#x6570;</span>
+    ppsTxTable<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> rateTx<span class="token punctuation">.</span>pkts_tx<span class="token punctuation">;</span>
+    ppsRxTable<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> rateRx<span class="token punctuation">.</span>pkts_rx<span class="token punctuation">;</span>
+    <span class="token keyword">until</span><span class="token punctuation">(</span>i <span class="token operator">==</span> duration <span class="token keyword">or</span> rateTx<span class="token punctuation">.</span>pkts_tx <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
 
-    local statTx = pktgen.portStats(sendport, &quot;port&quot;)[tonumber(sendport)];
-    local statRx = pktgen.portStats(recvport, &quot;port&quot;)[tonumber(recvport)];
-    local num_tx = statTx.opackets;
-    local num_rx = statRx.ipackets;
-    local num_dropped = num_tx - num_rx;
+    pktgen<span class="token punctuation">.</span><span class="token function">stop</span><span class="token punctuation">(</span>sendport<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    local statPkt = pktgen.pktStats(&quot;all&quot;)[tonumber(recvport)];
-    -- file:write&#x662F;&#x4E2A;&#x8BED;&#x6CD5;&#x7CD6;
-    file:write(&quot;Tx pps: &quot; .. ppsTx .. &quot;\n&quot;);
-    file:write(&quot;Rx pps: &quot; .. ppsRx .. &quot;\n&quot;);
-    file:write(&quot;Tx pkts: &quot; .. num_tx .. &quot;\n&quot;);
-    file:write(&quot;Rx pkts: &quot; .. num_rx .. &quot;\n&quot;);
-    file:write(&quot;Dropped pkts: &quot; .. num_dropped .. &quot;\n&quot;);
-    file:write(&quot;Min avg latency(usec): &quot; .. statPkt.min_latency .. &quot;\n&quot;);
-    file:write(&quot;Max avg latency(usec): &quot; .. statPkt.max_latency .. &quot;\n&quot;);
+    pktgen<span class="token punctuation">.</span><span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">-- i//2&#x662F;&quot;&#x5730;&#x677F;&#x9664;&#x6CD5;&quot;, lua&#x6570;&#x5B57;&#x90FD;&#x662F;&#x6D6E;&#x70B9;, &#x6240;&#x4EE5;&#x4F7F;&#x7528;&quot;&#x5730;&#x677F;&#x9664;&#x6CD5;&quot;, &#x53EA;&#x4FDD;&#x7559;&#x6574;&#x6570;&#x90E8;&#x5206;. </span>
+    <span class="token keyword">local</span> ppsTx <span class="token operator">=</span> ppsTxTable<span class="token punctuation">[</span>i<span class="token operator">//</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">local</span> ppsRx <span class="token operator">=</span> ppsRxTable<span class="token punctuation">[</span>i<span class="token operator">//</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    file:close();
-    pktgen.set(&quot;all&quot;, &quot;rate&quot;, 100);
-    pktgen.set(&quot;all&quot;, &quot;count&quot;, 0);
-    pktgen.set_range(&quot;all&quot;, &quot;off&quot;);
-    pktgen.latency(&quot;all&quot;, &quot;disable&quot;);
-end
+    <span class="token keyword">local</span> statTx <span class="token operator">=</span> pktgen<span class="token punctuation">.</span><span class="token function">portStats</span><span class="token punctuation">(</span>sendport<span class="token punctuation">,</span> <span class="token string">&quot;port&quot;</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token function">tonumber</span><span class="token punctuation">(</span>sendport<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">local</span> statRx <span class="token operator">=</span> pktgen<span class="token punctuation">.</span><span class="token function">portStats</span><span class="token punctuation">(</span>recvport<span class="token punctuation">,</span> <span class="token string">&quot;port&quot;</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token function">tonumber</span><span class="token punctuation">(</span>recvport<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">local</span> num_tx <span class="token operator">=</span> statTx<span class="token punctuation">.</span>opackets<span class="token punctuation">;</span>
+    <span class="token keyword">local</span> num_rx <span class="token operator">=</span> statRx<span class="token punctuation">.</span>ipackets<span class="token punctuation">;</span>
+    <span class="token keyword">local</span> num_dropped <span class="token operator">=</span> num_tx <span class="token operator">-</span> num_rx<span class="token punctuation">;</span>
+
+    <span class="token keyword">local</span> statPkt <span class="token operator">=</span> pktgen<span class="token punctuation">.</span><span class="token function">pktStats</span><span class="token punctuation">(</span><span class="token string">&quot;all&quot;</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token function">tonumber</span><span class="token punctuation">(</span>recvport<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token comment">-- file:write&#x662F;&#x4E2A;&#x8BED;&#x6CD5;&#x7CD6;</span>
+    file<span class="token punctuation">:</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">&quot;Tx pps: &quot;</span> <span class="token operator">..</span> ppsTx <span class="token operator">..</span> <span class="token string">&quot;\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    file<span class="token punctuation">:</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">&quot;Rx pps: &quot;</span> <span class="token operator">..</span> ppsRx <span class="token operator">..</span> <span class="token string">&quot;\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    file<span class="token punctuation">:</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">&quot;Tx pkts: &quot;</span> <span class="token operator">..</span> num_tx <span class="token operator">..</span> <span class="token string">&quot;\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    file<span class="token punctuation">:</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">&quot;Rx pkts: &quot;</span> <span class="token operator">..</span> num_rx <span class="token operator">..</span> <span class="token string">&quot;\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    file<span class="token punctuation">:</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">&quot;Dropped pkts: &quot;</span> <span class="token operator">..</span> num_dropped <span class="token operator">..</span> <span class="token string">&quot;\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    file<span class="token punctuation">:</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">&quot;Min avg latency(usec): &quot;</span> <span class="token operator">..</span> statPkt<span class="token punctuation">.</span>min_latency <span class="token operator">..</span> <span class="token string">&quot;\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    file<span class="token punctuation">:</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">&quot;Max avg latency(usec): &quot;</span> <span class="token operator">..</span> statPkt<span class="token punctuation">.</span>max_latency <span class="token operator">..</span> <span class="token string">&quot;\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    file<span class="token punctuation">:</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">&quot;all&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;rate&quot;</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">&quot;all&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;count&quot;</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span><span class="token function">set_range</span><span class="token punctuation">(</span><span class="token string">&quot;all&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;off&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pktgen<span class="token punctuation">.</span><span class="token function">latency</span><span class="token punctuation">(</span><span class="token string">&quot;all&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;disable&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">end</span>
 </code></pre>
 
                                 
@@ -3054,11 +3051,10 @@ end
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"lua记录","level":"1.10.6","depth":2,"next":{"title":"RDS脚本阅读","level":"1.10.7","depth":2,"path":"notes/shell_rds脚本阅读.md","ref":"notes/shell_rds脚本阅读.md","articles":[]},"previous":{"title":"python记录","level":"1.10.5","depth":2,"path":"notes/python_记录.md","ref":"notes/python_记录.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/lua_记录.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"lua记录","level":"1.10.6","depth":2,"next":{"title":"RDS脚本阅读","level":"1.10.7","depth":2,"path":"notes/shell_rds脚本阅读.md","ref":"notes/shell_rds脚本阅读.md","articles":[]},"previous":{"title":"python记录","level":"1.10.5","depth":2,"path":"notes/python_记录.md","ref":"notes/python_记录.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/lua_记录.md","mtime":"2022-10-11T15:39:07.950Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3097,7 +3093,6 @@ end
         
     
 
-        
     </body>
 </html>
 

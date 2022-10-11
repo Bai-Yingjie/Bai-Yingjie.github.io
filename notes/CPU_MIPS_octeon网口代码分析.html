@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -84,16 +88,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2825,8 +2822,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2876,7 +2873,7 @@
 <li><a href="#&#x5728;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;-&#x4F1A;&#x8FDB;&#x884C;&#x786C;&#x4EF6;&#x521D;&#x59CB;&#x5316;">&#x5728;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;, &#x4F1A;&#x8FDB;&#x884C;&#x786C;&#x4EF6;&#x521D;&#x59CB;&#x5316;</a></li>
 </ul>
 <h1 id="link&#x72B6;&#x6001;&#x5206;&#x4E24;&#x7AEF;"><a name="link&#x72B6;&#x6001;&#x5206;&#x4E24;&#x7AEF;" class="anchor-navigation-ex-anchor" href="#link&#x72B6;&#x6001;&#x5206;&#x4E24;&#x7AEF;"><i class="fa fa-link" aria-hidden="true"></i></a>1. link&#x72B6;&#x6001;&#x5206;&#x4E24;&#x7AEF;</h1>
-<pre><code>+-------------+                   |   +--------+
+<pre class="language-"><code>+-------------+                   |   +--------+
 |     CPU     | link1 +-------+ link2 |  other |
 |        SGMII|&lt;=====&gt;|  PHY  |&lt;==|==&gt;| system |
 |        (MAC)|       +-------+   |   +--------+
@@ -2889,190 +2886,190 @@
 <h1 id="&#x5173;&#x4E8E;phy"><a name="&#x5173;&#x4E8E;phy" class="anchor-navigation-ex-anchor" href="#&#x5173;&#x4E8E;phy"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x5173;&#x4E8E;phy</h1>
 <p>&#x5728;open&#x7684;&#x65F6;&#x5019;connect phy&#xFF0C; &#x5728;stop&#x7684;&#x65F6;&#x5019;disconnect phy</p>
 <h1 id="&#x4EE3;&#x7801;&#x4E2D;&#x68C0;&#x6D4B;link&#x72B6;&#x6001;"><a name="&#x4EE3;&#x7801;&#x4E2D;&#x68C0;&#x6D4B;link&#x72B6;&#x6001;" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;&#x4E2D;&#x68C0;&#x6D4B;link&#x72B6;&#x6001;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x4EE3;&#x7801;&#x4E2D;&#x68C0;&#x6D4B;link&#x72B6;&#x6001;</h1>
-<pre><code class="lang-c">cvmx-helper.c&#xFF1A;
-cvmx_helper_link_info_t cvmx_helper_link_get(int ipd_port)
+<pre class="language-"><code class="lang-c">cvmx<span class="token operator">-</span>helper<span class="token punctuation">.</span>c&#xFF1A;
+<span class="token class-name">cvmx_helper_link_info_t</span> <span class="token function">cvmx_helper_link_get</span><span class="token punctuation">(</span><span class="token keyword">int</span> ipd_port<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x5177;&#x4F53;interface&#x7684;link&#x51FD;&#x6570;.<br>&#x3010;&#x6CE8;&#x3011;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7528;&#x4E8E;&#x6CA1;&#x6709;phy&#x7684;&#x60C5;&#x51B5;&#x4E0B;</p>
 <p>&#x5728;<code>ethernet-sgmii.c</code>&#x91CC;&#x9762;</p>
-<pre><code class="lang-c">cvm_oct_sgmii_open&#x65F6;
-    if (priv-&gt;phydev) &#x6709;phy&#x65F6;
-        int r = phy_read_status(priv-&gt;phydev);
-        cvm_oct_adjust_link(dev);
-            &#x6839;&#x636E;priv-&gt;phydev-&gt;link&#x6765;&#x6539;&#x53D8;link&#x72B6;&#x6001;
-    else &#x6CA1;&#x6709;phy&#x65F6;
-        link_info = cvmx_helper_link_get(priv-&gt;ipd_port);
-    priv-&gt;poll = cvm_oct_sgmii_poll; &#x8D77;&#x4E2A;pull&#x6765;&#x8F6E;&#x8BE2;
+<pre class="language-"><code class="lang-c">cvm_oct_sgmii_open&#x65F6;
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>phydev<span class="token punctuation">)</span> &#x6709;phy&#x65F6;
+        <span class="token keyword">int</span> r <span class="token operator">=</span> <span class="token function">phy_read_status</span><span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>phydev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">cvm_oct_adjust_link</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            &#x6839;&#x636E;priv<span class="token operator">-&gt;</span>phydev<span class="token operator">-&gt;</span>link&#x6765;&#x6539;&#x53D8;link&#x72B6;&#x6001;
+    <span class="token keyword">else</span> &#x6CA1;&#x6709;phy&#x65F6;
+        link_info <span class="token operator">=</span> <span class="token function">cvmx_helper_link_get</span><span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>ipd_port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    priv<span class="token operator">-&gt;</span>poll <span class="token operator">=</span> cvm_oct_sgmii_poll<span class="token punctuation">;</span> &#x8D77;&#x4E2A;pull&#x6765;&#x8F6E;&#x8BE2;
 </code></pre>
 <h1 id="&#x76F8;&#x5173;&#x547D;&#x4EE4;"><a name="&#x76F8;&#x5173;&#x547D;&#x4EE4;" class="anchor-navigation-ex-anchor" href="#&#x76F8;&#x5173;&#x547D;&#x4EE4;"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x76F8;&#x5173;&#x547D;&#x4EE4;</h1>
-<pre><code>modprobe octeon-ethernet.ko
+<pre class="language-"><code>modprobe octeon-ethernet.ko
 ifconfig eth0 192.168.0.8
 ifconfig eth1 192.168.1.9
 ifconfig eth0 up
 ifconfig eth1 up
 </code></pre><p><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925215046.png" alt="">  </p>
 <h1 id="&#x8BBE;&#x5907;&#x6CE8;&#x518C;&#x53CA;&#x521D;&#x59CB;&#x5316;"><a name="&#x8BBE;&#x5907;&#x6CE8;&#x518C;&#x53CA;&#x521D;&#x59CB;&#x5316;" class="anchor-navigation-ex-anchor" href="#&#x8BBE;&#x5907;&#x6CE8;&#x518C;&#x53CA;&#x521D;&#x59CB;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x8BBE;&#x5907;&#x6CE8;&#x518C;&#x53CA;&#x521D;&#x59CB;&#x5316;</h1>
-<pre><code class="lang-c">modprobe octeon-ethernet.ko
-    module_platform_driver(cvm_oct_driver); //&#x76F8;&#x5F53;&#x4E8E;&#x4F20;&#x7EDF;&#x7684;module_init()&#x548C; module_exit(hello_exit)
+<pre class="language-"><code class="lang-c">modprobe octeon<span class="token operator">-</span>ethernet<span class="token punctuation">.</span>ko
+    <span class="token function">module_platform_driver</span><span class="token punctuation">(</span>cvm_oct_driver<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&#x76F8;&#x5F53;&#x4E8E;&#x4F20;&#x7EDF;&#x7684;module_init()&#x548C; module_exit(hello_exit)</span>
 </code></pre>
 <p><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925215415.png" alt="">  </p>
-<pre><code class="lang-c">        module_driver(cvm_oct_driver, platform_driver_register, platform_driver_unregister)
-            platform_driver_register(struct platform_driver *drv=&amp;cvm_oct_driver)
-                drv-&gt;driver.bus = &amp;platform_bus_type;
-                //&#x5339;&#x914D;&#x8BBE;&#x5907;&#x65F6;&#x8C03;&#x7528;
-                drv-&gt;driver.probe = platform_drv_probe;
-                //&#x8BBE;&#x5907;&#x79FB;&#x9664;&#x65F6;&#x8C03;&#x7528;
-                drv-&gt;driver.remove = platform_drv_remove;
-                //&#x5173;&#x673A;&#x65F6;&#x8C03;&#x7528;
-                drv-&gt;driver.shutdown = platform_drv_shutdown;
-                driver_register(&amp;drv-&gt;driver);
-                    //&#x5728;fdt&#x4E2D;&#x627E;&#x5230;&#x5339;&#x914D;&#x7684;&#x8BBE;&#x5907;&#x540E;, &#x8C03;&#x7528;&#x9A71;&#x52A8;&#x63D0;&#x4F9B;&#x7684;probe&#x51FD;&#x6570;
-                    cvm_oct_probe(struct platform_device *pdev)
-                        //&#x5F3A;&#x5236;MDIO&#x4F9D;&#x8D56;
-                        octeon_mdiobus_force_mod_depencency();
-                        //fdt&#x4E2D;&#x7684;pip&#x8282;
-                        pip = pdev-&gt;dev.of_node;
-                        cvm_oct_get_port_status(pip);
-                            //70xx&#x6709;5&#x4E2A;interface, &#x6BCF;&#x4E2A;interface&#x53C8;&#x6709;n&#x4E2A;port
+<pre class="language-"><code class="lang-c">        <span class="token function">module_driver</span><span class="token punctuation">(</span>cvm_oct_driver<span class="token punctuation">,</span> platform_driver_register<span class="token punctuation">,</span> platform_driver_unregister<span class="token punctuation">)</span>
+            <span class="token function">platform_driver_register</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">platform_driver</span> <span class="token operator">*</span>drv<span class="token operator">=</span><span class="token operator">&amp;</span>cvm_oct_driver<span class="token punctuation">)</span>
+                drv<span class="token operator">-&gt;</span>driver<span class="token punctuation">.</span>bus <span class="token operator">=</span> <span class="token operator">&amp;</span>platform_bus_type<span class="token punctuation">;</span>
+                <span class="token comment">//&#x5339;&#x914D;&#x8BBE;&#x5907;&#x65F6;&#x8C03;&#x7528;</span>
+                drv<span class="token operator">-&gt;</span>driver<span class="token punctuation">.</span>probe <span class="token operator">=</span> platform_drv_probe<span class="token punctuation">;</span>
+                <span class="token comment">//&#x8BBE;&#x5907;&#x79FB;&#x9664;&#x65F6;&#x8C03;&#x7528;</span>
+                drv<span class="token operator">-&gt;</span>driver<span class="token punctuation">.</span>remove <span class="token operator">=</span> platform_drv_remove<span class="token punctuation">;</span>
+                <span class="token comment">//&#x5173;&#x673A;&#x65F6;&#x8C03;&#x7528;</span>
+                drv<span class="token operator">-&gt;</span>driver<span class="token punctuation">.</span>shutdown <span class="token operator">=</span> platform_drv_shutdown<span class="token punctuation">;</span>
+                <span class="token function">driver_register</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>drv<span class="token operator">-&gt;</span>driver<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment">//&#x5728;fdt&#x4E2D;&#x627E;&#x5230;&#x5339;&#x914D;&#x7684;&#x8BBE;&#x5907;&#x540E;, &#x8C03;&#x7528;&#x9A71;&#x52A8;&#x63D0;&#x4F9B;&#x7684;probe&#x51FD;&#x6570;</span>
+                    <span class="token function">cvm_oct_probe</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">platform_device</span> <span class="token operator">*</span>pdev<span class="token punctuation">)</span>
+                        <span class="token comment">//&#x5F3A;&#x5236;MDIO&#x4F9D;&#x8D56;</span>
+                        <span class="token function">octeon_mdiobus_force_mod_depencency</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token comment">//fdt&#x4E2D;&#x7684;pip&#x8282;</span>
+                        pip <span class="token operator">=</span> pdev<span class="token operator">-&gt;</span>dev<span class="token punctuation">.</span>of_node<span class="token punctuation">;</span>
+                        <span class="token function">cvm_oct_get_port_status</span><span class="token punctuation">(</span>pip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token comment">//70xx&#x6709;5&#x4E2A;interface, &#x6BCF;&#x4E2A;interface&#x53C8;&#x6709;n&#x4E2A;port</span>
 </code></pre>
 <p><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925215857.png" alt=""><br><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925215921.png" alt="">  </p>
-<pre><code class="lang-c">                            //&#x5168;&#x5C40;&#x53D8;&#x91CF;iface_ops
-                            iface_ops[0] = &amp;iface_ops_sgmii;
-                            iface_ops[1] = &amp;iface_ops_sgmii;
+<pre class="language-"><code class="lang-c">                            <span class="token comment">//&#x5168;&#x5C40;&#x53D8;&#x91CF;iface_ops</span>
+                            iface_ops<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>iface_ops_sgmii<span class="token punctuation">;</span>
+                            iface_ops<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>iface_ops_sgmii<span class="token punctuation">;</span>
 </code></pre>
 <p><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925220108.png" alt="">  </p>
-<pre><code class="lang-c">                            iface_ops[2] = &amp;iface_ops_npi;
-                            iface_ops[3] = &amp;iface_ops_loop;
-                            iface_ops[4] = &amp;iface_ops_agl;
-                            //&#x5BF9;&#x6BCF;&#x4E2A;interface&#x548C;port&#x904D;&#x5386;
-                            case CVMX_HELPER_INTERFACE_MODE_SGMII:
-                            case CVMX_HELPER_INTERFACE_MODE_QSGMII:
-                                //&#x6839;&#x636E;dts&#x91CC;&#x9762;&#x7684;&#x5173;&#x952E;&#x5B57;&#x8BBE;&#x7F6E;mac_phy_mode&#x548C;1000x_mode
-                                //&#x53EA;&#x6709;SGMII&#x548C;QSGMII&#x6709;&#x8FD9;&#x4E24;&#x4E2A;&#x9009;&#x9879;
-                                &quot;cavium,sgmii-mac-phy-mode&quot;
-                                &quot;cavium,sgmii-mac-1000x-mode&quot;
-                        //&#x5185;&#x6838;&#x5DE5;&#x4F5C;&#x961F;&#x5217;, &#x7528;&#x4E8E;POLL
-                        cvm_oct_poll_queue = create_singlethread_workqueue(&quot;octeon-ethernet&quot;);
-                        cvm_oct_configure_common_hw();
-                            //&#x4F7F;&#x80FD;FPA
-                            cvmx_fpa_enable();
-                            //&#x7528;FPA&#x5206;&#x914D;packet pool, &#x6BCF;&#x4E2A;&#x5143;&#x7D20;16&#x4E2A;cache line; &#x4E00;&#x5171;8&#x4E2A;pool
-                            packet_pool = cvm_oct_alloc_fpa_pool(packet_pool, 16&#x4E2A;cache line);
-                            //1024&#x4E2A;packet buffer, &#x9ED8;&#x8BA4;&#x503C;, &#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;&#x53EF;&#x6539;num_packet_buffers
-                            cvm_oct_mem_fill_fpa(packet_pool, num_packet_buffers);
-                            //&#x7528;FPA&#x5206;&#x914D;wqe pool
-                            wqe_pool = cvm_oct_alloc_fpa_pool(-1, &#x4E00;&#x4E2A;cache line);
-                            //&#x7528;FPA&#x5206;&#x914D;output buffers pool
-                            output_pool = cvm_oct_alloc_fpa_pool(-1, 8&#x4E2A;cache line);
-                            //&#x521D;&#x59CB;&#x5316;PIP, IPD, PKO. &#x786C;&#x4EF6;&#x5C42;&#x521D;&#x59CB;&#x5316;
-                            cvmx_helper_initialize_packet_io_global();
-                                cvmx_helper_interface_probe(int interface)
-                                    __cvmx_helper_init_interface(...)
-                                cvmx_helper_ipd_and_packet_input_enable();
-                                //&#x5BF9;&#x6BCF;&#x4E2A;&#x7AEF;&#x53E3;
-                                __cvmx_helper_packet_hardware_enable(interface);
-                                    //&#x8BE6;&#x89C1;&#x4E0B;&#x9762;&#x7B2C;6&#x6761;
-                                    iface_ops[interface]-&gt;enable(interface)
-                        //&#x5BF9;&#x6BCF;&#x4E2A;interface&#x548C;&#x6BCF;&#x4E2A;port
-                            //&#x8F6C;&#x6362;&#x4E3A;IPD port, &#x5C06;&#x6240;&#x6709;&#x53E3;&#x52A0;&#x5165;&#x5230;pow_receive_group, &#x9ED8;&#x8BA4;15. &#x53EF;&#x9009;0-15
-                            port = cvmx_helper_get_ipd_port(interface, index);
-                        //&#x4F7F;&#x80FD;IPD/PIP
-                        cvmx_helper_ipd_and_packet_input_enable();
-                        //&#x5BF9;&#x6BCF;&#x4E2A;&#x53EF;&#x7528;&#x7684;&#x53E3;, &#x586B;&#x5199;dev&#x7684;&#x5404;&#x79CD;&#x4FE1;&#x606F;, &#x6CE8;&#x518C;dev, sgmii&#x6CE8;&#x518C;&#x7684;&#x662F;&quot;eth0 eth1&quot;
-                            struct octeon_ethernet *priv;
-                            struct net_device *dev;
-                            dev = alloc_etherdev(sizeof(struct octeon_ethernet));
-                            priv = netdev_priv(dev);
-                            //&#x586B;&#x5145;priv&#x7ED3;&#x6784;
+<pre class="language-"><code class="lang-c">                            iface_ops<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>iface_ops_npi<span class="token punctuation">;</span>
+                            iface_ops<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>iface_ops_loop<span class="token punctuation">;</span>
+                            iface_ops<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>iface_ops_agl<span class="token punctuation">;</span>
+                            <span class="token comment">//&#x5BF9;&#x6BCF;&#x4E2A;interface&#x548C;port&#x904D;&#x5386;</span>
+                            <span class="token keyword">case</span> CVMX_HELPER_INTERFACE_MODE_SGMII<span class="token operator">:</span>
+                            <span class="token keyword">case</span> CVMX_HELPER_INTERFACE_MODE_QSGMII<span class="token operator">:</span>
+                                <span class="token comment">//&#x6839;&#x636E;dts&#x91CC;&#x9762;&#x7684;&#x5173;&#x952E;&#x5B57;&#x8BBE;&#x7F6E;mac_phy_mode&#x548C;1000x_mode</span>
+                                <span class="token comment">//&#x53EA;&#x6709;SGMII&#x548C;QSGMII&#x6709;&#x8FD9;&#x4E24;&#x4E2A;&#x9009;&#x9879;</span>
+                                <span class="token string">&quot;cavium,sgmii-mac-phy-mode&quot;</span>
+                                <span class="token string">&quot;cavium,sgmii-mac-1000x-mode&quot;</span>
+                        <span class="token comment">//&#x5185;&#x6838;&#x5DE5;&#x4F5C;&#x961F;&#x5217;, &#x7528;&#x4E8E;POLL</span>
+                        cvm_oct_poll_queue <span class="token operator">=</span> <span class="token function">create_singlethread_workqueue</span><span class="token punctuation">(</span><span class="token string">&quot;octeon-ethernet&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token function">cvm_oct_configure_common_hw</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token comment">//&#x4F7F;&#x80FD;FPA</span>
+                            <span class="token function">cvmx_fpa_enable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token comment">//&#x7528;FPA&#x5206;&#x914D;packet pool, &#x6BCF;&#x4E2A;&#x5143;&#x7D20;16&#x4E2A;cache line; &#x4E00;&#x5171;8&#x4E2A;pool</span>
+                            packet_pool <span class="token operator">=</span> <span class="token function">cvm_oct_alloc_fpa_pool</span><span class="token punctuation">(</span>packet_pool<span class="token punctuation">,</span> <span class="token number">16</span>&#x4E2A;cache line<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token comment">//1024&#x4E2A;packet buffer, &#x9ED8;&#x8BA4;&#x503C;, &#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;&#x53EF;&#x6539;num_packet_buffers</span>
+                            <span class="token function">cvm_oct_mem_fill_fpa</span><span class="token punctuation">(</span>packet_pool<span class="token punctuation">,</span> num_packet_buffers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token comment">//&#x7528;FPA&#x5206;&#x914D;wqe pool</span>
+                            wqe_pool <span class="token operator">=</span> <span class="token function">cvm_oct_alloc_fpa_pool</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> &#x4E00;&#x4E2A;cache line<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token comment">//&#x7528;FPA&#x5206;&#x914D;output buffers pool</span>
+                            output_pool <span class="token operator">=</span> <span class="token function">cvm_oct_alloc_fpa_pool</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">8</span>&#x4E2A;cache line<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token comment">//&#x521D;&#x59CB;&#x5316;PIP, IPD, PKO. &#x786C;&#x4EF6;&#x5C42;&#x521D;&#x59CB;&#x5316;</span>
+                            <span class="token function">cvmx_helper_initialize_packet_io_global</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                <span class="token function">cvmx_helper_interface_probe</span><span class="token punctuation">(</span><span class="token keyword">int</span> interface<span class="token punctuation">)</span>
+                                    <span class="token function">__cvmx_helper_init_interface</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+                                <span class="token function">cvmx_helper_ipd_and_packet_input_enable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                <span class="token comment">//&#x5BF9;&#x6BCF;&#x4E2A;&#x7AEF;&#x53E3;</span>
+                                <span class="token function">__cvmx_helper_packet_hardware_enable</span><span class="token punctuation">(</span>interface<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                    <span class="token comment">//&#x8BE6;&#x89C1;&#x4E0B;&#x9762;&#x7B2C;6&#x6761;</span>
+                                    iface_ops<span class="token punctuation">[</span>interface<span class="token punctuation">]</span><span class="token operator">-&gt;</span><span class="token function">enable</span><span class="token punctuation">(</span>interface<span class="token punctuation">)</span>
+                        <span class="token comment">//&#x5BF9;&#x6BCF;&#x4E2A;interface&#x548C;&#x6BCF;&#x4E2A;port</span>
+                            <span class="token comment">//&#x8F6C;&#x6362;&#x4E3A;IPD port, &#x5C06;&#x6240;&#x6709;&#x53E3;&#x52A0;&#x5165;&#x5230;pow_receive_group, &#x9ED8;&#x8BA4;15. &#x53EF;&#x9009;0-15</span>
+                            port <span class="token operator">=</span> <span class="token function">cvmx_helper_get_ipd_port</span><span class="token punctuation">(</span>interface<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token comment">//&#x4F7F;&#x80FD;IPD/PIP</span>
+                        <span class="token function">cvmx_helper_ipd_and_packet_input_enable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token comment">//&#x5BF9;&#x6BCF;&#x4E2A;&#x53EF;&#x7528;&#x7684;&#x53E3;, &#x586B;&#x5199;dev&#x7684;&#x5404;&#x79CD;&#x4FE1;&#x606F;, &#x6CE8;&#x518C;dev, sgmii&#x6CE8;&#x518C;&#x7684;&#x662F;&quot;eth0 eth1&quot;</span>
+                            <span class="token keyword">struct</span> <span class="token class-name">octeon_ethernet</span> <span class="token operator">*</span>priv<span class="token punctuation">;</span>
+                            <span class="token keyword">struct</span> <span class="token class-name">net_device</span> <span class="token operator">*</span>dev<span class="token punctuation">;</span>
+                            dev <span class="token operator">=</span> <span class="token function">alloc_etherdev</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">octeon_ethernet</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            priv <span class="token operator">=</span> <span class="token function">netdev_priv</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token comment">//&#x586B;&#x5145;priv&#x7ED3;&#x6784;</span>
 </code></pre>
 <p><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925220255.png" alt=""><br><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925220315.png" alt=""><br><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925220336.png" alt="">  </p>
-<pre><code>                            AGL&#x53E3;&#x4E5F;&#x4F7F;&#x7528;SGMII&#x7684;op
+<pre class="language-"><code>                            AGL&#x53E3;&#x4E5F;&#x4F7F;&#x7528;SGMII&#x7684;op
 </code></pre><p><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925220430.png" alt="">  </p>
-<pre><code class="lang-c">                            register_netdev(dev)
-                            //&#x5C06;priv&#x52A0;&#x5165;&#x5230;&#x5168;&#x5C40;&#x94FE;&#x8868;cvm_oct_list
-                            list_add_tail(&amp;priv-&gt;list, &amp;cvm_oct_list);
-                            cvm_oct_add_ipd_port(priv);
-                            queue_delayed_work(cvm_oct_poll_queue,
-                           &amp;priv-&gt;port_periodic_work, 5*HZ);
-                    cvm_oct_rx_initialize()
-                    queue_delayed_work(cvm_oct_poll_queue, &amp;cvm_oct_rx_refill_work, HZ);
-                         //&#x4E5F;&#x662F;&#x4E2A;&#x5468;&#x671F;work, 1&#x79D2;&#x4E00;&#x6B21;
-                        void cvm_oct_rx_refill_worker(struct work_struct *work)
-                            cvm_oct_rx_refill_pool(num_packet_buffers / 2);
-                            queue_delayed_work(cvm_oct_poll_queue,
-                   &amp;cvm_oct_rx_refill_work, HZ);
-                ...
-            ...
-        ...
-    ...
+<pre class="language-"><code class="lang-c">                            <span class="token function">register_netdev</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span>
+                            <span class="token comment">//&#x5C06;priv&#x52A0;&#x5165;&#x5230;&#x5168;&#x5C40;&#x94FE;&#x8868;cvm_oct_list</span>
+                            <span class="token function">list_add_tail</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>priv<span class="token operator">-&gt;</span>list<span class="token punctuation">,</span> <span class="token operator">&amp;</span>cvm_oct_list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token function">cvm_oct_add_ipd_port</span><span class="token punctuation">(</span>priv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token function">queue_delayed_work</span><span class="token punctuation">(</span>cvm_oct_poll_queue<span class="token punctuation">,</span>
+                           <span class="token operator">&amp;</span>priv<span class="token operator">-&gt;</span>port_periodic_work<span class="token punctuation">,</span> <span class="token number">5</span><span class="token operator">*</span>HZ<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">cvm_oct_rx_initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token function">queue_delayed_work</span><span class="token punctuation">(</span>cvm_oct_poll_queue<span class="token punctuation">,</span> <span class="token operator">&amp;</span>cvm_oct_rx_refill_work<span class="token punctuation">,</span> HZ<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                         <span class="token comment">//&#x4E5F;&#x662F;&#x4E2A;&#x5468;&#x671F;work, 1&#x79D2;&#x4E00;&#x6B21;</span>
+                        <span class="token keyword">void</span> <span class="token function">cvm_oct_rx_refill_worker</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">work_struct</span> <span class="token operator">*</span>work<span class="token punctuation">)</span>
+                            <span class="token function">cvm_oct_rx_refill_pool</span><span class="token punctuation">(</span>num_packet_buffers <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token function">queue_delayed_work</span><span class="token punctuation">(</span>cvm_oct_poll_queue<span class="token punctuation">,</span>
+                   <span class="token operator">&amp;</span>cvm_oct_rx_refill_work<span class="token punctuation">,</span> HZ<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 </code></pre>
 <h1 id="&#x5468;&#x671F;worker"><a name="&#x5468;&#x671F;worker" class="anchor-navigation-ex-anchor" href="#&#x5468;&#x671F;worker"><i class="fa fa-link" aria-hidden="true"></i></a>6. &#x5468;&#x671F;worker</h1>
 <p>&#x5728;probe&#x51FD;&#x6570;&#x91CC;, &#x6302;&#x4E86;&#x4E00;&#x4E2A;&#x5468;&#x671F;worker, <code>INIT_DELAYED_WORK(&amp;priv-&gt;port_periodic_work, cvm_oct_periodic_worker);</code>, 5&#x79D2;&#x4E00;&#x6B21;</p>
-<pre><code class="lang-c">void cvm_oct_periodic_worker(struct work_struct *work)
-    priv = container_of();
-    //&#x8FD9;&#x91CC;&#x7684; priv-&gt;poll&#x5C31;&#x662F;&#x5728;&#x63A5;&#x53E3;open&#x65F6;&#x6CE8;&#x518C;&#x7684;poll&#x51FD;&#x6570;, &#x5BF9;SGMII&#x6765;&#x8BF4;, &#x5C31;&#x662F;cvm_oct_sgmii_poll
-    poll_fn = priv-&gt;poll;
-    poll_fn(priv-&gt;netdev);
-    //&#x8FD9;&#x91CC;&#x8C03;&#x7528;&#x7684;&#x662F; struct net_device_stats *cvm_oct_common_get_stats(struct net_device *dev)
-    priv-&gt;netdev-&gt;netdev_ops-&gt;ndo_get_stats(priv-&gt;netdev);
-    queue_delayed_work(cvm_oct_poll_queue, &amp;priv-&gt;port_periodic_work, 5*HZ);
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token function">cvm_oct_periodic_worker</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">work_struct</span> <span class="token operator">*</span>work<span class="token punctuation">)</span>
+    priv <span class="token operator">=</span> <span class="token function">container_of</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//&#x8FD9;&#x91CC;&#x7684; priv-&gt;poll&#x5C31;&#x662F;&#x5728;&#x63A5;&#x53E3;open&#x65F6;&#x6CE8;&#x518C;&#x7684;poll&#x51FD;&#x6570;, &#x5BF9;SGMII&#x6765;&#x8BF4;, &#x5C31;&#x662F;cvm_oct_sgmii_poll</span>
+    poll_fn <span class="token operator">=</span> priv<span class="token operator">-&gt;</span>poll<span class="token punctuation">;</span>
+    <span class="token function">poll_fn</span><span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>netdev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//&#x8FD9;&#x91CC;&#x8C03;&#x7528;&#x7684;&#x662F; struct net_device_stats *cvm_oct_common_get_stats(struct net_device *dev)</span>
+    priv<span class="token operator">-&gt;</span>netdev<span class="token operator">-&gt;</span>netdev_ops<span class="token operator">-&gt;</span><span class="token function">ndo_get_stats</span><span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>netdev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">queue_delayed_work</span><span class="token punctuation">(</span>cvm_oct_poll_queue<span class="token punctuation">,</span> <span class="token operator">&amp;</span>priv<span class="token operator">-&gt;</span>port_periodic_work<span class="token punctuation">,</span> <span class="token number">5</span><span class="token operator">*</span>HZ<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h1 id="sgmii&#x521D;&#x59CB;&#x5316;"><a name="sgmii&#x521D;&#x59CB;&#x5316;" class="anchor-navigation-ex-anchor" href="#sgmii&#x521D;&#x59CB;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>7. sgmii&#x521D;&#x59CB;&#x5316;</h1>
-<pre><code class="lang-c">cvm_oct_sgmii_init(struct net_device *dev)
-    struct octeon_ethernet *priv = netdev_priv(dev);
-    cvm_oct_common_init(dev);
+<pre class="language-"><code class="lang-c"><span class="token function">cvm_oct_sgmii_init</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">net_device</span> <span class="token operator">*</span>dev<span class="token punctuation">)</span>
+    <span class="token keyword">struct</span> <span class="token class-name">octeon_ethernet</span> <span class="token operator">*</span>priv <span class="token operator">=</span> <span class="token function">netdev_priv</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">cvm_oct_common_init</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
         &#x4ECE;dts&#x83B7;&#x53D6;mac&#x5730;&#x5740;
-        &#x5982;&#x679C;&#x6CA1;&#x6709;mac&#x5730;&#x5740;, &#x5219;&#x7528;random&#x5730;&#x5740;
-        SET_ETHTOOL_OPS(dev, &amp;cvm_oct_ethtool_ops);
+        &#x5982;&#x679C;&#x6CA1;&#x6709;mac&#x5730;&#x5740;<span class="token punctuation">,</span> &#x5219;&#x7528;random&#x5730;&#x5740;
+        <span class="token function">SET_ETHTOOL_OPS</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> <span class="token operator">&amp;</span>cvm_oct_ethtool_ops<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925222538.png" alt="">  </p>
-<pre><code class="lang-c">    dev-&gt;netdev_ops-&gt;ndo_stop(dev);
-    //phy&#x5C42;&#x68C0;&#x6D4B;&#x5230;link change, &#x5C31;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;
-    priv-&gt;link_change = cvm_oct_sgmii_link_change;
+<pre class="language-"><code class="lang-c">    dev<span class="token operator">-&gt;</span>netdev_ops<span class="token operator">-&gt;</span><span class="token function">ndo_stop</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//phy&#x5C42;&#x68C0;&#x6D4B;&#x5230;link change, &#x5C31;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;</span>
+    priv<span class="token operator">-&gt;</span>link_change <span class="token operator">=</span> cvm_oct_sgmii_link_change<span class="token punctuation">;</span>
 </code></pre>
 <h1 id="&#x5F53;&#x6267;&#x884C;ifconfig-eth0-up&#x65F6;"><a name="&#x5F53;&#x6267;&#x884C;ifconfig-eth0-up&#x65F6;" class="anchor-navigation-ex-anchor" href="#&#x5F53;&#x6267;&#x884C;ifconfig-eth0-up&#x65F6;"><i class="fa fa-link" aria-hidden="true"></i></a>8. &#x5F53;&#x6267;&#x884C;ifconfig eth0 up&#x65F6;</h1>
-<pre><code class="lang-c">int cvm_oct_sgmii_open(struct net_device *dev)
-    cvm_oct_phy_setup_device(dev);
-        //&#x4ECE;dts&#x91CC;&#x9762;&#x627E;phy-handle
-        phy_node = of_parse_phandle(priv-&gt;of_node, &quot;phy-handle&quot;, 0)
-        //SGMII&#x4E0D;&#x8D70;&#x4E0B;&#x9762;, rgmii&#x8D70;&#x4E0B;&#x9762;, cvm_oct_adjust_link&#x662F;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;
-        priv-&gt;phydev = of_phy_connect(dev, phy_node, cvm_oct_adjust_link, 0, iface)
-        phy_start_aneg(priv-&gt;phydev);
-    //&#x6709;phy&#x8D70;if&#x5206;&#x652F;
-    if (priv-&gt;phydev)
-        r = phy_read_status(priv-&gt;phydev)
-        cvm_oct_adjust_link(dev);
-    //&#x6CA1;&#x6709;phy&#x8D70;else&#x5206;&#x652F;
-    else
-        link_info = cvmx_helper_link_get(priv-&gt;ipd_port)
-            //&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x83B7;&#x53D6;&#x901F;&#x7387;&#x65F6;&#x6709;&#x70B9;&#x95EE;&#x9898;, &#x9700;&#x8981;&#x5B9A;&#x4F4D;
-            __cvmx_helper_sgmii_link_get()
-                &#x6839;&#x636E;&#x677F;&#x7C7B;&#x578B;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;up(FPXTB)
-        priv-&gt;poll = cvm_oct_sgmii_poll;
-        //&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;&#x5468;&#x671F;&#x6027;&#x8C03;&#x7684;.
-        cvm_oct_sgmii_poll(dev);
-            link_info = cvmx_helper_link_get(priv-&gt;ipd_port)
-            //&#x548C;&#x4EE5;&#x524D;&#x6BD4;, &#x4E00;&#x6837;&#x5C31;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x4E86;. &#x7B2C;&#x4E00;&#x6B21;&#x4E0D;&#x4E00;&#x6837;, &#x5F80;&#x4E0B;&#x8D70;
-            cvmx_helper_link_autoconf(priv-&gt;ipd_port)
-                link_info = cvmx_helper_link_get(ipd_port);
-                //&#x66F4;&#x5185;&#x90E8;&#x7684;link&#x72B6;&#x6001;&#x8BB0;&#x5F55;&#x5728;cvmx_interfaces[interface].cvif_ipd_port_link_info
-                //&#x5982;&#x679C;&#x4E0A;&#x9762;&#x83B7;&#x53D6;&#x7684;link_info&#x548C;&#x5185;&#x90E8;&#x7684;cvif_ipd_port_link_info&#x4E00;&#x6837;, &#x5C31;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;.
+<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">cvm_oct_sgmii_open</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">net_device</span> <span class="token operator">*</span>dev<span class="token punctuation">)</span>
+    <span class="token function">cvm_oct_phy_setup_device</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//&#x4ECE;dts&#x91CC;&#x9762;&#x627E;phy-handle</span>
+        phy_node <span class="token operator">=</span> <span class="token function">of_parse_phandle</span><span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>of_node<span class="token punctuation">,</span> <span class="token string">&quot;phy-handle&quot;</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token comment">//SGMII&#x4E0D;&#x8D70;&#x4E0B;&#x9762;, rgmii&#x8D70;&#x4E0B;&#x9762;, cvm_oct_adjust_link&#x662F;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;</span>
+        priv<span class="token operator">-&gt;</span>phydev <span class="token operator">=</span> <span class="token function">of_phy_connect</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> phy_node<span class="token punctuation">,</span> cvm_oct_adjust_link<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> iface<span class="token punctuation">)</span>
+        <span class="token function">phy_start_aneg</span><span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>phydev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//&#x6709;phy&#x8D70;if&#x5206;&#x652F;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>phydev<span class="token punctuation">)</span>
+        r <span class="token operator">=</span> <span class="token function">phy_read_status</span><span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>phydev<span class="token punctuation">)</span>
+        <span class="token function">cvm_oct_adjust_link</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//&#x6CA1;&#x6709;phy&#x8D70;else&#x5206;&#x652F;</span>
+    <span class="token keyword">else</span>
+        link_info <span class="token operator">=</span> <span class="token function">cvmx_helper_link_get</span><span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>ipd_port<span class="token punctuation">)</span>
+            <span class="token comment">//&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x83B7;&#x53D6;&#x901F;&#x7387;&#x65F6;&#x6709;&#x70B9;&#x95EE;&#x9898;, &#x9700;&#x8981;&#x5B9A;&#x4F4D;</span>
+            <span class="token function">__cvmx_helper_sgmii_link_get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                &#x6839;&#x636E;&#x677F;&#x7C7B;&#x578B;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;<span class="token function">up</span><span class="token punctuation">(</span>FPXTB<span class="token punctuation">)</span>
+        priv<span class="token operator">-&gt;</span>poll <span class="token operator">=</span> cvm_oct_sgmii_poll<span class="token punctuation">;</span>
+        <span class="token comment">//&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;&#x5468;&#x671F;&#x6027;&#x8C03;&#x7684;.</span>
+        <span class="token function">cvm_oct_sgmii_poll</span><span class="token punctuation">(</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            link_info <span class="token operator">=</span> <span class="token function">cvmx_helper_link_get</span><span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>ipd_port<span class="token punctuation">)</span>
+            <span class="token comment">//&#x548C;&#x4EE5;&#x524D;&#x6BD4;, &#x4E00;&#x6837;&#x5C31;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x4E86;. &#x7B2C;&#x4E00;&#x6B21;&#x4E0D;&#x4E00;&#x6837;, &#x5F80;&#x4E0B;&#x8D70;</span>
+            <span class="token function">cvmx_helper_link_autoconf</span><span class="token punctuation">(</span>priv<span class="token operator">-&gt;</span>ipd_port<span class="token punctuation">)</span>
+                link_info <span class="token operator">=</span> <span class="token function">cvmx_helper_link_get</span><span class="token punctuation">(</span>ipd_port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">//&#x66F4;&#x5185;&#x90E8;&#x7684;link&#x72B6;&#x6001;&#x8BB0;&#x5F55;&#x5728;cvmx_interfaces[interface].cvif_ipd_port_link_info</span>
+                <span class="token comment">//&#x5982;&#x679C;&#x4E0A;&#x9762;&#x83B7;&#x53D6;&#x7684;link_info&#x548C;&#x5185;&#x90E8;&#x7684;cvif_ipd_port_link_info&#x4E00;&#x6837;, &#x5C31;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;.</span>
 </code></pre>
 <p><img src="img/CPU_MIPS_octeon&#x7F51;&#x53E3;&#x4EE3;&#x7801;&#x5206;&#x6790;_20220925222711.png" alt="">  </p>
-<pre><code class="lang-c">                //&#x7B2C;&#x4E00;&#x6B21;&#x80AF;&#x5B9A;&#x4E0D;&#x4E00;&#x6837;, &#x5F80;&#x4E0B;&#x8D70;
-                cvmx_helper_link_set(ipd_port, link_info);
-                     __cvmx_helper_sgmii_link_set()
-                        //&#x8981;&#x7981;&#x6B62;&#x81EA;&#x534F;&#x5546;, &#x5728;&#x8FD9;&#x91CC;&#x6539;. PCS&#x5C42;reset+&#x914D;&#x7F6E;
-                        __cvmx_helper_sgmii_hardware_init_link(interface, index);
-                        //&#x4E3B;&#x8981;&#x662F;&#x6839;&#x636E;link_info&#x914D;&#x7F6E;GMX&#x5C42;&#x5BC4;&#x5B58;&#x5668;, &#x901F;&#x5EA6;, &#x5168;&#x53CC;&#x5DE5;.
-                        __cvmx_helper_sgmii_hardware_init_link_speed(interface, index, link_info)
+<pre class="language-"><code class="lang-c">                <span class="token comment">//&#x7B2C;&#x4E00;&#x6B21;&#x80AF;&#x5B9A;&#x4E0D;&#x4E00;&#x6837;, &#x5F80;&#x4E0B;&#x8D70;</span>
+                <span class="token function">cvmx_helper_link_set</span><span class="token punctuation">(</span>ipd_port<span class="token punctuation">,</span> link_info<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                     <span class="token function">__cvmx_helper_sgmii_link_set</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                        <span class="token comment">//&#x8981;&#x7981;&#x6B62;&#x81EA;&#x534F;&#x5546;, &#x5728;&#x8FD9;&#x91CC;&#x6539;. PCS&#x5C42;reset+&#x914D;&#x7F6E;</span>
+                        <span class="token function">__cvmx_helper_sgmii_hardware_init_link</span><span class="token punctuation">(</span>interface<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token comment">//&#x4E3B;&#x8981;&#x662F;&#x6839;&#x636E;link_info&#x914D;&#x7F6E;GMX&#x5C42;&#x5BC4;&#x5B58;&#x5668;, &#x901F;&#x5EA6;, &#x5168;&#x53CC;&#x5DE5;.</span>
+                        <span class="token function">__cvmx_helper_sgmii_hardware_init_link_speed</span><span class="token punctuation">(</span>interface<span class="token punctuation">,</span> index<span class="token punctuation">,</span> link_info<span class="token punctuation">)</span>
 </code></pre>
 <h1 id="&#x5728;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;-&#x4F1A;&#x8FDB;&#x884C;&#x786C;&#x4EF6;&#x521D;&#x59CB;&#x5316;"><a name="&#x5728;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;-&#x4F1A;&#x8FDB;&#x884C;&#x786C;&#x4EF6;&#x521D;&#x59CB;&#x5316;" class="anchor-navigation-ex-anchor" href="#&#x5728;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;-&#x4F1A;&#x8FDB;&#x884C;&#x786C;&#x4EF6;&#x521D;&#x59CB;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>9. &#x5728;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;, &#x4F1A;&#x8FDB;&#x884C;&#x786C;&#x4EF6;&#x521D;&#x59CB;&#x5316;</h1>
-<pre><code class="lang-c">__cvmx_helper_sgmii_enable(int interface)
-    __cvmx_helper_sgmii_hardware_init(interface, num_ports);
-        __cvmx_helper_setup_gmx(interface, num_ports);
-        __cvmx_helper_sgmii_hardware_init_one_time(interface, index);
-        //&#x521D;&#x59CB;&#x5316;link&#x72B6;&#x6001;
-        __cvmx_helper_sgmii_link_set(ipd_port, __cvmx_helper_sgmii_link_get(ipd_port))
+<pre class="language-"><code class="lang-c"><span class="token function">__cvmx_helper_sgmii_enable</span><span class="token punctuation">(</span><span class="token keyword">int</span> interface<span class="token punctuation">)</span>
+    <span class="token function">__cvmx_helper_sgmii_hardware_init</span><span class="token punctuation">(</span>interface<span class="token punctuation">,</span> num_ports<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">__cvmx_helper_setup_gmx</span><span class="token punctuation">(</span>interface<span class="token punctuation">,</span> num_ports<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">__cvmx_helper_sgmii_hardware_init_one_time</span><span class="token punctuation">(</span>interface<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//&#x521D;&#x59CB;&#x5316;link&#x72B6;&#x6001;</span>
+        <span class="token function">__cvmx_helper_sgmii_link_set</span><span class="token punctuation">(</span>ipd_port<span class="token punctuation">,</span> <span class="token function">__cvmx_helper_sgmii_link_get</span><span class="token punctuation">(</span>ipd_port<span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre>
 
                                 
@@ -3113,11 +3110,10 @@ ifconfig eth1 up
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon 网口代码分析","level":"1.16.3.11","depth":3,"previous":{"title":"octeon 原子操作","level":"1.16.3.10","depth":3,"path":"notes/CPU_MIPS_octeon原子操作.md","ref":"notes/CPU_MIPS_octeon原子操作.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon网口代码分析.md","mtime":"2022-10-11T15:10:42.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon 网口代码分析","level":"1.16.3.11","depth":3,"previous":{"title":"octeon 原子操作","level":"1.16.3.10","depth":3,"path":"notes/CPU_MIPS_octeon原子操作.md","ref":"notes/CPU_MIPS_octeon原子操作.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon网口代码分析.md","mtime":"2022-10-11T15:39:07.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3156,7 +3152,6 @@ ifconfig eth1 up
         
     
 
-        
     </body>
 </html>
 

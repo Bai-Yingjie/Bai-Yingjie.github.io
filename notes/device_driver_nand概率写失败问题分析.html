@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -3000,7 +2997,7 @@ locks NDF_CMD queue and DMA operation.</p>
 /<em> Compute the CRC for the ONFI parameter page.  Adapted from sample code
 ** in the specification.
 </em>/
-@@ -1456,7 +1473,6 @@ static inline cvmx_nand_status_t __cvmx</em><pre><code>    if (result)
+@@ -1456,7 +1473,6 @@ static inline cvmx_nand_status_t __cvmx</em><pre class="language-"><code>    if (result)
             CVMX_NAND_RETURN(result);
 </code></pre>}
 -
@@ -3018,7 +3015,7 @@ nand_selected = </strong>cvmx_nand_select(1);</p>
 @@ -1740,10 +1758,12 @@ static inline int <em>_cvmx_nand_low_level</em></p>
 </li>
 </ul>
-<pre><code>    __cvmx_nand_select(nand_selected);
+<pre class="language-"><code>    __cvmx_nand_select(nand_selected);
 </code></pre><ul>
 <li><p>__cvmx_nand_cmdq_unlock();
 CVMX_NAND_RETURN(bytes);</p>
@@ -3047,7 +3044,7 @@ CVMX_NAND_RETURN(status);
 EXPORT_SYMBOL(cvmx_nand_page_write);
 @@ -2001,6 +2024,8 @@ cvmx_nand_status_t cvmx_nand_block_erase
 if (!cvmx_nand_state[chip].page_size)</p>
-<pre><code>    CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
+<pre class="language-"><code>    CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
 </code></pre></li>
 <li><p><strong>cvmx_nand_cmdq_lock();
 +
@@ -3064,13 +3061,13 @@ CVMX_NAND_RETURN(status);
 EXPORT_SYMBOL(cvmx_nand_block_erase);
 @@ -2230,6 +2256,8 @@ cvmx_nand_status_t cvmx_nand_set_feature
 if (feature == NULL)</p>
-<pre><code>    CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
+<pre class="language-"><code>    CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
 </code></pre></li>
 <li><p><strong>cvmx_nand_cmdq_lock();
 +
 nand_selected = </strong>cvmx_nand_select(1);
 status = __cvmx_nand_build_pre_cmd(chip, NAND_COMMAND_SET_FEATURES,</p>
-<pre><code>                               1, feat_num, 0);
+<pre class="language-"><code>                               1, feat_num, 0);
 </code></pre><p>@@ -2278,6 +2306,7 @@ cvmx_nand_status_t cvmx_nand_set_feature
 }
 done:
@@ -3082,7 +3079,7 @@ CVMX_NAND_RETURN(status);
 EXPORT_SYMBOL(cvmx_nand_set_feature);
 @@ -2380,6 +2409,8 @@ cvmx_nand_status_t cvmx_nand_reset(int c
 if (!cvmx_nand_state[chip].page_size)</p>
-<pre><code>    CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
+<pre class="language-"><code>    CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
 </code></pre></li>
 <li><p><strong>cvmx_nand_cmdq_lock();
 +
@@ -3090,7 +3087,7 @@ nand_selected = </strong>cvmx_nand_select(1);
 status = __cvmx_nand_build_pre_cmd(chip, NAND_COMMAND_RESET, 0, 0, 0);
 if (status)
 @@ -2396,6 +2427,7 @@ cvmx_nand_status_t cvmx_nand_reset(int c</p>
-<pre><code>    goto done;
+<pre class="language-"><code>    goto done;
 </code></pre><p>done:
 __cvmx_nand_select(nand_selected);</p>
 </li>
@@ -3145,11 +3142,10 @@ EXPORT_SYMBOL(cvmx_nand_reset);</li>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Nand flash概率写失败问题分析","level":"1.15.5.2","depth":3,"next":{"title":"octeon remote-pci.c阅读","level":"1.15.6","depth":2,"path":"notes/octeon_remote_pci.md","ref":"notes/octeon_remote_pci.md","articles":[]},"previous":{"title":"octeon nand flash驱动","level":"1.15.5.1","depth":3,"path":"notes/device_driver_octeon_nand.md","ref":"notes/device_driver_octeon_nand.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/device_driver_nand概率写失败问题分析.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Nand flash概率写失败问题分析","level":"1.15.5.2","depth":3,"next":{"title":"octeon remote-pci.c阅读","level":"1.15.6","depth":2,"path":"notes/octeon_remote_pci.md","ref":"notes/octeon_remote_pci.md","articles":[]},"previous":{"title":"octeon nand flash驱动","level":"1.15.5.1","depth":3,"path":"notes/device_driver_octeon_nand.md","ref":"notes/device_driver_octeon_nand.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/device_driver_nand概率写失败问题分析.md","mtime":"2022-10-11T15:39:07.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3188,7 +3184,6 @@ EXPORT_SYMBOL(cvmx_nand_reset);</li>
         
     
 
-        
     </body>
 </html>
 

@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2894,24 +2891,24 @@
 <p><a href="http://doc.opensuse.org/products/draft/SLES/SLES-kvm_sd_draft/book.kvm.html" target="_blank">http://doc.opensuse.org/products/draft/SLES/SLES-kvm_sd_draft/book.kvm.html</a><br><a href="http://doc.opensuse.org/products/draft/SLES/SLES-kvm_sd_draft/cha.qemu.guest_inst.html#cha.qemu.guest_inst.qemu-kvm" target="_blank">http://doc.opensuse.org/products/draft/SLES/SLES-kvm_sd_draft/cha.qemu.guest_inst.html#cha.qemu.guest_inst.qemu-kvm</a><br><a href="http://doc.opensuse.org/products/draft/SLES/SLES-kvm_sd_draft/cha.qemu.running.html" target="_blank">http://doc.opensuse.org/products/draft/SLES/SLES-kvm_sd_draft/cha.qemu.running.html</a></p>
 <h1 id="qemu&#x4F7F;&#x7528;"><a name="qemu&#x4F7F;&#x7528;" class="anchor-navigation-ex-anchor" href="#qemu&#x4F7F;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>2. qemu&#x4F7F;&#x7528;</h1>
 <h2 id="kvm&#x53EA;&#x662F;&#x4E2A;qemu&#x7684;&#x5C01;&#x88C5;"><a name="kvm&#x53EA;&#x662F;&#x4E2A;qemu&#x7684;&#x5C01;&#x88C5;" class="anchor-navigation-ex-anchor" href="#kvm&#x53EA;&#x662F;&#x4E2A;qemu&#x7684;&#x5C01;&#x88C5;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. kvm&#x53EA;&#x662F;&#x4E2A;qemu&#x7684;&#x5C01;&#x88C5;</h2>
-<pre><code class="lang-sh">/usr/bin/kvm -nographic -monitor stdio -hda windowsC.img -m 2048 -smp 2 -cdrom Win2003.iso -boot c -soundhw es1370 -no-acpi -localtime -usb -usbdevice tablet -net nic,vlan=0,model=rtl8139 -net tap,vlan=0,ifname=tap0
+<pre class="language-"><code class="lang-sh">/usr/bin/kvm <span class="token parameter variable">-nographic</span> <span class="token parameter variable">-monitor</span> stdio <span class="token parameter variable">-hda</span> windowsC.img <span class="token parameter variable">-m</span> <span class="token number">2048</span> <span class="token parameter variable">-smp</span> <span class="token number">2</span> <span class="token parameter variable">-cdrom</span> Win2003.iso <span class="token parameter variable">-boot</span> c <span class="token parameter variable">-soundhw</span> es1370 -no-acpi <span class="token parameter variable">-localtime</span> <span class="token parameter variable">-usb</span> <span class="token parameter variable">-usbdevice</span> tablet <span class="token parameter variable">-net</span> nic,vlan<span class="token operator">=</span><span class="token number">0</span>,model<span class="token operator">=</span>rtl8139 <span class="token parameter variable">-net</span> tap,vlan<span class="token operator">=</span><span class="token number">0</span>,ifname<span class="token operator">=</span>tap0
 </code></pre>
-<pre><code class="lang-sh">$ cat /usr/bin/kvm
-#! /bin/shexec
-qemu-system-x86_64 -enable-kvm &quot;$@&quot;
+<pre class="language-"><code class="lang-sh">$ <span class="token function">cat</span> /usr/bin/kvm
+<span class="token comment">#! /bin/shexec</span>
+qemu-system-x86_64 -enable-kvm <span class="token string">&quot;<span class="token variable">$@</span>&quot;</span>
 </code></pre>
 <h2 id="&#x5B89;&#x88C5;"><a name="&#x5B89;&#x88C5;" class="anchor-navigation-ex-anchor" href="#&#x5B89;&#x88C5;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. &#x5B89;&#x88C5;</h2>
-<pre><code class="lang-sh">#&#x68C0;&#x67E5;cpu&#x662F;&#x5426;&#x652F;&#x6301;&#x865A;&#x62DF;&#x5316;
-egrep -c &#x2018;(svm|vmx)&#x2019; /proc/cpuinfo
-#&#x5B89;&#x88C5;
-sudo apt-get install qemu-kvm libvirt-bin bridge-utils virt-manager virt-viewer
-#&#x52A0;&#x5165;&#x7EC4;
-sudo adduser `id -un` libvirtd
-#&#x67E5;&#x770B;&#x5F53;&#x524D;&#x865A;&#x62DF;&#x673A;
-virsh -c qemu:///system list
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x68C0;&#x67E5;cpu&#x662F;&#x5426;&#x652F;&#x6301;&#x865A;&#x62DF;&#x5316;</span>
+<span class="token function">egrep</span> <span class="token parameter variable">-c</span> &#x2018;<span class="token punctuation">(</span>svm<span class="token operator">|</span>vmx<span class="token punctuation">)</span>&#x2019; /proc/cpuinfo
+<span class="token comment">#&#x5B89;&#x88C5;</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> qemu-kvm libvirt-bin bridge-utils virt-manager virt-viewer
+<span class="token comment">#&#x52A0;&#x5165;&#x7EC4;</span>
+<span class="token function">sudo</span> adduser <span class="token variable"><span class="token variable">`</span><span class="token function">id</span> <span class="token parameter variable">-un</span><span class="token variable">`</span></span> libvirtd
+<span class="token comment">#&#x67E5;&#x770B;&#x5F53;&#x524D;&#x865A;&#x62DF;&#x673A;</span>
+<span class="token function">virsh</span> <span class="token parameter variable">-c</span> qemu:///system list
 </code></pre>
 <h2 id="&#x542F;&#x52A8;&#x547D;&#x4EE4;"><a name="&#x542F;&#x52A8;&#x547D;&#x4EE4;" class="anchor-navigation-ex-anchor" href="#&#x542F;&#x52A8;&#x547D;&#x4EE4;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. &#x542F;&#x52A8;&#x547D;&#x4EE4;</h2>
-<pre><code>qemu-kvm -name &quot;sles11&quot; -M pc-0.12 -m 768 \
+<pre class="language-"><code>qemu-kvm -name &quot;sles11&quot; -M pc-0.12 -m 768 \
 -smp 2 -boot c \
 -drive file=/images/sles11/hda,if=virtio,index=0,media=disk,format=raw \
 -net nic,model=virtio,macaddr=52:54:00:05:11:11 \
@@ -2926,7 +2923,7 @@ qemu-system-x86_64 -enable-kvm -name ubuntutest -m 2048 -balloon virtio -drive f
 <code>qemu-img convert win7.vdi -O raw win7.raw</code></p>
 <h2 id="&#x5173;&#x4E8E;-nodefaults"><a name="&#x5173;&#x4E8E;-nodefaults" class="anchor-navigation-ex-anchor" href="#&#x5173;&#x4E8E;-nodefaults"><i class="fa fa-link" aria-hidden="true"></i></a>2.5. &#x5173;&#x4E8E;-nodefaults</h2>
 <p>&#x9ED8;&#x8BA4;&#x7684;q35&#x673A;&#x5668;&#x914D;&#x7F6E;</p>
-<pre><code>#     00.0 - Host bridge
+<pre class="language-"><code>#     00.0 - Host bridge
 #     1f.0 - ISA bridge / LPC
 #     1f.2 - SATA (AHCI) controller
 #     1f.3 - SMBus controller
@@ -2934,23 +2931,23 @@ qemu-system-x86_64 -enable-kvm -name ubuntutest -m 2048 -balloon virtio -drive f
 <h2 id="vnc"><a name="vnc" class="anchor-navigation-ex-anchor" href="#vnc"><i class="fa fa-link" aria-hidden="true"></i></a>2.6. vnc</h2>
 <p>&#x5E26;vnc&#x53C2;&#x6570;&#x65F6;, &#x9700;&#x8981;vnc&#x5230;&#x6307;&#x5B9A;&#x7AEF;&#x53E3;&#x624D;&#x6709;&quot;&#x89C6;&#x9891;&quot;&#x8F93;&#x51FA;<br>&#x6BD4;&#x5982; -vnc :1 &#x6CE8;:vnc&#x7684;&#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;&#x4ECE;5900&#x5F00;&#x59CB;<br>&#x53E6;&#x5F00;&#x4E00;&#x4E2A;&#x7A97;&#x53E3;<br>gvncviewer 0.0.0.0:1<br>&#x6216;gvncviewer 127.0.0.1:1</p>
 <h2 id="spice&#x914D;&#x5408;-vga-qxl"><a name="spice&#x914D;&#x5408;-vga-qxl" class="anchor-navigation-ex-anchor" href="#spice&#x914D;&#x5408;-vga-qxl"><i class="fa fa-link" aria-hidden="true"></i></a>2.7. spice&#x914D;&#x5408;-vga qxl</h2>
-<pre><code>kvm -name GentooGuest -machine q35,usb=off -cpu host -smp 4 -m 2048 -realtime mlock=off -balloon virtio -drive file=gentoo-rootfs.ext4,if=virtio -vga qxl -nographic -spice port=5900,addr=127.0.0.1,disable-ticketing -writeconfig gentooguest.cfg
+<pre class="language-"><code>kvm -name GentooGuest -machine q35,usb=off -cpu host -smp 4 -m 2048 -realtime mlock=off -balloon virtio -drive file=gentoo-rootfs.ext4,if=virtio -vga qxl -nographic -spice port=5900,addr=127.0.0.1,disable-ticketing -writeconfig gentooguest.cfg
 </code></pre><p>&#x9700;&#x8981;&#x5F00;&#x4E2A;spice client  </p>
-<pre><code>apt install spice-client
+<pre class="language-"><code>apt install spice-client
 spicec -h 127.0.0.1 -p 5900
 </code></pre><p>&#x6309;shift+f12&#x9000;&#x51FA;guest&#x7A97;&#x53E3;</p>
 <h2 id="qemu-gdb"><a name="qemu-gdb" class="anchor-navigation-ex-anchor" href="#qemu-gdb"><i class="fa fa-link" aria-hidden="true"></i></a>2.8. qemu gdb</h2>
 <p>In order to use gdb, launch QEMU with the &apos;-s&apos; option. It will wait for a gdb connection:</p>
-<pre><code>qemu-system-i386 -s -kernel arch/i386/boot/bzImage -hda root-2.4.20.img \
+<pre class="language-"><code>qemu-system-i386 -s -kernel arch/i386/boot/bzImage -hda root-2.4.20.img \
     -append &quot;root=/dev/hda&quot;
 </code></pre><p>Connected to host network interface: tun0
 Waiting gdb connection on port 1234
 Then launch gdb on the &apos;vmlinux&apos; executable:</p>
-<pre><code>&gt; gdb vmlinux
+<pre class="language-"><code>&gt; gdb vmlinux
 </code></pre><p>In gdb, connect to QEMU:</p>
-<pre><code>(gdb) target remote localhost:1234
+<pre class="language-"><code>(gdb) target remote localhost:1234
 </code></pre><p>Then you can use gdb normally. For example, type &apos;c&apos; to launch the kernel:</p>
-<pre><code>(gdb) c
+<pre class="language-"><code>(gdb) c
 </code></pre><p>Here are some useful tips in order to use gdb on system code:
 Use <code>info reg</code> to display all the CPU registers.<br>Use <code>x/10i $eip</code> to display the code at the PC position.<br>Use <code>set architecture i8086</code> to dump 16 bit code. Then <code>usex/10i $cs*16+$eip</code> to dump the code at the PC position.</p>
 
@@ -2996,11 +2993,10 @@ Use <code>info reg</code> to display all the CPU registers.<br>Use <code>x/10i $
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Qemu使用(old)","level":"1.13.5","depth":2,"next":{"title":"计算机网络相关","level":"1.14","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"networking杂记1","level":"1.14.1","depth":2,"path":"notes/networking_杂记1.md","ref":"notes/networking_杂记1.md","articles":[]},{"title":"Qemu OVS和DPDK","level":"1.14.2","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"OVS-DPDK编译运行","level":"1.14.2.1","depth":3,"path":"notes/OVS_DPDK_编译运行.md","ref":"notes/OVS_DPDK_编译运行.md","articles":[]},{"title":"OVS架构和代码","level":"1.14.2.2","depth":3,"path":"notes/OVS_架构和代码.md","ref":"notes/OVS_架构和代码.md","articles":[]},{"title":"OVS-DPDK for ARM server 性能测试环境","level":"1.14.2.3","depth":3,"path":"notes/OVS_DPDK_performance_HXT_ARM_server.md","ref":"notes/OVS_DPDK_performance_HXT_ARM_server.md","articles":[]},{"title":"DPDK Mellanox","level":"1.14.2.4","depth":3,"path":"notes/DPDK_Mellanox.md","ref":"notes/DPDK_Mellanox.md","articles":[]},{"title":"OVS PHY-VM-PHY","level":"1.14.2.5","depth":3,"path":"notes/OVS_phy-vm-phy.md","ref":"notes/OVS_phy-vm-phy.md","articles":[]},{"title":"网络虚拟化用例记录","level":"1.14.2.6","depth":3,"path":"notes/networking_网络虚拟化用例记录.md","ref":"notes/networking_网络虚拟化用例记录.md","articles":[]},{"title":"网络虚拟化操作记录","level":"1.14.2.7","depth":3,"path":"notes/networking_网络虚拟化操作记录.md","ref":"notes/networking_网络虚拟化操作记录.md","articles":[]}]},{"title":"虚拟化网络","level":"1.14.3","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"Connecting a veth device to tap","level":"1.14.3.1","depth":3,"path":"notes/networking_tc_filter_连接veth和tap.md","ref":"notes/networking_tc_filter_连接veth和tap.md","articles":[]},{"title":"multicast vxlan和flannel","level":"1.14.3.2","depth":3,"path":"notes/networking_multicast_vxlan_flannel.md","ref":"notes/networking_multicast_vxlan_flannel.md","articles":[]},{"title":"virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV","level":"1.14.3.3","depth":3,"path":"notes/networking_virtio网络介绍.md","ref":"notes/networking_virtio网络介绍.md","articles":[]},{"title":"虚拟化网络杂记","level":"1.14.3.4","depth":3,"path":"notes/networking_virtualization_杂记.md","ref":"notes/networking_virtualization_杂记.md","articles":[]},{"title":"linux虚拟网络接口(网摘)","level":"1.14.3.5","depth":3,"path":"notes/networking_linux虚拟网络接口.md","ref":"notes/networking_linux虚拟网络接口.md","articles":[]}]}]},"previous":{"title":"qemu OVS 虚拟化环境准备","level":"1.13.4","depth":2,"path":"notes/qemu_ovs_虚拟化环境.md","ref":"notes/qemu_ovs_虚拟化环境.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/qemu使用.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Qemu使用(old)","level":"1.13.5","depth":2,"next":{"title":"计算机网络相关","level":"1.14","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"networking杂记1","level":"1.14.1","depth":2,"path":"notes/networking_杂记1.md","ref":"notes/networking_杂记1.md","articles":[]},{"title":"Qemu OVS和DPDK","level":"1.14.2","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"OVS-DPDK编译运行","level":"1.14.2.1","depth":3,"path":"notes/OVS_DPDK_编译运行.md","ref":"notes/OVS_DPDK_编译运行.md","articles":[]},{"title":"OVS架构和代码","level":"1.14.2.2","depth":3,"path":"notes/OVS_架构和代码.md","ref":"notes/OVS_架构和代码.md","articles":[]},{"title":"OVS-DPDK for ARM server 性能测试环境","level":"1.14.2.3","depth":3,"path":"notes/OVS_DPDK_performance_HXT_ARM_server.md","ref":"notes/OVS_DPDK_performance_HXT_ARM_server.md","articles":[]},{"title":"DPDK Mellanox","level":"1.14.2.4","depth":3,"path":"notes/DPDK_Mellanox.md","ref":"notes/DPDK_Mellanox.md","articles":[]},{"title":"OVS PHY-VM-PHY","level":"1.14.2.5","depth":3,"path":"notes/OVS_phy-vm-phy.md","ref":"notes/OVS_phy-vm-phy.md","articles":[]},{"title":"网络虚拟化用例记录","level":"1.14.2.6","depth":3,"path":"notes/networking_网络虚拟化用例记录.md","ref":"notes/networking_网络虚拟化用例记录.md","articles":[]},{"title":"网络虚拟化操作记录","level":"1.14.2.7","depth":3,"path":"notes/networking_网络虚拟化操作记录.md","ref":"notes/networking_网络虚拟化操作记录.md","articles":[]}]},{"title":"虚拟化网络","level":"1.14.3","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"Connecting a veth device to tap","level":"1.14.3.1","depth":3,"path":"notes/networking_tc_filter_连接veth和tap.md","ref":"notes/networking_tc_filter_连接veth和tap.md","articles":[]},{"title":"multicast vxlan和flannel","level":"1.14.3.2","depth":3,"path":"notes/networking_multicast_vxlan_flannel.md","ref":"notes/networking_multicast_vxlan_flannel.md","articles":[]},{"title":"virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV","level":"1.14.3.3","depth":3,"path":"notes/networking_virtio网络介绍.md","ref":"notes/networking_virtio网络介绍.md","articles":[]},{"title":"虚拟化网络杂记","level":"1.14.3.4","depth":3,"path":"notes/networking_virtualization_杂记.md","ref":"notes/networking_virtualization_杂记.md","articles":[]},{"title":"linux虚拟网络接口(网摘)","level":"1.14.3.5","depth":3,"path":"notes/networking_linux虚拟网络接口.md","ref":"notes/networking_linux虚拟网络接口.md","articles":[]}]}]},"previous":{"title":"qemu OVS 虚拟化环境准备","level":"1.13.4","depth":2,"path":"notes/qemu_ovs_虚拟化环境.md","ref":"notes/qemu_ovs_虚拟化环境.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/qemu使用.md","mtime":"2022-10-11T15:39:07.954Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3039,7 +3035,6 @@ Use <code>info reg</code> to display all the CPU registers.<br>Use <code>x/10i $
         
     
 
-        
     </body>
 </html>
 

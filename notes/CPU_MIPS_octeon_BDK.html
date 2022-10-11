@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2877,107 +2874,107 @@
 <li><a href="#78&#x7684;&#x914D;&#x7F6E;">78&#x7684;&#x914D;&#x7F6E;</a></li>
 </ul>
 <h1 id="&#x7F16;&#x8BD1;bdk"><a name="&#x7F16;&#x8BD1;bdk" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;bdk"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x7F16;&#x8BD1;BDK</h1>
-<pre><code>apt install gcc-multilib
+<pre class="language-"><code>apt install gcc-multilib
 export BDK_ROOT=/home/byj/repo/git/octeon/bdk-trunk
 export OCTEON_ROOT=/home/byj/repo/hg/octeon-sdk/OCTEON-SDK-3.1.1
 export PATH=${PATH}:${BDK_ROOT}/bin:${OCTEON_ROOT}/tools/bin
 make distclean
 make
 </code></pre><h1 id="bdk-from-uboot"><a name="bdk-from-uboot" class="anchor-navigation-ex-anchor" href="#bdk-from-uboot"><i class="fa fa-link" aria-hidden="true"></i></a>2. bdk from uboot</h1>
-<pre><code>usb start
+<pre class="language-"><code>usb start
 fatls usb 0:1 /target/
 fatload usb 0:1 0x400000 /target/bdk-boot-cn78xx.bin
 go 0x400000
 </code></pre><h1 id="octeon-main"><a name="octeon-main" class="anchor-navigation-ex-anchor" href="#octeon-main"><i class="fa fa-link" aria-hidden="true"></i></a>3. octeon main</h1>
 <p>&#x5728;<code>bdk-boot/bdk-full-no-romfs.c</code></p>
 <h2 id="bdk-&#x6D41;&#x7A0B;"><a name="bdk-&#x6D41;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#bdk-&#x6D41;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. bdk &#x6D41;&#x7A0B;</h2>
-<pre><code class="lang-c">__start(bdk-start.S)
-__init(bdk-start.S)
-&#x62F7;&#x8D1D;code(header + data)&#x5230;0x80002000  --&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x662F;cache? &#x8FD8;&#x662F;&#x8BF4;&#x5728;&#x6CA1;&#x6709;flush&#x4E4B;&#x524D;, cache&#x91CC;&#x9762;&#x7684;&#x4E1C;&#x897F;&#x4E0D;&#x52A8;?
-&#x7528;COP0_CVMMEMCTL&#x8BBE;&#x7F6E;&#x6808;&#x5728;cache&#x4E2D;, &#x5927;&#x5C0F;&#x662F;54*128, &#x8BE6;&#x7EC6;&#x89C1;HRM&#x5C0F;&#x8282;2.5 Virtual Addresses and CVMSEG
-__bdk_init(bdk-init.c)
-    __bdk_fs_init()
-    __bdk_init_exception()
-    &#x5982;&#x679C;&#x6CA1;&#x6709;&#x521D;&#x59CB;&#x5316;&#x5185;&#x5B58;, &#x5219;&#x9501;cache
-    ...
-__bdk_init_main(bdk-init-main.c)
-    cp0, config, bootbus, mdio&#x521D;&#x59CB;&#x5316;
-main(bdk-full-no-romfs.c) &#x65B0;&#x7684;&#x8FDB;&#x7A0B;
-    bdk_lua_start()
-        bdk_fs_remote_init()
-        bdk_fs_rom_init()
-        bdk_fs_mem_init()
-        bdk_fs_nor_init()
-        bdk_fs_mmc_init()
-        bdk_fs_mpi_init()
-        bdk_fs_pcie_init()
-        bdk_fs_ram_init()
-        bdk_fs_xmodem_init()
-        bdk_fs_sata_init()
-        __bdk_lua_main() lua.c
-            lua_State *L = luaL_newstate()
-                bdk_lua_init()
-                    luaL_getsubtable(L, LUA_REGISTRYINDEX, &quot;_PRELOAD&quot;);
-                    PRELOAD(&quot;bit64&quot;, luaopen_bit64);
-                    PRELOAD(&quot;readline&quot;, luaopen_readline);
-                    PRELOAD(&quot;rpc-support&quot;, luaopen_rpc_support);
-                    //host&#x6A21;&#x5F0F;&#x4E0B;
-                    PRELOAD(&quot;socket&quot;, luaopen_socket_core)
-                    PRELOAD(&quot;oremote-internal&quot;, luaopen_oremote)
-                    //target&#x6A21;&#x5F0F;&#x4E0B;
-                    PRELOAD(&quot;cavium-internal&quot;, luaopen_cavium);
-                        //&#x6CE8;&#x518C;&#x5B50;&#x9879;, cavium_model, cavium_c, cavium_config, cavium_constants, cavium_perf, cavium_mmc, dram, csr
-                        //&#x6BD4;&#x5982;cavium_c
-                        lua_newtable(L)
-                        //&#x628A;&#x6BCF;&#x4E2A;function&#x90FD;&#x6CE8;&#x518C;&#x5230;lua&#x91CC;&#x9762;, &#x8FD9;&#x4E9B;function&#x90FD;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;cavium_c_call&#x6765;&#x8C03;&#x7528;
-                        //&#x540C;&#x65F6;&#x5355;&#x72EC;&#x6CE8;&#x518C;&#x4E86;bdk_csr_read, bdk_csr_write, &#x56E0;&#x4E3A;&#x8FD9;&#x4E24;&#x4E2A;&#x90FD;&#x662F;&#x5B8F;
-                        lua_setfield(L, -2, &quot;c&quot;); //&#x628A;&#x8FD9;&#x4E2A;newtable&#x586B;&#x5230;L&#x91CC;&#x9762;, key&#x5C31;&#x662F;c
-            lua_pushcfunction(L, &amp;pmain);
-            lua_pushinteger(L, argc);  /* 1st argument */
-            lua_pushlightuserdata(L, argv); /* 2nd argument */
-            status = lua_pcall(L, 2, 1, 0);
-            result = lua_toboolean(L, -1);  /* get result */
-            finalreport(L, status);
-            lua_close(L);
-        pmain()
-            luaL_openlibs()
-            handle_luainit()
-            handle_script()
-            dotty()
-        /rom/init.lua
-            while Ture:
-                /rom/main.lua
-                    board-setup
-                    board-ebb7800
-                        //&#x5176;&#x4ED6;&#x7684;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x6709;octeon.c.bdk_csr_read, octeon.c.bdk_csr_write, &#x8FD8;&#x6709;&#x5168;&#x5728;libbdk/bdk-functions.c&#x91CC;&#x9762;
-                        local set_config = octeon.c.bdk_config_set
-                        set_config(octeon.CONFIG_PHY_IF0_PORT1, 0xff000001)
-                        ...
+<pre class="language-"><code class="lang-c"><span class="token function">__start</span><span class="token punctuation">(</span>bdk<span class="token operator">-</span>start<span class="token punctuation">.</span>S<span class="token punctuation">)</span>
+<span class="token function">__init</span><span class="token punctuation">(</span>bdk<span class="token operator">-</span>start<span class="token punctuation">.</span>S<span class="token punctuation">)</span>
+&#x62F7;&#x8D1D;<span class="token function">code</span><span class="token punctuation">(</span>header <span class="token operator">+</span> data<span class="token punctuation">)</span>&#x5230;<span class="token number">0x80002000</span>  <span class="token operator">--</span>&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x662F;cache<span class="token operator">?</span> &#x8FD8;&#x662F;&#x8BF4;&#x5728;&#x6CA1;&#x6709;flush&#x4E4B;&#x524D;<span class="token punctuation">,</span> cache&#x91CC;&#x9762;&#x7684;&#x4E1C;&#x897F;&#x4E0D;&#x52A8;<span class="token operator">?</span>
+&#x7528;COP0_CVMMEMCTL&#x8BBE;&#x7F6E;&#x6808;&#x5728;cache&#x4E2D;<span class="token punctuation">,</span> &#x5927;&#x5C0F;&#x662F;<span class="token number">54</span><span class="token operator">*</span><span class="token number">128</span><span class="token punctuation">,</span> &#x8BE6;&#x7EC6;&#x89C1;HRM&#x5C0F;&#x8282;<span class="token number">2.5</span> Virtual Addresses and CVMSEG
+<span class="token function">__bdk_init</span><span class="token punctuation">(</span>bdk<span class="token operator">-</span>init<span class="token punctuation">.</span>c<span class="token punctuation">)</span>
+    <span class="token function">__bdk_fs_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">__bdk_init_exception</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    &#x5982;&#x679C;&#x6CA1;&#x6709;&#x521D;&#x59CB;&#x5316;&#x5185;&#x5B58;<span class="token punctuation">,</span> &#x5219;&#x9501;cache
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token function">__bdk_init_main</span><span class="token punctuation">(</span>bdk<span class="token operator">-</span>init<span class="token operator">-</span>main<span class="token punctuation">.</span>c<span class="token punctuation">)</span>
+    cp0<span class="token punctuation">,</span> config<span class="token punctuation">,</span> bootbus<span class="token punctuation">,</span> mdio&#x521D;&#x59CB;&#x5316;
+<span class="token function">main</span><span class="token punctuation">(</span>bdk<span class="token operator">-</span>full<span class="token operator">-</span>no<span class="token operator">-</span>romfs<span class="token punctuation">.</span>c<span class="token punctuation">)</span> &#x65B0;&#x7684;&#x8FDB;&#x7A0B;
+    <span class="token function">bdk_lua_start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">bdk_fs_remote_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">bdk_fs_rom_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">bdk_fs_mem_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">bdk_fs_nor_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">bdk_fs_mmc_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">bdk_fs_mpi_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">bdk_fs_pcie_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">bdk_fs_ram_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">bdk_fs_xmodem_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">bdk_fs_sata_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">__bdk_lua_main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> lua<span class="token punctuation">.</span>c
+            lua_State <span class="token operator">*</span>L <span class="token operator">=</span> <span class="token function">luaL_newstate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token function">bdk_lua_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token function">luaL_getsubtable</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> LUA_REGISTRYINDEX<span class="token punctuation">,</span> <span class="token string">&quot;_PRELOAD&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">PRELOAD</span><span class="token punctuation">(</span><span class="token string">&quot;bit64&quot;</span><span class="token punctuation">,</span> luaopen_bit64<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">PRELOAD</span><span class="token punctuation">(</span><span class="token string">&quot;readline&quot;</span><span class="token punctuation">,</span> luaopen_readline<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">PRELOAD</span><span class="token punctuation">(</span><span class="token string">&quot;rpc-support&quot;</span><span class="token punctuation">,</span> luaopen_rpc_support<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment">//host&#x6A21;&#x5F0F;&#x4E0B;</span>
+                    <span class="token function">PRELOAD</span><span class="token punctuation">(</span><span class="token string">&quot;socket&quot;</span><span class="token punctuation">,</span> luaopen_socket_core<span class="token punctuation">)</span>
+                    <span class="token function">PRELOAD</span><span class="token punctuation">(</span><span class="token string">&quot;oremote-internal&quot;</span><span class="token punctuation">,</span> luaopen_oremote<span class="token punctuation">)</span>
+                    <span class="token comment">//target&#x6A21;&#x5F0F;&#x4E0B;</span>
+                    <span class="token function">PRELOAD</span><span class="token punctuation">(</span><span class="token string">&quot;cavium-internal&quot;</span><span class="token punctuation">,</span> luaopen_cavium<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token comment">//&#x6CE8;&#x518C;&#x5B50;&#x9879;, cavium_model, cavium_c, cavium_config, cavium_constants, cavium_perf, cavium_mmc, dram, csr</span>
+                        <span class="token comment">//&#x6BD4;&#x5982;cavium_c</span>
+                        <span class="token function">lua_newtable</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span>
+                        <span class="token comment">//&#x628A;&#x6BCF;&#x4E2A;function&#x90FD;&#x6CE8;&#x518C;&#x5230;lua&#x91CC;&#x9762;, &#x8FD9;&#x4E9B;function&#x90FD;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;cavium_c_call&#x6765;&#x8C03;&#x7528;</span>
+                        <span class="token comment">//&#x540C;&#x65F6;&#x5355;&#x72EC;&#x6CE8;&#x518C;&#x4E86;bdk_csr_read, bdk_csr_write, &#x56E0;&#x4E3A;&#x8FD9;&#x4E24;&#x4E2A;&#x90FD;&#x662F;&#x5B8F;</span>
+                        <span class="token function">lua_setfield</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">&quot;c&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&#x628A;&#x8FD9;&#x4E2A;newtable&#x586B;&#x5230;L&#x91CC;&#x9762;, key&#x5C31;&#x662F;c</span>
+            <span class="token function">lua_pushcfunction</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">&amp;</span>pmain<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">lua_pushinteger</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> argc<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* 1st argument */</span>
+            <span class="token function">lua_pushlightuserdata</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> argv<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 2nd argument */</span>
+            status <span class="token operator">=</span> <span class="token function">lua_pcall</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            result <span class="token operator">=</span> <span class="token function">lua_toboolean</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* get result */</span>
+            <span class="token function">finalreport</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> status<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">lua_close</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">pmain</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token function">luaL_openlibs</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token function">handle_luainit</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token function">handle_script</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token function">dotty</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token operator">/</span>rom<span class="token operator">/</span>init<span class="token punctuation">.</span>lua
+            <span class="token keyword">while</span> Ture<span class="token operator">:</span>
+                <span class="token operator">/</span>rom<span class="token operator">/</span>main<span class="token punctuation">.</span>lua
+                    board<span class="token operator">-</span>setup
+                    board<span class="token operator">-</span>ebb7800
+                        <span class="token comment">//&#x5176;&#x4ED6;&#x7684;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x6709;octeon.c.bdk_csr_read, octeon.c.bdk_csr_write, &#x8FD8;&#x6709;&#x5168;&#x5728;libbdk/bdk-functions.c&#x91CC;&#x9762;</span>
+                        local set_config <span class="token operator">=</span> octeon<span class="token punctuation">.</span>c<span class="token punctuation">.</span>bdk_config_set
+                        <span class="token function">set_config</span><span class="token punctuation">(</span>octeon<span class="token punctuation">.</span>CONFIG_PHY_IF0_PORT1<span class="token punctuation">,</span> <span class="token number">0xff000001</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 </code></pre>
 <h1 id="78&#x7684;&#x914D;&#x7F6E;"><a name="78&#x7684;&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#78&#x7684;&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>4. 78&#x7684;&#x914D;&#x7F6E;</h1>
-<pre><code class="lang-c">void __bdk_require_depends(void)
-{
-    BDK_REQUIRE(QLM);
-    BDK_REQUIRE(PCIE);
-    BDK_REQUIRE(PCIE_EEPROM);
-    BDK_REQUIRE(FS_PCIE);
-    BDK_REQUIRE(GPIO);
-    BDK_REQUIRE(RNG);
-    BDK_REQUIRE(KEY_MEMORY);
-    BDK_REQUIRE(MPI);
-    BDK_REQUIRE(DRAM_CONFIG);
-    BDK_REQUIRE(DRAM_TEST);
-    BDK_REQUIRE(ENVIRONMENT);
-    BDK_REQUIRE(FS_XMODEM);
-    BDK_REQUIRE(FS_RAM);
-    BDK_REQUIRE(FS_SATA);
-    BDK_REQUIRE(CSR_DB);
-    BDK_REQUIRE(TRAFFIC_GEN);
-    BDK_REQUIRE(ERROR_DECODE);
-    BDK_REQUIRE(SATA);
-    BDK_REQUIRE(TWSI);
-    BDK_REQUIRE(USB);
-}
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token function">__bdk_require_depends</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>QLM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>PCIE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>PCIE_EEPROM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>FS_PCIE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>GPIO<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>RNG<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>KEY_MEMORY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>MPI<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>DRAM_CONFIG<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>DRAM_TEST<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>ENVIRONMENT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>FS_XMODEM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>FS_RAM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>FS_SATA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>CSR_DB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>TRAFFIC_GEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>ERROR_DECODE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>SATA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>TWSI<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>USB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
                                 
@@ -3022,11 +3019,10 @@ main(bdk-full-no-romfs.c) &#x65B0;&#x7684;&#x8FDB;&#x7A0B;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon CN78xx BDK","level":"1.16.3.5","depth":3,"next":{"title":"octeon 增加ECC中断","level":"1.16.3.6","depth":3,"path":"notes/kernel_增加ECC中断.md","ref":"notes/kernel_增加ECC中断.md","articles":[]},"previous":{"title":"octeon DDR调试","level":"1.16.3.4","depth":3,"path":"notes/CPU_MIPS_octeon_ddr调试记录.md","ref":"notes/CPU_MIPS_octeon_ddr调试记录.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon_BDK.md","mtime":"2022-10-11T15:10:42.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon CN78xx BDK","level":"1.16.3.5","depth":3,"next":{"title":"octeon 增加ECC中断","level":"1.16.3.6","depth":3,"path":"notes/kernel_增加ECC中断.md","ref":"notes/kernel_增加ECC中断.md","articles":[]},"previous":{"title":"octeon DDR调试","level":"1.16.3.4","depth":3,"path":"notes/CPU_MIPS_octeon_ddr调试记录.md","ref":"notes/CPU_MIPS_octeon_ddr调试记录.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon_BDK.md","mtime":"2022-10-11T15:39:07.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3065,7 +3061,6 @@ main(bdk-full-no-romfs.c) &#x65B0;&#x7684;&#x8FDB;&#x7A0B;
         
     
 
-        
     </body>
 </html>
 

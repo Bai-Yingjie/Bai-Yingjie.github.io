@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2887,100 +2884,100 @@
 <p>&#x5404;&#x79CD;fd&#x662F;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;
 &#x7528;perf&#x770B;&#x6240;&#x6709;&#x5E26;fd&#x7684;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;
 <code>perf list | grep syscalls | grep fd | grep enter</code></p>
-<pre><code class="lang-sh">root@godev-server:/home/yingjieb# perf list | grep syscalls | grep fd | grep enter
-  syscalls:sys_enter_eventfd                         [Tracepoint event]
-  syscalls:sys_enter_eventfd2                        [Tracepoint event]
-  syscalls:sys_enter_fdatasync                       [Tracepoint event]
-  syscalls:sys_enter_gettimeofday                    [Tracepoint event]
-  syscalls:sys_enter_memfd_create                    [Tracepoint event]
-  syscalls:sys_enter_settimeofday                    [Tracepoint event]
-  syscalls:sys_enter_signalfd                        [Tracepoint event]
-  syscalls:sys_enter_signalfd4                       [Tracepoint event]
-  syscalls:sys_enter_timerfd_create                  [Tracepoint event]
-  syscalls:sys_enter_timerfd_gettime                 [Tracepoint event]
-  syscalls:sys_enter_timerfd_settime                 [Tracepoint event]
-  syscalls:sys_enter_userfaultfd                     [Tracepoint event]
+<pre class="language-"><code class="lang-sh">root@godev-server:/home/yingjieb<span class="token comment"># perf list | grep syscalls | grep fd | grep enter</span>
+  syscalls:sys_enter_eventfd                         <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_eventfd2                        <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_fdatasync                       <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_gettimeofday                    <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_memfd_create                    <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_settimeofday                    <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_signalfd                        <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_signalfd4                       <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_timerfd_create                  <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_timerfd_gettime                 <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_timerfd_settime                 <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
+  syscalls:sys_enter_userfaultfd                     <span class="token punctuation">[</span>Tracepoint event<span class="token punctuation">]</span>
 </code></pre>
 <p>&#x4E0B;&#x9762;&#x5C31;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;&#x8FD9;&#x4E9B;fd&#x7684;&#x4F7F;&#x7528;.</p>
 <h1 id="signalfd"><a name="signalfd" class="anchor-navigation-ex-anchor" href="#signalfd"><i class="fa fa-link" aria-hidden="true"></i></a>1. signalfd</h1>
-<pre><code class="lang-c">#include &lt;sys/signalfd.h&gt;
-#include &lt;signal.h&gt;
-#include &lt;unistd.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;stdio.h&gt;
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/signalfd.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;signal.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
-#define handle_error(msg) \
-    do { perror(msg); exit(EXIT_FAILURE); } while (0)
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">handle_error</span><span class="token expression"><span class="token punctuation">(</span>msg<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
+    <span class="token expression"><span class="token keyword">do</span> <span class="token punctuation">{</span> <span class="token function">perror</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">exit</span><span class="token punctuation">(</span>EXIT_FAILURE<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span></span></span>
 
-int
-main(int argc, char *argv[])
-{
-    sigset_t mask;
-    int sfd;
-    struct signalfd_siginfo fdsi;
-    ssize_t s;
+<span class="token keyword">int</span>
+<span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token class-name">sigset_t</span> mask<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> sfd<span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">signalfd_siginfo</span> fdsi<span class="token punctuation">;</span>
+    <span class="token class-name">ssize_t</span> s<span class="token punctuation">;</span>
 
-    sigemptyset(&amp;mask);
-    sigaddset(&amp;mask, SIGINT);
-    sigaddset(&amp;mask, SIGQUIT);
+    <span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>mask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sigaddset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>mask<span class="token punctuation">,</span> SIGINT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sigaddset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>mask<span class="token punctuation">,</span> SIGQUIT<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    /* &#x963B;&#x585E;&#x4FE1;&#x53F7;&#x4EE5;&#x4F7F;&#x5F97;&#x5B83;&#x4EEC;&#x4E0D;&#x88AB;&#x9ED8;&#x8BA4;&#x7684;&#x5904;&#x7406;&#x8BD5;&#x65B9;&#x5F0F;&#x5904;&#x7406; */
+    <span class="token comment">/* &#x963B;&#x585E;&#x4FE1;&#x53F7;&#x4EE5;&#x4F7F;&#x5F97;&#x5B83;&#x4EEC;&#x4E0D;&#x88AB;&#x9ED8;&#x8BA4;&#x7684;&#x5904;&#x7406;&#x8BD5;&#x65B9;&#x5F0F;&#x5904;&#x7406; */</span>
 
-    if (sigprocmask(SIG_BLOCK, &amp;mask, NULL) == -1)
-        handle_error(&quot;sigprocmask&quot;);
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">sigprocmask</span><span class="token punctuation">(</span>SIG_BLOCK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>mask<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token function">handle_error</span><span class="token punctuation">(</span><span class="token string">&quot;sigprocmask&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    sfd = signalfd(-1, &amp;mask, 0);
-    if (sfd == -1)
-        handle_error(&quot;signalfd&quot;);
+    sfd <span class="token operator">=</span> <span class="token function">signalfd</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>mask<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>sfd <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token function">handle_error</span><span class="token punctuation">(</span><span class="token string">&quot;signalfd&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    for (;;) {
-        s = read(sfd, &amp;fdsi, sizeof(struct signalfd_siginfo));
-        if (s != sizeof(struct signalfd_siginfo))
-            handle_error(&quot;read&quot;);
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        s <span class="token operator">=</span> <span class="token function">read</span><span class="token punctuation">(</span>sfd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>fdsi<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">signalfd_siginfo</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">!=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">signalfd_siginfo</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token function">handle_error</span><span class="token punctuation">(</span><span class="token string">&quot;read&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        if (fdsi.ssi_signo == SIGINT) {
-            printf(&quot;Got SIGINT\n&quot;);
-        } else if (fdsi.ssi_signo == SIGQUIT) {
-            printf(&quot;Got SIGQUIT\n&quot;);
-            exit(EXIT_SUCCESS);
-        } else {
-            printf(&quot;Read unexpected signal\n&quot;);
-        }
-    }
-}
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>fdsi<span class="token punctuation">.</span>ssi_signo <span class="token operator">==</span> SIGINT<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Got SIGINT\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>fdsi<span class="token punctuation">.</span>ssi_signo <span class="token operator">==</span> SIGQUIT<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Got SIGQUIT\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">exit</span><span class="token punctuation">(</span>EXIT_SUCCESS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Read unexpected signal\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <blockquote>
 <p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x53EA;&#x662F;&#x5F88;&#x7B80;&#x5355;&#x7684;&#x8BF4;&#x660E;&#x4E86;&#x4F7F;&#x7528;signalfd&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x771F;&#x6B63;&#x53D1;&#x6325;&#x5B83;&#x7684;&#x4F5C;&#x7528;&#xFF0C;&#x6709;&#x4E86;&#x8FD9;&#x4E2A;API&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5C06;&#x4FE1;&#x53F7;&#x5904;&#x7406;&#x4F5C;&#x4E3A;IO&#x770B;&#x5F85;.<br>&#x6BCF;&#x4E00;&#x4E2A;&#x4FE1;&#x53F7;&#x96C6;&#x5408;&#xFF08;&#x6216;&#x8005;&#x67D0;&#x4E00;&#x4E2A;&#x5BF9;&#x5E94;&#x7684;&#x4FE1;&#x53F7;&#xFF09;&#x5C31;&#x4F1A;&#x6709;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#xFF0C;&#x8FD9;&#x6837;&#x5C06;&#x4FE1;&#x53F7;&#x5904;&#x7406;&#x7684;&#x6D41;&#x7A0B;&#x5927;&#x5927;&#x7B80;&#x5316;&#xFF0C;&#x5C06;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x7684;&#x4E1A;&#x52A1;&#x4F5C;&#x4E3A;&#x6587;&#x4EF6;&#x6765;&#x64CD;&#x4F5C;&#xFF0C;&#x4E5F;&#x4F53;&#x73B0;&#x4E86;linux&#x4E0B;&#x7684;&#x4E00;&#x5207;&#x7686;&#x6587;&#x4EF6;&#x7684;&#x8BF4;&#x6CD5;&#xFF0C;&#x975E;&#x5E38;&#x597D;&#xFF0C;&#x5047;&#x5982;&#x6709;&#x5F88;&#x591A;&#x79CD;&#x4FE1;&#x53F7;&#x7B49;&#x5F85;&#x7740;&#x5904;&#x7406;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x4FE1;&#x53F7;&#x63CF;&#x8FF0;&#x7B26;&#x5BF9;&#x5F85;&#x4E00;&#x79CD;&#x4FE1;&#x53F7;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x53EF;&#x4EE5;&#x5C06;&#x4FE1;&#x53F7;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x8BBE;&#x7F6E;&#x4E3A;&#x975E;&#x963B;&#x585E;&#xFF0C;&#x540C;&#x65F6;&#x7ED3;&#x5408;epoll&#x4F7F;&#x7528;&#xFF0C;&#x5BF9;&#x4FE1;&#x53F7;&#x7684;&#x5904;&#x7406;&#x8F6C;&#x5316;&#x4E3A;IO&#x590D;&#x7528;&#xFF0C;&#x548C;&#x8FD9;&#x4E2A;&#x6709;&#x76F8;&#x4F3C;&#x4E4B;&#x5904;&#x7684;API&#x8FD8;&#x6709;timerfd</p>
 </blockquote>
 <h1 id="timerfd"><a name="timerfd" class="anchor-navigation-ex-anchor" href="#timerfd"><i class="fa fa-link" aria-hidden="true"></i></a>2. timerfd</h1>
 <p>&#x4F7F;&#x7528;timerfd&#x7684;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x662F;libevent. &#x5728;linux&#x4E0B;&#x9762;, &#x9ED8;&#x8BA4;&#x7684;libevent&#x4F7F;&#x7528;epoll, epoll&#x6709;&#x4E2A;&#x8D85;&#x65F6;&#x65F6;&#x95F4;.<br>libevent&#x5229;&#x7528;&#x8FD9;&#x4E2A;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x6765;&#x505A;&#x5B9A;&#x65F6;&#x5668;&#x7684;&#x89E6;&#x53D1;&#x6E90;, &#x5373;&#x5728;event loop&#x91CC;&#x9762;, &#x628A;&#x5B9A;&#x65F6;&#x5668;&#x5806;&#x7684;&#x65F6;&#x95F4;&#x505A;&#x4E3A;&#x8D85;&#x65F6;&#x65F6;&#x95F4;.<br>&#x66F4;&#x5177;&#x4F53;&#x4E00;&#x4E9B;, &#x5728;libevent&#x521D;&#x59CB;&#x5316;&#x65F6;:<br>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;, libevent&#x4E0D;&#x4F7F;&#x7528;timerfd, <code>epollop-&gt;timerfd = -1</code>.<br>&#x4F46;&#x6709;<code>EVENT_BASE_FLAG_PRECISE_TIMER</code>&#x60C5;&#x51B5;&#x4E0B;, </p>
-<pre><code class="lang-c">if ((base-&gt;flags &amp; EVENT_BASE_FLAG_PRECISE_TIMER) &amp;&amp;
-     base-&gt;monotonic_timer.monotonic_clock == CLOCK_MONOTONIC) {
-         int fd;
-        fd = epollop-&gt;timerfd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK|TFD_CLOEXEC);
-        if (epollop-&gt;timerfd &gt;= 0) {
-            struct epoll_event epev;
-            memset(&amp;epev, 0, sizeof(epev));
-            epev.data.fd = epollop-&gt;timerfd;
-            epev.events = EPOLLIN;
-            //&#x628A;&#x8FD9;&#x4E2A;fd&#x52A0;&#x5165;epoll
-            epoll_ctl(epollop-&gt;epfd, EPOLL_CTL_ADD, fd, &amp;epev)
+<pre class="language-"><code class="lang-c"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>base<span class="token operator">-&gt;</span>flags <span class="token operator">&amp;</span> EVENT_BASE_FLAG_PRECISE_TIMER<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+     base<span class="token operator">-&gt;</span>monotonic_timer<span class="token punctuation">.</span>monotonic_clock <span class="token operator">==</span> CLOCK_MONOTONIC<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">int</span> fd<span class="token punctuation">;</span>
+        fd <span class="token operator">=</span> epollop<span class="token operator">-&gt;</span>timerfd <span class="token operator">=</span> <span class="token function">timerfd_create</span><span class="token punctuation">(</span>CLOCK_MONOTONIC<span class="token punctuation">,</span> TFD_NONBLOCK<span class="token operator">|</span>TFD_CLOEXEC<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>epollop<span class="token operator">-&gt;</span>timerfd <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">struct</span> <span class="token class-name">epoll_event</span> epev<span class="token punctuation">;</span>
+            <span class="token function">memset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>epev<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>epev<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            epev<span class="token punctuation">.</span>data<span class="token punctuation">.</span>fd <span class="token operator">=</span> epollop<span class="token operator">-&gt;</span>timerfd<span class="token punctuation">;</span>
+            epev<span class="token punctuation">.</span>events <span class="token operator">=</span> EPOLLIN<span class="token punctuation">;</span>
+            <span class="token comment">//&#x628A;&#x8FD9;&#x4E2A;fd&#x52A0;&#x5165;epoll</span>
+            <span class="token function">epoll_ctl</span><span class="token punctuation">(</span>epollop<span class="token operator">-&gt;</span>epfd<span class="token punctuation">,</span> EPOLL_CTL_ADD<span class="token punctuation">,</span> fd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>epev<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x53C2;&#x8003;: <a href="https://blog.csdn.net/KangRoger/article/details/47844443" target="_blank">https://blog.csdn.net/KangRoger/article/details/47844443</a></p>
 <p>&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x7684;<code>timerfd_create()</code>&#x5C31;&#x662F;timerfd&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;.</p>
 <h2 id="timerfd-api"><a name="timerfd-api" class="anchor-navigation-ex-anchor" href="#timerfd-api"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. timerfd API</h2>
-<pre><code class="lang-c">       #include &lt;sys/timerfd.h&gt;
+<pre class="language-"><code class="lang-c">       <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/timerfd.h&gt;</span></span>
 
-       int timerfd_create(int clockid, int flags);
+       <span class="token keyword">int</span> <span class="token function">timerfd_create</span><span class="token punctuation">(</span><span class="token keyword">int</span> clockid<span class="token punctuation">,</span> <span class="token keyword">int</span> flags<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        //&#x8FD9;&#x4E2A;&#x65F6;&#x95F4;&#x7CBE;&#x5EA6;&#x5E94;&#x8BE5;&#x6BD4;ms&#x9AD8;.
-       int timerfd_settime(int fd, int flags,
-                           const struct itimerspec *new_value,
-                           struct itimerspec *old_value);
+        <span class="token comment">//&#x8FD9;&#x4E2A;&#x65F6;&#x95F4;&#x7CBE;&#x5EA6;&#x5E94;&#x8BE5;&#x6BD4;ms&#x9AD8;.</span>
+       <span class="token keyword">int</span> <span class="token function">timerfd_settime</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">int</span> flags<span class="token punctuation">,</span>
+                           <span class="token keyword">const</span> <span class="token keyword">struct</span> <span class="token class-name">itimerspec</span> <span class="token operator">*</span>new_value<span class="token punctuation">,</span>
+                           <span class="token keyword">struct</span> <span class="token class-name">itimerspec</span> <span class="token operator">*</span>old_value<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-       int timerfd_gettime(int fd, struct itimerspec *curr_value);
+       <span class="token keyword">int</span> <span class="token function">timerfd_gettime</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">itimerspec</span> <span class="token operator">*</span>curr_value<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-       read&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4F1A;&#x8FD4;&#x56DE;&#x8D85;&#x65F6;&#x6B21;&#x6570;, &#x5982;&#x679C;&#x4E00;&#x6B21;&#x8D85;&#x65F6;&#x90FD;&#x6CA1;&#x5230;, read&#x963B;&#x585E;.
+       read&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4F1A;&#x8FD4;&#x56DE;&#x8D85;&#x65F6;&#x6B21;&#x6570;<span class="token punctuation">,</span> &#x5982;&#x679C;&#x4E00;&#x6B21;&#x8D85;&#x65F6;&#x90FD;&#x6CA1;&#x5230;<span class="token punctuation">,</span> read&#x963B;&#x585E;<span class="token punctuation">.</span>
 </code></pre>
 <ol>
 <li>timerfd_create&#x7528;&#x4E8E;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5B9A;&#x65F6;&#x5668;&#x6587;&#x4EF6;&#xFF0C;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x503C;&#x662F;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x53E5;&#x67C4;fd&#x3002;</li>
@@ -2989,9 +2986,9 @@ main(int argc, char *argv[])
 </ol>
 <h2 id="&#x6CE8;epoll&#x4F7F;&#x7528;&#x7B80;&#x4ECB;"><a name="&#x6CE8;epoll&#x4F7F;&#x7528;&#x7B80;&#x4ECB;" class="anchor-navigation-ex-anchor" href="#&#x6CE8;epoll&#x4F7F;&#x7528;&#x7B80;&#x4ECB;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. &#x6CE8;epoll&#x4F7F;&#x7528;&#x7B80;&#x4ECB;</h2>
 <p><code>man epoll</code>&#x53EF;&#x4EE5;&#x770B;&#x5230;, epoll&#x7684;API&#x6709;</p>
-<pre><code class="lang-c">epoll_create() : &#x7528;&#x4E8E;&#x521B;&#x5EFA;epoll&#x5BF9;&#x8C61;
-epoll_ctl() : &#x7528;&#x4E8E;&#x7BA1;&#x7406;fd set
-epoll_wait() : &#x7528;&#x4E8E;&#x7B49;&#x5F85;IO
+<pre class="language-"><code class="lang-c"><span class="token function">epoll_create</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> &#x7528;&#x4E8E;&#x521B;&#x5EFA;epoll&#x5BF9;&#x8C61;
+<span class="token function">epoll_ctl</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> &#x7528;&#x4E8E;&#x7BA1;&#x7406;fd set
+<span class="token function">epoll_wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> &#x7528;&#x4E8E;&#x7B49;&#x5F85;IO
 </code></pre>
 <h3 id="&#x8FB9;&#x6CBF;&#x89E6;&#x53D1;&#x548C;&#x7535;&#x5E73;&#x89E6;&#x53D1;"><a name="&#x8FB9;&#x6CBF;&#x89E6;&#x53D1;&#x548C;&#x7535;&#x5E73;&#x89E6;&#x53D1;" class="anchor-navigation-ex-anchor" href="#&#x8FB9;&#x6CBF;&#x89E6;&#x53D1;&#x548C;&#x7535;&#x5E73;&#x89E6;&#x53D1;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. &#x8FB9;&#x6CBF;&#x89E6;&#x53D1;&#x548C;&#x7535;&#x5E73;&#x89E6;&#x53D1;</h3>
 <p>epoll&#x6709;&#x7C7B;&#x4F3C;&#x786C;&#x4EF6;&#x7684;&#x89E6;&#x53D1;&#x6982;&#x5FF5;</p>
@@ -3005,9 +3002,9 @@ epoll_wait() : &#x7528;&#x4E8E;&#x7B49;&#x5F85;IO
 <li>level-triggered (LT): &#x7535;&#x5E73;&#x89E6;&#x53D1;, &#x8FD9;&#x662F;&#x9ED8;&#x8BA4;&#x89E6;&#x53D1;&#x65B9;&#x5F0F;</li>
 </ul>
 <h3 id="epollwait"><a name="epollwait" class="anchor-navigation-ex-anchor" href="#epollwait"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.2. epoll_wait</h3>
-<pre><code class="lang-c">#include &lt;sys/epoll.h&gt;
-int epoll_wait(int epfd, struct epoll_event *events,
-                int maxevents, int timeout);
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/epoll.h&gt;</span></span>
+<span class="token keyword">int</span> <span class="token function">epoll_wait</span><span class="token punctuation">(</span><span class="token keyword">int</span> epfd<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">epoll_event</span> <span class="token operator">*</span>events<span class="token punctuation">,</span>
+                <span class="token keyword">int</span> maxevents<span class="token punctuation">,</span> <span class="token keyword">int</span> timeout<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&#x8FD9;&#x91CC;&#x7684;timeout&#x5355;&#x4F4D;&#x662F;ms, &#x662F;&#x7528;CLOCK_MONOTONIC&#x5EA6;&#x91CF;&#x7684;.
 epoll_wait&#x8FD4;&#x56DE;&#x6709;&#x51E0;&#x79CD;&#x53EF;&#x80FD;:</p>
@@ -3026,16 +3023,16 @@ epoll_wait&#x8FD4;&#x56DE;&#x6709;&#x51E0;&#x79CD;&#x53EF;&#x80FD;:</p>
 <li>&#x4E5F;&#x53EF;&#x4EE5;&#x914D;&#x5408;poll(), select()&#x4F7F;&#x7528;</li>
 </ul>
 <h2 id="&#x7528;&#x6CD5;"><a name="&#x7528;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x7528;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x7528;&#x6CD5;</h2>
-<pre><code class="lang-c">#include &lt;sys/eventfd.h&gt;
-int eventfd(unsigned int initval, int flags);
-    read()
-    write()
-    close()
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/eventfd.h&gt;</span></span>
+<span class="token keyword">int</span> <span class="token function">eventfd</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span> initval<span class="token punctuation">,</span> <span class="token keyword">int</span> flags<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">write</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-//glibc&#x8FD8;&#x63D0;&#x4F9B;:
-typedef uint64_t eventfd_t;
-int eventfd_read(int fd, eventfd_t *value);
-int eventfd_write(int fd, eventfd_t value);
+<span class="token comment">//glibc&#x8FD8;&#x63D0;&#x4F9B;:</span>
+<span class="token keyword">typedef</span> <span class="token class-name">uint64_t</span> <span class="token class-name">eventfd_t</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">eventfd_read</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token class-name">eventfd_t</span> <span class="token operator">*</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">eventfd_write</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token class-name">eventfd_t</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h1 id="&#x8FDB;&#x7A0B;&#x95F4;&#x5171;&#x4EAB;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;"><a name="&#x8FDB;&#x7A0B;&#x95F4;&#x5171;&#x4EAB;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;" class="anchor-navigation-ex-anchor" href="#&#x8FDB;&#x7A0B;&#x95F4;&#x5171;&#x4EAB;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x8FDB;&#x7A0B;&#x95F4;&#x5171;&#x4EAB;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;</h1>
 <p>&#x5728; <code>OVS&#x67B6;&#x6784;&#x548C;&#x4EE3;&#x7801;</code>&#x4E2D;, qemu&#x901A;&#x8FC7;unix socket&#x4F20;&#x9012;eventfd&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x7ED9;OVS, &#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x7528;&#x4E86;socket&#x7684;<code>SCM_RIGHTS</code>&#x65B9;&#x6CD5;.
@@ -3043,156 +3040,156 @@ int eventfd_write(int fd, eventfd_t value);
 &#x8BE6;&#x89C1;
 <a href="http://poincare.matf.bg.ac.rs/~ivana/courses/ps/sistemi_knjige/pomocno/apue/APUE/0201433079/ch17lev1sec4.html" target="_blank">http://poincare.matf.bg.ac.rs/~ivana/courses/ps/sistemi_knjige/pomocno/apue/APUE/0201433079/ch17lev1sec4.html</a>
 &#x51FA;&#x81EA;<code>Advanced Programming in the UNIX&#xAE; Environment: Second Edition 2005</code><br>&#x770B;&#x6765;&#x8FD9;&#x6280;&#x672F;&#x6709;&#x5341;&#x51E0;&#x5E74;&#x7684;&#x65F6;&#x95F4;&#x4E86;<br>&#x53D1;&#x9001;&#x8FDB;&#x7A0B;:</p>
-<pre><code class="lang-c">#include &quot;apue.h&quot;
-#include &lt;stropts.h&gt;
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;apue.h&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stropts.h&gt;</span></span>
 
-/*
+<span class="token comment">/*
  * Pass a file descriptor to another process.
  * If fd&lt;0, then -fd is sent back instead as the error status.
- */
-int
-send_fd(int fd, int fd_to_send)
-{
-    char buf[2]; /* send_fd()/recv_fd() 2-byte protocol */
+ */</span>
+<span class="token keyword">int</span>
+<span class="token function">send_fd</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">int</span> fd_to_send<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">/* send_fd()/recv_fd() 2-byte protocol */</span>
 
-    buf[0] = 0; /* null byte flag to recv_fd() */
-    if (fd_to_send &lt; 0) {
-        buf[1] = -fd_to_send; /* nonzero status means error */
-        if (buf[1] == 0)
-            buf[1] = 1; /* -256, etc. would screw up protocol */
-    } else {
-        buf[1] = 0; /* zero status means OK */
-    }
+    buf<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">/* null byte flag to recv_fd() */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>fd_to_send <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        buf<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span>fd_to_send<span class="token punctuation">;</span> <span class="token comment">/* nonzero status means error */</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>buf<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            buf<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">/* -256, etc. would screw up protocol */</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        buf<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">/* zero status means OK */</span>
+    <span class="token punctuation">}</span>
 
-    if (write(fd, buf, 2) != 2)
-        return(-1);
-    if (fd_to_send &gt;= 0)
-        if (ioctl(fd, I_SENDFD, fd_to_send) &lt; 0)
-            return(-1);
-    return(0);
-}
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">write</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> buf<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>fd_to_send <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">ioctl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> I_SENDFD<span class="token punctuation">,</span> fd_to_send<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x63A5;&#x6536;&#x8FDB;&#x7A0B;:</p>
-<pre><code class="lang-c">//&#x63A5;&#x6536;&#x65F6;, &#x7B2C;&#x4E09;&#x4E2A;&#x53C2;&#x6570;&#x662F;strrecvfd &#x7ED3;&#x6784;&#x4F53;
-   struct strrecvfd {
-       int fd; /* new descriptor */
-       uid_t uid; /* effective user ID of sender */
-       gid_t gid; /* effective group ID of sender */
-       char fill[8];
-   };
+<pre class="language-"><code class="lang-c"><span class="token comment">//&#x63A5;&#x6536;&#x65F6;, &#x7B2C;&#x4E09;&#x4E2A;&#x53C2;&#x6570;&#x662F;strrecvfd &#x7ED3;&#x6784;&#x4F53;</span>
+   <span class="token keyword">struct</span> <span class="token class-name">strrecvfd</span> <span class="token punctuation">{</span>
+       <span class="token keyword">int</span> fd<span class="token punctuation">;</span> <span class="token comment">/* new descriptor */</span>
+       <span class="token class-name">uid_t</span> uid<span class="token punctuation">;</span> <span class="token comment">/* effective user ID of sender */</span>
+       <span class="token class-name">gid_t</span> gid<span class="token punctuation">;</span> <span class="token comment">/* effective group ID of sender */</span>
+       <span class="token keyword">char</span> fill<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-#include &quot;apue.h&quot;
-#include &lt;stropts.h&gt;
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;apue.h&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stropts.h&gt;</span></span>
 
-/*
+<span class="token comment">/*
  * Receive a file descriptor from another process (a server).
  * In addition, any data received from the server is passed
  * to (*userfunc)(STDERR_FILENO, buf, nbytes). We have a
  * 2-byte protocol for receiving the fd from send_fd().
- */
-int
-recv_fd(int fd, ssize_t (*userfunc)(int, const void *, size_t))
-{
-    int newfd, nread, flag, status;
-    char *ptr;
-    char buf[MAXLINE];
-    struct strbuf dat;
-    struct strrecvfd recvfd;
+ */</span>
+<span class="token keyword">int</span>
+<span class="token function">recv_fd</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token class-name">ssize_t</span> <span class="token punctuation">(</span><span class="token operator">*</span>userfunc<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">,</span> <span class="token class-name">size_t</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> newfd<span class="token punctuation">,</span> nread<span class="token punctuation">,</span> flag<span class="token punctuation">,</span> status<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> <span class="token operator">*</span>ptr<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> buf<span class="token punctuation">[</span>MAXLINE<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">strbuf</span> dat<span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">strrecvfd</span> recvfd<span class="token punctuation">;</span>
 
-    status = -1;
-    for ( ; ; ) {
-        dat.buf = buf;
-        dat.maxlen = MAXLINE;
-        flag = 0;
-        if (getmsg(fd, NULL, &amp;dat, &amp;flag) &lt; 0)
-            err_sys(&quot;getmsg error&quot;);
-        nread = dat.len;
-        if (nread == 0) {
-            err_ret(&quot;connection closed by server&quot;);
-            return(-1);
-        }
-        /*
+    status <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span> <span class="token punctuation">;</span> <span class="token punctuation">;</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        dat<span class="token punctuation">.</span>buf <span class="token operator">=</span> buf<span class="token punctuation">;</span>
+        dat<span class="token punctuation">.</span>maxlen <span class="token operator">=</span> MAXLINE<span class="token punctuation">;</span>
+        flag <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">getmsg</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>dat<span class="token punctuation">,</span> <span class="token operator">&amp;</span>flag<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token function">err_sys</span><span class="token punctuation">(</span><span class="token string">&quot;getmsg error&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        nread <span class="token operator">=</span> dat<span class="token punctuation">.</span>len<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>nread <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">err_ret</span><span class="token punctuation">(</span><span class="token string">&quot;connection closed by server&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">/*
          * See if this is the final data with null &amp; status.
          * Null must be next to last byte of buffer, status
          * byte is last byte. Zero status means there must
          * be a file descriptor to receive.
-         */
-        for (ptr = buf; ptr &lt; &amp;buf[nread]; ) {
-            if (*ptr++ == 0) {
-                if (ptr != &amp;buf[nread-1])
-                    err_dump(&quot;message format error&quot;);
-                 status = *ptr &amp; 0xFF; /* prevent sign extension */
-                 if (status == 0) {
-                     if (ioctl(fd, I_RECVFD, &amp;recvfd) &lt; 0)
-                         return(-1);
-                     newfd = recvfd.fd; /* new descriptor */
-                 } else {
-                     newfd = -status;
-                 }
-                 nread -= 2;
-            }
-        }
-        if (nread &gt; 0)
-            if ((*userfunc)(STDERR_FILENO, buf, nread) != nread)
-                 return(-1);
+         */</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>ptr <span class="token operator">=</span> buf<span class="token punctuation">;</span> ptr <span class="token operator">&lt;</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">[</span>nread<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">*</span>ptr<span class="token operator">++</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>ptr <span class="token operator">!=</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">[</span>nread<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                    <span class="token function">err_dump</span><span class="token punctuation">(</span><span class="token string">&quot;message format error&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                 status <span class="token operator">=</span> <span class="token operator">*</span>ptr <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">;</span> <span class="token comment">/* prevent sign extension */</span>
+                 <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">ioctl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> I_RECVFD<span class="token punctuation">,</span> <span class="token operator">&amp;</span>recvfd<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+                         <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                     newfd <span class="token operator">=</span> recvfd<span class="token punctuation">.</span>fd<span class="token punctuation">;</span> <span class="token comment">/* new descriptor */</span>
+                 <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                     newfd <span class="token operator">=</span> <span class="token operator">-</span>status<span class="token punctuation">;</span>
+                 <span class="token punctuation">}</span>
+                 nread <span class="token operator">-=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>nread <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>userfunc<span class="token punctuation">)</span><span class="token punctuation">(</span>STDERR_FILENO<span class="token punctuation">,</span> buf<span class="token punctuation">,</span> nread<span class="token punctuation">)</span> <span class="token operator">!=</span> nread<span class="token punctuation">)</span>
+                 <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        if (status &gt;= 0) /* final data has arrived */
-            return(newfd); /* descriptor, or -status */
-    }
-}
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment">/* final data has arrived */</span>
+            <span class="token keyword">return</span><span class="token punctuation">(</span>newfd<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* descriptor, or -status */</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x8BF4;&#x660E;, &#x4E24;&#x4E2A;&#x8FDB;&#x7A0B;&#x60F3;&#x8981;&#x4F20;&#x9012;fd, &#x8981;&#x5148;&#x6709;&#x4E2A;&#x901A;&#x9053;, &#x6BD4;&#x5982;pipe, &#x6216;&#x8005;socket, &#x7528;&#x6765;&#x4F20;&#x9012;fd.</p>
-<pre><code class="lang-c">#include &lt;sys/types.h&gt;
-#include &lt;sys/stat.h&gt;
-#include &lt;fcntl.h&gt;
-#include &lt;stropts.h&gt;
-#include &lt;stdio.h&gt;
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/stat.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stropts.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
-#define TESTFILE &quot;/dev/null&quot;
-main(int argc, char *argv[])
-{
-    int fd;
-    int pipefd[2];
-    struct stat statbuf;
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">TESTFILE</span> <span class="token string">&quot;/dev/null&quot;</span></span>
+<span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> fd<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> pipefd<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">stat</span> statbuf<span class="token punctuation">;</span>
 
-    stat(TESTFILE, &amp;statbuf);
-    statout(TESTFILE, &amp;statbuf);
-    pipe(pipefd);
-    if (fork() == 0) {
-        close(pipefd[0]);
-        sendfd(pipefd[1]);
-    } else {
-        close(pipefd[1])
-        recvfd(pipefd[0]);
-    }
-}
+    <span class="token function">stat</span><span class="token punctuation">(</span>TESTFILE<span class="token punctuation">,</span> <span class="token operator">&amp;</span>statbuf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">statout</span><span class="token punctuation">(</span>TESTFILE<span class="token punctuation">,</span> <span class="token operator">&amp;</span>statbuf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">pipe</span><span class="token punctuation">(</span>pipefd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">close</span><span class="token punctuation">(</span>pipefd<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">sendfd</span><span class="token punctuation">(</span>pipefd<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token function">close</span><span class="token punctuation">(</span>pipefd<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token function">recvfd</span><span class="token punctuation">(</span>pipefd<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-sendfd(int p)
-{
-    int tfd;
+<span class="token function">sendfd</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> tfd<span class="token punctuation">;</span>
 
-    tfd = open(TESTFILE, O_RDWR);
-    ioctl(p, I_SENDFD, tfd);
-}
+    tfd <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span>TESTFILE<span class="token punctuation">,</span> O_RDWR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">ioctl</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> I_SENDFD<span class="token punctuation">,</span> tfd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-recvfd(int p)
-{
-    struct strrecvfd rfdbuf;
-    struct stat statbuf;
-    char    fdbuf[32];
+<span class="token function">recvfd</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">struct</span> <span class="token class-name">strrecvfd</span> rfdbuf<span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">stat</span> statbuf<span class="token punctuation">;</span>
+    <span class="token keyword">char</span>    fdbuf<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    ioctl(p, I_RECVFD, &amp;rfdbuf);
-    fstat(rfdbuf.fd, &amp;statbuf);
-    sprintf(fdbuf, &quot;recvfd=%d&quot;, rfdbuf.fd);
-    statout(fdbuf, &amp;statbuf); 
-}
+    <span class="token function">ioctl</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> I_RECVFD<span class="token punctuation">,</span> <span class="token operator">&amp;</span>rfdbuf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fstat</span><span class="token punctuation">(</span>rfdbuf<span class="token punctuation">.</span>fd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>statbuf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sprintf</span><span class="token punctuation">(</span>fdbuf<span class="token punctuation">,</span> <span class="token string">&quot;recvfd=%d&quot;</span><span class="token punctuation">,</span> rfdbuf<span class="token punctuation">.</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">statout</span><span class="token punctuation">(</span>fdbuf<span class="token punctuation">,</span> <span class="token operator">&amp;</span>statbuf<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
 
-statout(char *f, struct stat *s)
-{
-    printf(&quot;stat: from=%s mode=0%o, ino=%ld, dev=%lx, rdev=%lx\n&quot;,
-    f, s-&gt;st_mode, s-&gt;st_ino, s-&gt;st_dev, s-&gt;st_rdev);
-    fflush(stdout);
-}
+<span class="token function">statout</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>f<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">stat</span> <span class="token operator">*</span>s<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;stat: from=%s mode=0%o, ino=%ld, dev=%lx, rdev=%lx\n&quot;</span><span class="token punctuation">,</span>
+    f<span class="token punctuation">,</span> s<span class="token operator">-&gt;</span>st_mode<span class="token punctuation">,</span> s<span class="token operator">-&gt;</span>st_ino<span class="token punctuation">,</span> s<span class="token operator">-&gt;</span>st_dev<span class="token punctuation">,</span> s<span class="token operator">-&gt;</span>st_rdev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fflush</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
                                 
@@ -3237,11 +3234,10 @@ statout(char *f, struct stat *s)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"eventfd timerfd signalfd和fd共享","level":"1.12.7","depth":2,"next":{"title":"CPU和device虚拟化","level":"1.13","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"gvisor","level":"1.13.1","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"gvisor KVM模式代码","level":"1.13.1.1","depth":3,"path":"notes/golang_gvisor代码_KVM.md","ref":"notes/golang_gvisor代码_KVM.md","articles":[]},{"title":"gvisor调试","level":"1.13.1.2","depth":3,"path":"notes/golang_gvisor调试.md","ref":"notes/golang_gvisor调试.md","articles":[]},{"title":"gvisor ptrace模式介绍(网摘)","level":"1.13.1.3","depth":3,"path":"notes/golang_gvisor_ptrace.md","ref":"notes/golang_gvisor_ptrace.md","articles":[]}]},{"title":"rust VMM(virtual machine monitor)","level":"1.13.2","depth":2,"path":"notes/rust_vmm_brief.md","ref":"notes/rust_vmm_brief.md","articles":[{"title":"rust-vmm简介","level":"1.13.2.1","depth":3,"path":"notes/rust_vmm_简介.md","ref":"notes/rust_vmm_简介.md","articles":[]},{"title":"firecracker代码","level":"1.13.2.2","depth":3,"path":"notes/rust_firecracker_代码.md","ref":"notes/rust_firecracker_代码.md","articles":[]},{"title":"firecracker使用","level":"1.13.2.3","depth":3,"path":"notes/rust_firecracker_使用.md","ref":"notes/rust_firecracker_使用.md","articles":[]},{"title":"cloud hypervisor代码","level":"1.13.2.4","depth":3,"path":"notes/rust_cloud-hypervisor_代码.md","ref":"notes/rust_cloud-hypervisor_代码.md","articles":[]},{"title":"cloud hypervisor使用","level":"1.13.2.5","depth":3,"path":"notes/rust_cloud-hypervisor_使用.md","ref":"notes/rust_cloud-hypervisor_使用.md","articles":[]},{"title":"cloud hypervisor问题与解决","level":"1.13.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]}]},{"title":"virtio规范阅读笔记.md","level":"1.13.3","depth":2,"path":"notes/virtualization_virtio规范阅读笔记.md","ref":"notes/virtualization_virtio规范阅读笔记.md","articles":[]},{"title":"qemu OVS 虚拟化环境准备","level":"1.13.4","depth":2,"path":"notes/qemu_ovs_虚拟化环境.md","ref":"notes/qemu_ovs_虚拟化环境.md","articles":[]},{"title":"Qemu使用(old)","level":"1.13.5","depth":2,"path":"notes/qemu使用.md","ref":"notes/qemu使用.md","articles":[]}]},"previous":{"title":"进程间通信","level":"1.12.6","depth":2,"path":"notes/system_进程间通信.md","ref":"notes/system_进程间通信.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/system_特殊功能fd.md","mtime":"2022-10-11T15:10:43.018Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"eventfd timerfd signalfd和fd共享","level":"1.12.7","depth":2,"next":{"title":"CPU和device虚拟化","level":"1.13","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"gvisor","level":"1.13.1","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"gvisor KVM模式代码","level":"1.13.1.1","depth":3,"path":"notes/golang_gvisor代码_KVM.md","ref":"notes/golang_gvisor代码_KVM.md","articles":[]},{"title":"gvisor调试","level":"1.13.1.2","depth":3,"path":"notes/golang_gvisor调试.md","ref":"notes/golang_gvisor调试.md","articles":[]},{"title":"gvisor ptrace模式介绍(网摘)","level":"1.13.1.3","depth":3,"path":"notes/golang_gvisor_ptrace.md","ref":"notes/golang_gvisor_ptrace.md","articles":[]}]},{"title":"rust VMM(virtual machine monitor)","level":"1.13.2","depth":2,"path":"notes/rust_vmm_brief.md","ref":"notes/rust_vmm_brief.md","articles":[{"title":"rust-vmm简介","level":"1.13.2.1","depth":3,"path":"notes/rust_vmm_简介.md","ref":"notes/rust_vmm_简介.md","articles":[]},{"title":"firecracker代码","level":"1.13.2.2","depth":3,"path":"notes/rust_firecracker_代码.md","ref":"notes/rust_firecracker_代码.md","articles":[]},{"title":"firecracker使用","level":"1.13.2.3","depth":3,"path":"notes/rust_firecracker_使用.md","ref":"notes/rust_firecracker_使用.md","articles":[]},{"title":"cloud hypervisor代码","level":"1.13.2.4","depth":3,"path":"notes/rust_cloud-hypervisor_代码.md","ref":"notes/rust_cloud-hypervisor_代码.md","articles":[]},{"title":"cloud hypervisor使用","level":"1.13.2.5","depth":3,"path":"notes/rust_cloud-hypervisor_使用.md","ref":"notes/rust_cloud-hypervisor_使用.md","articles":[]},{"title":"cloud hypervisor问题与解决","level":"1.13.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]}]},{"title":"virtio规范阅读笔记.md","level":"1.13.3","depth":2,"path":"notes/virtualization_virtio规范阅读笔记.md","ref":"notes/virtualization_virtio规范阅读笔记.md","articles":[]},{"title":"qemu OVS 虚拟化环境准备","level":"1.13.4","depth":2,"path":"notes/qemu_ovs_虚拟化环境.md","ref":"notes/qemu_ovs_虚拟化环境.md","articles":[]},{"title":"Qemu使用(old)","level":"1.13.5","depth":2,"path":"notes/qemu使用.md","ref":"notes/qemu使用.md","articles":[]}]},"previous":{"title":"进程间通信","level":"1.12.6","depth":2,"path":"notes/system_进程间通信.md","ref":"notes/system_进程间通信.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/system_特殊功能fd.md","mtime":"2022-10-11T15:39:07.958Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3280,7 +3276,6 @@ statout(char *f, struct stat *s)
         
     
 
-        
     </body>
 </html>
 

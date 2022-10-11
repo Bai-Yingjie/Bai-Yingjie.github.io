@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2888,9 +2885,9 @@
 <p>The first examples take the terminal approach. The <a href="http://condor.depaul.edu/mkalin" target="_blank">code examples</a> are available in a ZIP file on my website.</p>
 <h2 id="shared-files"><a name="shared-files" class="anchor-navigation-ex-anchor" href="#shared-files"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. Shared files</h2>
 <p>Programmers are all too familiar with file access, including the many pitfalls (non-existent files, bad file permissions, and so on) that beset the use of files in programs. Nonetheless, shared files may be the most basic IPC mechanism. Consider the relatively simple case in which one process (<em>producer</em>) creates and writes to a file, and another process (<em>consumer</em>) reads from this same file:</p>
-<pre><code class="lang-c">         writes  +-----------+  reads
-producer--------&gt;| disk file |&lt;-------consumer
-                 +-----------+
+<pre class="language-"><code class="lang-c">         writes  <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">+</span>  reads
+producer<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">&gt;</span><span class="token operator">|</span> disk file <span class="token operator">|</span><span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>consumer
+                 <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">+</span>
 </code></pre>
 <p>The obvious challenge in using this IPC mechanism is that a <em>race condition</em> might arise: the producer and the consumer might access the file at exactly the same time, thereby making the outcome indeterminate. To avoid a race condition, the file must be locked in a way that prevents a conflict between a <em>write</em> operation and any another operation, whether a <em>read</em> or a <em>write</em>. The locking API in the standard system library can be summarized as follows:</p>
 <ul>
@@ -2900,47 +2897,47 @@ producer--------&gt;| disk file |&lt;-------consumer
 <p>A shared lock promotes efficiency. If one process is just reading a file and not changing its contents, there is no reason to prevent other processes from doing the same. Writing, however, clearly demands exclusive access to a file.</p>
 <p>The standard I/O library includes a utility function named <strong>fcntl</strong> that can be used to inspect and manipulate both exclusive and shared locks on a file. The function works through a <em>file descriptor</em>, a non-negative integer value that, within a process, identifies a file. (Different file descriptors in different processes may identify the same physical file.) For file locking, Linux provides the library function <strong>flock</strong>, which is a thin wrapper around <strong>fcntl</strong>. The first example uses the <strong>fcntl</strong> function to expose API details.</p>
 <h3 id="example-1-the-producer-program"><a name="example-1-the-producer-program" class="anchor-navigation-ex-anchor" href="#example-1-the-producer-program"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.1. Example 1. The producer program</h3>
-<pre><code class="lang-c">#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;fcntl.h&gt;
-#include &lt;unistd.h&gt;
-#include &lt;string.h&gt;
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
 
-#define FileName &quot;data.dat&quot;
-#define DataString &quot;Now is the winter of our discontent\nMade glorious summer by this sun of York\n&quot;
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">FileName</span> <span class="token string">&quot;data.dat&quot;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">DataString</span> <span class="token string">&quot;Now is the winter of our discontent\nMade glorious summer by this sun of York\n&quot;</span></span>
 
-void report_and_exit(const char* msg) {
-  perror(msg);
-  exit(-1); /* EXIT_FAILURE */
-}
+<span class="token keyword">void</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">perror</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* EXIT_FAILURE */</span>
+<span class="token punctuation">}</span>
 
-int main() {
-  struct flock lock;
-  lock.l_type = F_WRLCK;    /* read/write (exclusive versus shared) lock */
-  lock.l_whence = SEEK_SET; /* base for seek offsets */
-  lock.l_start = 0;         /* 1st byte in file */
-  lock.l_len = 0;           /* 0 here means &apos;until EOF&apos; */
-  lock.l_pid = getpid();    /* process id */
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> <span class="token class-name">flock</span> lock<span class="token punctuation">;</span>
+  lock<span class="token punctuation">.</span>l_type <span class="token operator">=</span> F_WRLCK<span class="token punctuation">;</span>    <span class="token comment">/* read/write (exclusive versus shared) lock */</span>
+  lock<span class="token punctuation">.</span>l_whence <span class="token operator">=</span> <span class="token constant">SEEK_SET</span><span class="token punctuation">;</span> <span class="token comment">/* base for seek offsets */</span>
+  lock<span class="token punctuation">.</span>l_start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>         <span class="token comment">/* 1st byte in file */</span>
+  lock<span class="token punctuation">.</span>l_len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>           <span class="token comment">/* 0 here means &apos;until EOF&apos; */</span>
+  lock<span class="token punctuation">.</span>l_pid <span class="token operator">=</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* process id */</span>
 
-  int fd; /* file descriptor to identify a file within a process */
-  if ((fd = open(FileName, O_RDWR | O_CREAT, 0666)) &lt; 0)  /* -1 signals an error */
-    report_and_exit(&quot;open failed...&quot;);
+  <span class="token keyword">int</span> fd<span class="token punctuation">;</span> <span class="token comment">/* file descriptor to identify a file within a process */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>fd <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span>FileName<span class="token punctuation">,</span> O_RDWR <span class="token operator">|</span> O_CREAT<span class="token punctuation">,</span> <span class="token number">0666</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>  <span class="token comment">/* -1 signals an error */</span>
+    <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;open failed...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  if (fcntl(fd, F_SETLK, &amp;lock) &lt; 0) /** F_SETLK doesn&apos;t block, F_SETLKW does **/
-    report_and_exit(&quot;fcntl failed to get lock...&quot;);
-  else {
-    write(fd, DataString, strlen(DataString)); /* populate data file */
-    fprintf(stderr, &quot;Process %d has written to data file...\n&quot;, lock.l_pid);
-  }
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">fcntl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> F_SETLK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>lock<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment">/** F_SETLK doesn&apos;t block, F_SETLKW does **/</span>
+    <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;fcntl failed to get lock...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token function">write</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> DataString<span class="token punctuation">,</span> <span class="token function">strlen</span><span class="token punctuation">(</span>DataString<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* populate data file */</span>
+    <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">&quot;Process %d has written to data file...\n&quot;</span><span class="token punctuation">,</span> lock<span class="token punctuation">.</span>l_pid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  /* Now release the lock explicitly. */
-  lock.l_type = F_UNLCK;
-  if (fcntl(fd, F_SETLK, &amp;lock) &lt; 0)
-    report_and_exit(&quot;explicit unlocking failed...&quot;);
+  <span class="token comment">/* Now release the lock explicitly. */</span>
+  lock<span class="token punctuation">.</span>l_type <span class="token operator">=</span> F_UNLCK<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">fcntl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> F_SETLK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>lock<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;explicit unlocking failed...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  close(fd); /* close the file: would unlock if needed */
-  return 0;  /* terminating the process would unlock as well */
-}
+  <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* close the file: would unlock if needed */</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment">/* terminating the process would unlock as well */</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The main steps in the <em>producer</em> program above can be summarized as follows:</p>
 <ul>
@@ -2960,65 +2957,65 @@ int main() {
 </li>
 </ul>
 <h3 id="example-2-the-consumer-program"><a name="example-2-the-consumer-program" class="anchor-navigation-ex-anchor" href="#example-2-the-consumer-program"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.2. Example 2. The consumer program</h3>
-<pre><code class="lang-c">#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;fcntl.h&gt;
-#include &lt;unistd.h&gt;
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
 
-#define FileName &quot;data.dat&quot;
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">FileName</span> <span class="token string">&quot;data.dat&quot;</span></span>
 
-void report_and_exit(const char* msg) {
-  perror(msg);
-  exit(-1); /* EXIT_FAILURE */
-}
+<span class="token keyword">void</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">perror</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* EXIT_FAILURE */</span>
+<span class="token punctuation">}</span>
 
-int main() {
-  struct flock lock;
-  lock.l_type = F_WRLCK;    /* read/write (exclusive) lock */
-  lock.l_whence = SEEK_SET; /* base for seek offsets */
-  lock.l_start = 0;         /* 1st byte in file */
-  lock.l_len = 0;           /* 0 here means &apos;until EOF&apos; */
-  lock.l_pid = getpid();    /* process id */
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> <span class="token class-name">flock</span> lock<span class="token punctuation">;</span>
+  lock<span class="token punctuation">.</span>l_type <span class="token operator">=</span> F_WRLCK<span class="token punctuation">;</span>    <span class="token comment">/* read/write (exclusive) lock */</span>
+  lock<span class="token punctuation">.</span>l_whence <span class="token operator">=</span> <span class="token constant">SEEK_SET</span><span class="token punctuation">;</span> <span class="token comment">/* base for seek offsets */</span>
+  lock<span class="token punctuation">.</span>l_start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>         <span class="token comment">/* 1st byte in file */</span>
+  lock<span class="token punctuation">.</span>l_len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>           <span class="token comment">/* 0 here means &apos;until EOF&apos; */</span>
+  lock<span class="token punctuation">.</span>l_pid <span class="token operator">=</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">/* process id */</span>
 
-  int fd; /* file descriptor to identify a file within a process */
-  if ((fd = open(FileName, O_RDONLY)) &lt; 0)  /* -1 signals an error */
-    report_and_exit(&quot;open to read failed...&quot;);
+  <span class="token keyword">int</span> fd<span class="token punctuation">;</span> <span class="token comment">/* file descriptor to identify a file within a process */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>fd <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span>FileName<span class="token punctuation">,</span> O_RDONLY<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>  <span class="token comment">/* -1 signals an error */</span>
+    <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;open to read failed...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  /* If the file is write-locked, we can&apos;t continue. */
-  fcntl(fd, F_GETLK, &amp;lock); /* sets lock.l_type to F_UNLCK if no write lock */
-  if (lock.l_type != F_UNLCK)
-    report_and_exit(&quot;file is still write locked...&quot;);
+  <span class="token comment">/* If the file is write-locked, we can&apos;t continue. */</span>
+  <span class="token function">fcntl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> F_GETLK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* sets lock.l_type to F_UNLCK if no write lock */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>lock<span class="token punctuation">.</span>l_type <span class="token operator">!=</span> F_UNLCK<span class="token punctuation">)</span>
+    <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;file is still write locked...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  lock.l_type = F_RDLCK; /* prevents any writing during the reading */
-  if (fcntl(fd, F_SETLK, &amp;lock) &lt; 0)
-    report_and_exit(&quot;can&apos;t get a read-only lock...&quot;);
+  lock<span class="token punctuation">.</span>l_type <span class="token operator">=</span> F_RDLCK<span class="token punctuation">;</span> <span class="token comment">/* prevents any writing during the reading */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">fcntl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> F_SETLK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>lock<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;can&apos;t get a read-only lock...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  /* Read the bytes (they happen to be ASCII codes) one at a time. */
-  int c; /* buffer for read bytes */
-  while (read(fd, &amp;c, 1) &gt; 0)    /* 0 signals EOF */
-    write(STDOUT_FILENO, &amp;c, 1); /* write one byte to the standard output */
+  <span class="token comment">/* Read the bytes (they happen to be ASCII codes) one at a time. */</span>
+  <span class="token keyword">int</span> c<span class="token punctuation">;</span> <span class="token comment">/* buffer for read bytes */</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">read</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>c<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>    <span class="token comment">/* 0 signals EOF */</span>
+    <span class="token function">write</span><span class="token punctuation">(</span>STDOUT_FILENO<span class="token punctuation">,</span> <span class="token operator">&amp;</span>c<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* write one byte to the standard output */</span>
 
-  /* Release the lock explicitly. */
-  lock.l_type = F_UNLCK;
-  if (fcntl(fd, F_SETLK, &amp;lock) &lt; 0)
-    report_and_exit(&quot;explicit unlocking failed...&quot;);
+  <span class="token comment">/* Release the lock explicitly. */</span>
+  lock<span class="token punctuation">.</span>l_type <span class="token operator">=</span> F_UNLCK<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">fcntl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> F_SETLK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>lock<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;explicit unlocking failed...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  close(fd);
-  return 0;
-}
+  <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The <em>consumer</em> program is more complicated than necessary to highlight features of the locking API. In particular, the <em>consumer</em> program first checks whether the file is exclusively locked and only then tries to gain a shared lock. The relevant code is:</p>
-<pre><code class="lang-c">lock.l_type = F_WRLCK;
-...
-fcntl(fd, F_GETLK, &amp;lock); /* sets lock.l_type to F_UNLCK if no write lock */
-if (lock.l_type != F_UNLCK)
-  report_and_exit(&quot;file is still write locked...&quot;);
+<pre class="language-"><code class="lang-c">lock<span class="token punctuation">.</span>l_type <span class="token operator">=</span> F_WRLCK<span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token function">fcntl</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> F_GETLK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* sets lock.l_type to F_UNLCK if no write lock */</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>lock<span class="token punctuation">.</span>l_type <span class="token operator">!=</span> F_UNLCK<span class="token punctuation">)</span>
+  <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;file is still write locked...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The <strong>F_GETLK</strong> operation specified in the <strong>fcntl</strong> call checks for a lock, in this case, an exclusive lock given as <strong>F_WRLCK</strong> in the first statement above. If the specified lock does not exist, then the <strong>fcntl</strong> call automatically changes the lock type field to <strong>F_UNLCK</strong> to indicate this fact. If the file is exclusively locked, the <em>consumer</em> terminates. (A more robust version of the program might have the <em>consumer</em> <strong>sleep</strong> a bit and try again several times.)</p>
 <p>If the file is not currently locked, then the <em>consumer</em> tries to gain a shared (<em>read-only</em>) lock (<strong>F_RDLCK</strong>). To shorten the program, the <strong>F_GETLK</strong> call to <strong>fcntl</strong> could be dropped because the <strong>F_RDLCK</strong> call would fail if a <em>read-write</em> lock already were held by some other process. Recall that a <em>read-only</em> lock does prevent any other process from writing to the file, but allows other processes to read from the file. In short, a <em>shared</em> lock can be held by multiple processes. After gaining a shared lock, the <em>consumer</em> program reads the bytes one at a time from the file, prints the bytes to the standard output, releases the lock, closes the file, and terminates.</p>
 <p>Here is the output from the two programs launched from the same terminal with <strong>%</strong> as the command line prompt:</p>
-<pre><code class="lang-sh">% ./producer
-Process 29255 has written to data file...
+<pre class="language-"><code class="lang-sh">% ./producer
+Process <span class="token number">29255</span> has written to data file<span class="token punctuation">..</span>.
 
 % ./consumer
 Now is the winter of our discontent
@@ -3034,62 +3031,62 @@ Made glorious summer by this sun of York
 <p>Let&apos;s start with a review of how semaphores work as a synchronization mechanism. A general semaphore also is called a <em>counting semaphore</em>, as it has a value (typically initialized to zero) that can be incremented. Consider a shop that rents bicycles, with a hundred of them in stock, with a program that clerks use to do the rentals. Every time a bike is rented, the semaphore is incremented by one; when a bike is returned, the semaphore is decremented by one. Rentals can continue until the value hits 100 but then must halt until at least one bike is returned, thereby decrementing the semaphore to 99.</p>
 <p>A <em>binary semaphore</em> is a special case requiring only two values: 0 and 1. In this situation, a semaphore acts as a <em>mutex</em>: a mutual exclusion construct. The shared-memory example uses a semaphore as a mutex. When the semaphore&apos;s value is 0, the <em>memwriter</em> alone can access the shared memory. After writing, this process increments the semaphore&apos;s value, thereby allowing the <em>memreader</em> to read the shared memory.</p>
 <h3 id="example-3-source-code-for-the-memwriter-process"><a name="example-3-source-code-for-the-memwriter-process" class="anchor-navigation-ex-anchor" href="#example-3-source-code-for-the-memwriter-process"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.1. Example 3. Source code for the memwriter process</h3>
-<pre><code class="lang-c">/** Compilation: gcc -o memwriter memwriter.c -lrt -lpthread **/
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;sys/mman.h&gt;
-#include &lt;sys/stat.h&gt;
-#include &lt;fcntl.h&gt;
-#include &lt;unistd.h&gt;
-#include &lt;semaphore.h&gt;
-#include &lt;string.h&gt;
-#include &quot;shmem.h&quot;
+<pre class="language-"><code class="lang-c"><span class="token comment">/** Compilation: gcc -o memwriter memwriter.c -lrt -lpthread **/</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/mman.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/stat.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;semaphore.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;shmem.h&quot;</span></span>
 
-void report_and_exit(const char* msg) {
-  perror(msg);
-  exit(-1);
-}
+<span class="token keyword">void</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">perror</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-int main() {
-  int fd = shm_open(BackingFile,      /* name from smem.h */
-                    O_RDWR | O_CREAT, /* read/write, create if needed */
-                    AccessPerms);     /* access permissions (0644) */
-  if (fd &lt; 0) report_and_exit(&quot;Can&apos;t open shared mem segment...&quot;);
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> fd <span class="token operator">=</span> <span class="token function">shm_open</span><span class="token punctuation">(</span>BackingFile<span class="token punctuation">,</span>      <span class="token comment">/* name from smem.h */</span>
+                    O_RDWR <span class="token operator">|</span> O_CREAT<span class="token punctuation">,</span> <span class="token comment">/* read/write, create if needed */</span>
+                    AccessPerms<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">/* access permissions (0644) */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>fd <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;Can&apos;t open shared mem segment...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  ftruncate(fd, ByteSize); /* get the bytes */
+  <span class="token function">ftruncate</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> ByteSize<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* get the bytes */</span>
 
-  caddr_t memptr = mmap(NULL,       /* let system pick where to put segment */
-                        ByteSize,   /* how many bytes */
-                        PROT_READ | PROT_WRITE, /* access protections */
-                        MAP_SHARED, /* mapping visible to other processes */
-                        fd,         /* file descriptor */
-                        0);         /* offset: start at 1st byte */
-  if ((caddr_t) -1  == memptr) report_and_exit(&quot;Can&apos;t get segment...&quot;);
+  <span class="token class-name">caddr_t</span> memptr <span class="token operator">=</span> <span class="token function">mmap</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">,</span>       <span class="token comment">/* let system pick where to put segment */</span>
+                        ByteSize<span class="token punctuation">,</span>   <span class="token comment">/* how many bytes */</span>
+                        PROT_READ <span class="token operator">|</span> PROT_WRITE<span class="token punctuation">,</span> <span class="token comment">/* access protections */</span>
+                        MAP_SHARED<span class="token punctuation">,</span> <span class="token comment">/* mapping visible to other processes */</span>
+                        fd<span class="token punctuation">,</span>         <span class="token comment">/* file descriptor */</span>
+                        <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">/* offset: start at 1st byte */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">caddr_t</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token number">1</span>  <span class="token operator">==</span> memptr<span class="token punctuation">)</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;Can&apos;t get segment...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  fprintf(stderr, &quot;shared mem address: %p [0..%d]\n&quot;, memptr, ByteSize - 1);
-  fprintf(stderr, &quot;backing file:       /dev/shm%s\n&quot;, BackingFile );
+  <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">&quot;shared mem address: %p [0..%d]\n&quot;</span><span class="token punctuation">,</span> memptr<span class="token punctuation">,</span> ByteSize <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">&quot;backing file:       /dev/shm%s\n&quot;</span><span class="token punctuation">,</span> BackingFile <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  /* semaphore code to lock the shared mem */
-  sem_t* semptr = sem_open(SemaphoreName, /* name */
-                           O_CREAT,       /* create the semaphore */
-                           AccessPerms,   /* protection perms */
-                           0);            /* initial value */
-  if (semptr == (void*) -1) report_and_exit(&quot;sem_open&quot;);
+  <span class="token comment">/* semaphore code to lock the shared mem */</span>
+  <span class="token class-name">sem_t</span><span class="token operator">*</span> semptr <span class="token operator">=</span> <span class="token function">sem_open</span><span class="token punctuation">(</span>SemaphoreName<span class="token punctuation">,</span> <span class="token comment">/* name */</span>
+                           O_CREAT<span class="token punctuation">,</span>       <span class="token comment">/* create the semaphore */</span>
+                           AccessPerms<span class="token punctuation">,</span>   <span class="token comment">/* protection perms */</span>
+                           <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment">/* initial value */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>semptr <span class="token operator">==</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;sem_open&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  strcpy(memptr, MemContents); /* copy some ASCII bytes to the segment */
+  <span class="token function">strcpy</span><span class="token punctuation">(</span>memptr<span class="token punctuation">,</span> MemContents<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* copy some ASCII bytes to the segment */</span>
 
-  /* increment the semaphore so that memreader can read */
-  if (sem_post(semptr) &lt; 0) report_and_exit(&quot;sem_post&quot;);
+  <span class="token comment">/* increment the semaphore so that memreader can read */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">sem_post</span><span class="token punctuation">(</span>semptr<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;sem_post&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  sleep(12); /* give reader a chance */
+  <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* give reader a chance */</span>
 
-  /* clean up */
-  munmap(memptr, ByteSize); /* unmap the storage */
-  close(fd);
-  sem_close(semptr);
-  shm_unlink(BackingFile); /* unlink from the backing file */
-  return 0;
-}
+  <span class="token comment">/* clean up */</span>
+  <span class="token function">munmap</span><span class="token punctuation">(</span>memptr<span class="token punctuation">,</span> ByteSize<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* unmap the storage */</span>
+  <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">sem_close</span><span class="token punctuation">(</span>semptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">shm_unlink</span><span class="token punctuation">(</span>BackingFile<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* unlink from the backing file */</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Here&apos;s an overview of how the <em>memwriter</em> and <em>memreader</em> programs communicate through shared memory:</p>
 <ul>
@@ -3098,20 +3095,20 @@ int main() {
 <p>allocates <strong>ByteSize</strong> bytes, in this case, a modest 512 bytes. The <em>memwriter</em> and <em>memreader</em> programs access the shared memory only, not the backing file. The system is responsible for synchronizing the shared memory and the backing file.</p>
 </li>
 <li><p>The <em>memwriter</em> then calls the <strong>mmap</strong> function:</p>
-<pre><code class="lang-c">caddr_t memptr = mmap(NULL,       /* let system pick where to put segment */
-                      ByteSize,   /* how many bytes */
-                      PROT_READ | PROT_WRITE, /* access protections */
-                      MAP_SHARED, /* mapping visible to other processes */
-                      fd,         /* file descriptor */
-                      0);         /* offset: start at 1st byte */
+<pre class="language-"><code class="lang-c"><span class="token class-name">caddr_t</span> memptr <span class="token operator">=</span> <span class="token function">mmap</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">,</span>       <span class="token comment">/* let system pick where to put segment */</span>
+                      ByteSize<span class="token punctuation">,</span>   <span class="token comment">/* how many bytes */</span>
+                      PROT_READ <span class="token operator">|</span> PROT_WRITE<span class="token punctuation">,</span> <span class="token comment">/* access protections */</span>
+                      MAP_SHARED<span class="token punctuation">,</span> <span class="token comment">/* mapping visible to other processes */</span>
+                      fd<span class="token punctuation">,</span>         <span class="token comment">/* file descriptor */</span>
+                      <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">/* offset: start at 1st byte */</span>
 </code></pre>
 <p>to get a pointer to the shared memory. (The <em>memreader</em> makes a similar call.) The pointer type <strong>caddr_t</strong> starts with a <strong>c</strong> for <strong>calloc</strong>, a system function that initializes dynamically allocated storage to zeroes. The <em>memwriter</em> uses the <strong>memptr</strong> for the later <em>write</em> operation, using the library <strong>strcpy</strong> (string copy) function.</p>
 </li>
 <li><p>At this point, the <em>memwriter</em> is ready for writing, but it first creates a semaphore to ensure exclusive access to the shared memory. A race condition would occur if the <em>memwriter</em> were writing while the <em>memreader</em> was reading. If the call to <strong>sem_open</strong> succeeds:</p>
-<pre><code class="lang-c">sem_t* semptr = sem_open(SemaphoreName, /* name */
-                         O_CREAT,       /* create the semaphore */
-                         AccessPerms,   /* protection perms */
-                         0);            /* initial value */
+<pre class="language-"><code class="lang-c"><span class="token class-name">sem_t</span><span class="token operator">*</span> semptr <span class="token operator">=</span> <span class="token function">sem_open</span><span class="token punctuation">(</span>SemaphoreName<span class="token punctuation">,</span> <span class="token comment">/* name */</span>
+                         O_CREAT<span class="token punctuation">,</span>       <span class="token comment">/* create the semaphore */</span>
+                         AccessPerms<span class="token punctuation">,</span>   <span class="token comment">/* protection perms */</span>
+                         <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment">/* initial value */</span>
 </code></pre>
 <p>then the writing can proceed. The <strong>SemaphoreName</strong> (any unique non-empty name will do) identifies the semaphore in both the <em>memwriter</em> and the <em>memreader</em>. The initial value of zero gives the semaphore&apos;s creator, in this case, the <em>memwriter</em>, the right to proceed, in this case, to the <em>write</em> operation.</p>
 </li>
@@ -3123,61 +3120,61 @@ int main() {
 </li>
 </ul>
 <h3 id="example-4-source-code-for-the-memreader-process"><a name="example-4-source-code-for-the-memreader-process" class="anchor-navigation-ex-anchor" href="#example-4-source-code-for-the-memreader-process"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.2. Example 4. Source code for the memreader process</h3>
-<pre><code class="lang-c">/** Compilation: gcc -o memreader memreader.c -lrt -lpthread **/
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;sys/mman.h&gt;
-#include &lt;sys/stat.h&gt;
-#include &lt;fcntl.h&gt;
-#include &lt;unistd.h&gt;
-#include &lt;semaphore.h&gt;
-#include &lt;string.h&gt;
-#include &quot;shmem.h&quot;
+<pre class="language-"><code class="lang-c"><span class="token comment">/** Compilation: gcc -o memreader memreader.c -lrt -lpthread **/</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/mman.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/stat.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;semaphore.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&quot;shmem.h&quot;</span></span>
 
-void report_and_exit(const char* msg) {
-  perror(msg);
-  exit(-1);
-}
+<span class="token keyword">void</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">perror</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-int main() {
-  int fd = shm_open(BackingFile, O_RDWR, AccessPerms);  /* empty to begin */
-  if (fd &lt; 0) report_and_exit(&quot;Can&apos;t get file descriptor...&quot;);
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> fd <span class="token operator">=</span> <span class="token function">shm_open</span><span class="token punctuation">(</span>BackingFile<span class="token punctuation">,</span> O_RDWR<span class="token punctuation">,</span> AccessPerms<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/* empty to begin */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>fd <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;Can&apos;t get file descriptor...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  /* get a pointer to memory */
-  caddr_t memptr = mmap(NULL,       /* let system pick where to put segment */
-                        ByteSize,   /* how many bytes */
-                        PROT_READ | PROT_WRITE, /* access protections */
-                        MAP_SHARED, /* mapping visible to other processes */
-                        fd,         /* file descriptor */
-                        0);         /* offset: start at 1st byte */
-  if ((caddr_t) -1 == memptr) report_and_exit(&quot;Can&apos;t access segment...&quot;);
+  <span class="token comment">/* get a pointer to memory */</span>
+  <span class="token class-name">caddr_t</span> memptr <span class="token operator">=</span> <span class="token function">mmap</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">,</span>       <span class="token comment">/* let system pick where to put segment */</span>
+                        ByteSize<span class="token punctuation">,</span>   <span class="token comment">/* how many bytes */</span>
+                        PROT_READ <span class="token operator">|</span> PROT_WRITE<span class="token punctuation">,</span> <span class="token comment">/* access protections */</span>
+                        MAP_SHARED<span class="token punctuation">,</span> <span class="token comment">/* mapping visible to other processes */</span>
+                        fd<span class="token punctuation">,</span>         <span class="token comment">/* file descriptor */</span>
+                        <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">/* offset: start at 1st byte */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">caddr_t</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">==</span> memptr<span class="token punctuation">)</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;Can&apos;t access segment...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  /* create a semaphore for mutual exclusion */
-  sem_t* semptr = sem_open(SemaphoreName, /* name */
-                           O_CREAT,       /* create the semaphore */
-                           AccessPerms,   /* protection perms */
-                           0);            /* initial value */
-  if (semptr == (void*) -1) report_and_exit(&quot;sem_open&quot;);
+  <span class="token comment">/* create a semaphore for mutual exclusion */</span>
+  <span class="token class-name">sem_t</span><span class="token operator">*</span> semptr <span class="token operator">=</span> <span class="token function">sem_open</span><span class="token punctuation">(</span>SemaphoreName<span class="token punctuation">,</span> <span class="token comment">/* name */</span>
+                           O_CREAT<span class="token punctuation">,</span>       <span class="token comment">/* create the semaphore */</span>
+                           AccessPerms<span class="token punctuation">,</span>   <span class="token comment">/* protection perms */</span>
+                           <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment">/* initial value */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>semptr <span class="token operator">==</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">&quot;sem_open&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  /* use semaphore as a mutex (lock) by waiting for writer to increment it */
-  if (!sem_wait(semptr)) { /* wait until semaphore != 0 */
-    int i;
-    for (i = 0; i &lt; strlen(MemContents); i++)
-      write(STDOUT_FILENO, memptr + i, 1); /* one byte at a time */
-    sem_post(semptr);
-  }
+  <span class="token comment">/* use semaphore as a mutex (lock) by waiting for writer to increment it */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">sem_wait</span><span class="token punctuation">(</span>semptr<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">/* wait until semaphore != 0 */</span>
+    <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">strlen</span><span class="token punctuation">(</span>MemContents<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token function">write</span><span class="token punctuation">(</span>STDOUT_FILENO<span class="token punctuation">,</span> memptr <span class="token operator">+</span> i<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* one byte at a time */</span>
+    <span class="token function">sem_post</span><span class="token punctuation">(</span>semptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  /* cleanup */
-  munmap(memptr, ByteSize);
-  close(fd);
-  sem_close(semptr);
-  unlink(BackingFile);
-  return 0;
-}
+  <span class="token comment">/* cleanup */</span>
+  <span class="token function">munmap</span><span class="token punctuation">(</span>memptr<span class="token punctuation">,</span> ByteSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">sem_close</span><span class="token punctuation">(</span>semptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">unlink</span><span class="token punctuation">(</span>BackingFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In both the <em>memwriter</em> and <em>memreader</em> programs, the shared-memory functions of main interest are <strong>shm_open</strong> and <strong>mmap</strong>: on success, the first call returns a file descriptor for the backing file, which the second call then uses to get a pointer to the shared memory segment. The calls to <strong>shm_open</strong> are similar in the two programs except that the <em>memwriter</em> program creates the shared memory, whereas the <em>memreader</em> only accesses this already created memory:</p>
-<pre><code class="lang-c">int fd = shm_open(BackingFile, O_RDWR | O_CREAT, AccessPerms); /* memwriter */
-int fd = shm_open(BackingFile, O_RDWR, AccessPerms);           /* memreader */
+<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> fd <span class="token operator">=</span> <span class="token function">shm_open</span><span class="token punctuation">(</span>BackingFile<span class="token punctuation">,</span> O_RDWR <span class="token operator">|</span> O_CREAT<span class="token punctuation">,</span> AccessPerms<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* memwriter */</span>
+<span class="token keyword">int</span> fd <span class="token operator">=</span> <span class="token function">shm_open</span><span class="token punctuation">(</span>BackingFile<span class="token punctuation">,</span> O_RDWR<span class="token punctuation">,</span> AccessPerms<span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment">/* memreader */</span>
 </code></pre>
 <p>With a file descriptor in hand, the calls to <strong>mmap</strong> are the same:</p>
 <p><code>caddr_t memptr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);</code></p>
@@ -3237,11 +3234,10 @@ int fd = shm_open(BackingFile, O_RDWR, AccessPerms);           /* memreader */
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"进程间通信: 共享文件和共享内存(网摘)","level":"1.9.7","depth":2,"next":{"title":"并发 任务 事件 和锁.md","level":"1.9.8","depth":2,"path":"notes/c_pthread_condition和mutex.md","ref":"notes/c_pthread_condition和mutex.md","articles":[]},"previous":{"title":"序列化: protobuf介绍","level":"1.9.6","depth":2,"path":"notes/c_protobuf介绍.md","ref":"notes/c_protobuf介绍.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/c_进程间通信_共享文件和共享内存.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"进程间通信: 共享文件和共享内存(网摘)","level":"1.9.7","depth":2,"next":{"title":"并发 任务 事件 和锁.md","level":"1.9.8","depth":2,"path":"notes/c_pthread_condition和mutex.md","ref":"notes/c_pthread_condition和mutex.md","articles":[]},"previous":{"title":"序列化: protobuf介绍","level":"1.9.6","depth":2,"path":"notes/c_protobuf介绍.md","ref":"notes/c_protobuf介绍.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/c_进程间通信_共享文件和共享内存.md","mtime":"2022-10-11T15:39:07.526Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3280,7 +3276,6 @@ int fd = shm_open(BackingFile, O_RDWR, AccessPerms);           /* memreader */
         
     
 
-        
     </body>
 </html>
 

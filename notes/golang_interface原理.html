@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2873,53 +2870,53 @@
 <p>Before looking at the implementation, let&apos;s get a sense of what it must support.</p>
 <h3 id="usage"><a name="usage" class="anchor-navigation-ex-anchor" href="#usage"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. Usage</h3>
 <p>Go&apos;s interfaces let you use <a href="http://en.wikipedia.org/wiki/Duck_typing" target="_blank">duck typing</a> like you would in a purely dynamic language like Python but still have the compiler catch obvious mistakes like passing an <code>int</code> where an object with a <code>Read</code> method was expected, or like calling the <code>Read</code> method with the wrong number of arguments. To use interfaces, first define the interface type (say, <code>ReadCloser</code>):</p>
-<pre><code class="lang-go">type ReadCloser interface {
-    Read(b []byte) (n int, err os.Error)
-    Close()
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> ReadCloser <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+    <span class="token function">Read</span><span class="token punctuation">(</span>b <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">,</span> err os<span class="token punctuation">.</span>Error<span class="token punctuation">)</span>
+    <span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>and then define your new function as taking a <code>ReadCloser</code>. For example, this function calls <code>Read</code> repeatedly to get all the data that was requested and then calls <code>Close</code>:</p>
-<pre><code class="lang-go">func ReadAndClose(r ReadCloser, buf []byte) (n int, err os.Error) {
-    for len(buf) &gt; 0 &amp;&amp; err == nil {
-        var nr int
-        nr, err = r.Read(buf)
-        n += nr
-        buf = buf[nr:]
-    }
-    r.Close()
-    return
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">ReadAndClose</span><span class="token punctuation">(</span>r ReadCloser<span class="token punctuation">,</span> buf <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">,</span> err os<span class="token punctuation">.</span>Error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token function">len</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> nr <span class="token builtin">int</span>
+        nr<span class="token punctuation">,</span> err <span class="token operator">=</span> r<span class="token punctuation">.</span><span class="token function">Read</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span>
+        n <span class="token operator">+=</span> nr
+        buf <span class="token operator">=</span> buf<span class="token punctuation">[</span>nr<span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    r<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The code that calls <code>ReadAndClose</code> can pass a value of any type as long as it has <code>Read</code> and <code>Close</code> methods with the right signatures. And, unlike in languages like Python, if you pass a value with the wrong type, you get an error at compile time, not run time.</p>
 <p>Interfaces aren&apos;t restricted to static checking, though. You can check dynamically whether a particular interface value has an additional method. For example:</p>
-<pre><code class="lang-go">type Stringer interface {
-    String() string
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> Stringer <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+    <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
 
-func ToString(any interface{}) string {
-    if v, ok := any.(Stringer); ok {
-        return v.String()
-    }
-    switch v := any.(type) {
-    case int:
-        return strconv.Itoa(v)
-    case float:
-        return strconv.Ftoa(v, &apos;g&apos;, -1)
-    }
-    return &quot;???&quot;
-}
+<span class="token keyword">func</span> <span class="token function">ToString</span><span class="token punctuation">(</span>any <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> v<span class="token punctuation">,</span> ok <span class="token operator">:=</span> any<span class="token punctuation">.</span><span class="token punctuation">(</span>Stringer<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> v<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">switch</span> v <span class="token operator">:=</span> any<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+    <span class="token keyword">case</span> float<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> strconv<span class="token punctuation">.</span><span class="token function">Ftoa</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> <span class="token char">&apos;g&apos;</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token string">&quot;???&quot;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The value <code>any</code> has static type <code>interface{}</code>, meaning no guarantee of any methods at all: it could contain any type. The &#x201C;comma ok&#x201D; assignment inside the <code>if</code> statement asks whether it is possible to convert <code>any</code> to an interface value of type <code>Stringer</code>, which has the method <code>String</code>. If so, the body of that statement calls the method to obtain a string to return. Otherwise, the <code>switch</code> picks off a few basic types before giving up. This is basically a stripped down version of what the <a href="http://golang.org/pkg/fmt/" target="_blank">fmt package</a> does. (The <code>if</code> could be replaced by adding <code>case Stringer:</code> at the top of the <code>switch</code>, but I used a separate statement to draw attention to the check.)</p>
 <p>As a simple example, let&apos;s consider a 64-bit integer type with a <code>String</code> method that prints the value in binary and a trivial <code>Get</code> method:</p>
-<pre><code class="lang-go">type Binary uint64
+<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> Binary <span class="token builtin">uint64</span>
 
-func (i Binary) String() string {
-    return strconv.Uitob64(i.Get(), 2)
-}
+<span class="token keyword">func</span> <span class="token punctuation">(</span>i Binary<span class="token punctuation">)</span> <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> strconv<span class="token punctuation">.</span><span class="token function">Uitob64</span><span class="token punctuation">(</span>i<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-func (i Binary) Get() uint64 {
-    return uint64(i)
-}
+<span class="token keyword">func</span> <span class="token punctuation">(</span>i Binary<span class="token punctuation">)</span> <span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">uint64</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">uint64</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>A value of type <code>Binary</code> can be passed to <code>ToString</code>, which will format it using the <code>String</code> method, even though the program never says that <code>Binary</code> intends to implement <code>Stringer</code>. There&apos;s no need: the runtime can see that <code>Binary</code> has a <code>String</code> method, so it implements <code>Stringer</code>, even if the author of <code>Binary</code> has never heard of <code>Stringer</code>.</p>
 <p>These examples show that even though all the implicit conversions are checked at compile time, explicit interface-to-interface conversions can inquire about method sets at run time. &#x201C;<a href="http://golang.org/doc/effective_go.html#interfaces" target="_blank">Effective Go</a>&#x201D; has more details about and examples of how interface values can be used.</p>
@@ -2951,11 +2948,11 @@ func (i Binary) Get() uint64 {
 <h3 id="method-lookup-performance"><a name="method-lookup-performance" class="anchor-navigation-ex-anchor" href="#method-lookup-performance"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.5. Method Lookup Performance</h3>
 <p>Smalltalk and the many dynamic systems that have followed it perform a method lookup every time a method gets called. For speed, many implementations use a simple one-entry cache at each call site, often in the instruction stream itself. In a multithreaded program, these caches must be managed carefully, since multiple threads could be at the same call site simultaneously. Even once the races have been avoided, the caches would end up being a source of memory contention.</p>
 <p>Because Go has the hint of static typing to go along with the dynamic method lookups, it can move the lookups back from the call sites to the point when the value is stored in the interface. For example, consider this code snippet:</p>
-<pre><code class="lang-go">var any interface{}  // initialized elsewhere
-s := any.(Stringer)  // dynamic conversion
-for i := 0; i &lt; 100; i++ {
-    fmt.Println(s.String())
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> any <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span>  <span class="token comment">// initialized elsewhere</span>
+s <span class="token operator">:=</span> any<span class="token punctuation">.</span><span class="token punctuation">(</span>Stringer<span class="token punctuation">)</span>  <span class="token comment">// dynamic conversion</span>
+<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In Go, the itable gets computed (or found in a cache) during the assignment on line 2; the dispatch for the <code>s.String()</code> call executed on line 4 is a couple of memory fetches and a single indirect call instruction.</p>
 <p>In contrast, the implementation of this program in a dynamic language like Smalltalk (or JavaScript, or Python, or ...) would do the method lookup at line 4, which in a loop repeats needless work. The cache mentioned earlier makes this less expensive than it might be, but it&apos;s still more expensive than a single indirect call instruction.</p>
@@ -2964,7 +2961,7 @@ for i := 0; i &lt; 100; i++ {
 <p>The interface runtime support is in <code>[$GOROOT/src/pkg/runtime/iface.c](http://code.google.com/p/go/source/browse/src/pkg/runtime/iface.c)</code>. There&apos;s much more to say about interfaces (we haven&apos;t even seen an example of a pointer receiver yet) and the type descriptors (they power reflection in addition to the interface runtime) but those will have to wait for future posts.</p>
 <h3 id="code"><a name="code" class="anchor-navigation-ex-anchor" href="#code"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.7. Code</h3>
 <p>Supporting code (<code>x.go</code>):</p>
-<pre><code>package main
+<pre class="language-"><code>package main
 
 import (
     &quot;fmt&quot;
@@ -2991,12 +2988,12 @@ func main() {
     fmt.Println(s.String())
 }
 </code></pre><p>Selected output of <code>8g -S x.go</code>:</p>
-<pre><code class="lang-go">0045 (x.go:25) LEAL    s+-24(SP),BX
-0046 (x.go:25) MOVL    4(BX),BP
-0047 (x.go:25) MOVL    BP,(SP)
-0048 (x.go:25) MOVL    (BX),BX
-0049 (x.go:25) MOVL    20(BX),BX
-0050 (x.go:25) CALL    ,BX
+<pre class="language-"><code class="lang-go"><span class="token number">0045</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> LEAL    s<span class="token operator">+</span><span class="token operator">-</span><span class="token function">24</span><span class="token punctuation">(</span>SP<span class="token punctuation">)</span><span class="token punctuation">,</span>BX
+<span class="token number">0046</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> MOVL    <span class="token function">4</span><span class="token punctuation">(</span>BX<span class="token punctuation">)</span><span class="token punctuation">,</span>BP
+<span class="token number">0047</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> MOVL    BP<span class="token punctuation">,</span><span class="token punctuation">(</span>SP<span class="token punctuation">)</span>
+<span class="token number">0048</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> MOVL    <span class="token punctuation">(</span>BX<span class="token punctuation">)</span><span class="token punctuation">,</span>BX
+<span class="token number">0049</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> MOVL    <span class="token function">20</span><span class="token punctuation">(</span>BX<span class="token punctuation">)</span><span class="token punctuation">,</span>BX
+<span class="token number">0050</span> <span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">25</span><span class="token punctuation">)</span> CALL    <span class="token punctuation">,</span>BX
 </code></pre>
 <p>The <code>LEAL</code> loads the address of <code>s</code> into the register <code>BX</code>. (The notation <code>_n_(SP)</code> describes the word in memory at <code>SP+_n_</code>. <code>0(SP)</code> can be shortened to <code>(SP)</code>.) The next two <code>MOVL</code> instructions fetch the value from the second word in the interface and store it as the first function call argument, <code>0(SP)</code>. The final two <code>MOVL</code> instructions fetch the itable and then the function pointer from the itable, in preparation for calling that function.</p>
 
@@ -3042,11 +3039,10 @@ func main() {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Golang interface原理(网摘)","level":"1.7.2.1","depth":3,"next":{"title":"Golang 内存分配(网摘)","level":"1.7.2.2","depth":3,"path":"notes/golang_内存分配.md","ref":"notes/golang_内存分配.md","articles":[]},"previous":{"title":"Golang 原理相关","level":"1.7.2","depth":2,"path":"notes/golang_原理.md","ref":"notes/golang_原理.md","articles":[{"title":"Golang interface原理(网摘)","level":"1.7.2.1","depth":3,"path":"notes/golang_interface原理.md","ref":"notes/golang_interface原理.md","articles":[]},{"title":"Golang 内存分配(网摘)","level":"1.7.2.2","depth":3,"path":"notes/golang_内存分配.md","ref":"notes/golang_内存分配.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_interface原理.md","mtime":"2022-10-11T15:10:42.534Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Golang interface原理(网摘)","level":"1.7.2.1","depth":3,"next":{"title":"Golang 内存分配(网摘)","level":"1.7.2.2","depth":3,"path":"notes/golang_内存分配.md","ref":"notes/golang_内存分配.md","articles":[]},"previous":{"title":"Golang 原理相关","level":"1.7.2","depth":2,"path":"notes/golang_原理.md","ref":"notes/golang_原理.md","articles":[{"title":"Golang interface原理(网摘)","level":"1.7.2.1","depth":3,"path":"notes/golang_interface原理.md","ref":"notes/golang_interface原理.md","articles":[]},{"title":"Golang 内存分配(网摘)","level":"1.7.2.2","depth":3,"path":"notes/golang_内存分配.md","ref":"notes/golang_内存分配.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_interface原理.md","mtime":"2022-10-11T15:39:07.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3085,7 +3081,6 @@ func main() {
         
     
 
-        
     </body>
 </html>
 

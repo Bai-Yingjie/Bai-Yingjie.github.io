@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2945,12 +2942,12 @@
 <h1 id="micro-server&#x547D;&#x4EE4;&#x6D41;&#x7A0B;"><a name="micro-server&#x547D;&#x4EE4;&#x6D41;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#micro-server&#x547D;&#x4EE4;&#x6D41;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>1. micro server&#x547D;&#x4EE4;&#x6D41;&#x7A0B;</h1>
 <h2 id="makefile"><a name="makefile" class="anchor-navigation-ex-anchor" href="#makefile"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. makefile</h2>
 <p>micro&#x7684;makefile&#x5F88;&#x7B80;&#x5355;</p>
-<pre><code class="lang-makefile">build:
-        go build -a -installsuffix cgo -ldflags &quot;-s -w ${LDFLAGS}&quot; -o $(NAME)
+<pre class="language-"><code class="lang-makefile"><span class="token target symbol">build</span><span class="token punctuation">:</span>
+        go build -a -installsuffix cgo -ldflags <span class="token string">&quot;-s -w ${LDFLAGS}&quot;</span> -o <span class="token variable">$</span><span class="token punctuation">(</span>NAME<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x4F1A;&#x5C55;&#x5F00;&#x6210;</p>
-<pre><code class="lang-sh">$ make build
-go build -a -installsuffix cgo -ldflags &quot;-s -w -X github.com/micro/micro/v3/cmd.BuildDate=1624082635 -X github.com/micro/micro/v3/cmd.GitCommit=870f80e7 -X github.com/micro/micro/v3/cmd.GitTag=v3.3.0&quot; -o micro
+<pre class="language-"><code class="lang-sh">$ <span class="token function">make</span> build
+go build <span class="token parameter variable">-a</span> <span class="token parameter variable">-installsuffix</span> cgo <span class="token parameter variable">-ldflags</span> <span class="token string">&quot;-s -w -X github.com/micro/micro/v3/cmd.BuildDate=1624082635 -X github.com/micro/micro/v3/cmd.GitCommit=870f80e7 -X github.com/micro/micro/v3/cmd.GitTag=v3.3.0&quot;</span> <span class="token parameter variable">-o</span> micro
 </code></pre>
 <p>&#x6CE8;:</p>
 <ul>
@@ -2960,23 +2957,23 @@ go build -a -installsuffix cgo -ldflags &quot;-s -w -X github.com/micro/micro/v3
 <h2 id="maingo"><a name="maingo" class="anchor-navigation-ex-anchor" href="#maingo"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. main.go</h2>
 <p>main.go&#x7684;&#x601D;&#x8DEF;&#x548C;gshellos building&#x5F88;&#x50CF;
 &#x901A;&#x8FC7;import&#x7684;package&#x7684;init&#x51FD;&#x6570;&#x6765;&#x6CE8;&#x518C;, main&#x91CC;&#x9762;&#x53EA;&#x8C03;&#x7528;<code>cmd.Run()</code></p>
-<pre><code class="lang-go">package main
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
 
-//go:generate ./scripts/generate.sh
+<span class="token comment">//go:generate ./scripts/generate.sh</span>
 
-import (
-    &quot;github.com/micro/micro/v3/cmd&quot;
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;github.com/micro/micro/v3/cmd&quot;</span>
 
-    // load packages so they can register commands
-    _ &quot;github.com/micro/micro/v3/cmd/cli&quot;
-    _ &quot;github.com/micro/micro/v3/cmd/server&quot;
-    _ &quot;github.com/micro/micro/v3/cmd/service&quot;
-    _ &quot;github.com/micro/micro/v3/cmd/usage&quot;
-)
+    <span class="token comment">// load packages so they can register commands</span>
+    <span class="token boolean">_</span> <span class="token string">&quot;github.com/micro/micro/v3/cmd/cli&quot;</span>
+    <span class="token boolean">_</span> <span class="token string">&quot;github.com/micro/micro/v3/cmd/server&quot;</span>
+    <span class="token boolean">_</span> <span class="token string">&quot;github.com/micro/micro/v3/cmd/service&quot;</span>
+    <span class="token boolean">_</span> <span class="token string">&quot;github.com/micro/micro/v3/cmd/usage&quot;</span>
+<span class="token punctuation">)</span>
 
-func main() {
-    cmd.Run()
-}
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    cmd<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x6CE8;:</p>
 <ul>
@@ -2991,68 +2988,68 @@ cmd&#x5305;&#x5168;&#x5C40;&#x53D8;&#x91CF;<code>DefaultCmd Cmd = New()</code>&#
 <h3 id="server&#x5B50;&#x547D;&#x4EE4;"><a name="server&#x5B50;&#x547D;&#x4EE4;" class="anchor-navigation-ex-anchor" href="#server&#x5B50;&#x547D;&#x4EE4;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.2. server&#x5B50;&#x547D;&#x4EE4;</h3>
 <p>&#x6309;&#x7167;&#x6559;&#x7A0B;, &#x6240;&#x6709;micro&#x90FD;&#x8981;&#x4F9D;&#x8D56;micro&#x670D;&#x52A1;. <code>./micro server</code>
 &#x8FD9;&#x4E2A;server&#x662F;&#x4E2A;&#x5B50;&#x547D;&#x4EE4;, &#x88AB;&#x6CE8;&#x518C;&#x5230;DefaultCmd&#x7684;&#x5B50;&#x547D;&#x4EE4;&#x5217;&#x8868;&#x4E2D;</p>
-<pre><code class="lang-go">    command := &amp;cli.Command{
-        Name:  &quot;server&quot;,
-        Usage: &quot;Run the micro server&quot;,
-        Description: `Launching the micro server (&apos;micro server&apos;) will enable one to connect to it by
-        setting the appropriate Micro environment (see &apos;micro env&apos; &amp;&amp; &apos;micro env --help&apos;) commands.`,
-        Flags: []cli.Flag{
-            &amp;cli.StringFlag{
-                Name:    &quot;address&quot;,
-                Usage:   &quot;Set the micro server address :10001&quot;,
-                EnvVars: []string{&quot;MICRO_SERVER_ADDRESS&quot;},
-            },
-            &amp;cli.StringFlag{
-                Name:    &quot;image&quot;,
-                Usage:   &quot;Set the micro server image&quot;,
-                EnvVars: []string{&quot;MICRO_SERVER_IMAGE&quot;},
-                Value:   &quot;micro/micro:latest&quot;,
-            },
-        },
-        Action: func(ctx *cli.Context) error {
-            Run(ctx)
-            return nil
-        },
-    }
+<pre class="language-"><code class="lang-go">    command <span class="token operator">:=</span> <span class="token operator">&amp;</span>cli<span class="token punctuation">.</span>Command<span class="token punctuation">{</span>
+        Name<span class="token punctuation">:</span>  <span class="token string">&quot;server&quot;</span><span class="token punctuation">,</span>
+        Usage<span class="token punctuation">:</span> <span class="token string">&quot;Run the micro server&quot;</span><span class="token punctuation">,</span>
+        Description<span class="token punctuation">:</span> <span class="token string">`Launching the micro server (&apos;micro server&apos;) will enable one to connect to it by
+        setting the appropriate Micro environment (see &apos;micro env&apos; &amp;&amp; &apos;micro env --help&apos;) commands.`</span><span class="token punctuation">,</span>
+        Flags<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>cli<span class="token punctuation">.</span>Flag<span class="token punctuation">{</span>
+            <span class="token operator">&amp;</span>cli<span class="token punctuation">.</span>StringFlag<span class="token punctuation">{</span>
+                Name<span class="token punctuation">:</span>    <span class="token string">&quot;address&quot;</span><span class="token punctuation">,</span>
+                Usage<span class="token punctuation">:</span>   <span class="token string">&quot;Set the micro server address :10001&quot;</span><span class="token punctuation">,</span>
+                EnvVars<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token string">&quot;MICRO_SERVER_ADDRESS&quot;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token operator">&amp;</span>cli<span class="token punctuation">.</span>StringFlag<span class="token punctuation">{</span>
+                Name<span class="token punctuation">:</span>    <span class="token string">&quot;image&quot;</span><span class="token punctuation">,</span>
+                Usage<span class="token punctuation">:</span>   <span class="token string">&quot;Set the micro server image&quot;</span><span class="token punctuation">,</span>
+                EnvVars<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token string">&quot;MICRO_SERVER_IMAGE&quot;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                Value<span class="token punctuation">:</span>   <span class="token string">&quot;micro/micro:latest&quot;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        Action<span class="token punctuation">:</span> <span class="token keyword">func</span><span class="token punctuation">(</span>ctx <span class="token operator">*</span>cli<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+            <span class="token function">Run</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">nil</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
 </code></pre>
 <p>server&#x7684;Action&#x52A8;&#x4F5C;&#x662F;&#x542F;&#x52A8;&#x5982;&#x4E0B;&#x670D;&#x52A1;</p>
-<pre><code class="lang-go">    services = []string{
-        &quot;registry&quot;, // :8000
-        &quot;broker&quot;,   // :8003
-        &quot;network&quot;,  // :8443
-        &quot;runtime&quot;,  // :8088
-        &quot;config&quot;,   // :8001
-        &quot;store&quot;,    // :8002
-        &quot;events&quot;,   // :unset
-        &quot;auth&quot;,     // :8010
-        &quot;proxy&quot;,    // :8081
-        &quot;api&quot;,      // :8080
-    }
+<pre class="language-"><code class="lang-go">    services <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span>
+        <span class="token string">&quot;registry&quot;</span><span class="token punctuation">,</span> <span class="token comment">// :8000</span>
+        <span class="token string">&quot;broker&quot;</span><span class="token punctuation">,</span>   <span class="token comment">// :8003</span>
+        <span class="token string">&quot;network&quot;</span><span class="token punctuation">,</span>  <span class="token comment">// :8443</span>
+        <span class="token string">&quot;runtime&quot;</span><span class="token punctuation">,</span>  <span class="token comment">// :8088</span>
+        <span class="token string">&quot;config&quot;</span><span class="token punctuation">,</span>   <span class="token comment">// :8001</span>
+        <span class="token string">&quot;store&quot;</span><span class="token punctuation">,</span>    <span class="token comment">// :8002</span>
+        <span class="token string">&quot;events&quot;</span><span class="token punctuation">,</span>   <span class="token comment">// :unset</span>
+        <span class="token string">&quot;auth&quot;</span><span class="token punctuation">,</span>     <span class="token comment">// :8010</span>
+        <span class="token string">&quot;proxy&quot;</span><span class="token punctuation">,</span>    <span class="token comment">// :8081</span>
+        <span class="token string">&quot;api&quot;</span><span class="token punctuation">,</span>      <span class="token comment">// :8080</span>
+    <span class="token punctuation">}</span>
 </code></pre>
 <p>&#x6309;&#x7167;<code>micro service [name]</code>&#x7684;&#x5F62;&#x5F0F;, &#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x7684;&#x547D;&#x4EE4;&#x7684;&#x5173;&#x952E;&#x8BCD;&#x662F;<code>service</code></p>
-<pre><code class="lang-go">for &#x6BCF;&#x4E2A;&#x5728;&#x4E0A;&#x9762;services&#x5217;&#x8868;&#x4E2D;&#x7684;service {
-        // all things run by the server are `micro service [name]`
-        cmdArgs := []string{&quot;service&quot;}
-        cmdArgs = append(cmdArgs, service)
-        // runtime based on environment we run the service in
-        args := []runtime.CreateOption{
-            runtime.WithCommand(os.Args[0]),
-            runtime.WithArgs(cmdArgs...),
-            runtime.WithEnv(env),
-            runtime.WithPort(port),
-            runtime.WithRetries(10),
-            runtime.WithServiceAccount(&quot;micro&quot;),
-            runtime.WithVolume(&quot;store-pvc&quot;, &quot;/store&quot;),
-            runtime.CreateImage(context.String(&quot;image&quot;)),
-            runtime.CreateNamespace(&quot;micro&quot;),
-            runtime.WithSecret(&quot;MICRO_AUTH_PUBLIC_KEY&quot;, auth.DefaultAuth.Options().PublicKey),
-            runtime.WithSecret(&quot;MICRO_AUTH_PRIVATE_KEY&quot;, auth.DefaultAuth.Options().PrivateKey),
-        }
-        // NOTE: we use Version right now to check for the latest release
-        muService := &amp;runtime.Service{Name: service, Version: &quot;latest&quot;}
-        //&#x771F;&#x6B63;&#x7684;&#x542F;&#x52A8;&#x5185;&#x7F6E;service
-        runtimeServer.Create(muService, args...)
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">for</span> &#x6BCF;&#x4E2A;&#x5728;&#x4E0A;&#x9762;services&#x5217;&#x8868;&#x4E2D;&#x7684;service <span class="token punctuation">{</span>
+        <span class="token comment">// all things run by the server are `micro service [name]`</span>
+        cmdArgs <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token string">&quot;service&quot;</span><span class="token punctuation">}</span>
+        cmdArgs <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>cmdArgs<span class="token punctuation">,</span> service<span class="token punctuation">)</span>
+        <span class="token comment">// runtime based on environment we run the service in</span>
+        args <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>runtime<span class="token punctuation">.</span>CreateOption<span class="token punctuation">{</span>
+            runtime<span class="token punctuation">.</span><span class="token function">WithCommand</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            runtime<span class="token punctuation">.</span><span class="token function">WithArgs</span><span class="token punctuation">(</span>cmdArgs<span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            runtime<span class="token punctuation">.</span><span class="token function">WithEnv</span><span class="token punctuation">(</span>env<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            runtime<span class="token punctuation">.</span><span class="token function">WithPort</span><span class="token punctuation">(</span>port<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            runtime<span class="token punctuation">.</span><span class="token function">WithRetries</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            runtime<span class="token punctuation">.</span><span class="token function">WithServiceAccount</span><span class="token punctuation">(</span><span class="token string">&quot;micro&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            runtime<span class="token punctuation">.</span><span class="token function">WithVolume</span><span class="token punctuation">(</span><span class="token string">&quot;store-pvc&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;/store&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            runtime<span class="token punctuation">.</span><span class="token function">CreateImage</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">&quot;image&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            runtime<span class="token punctuation">.</span><span class="token function">CreateNamespace</span><span class="token punctuation">(</span><span class="token string">&quot;micro&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            runtime<span class="token punctuation">.</span><span class="token function">WithSecret</span><span class="token punctuation">(</span><span class="token string">&quot;MICRO_AUTH_PUBLIC_KEY&quot;</span><span class="token punctuation">,</span> auth<span class="token punctuation">.</span>DefaultAuth<span class="token punctuation">.</span><span class="token function">Options</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>PublicKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            runtime<span class="token punctuation">.</span><span class="token function">WithSecret</span><span class="token punctuation">(</span><span class="token string">&quot;MICRO_AUTH_PRIVATE_KEY&quot;</span><span class="token punctuation">,</span> auth<span class="token punctuation">.</span>DefaultAuth<span class="token punctuation">.</span><span class="token function">Options</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>PrivateKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// NOTE: we use Version right now to check for the latest release</span>
+        muService <span class="token operator">:=</span> <span class="token operator">&amp;</span>runtime<span class="token punctuation">.</span>Service<span class="token punctuation">{</span>Name<span class="token punctuation">:</span> service<span class="token punctuation">,</span> Version<span class="token punctuation">:</span> <span class="token string">&quot;latest&quot;</span><span class="token punctuation">}</span>
+        <span class="token comment">//&#x771F;&#x6B63;&#x7684;&#x542F;&#x52A8;&#x5185;&#x7F6E;service</span>
+        runtimeServer<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span>muService<span class="token punctuation">,</span> args<span class="token operator">...</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x8FD9;&#x91CC;&#x6709;&#x4E24;&#x79CD;&#x7C7B;&#x578B;&#x7684;runtime:</p>
 <ul>
@@ -3061,128 +3058,128 @@ cmd&#x5305;&#x5168;&#x5C40;&#x53D8;&#x91CF;<code>DefaultCmd Cmd = New()</code>&#
 </ul>
 <p>&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x8D70;&#x7684;&#x662F;local. local&#x7684;Create&#x51FD;&#x6570;&#x5728;
 <code>service/runtime/local/local.go</code></p>
-<pre><code class="lang-go">func (r *localRuntime) Create(resource runtime.Resource, opts ...runtime.CreateOption) error {
-    &#x8FD9;&#x4E2A;Create&#x662F;&#x4E2A;&#x901A;&#x7528;&#x7684;&#x63A5;&#x53E3;, &#x53EF;&#x4EE5;&#x65B0;&#x5EFA;&#x6BD4;&#x5982;namespace, NetworkPolicy, &#x4E5F;&#x53EF;&#x4EE5;&#x662F;Service
-    // create new service
-    service := newService(s, options)
-    // &#x5148;&#x5EFA;log&#x6587;&#x4EF6;, &#x4E00;&#x822C;&#x5728; /tmp/micro/logs/runtime.log
-    f, err := os.OpenFile(logFile(service.Name), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-    // start the service
-    err := service.Start()
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>r <span class="token operator">*</span>localRuntime<span class="token punctuation">)</span> <span class="token function">Create</span><span class="token punctuation">(</span>resource runtime<span class="token punctuation">.</span>Resource<span class="token punctuation">,</span> opts <span class="token operator">...</span>runtime<span class="token punctuation">.</span>CreateOption<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    &#x8FD9;&#x4E2A;Create&#x662F;&#x4E2A;&#x901A;&#x7528;&#x7684;&#x63A5;&#x53E3;<span class="token punctuation">,</span> &#x53EF;&#x4EE5;&#x65B0;&#x5EFA;&#x6BD4;&#x5982;namespace<span class="token punctuation">,</span> NetworkPolicy<span class="token punctuation">,</span> &#x4E5F;&#x53EF;&#x4EE5;&#x662F;Service
+    <span class="token comment">// create new service</span>
+    service <span class="token operator">:=</span> <span class="token function">newService</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+    <span class="token comment">// &#x5148;&#x5EFA;log&#x6587;&#x4EF6;, &#x4E00;&#x822C;&#x5728; /tmp/micro/logs/runtime.log</span>
+    f<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">OpenFile</span><span class="token punctuation">(</span><span class="token function">logFile</span><span class="token punctuation">(</span>service<span class="token punctuation">.</span>Name<span class="token punctuation">)</span><span class="token punctuation">,</span> os<span class="token punctuation">.</span>O_APPEND<span class="token operator">|</span>os<span class="token punctuation">.</span>O_CREATE<span class="token operator">|</span>os<span class="token punctuation">.</span>O_WRONLY<span class="token punctuation">,</span> <span class="token number">0644</span><span class="token punctuation">)</span>
+    <span class="token comment">// start the service</span>
+    err <span class="token operator">:=</span> service<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x6CE8;&#x610F;&#x6700;&#x540E;<code>service.Start()</code>&#x662F;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;&#x8FDB;&#x7A0B;, &#x8FD9;&#x4E2A;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x4E86;&#x5185;&#x7F6E;&#x7684;service
 &#x8FD9;&#x91CC;&#x6267;&#x884C;&#x7684;&#x547D;&#x4EE4;&#x662F;:<code>./micro service api</code></p>
-<pre><code class="lang-go">p, err := s.Process.Fork(s.Exec)
-    cmd := exec.Command(exe.Package.Path, exe.Args...)
-    err := cmd.Start()
+<pre class="language-"><code class="lang-go">p<span class="token punctuation">,</span> err <span class="token operator">:=</span> s<span class="token punctuation">.</span>Process<span class="token punctuation">.</span><span class="token function">Fork</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>Exec<span class="token punctuation">)</span>
+    cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span>exe<span class="token punctuation">.</span>Package<span class="token punctuation">.</span>Path<span class="token punctuation">,</span> exe<span class="token punctuation">.</span>Args<span class="token operator">...</span><span class="token punctuation">)</span>
+    err <span class="token operator">:=</span> cmd<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <h3 id="log"><a name="log" class="anchor-navigation-ex-anchor" href="#log"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.3. log</h3>
 <p>micro&#x7684;log&#x90FD;&#x653E;&#x5728;<code>/tmp/micro/logs</code></p>
-<pre><code class="lang-go">var (
-    // The directory for logs to be output
-    LogDir = filepath.Join(os.TempDir(), &quot;micro&quot;, &quot;logs&quot;)
-    // The source directory where code lives
-    SourceDir = filepath.Join(os.TempDir(), &quot;micro&quot;, &quot;uploads&quot;)
-)
+<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
+    <span class="token comment">// The directory for logs to be output</span>
+    LogDir <span class="token operator">=</span> filepath<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span><span class="token function">TempDir</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;micro&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;logs&quot;</span><span class="token punctuation">)</span>
+    <span class="token comment">// The source directory where code lives</span>
+    SourceDir <span class="token operator">=</span> filepath<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span><span class="token function">TempDir</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;micro&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;uploads&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x6BD4;&#x5982;&#x6211;&#x7684;&#x5B9E;&#x9645;&#x4F8B;&#x5B50;:</p>
-<pre><code class="lang-sh">$ ls /tmp/micro/logs/
+<pre class="language-"><code class="lang-sh">$ <span class="token function">ls</span> /tmp/micro/logs/
 api.log  auth.log  broker.log  config.log  events.log  network.log  proxy.log  registry.log  runtime.log  store.log
 </code></pre>
 <h3 id="micro-service-api&#x6267;&#x884C;&#x6D41;&#x7A0B;"><a name="micro-service-api&#x6267;&#x884C;&#x6D41;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#micro-service-api&#x6267;&#x884C;&#x6D41;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.4. ./micro service api&#x6267;&#x884C;&#x6D41;&#x7A0B;</h3>
 <h4 id="service&#x547D;&#x4EE4;&#x5165;&#x53E3;-&#x4EE3;&#x7801;&#x5728;cmdserviceservicego"><a name="service&#x547D;&#x4EE4;&#x5165;&#x53E3;-&#x4EE3;&#x7801;&#x5728;cmdserviceservicego" class="anchor-navigation-ex-anchor" href="#service&#x547D;&#x4EE4;&#x5165;&#x53E3;-&#x4EE3;&#x7801;&#x5728;cmdserviceservicego"><i class="fa fa-link" aria-hidden="true"></i></a>service&#x547D;&#x4EE4;&#x5165;&#x53E3;, &#x4EE3;&#x7801;&#x5728;<code>cmd/service/service.go</code></h4>
 <p>&#x547D;&#x4EE4;&#x884C;&#x5165;&#x53E3;: &#x6CE8;&#x610F;&#x8FD9;&#x4E2A;&#x5165;&#x53E3;&#x662F;&#x5728;&#x4E0B;&#x7EA7;&#x547D;&#x4EE4;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x624D;&#x4F1A;&#x8C03;&#x7528;&#x7684;. &#x6240;&#x4EE5;&#x6211;&#x770B;&#x4E86;&#x534A;&#x5929;&#x5B9E;&#x9645;&#x662F;&#x6267;&#x884C;&#x4E0D;&#x5230;&#x7684;. : (</p>
-<pre><code class="lang-go">// Run starts a micro service sidecar to encapsulate any app
-func Run(ctx *ccli.Context) {
-    // new service
-    srv := service.New(opts...)
+<pre class="language-"><code class="lang-go"><span class="token comment">// Run starts a micro service sidecar to encapsulate any app</span>
+<span class="token keyword">func</span> <span class="token function">Run</span><span class="token punctuation">(</span>ctx <span class="token operator">*</span>ccli<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// new service</span>
+    srv <span class="token operator">:=</span> service<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>opts<span class="token operator">...</span><span class="token punctuation">)</span>
 
-    // create new muxer
-    //    muxer := mux.New(name, p)
+    <span class="token comment">// create new muxer</span>
+    <span class="token comment">//    muxer := mux.New(name, p)</span>
 
-    // set the router
-    srv.Server().Init(
-        server.WithRouter(p),
-    )
+    <span class="token comment">// set the router</span>
+    srv<span class="token punctuation">.</span><span class="token function">Server</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span>
+        server<span class="token punctuation">.</span><span class="token function">WithRouter</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
 
-    // run service
-    srv.Run()
-}
+    <span class="token comment">// run service</span>
+    srv<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h3 id="api&#x547D;&#x4EE4;&#x5165;&#x53E3;"><a name="api&#x547D;&#x4EE4;&#x5165;&#x53E3;" class="anchor-navigation-ex-anchor" href="#api&#x547D;&#x4EE4;&#x5165;&#x53E3;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.5. api&#x547D;&#x4EE4;&#x5165;&#x53E3;</h3>
 <p>api&#x547D;&#x4EE4;&#x7684;&#x5165;&#x53E3;&#x5B9E;&#x9645;&#x4E0A;&#x662F;</p>
-<pre><code class="lang-go">var srvCommands = []srvCommand{
-    {
-        Name:    &quot;api&quot;,
-        Command: api.Run,
-        Flags:   api.Flags,
-    },
-    ...
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> srvCommands <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>srvCommand<span class="token punctuation">{</span>
+    <span class="token punctuation">{</span>
+        Name<span class="token punctuation">:</span>    <span class="token string">&quot;api&quot;</span><span class="token punctuation">,</span>
+        Command<span class="token punctuation">:</span> api<span class="token punctuation">.</span>Run<span class="token punctuation">,</span>
+        Flags<span class="token punctuation">:</span>   api<span class="token punctuation">.</span>Flags<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x5BF9;&#x5E94;&#x4EE3;&#x7801;: <code>service/api/server/server.go</code>
 &#x9ED8;&#x8BA4;&#x503C;&#x5C31;&#x662F;&#x8FD9;&#x91CC;&#x7684;8080</p>
-<pre><code class="lang-go">var (
-    Name                  = &quot;api&quot;
-    Address               = &quot;:8080&quot;
-    Handler               = &quot;meta&quot;
-    Resolver              = &quot;micro&quot;
-    APIPath               = &quot;/&quot;
-    ProxyPath             = &quot;/{service:[a-zA-Z0-9]+}&quot;
-    Namespace             = &quot;&quot;
-    ACMEProvider          = &quot;autocert&quot;
-    ACMEChallengeProvider = &quot;cloudflare&quot;
-    ACMECA                = acme.LetsEncryptProductionCA
-)
+<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
+    Name                  <span class="token operator">=</span> <span class="token string">&quot;api&quot;</span>
+    Address               <span class="token operator">=</span> <span class="token string">&quot;:8080&quot;</span>
+    Handler               <span class="token operator">=</span> <span class="token string">&quot;meta&quot;</span>
+    Resolver              <span class="token operator">=</span> <span class="token string">&quot;micro&quot;</span>
+    APIPath               <span class="token operator">=</span> <span class="token string">&quot;/&quot;</span>
+    ProxyPath             <span class="token operator">=</span> <span class="token string">&quot;/{service:[a-zA-Z0-9]+}&quot;</span>
+    Namespace             <span class="token operator">=</span> <span class="token string">&quot;&quot;</span>
+    ACMEProvider          <span class="token operator">=</span> <span class="token string">&quot;autocert&quot;</span>
+    ACMEChallengeProvider <span class="token operator">=</span> <span class="token string">&quot;cloudflare&quot;</span>
+    ACMECA                <span class="token operator">=</span> acme<span class="token punctuation">.</span>LetsEncryptProductionCA
+<span class="token punctuation">)</span>
 </code></pre>
 <p>api&#x547D;&#x4EE4;&#x7684;&#x5165;&#x53E3;&#x5C31;&#x662F;:</p>
-<pre><code class="lang-go">func Run(ctx *cli.Context) error {
-    // initialise service
-    srv := service.New(service.Name(Name))
-    // create a new api server with wrappers
-    api := httpapi.NewServer(Address)
-    // initialise
-    api.Init(opts...)
-    // register the handler
-    api.Handle(&quot;/&quot;, h)
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">Run</span><span class="token punctuation">(</span>ctx <span class="token operator">*</span>cli<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token comment">// initialise service</span>
+    srv <span class="token operator">:=</span> service<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>service<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span>Name<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment">// create a new api server with wrappers</span>
+    api <span class="token operator">:=</span> httpapi<span class="token punctuation">.</span><span class="token function">NewServer</span><span class="token punctuation">(</span>Address<span class="token punctuation">)</span>
+    <span class="token comment">// initialise</span>
+    api<span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span>opts<span class="token operator">...</span><span class="token punctuation">)</span>
+    <span class="token comment">// register the handler</span>
+    api<span class="token punctuation">.</span><span class="token function">Handle</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span> h<span class="token punctuation">)</span>
 
-    // Start API
-    if err := api.Start(); err != nil {
-        log.Fatal(err)
-    }
+    <span class="token comment">// Start API</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> api<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    // Run server
-    if err := srv.Run(); err != nil {
-        log.Fatal(err)
-    }
+    <span class="token comment">// Run server</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> srv<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    // Stop API
-    if err := api.Stop(); err != nil {
-        log.Fatal(err)
-    }
-}
+    <span class="token comment">// Stop API</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> api<span class="token punctuation">.</span><span class="token function">Stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x6211;&#x8FD9;&#x91CC;<code>./micro server</code>&#x603B;&#x662F;&#x51FA;&#x9519;, &#x770B;log&#x662F;&#x56E0;&#x4E3A;:
 api&#x8FD9;&#x4E2A;&#x670D;&#x52A1;&#x7684;8080&#x7AEF;&#x53E3;&#x88AB;&#x5360;&#x7528;&#x4E86;.</p>
-<pre><code>2021-06-20 05:20:44  file=server/server.go:341 level=fatal service=api listen tcp :8080: bind: address already in use
+<pre class="language-"><code>2021-06-20 05:20:44  file=server/server.go:341 level=fatal service=api listen tcp :8080: bind: address already in use
 </code></pre><p>&#x8FD9;&#x4E2A;&#x7AEF;&#x53E3;&#x662F;&#x5199;&#x6B7B;&#x7684;. &#x867D;&#x7136;&#x6709;&#x547D;&#x4EE4;&#x884C;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x6539;, &#x4F46;&#x662F;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x884C;&#x662F;<code>micro server</code>&#x4F20;&#x5165;&#x5199;&#x6B7B;&#x7684;...
 &#x8FD9;&#x4F3C;&#x4E4E;&#x662F;&#x4E2A;&#x6B7B;&#x5C40;, &#x521D;&#x975E;&#x76F4;&#x63A5;&#x6539;&#x4EE3;&#x7801;.
 &#x89E3;&#x51B3;&#x529E;&#x6CD5;&#x5F88;&#x7B80;&#x5355;, &#x76F4;&#x63A5;&#x6539;&#x4E2A;port:</p>
-<pre><code class="lang-go">$ git diff
-diff --git a/service/api/server/server.go b/service/api/server/server.go
-index 2bcd7651..69f7f31a 100644
---- a/service/api/server/server.go
-+++ b/service/api/server/server.go
-@@ -39,7 +39,7 @@ import (
+<pre class="language-"><code class="lang-go">$ git diff
+diff <span class="token operator">--</span>git a<span class="token operator">/</span>service<span class="token operator">/</span>api<span class="token operator">/</span>server<span class="token operator">/</span>server<span class="token punctuation">.</span><span class="token keyword">go</span> b<span class="token operator">/</span>service<span class="token operator">/</span>api<span class="token operator">/</span>server<span class="token operator">/</span>server<span class="token punctuation">.</span><span class="token keyword">go</span>
+index 2bcd7651<span class="token punctuation">.</span><span class="token punctuation">.</span>69f7f31a <span class="token number">100644</span>
+<span class="token operator">--</span><span class="token operator">-</span> a<span class="token operator">/</span>service<span class="token operator">/</span>api<span class="token operator">/</span>server<span class="token operator">/</span>server<span class="token punctuation">.</span><span class="token keyword">go</span>
+<span class="token operator">++</span><span class="token operator">+</span> b<span class="token operator">/</span>service<span class="token operator">/</span>api<span class="token operator">/</span>server<span class="token operator">/</span>server<span class="token punctuation">.</span><span class="token keyword">go</span>
+@@ <span class="token operator">-</span><span class="token number">39</span><span class="token punctuation">,</span><span class="token number">7</span> <span class="token operator">+</span><span class="token number">39</span><span class="token punctuation">,</span><span class="token number">7</span> @@ <span class="token keyword">import</span> <span class="token punctuation">(</span>
 
- var (
-        Name                  = &quot;api&quot;
--       Address               = &quot;:8080&quot;
-+       Address               = &quot;:18080&quot;
-        Handler               = &quot;meta&quot;
-        Resolver              = &quot;micro&quot;
-        APIPath               = &quot;/&quot;
+ <span class="token keyword">var</span> <span class="token punctuation">(</span>
+        Name                  <span class="token operator">=</span> <span class="token string">&quot;api&quot;</span>
+<span class="token operator">-</span>       Address               <span class="token operator">=</span> <span class="token string">&quot;:8080&quot;</span>
+<span class="token operator">+</span>       Address               <span class="token operator">=</span> <span class="token string">&quot;:18080&quot;</span>
+        Handler               <span class="token operator">=</span> <span class="token string">&quot;meta&quot;</span>
+        Resolver              <span class="token operator">=</span> <span class="token string">&quot;micro&quot;</span>
+        APIPath               <span class="token operator">=</span> <span class="token string">&quot;/&quot;</span>
 </code></pre>
 <h3 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.6. &#x603B;&#x7ED3;</h3>
 <ul>
@@ -3190,9 +3187,9 @@ index 2bcd7651..69f7f31a 100644
 </ul>
 <h2 id="urfave&#x7684;cli&#x4F7F;&#x7528;"><a name="urfave&#x7684;cli&#x4F7F;&#x7528;" class="anchor-navigation-ex-anchor" href="#urfave&#x7684;cli&#x4F7F;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. urfave&#x7684;cli&#x4F7F;&#x7528;</h2>
 <p>&#x6CE8;&#x518C;&#x7684;action&#x4F1A;&#x88AB;&#x8C03;&#x7528;: &#x6BD4;&#x5982;</p>
-<pre><code class="lang-go">func Run(ctx *cli.Context) error {
-    ...
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">Run</span><span class="token punctuation">(</span>ctx <span class="token operator">*</span>cli<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <ul>
 <li><code>ctx.String(&quot;server_name&quot;)</code>: &#x83B7;&#x53D6;&#x547D;&#x4EE4;&#x884C;&#x7684;string&#x7C7B;&#x578B;&#x7684;flag&#x503C;</li>
@@ -3201,53 +3198,53 @@ index 2bcd7651..69f7f31a 100644
 <h1 id="&#x65B0;&#x7248;micro&#x642D;&#x5EFA;blog&#x670D;&#x52A1;"><a name="&#x65B0;&#x7248;micro&#x642D;&#x5EFA;blog&#x670D;&#x52A1;" class="anchor-navigation-ex-anchor" href="#&#x65B0;&#x7248;micro&#x642D;&#x5EFA;blog&#x670D;&#x52A1;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x65B0;&#x7248;micro&#x642D;&#x5EFA;blog&#x670D;&#x52A1;</h1>
 <h2 id="&#x5EFA;&#x7ACB;&#x8FD0;&#x884C;&#x73AF;&#x5883;"><a name="&#x5EFA;&#x7ACB;&#x8FD0;&#x884C;&#x73AF;&#x5883;" class="anchor-navigation-ex-anchor" href="#&#x5EFA;&#x7ACB;&#x8FD0;&#x884C;&#x73AF;&#x5883;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x5EFA;&#x7ACB;&#x8FD0;&#x884C;&#x73AF;&#x5883;</h2>
 <p>&#x5148;run micro server</p>
-<pre><code>micro server
+<pre class="language-"><code>micro server
 </code></pre><p>&#x770B;&#x770B;&#x5F53;&#x524D;&#x73AF;&#x5883;</p>
-<pre><code class="lang-sh">$ micro env
-* local      127.0.0.1:8081         Local running micro server
+<pre class="language-"><code class="lang-sh">$ micro <span class="token function">env</span>
+* <span class="token builtin class-name">local</span>      <span class="token number">127.0</span>.0.1:8081         Local running micro server
   dev        proxy.m3o.dev          Cloud hosted development environment
   platform   proxy.m3o.com          Cloud hosted production environment
 </code></pre>
 <p>&#x53EF;&#x80FD;&#x9700;&#x8981;&#x5148;&#x8FD0;&#x884C;<code>micro env set local</code>&#x6765;&#x5EFA;&#x7ACB;local&#x7684;&#x73AF;&#x5883;</p>
 <h2 id="&#x65B0;&#x5EFA;posts-&#x670D;&#x52A1;"><a name="&#x65B0;&#x5EFA;posts-&#x670D;&#x52A1;" class="anchor-navigation-ex-anchor" href="#&#x65B0;&#x5EFA;posts-&#x670D;&#x52A1;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. &#x65B0;&#x5EFA;posts &#x670D;&#x52A1;</h2>
-<pre><code class="lang-sh">$ micro new posts
-$ ls posts
+<pre class="language-"><code class="lang-sh">$ micro new posts
+$ <span class="token function">ls</span> posts
 Dockerfile    Makefile    README.md    generate.go    go.mod        handler        main.go        proto
 </code></pre>
 <p>&#x6539;proto&#x5148;</p>
-<pre><code class="lang-go">syntax = &quot;proto3&quot;;
+<pre class="language-"><code class="lang-go">syntax <span class="token operator">=</span> <span class="token string">&quot;proto3&quot;</span><span class="token punctuation">;</span>
 
-package posts;
+<span class="token keyword">package</span> posts<span class="token punctuation">;</span>
 
-service Posts {
-    rpc Save(SaveRequest) returns (SaveResponse) {}
-    rpc Query(QueryRequest) returns (QueryResponse) {}
-    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
-}
+service Posts <span class="token punctuation">{</span>
+    rpc <span class="token function">Save</span><span class="token punctuation">(</span>SaveRequest<span class="token punctuation">)</span> returns <span class="token punctuation">(</span>SaveResponse<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    rpc <span class="token function">Query</span><span class="token punctuation">(</span>QueryRequest<span class="token punctuation">)</span> returns <span class="token punctuation">(</span>QueryResponse<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    rpc <span class="token function">Delete</span><span class="token punctuation">(</span>DeleteRequest<span class="token punctuation">)</span> returns <span class="token punctuation">(</span>DeleteResponse<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-message SaveRequest {
-    string id = 1;
-    string title = 2;
-    string slug = 3;
-    string content = 4;
-    int64 timestamp = 5;
-    repeated string tags = 6;
-}
+message SaveRequest <span class="token punctuation">{</span>
+    <span class="token builtin">string</span> id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token builtin">string</span> title <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token builtin">string</span> slug <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+    <span class="token builtin">string</span> content <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+    <span class="token builtin">int64</span> timestamp <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+    repeated <span class="token builtin">string</span> tags <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-message SaveResponse {
-    string id = 1;
-}
+message SaveResponse <span class="token punctuation">{</span>
+    <span class="token builtin">string</span> id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-message Post {
-    string id = 1;
-    string title = 2;
-    string slug = 3;
-    string content = 4;
-    int64 created = 5;
-    int64 updated = 6;
-    string author = 7;
-    repeated string tags = 8;
-}
+message Post <span class="token punctuation">{</span>
+    <span class="token builtin">string</span> id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token builtin">string</span> title <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token builtin">string</span> slug <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+    <span class="token builtin">string</span> content <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+    <span class="token builtin">int64</span> created <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+    <span class="token builtin">int64</span> updated <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
+    <span class="token builtin">string</span> author <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
+    repeated <span class="token builtin">string</span> tags <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>proto&#x6587;&#x4EF6;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x4FEE;&#x6539;, &#x76EE;&#x7684;&#x662F;&#x8BA9;&#x547D;&#x4EE4;&#x8BBF;&#x95EE;&#x66F4;&#x7B80;&#x5355;&#x70B9;
 &#x4E0D;&#x6539;&#x7684;&#x8BDD;&#x662F;&#x8FD9;&#x6837;
@@ -3256,115 +3253,115 @@ message Post {
 <code>micro posts save --title=Title --content=Content</code></p>
 <p>&#x7136;&#x540E;make proto&#x5C31;&#x53EF;&#x4EE5;&#x751F;&#x6210;&#x4EE3;&#x7801;&#x4E86;</p>
 <h3 id="&#x5199;maingo"><a name="&#x5199;maingo" class="anchor-navigation-ex-anchor" href="#&#x5199;maingo"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. &#x5199;main.go</h3>
-<pre><code class="lang-go">package main
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
 
-import (
-    &quot;posts/handler&quot;
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;posts/handler&quot;</span>
 
-    &quot;github.com/micro/micro/v3/service&quot;
-    &quot;github.com/micro/micro/v3/service/logger&quot;
-)
+    <span class="token string">&quot;github.com/micro/micro/v3/service&quot;</span>
+    <span class="token string">&quot;github.com/micro/micro/v3/service/logger&quot;</span>
+<span class="token punctuation">)</span>
 
-func main() {
-    // Create the service
-    srv := service.New(
-        service.Name(&quot;posts&quot;),
-    )
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Create the service</span>
+    srv <span class="token operator">:=</span> service<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>
+        service<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">&quot;posts&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
 
-    // Register Handler
-    srv.Handle(handler.NewPosts())
+    <span class="token comment">// Register Handler</span>
+    srv<span class="token punctuation">.</span><span class="token function">Handle</span><span class="token punctuation">(</span>handler<span class="token punctuation">.</span><span class="token function">NewPosts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-    // Run service
-    if err := srv.Run(); err != nil {
-        logger.Fatal(err)
-    }
-}
+    <span class="token comment">// Run service</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> srv<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        logger<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h3 id="&#x5199;handlergo"><a name="&#x5199;handlergo" class="anchor-navigation-ex-anchor" href="#&#x5199;handlergo"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.2. &#x5199;handler.go</h3>
-<pre><code class="lang-go">package handler
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> handler
 
-import (
-    &quot;context&quot;
-    &quot;time&quot;
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;context&quot;</span>
+    <span class="token string">&quot;time&quot;</span>
 
-    &quot;github.com/micro/dev/model&quot;
-    &quot;github.com/micro/go-micro/errors&quot;
-    &quot;github.com/micro/micro/v3/service/logger&quot;
-    &quot;github.com/micro/micro/v3/service/store&quot;
+    <span class="token string">&quot;github.com/micro/dev/model&quot;</span>
+    <span class="token string">&quot;github.com/micro/go-micro/errors&quot;</span>
+    <span class="token string">&quot;github.com/micro/micro/v3/service/logger&quot;</span>
+    <span class="token string">&quot;github.com/micro/micro/v3/service/store&quot;</span>
 
-    proto &quot;posts/proto&quot;
+    proto <span class="token string">&quot;posts/proto&quot;</span>
 
-    &quot;github.com/gosimple/slug&quot;
-)
+    <span class="token string">&quot;github.com/gosimple/slug&quot;</span>
+<span class="token punctuation">)</span>
 
-type Posts struct {
-    db           model.Model
-    idIndex      model.Index
-    createdIndex model.Index
-    slugIndex    model.Index
-}
+<span class="token keyword">type</span> Posts <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    db           model<span class="token punctuation">.</span>Model
+    idIndex      model<span class="token punctuation">.</span>Index
+    createdIndex model<span class="token punctuation">.</span>Index
+    slugIndex    model<span class="token punctuation">.</span>Index
+<span class="token punctuation">}</span>
 
-func NewPosts() *Posts {
-    createdIndex := model.ByEquality(&quot;created&quot;)
-    createdIndex.Order.Type = model.OrderTypeDesc
+<span class="token keyword">func</span> <span class="token function">NewPosts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>Posts <span class="token punctuation">{</span>
+    createdIndex <span class="token operator">:=</span> model<span class="token punctuation">.</span><span class="token function">ByEquality</span><span class="token punctuation">(</span><span class="token string">&quot;created&quot;</span><span class="token punctuation">)</span>
+    createdIndex<span class="token punctuation">.</span>Order<span class="token punctuation">.</span>Type <span class="token operator">=</span> model<span class="token punctuation">.</span>OrderTypeDesc
 
-    slugIndex := model.ByEquality(&quot;slug&quot;)
+    slugIndex <span class="token operator">:=</span> model<span class="token punctuation">.</span><span class="token function">ByEquality</span><span class="token punctuation">(</span><span class="token string">&quot;slug&quot;</span><span class="token punctuation">)</span>
 
-    idIndex := model.ByEquality(&quot;id&quot;)
-    idIndex.Order.Type = model.OrderTypeUnordered
+    idIndex <span class="token operator">:=</span> model<span class="token punctuation">.</span><span class="token function">ByEquality</span><span class="token punctuation">(</span><span class="token string">&quot;id&quot;</span><span class="token punctuation">)</span>
+    idIndex<span class="token punctuation">.</span>Order<span class="token punctuation">.</span>Type <span class="token operator">=</span> model<span class="token punctuation">.</span>OrderTypeUnordered
 
-    return &amp;Posts{
-        db: model.New(
-            store.DefaultStore,
-            &quot;posts&quot;,
-            model.Indexes(slugIndex, createdIndex),
-            &amp;model.ModelOptions{
-                IdIndex: idIndex,
-            },
-        ),
-        createdIndex: createdIndex,
-        slugIndex:    slugIndex,
-        idIndex:      idIndex,
-    }
-}
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>Posts<span class="token punctuation">{</span>
+        db<span class="token punctuation">:</span> model<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>
+            store<span class="token punctuation">.</span>DefaultStore<span class="token punctuation">,</span>
+            <span class="token string">&quot;posts&quot;</span><span class="token punctuation">,</span>
+            model<span class="token punctuation">.</span><span class="token function">Indexes</span><span class="token punctuation">(</span>slugIndex<span class="token punctuation">,</span> createdIndex<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token operator">&amp;</span>model<span class="token punctuation">.</span>ModelOptions<span class="token punctuation">{</span>
+                IdIndex<span class="token punctuation">:</span> idIndex<span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        createdIndex<span class="token punctuation">:</span> createdIndex<span class="token punctuation">,</span>
+        slugIndex<span class="token punctuation">:</span>    slugIndex<span class="token punctuation">,</span>
+        idIndex<span class="token punctuation">:</span>      idIndex<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x73B0;&#x5728;run&#x8FD9;&#x4E2A;&#x670D;&#x52A1;<code>micro run .</code>, &#x80FD;&#x5F97;&#x5230;&#x521D;&#x6B65;&#x7684;&#x8F93;&#x51FA;</p>
-<pre><code class="lang-sh">$ micro logs posts
-Starting [service] posts
-Server [grpc] Listening on [::]:53031
-Registry [service] Registering node: posts-b36361ae-f2ae-48b0-add5-a8d4797508be
+<pre class="language-"><code class="lang-sh">$ micro logs posts
+Starting <span class="token punctuation">[</span>service<span class="token punctuation">]</span> posts
+Server <span class="token punctuation">[</span>grpc<span class="token punctuation">]</span> Listening on <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:53031
+Registry <span class="token punctuation">[</span>service<span class="token punctuation">]</span> Registering node: posts-b36361ae-f2ae-48b0-add5-a8d4797508be
 </code></pre>
 <h3 id="&#x589E;&#x52A0;save&#x529F;&#x80FD;"><a name="&#x589E;&#x52A0;save&#x529F;&#x80FD;" class="anchor-navigation-ex-anchor" href="#&#x589E;&#x52A0;save&#x529F;&#x80FD;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.3. &#x589E;&#x52A0;save&#x529F;&#x80FD;</h3>
 <p>&#x589E;&#x52A0;save&#x51FD;&#x6570;</p>
-<pre><code class="lang-go">func (p *Posts) Save(ctx context.Context, req *proto.SaveRequest, rsp *proto.SaveResponse) error {
-    logger.Info(&quot;Received Posts.Save request&quot;)
-    post := &amp;proto.Post{
-        Id:      req.Id,
-        Title:   req.Title,
-        Content: req.Content,
-        Slug:    req.Slug,
-        Created: time.Now().Unix(),
-    }
-    if req.Slug == &quot;&quot; {
-        post.Slug = slug.Make(req.Title)
-    }
-    return p.db.Save(post)
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>Posts<span class="token punctuation">)</span> <span class="token function">Save</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> req <span class="token operator">*</span>proto<span class="token punctuation">.</span>SaveRequest<span class="token punctuation">,</span> rsp <span class="token operator">*</span>proto<span class="token punctuation">.</span>SaveResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    logger<span class="token punctuation">.</span><span class="token function">Info</span><span class="token punctuation">(</span><span class="token string">&quot;Received Posts.Save request&quot;</span><span class="token punctuation">)</span>
+    post <span class="token operator">:=</span> <span class="token operator">&amp;</span>proto<span class="token punctuation">.</span>Post<span class="token punctuation">{</span>
+        Id<span class="token punctuation">:</span>      req<span class="token punctuation">.</span>Id<span class="token punctuation">,</span>
+        Title<span class="token punctuation">:</span>   req<span class="token punctuation">.</span>Title<span class="token punctuation">,</span>
+        Content<span class="token punctuation">:</span> req<span class="token punctuation">.</span>Content<span class="token punctuation">,</span>
+        Slug<span class="token punctuation">:</span>    req<span class="token punctuation">.</span>Slug<span class="token punctuation">,</span>
+        Created<span class="token punctuation">:</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Unix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> req<span class="token punctuation">.</span>Slug <span class="token operator">==</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">{</span>
+        post<span class="token punctuation">.</span>Slug <span class="token operator">=</span> slug<span class="token punctuation">.</span><span class="token function">Make</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>Title<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> p<span class="token punctuation">.</span>db<span class="token punctuation">.</span><span class="token function">Save</span><span class="token punctuation">(</span>post<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x91CD;&#x65B0;run <code>micro update .</code></p>
-<pre><code>micro posts save --id=1 --title=&quot;Post one&quot; --content=&quot;First saved post&quot;
+<pre class="language-"><code>micro posts save --id=1 --title=&quot;Post one&quot; --content=&quot;First saved post&quot;
 micro posts save --id=2 --title=&quot;Post two&quot; --content=&quot;Second saved post&quot;
 </code></pre><h1 id="&#x65B0;&#x7248;micro"><a name="&#x65B0;&#x7248;micro" class="anchor-navigation-ex-anchor" href="#&#x65B0;&#x7248;micro"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x65B0;&#x7248;micro</h1>
 <h2 id="&#x4F9D;&#x8D56;"><a name="&#x4F9D;&#x8D56;" class="anchor-navigation-ex-anchor" href="#&#x4F9D;&#x8D56;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x4F9D;&#x8D56;</h2>
 <p>&#x4F9D;&#x8D56;protobuf go&#x7248;&#x672C;</p>
-<pre><code class="lang-sh"># Download latest proto releaes
-# https://github.com/protocolbuffers/protobuf/releases
+<pre class="language-"><code class="lang-sh"><span class="token comment"># Download latest proto releaes</span>
+<span class="token comment"># https://github.com/protocolbuffers/protobuf/releases</span>
 go get github.com/golang/protobuf/protoc-gen-go
 go get github.com/micro/micro/v3/cmd/protoc-gen-micro
 </code></pre>
 <h2 id="&#x8981;&#x5148;&#x542F;&#x52A8;server-&#x518D;login&#x4E0A;&#x53BB;"><a name="&#x8981;&#x5148;&#x542F;&#x52A8;server-&#x518D;login&#x4E0A;&#x53BB;" class="anchor-navigation-ex-anchor" href="#&#x8981;&#x5148;&#x542F;&#x52A8;server-&#x518D;login&#x4E0A;&#x53BB;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x8981;&#x5148;&#x542F;&#x52A8;server, &#x518D;login&#x4E0A;&#x53BB;</h2>
 <p>&#x7528;&#x6237;&#x540D;&#x5BC6;&#x7801;&#x662F;admin&#x548C;micro</p>
-<pre><code class="lang-sh">micro server
+<pre class="language-"><code class="lang-sh">micro server
 
 $ micro login
 Enter username: admin
@@ -3372,7 +3369,7 @@ Enter password:
 Successfully logged in.
 </code></pre>
 <h2 id="micro-server&#x4F1A;&#x9ED8;&#x8BA4;&#x542F;&#x52A8;&#x4E00;&#x4E9B;&#x670D;&#x52A1;"><a name="micro-server&#x4F1A;&#x9ED8;&#x8BA4;&#x542F;&#x52A8;&#x4E00;&#x4E9B;&#x670D;&#x52A1;" class="anchor-navigation-ex-anchor" href="#micro-server&#x4F1A;&#x9ED8;&#x8BA4;&#x542F;&#x52A8;&#x4E00;&#x4E9B;&#x670D;&#x52A1;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. micro server&#x4F1A;&#x9ED8;&#x8BA4;&#x542F;&#x52A8;&#x4E00;&#x4E9B;&#x670D;&#x52A1;</h2>
-<pre><code class="lang-sh">$ micro services
+<pre class="language-"><code class="lang-sh">$ micro services
 api
 auth
 broker
@@ -3388,29 +3385,29 @@ store
 <h2 id="run-hello-world-service"><a name="run-hello-world-service" class="anchor-navigation-ex-anchor" href="#run-hello-world-service"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. run hello world service</h2>
 <p>&#x5728;<code>github.com/micro/services</code>&#x5E93;&#x4E2D;, &#x6709;&#x5F88;&#x591A;&quot;&#x5B98;&#x65B9;&quot;&#x5199;&#x597D;&#x7684;&#x670D;&#x52A1;
 &#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x8981;run&#x4E2A;hello world</p>
-<pre><code class="lang-sh">micro run github.com/micro/services/helloworld
+<pre class="language-"><code class="lang-sh">micro run github.com/micro/services/helloworld
 </code></pre>
 <p>&#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x770B;&#x770B;&#x72B6;&#x6001;</p>
-<pre><code class="lang-sh">$ micro status
+<pre class="language-"><code class="lang-sh">$ micro status
 NAME        VERSION    SOURCE                    STATUS    BUILD    UPDATED    METADATA
-helloworld    latest    github.com/micro/services/helloworld    running    n/a    4s ago    owner=admin, group=micro
+helloworld    latest    github.com/micro/services/helloworld    running    n/a    4s ago    <span class="token assign-left variable">owner</span><span class="token operator">=</span>admin, <span class="token assign-left variable">group</span><span class="token operator">=</span>micro
 </code></pre>
 <p>&#x770B;&#x770B;log</p>
-<pre><code class="lang-sh">$ micro logs helloworld
-2020-10-06 17:52:21  file=service/service.go:195 level=info Starting [service] helloworld
-2020-10-06 17:52:21  file=grpc/grpc.go:902 level=info Server [grpc] Listening on [::]:33975
-2020-10-06 17:52:21  file=grpc/grpc.go:732 level=info Registry [service] Registering node: helloworld-67627b23-3336-4b92-a032-09d8d13ecf95
+<pre class="language-"><code class="lang-sh">$ micro logs helloworld
+<span class="token number">2020</span>-10-06 <span class="token number">17</span>:52:21  <span class="token assign-left variable">file</span><span class="token operator">=</span>service/service.go:195 <span class="token assign-left variable">level</span><span class="token operator">=</span>info Starting <span class="token punctuation">[</span>service<span class="token punctuation">]</span> helloworld
+<span class="token number">2020</span>-10-06 <span class="token number">17</span>:52:21  <span class="token assign-left variable">file</span><span class="token operator">=</span>grpc/grpc.go:902 <span class="token assign-left variable">level</span><span class="token operator">=</span>info Server <span class="token punctuation">[</span>grpc<span class="token punctuation">]</span> Listening on <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:33975
+<span class="token number">2020</span>-10-06 <span class="token number">17</span>:52:21  <span class="token assign-left variable">file</span><span class="token operator">=</span>grpc/grpc.go:732 <span class="token assign-left variable">level</span><span class="token operator">=</span>info Registry <span class="token punctuation">[</span>service<span class="token punctuation">]</span> Registering node: helloworld-67627b23-3336-4b92-a032-09d8d13ecf95
 </code></pre>
 <h2 id="&#x8C03;&#x7528;hello-world&#x670D;&#x52A1;"><a name="&#x8C03;&#x7528;hello-world&#x670D;&#x52A1;" class="anchor-navigation-ex-anchor" href="#&#x8C03;&#x7528;hello-world&#x670D;&#x52A1;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. &#x8C03;&#x7528;hello world&#x670D;&#x52A1;</h2>
 <h3 id="cli&#x65B9;&#x5F0F;"><a name="cli&#x65B9;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#cli&#x65B9;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.1. cli&#x65B9;&#x5F0F;</h3>
 <p>&#x8FD8;&#x662F;&#x4F7F;&#x7528;micro&#x547D;&#x4EE4;&#x6765;&#x8C03;&#x7528;, &#x683C;&#x5F0F;&#x662F;<code>micro [service] [method]</code>, &#x9ED8;&#x8BA4;&#x7684;method&#x662F;<code>call</code>, &#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x547D;&#x4EE4;&#x884C;&#x4F20;&#x5165;</p>
-<pre><code class="lang-sh">$ micro helloworld --name=Jane
-{
-    &quot;msg&quot;: &quot;Hello Jane&quot;
-}
+<pre class="language-"><code class="lang-sh">$ micro helloworld <span class="token parameter variable">--name</span><span class="token operator">=</span>Jane
+<span class="token punctuation">{</span>
+    <span class="token string">&quot;msg&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;Hello Jane&quot;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x67E5;&#x8BE2;&#x8FD9;&#x4E2A;&#x670D;&#x52A1;&#x80FD;&#x63D0;&#x4F9B;&#x4EC0;&#x4E48;&#x670D;&#x52A1;:</p>
-<pre><code class="lang-sh">$ micro helloworld --help
+<pre class="language-"><code class="lang-sh">$ micro helloworld <span class="token parameter variable">--help</span>
 NAME:
     micro helloworld
 
@@ -3418,74 +3415,74 @@ VERSION:
     latest
 
 USAGE:
-    micro helloworld [command]
+    micro helloworld <span class="token punctuation">[</span>command<span class="token punctuation">]</span>
 
 COMMANDS:
     call
 </code></pre>
 <p>&#x8981;&#x770B;call&#x547D;&#x4EE4;&#x7684;&#x5B50;&#x547D;&#x4EE4;call&#x7684;&#x4F7F;&#x7528;</p>
-<pre><code class="lang-sh">$ micro helloworld call --help
+<pre class="language-"><code class="lang-sh">$ micro helloworld call <span class="token parameter variable">--help</span>
 NAME:
     micro helloworld call
 
 USAGE:
-    micro helloworld call [flags]
+    micro helloworld call <span class="token punctuation">[</span>flags<span class="token punctuation">]</span>
 
 FLAGS:
-    --name string
+    <span class="token parameter variable">--name</span> string
 </code></pre>
 <h3 id="rest-api&#x65B9;&#x5F0F;"><a name="rest-api&#x65B9;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#rest-api&#x65B9;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.2. rest API&#x65B9;&#x5F0F;</h3>
 <p><code>curl &quot;http://localhost:8080/helloworld?name=John&quot;</code></p>
 <h3 id="&#x81EA;&#x5DF1;&#x5199;&#x4E2A;client"><a name="&#x81EA;&#x5DF1;&#x5199;&#x4E2A;client" class="anchor-navigation-ex-anchor" href="#&#x81EA;&#x5DF1;&#x5199;&#x4E2A;client"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.3. &#x81EA;&#x5DF1;&#x5199;&#x4E2A;client</h3>
 <p>&#x662F;&#x4E2A;rpc&#x6A21;&#x5F0F;&#x7684;client
 &#x5B9E;&#x9645;&#x4E0A;&#x8FD9;&#x4E2A;client&#x672C;&#x8EAB;&#x4E5F;&#x662F;&#x4E2A;&quot;service&quot;(&#x4F7F;&#x7528;<code>service.New()</code>&#x5F97;&#x6765;)</p>
-<pre><code class="lang-go">package main
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
 
-import (
-    &quot;context&quot;
-    &quot;fmt&quot;
-    &quot;time&quot;
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;context&quot;</span>
+    <span class="token string">&quot;fmt&quot;</span>
+    <span class="token string">&quot;time&quot;</span>
 
-    &quot;github.com/micro/micro/v3/service&quot;
-    proto &quot;github.com/micro/services/helloworld/proto&quot;
-)
+    <span class="token string">&quot;github.com/micro/micro/v3/service&quot;</span>
+    proto <span class="token string">&quot;github.com/micro/services/helloworld/proto&quot;</span>
+<span class="token punctuation">)</span>
 
-func main() {
-    // create and initialise a new service
-    srv := service.New()
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// create and initialise a new service</span>
+    srv <span class="token operator">:=</span> service<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-        // create the proto client for helloworld
-        client := proto.NewHelloworldService(&quot;helloworld&quot;, srv.Client())
+        <span class="token comment">// create the proto client for helloworld</span>
+        client <span class="token operator">:=</span> proto<span class="token punctuation">.</span><span class="token function">NewHelloworldService</span><span class="token punctuation">(</span><span class="token string">&quot;helloworld&quot;</span><span class="token punctuation">,</span> srv<span class="token punctuation">.</span><span class="token function">Client</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-        // call an endpoint on the service
-        rsp, err := client.Call(context.Background(), &amp;proto.Request{
-            Name: &quot;John&quot;,
-        })
-        if err != nil {
-            fmt.Println(&quot;Error calling helloworld: &quot;, err)
-            return
-        }
+        <span class="token comment">// call an endpoint on the service</span>
+        rsp<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">Call</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>proto<span class="token punctuation">.</span>Request<span class="token punctuation">{</span>
+            Name<span class="token punctuation">:</span> <span class="token string">&quot;John&quot;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Error calling helloworld: &quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+            <span class="token keyword">return</span>
+        <span class="token punctuation">}</span>
 
-        // print the response
-        fmt.Println(&quot;Response: &quot;, rsp.Msg)
+        <span class="token comment">// print the response</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Response: &quot;</span><span class="token punctuation">,</span> rsp<span class="token punctuation">.</span>Msg<span class="token punctuation">)</span>
 
-        // let&apos;s delay the process for exiting for reasons you&apos;ll see below
-        time.Sleep(time.Second * 5)
-}
+        <span class="token comment">// let&apos;s delay the process for exiting for reasons you&apos;ll see below</span>
+        time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>run&#x8FD9;&#x4E2A;client:</p>
-<pre><code class="lang-sh">cd example &amp;&amp; go mod init example
-micro run .
+<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">cd</span> example <span class="token operator">&amp;&amp;</span> go mod init example
+micro run <span class="token builtin class-name">.</span>
 </code></pre>
 <p>run&#x7684;&#x65F6;&#x5019;&#x4E0D;&#x6253;&#x5370;, &#x7528;status&#x547D;&#x4EE4;&#x80FD;&#x770B;&#x5230;</p>
-<pre><code class="lang-sh">$ micro status
+<pre class="language-"><code class="lang-sh">$ micro status
 NAME        VERSION    SOURCE                                    STATUS    BUILD    UPDATED        METADATA
-example        latest    example.tar.gz                            running    n/a     2s ago        owner=admin, group=micro
-helloworld    latest    github.com/micro/services/helloworld    running    n/a        5m59s ago    owner=admin, group=micro
+example        latest    example.tar.gz                            running    n/a     2s ago        <span class="token assign-left variable">owner</span><span class="token operator">=</span>admin, <span class="token assign-left variable">group</span><span class="token operator">=</span>micro
+helloworld    latest    github.com/micro/services/helloworld    running    n/a        5m59s ago    <span class="token assign-left variable">owner</span><span class="token operator">=</span>admin, <span class="token assign-left variable">group</span><span class="token operator">=</span>micro
 </code></pre>
 <p>&#x770B;log&#x80FD;&#x591F;&#x5F97;&#x5230;&#x5176;output</p>
-<pre><code class="lang-sh">$ micro logs example
-# some go build output here
+<pre class="language-"><code class="lang-sh">$ micro logs example
+<span class="token comment"># some go build output here</span>
 Response:  Hello John
 </code></pre>
 <h3 id="&#x603B;&#x7ED3;_1"><a name="&#x603B;&#x7ED3;_1" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;_1"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.4. &#x603B;&#x7ED3;</h3>
@@ -3496,10 +3493,10 @@ Response:  Hello John
 <h2 id="&#x65B0;&#x5EFA;service"><a name="&#x65B0;&#x5EFA;service" class="anchor-navigation-ex-anchor" href="#&#x65B0;&#x5EFA;service"><i class="fa fa-link" aria-hidden="true"></i></a>3.6. &#x65B0;&#x5EFA;service</h2>
 <h3 id="&#x4F7F;&#x7528;micro-new&#x65B0;&#x5EFA;&#x4E2A;&#x5DE5;&#x7A0B;"><a name="&#x4F7F;&#x7528;micro-new&#x65B0;&#x5EFA;&#x4E2A;&#x5DE5;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;micro-new&#x65B0;&#x5EFA;&#x4E2A;&#x5DE5;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.6.1. &#x4F7F;&#x7528;micro new&#x65B0;&#x5EFA;&#x4E2A;&#x5DE5;&#x7A0B;</h3>
 <p>&#x914D;&#x5957;&#x76EE;&#x5F55;, proto&#x5B9A;&#x4E49;, Makefile&#x81EA;&#x52A8;&#x751F;&#x6210;</p>
-<pre><code class="lang-sh">$ micro new helloworld
-Creating service helloworld
+<pre class="language-"><code class="lang-sh">$ micro new helloworld
+Creating <span class="token function">service</span> helloworld
 
-.
+<span class="token builtin class-name">.</span>
 &#x251C;&#x2500;&#x2500; main.go
 &#x251C;&#x2500;&#x2500; generate.go
 &#x251C;&#x2500;&#x2500; handler
@@ -3513,36 +3510,36 @@ Creating service helloworld
 &#x2514;&#x2500;&#x2500; go.mod
 
 
-download protoc zip packages (protoc-$VERSION-$PLATFORM.zip) and install:
+download protoc <span class="token function">zip</span> packages <span class="token punctuation">(</span>protoc-<span class="token variable">$VERSION</span>-<span class="token variable">$PLATFORM</span>.zip<span class="token punctuation">)</span> and install:
 
 visit https://github.com/protocolbuffers/protobuf/releases
 
-download protobuf for micro:
+download protobuf <span class="token keyword">for</span> micro:
 
-go get -u github.com/golang/protobuf/proto
-go get -u github.com/golang/protobuf/protoc-gen-go
+go get <span class="token parameter variable">-u</span> github.com/golang/protobuf/proto
+go get <span class="token parameter variable">-u</span> github.com/golang/protobuf/protoc-gen-go
 go get github.com/micro/micro/v3/cmd/protoc-gen-micro
 
-compile the proto file helloworld.proto:
+compile the proto <span class="token function">file</span> helloworld.proto:
 
-cd helloworld
-make proto
+<span class="token builtin class-name">cd</span> helloworld
+<span class="token function">make</span> proto
 </code></pre>
 <p>&#x6839;&#x636E;&#x63D0;&#x793A;, &#x6539;&#x4E86;proto&#x540E;, <code>make proto</code>&#x6765;&#x751F;&#x6210;go&#x4EE3;&#x7801;</p>
 <h2 id="storage&#x670D;&#x52A1;"><a name="storage&#x670D;&#x52A1;" class="anchor-navigation-ex-anchor" href="#storage&#x670D;&#x52A1;"><i class="fa fa-link" aria-hidden="true"></i></a>3.7. storage&#x670D;&#x52A1;</h2>
 <p>&#x6CA1;&#x9519;, &#x6C38;&#x4E45;&#x5B58;&#x50A8;&#x88AB;&#x5185;&#x7F6E;&#x6210;&#x4E86;&#x670D;&#x52A1;, &#x5E76;&#x914D;&#x5957;&#x4E86;&#x4E13;&#x6709;&#x547D;&#x4EE4;</p>
 <ul>
-<li>&#x5199;key value&#x5BF9;<pre><code class="lang-sh">$ micro store write key1 value1
+<li>&#x5199;key value&#x5BF9;<pre class="language-"><code class="lang-sh">$ micro store <span class="token function">write</span> key1 value1
 </code></pre>
 </li>
-<li>&#x8BFB;key<pre><code class="lang-sh">$ micro store read key1
+<li>&#x8BFB;key<pre class="language-"><code class="lang-sh">$ micro store <span class="token builtin class-name">read</span> key1
 val1
-$ micro store read -v key1
+$ micro store <span class="token builtin class-name">read</span> <span class="token parameter variable">-v</span> key1
 KEY    VALUE   EXPIRY
 key1   val1    None
 </code></pre>
 </li>
-<li>pattern&#x8BFB;, -p&#x9009;&#x9879;<pre><code class="lang-sh">$ micro store read --prefix --verbose key
+<li>pattern&#x8BFB;, -p&#x9009;&#x9879;<pre class="language-"><code class="lang-sh">$ micro store <span class="token builtin class-name">read</span> <span class="token parameter variable">--prefix</span> <span class="token parameter variable">--verbose</span> key
 KEY    VALUE   EXPIRY
 key1   val1    None
 key2   val2    None
@@ -3553,77 +3550,77 @@ key2   val2    None
 <p>&#x7528;<code>--table</code>&#x6307;&#x5B9A;table
 <code>micro store write --table=example mykey &quot;Hi there&quot;</code>
 &#x53EF;&#x4EE5;&#x5728;client&#x4EE3;&#x7801;&#x91CC;&#x8BFB;key</p>
-<pre><code class="lang-go">package main
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
 
-import (
-    &quot;fmt&quot;
-    &quot;time&quot;
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;fmt&quot;</span>
+    <span class="token string">&quot;time&quot;</span>
 
-    &quot;github.com/micro/micro/v3/service&quot;
-    &quot;github.com/micro/micro/v3/service/store&quot;
-)
+    <span class="token string">&quot;github.com/micro/micro/v3/service&quot;</span>
+    <span class="token string">&quot;github.com/micro/micro/v3/service/store&quot;</span>
+<span class="token punctuation">)</span>
 
-func main() {
-    srv := service.New(service.Name(&quot;example&quot;))
-    srv.Init()
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    srv <span class="token operator">:=</span> service<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>service<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">&quot;example&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    srv<span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-    records, err := store.Read(&quot;mykey&quot;)
-    if err != nil {
-        fmt.Println(&quot;Error reading from store: &quot;, err)
-    }
+    records<span class="token punctuation">,</span> err <span class="token operator">:=</span> store<span class="token punctuation">.</span><span class="token function">Read</span><span class="token punctuation">(</span><span class="token string">&quot;mykey&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Error reading from store: &quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    if len(records) == 0 {
-        fmt.Println(&quot;No records&quot;)
-    }
-    for _, record := range records {
-        fmt.Printf(&quot;key: %v, value: %v\n&quot;, record.Key, string(record.Value))
-    }
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>records<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;No records&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> record <span class="token operator">:=</span> <span class="token keyword">range</span> records <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;key: %v, value: %v\n&quot;</span><span class="token punctuation">,</span> record<span class="token punctuation">.</span>Key<span class="token punctuation">,</span> <span class="token function">string</span><span class="token punctuation">(</span>record<span class="token punctuation">.</span>Value<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    time.Sleep(1 * time.Hour)
-}
+    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Hour<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h2 id="&#x7528;update&#x547D;&#x4EE4;&#x91CD;&#x65B0;run&#x4E00;&#x4E2A;&#x670D;&#x52A1;"><a name="&#x7528;update&#x547D;&#x4EE4;&#x91CD;&#x65B0;run&#x4E00;&#x4E2A;&#x670D;&#x52A1;" class="anchor-navigation-ex-anchor" href="#&#x7528;update&#x547D;&#x4EE4;&#x91CD;&#x65B0;run&#x4E00;&#x4E2A;&#x670D;&#x52A1;"><i class="fa fa-link" aria-hidden="true"></i></a>3.8. &#x7528;update&#x547D;&#x4EE4;&#x91CD;&#x65B0;run&#x4E00;&#x4E2A;&#x670D;&#x52A1;</h2>
 <p>&#x6BD4;&#x5982;&#x4E4B;&#x524D;&#x5DF2;&#x7ECF;&#x5728;run&#x7684;example&#x670D;&#x52A1;(&#x5B9E;&#x9645;&#x662F;hello world&#x7684;client), &#x6539;&#x4E86;&#x4EE3;&#x7801;&#x8981;&#x91CD;&#x65B0;run, &#x7528;
 <code>micro update .</code> &#x4F7F;&#x7528;&#x6700;&#x8FD1;&#x4EE3;&#x7801;&#x91CD;run
 &#x4E5F;&#x53EF;&#x4EE5;&#x5148;kill, &#x518D;run</p>
-<pre><code class="lang-sh">micro kill example
-micro run .
+<pre class="language-"><code class="lang-sh">micro <span class="token function">kill</span> example
+micro run <span class="token builtin class-name">.</span>
 </code></pre>
 <h2 id="&#x5185;&#x7F6E;config&#x547D;&#x4EE4;"><a name="&#x5185;&#x7F6E;config&#x547D;&#x4EE4;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x7F6E;config&#x547D;&#x4EE4;"><i class="fa fa-link" aria-hidden="true"></i></a>3.9. &#x5185;&#x7F6E;config&#x547D;&#x4EE4;</h2>
 <p>&#x652F;&#x6301;&#x7C7B;&#x4F3C;map&#x5F0F;&#x7684;set</p>
-<pre><code class="lang-sh">$ micro config set key val
+<pre class="language-"><code class="lang-sh">$ micro config <span class="token builtin class-name">set</span> key val
 $ micro config get key
 val
 
-$ micro config set key.subkey val
+$ micro config <span class="token builtin class-name">set</span> key.subkey val
 $ micro config get key.subkey
 val
 $ micro config get key
-{&quot;subkey&quot;:&quot;val&quot;}
+<span class="token punctuation">{</span><span class="token string">&quot;subkey&quot;</span><span class="token builtin class-name">:</span><span class="token string">&quot;val&quot;</span><span class="token punctuation">}</span>
 
-$ micro config set key.othersubkey val2
+$ micro config <span class="token builtin class-name">set</span> key.othersubkey val2
 $ micro config get key
-{&quot;othersubkey&quot;:&quot;val2&quot;,&quot;subkey&quot;:&quot;val&quot;}
+<span class="token punctuation">{</span><span class="token string">&quot;othersubkey&quot;</span><span class="token builtin class-name">:</span><span class="token string">&quot;val2&quot;</span>,<span class="token string">&quot;subkey&quot;</span><span class="token builtin class-name">:</span><span class="token string">&quot;val&quot;</span><span class="token punctuation">}</span>
 </code></pre>
 <p>&#x7528;client&#x4EE3;&#x7801;&#x6765;&#x83B7;&#x53D6;config</p>
-<pre><code class="lang-go">package main
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
 
-import (
-    &quot;fmt&quot;
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;fmt&quot;</span>
 
-    &quot;github.com/micro/micro/v3/service&quot;
-    &quot;github.com/micro/micro/v3/service/config&quot;
-)
+    <span class="token string">&quot;github.com/micro/micro/v3/service&quot;</span>
+    <span class="token string">&quot;github.com/micro/micro/v3/service/config&quot;</span>
+<span class="token punctuation">)</span>
 
-func main() {
-    // setup the service
-    srv := service.New(service.Name(&quot;example&quot;))
-    srv.Init()
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// setup the service</span>
+    srv <span class="token operator">:=</span> service<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>service<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">&quot;example&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    srv<span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-    // read config value
-    val, _ := config.Get(&quot;key.subkey&quot;)
-    fmt.Println(&quot;Value of key.subkey: &quot;, val.String(&quot;&quot;))
-}
+    <span class="token comment">// read config value</span>
+    val<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> config<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token string">&quot;key.subkey&quot;</span><span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;Value of key.subkey: &quot;</span><span class="token punctuation">,</span> val<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">&quot;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h1 id="&#x66F4;&#x65B0;2021618"><a name="&#x66F4;&#x65B0;2021618" class="anchor-navigation-ex-anchor" href="#&#x66F4;&#x65B0;2021618"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x66F4;&#x65B0;2021.6.18</h1>
 <h2 id="&#x5206;&#x53C9;"><a name="&#x5206;&#x53C9;" class="anchor-navigation-ex-anchor" href="#&#x5206;&#x53C9;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. &#x5206;&#x53C9;</h2>
@@ -3639,14 +3636,14 @@ func main() {
 <li>&#x5B98;&#x65B9;&#x7684;&#x8BF4;&#x6CD5;&#x662F;<a href="https://micro.mu/v2-to-v3-upgrade-guide" target="_blank">v2-to-v3-upgrade-guide</a>: go-micro&#x5DF2;&#x7ECF;&quot;now deprecated&quot;, &#x7531;asim&#x4E2A;&#x4EBA;&#x7EF4;&#x62A4;.</li>
 </ul>
 <h2 id="v2-to-v3-upgrade-guide"><a name="v2-to-v3-upgrade-guide" class="anchor-navigation-ex-anchor" href="#v2-to-v3-upgrade-guide"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. v2-to-v3-upgrade-guide</h2>
-<pre><code class="lang-go">  srv := micro.NewService(
-    micro.Name(&quot;go.micro.service.foo&quot;)
-  )
+<pre class="language-"><code class="lang-go">  srv <span class="token operator">:=</span> micro<span class="token punctuation">.</span><span class="token function">NewService</span><span class="token punctuation">(</span>
+    micro<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">&quot;go.micro.service.foo&quot;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
 </code></pre>
 <p>&#x53D8;&#x4E3A;</p>
-<pre><code class="lang-go">  srv := service.New(
-    service.Name(&quot;foo&quot;)
-  )
+<pre class="language-"><code class="lang-go">  srv <span class="token operator">:=</span> service<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>
+    service<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token string">&quot;foo&quot;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
 </code></pre>
 <h2 id="v3&#x7248;&#x672C;&#x4E5F;&#x662F;&#x641E;micro-run&#x8FD9;&#x4E00;&#x5957;"><a name="v3&#x7248;&#x672C;&#x4E5F;&#x662F;&#x641E;micro-run&#x8FD9;&#x4E00;&#x5957;" class="anchor-navigation-ex-anchor" href="#v3&#x7248;&#x672C;&#x4E5F;&#x662F;&#x641E;micro-run&#x8FD9;&#x4E00;&#x5957;"><i class="fa fa-link" aria-hidden="true"></i></a>4.3. v3&#x7248;&#x672C;&#x4E5F;&#x662F;&#x641E;micro run&#x8FD9;&#x4E00;&#x5957;</h2>
 <p>&#x8981;&#x5148;&#x8D77;&#x4E2A;server: &#x4F7F;&#x7528;&#x547D;&#x4EE4;<code>micro server</code>, &#x6CA1;&#x6709;server&#x7684;&#x73AF;&#x5883;, &#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x514D;&#x8D39;&#x7684;M3O&#x73AF;&#x5883;: <code>micro env set platform</code></p>
@@ -3703,50 +3700,50 @@ func main() {
 <h2 id="&#x670D;&#x52A1;&#x53D1;&#x73B0;"><a name="&#x670D;&#x52A1;&#x53D1;&#x73B0;" class="anchor-navigation-ex-anchor" href="#&#x670D;&#x52A1;&#x53D1;&#x73B0;"><i class="fa fa-link" aria-hidden="true"></i></a>7.1. &#x670D;&#x52A1;&#x53D1;&#x73B0;</h2>
 <p>&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x5B9A;&#x4E49;&#x4E3A;&#x5982;&#x4E0B;&#x7684;interface, &#x53EA;&#x8981;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x4E9B;, &#x5C31;&#x80FD;&#x88AB;&#x6846;&#x67B6;&#x4F7F;&#x7528;.
 <code>github.com/micro/go-micro/v2/registry/Registry</code></p>
-<pre><code class="lang-go">// The registry provides an interface for service discovery
-// and an abstraction over varying implementations
-// {consul, etcd, zookeeper, ...}
-type Registry interface {
- Init(...Option) error
- Options() Options
- Register(*Service, ...RegisterOption) error
- Deregister(*Service) error
- GetService(string) ([]*Service, error)
- ListServices() ([]*Service, error)
- Watch(...WatchOption) (Watcher, error)
- String() string
-}
+<pre class="language-"><code class="lang-go"><span class="token comment">// The registry provides an interface for service discovery</span>
+<span class="token comment">// and an abstraction over varying implementations</span>
+<span class="token comment">// {consul, etcd, zookeeper, ...}</span>
+<span class="token keyword">type</span> Registry <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+ <span class="token function">Init</span><span class="token punctuation">(</span><span class="token operator">...</span>Option<span class="token punctuation">)</span> <span class="token builtin">error</span>
+ <span class="token function">Options</span><span class="token punctuation">(</span><span class="token punctuation">)</span> Options
+ <span class="token function">Register</span><span class="token punctuation">(</span><span class="token operator">*</span>Service<span class="token punctuation">,</span> <span class="token operator">...</span>RegisterOption<span class="token punctuation">)</span> <span class="token builtin">error</span>
+ <span class="token function">Deregister</span><span class="token punctuation">(</span><span class="token operator">*</span>Service<span class="token punctuation">)</span> <span class="token builtin">error</span>
+ <span class="token function">GetService</span><span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>Service<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span>
+ <span class="token function">ListServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>Service<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span>
+ <span class="token function">Watch</span><span class="token punctuation">(</span><span class="token operator">...</span>WatchOption<span class="token punctuation">)</span> <span class="token punctuation">(</span>Watcher<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span>
+ <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x5B9E;&#x9645;&#x4E0A;, go-plugin&#x5E93;&#x5DF2;&#x7ECF;&#x6709;&#x5F88;&#x591A;&#x5B9E;&#x73B0;&#x4E86;, &#x6BD4;&#x5982;etcd/consul/zookeeper, &#x9ED8;&#x8BA4;&#x662F;&#x591A;&#x64AD;DNS(mDNS), &#x4E0D;&#x9700;&#x8981;&#x914D;&#x7F6E;, &#x5F00;&#x7BB1;&#x5373;&#x7528;.</p>
 <h2 id="&#x5F02;&#x6B65;&#x6D88;&#x606F;"><a name="&#x5F02;&#x6B65;&#x6D88;&#x606F;" class="anchor-navigation-ex-anchor" href="#&#x5F02;&#x6B65;&#x6D88;&#x606F;"><i class="fa fa-link" aria-hidden="true"></i></a>7.2. &#x5F02;&#x6B65;&#x6D88;&#x606F;</h2>
 <p>&#x5F02;&#x6B65;&#x6D88;&#x606F;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;:
 <code>github.com/micro/go-micro/v2/broker/Broker</code></p>
-<pre><code class="lang-go">// Broker is an interface used for asynchronous messaging.
-type Broker interface {
- Init(...Option) error
- Options() Options
- Address() string
- Connect() error
- Disconnect() error
- Publish(topic string, m *Message, opts ...PublishOption) error
- Subscribe(topic string, h Handler, opts ...SubscribeOption) (Subscriber, error)
- String() string
-}
+<pre class="language-"><code class="lang-go"><span class="token comment">// Broker is an interface used for asynchronous messaging.</span>
+<span class="token keyword">type</span> Broker <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+ <span class="token function">Init</span><span class="token punctuation">(</span><span class="token operator">...</span>Option<span class="token punctuation">)</span> <span class="token builtin">error</span>
+ <span class="token function">Options</span><span class="token punctuation">(</span><span class="token punctuation">)</span> Options
+ <span class="token function">Address</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+ <span class="token function">Connect</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">error</span>
+ <span class="token function">Disconnect</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">error</span>
+ <span class="token function">Publish</span><span class="token punctuation">(</span>topic <span class="token builtin">string</span><span class="token punctuation">,</span> m <span class="token operator">*</span>Message<span class="token punctuation">,</span> opts <span class="token operator">...</span>PublishOption<span class="token punctuation">)</span> <span class="token builtin">error</span>
+ <span class="token function">Subscribe</span><span class="token punctuation">(</span>topic <span class="token builtin">string</span><span class="token punctuation">,</span> h Handler<span class="token punctuation">,</span> opts <span class="token operator">...</span>SubscribeOption<span class="token punctuation">)</span> <span class="token punctuation">(</span>Subscriber<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span>
+ <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x5DF2;&#x7ECF;&#x5B9E;&#x73B0;&#x7684;broker&#x6709;: RabbitMQ, Kafka, NSQ, &#x9ED8;&#x8BA4;&#x7684;&#x4F7F;&#x7528;http.</p>
 <h2 id="&#x6D88;&#x606F;&#x7F16;&#x7801;"><a name="&#x6D88;&#x606F;&#x7F16;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x6D88;&#x606F;&#x7F16;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>7.3. &#x6D88;&#x606F;&#x7F16;&#x7801;</h2>
 <p><code>github.com/micro/go-micro/v2/codec/Codec</code></p>
-<pre><code class="lang-go">// Codec encodes/decodes various types of messages used within go-micro.
-// ReadHeader and ReadBody are called in pairs to read requests/responses
-// from the connection. Close is called when finished with the
-// connection. ReadBody may be called with a nil argument to force the
-// body to be read and discarded.
-type Codec interface {
+<pre class="language-"><code class="lang-go"><span class="token comment">// Codec encodes/decodes various types of messages used within go-micro.</span>
+<span class="token comment">// ReadHeader and ReadBody are called in pairs to read requests/responses</span>
+<span class="token comment">// from the connection. Close is called when finished with the</span>
+<span class="token comment">// connection. ReadBody may be called with a nil argument to force the</span>
+<span class="token comment">// body to be read and discarded.</span>
+<span class="token keyword">type</span> Codec <span class="token keyword">interface</span> <span class="token punctuation">{</span>
  Reader
  Writer
- Close() error
- String() string
-}
+ <span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">error</span>
+ <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>&#x76EE;&#x524D;&#x6709;json bson msgpack&#x7B49;&#x5B9E;&#x73B0;.</p>
 <h2 id="&#x5176;&#x4ED6;&#x63A5;&#x53E3;"><a name="&#x5176;&#x4ED6;&#x63A5;&#x53E3;" class="anchor-navigation-ex-anchor" href="#&#x5176;&#x4ED6;&#x63A5;&#x53E3;"><i class="fa fa-link" aria-hidden="true"></i></a>7.4. &#x5176;&#x4ED6;&#x63A5;&#x53E3;</h2>
@@ -3770,7 +3767,7 @@ type Codec interface {
 <li><strong>--gopath=false</strong>, generate code into the current directory instead of <code>$GOPATH</code> (since Golang supports <a href="https://blog.golang.org/using-go-modules" target="_blank">Go Module</a>, new projects should be placed outside of <code>$GOPATH</code>)</li>
 </ul>
 <p>&#x547D;&#x4EE4;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;, &#x5728;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4F1A;&#x521B;&#x5EFA;&#x5DE5;&#x7A0B;&#x4EE3;&#x7801;:</p>
-<pre><code>Creating service com.foo.srv.hello in hello
+<pre class="language-"><code>Creating service com.foo.srv.hello in hello
 .
 &#x251C;&#x2500;&#x2500; main.go
 &#x251C;&#x2500;&#x2500; generate.go
@@ -3796,12 +3793,12 @@ protoc --proto_path=.:$GOPATH/src --go_out=. --micro_out=. proto/hello/hello.pro
 </code></pre><p>&#x6CE8;&#x610F;&#x5230;&#x4E00;&#x4E2A;Makefile&#x6587;&#x4EF6;&#x751F;&#x6210;&#x4E86;</p>
 <h2 id="&#x5B89;&#x88C5;&#x4F9D;&#x8D56;"><a name="&#x5B89;&#x88C5;&#x4F9D;&#x8D56;" class="anchor-navigation-ex-anchor" href="#&#x5B89;&#x88C5;&#x4F9D;&#x8D56;"><i class="fa fa-link" aria-hidden="true"></i></a>8.2. &#x5B89;&#x88C5;&#x4F9D;&#x8D56;</h2>
 <p>&#x4E3B;&#x8981;&#x662F;&#x5B89;&#x88C5;protobuf</p>
-<pre><code class="lang-sh"># install protobuf
-brew install protobuf
-# install protoc-gen-go
-go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
-# install protoc-gen-micro
-GO111MODULE=on go get -u github.com/micro/protoc-gen-micro/v2
+<pre class="language-"><code class="lang-sh"><span class="token comment"># install protobuf</span>
+brew <span class="token function">install</span> protobuf
+<span class="token comment"># install protoc-gen-go</span>
+go get <span class="token parameter variable">-u</span> github.com/golang/protobuf/<span class="token punctuation">{</span>proto,protoc-gen-go<span class="token punctuation">}</span>
+<span class="token comment"># install protoc-gen-micro</span>
+<span class="token assign-left variable">GO111MODULE</span><span class="token operator">=</span>on go get <span class="token parameter variable">-u</span> github.com/micro/protoc-gen-micro/v2
 </code></pre>
 <p><code>protoc-gen-micro</code>&#x662F;protobuf&#x7684;micro&#x63D2;&#x4EF6;</p>
 <p>&#x6CE8;:
@@ -3813,13 +3810,13 @@ protobuf&#x9879;&#x76EE;&#x7684;go&#x7248;&#x672C;&#x73B0;&#x5728;&#x8F6C;&#x523
 <p>&#x9996;&#x5148;&#x8981;get go-micro
 <code>go get github.com/micro/go-micro/v2@v2.4.0</code>
 &#x8FD9;&#x6837;go.mod&#x4F1A;&#x662F;</p>
-<pre><code>module hello
+<pre class="language-"><code>module hello
 go 1.14
 require github.com/micro/go-micro/v2 v2.4.0
 </code></pre><p>&#x8FD0;&#x884C;
 <code>make build &amp;&amp; ./hello-service</code>
 &#x5F97;&#x5230;&#x5982;&#x4E0B;&#x8F93;&#x51FA;</p>
-<pre><code>make build &amp;&amp; ./hello-serviceprotoc --proto_path=. --micro_out=Mgithub.com/micro/go-micro/api/proto/api.proto=github.com/micro/go-micro/v2/api/proto:. --go_out=Mgithub.com/micro/go-micro/api/proto/api.proto=github.com/micro/go-micro/v2/api/proto:. proto/hello/hello.protogo build -o hello-service *.go2020-04-02 11:12:47  level=info Starting [service] go.micro.service.hello
+<pre class="language-"><code>make build &amp;&amp; ./hello-serviceprotoc --proto_path=. --micro_out=Mgithub.com/micro/go-micro/api/proto/api.proto=github.com/micro/go-micro/v2/api/proto:. --go_out=Mgithub.com/micro/go-micro/api/proto/api.proto=github.com/micro/go-micro/v2/api/proto:. proto/hello/hello.protogo build -o hello-service *.go2020-04-02 11:12:47  level=info Starting [service] go.micro.service.hello
 2020-04-02 11:12:47  level=info Server [grpc] Listening on [::]:53451
 2020-04-02 11:12:47  level=info Broker [eats] Connected to [::]:53453
 2020-04-02 11:12:47  level=info Registry [mdns] Registering node: go.micro.service.hello-063d6dae-826b-49f5-9141-df525af8a6b1
@@ -3868,11 +3865,10 @@ require github.com/micro/go-micro/v2 v2.4.0
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"go-micro和micro","level":"1.7.10.1","depth":3,"next":{"title":"微服务概念","level":"1.7.10.2","depth":3,"path":"notes/golang_微服务概念.md","ref":"notes/golang_微服务概念.md","articles":[]},"previous":{"title":"微服务","level":"1.7.10","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"go-micro和micro","level":"1.7.10.1","depth":3,"path":"notes/golang_micro.md","ref":"notes/golang_micro.md","articles":[]},{"title":"微服务概念","level":"1.7.10.2","depth":3,"path":"notes/golang_微服务概念.md","ref":"notes/golang_微服务概念.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_micro.md","mtime":"2022-10-11T15:10:42.534Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"go-micro和micro","level":"1.7.10.1","depth":3,"next":{"title":"微服务概念","level":"1.7.10.2","depth":3,"path":"notes/golang_微服务概念.md","ref":"notes/golang_微服务概念.md","articles":[]},"previous":{"title":"微服务","level":"1.7.10","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"go-micro和micro","level":"1.7.10.1","depth":3,"path":"notes/golang_micro.md","ref":"notes/golang_micro.md","articles":[]},{"title":"微服务概念","level":"1.7.10.2","depth":3,"path":"notes/golang_微服务概念.md","ref":"notes/golang_微服务概念.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_micro.md","mtime":"2022-10-11T15:39:07.534Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3911,7 +3907,6 @@ require github.com/micro/go-micro/v2 v2.4.0
         
     
 
-        
     </body>
 </html>
 

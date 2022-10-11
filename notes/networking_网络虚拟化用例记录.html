@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -3144,22 +3141,22 @@
 </tr>
 </tbody>
 </table>
-<pre><code class="lang-bash">export PATH=$PATH:/usr/local/share/openvswitch/scripts
-sudo ovs-ctl start
-#&#x6253;&#x5F00;dpdk&#x521D;&#x59CB;&#x5316;
-sudo ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-init=true
-#&#x65B0;&#x589E;&#x4E00;&#x4E2A;bridge, &#x4F7F;&#x7528;&#x7528;&#x6237;&#x6001;datapath&#x6A21;&#x5F0F;
-sudo ovs-vsctl add-br ovsbr0 -- set bridge ovsbr0 datapath_type=netdev
-#&#x914D;&#x7F6E;pmd&#x8DD1;&#x5728;8&#x4E2A;&#x6838;&#x4E0A;, core 32 33 34 35 36 37 38 39
-sudo ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=FF00000000
-#&#x914D;&#x7F6E;&#x4F7F;&#x7528;node0&#x7684;4G&#x5185;&#x5B58;.
-sudo ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-socket-mem=&quot;4096&quot;
-#&#x589E;&#x52A0;&#x4E24;&#x4E2A;port, &#x7C7B;&#x578B;&#x662F;dpdkvhostuser
-sudo ovs-vsctl add-port ovsbr0 dpdkvhostuser0 -- set Interface dpdkvhostuser0 type=dpdkvhostuser
-sudo ovs-vsctl add-port ovsbr0 dpdkvhostuser1 -- set Interface dpdkvhostuser1 type=dpdkvhostuser
-#&#x914D;&#x7F6E;&#x591A;queue
-sudo ovs-vsctl set Interface dpdkvhostuser0 options:n_rxq=2
-sudo ovs-vsctl set Interface dpdkvhostuser1 options:n_rxq=2
+<pre class="language-"><code class="lang-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/usr/local/share/openvswitch/scripts
+<span class="token function">sudo</span> ovs-ctl start
+<span class="token comment">#&#x6253;&#x5F00;dpdk&#x521D;&#x59CB;&#x5316;</span>
+<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:dpdk-init<span class="token operator">=</span>true
+<span class="token comment">#&#x65B0;&#x589E;&#x4E00;&#x4E2A;bridge, &#x4F7F;&#x7528;&#x7528;&#x6237;&#x6001;datapath&#x6A21;&#x5F0F;</span>
+<span class="token function">sudo</span> ovs-vsctl add-br ovsbr0 -- <span class="token builtin class-name">set</span> bridge ovsbr0 <span class="token assign-left variable">datapath_type</span><span class="token operator">=</span>netdev
+<span class="token comment">#&#x914D;&#x7F6E;pmd&#x8DD1;&#x5728;8&#x4E2A;&#x6838;&#x4E0A;, core 32 33 34 35 36 37 38 39</span>
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:pmd-cpu-mask<span class="token operator">=</span>FF00000000
+<span class="token comment">#&#x914D;&#x7F6E;&#x4F7F;&#x7528;node0&#x7684;4G&#x5185;&#x5B58;.</span>
+<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:dpdk-socket-mem<span class="token operator">=</span><span class="token string">&quot;4096&quot;</span>
+<span class="token comment">#&#x589E;&#x52A0;&#x4E24;&#x4E2A;port, &#x7C7B;&#x578B;&#x662F;dpdkvhostuser</span>
+<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkvhostuser0 -- <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdkvhostuser
+<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkvhostuser1 -- <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdkvhostuser
+<span class="token comment">#&#x914D;&#x7F6E;&#x591A;queue</span>
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 options:n_rxq<span class="token operator">=</span><span class="token number">2</span>
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 options:n_rxq<span class="token operator">=</span><span class="token number">2</span>
 </code></pre>
 <h3 id="&#x521B;&#x5EFA;&#x5E76;&#x914D;&#x7F6E;vm"><a name="&#x521B;&#x5EFA;&#x5E76;&#x914D;&#x7F6E;vm" class="anchor-navigation-ex-anchor" href="#&#x521B;&#x5EFA;&#x5E76;&#x914D;&#x7F6E;vm"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.2. &#x521B;&#x5EFA;&#x5E76;&#x914D;&#x7F6E;VM</h3>
 <p>&#x9884;&#x7F6E;&#x6761;&#x4EF6;: libvirtd&#x5DF2;&#x7ECF;&#x6210;&#x529F;&#x542F;&#x52A8;
@@ -3171,32 +3168,32 @@ Memory | 8192M | 8192M
 Disk | hxt-centos7.5-01.qcow2 32G | hxt-centos7.5-02.qcow2 32G
 NIC1(optional) | virtio(NAT to eth0) | virtio(NAT to eth0) </p>
 <p>NIC1&#x662F;&#x7528;&#x6765;&#x8FDE;&#x63A5;&#x5916;&#x7F51;&#x7684;, &#x8FD8;&#x9700;&#x8981;&#x589E;&#x52A0;NIC2&#x7528;&#x6765;&#x8FDE;&#x63A5;OVS&#x7684;dpdkvhostuser port:
-&#x624B;&#x5DE5;&#x4FEE;&#x6539;xml&#x6587;&#x4EF6;<code>virsh edit &lt;VM&gt;</code>, &#x9002;&#x5F53;&#x589E;&#x52A0;&#x5982;&#x4E0B;&#x4FEE;&#x6539;:</p>
-<pre><code class="lang-xml">  &lt;memoryBacking&gt;
-    &lt;hugepages&gt;
-      &lt;page size=&apos;512&apos; unit=&apos;M&apos; nodeset=&apos;0&apos;/&gt;
-    &lt;/hugepages&gt;
+&#x624B;&#x5DE5;&#x4FEE;&#x6539;xml&#x6587;&#x4EF6;<code>virsh edit <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>VM</span><span class="token punctuation">&gt;</span></span></code>, &#x9002;&#x5F53;&#x589E;&#x52A0;&#x5982;&#x4E0B;&#x4FEE;&#x6539;:</p>
+<pre class="language-"><code class="lang-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>memoryBacking</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hugepages</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>page</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>512<span class="token punctuation">&apos;</span></span> <span class="token attr-name">unit</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>M<span class="token punctuation">&apos;</span></span> <span class="token attr-name">nodeset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>hugepages</span><span class="token punctuation">&gt;</span></span>
 
-  &lt;cpu mode=&apos;host-passthrough&apos; check=&apos;none&apos;&gt;
-    &lt;topology sockets=&apos;1&apos; cores=&apos;4&apos; threads=&apos;1&apos;/&gt;
-    &lt;numa&gt;
-      &lt;cell id=&apos;0&apos; cpus=&apos;0-3&apos; memory=&apos;8388608&apos; unit=&apos;KiB&apos; memAccess=&apos;shared&apos;/&gt;
-    &lt;/numa&gt;
-  &lt;/cpu&gt;
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cpu</span> <span class="token attr-name">mode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>host-passthrough<span class="token punctuation">&apos;</span></span> <span class="token attr-name">check</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>none<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>topology</span> <span class="token attr-name">sockets</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>1<span class="token punctuation">&apos;</span></span> <span class="token attr-name">cores</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>4<span class="token punctuation">&apos;</span></span> <span class="token attr-name">threads</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>1<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>numa</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cell</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0<span class="token punctuation">&apos;</span></span> <span class="token attr-name">cpus</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0-3<span class="token punctuation">&apos;</span></span> <span class="token attr-name">memory</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>8388608<span class="token punctuation">&apos;</span></span> <span class="token attr-name">unit</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>KiB<span class="token punctuation">&apos;</span></span> <span class="token attr-name">memAccess</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>shared<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>numa</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>cpu</span><span class="token punctuation">&gt;</span></span>
 
-  &lt;os&gt;
-    &lt;type arch=&apos;aarch64&apos; machine=&apos;virt&apos;&gt;hvm&lt;/type&gt;
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>os</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span> <span class="token attr-name">arch</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>aarch64<span class="token punctuation">&apos;</span></span> <span class="token attr-name">machine</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>virt<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>hvm<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">&gt;</span></span>
 
-  &lt;devices&gt;
-    &lt;emulator&gt;/usr/local/bin/qemu-system-aarch64&lt;/emulator&gt;
-    &lt;interface type=&apos;vhostuser&apos;&gt;
-      &lt;mac address=&apos;00:00:00:00:00:01&apos;/&gt;
-      &lt;source type=&apos;unix&apos; path=&apos;/usr/local/var/run/openvswitch/dpdkvhostuser0&apos; mode=&apos;client&apos;/&gt;
-      &lt;model type=&apos;virtio&apos;/&gt;
-      &lt;driver queues=&apos;2&apos;&gt;
-        &lt;host mrg_rxbuf=&apos;on&apos;/&gt;
-      &lt;/driver&gt;
-    &lt;/interface&gt;
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>devices</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>emulator</span><span class="token punctuation">&gt;</span></span>/usr/local/bin/qemu-system-aarch64<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>emulator</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>interface</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>vhostuser<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mac</span> <span class="token attr-name">address</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>00:00:00:00:00:01<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>source</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>unix<span class="token punctuation">&apos;</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>/usr/local/var/run/openvswitch/dpdkvhostuser0<span class="token punctuation">&apos;</span></span> <span class="token attr-name">mode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>client<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>model</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>virtio<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>driver</span> <span class="token attr-name">queues</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>2<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span> <span class="token attr-name">mrg_rxbuf</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>on<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>driver</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>interface</span><span class="token punctuation">&gt;</span></span>
 </code></pre>
 <ul>
 <li>&#x53E6;&#x5916;&#x4E00;&#x4E2A;VM&#x4E5F;&#x76F8;&#x5E94;&#x4FEE;&#x6539;</li>
@@ -3210,25 +3207,25 @@ NIC1(optional) | virtio(NAT to eth0) | virtio(NAT to eth0) </p>
 <p>&#x542F;&#x52A8;VM, &#x9A8C;&#x8BC1;&#x8FDE;&#x901A;&#x6027;
 &#x914D;&#x4E86;IP&#x540E;, &#x4E24;&#x4E2A;VM&#x53EF;&#x4EE5;&#x4E92;&#x76F8;ping&#x901A;
 &#x7ED3;&#x679C;:</p>
-<pre><code class="lang-bash">$ sudo ovs-vsctl show
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> ovs-vsctl show
 f81a1c52-91c1-40a2-b993-6dfeea09317e
-    Bridge &quot;ovsbr0&quot;
-        Port &quot;dpdkvhostuser0&quot;
-            Interface &quot;dpdkvhostuser0&quot;
+    Bridge <span class="token string">&quot;ovsbr0&quot;</span>
+        Port <span class="token string">&quot;dpdkvhostuser0&quot;</span>
+            Interface <span class="token string">&quot;dpdkvhostuser0&quot;</span>
                 type: dpdkvhostuser
-        Port &quot;ovsbr0&quot;
-            Interface &quot;ovsbr0&quot;
+        Port <span class="token string">&quot;ovsbr0&quot;</span>
+            Interface <span class="token string">&quot;ovsbr0&quot;</span>
                 type: internal
-        Port &quot;dpdkvhostuser1&quot;
-            Interface &quot;dpdkvhostuser1&quot;
+        Port <span class="token string">&quot;dpdkvhostuser1&quot;</span>
+            Interface <span class="token string">&quot;dpdkvhostuser1&quot;</span>
                 type: dpdkvhostuser
-    ovs_version: &quot;2.8.4&quot;
+    ovs_version: <span class="token string">&quot;2.8.4&quot;</span>
 </code></pre>
 <h2 id="5412----ovs&#x652F;&#x6301;numa&#x611F;&#x77E5;"><a name="5412----ovs&#x652F;&#x6301;numa&#x611F;&#x77E5;" class="anchor-navigation-ex-anchor" href="#5412----ovs&#x652F;&#x6301;numa&#x611F;&#x77E5;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. 5.4.1.2    OVS&#x652F;&#x6301;numa&#x611F;&#x77E5;</h2>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003131341.png" alt="">  </p>
 <h3 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_1"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_1" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_1"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. &#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h3>
-<pre><code class="lang-bash">$ sudo ovs-vsctl list Open_vSwitch | grep other_config
-other_config        : {dpdk-init=&quot;true&quot;, dpdk-socket-mem=&quot;4096&quot;, pmd-cpu-mask=&quot;FF00000000&quot;}
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> ovs-vsctl list Open_vSwitch <span class="token operator">|</span> <span class="token function">grep</span> other_config
+other_config        <span class="token builtin class-name">:</span> <span class="token punctuation">{</span>dpdk-init<span class="token operator">=</span><span class="token string">&quot;true&quot;</span>, dpdk-socket-mem<span class="token operator">=</span><span class="token string">&quot;4096&quot;</span>, pmd-cpu-mask<span class="token operator">=</span><span class="token string">&quot;FF00000000&quot;</span><span class="token punctuation">}</span>
 </code></pre>
 <p>&#x6CE8;: &#x672C;&#x7CFB;&#x7EDF;&#x4E3A;&#x5355;socket, &#x6240;&#x4EE5;&#x5206;&#x914D;&#x7684;CPU&#x548C;Mem&#x5E76;&#x4E0D;&#x5B58;&#x5728;&#x8DE8;numa node&#x95EE;&#x9898;</p>
 <h2 id="542----&#x652F;&#x6301;sr-iov&#x7F51;&#x5361;"><a name="542----&#x652F;&#x6301;sr-iov&#x7F51;&#x5361;" class="anchor-navigation-ex-anchor" href="#542----&#x652F;&#x6301;sr-iov&#x7F51;&#x5361;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. 5.4.2    &#x652F;&#x6301;SR-IOV&#x7F51;&#x5361;</h2>
@@ -3236,47 +3233,47 @@ other_config        : {dpdk-init=&quot;true&quot;, dpdk-socket-mem=&quot;4096&qu
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003131551.png" alt="">  </p>
 <h4 id="&#x6D4B;&#x8BD5;link-up----pass"><a name="&#x6D4B;&#x8BD5;link-up----pass" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;link-up----pass"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;link up -- PASS</h4>
 <p>&#x672C;&#x6587;&#x4F7F;&#x7528;PCI&#x5730;&#x5740;&#x4E3A;<code>0005:01:00.0</code>&#x7684;Mellanox&#x7269;&#x7406;&#x7F51;&#x5361;<code>enP5p1s0</code>&#x505A;&#x6D4B;&#x8BD5;</p>
-<pre><code class="lang-bash">#&#x521D;&#x59CB;&#x72B6;&#x6001;&#x5982;&#x4E0B;:
-$ sudo ibdev2netdev -v
-0004:01:00.0 mlx5_0 (MT4115 - MT1738K12272) CX413A - ConnectX-4 QSFP28 fw 12.22.1002 port 1 (ACTIVE) ==&gt; enP4p1s0 (Up)
-0005:01:00.0 mlx5_1 (MT4115 - MT1738K12253) CX413A - ConnectX-4 QSFP28 fw 12.22.1002 port 1 (ACTIVE) ==&gt; enP5p1s0 (Up)
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x521D;&#x59CB;&#x72B6;&#x6001;&#x5982;&#x4E0B;:</span>
+$ <span class="token function">sudo</span> ibdev2netdev <span class="token parameter variable">-v</span>
+0004:01:00.0 mlx5_0 <span class="token punctuation">(</span>MT4115 - MT1738K12272<span class="token punctuation">)</span> CX413A - ConnectX-4 QSFP28 fw <span class="token number">12.22</span>.1002 port <span class="token number">1</span> <span class="token punctuation">(</span>ACTIVE<span class="token punctuation">)</span> <span class="token operator">==</span><span class="token operator">&gt;</span> enP4p1s0 <span class="token punctuation">(</span>Up<span class="token punctuation">)</span>
+0005:01:00.0 mlx5_1 <span class="token punctuation">(</span>MT4115 - MT1738K12253<span class="token punctuation">)</span> CX413A - ConnectX-4 QSFP28 fw <span class="token number">12.22</span>.1002 port <span class="token number">1</span> <span class="token punctuation">(</span>ACTIVE<span class="token punctuation">)</span> <span class="token operator">==</span><span class="token operator">&gt;</span> enP5p1s0 <span class="token punctuation">(</span>Up<span class="token punctuation">)</span>
 
-#&#x65B0;&#x589E;2&#x4E2A;sriov&#x7684;VF, link&#x72B6;&#x6001;&#x4E3A;UP
-$ sudo bash -c &quot;echo 2 &gt; /sys/class/net/enP5p1s0/device/sriov_numvfs&quot;
-$ sudo ibdev2netdev -v
-0004:01:00.0 mlx5_0 (MT4115 - MT1738K12272) CX413A - ConnectX-4 QSFP28 fw 12.22.1002 port 1 (ACTIVE) ==&gt; enP4p1s0 (Up)
-0005:01:00.0 mlx5_1 (MT4115 - MT1738K12253) CX413A - ConnectX-4 QSFP28 fw 12.22.1002 port 1 (ACTIVE) ==&gt; enP5p1s0 (Up)
-0005:01:00.1 mlx5_2 (MT4116 - NA)  fw 12.22.1002 port 1 (ACTIVE) ==&gt; enP5p1s0f1 (Up)
-0005:01:00.2 mlx5_3 (MT4116 - NA)  fw 12.22.1002 port 1 (ACTIVE) ==&gt; enP5p1s0f2 (Up)
+<span class="token comment">#&#x65B0;&#x589E;2&#x4E2A;sriov&#x7684;VF, link&#x72B6;&#x6001;&#x4E3A;UP</span>
+$ <span class="token function">sudo</span> <span class="token function">bash</span> <span class="token parameter variable">-c</span> <span class="token string">&quot;echo 2 &gt; /sys/class/net/enP5p1s0/device/sriov_numvfs&quot;</span>
+$ <span class="token function">sudo</span> ibdev2netdev <span class="token parameter variable">-v</span>
+0004:01:00.0 mlx5_0 <span class="token punctuation">(</span>MT4115 - MT1738K12272<span class="token punctuation">)</span> CX413A - ConnectX-4 QSFP28 fw <span class="token number">12.22</span>.1002 port <span class="token number">1</span> <span class="token punctuation">(</span>ACTIVE<span class="token punctuation">)</span> <span class="token operator">==</span><span class="token operator">&gt;</span> enP4p1s0 <span class="token punctuation">(</span>Up<span class="token punctuation">)</span>
+0005:01:00.0 mlx5_1 <span class="token punctuation">(</span>MT4115 - MT1738K12253<span class="token punctuation">)</span> CX413A - ConnectX-4 QSFP28 fw <span class="token number">12.22</span>.1002 port <span class="token number">1</span> <span class="token punctuation">(</span>ACTIVE<span class="token punctuation">)</span> <span class="token operator">==</span><span class="token operator">&gt;</span> enP5p1s0 <span class="token punctuation">(</span>Up<span class="token punctuation">)</span>
+0005:01:00.1 mlx5_2 <span class="token punctuation">(</span>MT4116 - NA<span class="token punctuation">)</span>  fw <span class="token number">12.22</span>.1002 port <span class="token number">1</span> <span class="token punctuation">(</span>ACTIVE<span class="token punctuation">)</span> <span class="token operator">==</span><span class="token operator">&gt;</span> enP5p1s0f1 <span class="token punctuation">(</span>Up<span class="token punctuation">)</span>
+0005:01:00.2 mlx5_3 <span class="token punctuation">(</span>MT4116 - NA<span class="token punctuation">)</span>  fw <span class="token number">12.22</span>.1002 port <span class="token number">1</span> <span class="token punctuation">(</span>ACTIVE<span class="token punctuation">)</span> <span class="token operator">==</span><span class="token operator">&gt;</span> enP5p1s0f2 <span class="token punctuation">(</span>Up<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x4F7F;&#x7528;virt-manager&#x5728;vm01&#x4E0A;&#x6DFB;&#x52A0;PCI Host Device, &#x9009;&#x62E9;<code>0005:01:00:1</code>
 &#x5728;vm01&#x4E0A;&#x67E5;&#x770B;link&#x72B6;&#x6001;&#x4E3A;UP:</p>
-<pre><code class="lang-bash">[root@localhost ~]# ip link show dev enp5s0
-5: enp5s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
-    link/ether 26:35:26:59:32:b9 brd ff:ff:ff:ff:ff:ff
+<pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># ip link show dev enp5s0</span>
+<span class="token number">5</span>: enp5s0: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="token operator">&gt;</span> mtu <span class="token number">1500</span> qdisc mq state UP mode DEFAULT group default qlen <span class="token number">1000</span>
+    link/ether <span class="token number">26</span>:35:26:59:32:b9 brd ff:ff:ff:ff:ff:ff
 </code></pre>
 <p>&#x5728;host&#x4E0A;, vf&#x7684;link&#x4E3A;auto</p>
-<pre><code class="lang-bash">$ ip link show dev enP5p1s0
-10: enP5p1s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
+<pre class="language-"><code class="lang-bash">$ <span class="token function">ip</span> <span class="token function">link</span> show dev enP5p1s0
+<span class="token number">10</span>: enP5p1s0: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="token operator">&gt;</span> mtu <span class="token number">1500</span> qdisc mq state UP mode DEFAULT group default qlen <span class="token number">1000</span>
     link/ether ec:0d:9a:89:4a:e6 brd ff:ff:ff:ff:ff:ff
-    vf 0 MAC 00:00:00:00:00:00, spoof checking off, link-state auto, trust off, query_rss off
-    vf 1 MAC 00:00:00:00:00:00, spoof checking off, link-state auto, trust off, query_rss off
+    vf <span class="token number">0</span> MAC 00:00:00:00:00:00, spoof checking off, link-state auto, trust off, query_rss off
+    vf <span class="token number">1</span> MAC 00:00:00:00:00:00, spoof checking off, link-state auto, trust off, query_rss off
 </code></pre>
 <h4 id="&#x6D4B;&#x8BD5;link-down----fail"><a name="&#x6D4B;&#x8BD5;link-down----fail" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;link-down----fail"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;link down -- FAIL</h4>
 <p>&#x5728;host&#x4E0A;link down PF:</p>
-<pre><code class="lang-bash">#down&#x6389;PF
-$ sudo ip link set dev enP5p1s0 down
-#vf&#x7684;link&#x4E3A;auto
-$ ip link show dev enP5p1s0
-10: enP5p1s0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc mq state DOWN mode DEFAULT group default qlen 1000
+<pre class="language-"><code class="lang-bash"><span class="token comment">#down&#x6389;PF</span>
+$ <span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP5p1s0 down
+<span class="token comment">#vf&#x7684;link&#x4E3A;auto</span>
+$ <span class="token function">ip</span> <span class="token function">link</span> show dev enP5p1s0
+<span class="token number">10</span>: enP5p1s0: <span class="token operator">&lt;</span>BROADCAST,MULTICAST<span class="token operator">&gt;</span> mtu <span class="token number">1500</span> qdisc mq state DOWN mode DEFAULT group default qlen <span class="token number">1000</span>
     link/ether ec:0d:9a:89:4a:e6 brd ff:ff:ff:ff:ff:ff
-    vf 0 MAC 00:00:00:00:00:00, spoof checking off, link-state auto, trust off, query_rss off
-    vf 1 MAC 00:00:00:00:00:00, spoof checking off, link-state auto, trust off, query_rss off
+    vf <span class="token number">0</span> MAC 00:00:00:00:00:00, spoof checking off, link-state auto, trust off, query_rss off
+    vf <span class="token number">1</span> MAC 00:00:00:00:00:00, spoof checking off, link-state auto, trust off, query_rss off
 </code></pre>
 <p>&#x5728;vm01&#x4E0A;, link&#x8FD8;&#x662F;<strong>UP</strong></p>
-<pre><code class="lang-bash">[root@localhost ~]# ip link show dev enp5s0
-5: enp5s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
-    link/ether 26:35:26:59:32:b9 brd ff:ff:ff:ff:ff:ff
+<pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># ip link show dev enp5s0</span>
+<span class="token number">5</span>: enp5s0: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="token operator">&gt;</span> mtu <span class="token number">1500</span> qdisc mq state UP mode DEFAULT group default qlen <span class="token number">1000</span>
+    link/ether <span class="token number">26</span>:35:26:59:32:b9 brd ff:ff:ff:ff:ff:ff
 </code></pre>
 <h4 id="fail&#x5206;&#x6790;"><a name="fail&#x5206;&#x6790;" class="anchor-navigation-ex-anchor" href="#fail&#x5206;&#x6790;"><i class="fa fa-link" aria-hidden="true"></i></a>Fail&#x5206;&#x6790;</h4>
 <p>&#x7ED3;&#x8BBA;: vm&#x80FD;&#x591F;&#x611F;&#x77E5;host&#x4E0A;&#x5BF9;vf&#x7684;disable&#x548C;enable&#x64CD;&#x4F5C;, &#x4F46;link-state&#x4E3A;auto&#x65F6;, &#x4E0D;&#x80FD;&#x611F;&#x77E5;PF&#x7684;link&#x72B6;&#x6001;.
@@ -3296,44 +3293,44 @@ The VF link state is permanently up. This is the default setting.</li>
 </ul>
 </blockquote>
 <p>&#x5982;&#x679C;&#x5728;host&#x4E0A;,&#x914D;&#x7F6E;vf&#x7684;state&#x4E3A;disable</p>
-<pre><code class="lang-bash">#&#x914D;&#x7F6E;vf0&#x7684;link-state&#x4E3A;disable
-$ sudo ip link set dev enP5p1s0 vf 0 state disable
-$ ip link show dev enP5p1s0
-10: enP5p1s0: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc mq state DOWN mode DEFAULT group default qlen 1000
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x914D;&#x7F6E;vf0&#x7684;link-state&#x4E3A;disable</span>
+$ <span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP5p1s0 vf <span class="token number">0</span> state disable
+$ <span class="token function">ip</span> <span class="token function">link</span> show dev enP5p1s0
+<span class="token number">10</span>: enP5p1s0: <span class="token operator">&lt;</span>BROADCAST,MULTICAST<span class="token operator">&gt;</span> mtu <span class="token number">1500</span> qdisc mq state DOWN mode DEFAULT group default qlen <span class="token number">1000</span>
     link/ether ec:0d:9a:89:4a:e6 brd ff:ff:ff:ff:ff:ff
-    vf 0 MAC 00:00:00:00:00:00, spoof checking off, link-state disable, trust off, query_rss off
-    vf 1 MAC 00:00:00:00:00:00, spoof checking off, link-state auto, trust off, query_rss off
+    vf <span class="token number">0</span> MAC 00:00:00:00:00:00, spoof checking off, link-state disable, trust off, query_rss off
+    vf <span class="token number">1</span> MAC 00:00:00:00:00:00, spoof checking off, link-state auto, trust off, query_rss off
 </code></pre>
 <p>&#x6B64;&#x65F6;vm01&#x4E0A;, &#x6709;linkw down&#x7684;&#x63D0;&#x793A;, &#x5E76;&#x4E14;&#x663E;&#x793A;link&#x4E3A;DOWN</p>
-<pre><code class="lang-bash">[root@localhost ~]# [ 2863.441859] mlx5_core 0000:05:00.0 enp5s0: Link down
-[root@localhost ~]# ip link show dev enp5s0
-5: enp5s0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN mode DEFAULT group default qlen 1000
-    link/ether 26:35:26:59:32:b9 brd ff:ff:ff:ff:ff:ff
+<pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># [ 2863.441859] mlx5_core 0000:05:00.0 enp5s0: Link down</span>
+<span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># ip link show dev enp5s0</span>
+<span class="token number">5</span>: enp5s0: <span class="token operator">&lt;</span>NO-CARRIER,BROADCAST,MULTICAST,UP<span class="token operator">&gt;</span> mtu <span class="token number">1500</span> qdisc mq state DOWN mode DEFAULT group default qlen <span class="token number">1000</span>
+    link/ether <span class="token number">26</span>:35:26:59:32:b9 brd ff:ff:ff:ff:ff:ff
 </code></pre>
 <p>&#x5728;host&#x4E0A;&#x628A;vf&#x7684;state&#x91CD;&#x65B0;&#x6539;&#x4E3A;enable, vm01&#x7684;&#x80FD;&#x591F;&#x611F;&#x77E5;&#x5E76;up.</p>
 <h3 id="5422----hypervisor&#x5141;&#x8BB8;&#x53EA;&#x4F7F;&#x7528;&#x4E00;&#x5BF9;&#x7269;&#x7406;&#x7F51;&#x53E3;"><a name="5422----hypervisor&#x5141;&#x8BB8;&#x53EA;&#x4F7F;&#x7528;&#x4E00;&#x5BF9;&#x7269;&#x7406;&#x7F51;&#x53E3;" class="anchor-navigation-ex-anchor" href="#5422----hypervisor&#x5141;&#x8BB8;&#x53EA;&#x4F7F;&#x7528;&#x4E00;&#x5BF9;&#x7269;&#x7406;&#x7F51;&#x53E3;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.2. 5.4.2.2    Hypervisor&#x5141;&#x8BB8;&#x53EA;&#x4F7F;&#x7528;&#x4E00;&#x5BF9;&#x7269;&#x7406;&#x7F51;&#x53E3;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003131907.png" alt="">  </p>
 <h4 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_2"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_2" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_2"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h4>
 <p>&#x5728;Host B&#x4E0A;, vm01&#x914D;&#x6210;vhost-user, vm02&#x914D;&#x6210;sriov&#x6A21;&#x5F0F;, &#x7136;&#x540E;</p>
-<pre><code class="lang-bash">#&#x5C06;enP5p1s0&#x6DFB;&#x52A0;&#x5230;ovsbr0
-sudo ovs-vsctl add-port ovsbr0 enP5p1s0
-$ sudo ovs-vsctl show
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x5C06;enP5p1s0&#x6DFB;&#x52A0;&#x5230;ovsbr0</span>
+<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 enP5p1s0
+$ <span class="token function">sudo</span> ovs-vsctl show
 f81a1c52-91c1-40a2-b993-6dfeea09317e
-    Bridge &quot;ovsbr0&quot;
-        Port &quot;enP5p1s0&quot;
-            Interface &quot;enP5p1s0&quot;
-        Port &quot;dpdkvhostuser0&quot;
-            Interface &quot;dpdkvhostuser0&quot;
+    Bridge <span class="token string">&quot;ovsbr0&quot;</span>
+        Port <span class="token string">&quot;enP5p1s0&quot;</span>
+            Interface <span class="token string">&quot;enP5p1s0&quot;</span>
+        Port <span class="token string">&quot;dpdkvhostuser0&quot;</span>
+            Interface <span class="token string">&quot;dpdkvhostuser0&quot;</span>
                 type: dpdkvhostuser
-                options: {n_rxq=&quot;2&quot;}
-        Port &quot;ovsbr0&quot;
-            Interface &quot;ovsbr0&quot;
+                options: <span class="token punctuation">{</span>n_rxq<span class="token operator">=</span><span class="token string">&quot;2&quot;</span><span class="token punctuation">}</span>
+        Port <span class="token string">&quot;ovsbr0&quot;</span>
+            Interface <span class="token string">&quot;ovsbr0&quot;</span>
                 type: internal
-        Port &quot;dpdkvhostuser1&quot;
-            Interface &quot;dpdkvhostuser1&quot;
+        Port <span class="token string">&quot;dpdkvhostuser1&quot;</span>
+            Interface <span class="token string">&quot;dpdkvhostuser1&quot;</span>
                 type: dpdkvhostuser
-                options: {n_rxq=&quot;2&quot;}
-    ovs_version: &quot;2.8.4&quot;
+                options: <span class="token punctuation">{</span>n_rxq<span class="token operator">=</span><span class="token string">&quot;2&quot;</span><span class="token punctuation">}</span>
+    ovs_version: <span class="token string">&quot;2.8.4&quot;</span>
 </code></pre>
 <p>&#x7269;&#x7406;&#x7F51;&#x5361;&#x4EE5;&#x666E;&#x901A;&#x65B9;&#x5F0F;&#x6DFB;&#x52A0;&#x5230;OVS&#x793A;&#x610F;&#x56FE;:<br><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003131928.png" alt="">  </p>
 <p>&#x8FDE;&#x901A;&#x6027;:
@@ -3350,30 +3347,30 @@ ping to | 5.5.5.11(peer) | 5.5.5.22(host) | 5.5.5.33(VM02) | 5.5.5.44(VM01)
 &#x7B54;: &#x8FD9;&#x662F;&#x6B63;&#x5E38;&#x7684;. &#x5728;userspace datapath(datapath_type=netdev)&#x6A21;&#x5F0F;&#x4E0B;, ovs&#x901A;&#x8FC7;<code>socket(AF_PACKET, SOCK_RAW, 0)</code>&#x53D1;&#x5305;, &#x4E0D;&#x8D70;ip&#x534F;&#x8BAE;&#x6808;. 
 ToDo: &#x9A8C;&#x8BC1;&#x4E00;&#x4E0B;&#x5185;&#x6838;datapath&#x6A21;&#x5F0F;&#x4E0B;, &#x672C;&#x673A;&#x7269;&#x7406;&#x7F51;&#x53E3;&#x548C;vm&#x4E4B;&#x95F4;&#x7684;&#x8FDE;&#x901A;&#x6027;.</li>
 <li>&#x5982;&#x4F55;&#x7406;&#x89E3;&#x7269;&#x7406;&#x7F51;&#x5361;&#x88AB;add&#x5230;OVS&#x4E0A;(&#x975E;DPDK&#x65B9;&#x5F0F;)? &#x5982;&#x679C;&#x662F;DPDK&#x65B9;&#x5F0F;&#x5462;?<ul>
-<li>DPDK&#x65B9;&#x5F0F;<pre><code class="lang-bash">#&#x5220;&#x6389;&#x63A5;&#x53E3;enP5p1s0
-sudo ovs-vsctl del-port ovsbr0 enP5p1s0
-#&#x4EE5;dpdk&#x65B9;&#x5F0F;&#x6DFB;&#x52A0;&#x5230;ovsvr0
-sudo ovs-vsctl add-port ovsbr0 dpdkp1 -- set Interface dpdkp1 type=dpdk options:dpdk-devargs=0005:01:00.0
-sudo ovs-vsctl set Interface dpdkp1 options:n_rxq=2    
-$ sudo ovs-vsctl show
+<li>DPDK&#x65B9;&#x5F0F;<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x5220;&#x6389;&#x63A5;&#x53E3;enP5p1s0</span>
+<span class="token function">sudo</span> ovs-vsctl del-port ovsbr0 enP5p1s0
+<span class="token comment">#&#x4EE5;dpdk&#x65B9;&#x5F0F;&#x6DFB;&#x52A0;&#x5230;ovsvr0</span>
+<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkp1 -- <span class="token builtin class-name">set</span> Interface dpdkp1 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdk options:dpdk-devargs<span class="token operator">=</span>0005:01:00.0
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkp1 options:n_rxq<span class="token operator">=</span><span class="token number">2</span>    
+$ <span class="token function">sudo</span> ovs-vsctl show
 f81a1c52-91c1-40a2-b993-6dfeea09317e
-Bridge &quot;ovsbr0&quot;
-  Port &quot;dpdkvhostuser0&quot;
-      Interface &quot;dpdkvhostuser0&quot;
+Bridge <span class="token string">&quot;ovsbr0&quot;</span>
+  Port <span class="token string">&quot;dpdkvhostuser0&quot;</span>
+      Interface <span class="token string">&quot;dpdkvhostuser0&quot;</span>
           type: dpdkvhostuser
-          options: {n_rxq=&quot;2&quot;}
-  Port &quot;ovsbr0&quot;
-      Interface &quot;ovsbr0&quot;
+          options: <span class="token punctuation">{</span>n_rxq<span class="token operator">=</span><span class="token string">&quot;2&quot;</span><span class="token punctuation">}</span>
+  Port <span class="token string">&quot;ovsbr0&quot;</span>
+      Interface <span class="token string">&quot;ovsbr0&quot;</span>
           type: internal
-  Port &quot;dpdkp1&quot;
-      Interface &quot;dpdkp1&quot;
+  Port <span class="token string">&quot;dpdkp1&quot;</span>
+      Interface <span class="token string">&quot;dpdkp1&quot;</span>
           type: dpdk
-          options: {dpdk-devargs=&quot;0005:01:00.0&quot;, n_rxq=&quot;2&quot;}
-  Port &quot;dpdkvhostuser1&quot;
-      Interface &quot;dpdkvhostuser1&quot;
+          options: <span class="token punctuation">{</span>dpdk-devargs<span class="token operator">=</span><span class="token string">&quot;0005:01:00.0&quot;</span>, <span class="token assign-left variable">n_rxq</span><span class="token operator">=</span><span class="token string">&quot;2&quot;</span><span class="token punctuation">}</span>
+  Port <span class="token string">&quot;dpdkvhostuser1&quot;</span>
+      Interface <span class="token string">&quot;dpdkvhostuser1&quot;</span>
           type: dpdkvhostuser
-          options: {n_rxq=&quot;2&quot;}
-ovs_version: &quot;2.8.4&quot;
+          options: <span class="token punctuation">{</span>n_rxq<span class="token operator">=</span><span class="token string">&quot;2&quot;</span><span class="token punctuation">}</span>
+ovs_version: <span class="token string">&quot;2.8.4&quot;</span>
 </code></pre>
 &#x7269;&#x7406;&#x7F51;&#x5361;&#x4EE5;DPDK&#x65B9;&#x5F0F;&#x6DFB;&#x52A0;&#x5230;OVS
 <img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133233.png" alt="">  </li>
@@ -3399,53 +3396,53 @@ ping to | 5.5.5.11 | 5.5.5.22 | 5.5.5.33 | 5.5.5.44
 <h2 id="544----&#x652F;&#x6301;vnic&#x591A;&#x961F;&#x5217;"><a name="544----&#x652F;&#x6301;vnic&#x591A;&#x961F;&#x5217;" class="anchor-navigation-ex-anchor" href="#544----&#x652F;&#x6301;vnic&#x591A;&#x961F;&#x5217;"><i class="fa fa-link" aria-hidden="true"></i></a>2.5. 5.4.4    &#x652F;&#x6301;vNIC&#x591A;&#x961F;&#x5217;</h2>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133414.png" alt=""><br>&#x5728;&lt;&#x6D4B;&#x8BD5;&#x524D;&#x51C6;&#x5907;&gt;&#x5C0F;&#x8282;&#x4E2D;, OVS&#x548C;VM&#x7684;&#x63A5;&#x53E3;dpdkvhostuser&#x5DF2;&#x7ECF;&#x914D;&#x7F6E;&#x4E86;multi queue(2&#x4E2A;); VM&#x4E5F;&#x914D;&#x7F6E;&#x4E86;2&#x4E2A;queue
 &#x5728;Host B&#x4E0A;&#x6709;:</p>
-<pre><code class="lang-bash">$ sudo ovs-appctl dpif/show
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> ovs-appctl dpif/show
 netdev@ovs-netdev: hit:458 missed:71
         ovsbr0:
-                dpdkvhostuser0 2/3: (dpdkvhostuser: configured_rx_queues=2, configured_tx_queues=2, mtu=1500, requested_rx_queues=2, requested_tx_queues=2)
-                dpdkvhostuser1 1/2: (dpdkvhostuser: configured_rx_queues=2, configured_tx_queues=2, mtu=1500, requested_rx_queues=2, requested_tx_queues=2)
-                ovsbr0 65534/1: (tap)
+                dpdkvhostuser0 <span class="token number">2</span>/3: <span class="token punctuation">(</span>dpdkvhostuser: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+                dpdkvhostuser1 <span class="token number">1</span>/2: <span class="token punctuation">(</span>dpdkvhostuser: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+                ovsbr0 <span class="token number">65534</span>/1: <span class="token punctuation">(</span>tap<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x5728;VM&#x91CC;&#x9762;&#x6709;:</p>
-<pre><code class="lang-bash">[root@localhost ~]# ethtool -l eth1
-Channel parameters for eth1:
+<pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># ethtool -l eth1</span>
+Channel parameters <span class="token keyword">for</span> eth1:
 Pre-set maximums:
-RX:        0
-TX:        0
-Other:        0
-Combined:    2
+RX:        <span class="token number">0</span>
+TX:        <span class="token number">0</span>
+Other:        <span class="token number">0</span>
+Combined:    <span class="token number">2</span>
 Current hardware settings:
-RX:        0
-TX:        0
-Other:        0
-Combined:    2
+RX:        <span class="token number">0</span>
+TX:        <span class="token number">0</span>
+Other:        <span class="token number">0</span>
+Combined:    <span class="token number">2</span>
 </code></pre>
 <p>&#x5728;VM&#x91CC;&#x9762;, &#x5206;&#x522B;&#x914D;&#x7F6E;2&#x5BF9;IP: vm01(5.5.5.51, 6.6.6.61), vm02(5.5.5.52, 6.6.6.62)<br><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133443.png" alt="">  </p>
 <h3 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_4"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_4" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_4"><i class="fa fa-link" aria-hidden="true"></i></a>2.5.1. &#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h3>
 <p>2&#x5BF9;IP&#x80FD;&#x591F;&#x5206;&#x522B;ping&#x901A;. <code>cat /proc/interrupts</code>&#x770B;&#x5230;virtio&#x4E2D;&#x65AD;&#x5728;4&#x4E2A;CPU&#x7684;2&#x4E2A;&#x4E0A;&#x6709;&#x4E2D;&#x65AD;; <code>tc</code>&#x770B;&#x5230;2&#x4E2A;&#x53D1;&#x9001;&#x961F;&#x5217;&#x90FD;&#x6709;&#x53D1;&#x5305;&#x7EDF;&#x8BA1;.</p>
-<pre><code class="lang-bash">[root@localhost ~]# tc -s class show dev eth1
+<pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># tc -s class show dev eth1</span>
 class mq :1 root 
- Sent 7706 bytes 79 pkt (dropped 0, overlimits 0 requeues 0) 
- backlog 0b 0p requeues 0 
+ Sent <span class="token number">7706</span> bytes <span class="token number">79</span> pkt <span class="token punctuation">(</span>dropped <span class="token number">0</span>, overlimits <span class="token number">0</span> requeues <span class="token number">0</span><span class="token punctuation">)</span> 
+ backlog 0b 0p requeues <span class="token number">0</span> 
 class mq :2 root 
- Sent 20222 bytes 183 pkt (dropped 0, overlimits 0 requeues 0) 
- backlog 0b 0p requeues 0
+ Sent <span class="token number">20222</span> bytes <span class="token number">183</span> pkt <span class="token punctuation">(</span>dropped <span class="token number">0</span>, overlimits <span class="token number">0</span> requeues <span class="token number">0</span><span class="token punctuation">)</span> 
+ backlog 0b 0p requeues <span class="token number">0</span>
 </code></pre>
 <h2 id="545----&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;"><a name="545----&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;" class="anchor-navigation-ex-anchor" href="#545----&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>2.6. 5.4.5    &#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;</h2>
 <h3 id="5451----ovs-&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;"><a name="5451----ovs-&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;" class="anchor-navigation-ex-anchor" href="#5451----ovs-&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.1. 5.4.5.1    OVS &#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133506.png" alt=""><br>&#x524D;&#x9762;&#x5DF2;&#x7ECF;&#x9A8C;&#x8BC1;&#x4E86;&#x8FDE;&#x901A;&#x6027;, &#x4E0B;&#x9762;&#x53EA;&#x9A8C;&#x8BC1;&#x9694;&#x79BB;&#x6027;.
 &#x65B0;&#x589E;ovsbr1, &#x5E76;&#x5728;ovsbr1&#x4E0A;&#x589E;&#x52A0;dpdkvhostuser&#x7C7B;&#x578B;&#x7684;port:dpdkvhostuser2, &#x5E76;&#x628A;dpdkvhostuser2&#x6302;&#x5230;VM02&#x4E0A;</p>
-<pre><code class="lang-bash">sudo ovs-vsctl add-br ovsbr1 -- set bridge ovsbr1 datapath_type=netdev
-sudo ovs-vsctl add-port ovsbr1 dpdkvhostuser2 -- set Interface dpdkvhostuser2 type=dpdkvhostuser
-$ sudo ovs-appctl dpif/show
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> ovs-vsctl add-br ovsbr1 -- <span class="token builtin class-name">set</span> bridge ovsbr1 <span class="token assign-left variable">datapath_type</span><span class="token operator">=</span>netdev
+<span class="token function">sudo</span> ovs-vsctl add-port ovsbr1 dpdkvhostuser2 -- <span class="token builtin class-name">set</span> Interface dpdkvhostuser2 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdkvhostuser
+$ <span class="token function">sudo</span> ovs-appctl dpif/show
 netdev@ovs-netdev: hit:481 missed:89
         ovsbr0:
-                dpdkvhostuser0 2/3: (dpdkvhostuser: configured_rx_queues=2, configured_tx_queues=2, mtu=1500, requested_rx_queues=2, requested_tx_queues=2)
-                dpdkvhostuser1 1/2: (dpdkvhostuser: configured_rx_queues=2, configured_tx_queues=2, mtu=1500, requested_rx_queues=2, requested_tx_queues=2)
-                ovsbr0 65534/1: (tap)
+                dpdkvhostuser0 <span class="token number">2</span>/3: <span class="token punctuation">(</span>dpdkvhostuser: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+                dpdkvhostuser1 <span class="token number">1</span>/2: <span class="token punctuation">(</span>dpdkvhostuser: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+                ovsbr0 <span class="token number">65534</span>/1: <span class="token punctuation">(</span>tap<span class="token punctuation">)</span>
         ovsbr1:
-                dpdkvhostuser2 1/5: (dpdkvhostuser: configured_rx_queues=1, configured_tx_queues=1, mtu=1500, requested_rx_queues=1, requested_tx_queues=1)
-                ovsbr1 65534/4: (tap)
+                dpdkvhostuser2 <span class="token number">1</span>/5: <span class="token punctuation">(</span>dpdkvhostuser: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+                ovsbr1 <span class="token number">65534</span>/4: <span class="token punctuation">(</span>tap<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x5728;VM02&#x4E0A;&#x914D;&#x7F6E;IP, &#x548C;VM01&#x540C;&#x7F51;&#x6BB5;, &#x4F46;&#x5E76;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;ovs bridge.<br><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133531.png" alt="">  </p>
 <h4 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_5"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_5" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_5"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h4>
@@ -3453,63 +3450,63 @@ netdev@ovs-netdev: hit:481 missed:89
 <h3 id="5452----sr-iov-&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;"><a name="5452----sr-iov-&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;" class="anchor-navigation-ex-anchor" href="#5452----sr-iov-&#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.2. 5.4.5.2    SR-IOV &#x7F51;&#x7EDC;&#x9694;&#x79BB;&#x4E0E;&#x5730;&#x5740;&#x590D;&#x7528;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133551.png" alt=""><br>&#x524D;&#x9762;&#x5DF2;&#x7ECF;&#x9A8C;&#x8BC1;&#x8FC7;, &#x4E24;&#x4E2A;VM&#x5206;&#x522B;&#x8FDE;&#x540C;&#x4E00;&#x4E2A;PF&#x7684;&#x4E24;&#x4E2A;VF, &#x9ED8;&#x8BA4;&#x80FD;&#x591F;ping&#x901A;.
 &#x4E0B;&#x9762;&#x4FEE;&#x6539;VF&#x7684;vlan</p>
-<pre><code class="lang-bash">sudo ip link set dev enP5p1s0 vf 0 vlan 100
-sudo ip link set dev enP5p1s0 vf 1 vlan 101
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP5p1s0 vf <span class="token number">0</span> vlan <span class="token number">100</span>
+<span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP5p1s0 vf <span class="token number">1</span> vlan <span class="token number">101</span>
 </code></pre>
 <h4 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_6"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_6" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_6"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h4>
 <p>&#x4FEE;&#x6539;&#x540E;, &#x4E24;&#x4E2A;VF&#x5206;&#x522B;&#x5C5E;&#x4E8E;vlan100&#x548C;vlan101, &#x4E92;&#x76F8;ping&#x4E0D;&#x901A;.</p>
-<pre><code class="lang-bash">$ ip link show dev enP5p1s0
-10: enP5p1s0: &lt;BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
+<pre class="language-"><code class="lang-bash">$ <span class="token function">ip</span> <span class="token function">link</span> show dev enP5p1s0
+<span class="token number">10</span>: enP5p1s0: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP<span class="token operator">&gt;</span> mtu <span class="token number">1500</span> qdisc mq state UP mode DEFAULT group default qlen <span class="token number">1000</span>
     link/ether ec:0d:9a:89:4a:e6 brd ff:ff:ff:ff:ff:ff
-    vf 0 MAC 00:00:00:00:00:00, vlan 100, spoof checking off, link-state enable, trust off, query_rss off
-    vf 1 MAC 00:00:00:00:00:00, vlan 101, spoof checking off, link-state auto, trust off, query_rss off
+    vf <span class="token number">0</span> MAC 00:00:00:00:00:00, vlan <span class="token number">100</span>, spoof checking off, link-state enable, trust off, query_rss off
+    vf <span class="token number">1</span> MAC 00:00:00:00:00:00, vlan <span class="token number">101</span>, spoof checking off, link-state auto, trust off, query_rss off
 </code></pre>
 <h2 id="546----mtu&#x53EF;&#x8C03;&#x6574;"><a name="546----mtu&#x53EF;&#x8C03;&#x6574;" class="anchor-navigation-ex-anchor" href="#546----mtu&#x53EF;&#x8C03;&#x6574;"><i class="fa fa-link" aria-hidden="true"></i></a>2.7. 5.4.6    MTU&#x53EF;&#x8C03;&#x6574;</h2>
 <h3 id="5461----ovs-mtu&#x53EF;&#x8C03;&#x6574;&#xFF08;vxlan&#x7F51;&#x7EDC;&#x53EA;&#x5728;sdn&#x573A;&#x666F;&#x4E0B;&#x6D4B;&#x8BD5;&#xFF09;"><a name="5461----ovs-mtu&#x53EF;&#x8C03;&#x6574;&#xFF08;vxlan&#x7F51;&#x7EDC;&#x53EA;&#x5728;sdn&#x573A;&#x666F;&#x4E0B;&#x6D4B;&#x8BD5;&#xFF09;" class="anchor-navigation-ex-anchor" href="#5461----ovs-mtu&#x53EF;&#x8C03;&#x6574;&#xFF08;vxlan&#x7F51;&#x7EDC;&#x53EA;&#x5728;sdn&#x573A;&#x666F;&#x4E0B;&#x6D4B;&#x8BD5;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>2.7.1. 5.4.6.1    OVS MTU&#x53EF;&#x8C03;&#x6574;&#xFF08;vxlan&#x7F51;&#x7EDC;&#x53EA;&#x5728;SDN&#x573A;&#x666F;&#x4E0B;&#x6D4B;&#x8BD5;&#xFF09;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133620.png" alt=""><br>&#x5728;&lt;&#x542F;&#x52A8;&#x5E76;&#x914D;&#x7F6E;OVS&gt;&#x5C0F;&#x8282;&#x914D;&#x7F6E;&#x7684;&#x57FA;&#x7840;&#x4E0A;, &#x5728;OVS&#x4E0A;&#x6DFB;&#x52A0;&#x7269;&#x7406;&#x7F51;&#x5361;:</p>
-<pre><code class="lang-bash">#&#x6DFB;&#x52A0;&#x4E1A;&#x52A1;&#x7269;&#x7406;&#x53E3;, type=DPDK
-$ sudo ovs-vsctl add-port ovsbr0 dpdkp1 -- set Interface dpdkp1 type=dpdk options:dpdk-devargs=0005:01:00.0
-#&#x8BBE;&#x7F6E;&#x8BE5;&#x7269;&#x7406;&#x53E3;&#x7684;q&#x4E3A;2
-$ sudo ovs-vsctl set Interface dpdkp1 options:n_rxq=2
-#&#x6B64;&#x65F6;OVS&#x914D;&#x7F6E;&#x5982;&#x4E0B;:
-$ sudo ovs-vsctl show
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x6DFB;&#x52A0;&#x4E1A;&#x52A1;&#x7269;&#x7406;&#x53E3;, type=DPDK</span>
+$ <span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkp1 -- <span class="token builtin class-name">set</span> Interface dpdkp1 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdk options:dpdk-devargs<span class="token operator">=</span>0005:01:00.0
+<span class="token comment">#&#x8BBE;&#x7F6E;&#x8BE5;&#x7269;&#x7406;&#x53E3;&#x7684;q&#x4E3A;2</span>
+$ <span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> Interface dpdkp1 options:n_rxq<span class="token operator">=</span><span class="token number">2</span>
+<span class="token comment">#&#x6B64;&#x65F6;OVS&#x914D;&#x7F6E;&#x5982;&#x4E0B;:</span>
+$ <span class="token function">sudo</span> ovs-vsctl show
 f81a1c52-91c1-40a2-b993-6dfeea09317e
-    Bridge &quot;ovsbr0&quot;
-        Port &quot;dpdkp1&quot;
-            Interface &quot;dpdkp1&quot;
+    Bridge <span class="token string">&quot;ovsbr0&quot;</span>
+        Port <span class="token string">&quot;dpdkp1&quot;</span>
+            Interface <span class="token string">&quot;dpdkp1&quot;</span>
                 type: dpdk
-                options: {dpdk-devargs=&quot;0005:01:00.0&quot;, n_rxq=&quot;2&quot;}
-        Port &quot;dpdkvhostuser0&quot;
-            Interface &quot;dpdkvhostuser0&quot;
+                options: <span class="token punctuation">{</span>dpdk-devargs<span class="token operator">=</span><span class="token string">&quot;0005:01:00.0&quot;</span>, <span class="token assign-left variable">n_rxq</span><span class="token operator">=</span><span class="token string">&quot;2&quot;</span><span class="token punctuation">}</span>
+        Port <span class="token string">&quot;dpdkvhostuser0&quot;</span>
+            Interface <span class="token string">&quot;dpdkvhostuser0&quot;</span>
                 type: dpdkvhostuser
-                options: {n_rxq=&quot;2&quot;}
-        Port &quot;ovsbr0&quot;
-            Interface &quot;ovsbr0&quot;
+                options: <span class="token punctuation">{</span>n_rxq<span class="token operator">=</span><span class="token string">&quot;2&quot;</span><span class="token punctuation">}</span>
+        Port <span class="token string">&quot;ovsbr0&quot;</span>
+            Interface <span class="token string">&quot;ovsbr0&quot;</span>
                 type: internal
-        Port &quot;dpdkvhostuser1&quot;
-            Interface &quot;dpdkvhostuser1&quot;
+        Port <span class="token string">&quot;dpdkvhostuser1&quot;</span>
+            Interface <span class="token string">&quot;dpdkvhostuser1&quot;</span>
                 type: dpdkvhostuser
-                options: {n_rxq=&quot;2&quot;}
-    ovs_version: &quot;2.8.4&quot;
-#&#x9ED8;&#x8BA4;&#x7684;mtu&#x4E3A;1500
-$ sudo ovs-appctl dpctl/show
+                options: <span class="token punctuation">{</span>n_rxq<span class="token operator">=</span><span class="token string">&quot;2&quot;</span><span class="token punctuation">}</span>
+    ovs_version: <span class="token string">&quot;2.8.4&quot;</span>
+<span class="token comment">#&#x9ED8;&#x8BA4;&#x7684;mtu&#x4E3A;1500</span>
+$ <span class="token function">sudo</span> ovs-appctl dpctl/show
 netdev@ovs-netdev:
         lookups: hit:8 missed:17 lost:4
-        flows: 0
-        port 0: ovs-netdev (tap)
-        port 1: ovsbr0 (tap)
-        port 2: dpdkvhostuser1 (dpdkvhostuser: configured_rx_queues=1, configured_tx_queues=1, mtu=1500, requested_rx_queues=1, requested_tx_queues=1)
-        port 3: dpdkvhostuser0 (dpdkvhostuser: configured_rx_queues=1, configured_tx_queues=1, mtu=1500, requested_rx_queues=1, requested_tx_queues=1)
-        port 4: dpdkp1 (dpdk: configured_rx_queues=2, configured_rxq_descriptors=2048, configured_tx_queues=9, configured_txq_descriptors=2048, lsc_interrupt_mode=false, mtu=1500, requested_rx_queues=2, requested_rxq_descriptors=2048, requested_tx_queues=9, requested_txq_descriptors=2048, rx_csum_offload=true)
+        flows: <span class="token number">0</span>
+        port <span class="token number">0</span>: ovs-netdev <span class="token punctuation">(</span>tap<span class="token punctuation">)</span>
+        port <span class="token number">1</span>: ovsbr0 <span class="token punctuation">(</span>tap<span class="token punctuation">)</span>
+        port <span class="token number">2</span>: dpdkvhostuser1 <span class="token punctuation">(</span>dpdkvhostuser: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+        port <span class="token number">3</span>: dpdkvhostuser0 <span class="token punctuation">(</span>dpdkvhostuser: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">1</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+        port <span class="token number">4</span>: dpdkp1 <span class="token punctuation">(</span>dpdk: <span class="token assign-left variable">configured_rx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">configured_rxq_descriptors</span><span class="token operator">=</span><span class="token number">2048</span>, <span class="token assign-left variable">configured_tx_queues</span><span class="token operator">=</span><span class="token number">9</span>, <span class="token assign-left variable">configured_txq_descriptors</span><span class="token operator">=</span><span class="token number">2048</span>, <span class="token assign-left variable">lsc_interrupt_mode</span><span class="token operator">=</span>false, <span class="token assign-left variable">mtu</span><span class="token operator">=</span><span class="token number">1500</span>, <span class="token assign-left variable">requested_rx_queues</span><span class="token operator">=</span><span class="token number">2</span>, <span class="token assign-left variable">requested_rxq_descriptors</span><span class="token operator">=</span><span class="token number">2048</span>, <span class="token assign-left variable">requested_tx_queues</span><span class="token operator">=</span><span class="token number">9</span>, <span class="token assign-left variable">requested_txq_descriptors</span><span class="token operator">=</span><span class="token number">2048</span>, <span class="token assign-left variable">rx_csum_offload</span><span class="token operator">=</span>true<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x6839;&#x636E;&#x7528;&#x4F8B;, &#x8FD9;&#x91CC;&#x9A8C;&#x8BC1;&#x4FEE;&#x6539;OVS&#x7684;mtu&#x662F;&#x5426;&#x6709;&#x6548;:
 &#x4FEE;&#x6539;bridge&#x7684;MTU&#x5230;4000</p>
-<pre><code>sudo ovs-vsctl set Interface ovsbr0 mtu_request=4000
+<pre class="language-"><code>sudo ovs-vsctl set Interface ovsbr0 mtu_request=4000
 sudo ovs-vsctl set Interface dpdkp1 mtu_request=4000
 sudo ovs-vsctl set Interface dpdkvhostuser0 mtu_request=4000
 sudo ovs-vsctl set Interface dpdkvhostuser1 mtu_request=4000
 </code></pre><p>&#x5206;&#x522B;&#x4FEE;&#x6539;VM01&#x548C;VM02&#x7684;MTU&#x5230;4000</p>
-<pre><code>ip link set dev eth1 mtu 4000
+<pre class="language-"><code>ip link set dev eth1 mtu 4000
 </code></pre><h4 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_7"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_7" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_7"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h4>
 <p>VM01&#x548C;VM02&#x4E92;&#x76F8;ping, &#x5C0F;&#x4E8E;4000&#x7684;&#x62A5;&#x6587;&#x80FD;ping&#x901A;, &#x5927;&#x4E8E;4000&#x7684;ping&#x4E0D;&#x901A;. &#x8BF4;&#x660E;&#x4FEE;&#x6539;OVS&#x7684;mtu&#x6709;&#x6548;.</p>
 <h4 id="&#x7591;&#x95EE;-dpdkp1&#x7684;txq&#x4E2A;&#x6570;"><a name="&#x7591;&#x95EE;-dpdkp1&#x7684;txq&#x4E2A;&#x6570;" class="anchor-navigation-ex-anchor" href="#&#x7591;&#x95EE;-dpdkp1&#x7684;txq&#x4E2A;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7591;&#x95EE;: dpdkp1&#x7684;txq&#x4E2A;&#x6570;</h4>
@@ -3517,7 +3514,7 @@ sudo ovs-vsctl set Interface dpdkvhostuser1 mtu_request=4000
 &#x53C2;&#x8003;: <a href="http://docs.openvswitch.org/en/latest/topics/dpdk/pmd/" target="_blank">http://docs.openvswitch.org/en/latest/topics/dpdk/pmd/</a></p>
 <h3 id="5462----sr-iov-mtu&#x53EF;&#x8C03;&#x6574;&#xFF08;vxlan&#x7F51;&#x7EDC;&#x53EA;&#x5728;sdn&#x573A;&#x666F;&#x4E0B;&#x6D4B;&#x8BD5;&#xFF09;"><a name="5462----sr-iov-mtu&#x53EF;&#x8C03;&#x6574;&#xFF08;vxlan&#x7F51;&#x7EDC;&#x53EA;&#x5728;sdn&#x573A;&#x666F;&#x4E0B;&#x6D4B;&#x8BD5;&#xFF09;" class="anchor-navigation-ex-anchor" href="#5462----sr-iov-mtu&#x53EF;&#x8C03;&#x6574;&#xFF08;vxlan&#x7F51;&#x7EDC;&#x53EA;&#x5728;sdn&#x573A;&#x666F;&#x4E0B;&#x6D4B;&#x8BD5;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>2.7.2. 5.4.6.2    SR-IOV MTU&#x53EF;&#x8C03;&#x6574;&#xFF08;vxlan&#x7F51;&#x7EDC;&#x53EA;&#x5728;SDN&#x573A;&#x666F;&#x4E0B;&#x6D4B;&#x8BD5;&#xFF09;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133649.png" alt=""><br>&#x6839;&#x636E;&#x8981;&#x6C42;, &#x5148;&#x8BBE;&#x7F6E;&#x7269;&#x7406;&#x7F51;&#x5361;&#x7684;mtu</p>
-<pre><code class="lang-bash">sudo ip link set dev enP5p1s0 mtu 4000
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP5p1s0 mtu <span class="token number">4000</span>
 </code></pre>
 <h4 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_8"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_8" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_8"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h4>
 <p>VM&#x7684;mtu&#x9ED8;&#x8BA4;&#x503C;&#x8FD8;&#x662F;1500, ping&#x62A5;&#x6587;&#x5927;&#x5C0F;&#x4E3A;2048&#x65F6;ping&#x4E0D;&#x901A;.
@@ -3526,40 +3523,40 @@ sudo ovs-vsctl set Interface dpdkvhostuser1 mtu_request=4000
 <h2 id="547----&#x652F;&#x6301;vlan&#x900F;&#x4F20;"><a name="547----&#x652F;&#x6301;vlan&#x900F;&#x4F20;" class="anchor-navigation-ex-anchor" href="#547----&#x652F;&#x6301;vlan&#x900F;&#x4F20;"><i class="fa fa-link" aria-hidden="true"></i></a>2.8. 5.4.7    &#x652F;&#x6301;VLAN&#x900F;&#x4F20;</h2>
 <h3 id="5471----ovs-&#x652F;&#x6301;vlan&#x900F;&#x4F20;"><a name="5471----ovs-&#x652F;&#x6301;vlan&#x900F;&#x4F20;" class="anchor-navigation-ex-anchor" href="#5471----ovs-&#x652F;&#x6301;vlan&#x900F;&#x4F20;"><i class="fa fa-link" aria-hidden="true"></i></a>2.8.1. 5.4.7.1    OVS &#x652F;&#x6301;VLAN&#x900F;&#x4F20;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133708.png" alt=""><br>&#x6D4B;&#x8BD5;&#x793A;&#x610F;&#x56FE;:<br><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133728.png" alt=""><br>&#x5728;Host B&#x4E0A;:</p>
-<pre><code class="lang-bash">#&#x5C06;&#x4E24;&#x4E2A;VM&#x5BF9;&#x5E94;&#x7684;port&#x52A0;&#x5165;vlan 100(&#x5916;&#x5C42; vlan), &#x5E76;&#x914D;&#x7F6E;cvlan(&#x5185;&#x5C42; vlan)&#x4E3A;0&#x548C;10
-sudo ovs-vsctl set port dpdkvhostuser0 vlan_mode=dot1q-tunnel tag=100 cvlans=0,10 other-config:qinq-ethtype=802.1q
-sudo ovs-vsctl set port dpdkvhostuser1 vlan_mode=dot1q-tunnel tag=100 cvlans=0,10 other-config:qinq-ethtype=802.1q
-#&#x5C06;&#x7269;&#x7406;&#x7F51;&#x5361;&#x52A0;&#x5165;vlan 100, native-tagged&#x662F;&#x8BF4;&#x51FA;&#x7AEF;&#x53E3;&#x5E26;tag, &#x8BE6;&#x89C1;ofproto/ofproto.h
-sudo ovs-vsctl set port dpdkp1 vlan_mode=native-tagged tag=100 other-config:qinq-ethtype=802.1q
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x5C06;&#x4E24;&#x4E2A;VM&#x5BF9;&#x5E94;&#x7684;port&#x52A0;&#x5165;vlan 100(&#x5916;&#x5C42; vlan), &#x5E76;&#x914D;&#x7F6E;cvlan(&#x5185;&#x5C42; vlan)&#x4E3A;0&#x548C;10</span>
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> port dpdkvhostuser0 <span class="token assign-left variable">vlan_mode</span><span class="token operator">=</span>dot1q-tunnel <span class="token assign-left variable">tag</span><span class="token operator">=</span><span class="token number">100</span> <span class="token assign-left variable">cvlans</span><span class="token operator">=</span><span class="token number">0,10</span> other-config:qinq-ethtype<span class="token operator">=</span><span class="token number">802</span>.1q
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> port dpdkvhostuser1 <span class="token assign-left variable">vlan_mode</span><span class="token operator">=</span>dot1q-tunnel <span class="token assign-left variable">tag</span><span class="token operator">=</span><span class="token number">100</span> <span class="token assign-left variable">cvlans</span><span class="token operator">=</span><span class="token number">0,10</span> other-config:qinq-ethtype<span class="token operator">=</span><span class="token number">802</span>.1q
+<span class="token comment">#&#x5C06;&#x7269;&#x7406;&#x7F51;&#x5361;&#x52A0;&#x5165;vlan 100, native-tagged&#x662F;&#x8BF4;&#x51FA;&#x7AEF;&#x53E3;&#x5E26;tag, &#x8BE6;&#x89C1;ofproto/ofproto.h</span>
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> port dpdkp1 <span class="token assign-left variable">vlan_mode</span><span class="token operator">=</span>native-tagged <span class="token assign-left variable">tag</span><span class="token operator">=</span><span class="token number">100</span> other-config:qinq-ethtype<span class="token operator">=</span><span class="token number">802</span>.1q
 </code></pre>
 <p>&#x5728;VM01&#x4E0A;</p>
-<pre><code class="lang-bash">#&#x914D;&#x7F6E;vm01&#x7684;&#x63A5;&#x53E3;IP&#x4E3A;192.168.1.100
-ip addr add 192.168.1.100/24 dev eth1
-#&#x589E;&#x52A0;vlan 10
-ip link add link eth1 name eth1.10 type vlan id 10
-#&#x7ED9;vlan 10&#x5B50;&#x63A5;&#x53E3;&#x914D;&#x7F6E;IP
-ip addr add 192.168.10.100/24 dev eth1.10
-ip link set up dev eth1.10
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x914D;&#x7F6E;vm01&#x7684;&#x63A5;&#x53E3;IP&#x4E3A;192.168.1.100</span>
+<span class="token function">ip</span> addr <span class="token function">add</span> <span class="token number">192.168</span>.1.100/24 dev eth1
+<span class="token comment">#&#x589E;&#x52A0;vlan 10</span>
+<span class="token function">ip</span> <span class="token function">link</span> <span class="token function">add</span> <span class="token function">link</span> eth1 name eth1.10 <span class="token builtin class-name">type</span> vlan <span class="token function">id</span> <span class="token number">10</span>
+<span class="token comment">#&#x7ED9;vlan 10&#x5B50;&#x63A5;&#x53E3;&#x914D;&#x7F6E;IP</span>
+<span class="token function">ip</span> addr <span class="token function">add</span> <span class="token number">192.168</span>.10.100/24 dev eth1.10
+<span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> up dev eth1.10
 </code></pre>
 <p>&#x5728;VM02&#x4E0A;</p>
-<pre><code class="lang-bash">#&#x914D;&#x7F6E;vm01&#x7684;&#x63A5;&#x53E3;IP&#x4E3A;192.168.1.200
-ip addr add 192.168.1.200/24 dev eth1
-#&#x589E;&#x52A0;vlan 10
-ip link add link eth1 name eth1.10 type vlan id 10
-#&#x7ED9;vlan 10&#x5B50;&#x63A5;&#x53E3;&#x914D;&#x7F6E;IP
-ip addr add 192.168.10.200/24 dev eth1.10
-ip link set up dev eth1.10
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x914D;&#x7F6E;vm01&#x7684;&#x63A5;&#x53E3;IP&#x4E3A;192.168.1.200</span>
+<span class="token function">ip</span> addr <span class="token function">add</span> <span class="token number">192.168</span>.1.200/24 dev eth1
+<span class="token comment">#&#x589E;&#x52A0;vlan 10</span>
+<span class="token function">ip</span> <span class="token function">link</span> <span class="token function">add</span> <span class="token function">link</span> eth1 name eth1.10 <span class="token builtin class-name">type</span> vlan <span class="token function">id</span> <span class="token number">10</span>
+<span class="token comment">#&#x7ED9;vlan 10&#x5B50;&#x63A5;&#x53E3;&#x914D;&#x7F6E;IP</span>
+<span class="token function">ip</span> addr <span class="token function">add</span> <span class="token number">192.168</span>.10.200/24 dev eth1.10
+<span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> up dev eth1.10
 </code></pre>
 <h4 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_9"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_9" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_9"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h4>
 <ul>
 <li>VM01&#x5728;192.168.1.0&#x548C;192.168.10.0&#x7F51;&#x6BB5;&#x5206;&#x522B;ping VM02, &#x53EF;&#x4EE5;ping&#x901A;.</li>
-<li>&#x5728;&#x5BF9;&#x7AEF;(Host A)&#x4E0A;&#x6293;&#x5305;, ping 192.168.1.101&#x65F6;&#x6709;&#x5355;&#x5C42;vlan tag, id&#x4E3A;100<pre><code>18:02:10.058754 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 192.168.1.101 tell 192.168.1.200, length 42
+<li>&#x5728;&#x5BF9;&#x7AEF;(Host A)&#x4E0A;&#x6293;&#x5305;, ping 192.168.1.101&#x65F6;&#x6709;&#x5355;&#x5C42;vlan tag, id&#x4E3A;100<pre class="language-"><code>18:02:10.058754 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 192.168.1.101 tell 192.168.1.200, length 42
       0x0000:  ffff ffff ffff 5254 00f0 25e4 8100 0064  ......RT..%....d
       0x0010:  0806 0001 0800 0604 0001 5254 00f0 25e4  ..........RT..%.
       0x0020:  c0a8 01c8 0000 0000 0000 c0a8 0165 0000  .............e..
       0x0030:  0000 0000 0000 0000 0000 0000
 </code></pre></li>
-<li>&#x5728;&#x5BF9;&#x7AEF;(Host A)&#x4E0A;&#x6293;&#x5305;, ping 192.168.10.101&#x65F6;&#x6709;&#x53CC;&#x5C42;vlan tag, &#x5916;&#x5C42;&#x4E3A;100, &#x5185;&#x5C42;&#x4E3A;10<pre><code>18:04:39.898836 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 192.168.10.101 tell 192.168.10.200, length 38
+<li>&#x5728;&#x5BF9;&#x7AEF;(Host A)&#x4E0A;&#x6293;&#x5305;, ping 192.168.10.101&#x65F6;&#x6709;&#x53CC;&#x5C42;vlan tag, &#x5916;&#x5C42;&#x4E3A;100, &#x5185;&#x5C42;&#x4E3A;10<pre class="language-"><code>18:04:39.898836 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 192.168.10.101 tell 192.168.10.200, length 38
       0x0000:  ffff ffff ffff 5254 00f0 25e4 8100 0064  ......RT..%....d
       0x0010:  8100 000a 0806 0001 0800 0604 0001 5254  ..............RT
       0x0020:  00f0 25e4 c0a8 0ac8 0000 0000 0000 c0a8  ..%.............
@@ -3568,27 +3565,27 @@ ip link set up dev eth1.10
 </ul>
 <h3 id="5472----sr-iov-&#x652F;&#x6301;vlan&#x900F;&#x4F20;"><a name="5472----sr-iov-&#x652F;&#x6301;vlan&#x900F;&#x4F20;" class="anchor-navigation-ex-anchor" href="#5472----sr-iov-&#x652F;&#x6301;vlan&#x900F;&#x4F20;"><i class="fa fa-link" aria-hidden="true"></i></a>2.8.2. 5.4.7.2    SR-IOV &#x652F;&#x6301;VLAN&#x900F;&#x4F20;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133751.png" alt="">  </p>
-<pre><code class="lang-bash">#&#x7ED9;&#x6BCF;&#x4E2A;VF&#x8BBE;&#x7F6E;vlan tag
-sudo ip link set dev enP5p1s0 vf 0 vlan 100
-sudo ip link set dev enP5p1s0 vf 1 vlan 100
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x7ED9;&#x6BCF;&#x4E2A;VF&#x8BBE;&#x7F6E;vlan tag</span>
+<span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP5p1s0 vf <span class="token number">0</span> vlan <span class="token number">100</span>
+<span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP5p1s0 vf <span class="token number">1</span> vlan <span class="token number">100</span>
 </code></pre>
 <p>&#x5728;VM01&#x4E0A;</p>
-<pre><code class="lang-bash">#&#x914D;&#x7F6E;vm01&#x7684;&#x63A5;&#x53E3;IP&#x4E3A;5.5.5.100
-ip addr add 5.5.5.100/24 dev enp4s0
-#&#x589E;&#x52A0;vlan 10
-ip link add link enp4s0 name enp4s0.10 type vlan id 10
-#&#x7ED9;vlan 10&#x5B50;&#x63A5;&#x53E3;&#x914D;&#x7F6E;IP
-ip addr add 5.5.10.100/24 dev enp4s0.10
-ip link set up dev enp4s0.10
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x914D;&#x7F6E;vm01&#x7684;&#x63A5;&#x53E3;IP&#x4E3A;5.5.5.100</span>
+<span class="token function">ip</span> addr <span class="token function">add</span> <span class="token number">5.5</span>.5.100/24 dev enp4s0
+<span class="token comment">#&#x589E;&#x52A0;vlan 10</span>
+<span class="token function">ip</span> <span class="token function">link</span> <span class="token function">add</span> <span class="token function">link</span> enp4s0 name enp4s0.10 <span class="token builtin class-name">type</span> vlan <span class="token function">id</span> <span class="token number">10</span>
+<span class="token comment">#&#x7ED9;vlan 10&#x5B50;&#x63A5;&#x53E3;&#x914D;&#x7F6E;IP</span>
+<span class="token function">ip</span> addr <span class="token function">add</span> <span class="token number">5.5</span>.10.100/24 dev enp4s0.10
+<span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> up dev enp4s0.10
 </code></pre>
 <p>&#x5728;VM02&#x4E0A;</p>
-<pre><code class="lang-bash">#&#x914D;&#x7F6E;vm01&#x7684;&#x63A5;&#x53E3;IP&#x4E3A;5.5.5.200
-ip addr add 5.5.5.200/24 dev enp4s0
-#&#x589E;&#x52A0;vlan 10
-ip link add link enp4s0 name enp4s0.10 type vlan id 10
-#&#x7ED9;vlan 10&#x5B50;&#x63A5;&#x53E3;&#x914D;&#x7F6E;IP
-ip addr add 5.5.10.200/24 dev enp4s0.10
-ip link set up dev enp4s0.10
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x914D;&#x7F6E;vm01&#x7684;&#x63A5;&#x53E3;IP&#x4E3A;5.5.5.200</span>
+<span class="token function">ip</span> addr <span class="token function">add</span> <span class="token number">5.5</span>.5.200/24 dev enp4s0
+<span class="token comment">#&#x589E;&#x52A0;vlan 10</span>
+<span class="token function">ip</span> <span class="token function">link</span> <span class="token function">add</span> <span class="token function">link</span> enp4s0 name enp4s0.10 <span class="token builtin class-name">type</span> vlan <span class="token function">id</span> <span class="token number">10</span>
+<span class="token comment">#&#x7ED9;vlan 10&#x5B50;&#x63A5;&#x53E3;&#x914D;&#x7F6E;IP</span>
+<span class="token function">ip</span> addr <span class="token function">add</span> <span class="token number">5.5</span>.10.200/24 dev enp4s0.10
+<span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> up dev enp4s0.10
 </code></pre>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133812.png" alt="">  </p>
 <h4 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----fail"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----fail" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----fail"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- FAIL</h4>
@@ -3600,7 +3597,7 @@ ip link set up dev enp4s0.10
 <h3 id="5481-----ovs-&#x652F;&#x6301;&#x5E26;&#x5BBD;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#x8BBE;&#x5B9A;"><a name="5481-----ovs-&#x652F;&#x6301;&#x5E26;&#x5BBD;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#x8BBE;&#x5B9A;" class="anchor-navigation-ex-anchor" href="#5481-----ovs-&#x652F;&#x6301;&#x5E26;&#x5BBD;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#x8BBE;&#x5B9A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.9.1. 5.4.8.1     OVS &#x652F;&#x6301;&#x5E26;&#x5BBD;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#x8BBE;&#x5B9A;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133833.png" alt=""><br>&#x4E3B;&#x8981;&#x8003;&#x5BDF;OVS&#x80FD;&#x5426;&#x5BF9;&#x7269;&#x7406;&#x7F51;&#x5361;&#x8FDB;&#x884C;&#x5E26;&#x5BBD;&#x9650;&#x5236;, &#x8FD9;&#x91CC;&#x505A;&#x4E00;&#x4E0B;&#x7B80;&#x5316;&#x5982;&#x4E0B;&#x56FE;:<br><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133852.png" alt=""><br>Host A&#x548C;Host B&#x4E0A;&#x7684;VM01&#x505A;iperf&#x6D4B;&#x8BD5;&#x5E26;&#x5BBD;, &#x4E0D;&#x8BBE;&#x7F6E;&#x5E26;&#x5BBD;&#x6BD4;&#x4F8B;&#x65F6;:
 &#x6027;&#x80FD;&#x5728;<code>10.3 Gbits/sec</code>, &#x4E3B;&#x8981;&#x74F6;&#x9888;&#x70B9;&#x5728;Host A&#x4E0A;&#x7684;kernel&#x534F;&#x8BAE;&#x6808;, &#x4EE5;&#x53CA;VM01&#x4E0A;&#x7684;kernel&#x534F;&#x8BAE;&#x6808;.</p>
-<pre><code>[  4]  15.00-16.00  sec   718 MBytes  6.02 Gbits/sec  7267   1024 KBytes
+<pre class="language-"><code>[  4]  15.00-16.00  sec   718 MBytes  6.02 Gbits/sec  7267   1024 KBytes
 [  6]  15.00-16.00  sec   366 MBytes  3.07 Gbits/sec  6713   76.4 KBytes
 [  8]  15.00-16.00  sec  30.0 MBytes   252 Mbits/sec  1281   90.5 KBytes
 [ 10]  15.00-16.00  sec   110 MBytes   923 Mbits/sec  2711    139 KBytes
@@ -3608,23 +3605,23 @@ ip link set up dev enp4s0.10
 </code></pre><p>&#x5BF9;Host B&#x4E0A;&#x7684;OVS-DPDK&#x505A;&#x5E26;&#x5BBD;&#x9650;&#x5236;, &#x4E3B;&#x8981;&#x9650;&#x5236;&#x5BF9;&#x63A5;&#x7269;&#x7406;&#x7F51;&#x5361;<code>enP5p1s0</code>&#x5BF9;&#x5E94;&#x7684;port <code>dpdkp1</code></p>
 <ul>
 <li>Egress
-&#x5728;Host B&#x4E0A;:<pre><code class="lang-bash">#&#x9650;&#x5236;dpdkp1&#x7684;&#x51FA;&#x53E3;&#x901F;&#x7387;&#x4E3A;5G bps, cir&#x7684;&#x5355;&#x4F4D;&#x4E3A;Bps
-sudo ovs-vsctl set port dpdkp1 qos=@newqos -- --id=@newqos create qos type=egress-policer other-config:cir=625000000 other-config:cbs=2048
+&#x5728;Host B&#x4E0A;:<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x9650;&#x5236;dpdkp1&#x7684;&#x51FA;&#x53E3;&#x901F;&#x7387;&#x4E3A;5G bps, cir&#x7684;&#x5355;&#x4F4D;&#x4E3A;Bps</span>
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> port dpdkp1 <span class="token assign-left variable">qos</span><span class="token operator">=</span>@newqos -- <span class="token parameter variable">--id</span><span class="token operator">=</span>@newqos create qos <span class="token assign-left variable">type</span><span class="token operator">=</span>egress-policer other-config:cir<span class="token operator">=</span><span class="token number">625000000</span> other-config:cbs<span class="token operator">=</span><span class="token number">2048</span>
 </code></pre>
 </li>
-<li>Ingress<pre><code class="lang-bash">#&#x9650;&#x5236;&#x5165;&#x53E3;&#x901F;&#x7387;5G bps, ingress_policing_rate&#x5355;&#x4F4D;&#x4E3A;k bps
-$ sudo ovs-vsctl set interface dpdkp1 ingress_policing_rate=5000000
-$ sudo ovs-vsctl set interface dpdkp1 ingress_policing_burst=500000
+<li>Ingress<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x9650;&#x5236;&#x5165;&#x53E3;&#x901F;&#x7387;5G bps, ingress_policing_rate&#x5355;&#x4F4D;&#x4E3A;k bps</span>
+$ <span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> interface dpdkp1 <span class="token assign-left variable">ingress_policing_rate</span><span class="token operator">=</span><span class="token number">5000000</span>
+$ <span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> interface dpdkp1 <span class="token assign-left variable">ingress_policing_burst</span><span class="token operator">=</span><span class="token number">500000</span>
 </code></pre>
 </li>
 </ul>
 <h4 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_10"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_10" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_10"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h4>
 <p>&#x914D;&#x7F6E;&#x5E26;&#x5BBD;&#x9650;&#x5236;&#x540E;, &#x518D;&#x6B21;&#x7528;iperf&#x6D4B;&#x8BD5;, &#x7ED3;&#x679C;&#x4E3A;<code>4.85 Gbits/sec</code></p>
-<pre><code class="lang-bash">[  4]   5.00-6.00   sec   259 MBytes  2.17 Gbits/sec  8313    264 KBytes
-[  6]   5.00-6.00   sec  53.8 MBytes   451 Mbits/sec  2579   11.3 KBytes
-[  8]   5.00-6.00   sec   154 MBytes  1.29 Gbits/sec  2293   91.9 KBytes
-[ 10]   5.00-6.00   sec   112 MBytes   944 Mbits/sec  1467    591 KBytes
-[SUM]   5.00-6.00   sec   579 MBytes  4.85 Gbits/sec  14652
+<pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>  <span class="token number">4</span><span class="token punctuation">]</span>   <span class="token number">5.00</span>-6.00   sec   <span class="token number">259</span> MBytes  <span class="token number">2.17</span> Gbits/sec  <span class="token number">8313</span>    <span class="token number">264</span> KBytes
+<span class="token punctuation">[</span>  <span class="token number">6</span><span class="token punctuation">]</span>   <span class="token number">5.00</span>-6.00   sec  <span class="token number">53.8</span> MBytes   <span class="token number">451</span> Mbits/sec  <span class="token number">2579</span>   <span class="token number">11.3</span> KBytes
+<span class="token punctuation">[</span>  <span class="token number">8</span><span class="token punctuation">]</span>   <span class="token number">5.00</span>-6.00   sec   <span class="token number">154</span> MBytes  <span class="token number">1.29</span> Gbits/sec  <span class="token number">2293</span>   <span class="token number">91.9</span> KBytes
+<span class="token punctuation">[</span> <span class="token number">10</span><span class="token punctuation">]</span>   <span class="token number">5.00</span>-6.00   sec   <span class="token number">112</span> MBytes   <span class="token number">944</span> Mbits/sec  <span class="token number">1467</span>    <span class="token number">591</span> KBytes
+<span class="token punctuation">[</span>SUM<span class="token punctuation">]</span>   <span class="token number">5.00</span>-6.00   sec   <span class="token number">579</span> MBytes  <span class="token number">4.85</span> Gbits/sec  <span class="token number">14652</span>
 </code></pre>
 <h4 id="&#x95EE;&#x9898;-netperf-over-ovs-dpdk&#x6027;&#x80FD;&#x5DEE;"><a name="&#x95EE;&#x9898;-netperf-over-ovs-dpdk&#x6027;&#x80FD;&#x5DEE;" class="anchor-navigation-ex-anchor" href="#&#x95EE;&#x9898;-netperf-over-ovs-dpdk&#x6027;&#x80FD;&#x5DEE;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x95EE;&#x9898;: netperf over OVS-DPDK&#x6027;&#x80FD;&#x5DEE;</h4>
 <p>netperf&#x662F;&#x5355;&#x8FDB;&#x7A0B;&#x5E94;&#x7528;, traffic&#x901A;&#x8FC7;OVS-DPDK&#x540E;, &#x76F8;&#x6BD4;&#x4E24;&#x4E2A;&#x7269;&#x7406;&#x673A;&#x76F4;&#x8FDE;, &#x6027;&#x80FD;&#x4E0B;&#x964D;&#x5F88;&#x591A;;
@@ -3643,12 +3640,12 @@ VM02&#x5230;VM01&#x8FC7;linux bridge | 2.17 | 2.84</p>
 <ol>
 <li>for bridge mode, the VM&apos;s virtio nic was enabled tso/csum defaultly             </li>
 <li>for OVS-dpdk, the VM&apos;s virtio nic cannot enable tso/csum, although DPDK vhost lib can support tso etc.
-Already has a Patch for OVS2.6.1 to support TSO, but this patch is not intended for upstreaming.<br>see :<a href="https://mail.openvswitch.org/pipermail/ovs-dev/2016-June/316414.html" target="_blank">https://mail.openvswitch.org/pipermail/ovs-dev/2016-June/316414.html</a>        <pre><code> https://lists.linux-foundation.org/pipermail/ovs-dev/2017-April/330703.html
+Already has a Patch for OVS2.6.1 to support TSO, but this patch is not intended for upstreaming.<br>see :<a href="https://mail.openvswitch.org/pipermail/ovs-dev/2016-June/316414.html" target="_blank">https://mail.openvswitch.org/pipermail/ovs-dev/2016-June/316414.html</a>        <pre class="language-"><code> https://lists.linux-foundation.org/pipermail/ovs-dev/2017-April/330703.html
 </code></pre></li>
 </ol>
 </blockquote>
 <p>OVS&#x6A21;&#x5F0F;&#x4E0B;VM&#x7684;offload&#x529F;&#x80FD;</p>
-<pre><code>[root@localhost ~]# ethtool -k eth1
+<pre class="language-"><code>[root@localhost ~]# ethtool -k eth1
 Features for eth1:
 rx-checksumming: on [fixed]
 tx-checksumming: off
@@ -3703,7 +3700,7 @@ esp-hw-offload: off [fixed]
 esp-tx-csum-hw-offload: off [fixed]
 rx-udp_tunnel-port-offload: off [fixed]
 </code></pre><p>Linux bridge&#x6A21;&#x5F0F;&#x4E0B;&#x7684;offload&#x529F;&#x80FD;:</p>
-<pre><code>[root@localhost ~]# ethtool -k eth0
+<pre class="language-"><code>[root@localhost ~]# ethtool -k eth0
 Features for eth0:
 rx-checksumming: on [fixed]
 tx-checksumming: on
@@ -3758,76 +3755,76 @@ esp-hw-offload: off [fixed]
 esp-tx-csum-hw-offload: off [fixed]
 rx-udp_tunnel-port-offload: off [fixed]
 </code></pre><p>&#x6D4B;&#x8BD5;&#x7C7B;&#x578B;:</p>
-<pre><code class="lang-bash">#&#x4E24;&#x4E2A;&#x7269;&#x7406;&#x7F51;&#x5361;&#x76F4;&#x8FDE;
-HostA(enP4p1s0) &lt;--&gt; HostB(enP4p1s0)
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x4E24;&#x4E2A;&#x7269;&#x7406;&#x7F51;&#x5361;&#x76F4;&#x8FDE;</span>
+HostA<span class="token punctuation">(</span>enP4p1s0<span class="token punctuation">)</span> <span class="token operator">&lt;</span>--<span class="token operator">&gt;</span> HostB<span class="token punctuation">(</span>enP4p1s0<span class="token punctuation">)</span>
 
-#&#x7269;&#x7406;&#x7F51;&#x5361;&#x5230;VM
+<span class="token comment">#&#x7269;&#x7406;&#x7F51;&#x5361;&#x5230;VM</span>
 HostA         HostB                                                   VM01
-enP5p1s0 &lt;--&gt; enP5p1s0 &lt;--&gt; (dpdk@2rxq)OVS-DPDK(vhost-user@2rxq) &lt;--&gt; eth1(virtio)
+enP5p1s0 <span class="token operator">&lt;</span>--<span class="token operator">&gt;</span> enP5p1s0 <span class="token operator">&lt;</span>--<span class="token operator">&gt;</span> <span class="token punctuation">(</span>dpdk@2rxq<span class="token punctuation">)</span>OVS-DPDK<span class="token punctuation">(</span>vhost-user@2rxq<span class="token punctuation">)</span> <span class="token operator">&lt;</span>--<span class="token operator">&gt;</span> eth1<span class="token punctuation">(</span>virtio<span class="token punctuation">)</span>
 
-#VM02&#x5230;VM01&#x8FC7;OVS-DPDK
-VM02(eth1-virtio) &lt;--&gt; (vhost-user@2rxq)OVS-DPDK(vhost-user@2rxq) &lt;--&gt; VM01(eth1-virtio)
+<span class="token comment">#VM02&#x5230;VM01&#x8FC7;OVS-DPDK</span>
+VM02<span class="token punctuation">(</span>eth1-virtio<span class="token punctuation">)</span> <span class="token operator">&lt;</span>--<span class="token operator">&gt;</span> <span class="token punctuation">(</span>vhost-user@2rxq<span class="token punctuation">)</span>OVS-DPDK<span class="token punctuation">(</span>vhost-user@2rxq<span class="token punctuation">)</span> <span class="token operator">&lt;</span>--<span class="token operator">&gt;</span> VM01<span class="token punctuation">(</span>eth1-virtio<span class="token punctuation">)</span>
 
-#VM02&#x5230;VM01&#x8FC7;OVS-DPDK with flow
-VM02(eth1-virtio) &lt;--&gt; (vhost-user@2rxq)OVS-DPDK(vhost-user@2rxq) &lt;--&gt; VM01(eth1-virtio)
+<span class="token comment">#VM02&#x5230;VM01&#x8FC7;OVS-DPDK with flow</span>
+VM02<span class="token punctuation">(</span>eth1-virtio<span class="token punctuation">)</span> <span class="token operator">&lt;</span>--<span class="token operator">&gt;</span> <span class="token punctuation">(</span>vhost-user@2rxq<span class="token punctuation">)</span>OVS-DPDK<span class="token punctuation">(</span>vhost-user@2rxq<span class="token punctuation">)</span> <span class="token operator">&lt;</span>--<span class="token operator">&gt;</span> VM01<span class="token punctuation">(</span>eth1-virtio<span class="token punctuation">)</span>
 
-#VM02&#x5230;VM01&#x8FC7;linux bridge
-VM02(eth1-virtio) &lt;--&gt; (tap)linux bridge(tap) &lt;--&gt; VM01(eth1-virtio)
+<span class="token comment">#VM02&#x5230;VM01&#x8FC7;linux bridge</span>
+VM02<span class="token punctuation">(</span>eth1-virtio<span class="token punctuation">)</span> <span class="token operator">&lt;</span>--<span class="token operator">&gt;</span> <span class="token punctuation">(</span>tap<span class="token punctuation">)</span>linux bridge<span class="token punctuation">(</span>tap<span class="token punctuation">)</span> <span class="token operator">&lt;</span>--<span class="token operator">&gt;</span> VM01<span class="token punctuation">(</span>eth1-virtio<span class="token punctuation">)</span>
 </code></pre>
 <p>&#x6CE8;: netperf&#x5E26;&#x5BBD;&#x6CE2;&#x52A8;&#x5F88;&#x5927;, &#x8FD9;&#x91CC;&#x53D6;5&#x6B21;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x7684;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;</p>
 <p>&#x53C2;&#x8003;&#x547D;&#x4EE4;:
 &#x5728;server&#x4E0A;:</p>
-<pre><code class="lang-bash">cd netperf-master/src
+<pre class="language-"><code class="lang-bash"><span class="token builtin class-name">cd</span> netperf-master/src
 ./netserver
 </code></pre>
 <p>&#x5728;client&#x4E0A;:</p>
-<pre><code class="lang-bash">cd netperf-master/src
-./netperf -H 5.5.5.51 -l 30 -cC -fG
+<pre class="language-"><code class="lang-bash"><span class="token builtin class-name">cd</span> netperf-master/src
+./netperf <span class="token parameter variable">-H</span> <span class="token number">5.5</span>.5.51 <span class="token parameter variable">-l</span> <span class="token number">30</span> <span class="token parameter variable">-cC</span> <span class="token parameter variable">-fG</span>
 </code></pre>
 <p>&#x5728;HostB&#x4E0A;&#x914D;flow</p>
-<pre><code class="lang-bash">#&#x4ECE;vhostuser0&#x5230;vhostuser1
-sudo ovs-vsctl set interface dpdkp1 ofport_request=1
-sudo ovs-vsctl set interface &quot;dpdkvhostuser0&quot; ofport_request=2
-sudo ovs-vsctl set interface &quot;dpdkvhostuser1&quot; ofport_request=3
-sudo ovs-ofctl add-flow ovsbr0 in_port=2,action=output:3
-sudo ovs-ofctl add-flow ovsbr0 in_port=3,action=output:2
-#&#x67E5;&#x73B0;&#x6709;flow
-$ sudo ovs-ofctl dump-flows ovsbr0
- cookie=0x0, duration=525.681s, table=0, n_packets=0, n_bytes=0, in_port=dpdkvhostuser0 actions=output:dpdkvhostuser1
- cookie=0x0, duration=517.418s, table=0, n_packets=0, n_bytes=0, in_port=dpdkvhostuser1 actions=output:dpdkvhostuser0
- cookie=0x0, duration=64912.051s, table=0, n_packets=262755553, n_bytes=364138797710, priority=0 actions=NORMAL
-#&#x6E05;&#x9664;&#x6240;&#x6709;flow
-sudo ovs-ofctl del-flows ovsbr0
-#&#x6E05;&#x9664;flow&#x540E;&#x52A0;&#x56DE;&#x9ED8;&#x8BA4;flow, &#x5426;&#x5219;&#x7AEF;&#x53E3;&#x90FD;&#x4E0D;&#x901A;
-sudo ovs-ofctl add-flow ovsbr0 actions=NORMAL
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x4ECE;vhostuser0&#x5230;vhostuser1</span>
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> interface dpdkp1 <span class="token assign-left variable">ofport_request</span><span class="token operator">=</span><span class="token number">1</span>
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> interface <span class="token string">&quot;dpdkvhostuser0&quot;</span> <span class="token assign-left variable">ofport_request</span><span class="token operator">=</span><span class="token number">2</span>
+<span class="token function">sudo</span> ovs-vsctl <span class="token builtin class-name">set</span> interface <span class="token string">&quot;dpdkvhostuser1&quot;</span> <span class="token assign-left variable">ofport_request</span><span class="token operator">=</span><span class="token number">3</span>
+<span class="token function">sudo</span> ovs-ofctl add-flow ovsbr0 <span class="token assign-left variable">in_port</span><span class="token operator">=</span><span class="token number">2</span>,action<span class="token operator">=</span>output:3
+<span class="token function">sudo</span> ovs-ofctl add-flow ovsbr0 <span class="token assign-left variable">in_port</span><span class="token operator">=</span><span class="token number">3</span>,action<span class="token operator">=</span>output:2
+<span class="token comment">#&#x67E5;&#x73B0;&#x6709;flow</span>
+$ <span class="token function">sudo</span> ovs-ofctl dump-flows ovsbr0
+ <span class="token assign-left variable">cookie</span><span class="token operator">=</span>0x0, <span class="token assign-left variable">duration</span><span class="token operator">=</span><span class="token number">525</span>.681s, <span class="token assign-left variable">table</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">n_packets</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">n_bytes</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">in_port</span><span class="token operator">=</span>dpdkvhostuser0 <span class="token assign-left variable">actions</span><span class="token operator">=</span>output:dpdkvhostuser1
+ <span class="token assign-left variable">cookie</span><span class="token operator">=</span>0x0, <span class="token assign-left variable">duration</span><span class="token operator">=</span><span class="token number">517</span>.418s, <span class="token assign-left variable">table</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">n_packets</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">n_bytes</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">in_port</span><span class="token operator">=</span>dpdkvhostuser1 <span class="token assign-left variable">actions</span><span class="token operator">=</span>output:dpdkvhostuser0
+ <span class="token assign-left variable">cookie</span><span class="token operator">=</span>0x0, <span class="token assign-left variable">duration</span><span class="token operator">=</span><span class="token number">64912</span>.051s, <span class="token assign-left variable">table</span><span class="token operator">=</span><span class="token number">0</span>, <span class="token assign-left variable">n_packets</span><span class="token operator">=</span><span class="token number">262755553</span>, <span class="token assign-left variable">n_bytes</span><span class="token operator">=</span><span class="token number">364138797710</span>, <span class="token assign-left variable">priority</span><span class="token operator">=</span><span class="token number">0</span> <span class="token assign-left variable">actions</span><span class="token operator">=</span>NORMAL
+<span class="token comment">#&#x6E05;&#x9664;&#x6240;&#x6709;flow</span>
+<span class="token function">sudo</span> ovs-ofctl del-flows ovsbr0
+<span class="token comment">#&#x6E05;&#x9664;flow&#x540E;&#x52A0;&#x56DE;&#x9ED8;&#x8BA4;flow, &#x5426;&#x5219;&#x7AEF;&#x53E3;&#x90FD;&#x4E0D;&#x901A;</span>
+<span class="token function">sudo</span> ovs-ofctl add-flow ovsbr0 <span class="token assign-left variable">actions</span><span class="token operator">=</span>NORMAL
 </code></pre>
 <h3 id="5482----sr-iov-&#x652F;&#x6301;&#x5E26;&#x5BBD;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#x8BBE;&#x5B9A;"><a name="5482----sr-iov-&#x652F;&#x6301;&#x5E26;&#x5BBD;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#x8BBE;&#x5B9A;" class="anchor-navigation-ex-anchor" href="#5482----sr-iov-&#x652F;&#x6301;&#x5E26;&#x5BBD;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#x8BBE;&#x5B9A;"><i class="fa fa-link" aria-hidden="true"></i></a>2.9.2. 5.4.8.2    SR-IOV &#x652F;&#x6301;&#x5E26;&#x5BBD;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#x8BBE;&#x5B9A;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003133934.png" alt=""><br>&#x5C06;&#x7528;&#x4F8B;&#x63CF;&#x8FF0;&#x7684;&#x6D4B;&#x8BD5;&#x573A;&#x666F;&#x5206;&#x89E3;: &#x7528;&#x9650;&#x5236;SRIOV&#x7F51;&#x5361;&#x7684;VF <code>max_tx_rate</code>&#x6765;&#x6D4B;&#x8BD5;
 &#x4F46;&#x53EA;&#x80FD;&#x914D;&#x7F6E;tx_rate, &#x5BF9;rx&#x5E76;&#x6CA1;&#x6709;&#x9650;&#x5236;
 &#x53C2;&#x8003;: <a href="https://community.mellanox.com/docs/DOC-2565" target="_blank">https://community.mellanox.com/docs/DOC-2565</a></p>
-<pre><code class="lang-bash">#&#x5728;Host B&#x4E0A;&#x7684;&#x4E24;&#x4E2A;Mellanox Connect-4&#x7269;&#x7406;&#x7F51;&#x5361;&#x4E0A;, &#x6253;&#x5F00;SR-IOV, VF&#x6570;&#x76EE;&#x5206;&#x522B;&#x662F;2
-sudo bash -c &quot;echo 2 &gt; /sys/class/net/enP4p1s0/device/sriov_numvfs&quot;
-sudo bash -c &quot;echo 2 &gt; /sys/class/net/enP5p1s0/device/sriov_numvfs&quot;
-#&#x7269;&#x7406;&#x7F51;&#x5361;&#x5B9E;&#x9645;link&#x901F;&#x7387;&#x4E3A;56000Mb/s
-#&#x4F7F;vf 0&#x4E3A;30G, vf 1&#x4E3A;40G
-#&#x5BF9;&#x5E94;&#x7528;&#x4F8B;&#x8981;&#x6C42;&#x7684;port1, &#x5BF9;&#x5E94;VM01
-sudo ip link set dev enP4p1s0 vf 0 max_tx_rate 30000 min_tx_rate 25000
-#&#x5BF9;&#x5E94;&#x7528;&#x4F8B;&#x8981;&#x6C42;&#x7684;port3, &#x5BF9;&#x5E94;VM02
-sudo ip link set dev enP4p1s0 vf 1 max_tx_rate 40000 min_tx_rate 35000
-#&#x5BF9;&#x5E94;&#x7528;&#x4F8B;&#x8981;&#x6C42;&#x7684;port2, &#x5BF9;&#x5E94;VM01
-sudo ip link set dev enP5p1s0 vf 0 max_tx_rate 30000 min_tx_rate 25000
-#&#x5BF9;&#x5E94;&#x7528;&#x4F8B;&#x8981;&#x6C42;&#x7684;port4, &#x5BF9;&#x5E94;VM02
-sudo ip link set dev enP5p1s0 vf 1 max_tx_rate 40000 min_tx_rate 35000
-#&#x914D;&#x7F6E;&#x597D;&#x4EE5;&#x540E;&#x7684;&#x72B6;&#x6001;: 
-$ ip link show dev enP4p1s0; ip link show dev enP5p1s0
-9: enP4p1s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x5728;Host B&#x4E0A;&#x7684;&#x4E24;&#x4E2A;Mellanox Connect-4&#x7269;&#x7406;&#x7F51;&#x5361;&#x4E0A;, &#x6253;&#x5F00;SR-IOV, VF&#x6570;&#x76EE;&#x5206;&#x522B;&#x662F;2</span>
+<span class="token function">sudo</span> <span class="token function">bash</span> <span class="token parameter variable">-c</span> <span class="token string">&quot;echo 2 &gt; /sys/class/net/enP4p1s0/device/sriov_numvfs&quot;</span>
+<span class="token function">sudo</span> <span class="token function">bash</span> <span class="token parameter variable">-c</span> <span class="token string">&quot;echo 2 &gt; /sys/class/net/enP5p1s0/device/sriov_numvfs&quot;</span>
+<span class="token comment">#&#x7269;&#x7406;&#x7F51;&#x5361;&#x5B9E;&#x9645;link&#x901F;&#x7387;&#x4E3A;56000Mb/s</span>
+<span class="token comment">#&#x4F7F;vf 0&#x4E3A;30G, vf 1&#x4E3A;40G</span>
+<span class="token comment">#&#x5BF9;&#x5E94;&#x7528;&#x4F8B;&#x8981;&#x6C42;&#x7684;port1, &#x5BF9;&#x5E94;VM01</span>
+<span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP4p1s0 vf <span class="token number">0</span> max_tx_rate <span class="token number">30000</span> min_tx_rate <span class="token number">25000</span>
+<span class="token comment">#&#x5BF9;&#x5E94;&#x7528;&#x4F8B;&#x8981;&#x6C42;&#x7684;port3, &#x5BF9;&#x5E94;VM02</span>
+<span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP4p1s0 vf <span class="token number">1</span> max_tx_rate <span class="token number">40000</span> min_tx_rate <span class="token number">35000</span>
+<span class="token comment">#&#x5BF9;&#x5E94;&#x7528;&#x4F8B;&#x8981;&#x6C42;&#x7684;port2, &#x5BF9;&#x5E94;VM01</span>
+<span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP5p1s0 vf <span class="token number">0</span> max_tx_rate <span class="token number">30000</span> min_tx_rate <span class="token number">25000</span>
+<span class="token comment">#&#x5BF9;&#x5E94;&#x7528;&#x4F8B;&#x8981;&#x6C42;&#x7684;port4, &#x5BF9;&#x5E94;VM02</span>
+<span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enP5p1s0 vf <span class="token number">1</span> max_tx_rate <span class="token number">40000</span> min_tx_rate <span class="token number">35000</span>
+<span class="token comment">#&#x914D;&#x7F6E;&#x597D;&#x4EE5;&#x540E;&#x7684;&#x72B6;&#x6001;: </span>
+$ <span class="token function">ip</span> <span class="token function">link</span> show dev enP4p1s0<span class="token punctuation">;</span> <span class="token function">ip</span> <span class="token function">link</span> show dev enP5p1s0
+<span class="token number">9</span>: enP4p1s0: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="token operator">&gt;</span> mtu <span class="token number">1500</span> qdisc mq state UP mode DEFAULT group default qlen <span class="token number">1000</span>
     link/ether ec:0d:9a:89:4c:36 brd ff:ff:ff:ff:ff:ff
-    vf 0 MAC 00:00:00:00:00:00, tx rate 30000 (Mbps), max_tx_rate 30000Mbps, min_tx_rate 25000Mbps, spoof checking off, link-state auto, trust off, query_rss off
-    vf 1 MAC 00:00:00:00:00:00, tx rate 40000 (Mbps), max_tx_rate 40000Mbps, min_tx_rate 35000Mbps, spoof checking off, link-state auto, trust off, query_rss off
-10: enP5p1s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
+    vf <span class="token number">0</span> MAC 00:00:00:00:00:00, tx rate <span class="token number">30000</span> <span class="token punctuation">(</span>Mbps<span class="token punctuation">)</span>, max_tx_rate 30000Mbps, min_tx_rate 25000Mbps, spoof checking off, link-state auto, trust off, query_rss off
+    vf <span class="token number">1</span> MAC 00:00:00:00:00:00, tx rate <span class="token number">40000</span> <span class="token punctuation">(</span>Mbps<span class="token punctuation">)</span>, max_tx_rate 40000Mbps, min_tx_rate 35000Mbps, spoof checking off, link-state auto, trust off, query_rss off
+<span class="token number">10</span>: enP5p1s0: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="token operator">&gt;</span> mtu <span class="token number">1500</span> qdisc mq state UP mode DEFAULT group default qlen <span class="token number">1000</span>
     link/ether ec:0d:9a:89:4a:e6 brd ff:ff:ff:ff:ff:ff
-    vf 0 MAC 00:00:00:00:00:00, tx rate 30000 (Mbps), max_tx_rate 30000Mbps, min_tx_rate 25000Mbps, spoof checking off, link-state auto, trust off, query_rss off
-    vf 1 MAC 00:00:00:00:00:00, tx rate 40000 (Mbps), max_tx_rate 40000Mbps, min_tx_rate 35000Mbps, spoof checking off, link-state auto, trust off, query_rss off
+    vf <span class="token number">0</span> MAC 00:00:00:00:00:00, tx rate <span class="token number">30000</span> <span class="token punctuation">(</span>Mbps<span class="token punctuation">)</span>, max_tx_rate 30000Mbps, min_tx_rate 25000Mbps, spoof checking off, link-state auto, trust off, query_rss off
+    vf <span class="token number">1</span> MAC 00:00:00:00:00:00, tx rate <span class="token number">40000</span> <span class="token punctuation">(</span>Mbps<span class="token punctuation">)</span>, max_tx_rate 40000Mbps, min_tx_rate 35000Mbps, spoof checking off, link-state auto, trust off, query_rss off
 </code></pre>
 <table>
 <thead>
@@ -3871,12 +3868,12 @@ $ ip link show dev enP4p1s0; ip link show dev enP5p1s0
 <li>&#x4E24;&#x4E2A;VM&#x6210;&#x529F;&#x542F;&#x52A8;</li>
 <li>&#x6700;&#x5927;&#x5E26;&#x5BBD;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;
 &#x5728;mtu&#x4E3A;&#x9ED8;&#x8BA4;1500&#x65F6;, &#x6587;&#x4E2D;4&#x6838;VM&#x5E76;&#x4E0D;&#x80FD;&#x8FBE;&#x5230;40G&#x7EBF;&#x901F;; &#x6545;&#x8FD9;&#x91CC;&#x5728;&#x4E24;&#x4E2A;VM&#x4E0A;&#x5206;&#x522B;&#x4FEE;&#x6539;&#x63A5;&#x53E3;&#x7684;mtu&#x4E3A;9000
-&#x5728;&#x4E24;&#x4E2A;VM&#x4E0A;:<pre><code class="lang-bash">#MTU&#x589E;&#x5927;&#x5230;9000
-ip link set dev enp4s0 mtu 9000
-#server&#x7AEF;
-iperf -s
-#client&#x7AEF;, &#x7528;4&#x4E2A;&#x7EBF;&#x7A0B;&#x6253;&#x6EE1;&#x5E26;&#x5BBD;
-iperf -c 2.2.2.1 -i 1 -t 360 -l 128K -P 4
+&#x5728;&#x4E24;&#x4E2A;VM&#x4E0A;:<pre class="language-"><code class="lang-bash"><span class="token comment">#MTU&#x589E;&#x5927;&#x5230;9000</span>
+<span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev enp4s0 mtu <span class="token number">9000</span>
+<span class="token comment">#server&#x7AEF;</span>
+iperf <span class="token parameter variable">-s</span>
+<span class="token comment">#client&#x7AEF;, &#x7528;4&#x4E2A;&#x7EBF;&#x7A0B;&#x6253;&#x6EE1;&#x5E26;&#x5BBD;</span>
+iperf <span class="token parameter variable">-c</span> <span class="token number">2.2</span>.2.1 <span class="token parameter variable">-i</span> <span class="token number">1</span> <span class="token parameter variable">-t</span> <span class="token number">360</span> <span class="token parameter variable">-l</span> 128K <span class="token parameter variable">-P</span> <span class="token number">4</span>
 </code></pre>
 Server | Client | &#x7406;&#x8BBA;&#x5E26;&#x5BBD;(VF tx_rate) | &#x5B9E;&#x9645;&#x5E26;&#x5BBD; | &#x6240;&#x5C5E;PF
 --- | --- | --- | --- | --- |
@@ -3887,52 +3884,52 @@ VM02 | VM01 | 30 G | 29.7 G | enp5s0</li>
 <h2 id="549----&#x652F;&#x6301;&#x7EC4;&#x64AD;"><a name="549----&#x652F;&#x6301;&#x7EC4;&#x64AD;" class="anchor-navigation-ex-anchor" href="#549----&#x652F;&#x6301;&#x7EC4;&#x64AD;"><i class="fa fa-link" aria-hidden="true"></i></a>2.10. 5.4.9    &#x652F;&#x6301;&#x7EC4;&#x64AD;</h2>
 <h3 id="5491----ovs&#x652F;&#x6301;&#x6B63;&#x786E;&#x8F6C;&#x53D1;&#x7EC4;&#x64AD;&#x5305;"><a name="5491----ovs&#x652F;&#x6301;&#x6B63;&#x786E;&#x8F6C;&#x53D1;&#x7EC4;&#x64AD;&#x5305;" class="anchor-navigation-ex-anchor" href="#5491----ovs&#x652F;&#x6301;&#x6B63;&#x786E;&#x8F6C;&#x53D1;&#x7EC4;&#x64AD;&#x5305;"><i class="fa fa-link" aria-hidden="true"></i></a>2.10.1. 5.4.9.1    OVS&#x652F;&#x6301;&#x6B63;&#x786E;&#x8F6C;&#x53D1;&#x7EC4;&#x64AD;&#x5305;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003134024.png" alt=""><br>&#x53C2;&#x8003;&#x4E0B;&#x56FE;&#x914D;&#x7F6E;:<br><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003134041.png" alt=""><br>&#x5728;&#x4E24;&#x4E2A;VM&#x4E0A;</p>
-<pre><code class="lang-bash"># &#x67E5;&#x770B;&#x591A;&#x64AD;&#x5730;&#x5740;
-[root@localhost ~]# ip maddr show dev eth1
-4:    eth1
-    link  01:00:5e:00:00:01
-    link  33:33:00:00:00:01
-    link  33:33:ff:c0:69:37
-    inet  224.0.0.1
+<pre class="language-"><code class="lang-bash"><span class="token comment"># &#x67E5;&#x770B;&#x591A;&#x64AD;&#x5730;&#x5740;</span>
+<span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># ip maddr show dev eth1</span>
+<span class="token number">4</span>:    eth1
+    <span class="token function">link</span>  01:00:5e:00:00:01
+    <span class="token function">link</span>  <span class="token number">33</span>:33:00:00:00:01
+    <span class="token function">link</span>  <span class="token number">33</span>:33:ff:c0:69:37
+    inet  <span class="token number">224.0</span>.0.1
     inet6 ff02::1:ffc0:6937
     inet6 ff02::1
     inet6 ff01::1
 
-# VF&#x6709;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x80FD;&#x591F;&#x6536;&#x5230;&#x672A;&#x77E5;&#x591A;&#x64AD;, promiscuous&#x548C;allmulticast, &#x8FD9;&#x91CC;&#x4F7F;&#x7528;&#x540E;&#x8005;
-ip link set dev eth1 allmulticast on
+<span class="token comment"># VF&#x6709;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x80FD;&#x591F;&#x6536;&#x5230;&#x672A;&#x77E5;&#x591A;&#x64AD;, promiscuous&#x548C;allmulticast, &#x8FD9;&#x91CC;&#x4F7F;&#x7528;&#x540E;&#x8005;</span>
+<span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> dev eth1 allmulticast on
 </code></pre>
 <p>&#x5728;Host A&#x4E0A;, &#x8FD0;&#x884C;pktgen, &#x6784;&#x9020;ip&#x548C;mac</p>
-<pre><code class="lang-bash">#&#x542F;&#x52A8;pktgen, rx&#x7528;core42,tx&#x7528;core43, core41&#x4E3A;&#x663E;&#x793A;&#x548C;timer
-sudo app/arm64-armv8a-linuxapp-gcc/pktgen -l 41-45 -w 0005:01:00.0 -- -T -P -m &quot;[42:43].0&quot;
-#&#x914D;&#x76EE;&#x7684;IP(&#x7EC4;&#x64AD;IP)
-Pktgen:/&gt; set 0 dst ip 224.0.0.1
-#&#x6539;&#x53D8;&#x76EE;&#x7684;&#x7EC4;&#x64AD;IP
-Pktgen:/&gt; set 0 dst ip 225.0.0.1
-#&#x914D;&#x76EE;&#x7684;mac(&#x7EC4;&#x64AD;MAC)
-Pktgen:/&gt; set 0 dst mac 01:00:5e:00:00:01
-#&#x914D;&#x76EE;&#x7684;&#x7EC4;&#x64AD;mac
-Pktgen:/&gt; set 0 dst mac 01:00:5e:00:00:02
-#&#x8BBE;&#x7F6E;&#x53D1;&#x5305;&#x901F;&#x7387;&#x4E3A;1%, &#x592A;&#x5927;&#x4F1A;&#x4E22;&#x5305;
-Pktgen:/&gt; set 0 rate 1
-#&#x5F00;&#x59CB;&#x53D1;&#x9001;
-Pktgen:/&gt; start all
-#&#x505C;&#x6B62;&#x53D1;&#x9001;
-Pktgen:/&gt; stop all
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x542F;&#x52A8;pktgen, rx&#x7528;core42,tx&#x7528;core43, core41&#x4E3A;&#x663E;&#x793A;&#x548C;timer</span>
+<span class="token function">sudo</span> app/arm64-armv8a-linuxapp-gcc/pktgen <span class="token parameter variable">-l</span> <span class="token number">41</span>-45 <span class="token parameter variable">-w</span> 0005:01:00.0 -- <span class="token parameter variable">-T</span> <span class="token parameter variable">-P</span> <span class="token parameter variable">-m</span> <span class="token string">&quot;[42:43].0&quot;</span>
+<span class="token comment">#&#x914D;&#x76EE;&#x7684;IP(&#x7EC4;&#x64AD;IP)</span>
+Pktgen:/<span class="token operator">&gt;</span> <span class="token builtin class-name">set</span> <span class="token number">0</span> dst <span class="token function">ip</span> <span class="token number">224.0</span>.0.1
+<span class="token comment">#&#x6539;&#x53D8;&#x76EE;&#x7684;&#x7EC4;&#x64AD;IP</span>
+Pktgen:/<span class="token operator">&gt;</span> <span class="token builtin class-name">set</span> <span class="token number">0</span> dst <span class="token function">ip</span> <span class="token number">225.0</span>.0.1
+<span class="token comment">#&#x914D;&#x76EE;&#x7684;mac(&#x7EC4;&#x64AD;MAC)</span>
+Pktgen:/<span class="token operator">&gt;</span> <span class="token builtin class-name">set</span> <span class="token number">0</span> dst mac 01:00:5e:00:00:01
+<span class="token comment">#&#x914D;&#x76EE;&#x7684;&#x7EC4;&#x64AD;mac</span>
+Pktgen:/<span class="token operator">&gt;</span> <span class="token builtin class-name">set</span> <span class="token number">0</span> dst mac 01:00:5e:00:00:02
+<span class="token comment">#&#x8BBE;&#x7F6E;&#x53D1;&#x5305;&#x901F;&#x7387;&#x4E3A;1%, &#x592A;&#x5927;&#x4F1A;&#x4E22;&#x5305;</span>
+Pktgen:/<span class="token operator">&gt;</span> <span class="token builtin class-name">set</span> <span class="token number">0</span> rate <span class="token number">1</span>
+<span class="token comment">#&#x5F00;&#x59CB;&#x53D1;&#x9001;</span>
+Pktgen:/<span class="token operator">&gt;</span> start all
+<span class="token comment">#&#x505C;&#x6B62;&#x53D1;&#x9001;</span>
+Pktgen:/<span class="token operator">&gt;</span> stop all
 </code></pre>
 <p>&#x53D1;&#x9001;&#x4E2D;&#x5728;VM01&#x548C;VM02&#x4E0A;&#x6293;&#x5305;</p>
-<pre><code class="lang-bash">[root@localhost ~]# tcpdump -i eth1 -vvnnXX
-12:45:39.316576 IP (tos 0x0, ttl 4, id 52062, offset 0, flags [none], proto TCP (6), length 46)
-    192.168.0.1.1234 &gt; 224.0.0.1.5678: Flags [.], cksum 0xe18e (correct), seq 0:6, ack 1, win 8192, length 6
-    0x0000:  0100 5e00 0001 248a 07b5 7070 0800 4500  ..^...$...pp..E.
-    0x0010:  002e cb5e 0000 0406 4ac1 c0a8 0001 e000  ...^....J.......
-    0x0020:  0001 04d2 162e 1234 5678 1234 5690 5010  .......4Vx.4V.P.
-    0x0030:  2000 e18e 0000 7778 797a 3031            ......wxyz01
-12:45:39.331109 IP (tos 0x0, ttl 4, id 49983, offset 0, flags [none], proto TCP (6), length 46)
-    192.168.0.1.1234 &gt; 224.0.0.1.5678: Flags [.], cksum 0xe18e (correct), seq 0:6, ack 1, win 8192, length 6
-    0x0000:  0100 5e00 0001 248a 07b5 7070 0800 4500  ..^...$...pp..E.
-    0x0010:  002e c33f 0000 0406 52e0 c0a8 0001 e000  ...?....R.......
-    0x0020:  0001 04d2 162e 1234 5678 1234 5690 5010  .......4Vx.4V.P.
-    0x0030:  2000 e18e 0000 7778 797a 3031            ......wxyz01
+<pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># tcpdump -i eth1 -vvnnXX</span>
+<span class="token number">12</span>:45:39.316576 IP <span class="token punctuation">(</span>tos 0x0, ttl <span class="token number">4</span>, <span class="token function">id</span> <span class="token number">52062</span>, offset <span class="token number">0</span>, flags <span class="token punctuation">[</span>none<span class="token punctuation">]</span>, proto TCP <span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span>, length <span class="token number">46</span><span class="token punctuation">)</span>
+    <span class="token number">192.168</span>.0.1.1234 <span class="token operator">&gt;</span> <span class="token number">224.0</span>.0.1.5678: Flags <span class="token punctuation">[</span>.<span class="token punctuation">]</span>, <span class="token function">cksum</span> 0xe18e <span class="token punctuation">(</span>correct<span class="token punctuation">)</span>, <span class="token function">seq</span> <span class="token number">0</span>:6, ack <span class="token number">1</span>, win <span class="token number">8192</span>, length <span class="token number">6</span>
+    0x0000:  0100 5e00 0001 248a 07b5 <span class="token number">7070</span> 0800 <span class="token number">4500</span>  <span class="token punctuation">..</span>^<span class="token punctuation">..</span>.$<span class="token punctuation">..</span>.pp<span class="token punctuation">..</span>E.
+    0x0010:  002e cb5e 0000 0406 4ac1 c0a8 0001 e000  <span class="token punctuation">..</span>.^<span class="token punctuation">..</span><span class="token punctuation">..</span>J<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>.
+    0x0020:  0001 04d2 162e <span class="token number">1234</span> <span class="token number">5678</span> <span class="token number">1234</span> <span class="token number">5690</span> <span class="token number">5010</span>  <span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>.4Vx.4V.P.
+    0x0030:  <span class="token number">2000</span> e18e 0000 <span class="token number">7778</span> 797a <span class="token number">3031</span>            <span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>wxyz01
+<span class="token number">12</span>:45:39.331109 IP <span class="token punctuation">(</span>tos 0x0, ttl <span class="token number">4</span>, <span class="token function">id</span> <span class="token number">49983</span>, offset <span class="token number">0</span>, flags <span class="token punctuation">[</span>none<span class="token punctuation">]</span>, proto TCP <span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span>, length <span class="token number">46</span><span class="token punctuation">)</span>
+    <span class="token number">192.168</span>.0.1.1234 <span class="token operator">&gt;</span> <span class="token number">224.0</span>.0.1.5678: Flags <span class="token punctuation">[</span>.<span class="token punctuation">]</span>, <span class="token function">cksum</span> 0xe18e <span class="token punctuation">(</span>correct<span class="token punctuation">)</span>, <span class="token function">seq</span> <span class="token number">0</span>:6, ack <span class="token number">1</span>, win <span class="token number">8192</span>, length <span class="token number">6</span>
+    0x0000:  0100 5e00 0001 248a 07b5 <span class="token number">7070</span> 0800 <span class="token number">4500</span>  <span class="token punctuation">..</span>^<span class="token punctuation">..</span>.$<span class="token punctuation">..</span>.pp<span class="token punctuation">..</span>E.
+    0x0010:  002e c33f 0000 0406 52e0 c0a8 0001 e000  <span class="token punctuation">..</span>.?<span class="token punctuation">..</span><span class="token punctuation">..</span>R<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>.
+    0x0020:  0001 04d2 162e <span class="token number">1234</span> <span class="token number">5678</span> <span class="token number">1234</span> <span class="token number">5690</span> <span class="token number">5010</span>  <span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>.4Vx.4V.P.
+    0x0030:  <span class="token number">2000</span> e18e 0000 <span class="token number">7778</span> 797a <span class="token number">3031</span>            <span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>wxyz01
 </code></pre>
 <h4 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_11"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_11" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_11"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h4>
 <table>
@@ -3959,7 +3956,7 @@ Pktgen:/&gt; stop all
 <h3 id="5492----sr-iov&#x652F;&#x6301;&#x6B63;&#x786E;&#x8F6C;&#x53D1;&#x7EC4;&#x64AD;&#x5305;"><a name="5492----sr-iov&#x652F;&#x6301;&#x6B63;&#x786E;&#x8F6C;&#x53D1;&#x7EC4;&#x64AD;&#x5305;" class="anchor-navigation-ex-anchor" href="#5492----sr-iov&#x652F;&#x6301;&#x6B63;&#x786E;&#x8F6C;&#x53D1;&#x7EC4;&#x64AD;&#x5305;"><i class="fa fa-link" aria-hidden="true"></i></a>2.10.2. 5.4.9.2    SR-IOV&#x652F;&#x6301;&#x6B63;&#x786E;&#x8F6C;&#x53D1;&#x7EC4;&#x64AD;&#x5305;</h3>
 <p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003134106.png" alt=""><br>&#x914D;&#x7F6E;&#x8FDE;&#x4E2A;SR-IOV&#x6A21;&#x5F0F;&#x7684;VM01&#x548C;VM02.</p>
 <p>&#x4E24;&#x4E2A;VM&#x90FD;&#x9ED8;&#x8BA4;&#x6709;&#x591A;&#x64AD;IP<code>224.0.0.1</code>&#x548C;MAC<code>01:00:5e:00:00:01</code></p>
-<pre><code>[root@localhost ~]# ip maddr show dev enp4s0
+<pre class="language-"><code>[root@localhost ~]# ip maddr show dev enp4s0
 4:    enp4s0
     link  01:00:5e:00:00:01
     link  33:33:00:00:00:01
@@ -3969,33 +3966,33 @@ Pktgen:/&gt; stop all
 </code></pre><p><img src="img/networking_&#x7F51;&#x7EDC;&#x865A;&#x62DF;&#x5316;&#x7528;&#x4F8B;&#x8BB0;&#x5F55;_20221003134126.png" alt="">  </p>
 <p>&#x53C2;&#x8003;: <a href="https://community.mellanox.com/docs/DOC-2473" target="_blank">https://community.mellanox.com/docs/DOC-2473</a>
 &#x4E3A;&#x4E86;&#x80FD;&#x4F7F;VM&#x6536;&#x5230;&#x672A;&#x77E5;&#x7EC4;&#x64AD;, &#x5728;Host B&#x4E0A;:</p>
-<pre><code class="lang-bash">#&#x4F7F;&#x80FD;vf&#x7684;trust
-sudo ip link set enP5p1s0 vf 0 trust on
-sudo ip link set enP5p1s0 vf 1 trust on
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x4F7F;&#x80FD;vf&#x7684;trust</span>
+<span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> enP5p1s0 vf <span class="token number">0</span> trust on
+<span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> enP5p1s0 vf <span class="token number">1</span> trust on
 </code></pre>
 <p>&#x5728;&#x4E24;&#x4E2A;VM&#x4E0A;:</p>
-<pre><code>#VF&#x6709;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x80FD;&#x591F;&#x6536;&#x5230;&#x672A;&#x77E5;&#x591A;&#x64AD;, promiscuous&#x548C;allmulticast, &#x8FD9;&#x91CC;&#x4F7F;&#x7528;&#x540E;&#x8005;
+<pre class="language-"><code>#VF&#x6709;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x80FD;&#x591F;&#x6536;&#x5230;&#x672A;&#x77E5;&#x591A;&#x64AD;, promiscuous&#x548C;allmulticast, &#x8FD9;&#x91CC;&#x4F7F;&#x7528;&#x540E;&#x8005;
 ip link set dev enp4s0 allmulticast on
 </code></pre><p>&#x5728;Host A&#x4E0A;, &#x8FD0;&#x884C;pktgen, &#x6784;&#x9020;ip&#x548C;mac</p>
-<pre><code class="lang-bash">#&#x542F;&#x52A8;pktgen, rx&#x7528;core42,tx&#x7528;core43, core41&#x4E3A;&#x663E;&#x793A;&#x548C;timer
-sudo app/arm64-armv8a-linuxapp-gcc/pktgen -l 41-45 -w 0005:01:00.0 -- -T -P -m &quot;[42:43].0&quot;
-#&#x914D;&#x76EE;&#x7684;IP(&#x7EC4;&#x64AD;IP)
-Pktgen:/&gt; set 0 dst ip 224.0.0.1
-#&#x914D;&#x76EE;&#x7684;mac(&#x7EC4;&#x64AD;MAC)
-Pktgen:/&gt; set 0 dst mac 01:00:5e:00:00:01
-#&#x8BBE;&#x7F6E;&#x53D1;&#x5305;&#x901F;&#x7387;&#x4E3A;1%, &#x592A;&#x5927;&#x4F1A;&#x4E22;&#x5305;
-Pktgen:/&gt; set 0 rate 1
-#&#x5F00;&#x59CB;&#x53D1;&#x9001;
-Pktgen:/&gt; start all
-#&#x505C;&#x6B62;&#x53D1;&#x9001;
-Pktgen:/&gt; stop all
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x542F;&#x52A8;pktgen, rx&#x7528;core42,tx&#x7528;core43, core41&#x4E3A;&#x663E;&#x793A;&#x548C;timer</span>
+<span class="token function">sudo</span> app/arm64-armv8a-linuxapp-gcc/pktgen <span class="token parameter variable">-l</span> <span class="token number">41</span>-45 <span class="token parameter variable">-w</span> 0005:01:00.0 -- <span class="token parameter variable">-T</span> <span class="token parameter variable">-P</span> <span class="token parameter variable">-m</span> <span class="token string">&quot;[42:43].0&quot;</span>
+<span class="token comment">#&#x914D;&#x76EE;&#x7684;IP(&#x7EC4;&#x64AD;IP)</span>
+Pktgen:/<span class="token operator">&gt;</span> <span class="token builtin class-name">set</span> <span class="token number">0</span> dst <span class="token function">ip</span> <span class="token number">224.0</span>.0.1
+<span class="token comment">#&#x914D;&#x76EE;&#x7684;mac(&#x7EC4;&#x64AD;MAC)</span>
+Pktgen:/<span class="token operator">&gt;</span> <span class="token builtin class-name">set</span> <span class="token number">0</span> dst mac 01:00:5e:00:00:01
+<span class="token comment">#&#x8BBE;&#x7F6E;&#x53D1;&#x5305;&#x901F;&#x7387;&#x4E3A;1%, &#x592A;&#x5927;&#x4F1A;&#x4E22;&#x5305;</span>
+Pktgen:/<span class="token operator">&gt;</span> <span class="token builtin class-name">set</span> <span class="token number">0</span> rate <span class="token number">1</span>
+<span class="token comment">#&#x5F00;&#x59CB;&#x53D1;&#x9001;</span>
+Pktgen:/<span class="token operator">&gt;</span> start all
+<span class="token comment">#&#x505C;&#x6B62;&#x53D1;&#x9001;</span>
+Pktgen:/<span class="token operator">&gt;</span> stop all
 </code></pre>
 <p>&#x53D1;&#x9001;&#x7ED3;&#x675F;&#x540E;&#x5728;Host B&#x548C;VM01 VM02&#x4E0A;&#x5206;&#x522B;&#x7EDF;&#x8BA1;&#x591A;&#x64AD;&#x62A5;&#x6587;&#x4E2A;&#x6570;:</p>
-<pre><code class="lang-bash">$ sudo ethtool -S enP5p1s0 | grep multicast_packets
-     rx_vport_multicast_packets: 8981036150
-     tx_vport_multicast_packets: 112483059
-     rx_vport_rdma_multicast_packets: 0
-     tx_vport_rdma_multicast_packets: 0
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> <span class="token function">ethtool</span> <span class="token parameter variable">-S</span> enP5p1s0 <span class="token operator">|</span> <span class="token function">grep</span> multicast_packets
+     rx_vport_multicast_packets: <span class="token number">8981036150</span>
+     tx_vport_multicast_packets: <span class="token number">112483059</span>
+     rx_vport_rdma_multicast_packets: <span class="token number">0</span>
+     tx_vport_rdma_multicast_packets: <span class="token number">0</span>
 </code></pre>
 <h4 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_12"><a name="&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_12" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;----pass_12"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C; -- PASS</h4>
 <table>
@@ -4036,7 +4033,7 @@ Pktgen:/&gt; stop all
 <h2 id="vm&#x540C;&#x65F6;&#x6DFB;&#x52A0;sriov&#x548C;vhost-user&#x5BFC;&#x81F4;ovs&#x5D29;&#x6E83;&#x91CD;&#x542F;"><a name="vm&#x540C;&#x65F6;&#x6DFB;&#x52A0;sriov&#x548C;vhost-user&#x5BFC;&#x81F4;ovs&#x5D29;&#x6E83;&#x91CD;&#x542F;" class="anchor-navigation-ex-anchor" href="#vm&#x540C;&#x65F6;&#x6DFB;&#x52A0;sriov&#x548C;vhost-user&#x5BFC;&#x81F4;ovs&#x5D29;&#x6E83;&#x91CD;&#x542F;"><i class="fa fa-link" aria-hidden="true"></i></a>5.2. VM&#x540C;&#x65F6;&#x6DFB;&#x52A0;sriov&#x548C;vhost-user&#x5BFC;&#x81F4;OVS&#x5D29;&#x6E83;&#x91CD;&#x542F;</h2>
 <p>&#x73B0;&#x8C61;&#x662F;&#x5355;&#x72EC;&#x6DFB;&#x52A0;sriov&#x6216;vhost-user&#x6B63;&#x5E38;, &#x540C;&#x65F6;&#x6DFB;&#x52A0;&#x5219;ovs-vswitchd&#x4F1A;&#x9A6C;&#x4E0A;&#x5D29;&#x6E83;&#x91CD;&#x542F;
 error log</p>
-<pre><code class="lang-tao">2018-09-07T05:20:01.091Z|00074|dpdk|INFO|VHOST_CONFIG: read message VHOST_USER_SET_VRING_KICK
+<pre class="language-"><code class="lang-tao">2018-09-07T05:20:01.091Z|00074|dpdk|INFO|VHOST_CONFIG: read message VHOST_USER_SET_VRING_KICK
 2018-09-07T05:20:01.091Z|00075|dpdk|INFO|VHOST_CONFIG: vring kick idx:3 file:110
 2018-09-07T05:20:01.091Z|00076|dpdk|INFO|VHOST_CONFIG: virtio is now ready for processing.
 2018-09-07T05:20:01.091Z|00077|netdev_dpdk|INFO|vHost Device &apos;/usr/local/var/run/openvswitch/dpdkvhostuser0&apos; has been added on numa node 0
@@ -4109,11 +4106,10 @@ error log</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"网络虚拟化用例记录","level":"1.14.2.6","depth":3,"next":{"title":"网络虚拟化操作记录","level":"1.14.2.7","depth":3,"path":"notes/networking_网络虚拟化操作记录.md","ref":"notes/networking_网络虚拟化操作记录.md","articles":[]},"previous":{"title":"OVS PHY-VM-PHY","level":"1.14.2.5","depth":3,"path":"notes/OVS_phy-vm-phy.md","ref":"notes/OVS_phy-vm-phy.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/networking_网络虚拟化用例记录.md","mtime":"2022-10-11T15:10:43.010Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"网络虚拟化用例记录","level":"1.14.2.6","depth":3,"next":{"title":"网络虚拟化操作记录","level":"1.14.2.7","depth":3,"path":"notes/networking_网络虚拟化操作记录.md","ref":"notes/networking_网络虚拟化操作记录.md","articles":[]},"previous":{"title":"OVS PHY-VM-PHY","level":"1.14.2.5","depth":3,"path":"notes/OVS_phy-vm-phy.md","ref":"notes/OVS_phy-vm-phy.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/networking_网络虚拟化用例记录.md","mtime":"2022-10-11T15:39:07.950Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -4152,7 +4148,6 @@ error log</p>
         
     
 
-        
     </body>
 </html>
 

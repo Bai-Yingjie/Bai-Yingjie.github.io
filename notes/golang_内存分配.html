@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2883,29 +2880,29 @@
 <p>Go memory management is automatically done by the standard library from the allocation of the memory to its collection when it is not used anymore. Although the developer does not have to deal with it, the underlying management done by Go is well optimized and full of interesting concepts.</p>
 <h1 id="allocation-on-the-heap"><a name="allocation-on-the-heap" class="anchor-navigation-ex-anchor" href="#allocation-on-the-heap"><i class="fa fa-link" aria-hidden="true"></i></a>2. Allocation on the heap</h1>
 <p>The memory management is designed to be fast in a concurrent environment and integrated with the garbage collector. Let&#x2019;s start with a simple example:</p>
-<pre><code class="lang-go">package main
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
 
-type smallStruct **struct** {
-    a, b int64
-    c, d float64
-}
+<span class="token keyword">type</span> smallStruct <span class="token operator">*</span><span class="token operator">*</span><span class="token keyword">struct</span><span class="token operator">*</span><span class="token operator">*</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">,</span> b <span class="token builtin">int64</span>
+    c<span class="token punctuation">,</span> d <span class="token builtin">float64</span>
+<span class="token punctuation">}</span>
 
-func main() {
-    smallAllocation()
-}
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">smallAllocation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-//go:noinline
-func smallAllocation() *smallStruct {
-    return &amp;smallStruct{}
-}
+<span class="token comment">//go:noinline</span>
+<span class="token keyword">func</span> <span class="token function">smallAllocation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>smallStruct <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>smallStruct<span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The annotation <code>//go:noinline</code> will disable in-lining that would optimize the code by removing the function and, therefore, end up with no allocation.</p>
 <p>Running the escape analysis command with <code>go tool compile &quot;-m&quot; main.go</code> will confirm the allocation made by Go:</p>
 <p>Dumping the assembly code for this program, thanks to <code>go tool compile -S main.go</code>, would also explicitly show us the allocation:</p>
-<pre><code class="lang-go">0x001d 00029 (main.go:14)  LEAQ   type.&quot;&quot;.smallStruct(SB), AX
-0x0024 00036 (main.go:14)  PCDATA $0, $0
-0x0024 00036 (main.go:14)  MOVQ   AX, (SP)
-0x0028 00040 (main.go:14)  CALL   runtime.newobject(SB)
+<pre class="language-"><code class="lang-go"><span class="token number">0x001d</span> <span class="token number">00029</span> <span class="token punctuation">(</span>main<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">14</span><span class="token punctuation">)</span>  LEAQ   <span class="token keyword">type</span><span class="token punctuation">.</span><span class="token string">&quot;&quot;</span><span class="token punctuation">.</span><span class="token function">smallStruct</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span><span class="token punctuation">,</span> AX
+<span class="token number">0x0024</span> <span class="token number">00036</span> <span class="token punctuation">(</span>main<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">14</span><span class="token punctuation">)</span>  PCDATA $<span class="token number">0</span><span class="token punctuation">,</span> $<span class="token number">0</span>
+<span class="token number">0x0024</span> <span class="token number">00036</span> <span class="token punctuation">(</span>main<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">14</span><span class="token punctuation">)</span>  MOVQ   AX<span class="token punctuation">,</span> <span class="token punctuation">(</span>SP<span class="token punctuation">)</span>
+<span class="token number">0x0028</span> <span class="token number">00040</span> <span class="token punctuation">(</span>main<span class="token punctuation">.</span><span class="token keyword">go</span><span class="token punctuation">:</span><span class="token number">14</span><span class="token punctuation">)</span>  CALL   runtime<span class="token punctuation">.</span><span class="token function">newobject</span><span class="token punctuation">(</span>SB<span class="token punctuation">)</span>
 </code></pre>
 <p>The function <code>newobject</code> is the built-in function for new allocations and proxy <code>mallocgc</code>, a function that manages them on the heap. There are two strategies in Go, one for the small allocations and one for larger ones.</p>
 <h1 id="small-allocation"><a name="small-allocation" class="anchor-navigation-ex-anchor" href="#small-allocation"><i class="fa fa-link" aria-hidden="true"></i></a>3. Small allocation</h1>
@@ -2977,11 +2974,10 @@ func smallAllocation() *smallStruct {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Golang 内存分配(网摘)","level":"1.7.2.2","depth":3,"next":{"title":"Golang 标准库","level":"1.7.3","depth":2,"path":"notes/golang_标准库.md","ref":"notes/golang_标准库.md","articles":[]},"previous":{"title":"Golang interface原理(网摘)","level":"1.7.2.1","depth":3,"path":"notes/golang_interface原理.md","ref":"notes/golang_interface原理.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_内存分配.md","mtime":"2022-10-11T15:10:42.538Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Golang 内存分配(网摘)","level":"1.7.2.2","depth":3,"next":{"title":"Golang 标准库","level":"1.7.3","depth":2,"path":"notes/golang_标准库.md","ref":"notes/golang_标准库.md","articles":[]},"previous":{"title":"Golang interface原理(网摘)","level":"1.7.2.1","depth":3,"path":"notes/golang_interface原理.md","ref":"notes/golang_interface原理.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_内存分配.md","mtime":"2022-10-11T15:39:07.534Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3020,7 +3016,6 @@ func smallAllocation() *smallStruct {
         
     
 
-        
     </body>
 </html>
 

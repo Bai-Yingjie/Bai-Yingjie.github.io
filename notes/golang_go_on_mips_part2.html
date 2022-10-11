@@ -21,6 +21,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
                 
             
@@ -86,16 +90,9 @@
     </head>
     <body>
         
-
-
 <div class="book">
     <div class="book-summary">
         
-            <div class="theme-code-header">
-                <a href="" class="link">
-                    <h1 class="title">My Notes</h1>
-                </a>
-            </div>
             
 <div id="book-search-input" role="search">
     <input type="text" placeholder="输入并搜索" />
@@ -2827,8 +2824,8 @@
     <li class="divider"></li>
 
     <li>
-        <a href="" target="_blank" class="gitbook-link">
-            Author: Bai Yingjie
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -2885,8 +2882,8 @@ In the end of that article, I proposed to try MIPS N64 ABI. However, in buildroo
 The possible options to support N64 ABI:</p>
 <ul>
 <li>change the whole world from N32 ABI completely to N64 ABI: a fundamental change, big impact, think about Android or ios switching from 32 bit to 64 bit.</li>
-<li>in buildroot, implement &quot;multilib&quot; which supports both N32 and N64, let go packages use n64, everything else use n32: smaller impact, but consuming considerablelly more rootfs size since lib64 will also need to be copied to target rootfs.<pre><code class="lang-sh">#toolchain-external-custom/mips64-octeon-linux-gnu/sys-root
-$ du -sh lib32 lib32-fp lib64 lib64-fp
+<li>in buildroot, implement &quot;multilib&quot; which supports both N32 and N64, let go packages use n64, everything else use n32: smaller impact, but consuming considerablelly more rootfs size since lib64 will also need to be copied to target rootfs.<pre class="language-"><code class="lang-sh"><span class="token comment">#toolchain-external-custom/mips64-octeon-linux-gnu/sys-root</span>
+$ <span class="token function">du</span> <span class="token parameter variable">-sh</span> lib32 lib32-fp lib64 lib64-fp
 50M lib32
 25M lib32-fp
 60M lib64
@@ -2926,28 +2923,28 @@ Fortunately, there is one available(maybe one only for MIPS): Gentoo Linux</p>
 <p>The reason we need 4 steps is go toolchain is written in go, so in order to build go toolchain, we need go bootstrap toolchain, which is go1.4, only X86 can build that toolchain.</p>
 <h1 id="hellogo-and-cgotestgo"><a name="hellogo-and-cgotestgo" class="anchor-navigation-ex-anchor" href="#hellogo-and-cgotestgo"><i class="fa fa-link" aria-hidden="true"></i></a>3. hello.go and cgotest.go</h1>
 <p>OK, now we have native go toolchain, let&apos;s compile and run some go programs:</p>
-<pre><code class="lang-sh">root@yingjieb-VirtualBox ~/work/nfsroot/mipsroot.go.ok/root
-Linux Mint 19.1 Tessa # cat hello.go
+<pre class="language-"><code class="lang-sh">root@yingjieb-VirtualBox ~/work/nfsroot/mipsroot.go.ok/root
+Linux Mint <span class="token number">19.1</span> Tessa <span class="token comment"># cat hello.go</span>
 package main
-import &quot;fmt&quot;
-func main() {
-        fmt.Println(&quot;Hello, World!&quot;)
-        fmt.Println(&quot;First go program on cfnt-b!&quot;)
-}
+<span class="token function">import</span> <span class="token string">&quot;fmt&quot;</span>
+func <span class="token function-name function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fmt.Println<span class="token punctuation">(</span><span class="token string">&quot;Hello, World!&quot;</span><span class="token punctuation">)</span>
+        fmt.Println<span class="token punctuation">(</span><span class="token string">&quot;First go program on cfnt-b!&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 root@yingjieb-VirtualBox ~/work/nfsroot/mipsroot.go.ok/root
-Linux Mint 19.1 Tessa # cat cgotest.go
+Linux Mint <span class="token number">19.1</span> Tessa <span class="token comment"># cat cgotest.go</span>
 package main
-//int Add(int a, int b){
-// return a+b;
-//}
-import &quot;C&quot;
-import &quot;fmt&quot;
-func main() {
-    a := C.int(10)
-    b := C.int(20)
-    c := C.Add(a, b)
-    fmt.Println(c) // 30
-}
+//int Add<span class="token punctuation">(</span>int a, int b<span class="token punctuation">)</span><span class="token punctuation">{</span>
+// <span class="token builtin class-name">return</span> a+b<span class="token punctuation">;</span>
+//<span class="token punctuation">}</span>
+<span class="token function">import</span> <span class="token string">&quot;C&quot;</span>
+<span class="token function">import</span> <span class="token string">&quot;fmt&quot;</span>
+func <span class="token function-name function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a :<span class="token operator">=</span> C.int<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+    b :<span class="token operator">=</span> C.int<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
+    c :<span class="token operator">=</span> C.Add<span class="token punctuation">(</span>a, b<span class="token punctuation">)</span>
+    fmt.Println<span class="token punctuation">(</span>c<span class="token punctuation">)</span> // <span class="token number">30</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The go programs run as expected.<br><img src="img/golang_go_on_mips_part2_20220908224128.png" alt=""><br><img src="img/golang_go_on_mips_part2_20220908224152.png" alt="">  </p>
 <h1 id="works-next"><a name="works-next" class="anchor-navigation-ex-anchor" href="#works-next"><i class="fa fa-link" aria-hidden="true"></i></a>4. Works next</h1>
@@ -3009,11 +3006,10 @@ func main() {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"part 2: build native go compiler","level":"1.7.9.3.2","depth":4,"next":{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},"previous":{"title":"part 1: cross compile go","level":"1.7.9.3.1","depth":4,"path":"notes/golang_go_on_mips_part1.md","ref":"notes/golang_go_on_mips_part1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","theme-code","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"theme-code":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part2.md","mtime":"2022-10-11T15:10:42.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:11:40.551Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"part 2: build native go compiler","level":"1.7.9.3.2","depth":4,"next":{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},"previous":{"title":"part 1: cross compile go","level":"1.7.9.3.1","depth":4,"path":"notes/golang_go_on_mips_part1.md","ref":"notes/golang_go_on_mips_part1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part2.md","mtime":"2022-10-11T15:39:07.530Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T15:40:05.138Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
-
 
         
     <script src="../gitbook/gitbook.js"></script>
@@ -3052,7 +3048,6 @@ func main() {
         
     
 
-        
     </body>
 </html>
 
