@@ -1,11 +1,11 @@
 # Summary
 * [简介](README.md)
 
-* [开源](notes/as_title.md)
+* 开源
   * [我的开源项目](notes/my_opensource.md)
   * [我的upstream commit](notes/my_upstream.md)
 
-* [系统分析和性能](notes/as_title.md)
+* 系统分析和性能
   * [bcc和ebpf(starting)](notes/system_analysis_bcc和ebpf.md)
   * [OVS进程调查](notes/performance_ovs进程调查.md)
   * [ping流程和函数调用解析](notes/performance_ping流程和函数调用解析.md)
