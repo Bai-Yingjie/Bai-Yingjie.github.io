@@ -21,7 +21,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
                 
             
                 
@@ -2863,13 +2867,13 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x80CC;&#x666F;"><b>1. </b>&#x80CC;&#x666F;</a></li><li><span class="title-icon "></span><a href="#&#x5C1D;&#x8BD5;1"><b>2. </b>&#x5C1D;&#x8BD5;1</a></li><li><span class="title-icon "></span><a href="#&#x5C1D;&#x8BD5;2"><b>3. </b>&#x5C1D;&#x8BD5;2</a></li><li><span class="title-icon "></span><a href="#&#x7EC8;&#x6781;&#x65B9;&#x6848;"><b>4. </b>&#x7EC8;&#x6781;&#x65B9;&#x6848;</a></li><li><span class="title-icon "></span><a href="#&#x542F;&#x52A8;&#x6253;&#x5370;"><b>5. </b>&#x542F;&#x52A8;&#x6253;&#x5370;</a></li><li><span class="title-icon "></span><a href="#&#x540E;&#x8BB0;"><b>6. </b>&#x540E;&#x8BB0;</a></li></ul></div><a href="#&#x80CC;&#x666F;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="&#x80CC;&#x666F;"><a name="&#x80CC;&#x666F;" class="anchor-navigation-ex-anchor" href="#&#x80CC;&#x666F;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x80CC;&#x666F;</h1>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x80CC;&#x666F;"><b>1. </b>&#x80CC;&#x666F;</a></li><li><span class="title-icon "></span><a href="#&#x5C1D;&#x8BD5;1"><b>2. </b>&#x5C1D;&#x8BD5;1</a></li><li><span class="title-icon "></span><a href="#&#x5C1D;&#x8BD5;2"><b>3. </b>&#x5C1D;&#x8BD5;2</a></li><li><span class="title-icon "></span><a href="#&#x7EC8;&#x6781;&#x65B9;&#x6848;"><b>4. </b>&#x7EC8;&#x6781;&#x65B9;&#x6848;</a></li><li><span class="title-icon "></span><a href="#&#x542F;&#x52A8;&#x6253;&#x5370;"><b>5. </b>&#x542F;&#x52A8;&#x6253;&#x5370;</a></li><li><span class="title-icon "></span><a href="#&#x540E;&#x8BB0;"><b>6. </b>&#x540E;&#x8BB0;</a></li></ul></div><a href="#&#x80CC;&#x666F;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><h1 id="&#x80CC;&#x666F;"><a name="&#x80CC;&#x666F;" class="anchor-navigation-ex-anchor" href="#&#x80CC;&#x666F;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x80CC;&#x666F;</h1>
 <p>&#x6709;&#x7684;&#x677F;&#x5B50;kernel&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x6709;ecc&#x9519;, kernel&#x91CC;&#x9762;&#x6709;&#x4E2A;polling&#x4EFB;&#x52A1;&#x4F1A;&#x6253;&#x5370;</p>
-<pre class="language-"><code>EDAC MC0: 1 CE DIMM 1 rank 1 bank 4 row 65056 col 1020 on any memory ( page:0x0 offset:0x0 grain:0 syndrome:0x0)
-</code></pre><p>&#x4E00;&#x4E2A;workaround&#x601D;&#x8DEF;&#x662F;, &#x68C0;&#x6D4B;&#x5230;ecc&#x9519;&#x7684;&#x65F6;&#x5019;&#x91CD;&#x542F;&#x677F;&#x5B50;. &#x56E0;&#x4E3A;&#x8FD9;&#x4E2A;ecc&#x9519;&#x548C;&#x91CD;&#x542F;&#x76F8;&#x5173;.</p>
+<pre class="line-numbers language-undefined"><code class=" language-undefined">EDAC MC0: 1 CE DIMM 1 rank 1 bank 4 row 65056 col 1020 on any memory ( page:0x0 offset:0x0 grain:0 syndrome:0x0)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>&#x4E00;&#x4E2A;workaround&#x601D;&#x8DEF;&#x662F;, &#x68C0;&#x6D4B;&#x5230;ecc&#x9519;&#x7684;&#x65F6;&#x5019;&#x91CD;&#x542F;&#x677F;&#x5B50;. &#x56E0;&#x4E3A;&#x8FD9;&#x4E2A;ecc&#x9519;&#x548C;&#x91CD;&#x542F;&#x76F8;&#x5173;.</p>
 <h1 id="&#x5C1D;&#x8BD5;1"><a name="&#x5C1D;&#x8BD5;1" class="anchor-navigation-ex-anchor" href="#&#x5C1D;&#x8BD5;1"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x5C1D;&#x8BD5;1</h1>
 <p>&#x5728;init&#x811A;&#x672C;&#x91CC;&#x9762;&#x68C0;&#x6D4B;</p>
-<pre class="language-"><code>while true; do
+<pre class="line-numbers language-undefined"><code class=" language-undefined">while true; do
     key=&quot;CE DIMM&quot;
     if `dmesg | grep &quot;$key&quot; &gt;/dev/null` ; then
         echo &quot;i find:  $key&quot;
@@ -2883,18 +2887,18 @@
 
     sleep 1
 done
-</code></pre><p>&#x8FD9;&#x6837;&#x505A;&#x7684;&#x95EE;&#x9898;&#x662F;&#x592A;&#x665A;&#x4E86;, &#x6709;&#x7684;&#x65F6;&#x5019;&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x6839;&#x672C;&#x6CA1;&#x8DD1;&#x5230;kernel&#x5C31;&#x6253;calltrace&#x6302;&#x4F4F;&#x4E86;.</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>&#x8FD9;&#x6837;&#x505A;&#x7684;&#x95EE;&#x9898;&#x662F;&#x592A;&#x665A;&#x4E86;, &#x6709;&#x7684;&#x65F6;&#x5019;&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x6839;&#x672C;&#x6CA1;&#x8DD1;&#x5230;kernel&#x5C31;&#x6253;calltrace&#x6302;&#x4F4F;&#x4E86;.</p>
 <h1 id="&#x5C1D;&#x8BD5;2"><a name="&#x5C1D;&#x8BD5;2" class="anchor-navigation-ex-anchor" href="#&#x5C1D;&#x8BD5;2"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x5C1D;&#x8BD5;2</h1>
 <p>&#x5728;&#x90A3;&#x4E2A;polling&#x4EFB;&#x52A1;&#x91CC;&#x76D1;&#x6D4B;, &#x8FD8;&#x662F;&#x592A;&#x665A;&#x4E86;. &#x8FD9;&#x4E2A;&#x4EFB;&#x52A1;&#x53EF;&#x80FD;&#x90FD;&#x8FD8;&#x6CA1;&#x6765;&#x5F97;&#x53CA;&#x8FD0;&#x884C;, kernel&#x5C31;&#x6302;&#x4F4F;&#x4E86;.</p>
 <h1 id="&#x7EC8;&#x6781;&#x65B9;&#x6848;"><a name="&#x7EC8;&#x6781;&#x65B9;&#x6848;" class="anchor-navigation-ex-anchor" href="#&#x7EC8;&#x6781;&#x65B9;&#x6848;"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x7EC8;&#x6781;&#x65B9;&#x6848;</h1>
 <p>&#x6302;&#x4E2D;&#x65AD;<br>&#x8FD9;&#x91CC;&#x5148;&#x628A;&#x4EE3;&#x7801;&#x653E;&#x4E0A;&#x6765;
 &#x5728;<code>~/repo/hg/xrepo/OCTEON-SDK-3.1/linux/kernel/linux/drivers/edac/octeon_edac-lmc.c</code>
 &#x6700;&#x540E;&#x52A0;</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression"><span class="token number">1</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/interrupt.h&gt;</span></span>
-<span class="token keyword">static</span> <span class="token class-name">irqreturn_t</span> <span class="token function">interrupt_octeon_lmc</span><span class="token punctuation">(</span><span class="token keyword">int</span> irq<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>dev_id<span class="token punctuation">)</span>
+<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token macro property">#<span class="token directive keyword">if</span> 1</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;linux/interrupt.h&gt;</span></span>
+<span class="token keyword">static</span> irqreturn_t <span class="token function">interrupt_octeon_lmc</span><span class="token punctuation">(</span><span class="token keyword">int</span> irq<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>dev_id<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-    <span class="token class-name">cvmx_ciu_cib_lmcx_rawx_t</span> cib_lmc_raw<span class="token punctuation">;</span>
+    cvmx_ciu_cib_lmcx_rawx_t cib_lmc_raw<span class="token punctuation">;</span>
     <span class="token keyword">union</span> cvmx_lmcx_int int_reg<span class="token punctuation">;</span>
     <span class="token keyword">char</span> msg<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token function">printk</span><span class="token punctuation">(</span><span class="token string">&quot;%s:%d irq=%d&quot;</span><span class="token punctuation">,</span> __FUNCTION__<span class="token punctuation">,</span> <span class="token constant">__LINE__</span><span class="token punctuation">,</span> irq<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -2932,7 +2936,7 @@ done
 <span class="token punctuation">{</span>
     <span class="token keyword">unsigned</span> <span class="token keyword">int</span> hwirq<span class="token punctuation">;</span>
     <span class="token keyword">int</span> irq<span class="token punctuation">;</span>
-    <span class="token class-name">cvmx_ciu_cib_lmcx_enx_t</span> cib_lmc_en<span class="token punctuation">;</span>
+    cvmx_ciu_cib_lmcx_enx_t cib_lmc_en<span class="token punctuation">;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">OCTEON_IS_MODEL</span><span class="token punctuation">(</span>OCTEON_CN70XX<span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
     <span class="token function">printk</span><span class="token punctuation">(</span><span class="token string">&quot;ECC workaround for cn70xx!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -2955,8 +2959,8 @@ done
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token function">core_initcall</span><span class="token punctuation">(</span>octeon_setup_lmc_interrupt<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
-</code></pre>
+<span class="token macro property">#<span class="token directive keyword">endif</span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x8FD9;&#x91CC;&#x9762;&#x6709;&#x597D;&#x51E0;&#x4E2A;&#x70B9;</p>
 <ul>
 <li>hwirq&#x662F;&#x786C;&#x4EF6;&#x4E2D;&#x65AD;&#x53F7;, &#x548C;&#x5177;&#x4F53;&#x7684;&#x4E2D;&#x65AD;&#x63A7;&#x5236;&#x5668;(&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x4E00;&#x4E2A;&#x4E2D;&#x65AD;&#x63A7;&#x5236;&#x5668;&#x662F;&#x4E00;&#x4E2A;domain)&#x6709;&#x5173;, &#x8FD9;&#x4E2A;domain&#x91CC;&#x9762;&#x7684;map&#x51FD;&#x6570;&#x63A7;&#x5236;hwirq&#x53F7;&#x5230;irq&#x53F7;&#x7684;&#x6620;&#x5C04;</li>
@@ -2966,7 +2970,7 @@ done
 <li>core_initcall()&#x662F;&#x4E2A;&#x7CFB;&#x5217;&#x51FD;&#x6570;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;, &#x53EF;&#x4EE5;&#x5728;kernel&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x6302;&#x521D;&#x59CB;&#x5316;&#x51FD;&#x6570;, &#x4F4D;&#x7F6E;&#x6BD4;&#x8F83;&#x9760;&#x524D;.</li>
 </ul>
 <h1 id="&#x542F;&#x52A8;&#x6253;&#x5370;"><a name="&#x542F;&#x52A8;&#x6253;&#x5370;" class="anchor-navigation-ex-anchor" href="#&#x542F;&#x52A8;&#x6253;&#x5370;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x542F;&#x52A8;&#x6253;&#x5370;</h1>
-<pre class="language-"><code>03-19 06:56:05  [    0.000000] NR_IRQS:598
+<pre class="line-numbers language-undefined"><code class=" language-undefined">03-19 06:56:05  [    0.000000] NR_IRQS:598
 03-19 06:56:05  [   34.196761] Calibrating delay loop (skipped) preset value.. 2400.00 BogoMIPS (lpj=12000000)
 03-19 06:56:05  [   34.204941] pid_max: default: 32768 minimum: 501
 03-19 06:56:05  [   34.209775] Mount-cache hash table entries: 256
@@ -2987,9 +2991,9 @@ done
 03-19 06:56:05  [   34.353002] LCM0_FADR=0x2000000 LCM0_ECC_SYND=0xc500
 03-19 06:56:05  [   34.358113] NET: Registered protocol family 16
 03-19 06:56:05  [   34.363522] Installing handlers for error tree at: ffffffff80727130
-</code></pre><h1 id="&#x540E;&#x8BB0;"><a name="&#x540E;&#x8BB0;" class="anchor-navigation-ex-anchor" href="#&#x540E;&#x8BB0;"><i class="fa fa-link" aria-hidden="true"></i></a>6. &#x540E;&#x8BB0;</h1>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="&#x540E;&#x8BB0;"><a name="&#x540E;&#x8BB0;" class="anchor-navigation-ex-anchor" href="#&#x540E;&#x8BB0;"><i class="fa fa-link" aria-hidden="true"></i></a>6. &#x540E;&#x8BB0;</h1>
 <p>&#x8FD9;&#x4E2A;&#x6302;&#x4E2D;&#x65AD;&#x7684;&#x65B9;&#x6848;&#x540E;&#x6765;&#x4E5F;&#x88AB;&#x8BC1;&#x660E;&#x8FD8;&#x662F;&#x592A;&#x665A;&#x4E86;, &#x6700;&#x540E;&#x8FD8;&#x662F;&#x56E0;&#x4E3A;ddr&#x7684;&#x53C2;&#x6570;&#x4E0D;&#x5BF9;&#x5BFC;&#x81F4;&#x7684;.<br>&#x4F46;&#x662F;&#x5728;linux&#x4E0B;&#x9762;&#x6302;&#x4E00;&#x4E2A;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x51FD;&#x6570;, &#x5927;&#x4F53;&#x5982;&#x6B64;.</p>
-
+</body></html>
                                 
                                 </section>
                             
@@ -3032,7 +3036,7 @@ done
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon 增加ECC中断","level":"1.16.3.6","depth":3,"next":{"title":"octeon hw-ddr2代码走读","level":"1.16.3.7","depth":3,"path":"notes/CPU_MIPS_octeon_hw-ddr2代码走读.md","ref":"notes/CPU_MIPS_octeon_hw-ddr2代码走读.md","articles":[]},"previous":{"title":"octeon CN78xx BDK","level":"1.16.3.5","depth":3,"path":"notes/CPU_MIPS_octeon_BDK.md","ref":"notes/CPU_MIPS_octeon_BDK.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/kernel_增加ECC中断.md","mtime":"2022-10-11T16:01:35.493Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T16:02:31.524Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon 增加ECC中断","level":"1.16.3.6","depth":3,"next":{"title":"octeon hw-ddr2代码走读","level":"1.16.3.7","depth":3,"path":"notes/CPU_MIPS_octeon_hw-ddr2代码走读.md","ref":"notes/CPU_MIPS_octeon_hw-ddr2代码走读.md","articles":[]},"previous":{"title":"octeon CN78xx BDK","level":"1.16.3.5","depth":3,"path":"notes/CPU_MIPS_octeon_BDK.md","ref":"notes/CPU_MIPS_octeon_BDK.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/kernel_增加ECC中断.md","mtime":"2022-10-12T01:03:46.347Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T01:04:48.354Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

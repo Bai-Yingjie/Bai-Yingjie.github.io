@@ -84,7 +84,7 @@ device_initcall(octeon_publish_devices);
 ```
 
 ## mips ioremap
-```
+```c
 /*
  * ioremap     -   map bus memory into CPU space
  * @offset:    bus address of the memory

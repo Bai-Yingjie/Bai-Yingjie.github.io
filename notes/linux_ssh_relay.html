@@ -21,7 +21,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
                 
             
                 
@@ -2863,7 +2867,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#ssh-relay"><b>1. </b>ssh relay</a></li><ul><li><span class="title-icon "></span><a href="#on-home-server"><b>1.1. </b>on home server</a></li><li><span class="title-icon "></span><a href="#login-to-relay-server"><b>1.2. </b>login to relay server</a></li><li><span class="title-icon "></span><a href="#from-any-pc"><b>1.3. </b>from any PC</a></li><li><span class="title-icon "></span><a href="#ssh-keep-alive"><b>1.4. </b>ssh keep alive</a></li><li><span class="title-icon "></span><a href="#make-it-persistent"><b>1.5. </b>make it persistent</a></li></ul></ul></div><a href="#ssh-relay" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#ssh-relay"><b>1. </b>ssh relay</a></li><ul><li><span class="title-icon "></span><a href="#on-home-server"><b>1.1. </b>on home server</a></li><li><span class="title-icon "></span><a href="#login-to-relay-server"><b>1.2. </b>login to relay server</a></li><li><span class="title-icon "></span><a href="#from-any-pc"><b>1.3. </b>from any PC</a></li><li><span class="title-icon "></span><a href="#ssh-keep-alive"><b>1.4. </b>ssh keep alive</a></li><li><span class="title-icon "></span><a href="#make-it-persistent"><b>1.5. </b>make it persistent</a></li></ul></ul></div><a href="#ssh-relay" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
 <li><a href="#ssh-relay">ssh relay</a><ul>
 <li><a href="#on-home-server">on home server</a></li>
 <li><a href="#login-to-relay-server">login to relay server</a></li>
@@ -2880,34 +2884,34 @@ you must have a <strong>public server(relay server)</strong> 122.235.139.194(sh_
 <p><code>homeserver~$ ssh -fN -R 10022:localhost:22 sh_cvmx@122.235.139.194</code>
 10022 is an unused port on relay server</p>
 <h2 id="login-to-relay-server"><a name="login-to-relay-server" class="anchor-navigation-ex-anchor" href="#login-to-relay-server"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. login to relay server</h2>
-<pre class="language-"><code class="lang-sh"><span class="token function">ssh</span> sh_cvmx@122.235.139.194
-shanghaicavm<span class="token operator">!</span>
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">ssh sh_cvmx@122.235.139.194
+shanghaicavm!
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>check 10022 port, shoud be like this:</p>
-<pre class="language-"><code class="lang-sh">relayserver~$ <span class="token function">sudo</span> <span class="token function">netstat</span> <span class="token parameter variable">-nap</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">10022</span>
-tcp      <span class="token number">0</span>    <span class="token number">0</span> <span class="token number">127.0</span>.0.1:10022          <span class="token number">0.0</span>.0.0:*               LISTEN      <span class="token number">8493</span>/sshd
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">relayserver~$ sudo netstat -nap | grep 10022
+tcp      0    0 127.0.0.1:10022          0.0.0.0:*               LISTEN      8493/sshd
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="from-any-pc"><a name="from-any-pc" class="anchor-navigation-ex-anchor" href="#from-any-pc"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. from any PC</h2>
 <p>login to relay server</p>
-<pre class="language-"><code class="lang-sh"><span class="token function">ssh</span> sh_cvmx@122.235.139.194
-shanghaicavm<span class="token operator">!</span>
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">ssh sh_cvmx@122.235.139.194
+shanghaicavm!
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>Then on relay server, login to home server:</p>
-<pre class="language-"><code>relayserver~$ ssh -p 10022 cvm@localhost
+<pre class="line-numbers language-undefined"><code class=" language-undefined">relayserver~$ ssh -p 10022 cvm@localhost
 cvmx@sh
-</code></pre><h2 id="ssh-keep-alive"><a name="ssh-keep-alive" class="anchor-navigation-ex-anchor" href="#ssh-keep-alive"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. ssh keep alive</h2>
-<pre class="language-"><code class="lang-sh"><span class="token comment"># vim /etc/ssh/ssh_config</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h2 id="ssh-keep-alive"><a name="ssh-keep-alive" class="anchor-navigation-ex-anchor" href="#ssh-keep-alive"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. ssh keep alive</h2>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh"># vim /etc/ssh/ssh_config
 Host *
-    ServerAliveInterval <span class="token number">60</span>
-    ServerAliveCountMax <span class="token number">2</span>
-</code></pre>
+    ServerAliveInterval 60
+    ServerAliveCountMax 2
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>sudo service ssh restart</code></p>
 <h2 id="make-it-persistent"><a name="make-it-persistent" class="anchor-navigation-ex-anchor" href="#make-it-persistent"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. make it persistent</h2>
 <ol>
 <li><p>passwordless ssh login, on home server</p>
-<pre class="language-"><code class="lang-sh">ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-P</span> <span class="token string">&apos;&apos;</span>
-<span class="token function">cat</span> ~/.ssh/id_rsa.pub <span class="token operator">|</span> <span class="token function">ssh</span> root@112.74.210.173 <span class="token string">&quot;cat &gt;&gt; ~/.ssh/authorized_keys&quot;</span>
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">ssh-keygen -t rsa -P &apos;&apos;
+cat ~/.ssh/id_rsa.pub | ssh root@112.74.210.173 &quot;cat &gt;&gt; ~/.ssh/authorized_keys&quot;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>&#x6CE8;: &#x6709;&#x7684;&#x65F6;&#x5019;&#x8FD8;&#x662F;&#x4E0D;&#x80FD;&#x514D;&#x5BC6;&#x767B;&#x5F55;, &#x6B64;&#x65F6;&#x8981;&#x8BE5;&#x670D;&#x52A1;&#x7AEF;&#x7684;&#x6743;&#x9650; chmod 600 authorized_keys</p>
 </li>
 <li><p><code>yum install autossh</code></p>
@@ -2916,7 +2920,7 @@ Host *
 <li><code>ssh root@112.74.210.173 Cavium@sh</code></li>
 <li><code>ssh -p 11985 cvm@localhost cvmx@sh</code></li>
 </ol>
-
+</body></html>
                                 
                                 </section>
                             
@@ -2959,7 +2963,7 @@ Host *
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"ssh relay","level":"1.6.4","depth":2,"next":{"title":"gitlab CI","level":"1.6.5","depth":2,"path":"notes/gitlab_ci.md","ref":"notes/gitlab_ci.md","articles":[]},"previous":{"title":"向kernel提交补丁","level":"1.6.3","depth":2,"path":"notes/向kernel提交补丁.md","ref":"notes/向kernel提交补丁.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/linux_ssh_relay.md","mtime":"2022-10-11T16:01:35.493Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T16:02:31.524Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"ssh relay","level":"1.6.4","depth":2,"next":{"title":"gitlab CI","level":"1.6.5","depth":2,"path":"notes/gitlab_ci.md","ref":"notes/gitlab_ci.md","articles":[]},"previous":{"title":"向kernel提交补丁","level":"1.6.3","depth":2,"path":"notes/向kernel提交补丁.md","ref":"notes/向kernel提交补丁.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/linux_ssh_relay.md","mtime":"2022-10-12T01:03:46.347Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T01:04:48.354Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -21,7 +21,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
                 
             
                 
@@ -2863,7 +2867,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#1-multiples-of-3-and-5"><b>1. </b>1. Multiples of 3 and 5</a></li><li><span class="title-icon "></span><a href="#2-even-fibonacci-numbers"><b>2. </b>2. Even Fibonacci numbers</a></li><li><span class="title-icon "></span><a href="#3-largest-prime-factor"><b>3. </b>3. Largest prime factor</a></li><li><span class="title-icon "></span><a href="#4-largest-palindrome-product"><b>4. </b>4. Largest palindrome product</a></li><li><span class="title-icon "></span><a href="#5-smallest-multiple"><b>5. </b>5. Smallest multiple</a></li><li><span class="title-icon "></span><a href="#6-sum-square-difference"><b>6. </b>6. Sum square difference</a></li><li><span class="title-icon "></span><a href="#7-10001st-prime"><b>7. </b>7. 10001st prime</a></li><li><span class="title-icon "></span><a href="#8-largest-product-in-a-series"><b>8. </b>8. Largest product in a series</a></li><li><span class="title-icon "></span><a href="#9-special-pythagorean-triplet"><b>9. </b>9. Special Pythagorean triplet</a></li><li><span class="title-icon "></span><a href="#10-summation-of-primes"><b>10. </b>10. Summation of primes</a></li></ul></div><a href="#1-multiples-of-3-and-5" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#1-multiples-of-3-and-5"><b>1. </b>1. Multiples of 3 and 5</a></li><li><span class="title-icon "></span><a href="#2-even-fibonacci-numbers"><b>2. </b>2. Even Fibonacci numbers</a></li><li><span class="title-icon "></span><a href="#3-largest-prime-factor"><b>3. </b>3. Largest prime factor</a></li><li><span class="title-icon "></span><a href="#4-largest-palindrome-product"><b>4. </b>4. Largest palindrome product</a></li><li><span class="title-icon "></span><a href="#5-smallest-multiple"><b>5. </b>5. Smallest multiple</a></li><li><span class="title-icon "></span><a href="#6-sum-square-difference"><b>6. </b>6. Sum square difference</a></li><li><span class="title-icon "></span><a href="#7-10001st-prime"><b>7. </b>7. 10001st prime</a></li><li><span class="title-icon "></span><a href="#8-largest-product-in-a-series"><b>8. </b>8. Largest product in a series</a></li><li><span class="title-icon "></span><a href="#9-special-pythagorean-triplet"><b>9. </b>9. Special Pythagorean triplet</a></li><li><span class="title-icon "></span><a href="#10-summation-of-primes"><b>10. </b>10. Summation of primes</a></li></ul></div><a href="#1-multiples-of-3-and-5" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
 <li><a href="#1-multiples-of-3-and-5">1. Multiples of 3 and 5</a></li>
 <li><a href="#2-even-fibonacci-numbers">2. Even Fibonacci numbers</a></li>
 <li><a href="#3-largest-prime-factor">3. Largest prime factor</a></li>
@@ -2878,91 +2882,91 @@
 <h1 id="1-multiples-of-3-and-5"><a name="1-multiples-of-3-and-5" class="anchor-navigation-ex-anchor" href="#1-multiples-of-3-and-5"><i class="fa fa-link" aria-hidden="true"></i></a>1. 1. Multiples of 3 and 5</h1>
 <p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.</p>
 <p>Find the sum of all the multiples of 3 or 5 below 1000</p>
-<pre class="language-"><code class="lang-py"><span class="token number">233168</span>
-<span class="token builtin">sum</span><span class="token punctuation">(</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span> <span class="token keyword">if</span> i<span class="token operator">%</span><span class="token number">3</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">or</span> i<span class="token operator">%</span><span class="token number">5</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-</code></pre>
+<pre class="line-numbers language-py" lang="py"><code class=" language-py">233168
+sum(i for i in range(1000) if i%3 == 0 or i%5 == 0)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="2-even-fibonacci-numbers"><a name="2-even-fibonacci-numbers" class="anchor-navigation-ex-anchor" href="#2-even-fibonacci-numbers"><i class="fa fa-link" aria-hidden="true"></i></a>2. 2. Even Fibonacci numbers</h1>
 <p>Each new term in the Fibonacci sequence is generated by adding the previous two terms. By starting with 1 and 2, the first 10 terms will be:</p>
 <p>1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...</p>
 <p>By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.</p>
-<pre class="language-"><code class="lang-py"><span class="token number">4613732</span>
-<span class="token keyword">def</span> <span class="token function">fib</span><span class="token punctuation">(</span><span class="token builtin">max</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    a<span class="token punctuation">,</span>b <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span>
-    <span class="token keyword">while</span> a <span class="token operator">&lt;=</span> <span class="token builtin">max</span><span class="token punctuation">:</span>
-        <span class="token keyword">yield</span> a
-        a<span class="token punctuation">,</span>b <span class="token operator">=</span> b<span class="token punctuation">,</span>a<span class="token operator">+</span>b
-<span class="token builtin">sum</span><span class="token punctuation">(</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> fib<span class="token punctuation">(</span><span class="token number">4000000</span><span class="token punctuation">)</span> <span class="token keyword">if</span> i<span class="token operator">%</span><span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-</code></pre>
+<pre class="line-numbers language-py" lang="py"><code class=" language-py">4613732
+def fib(max):
+    a,b = 1,2
+    while a &lt;= max:
+        yield a
+        a,b = b,a+b
+sum(i for i in fib(4000000) if i%2 == 0)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="3-largest-prime-factor"><a name="3-largest-prime-factor" class="anchor-navigation-ex-anchor" href="#3-largest-prime-factor"><i class="fa fa-link" aria-hidden="true"></i></a>3. 3. Largest prime factor</h1>
 <p>The prime factors of 13195 are 5, 7, 13 and 29.</p>
 <p>What is the largest prime factor of the number 600851475143 ?</p>
-<pre class="language-"><code class="lang-py"><span class="token number">6857</span>
-<span class="token keyword">def</span> <span class="token function">prime</span><span class="token punctuation">(</span><span class="token builtin">max</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    primes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+<pre class="line-numbers language-py" lang="py"><code class=" language-py">6857
+def prime(max):
+    primes = [2]
 
-    <span class="token keyword">for</span> test <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>primes<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token builtin">max</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        sqrt <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>test <span class="token operator">**</span> <span class="token number">0.5</span><span class="token punctuation">)</span>
-        isprime <span class="token operator">=</span> <span class="token boolean">True</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> primes<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> i <span class="token operator">&gt;</span> sqrt<span class="token punctuation">:</span>
-                <span class="token keyword">break</span>
-            <span class="token keyword">if</span> test <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                isprime <span class="token operator">=</span> <span class="token boolean">False</span>
-                <span class="token keyword">break</span>
-        <span class="token keyword">if</span> isprime<span class="token punctuation">:</span>
-            primes<span class="token punctuation">.</span>append<span class="token punctuation">(</span>test<span class="token punctuation">)</span>
+    for test in range(primes[-1]+1, max+1, 2):
+        sqrt = int(test ** 0.5)
+        isprime = True
+        for i in primes:
+            if i &gt; sqrt:
+                break
+            if test % i == 0:
+                isprime = False
+                break
+        if isprime:
+            primes.append(test)
 
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> primes<span class="token punctuation">:</span>
-        <span class="token keyword">yield</span> i
+    for i in primes:
+        yield i
 
-num <span class="token operator">=</span> <span class="token number">600851475143</span> 
+num = 600851475143 
 
-<span class="token keyword">for</span> i <span class="token keyword">in</span> prime<span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>num <span class="token operator">**</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> num <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-        <span class="token builtin">max</span> <span class="token operator">=</span> i
+for i in prime(int(num ** 0.5)):
+    if num % i == 0:
+        max = i
 
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">max</span><span class="token punctuation">)</span>
-</code></pre>
+print(max)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="4-largest-palindrome-product"><a name="4-largest-palindrome-product" class="anchor-navigation-ex-anchor" href="#4-largest-palindrome-product"><i class="fa fa-link" aria-hidden="true"></i></a>4. 4. Largest palindrome product</h1>
 <p>A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 <img src="index_files/symbol_times[1].gif" alt=""> 99.</p>
 <p>Find the largest palindrome made from the product of two 3-digit numbers.</p>
-<pre class="language-"><code class="lang-py"><span class="token number">906609</span>
-<span class="token keyword">def</span> <span class="token function">reverse</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    renum <span class="token operator">=</span> <span class="token number">0</span>
-    <span class="token keyword">while</span> num<span class="token punctuation">:</span>
-        renum <span class="token operator">=</span> renum <span class="token operator">*</span> <span class="token number">10</span> <span class="token operator">+</span> num <span class="token operator">%</span> <span class="token number">10</span>
-        num <span class="token operator">//=</span> <span class="token number">10</span>
-    <span class="token keyword">return</span> renum
+<pre class="line-numbers language-py" lang="py"><code class=" language-py">906609
+def reverse(num):
+    renum = 0
+    while num:
+        renum = renum * 10 + num % 10
+        num //= 10
+    return renum
 
-<span class="token keyword">def</span> <span class="token function">ispalindrome</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> num <span class="token operator">==</span> reverse<span class="token punctuation">(</span>num<span class="token punctuation">)</span>
+def ispalindrome(num):
+    return num == reverse(num)
 
-<span class="token builtin">max</span><span class="token punctuation">(</span>i<span class="token operator">*</span>j <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">999</span><span class="token punctuation">)</span> <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">999</span><span class="token punctuation">)</span> <span class="token keyword">if</span> ispalindrome<span class="token punctuation">(</span>i<span class="token operator">*</span>j<span class="token punctuation">)</span><span class="token punctuation">)</span>
-</code></pre>
+max(i*j for i in range(999) for j in range(999) if ispalindrome(i*j))
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="5-smallest-multiple"><a name="5-smallest-multiple" class="anchor-navigation-ex-anchor" href="#5-smallest-multiple"><i class="fa fa-link" aria-hidden="true"></i></a>5. 5. Smallest multiple</h1>
 <p>2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.</p>
 <p>What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?</p>
-<pre class="language-"><code class="lang-py"><span class="token number">232792560</span>
-<span class="token keyword">def</span> <span class="token function">gcd</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> b <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> a
-    <span class="token keyword">return</span> gcd<span class="token punctuation">(</span>b<span class="token punctuation">,</span> a<span class="token operator">%</span>b<span class="token punctuation">)</span>
+<pre class="line-numbers language-py" lang="py"><code class=" language-py">232792560
+def gcd(a, b):
+    if b == 0:
+        return a
+    return gcd(b, a%b)
 
-<span class="token keyword">def</span> <span class="token function">GCD</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">while</span> b<span class="token punctuation">:</span>
-        a<span class="token punctuation">,</span> b <span class="token operator">=</span> b<span class="token punctuation">,</span> a<span class="token operator">%</span>b
-    <span class="token keyword">return</span> a
+def GCD(a, b):
+    while b:
+        a, b = b, a%b
+    return a
 
-<span class="token keyword">def</span> <span class="token function">lcm</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> m<span class="token operator">*</span>n<span class="token operator">//</span>gcd<span class="token punctuation">(</span>m<span class="token punctuation">,</span>n<span class="token punctuation">)</span>
+def lcm(m,n):
+    return m*n//gcd(m,n)
 
-<span class="token keyword">def</span> <span class="token function">smallest_multiple</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token number">1</span>
-    <span class="token keyword">return</span> lcm<span class="token punctuation">(</span>n<span class="token punctuation">,</span> smallest_multiple<span class="token punctuation">(</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+def smallest_multiple(n):
+    if n == 1:
+        return 1
+    return lcm(n, smallest_multiple(n-1))
 
-smallest_multiple<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
-</code></pre>
+smallest_multiple(20)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="6-sum-square-difference"><a name="6-sum-square-difference" class="anchor-navigation-ex-anchor" href="#6-sum-square-difference"><i class="fa fa-link" aria-hidden="true"></i></a>6. 6. Sum square difference</h1>
 <p>The sum of the squares of the first ten natural numbers is,</p>
 <p>12 + 22 + ... + 102 = 385</p>
@@ -2970,37 +2974,37 @@ smallest_multiple<span class="token punctuation">(</span><span class="token numb
 <p>(1 + 2 + ... + 10)2 = 552 = 3025</p>
 <p>Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025  385 = 2640.</p>
 <p>Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.</p>
-<pre class="language-"><code class="lang-py"><span class="token number">25164150</span>
-<span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">101</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">**</span> <span class="token number">2</span> <span class="token operator">-</span> <span class="token builtin">sum</span><span class="token punctuation">(</span>x<span class="token operator">**</span><span class="token number">2</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">101</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-</code></pre>
+<pre class="line-numbers language-py" lang="py"><code class=" language-py">25164150
+sum(range(101))** 2 - sum(x**2 for x in range(101))
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="7-10001st-prime"><a name="7-10001st-prime" class="anchor-navigation-ex-anchor" href="#7-10001st-prime"><i class="fa fa-link" aria-hidden="true"></i></a>7. 7. 10001st prime</h1>
 <p>By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.</p>
 <p>What is the 10 001st prime number?</p>
-<pre class="language-"><code class="lang-py"><span class="token number">104743</span>
-<span class="token keyword">def</span> <span class="token function">prime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    primes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
-    x <span class="token operator">=</span> <span class="token number">1</span>
-    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
-        x <span class="token operator">+=</span> <span class="token number">2</span>
-        sqrt <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>x <span class="token operator">**</span> <span class="token number">0.5</span><span class="token punctuation">)</span>
-        isprime <span class="token operator">=</span> <span class="token boolean">True</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> primes<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> i <span class="token operator">&gt;</span> sqrt<span class="token punctuation">:</span>
-                <span class="token keyword">break</span>
-            <span class="token keyword">if</span> x <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                isprime <span class="token operator">=</span> <span class="token boolean">False</span>
-                <span class="token keyword">break</span>
-        <span class="token keyword">if</span> isprime<span class="token punctuation">:</span>
-            <span class="token keyword">yield</span> primes<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
-            primes<span class="token punctuation">.</span>append<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-<span class="token keyword">def</span> <span class="token function">primeByIndex</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    p <span class="token operator">=</span> prime<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    x <span class="token operator">=</span> <span class="token number">0</span>
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        x <span class="token operator">=</span> <span class="token builtin">next</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> x
-primeByIndex<span class="token punctuation">(</span><span class="token number">10001</span><span class="token punctuation">)</span>
-</code></pre>
+<pre class="line-numbers language-py" lang="py"><code class=" language-py">104743
+def prime():
+    primes = [2]
+    x = 1
+    while True:
+        x += 2
+        sqrt = int(x ** 0.5)
+        isprime = True
+        for i in primes:
+            if i &gt; sqrt:
+                break
+            if x % i == 0:
+                isprime = False
+                break
+        if isprime:
+            yield primes[-1]
+            primes.append(x)
+def primeByIndex(n):
+    p = prime()
+    x = 0
+    for i in range(n):
+        x = next(p)
+    return x
+primeByIndex(10001)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="8-largest-product-in-a-series"><a name="8-largest-product-in-a-series" class="anchor-navigation-ex-anchor" href="#8-largest-product-in-a-series"><i class="fa fa-link" aria-hidden="true"></i></a>8. 8. Largest product in a series</h1>
 <p>Find the greatest product of five consecutive digits in the 1000-digit number.</p>
 <p>73167176531330624919225119674426574742355349194934
@@ -3023,8 +3027,8 @@ primeByIndex<span class="token punctuation">(</span><span class="token number">1
 84580156166097919133875499200524063689912560717606
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450</p>
-<pre class="language-"><code class="lang-py"><span class="token number">40824</span>
-d <span class="token operator">=</span> <span class="token triple-quoted-string string">&apos;&apos;&apos;73167176531330624919225119674426574742355349194934
+<pre class="line-numbers language-py" lang="py"><code class=" language-py">40824
+d = &apos;&apos;&apos;73167176531330624919225119674426574742355349194934
 96983520312774506326239578318016984801869478851843
 85861560789112949495459501737958331952853208805511
 12540698747158523863050715693290963295227443043557
@@ -3043,18 +3047,18 @@ d <span class="token operator">=</span> <span class="token triple-quoted-string 
 07198403850962455444362981230987879927244284909188
 84580156166097919133875499200524063689912560717606
 05886116467109405077541002256983155200055935729725
-71636269561882670428252483600823257530420752963450&apos;&apos;&apos;</span>
+71636269561882670428252483600823257530420752963450&apos;&apos;&apos;
 
-num <span class="token operator">=</span> <span class="token number">5</span>
-dd <span class="token operator">=</span> <span class="token string">&apos;1&apos;</span><span class="token operator">*</span>num <span class="token operator">+</span> d<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">&apos;0&apos;</span><span class="token punctuation">,</span><span class="token string">&apos;1&apos;</span><span class="token operator">*</span>num<span class="token punctuation">)</span>
+num = 5
+dd = &apos;1&apos;*num + d.replace(&apos;\n&apos;,&apos;&apos;).replace(&apos;0&apos;,&apos;1&apos;*num)
 
-product <span class="token operator">=</span> <span class="token number">1</span>
-max_product <span class="token operator">=</span> <span class="token number">0</span>
+product = 1
+max_product = 0
 
-<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>dd<span class="token punctuation">)</span><span class="token operator">-</span>num<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    product <span class="token operator">=</span> product <span class="token operator">*</span> <span class="token builtin">int</span><span class="token punctuation">(</span>dd<span class="token punctuation">[</span>i<span class="token operator">+</span>num<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token builtin">int</span><span class="token punctuation">(</span>dd<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
-    max_product <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>product<span class="token punctuation">,</span> max_product<span class="token punctuation">)</span>
-</code></pre>
+for i in range(len(dd)-num):
+    product = product * int(dd[i+num]) // int(dd[i])
+    max_product = max(product, max_product)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="9-special-pythagorean-triplet"><a name="9-special-pythagorean-triplet" class="anchor-navigation-ex-anchor" href="#9-special-pythagorean-triplet"><i class="fa fa-link" aria-hidden="true"></i></a>9. 9. Special Pythagorean triplet</h1>
 <p>A Pythagorean triplet is a set of three natural numbers, a &lt; b &lt; c, for which,</p>
 <p>a2 + b2 = c2</p>
@@ -3062,50 +3066,50 @@ max_product <span class="token operator">=</span> <span class="token number">0</
 <p>There exists exactly one Pythagorean triplet for which a + b + c = 1000.
 Find the product abc.</p>
 <p>----&gt; a &lt; 333 &amp;&amp; c &gt; 333</p>
-<pre class="language-"><code class="lang-py"><span class="token number">200</span> <span class="token number">375</span> <span class="token number">425</span>
-<span class="token number">31875000</span>
+<pre class="line-numbers language-py" lang="py"><code class=" language-py">200 375 425
+31875000
 
-<span class="token keyword">for</span> a <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">333</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">for</span> c <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">333</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        b <span class="token operator">=</span> <span class="token number">1000</span><span class="token operator">-</span>a<span class="token operator">-</span>c
-        <span class="token keyword">if</span> a<span class="token operator">*</span>a <span class="token operator">+</span> b<span class="token operator">*</span>b <span class="token operator">==</span> c<span class="token operator">*</span>c<span class="token punctuation">:</span>
-            <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">)</span>
-            <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token operator">*</span>b<span class="token operator">*</span>c<span class="token punctuation">)</span>
-            <span class="token keyword">break</span>
-</code></pre>
+for a in range(1, 333):
+    for c in range(333, 1000):
+        b = 1000-a-c
+        if a*a + b*b == c*c:
+            print(a, b, c)
+            print(a*b*c)
+            break
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="10-summation-of-primes"><a name="10-summation-of-primes" class="anchor-navigation-ex-anchor" href="#10-summation-of-primes"><i class="fa fa-link" aria-hidden="true"></i></a>10. 10. Summation of primes</h1>
 <p>The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.</p>
 <p>Find the sum of all the primes below two million.</p>
-<pre class="language-"><code class="lang-py"><span class="token number">142913828922</span>
-<span class="token keyword">def</span> <span class="token function">prime</span><span class="token punctuation">(</span>limit<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    primes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> primes<span class="token punctuation">:</span>
-        <span class="token keyword">yield</span> i
+<pre class="line-numbers language-py" lang="py"><code class=" language-py">142913828922
+def prime(limit=0):
+    primes = [2, 3]
+    for i in primes:
+        yield i
 
-    <span class="token keyword">def</span> <span class="token function">is_prime</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        sqrt <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>test <span class="token operator">**</span> <span class="token number">0.5</span><span class="token punctuation">)</span>
-        isprime <span class="token operator">=</span> <span class="token boolean">True</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> primes<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> i <span class="token operator">&gt;</span> sqrt<span class="token punctuation">:</span>
-                <span class="token keyword">break</span>
-            <span class="token keyword">if</span> test <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                isprime <span class="token operator">=</span> <span class="token boolean">False</span>
-                <span class="token keyword">break</span>
-        <span class="token keyword">return</span> isprime
+    def is_prime(test):
+        sqrt = int(test ** 0.5)
+        isprime = True
+        for i in primes:
+            if i &gt; sqrt:
+                break
+            if test % i == 0:
+                isprime = False
+                break
+        return isprime
 
-    t <span class="token operator">=</span> <span class="token number">0</span>
-    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
-        t <span class="token operator">+=</span> <span class="token number">6</span>
-        <span class="token keyword">if</span> limit <span class="token keyword">and</span> t <span class="token operator">&gt;</span> limit<span class="token punctuation">:</span>
-            <span class="token keyword">break</span>
-        <span class="token keyword">for</span> x <span class="token keyword">in</span> <span class="token punctuation">[</span>t<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> t<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> is_prime<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                primes<span class="token punctuation">.</span>append<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-                <span class="token keyword">yield</span> x
+    t = 0
+    while True:
+        t += 6
+        if limit and t &gt; limit:
+            break
+        for x in [t-1, t+1]:
+            if is_prime(x):
+                primes.append(x)
+                yield x
 
-<span class="token builtin">sum</span><span class="token punctuation">(</span>p <span class="token keyword">for</span> p <span class="token keyword">in</span> prime<span class="token punctuation">(</span><span class="token number">2000000</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-</code></pre>
-
+sum(p for p in prime(2000000))
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</body></html>
                                 
                                 </section>
                             
@@ -3148,7 +3152,7 @@ Find the product abc.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Project Euler","level":"1.10.8","depth":2,"next":{"title":"cloud和容器相关","level":"1.11","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"云杂记","level":"1.11.1","depth":2,"path":"notes/cloud_杂记.md","ref":"notes/cloud_杂记.md","articles":[]},{"title":"当代容器读书笔记","level":"1.11.2","depth":2,"path":"notes/container_当代容器读书笔记.md","ref":"notes/container_当代容器读书笔记.md","articles":[]}]},"previous":{"title":"RDS脚本阅读","level":"1.10.7","depth":2,"path":"notes/shell_rds脚本阅读.md","ref":"notes/shell_rds脚本阅读.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/Project_Euler.md","mtime":"2022-10-11T16:01:35.073Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T16:02:31.524Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Project Euler","level":"1.10.8","depth":2,"next":{"title":"cloud和容器相关","level":"1.11","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"云杂记","level":"1.11.1","depth":2,"path":"notes/cloud_杂记.md","ref":"notes/cloud_杂记.md","articles":[]},{"title":"当代容器读书笔记","level":"1.11.2","depth":2,"path":"notes/container_当代容器读书笔记.md","ref":"notes/container_当代容器读书笔记.md","articles":[]}]},"previous":{"title":"RDS脚本阅读","level":"1.10.7","depth":2,"path":"notes/shell_rds脚本阅读.md","ref":"notes/shell_rds脚本阅读.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/Project_Euler.md","mtime":"2022-10-12T01:03:45.923Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T01:04:48.354Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

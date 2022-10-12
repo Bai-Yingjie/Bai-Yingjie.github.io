@@ -21,7 +21,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
                 
             
                 
@@ -2863,7 +2867,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#gccgo&#x5DE5;&#x5177;&#x94FE;&#x4E0D;&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;"><b>1. </b>gccgo&#x5DE5;&#x5177;&#x94FE;&#x4E0D;&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;</a></li><ul><li><span class="title-icon "></span><a href="#&#x8FC7;&#x7A0B;"><b>1.1. </b>&#x8FC7;&#x7A0B;</a></li></ul><li><span class="title-icon "></span><a href="#gcc&#x7684;gccgo&#x5B98;&#x65B9;&#x6587;&#x6863;"><b>2. </b>gcc&#x7684;gccgo&#x5B98;&#x65B9;&#x6587;&#x6863;</a></li><li><span class="title-icon "></span><a href="#&#x7F16;&#x8BD1;gc-go&#x5E76;&#x4E0A;&#x4F20;&#x4E0B;&#x8F7D;"><b>3. </b>&#x7F16;&#x8BD1;gc go&#x5E76;&#x4E0A;&#x4F20;&#x4E0B;&#x8F7D;</a></li><li><span class="title-icon "></span><a href="#gccgo-toolchain&#x51C6;&#x5907;-&#x64CD;&#x4F5C;&#x547D;&#x4EE4;&#x7248;&#x672C;"><b>4. </b>gccgo toolchain&#x51C6;&#x5907;, &#x64CD;&#x4F5C;&#x547D;&#x4EE4;&#x7248;&#x672C;</a></li><ul><li><span class="title-icon "></span><a href="#build-toolchain"><b>4.1. </b>build toolchain</a></li></ul><li><span class="title-icon "></span><a href="#install-dependencies"><b>5. </b>install dependencies</a></li><li><span class="title-icon "></span><a href="#build"><b>6. </b>build</a></li><ul><li><span class="title-icon "></span><a href="#upload-the-toolchain-to-artifactory"><b>6.1. </b>upload the toolchain to artifactory</a></li></ul><li><span class="title-icon "></span><a href="#&#x547D;&#x4EE4;cache"><b>7. </b>&#x547D;&#x4EE4;cache</a></li><li><span class="title-icon "></span><a href="#go&#x6E90;&#x7801;&#x7F16;&#x8BD1;"><b>8. </b>go&#x6E90;&#x7801;&#x7F16;&#x8BD1;</a></li><ul><li><span class="title-icon "></span><a href="#&#x539F;&#x7248;go&#x6E90;&#x7801;&#x7F16;&#x8BD1;go-tools"><b>8.1. </b>&#x539F;&#x7248;go&#x6E90;&#x7801;&#x7F16;&#x8BD1;go tools</a></li><li><span class="title-icon "></span><a href="#&#x4FEE;&#x6539;&#x7248;&#x6E90;&#x7801;&#x7F16;&#x8BD1;"><b>8.2. </b>&#x4FEE;&#x6539;&#x7248;&#x6E90;&#x7801;&#x7F16;&#x8BD1;</a></li></ul><li><span class="title-icon "></span><a href="#&#x4E0D;&#x6539;&#x53D8;go-tools&#x7684;&#x5C1D;&#x8BD5;"><b>9. </b>&#x4E0D;&#x6539;&#x53D8;go tools&#x7684;&#x5C1D;&#x8BD5;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;gccgo"><b>9.1. </b>&#x4F7F;&#x7528;gccgo</a></li><ul><li><span class="title-icon "></span><a href="#&#x4F20;&#x5165;goarchppc64"><b>9.1.1. </b>&#x4F20;&#x5165;GOARCH=ppc64</a></li><li><span class="title-icon "></span><a href="#&#x4F20;&#x5165;goarchamd64"><b>9.1.2. </b>&#x4F20;&#x5165;GOARCH=amd64</a></li><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;"><b>9.1.3. </b>&#x603B;&#x7ED3;:</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x5C1D;&#x8BD5;&#x6210;&#x529F;-&#x4F7F;&#x7528;ppc32-gccgo&#x7684;&#x65B9;&#x6CD5;"><b>10. </b>&#x5C1D;&#x8BD5;&#x6210;&#x529F;, &#x4F7F;&#x7528;ppc32 gccgo&#x7684;&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x4FEE;&#x6539;go&#x6E90;&#x7801;-&#x652F;&#x6301;goarchppc32"><b>11. </b>&#x4FEE;&#x6539;go&#x6E90;&#x7801;, &#x652F;&#x6301;GOARCH=ppc32</a></li><ul><li><span class="title-icon "></span><a href="#&#x7F16;&#x8BD1;gccgo"><b>11.1. </b>&#x7F16;&#x8BD1;gccgo</a></li><ul><li><span class="title-icon "></span><a href="#crosstool-ng&#x7F16;&#x8BD1;gccgo"><b>11.1.1. </b>crosstool-ng&#x7F16;&#x8BD1;gccgo</a></li><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;crosstool-ng&#x7684;gccgo"><b>11.1.2. </b>&#x4F7F;&#x7528;crosstool-ng&#x7684;gccgo</a></li></ul><li><span class="title-icon "></span><a href="#&#x4FEE;&#x6539;go&#x6E90;&#x7801;&#x652F;&#x6301;ppc32"><b>11.2. </b>&#x4FEE;&#x6539;go&#x6E90;&#x7801;&#x652F;&#x6301;ppc32</a></li><ul><li><span class="title-icon "></span><a href="#power-isa&#x80CC;&#x666F;&#x77E5;&#x8BC6;"><b>11.2.1. </b>power ISA&#x80CC;&#x666F;&#x77E5;&#x8BC6;</a></li><li><span class="title-icon "></span><a href="#default-arch&#x9009;&#x9879;"><b>11.2.2. </b>default ARCH&#x9009;&#x9879;</a></li><li><span class="title-icon "></span><a href="#&#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x5668;&#x53C2;&#x6570;"><b>11.2.3. </b>&#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x5668;&#x53C2;&#x6570;</a></li><li><span class="title-icon "></span><a href="#&#x8981;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;"><b>11.2.4. </b>&#x8981;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;</a></li></ul></ul><li><span class="title-icon "></span><a href="#ppc64&#x65E0;&#x6CD5;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;"><b>12. </b>ppc64&#x65E0;&#x6CD5;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;</a></li><ul><li><span class="title-icon "></span><a href="#&#x8FD9;&#x4E9B;&#x7F3A;&#x5931;&#x7684;&#x7B26;&#x53F7;&#x5E94;&#x8BE5;&#x5728;&#x54EA;&#x91CC;"><b>12.1. </b>&#x8FD9;&#x4E9B;&#x7F3A;&#x5931;&#x7684;&#x7B26;&#x53F7;&#x5E94;&#x8BE5;&#x5728;&#x54EA;&#x91CC;?</a></li><li><span class="title-icon "></span><a href="#&#x4E3A;&#x4EC0;&#x4E48;generic-morestackc&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x5230;"><b>12.2. </b>&#x4E3A;&#x4EC0;&#x4E48;generic-morestack.c&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x5230;?</a></li><ul><li><span class="title-icon "></span><a href="#crosstool-ng&#x7684;bug"><b>12.2.1. </b>crosstool-ng&#x7684;bug</a></li></ul><li><span class="title-icon "></span><a href="#&#x5173;&#x4E8E;split-stack"><b>12.3. </b>&#x5173;&#x4E8E;split stack</a></li><ul><li><span class="title-icon "></span><a href="#&#x4E0A;&#x9762;&#x63D0;&#x5230;&#x7684;gold-linker&#x662F;&#x4EC0;&#x4E48;&#x610F;&#x601D;"><b>12.3.1. </b>&#x4E0A;&#x9762;&#x63D0;&#x5230;&#x7684;gold linker&#x662F;&#x4EC0;&#x4E48;&#x610F;&#x601D;?</a></li><li><span class="title-icon "></span><a href="#&#x76F8;&#x5173;&#x94FE;&#x63A5;"><b>12.3.2. </b>&#x76F8;&#x5173;&#x94FE;&#x63A5;</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x4E0A;&#x4F20;gccgo&#x5DE5;&#x5177;&#x94FE;&#x5230;artifactory"><b>13. </b>&#x4E0A;&#x4F20;gccgo&#x5DE5;&#x5177;&#x94FE;&#x5230;artifactory</a></li><li><span class="title-icon "></span><a href="#gccgo&#x7684;hello-size&#x8FC7;&#x5927;&#x95EE;&#x9898;"><b>14. </b>gccgo&#x7684;hello size&#x8FC7;&#x5927;&#x95EE;&#x9898;</a></li><ul><li><span class="title-icon "></span><a href="#&#x76F8;&#x5173;&#x547D;&#x4EE4;"><b>14.1. </b>&#x76F8;&#x5173;&#x547D;&#x4EE4;</a></li><li><span class="title-icon "></span><a href="#&#x51CF;&#x5C0F;libgoa&#x7684;&#x4F53;&#x79EF;"><b>14.2. </b>&#x51CF;&#x5C0F;libgo.a&#x7684;&#x4F53;&#x79EF;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4F7F;&#x80FD;lto"><b>14.2.1. </b>&#x4F7F;&#x80FD;lto</a></li></ul><li><span class="title-icon "></span><a href="#&#x6539;&#x52A8;&#x63D0;&#x4EA4;&#x5230;crosstool-ng"><b>14.3. </b>&#x6539;&#x52A8;&#x63D0;&#x4EA4;&#x5230;crosstool-ng</a></li><li><span class="title-icon "></span><a href="#goexport&#x5C0F;&#x8282;"><b>14.4. </b>go_export&#x5C0F;&#x8282;</a></li><li><span class="title-icon "></span><a href="#static&#x548C;static-libgo"><b>14.5. </b>static&#x548C;static-libgo</a></li></ul><li><span class="title-icon "></span><a href="#&#x8BA9;gcgo&#x652F;&#x6301;ppc32"><b>15. </b>&#x8BA9;gcgo&#x652F;&#x6301;ppc32</a></li><li><span class="title-icon "></span><a href="#&#x4E0B;&#x4E00;&#x6B65;"><b>16. </b>&#x4E0B;&#x4E00;&#x6B65;</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;-fant-f&#x8FD0;&#x884C;topid"><b>17. </b>&#x8865;&#x5145;: fant-f&#x8FD0;&#x884C;topid</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;-ppc64"><b>18. </b>&#x8865;&#x5145;: ppc64</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;-&#x4E3A;&#x4EC0;&#x4E48;gc-go&#x5DE5;&#x5177;&#x94FE;&#x7684;&#x652F;&#x6301;ppc64-&#x4F46;&#x4E0D;&#x80FD;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;"><b>19. </b>&#x8865;&#x5145;: &#x4E3A;&#x4EC0;&#x4E48;gc go&#x5DE5;&#x5177;&#x94FE;&#x7684;&#x652F;&#x6301;ppc64, &#x4F46;&#x4E0D;&#x80FD;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;?</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;-elf&#x683C;&#x5F0F;"><b>20. </b>&#x8865;&#x5145;: elf&#x683C;&#x5F0F;</a></li></ul></div><a href="#gccgo&#x5DE5;&#x5177;&#x94FE;&#x4E0D;&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#gccgo&#x5DE5;&#x5177;&#x94FE;&#x4E0D;&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;"><b>1. </b>gccgo&#x5DE5;&#x5177;&#x94FE;&#x4E0D;&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;</a></li><ul><li><span class="title-icon "></span><a href="#&#x8FC7;&#x7A0B;"><b>1.1. </b>&#x8FC7;&#x7A0B;</a></li></ul><li><span class="title-icon "></span><a href="#gcc&#x7684;gccgo&#x5B98;&#x65B9;&#x6587;&#x6863;"><b>2. </b>gcc&#x7684;gccgo&#x5B98;&#x65B9;&#x6587;&#x6863;</a></li><li><span class="title-icon "></span><a href="#&#x7F16;&#x8BD1;gc-go&#x5E76;&#x4E0A;&#x4F20;&#x4E0B;&#x8F7D;"><b>3. </b>&#x7F16;&#x8BD1;gc go&#x5E76;&#x4E0A;&#x4F20;&#x4E0B;&#x8F7D;</a></li><li><span class="title-icon "></span><a href="#gccgo-toolchain&#x51C6;&#x5907;-&#x64CD;&#x4F5C;&#x547D;&#x4EE4;&#x7248;&#x672C;"><b>4. </b>gccgo toolchain&#x51C6;&#x5907;, &#x64CD;&#x4F5C;&#x547D;&#x4EE4;&#x7248;&#x672C;</a></li><ul><li><span class="title-icon "></span><a href="#build-toolchain"><b>4.1. </b>build toolchain</a></li></ul><li><span class="title-icon "></span><a href="#install-dependencies"><b>5. </b>install dependencies</a></li><li><span class="title-icon "></span><a href="#build"><b>6. </b>build</a></li><ul><li><span class="title-icon "></span><a href="#upload-the-toolchain-to-artifactory"><b>6.1. </b>upload the toolchain to artifactory</a></li></ul><li><span class="title-icon "></span><a href="#&#x547D;&#x4EE4;cache"><b>7. </b>&#x547D;&#x4EE4;cache</a></li><li><span class="title-icon "></span><a href="#go&#x6E90;&#x7801;&#x7F16;&#x8BD1;"><b>8. </b>go&#x6E90;&#x7801;&#x7F16;&#x8BD1;</a></li><ul><li><span class="title-icon "></span><a href="#&#x539F;&#x7248;go&#x6E90;&#x7801;&#x7F16;&#x8BD1;go-tools"><b>8.1. </b>&#x539F;&#x7248;go&#x6E90;&#x7801;&#x7F16;&#x8BD1;go tools</a></li><li><span class="title-icon "></span><a href="#&#x4FEE;&#x6539;&#x7248;&#x6E90;&#x7801;&#x7F16;&#x8BD1;"><b>8.2. </b>&#x4FEE;&#x6539;&#x7248;&#x6E90;&#x7801;&#x7F16;&#x8BD1;</a></li></ul><li><span class="title-icon "></span><a href="#&#x4E0D;&#x6539;&#x53D8;go-tools&#x7684;&#x5C1D;&#x8BD5;"><b>9. </b>&#x4E0D;&#x6539;&#x53D8;go tools&#x7684;&#x5C1D;&#x8BD5;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;gccgo"><b>9.1. </b>&#x4F7F;&#x7528;gccgo</a></li><ul><li><span class="title-icon "></span><a href="#&#x4F20;&#x5165;goarchppc64"><b>9.1.1. </b>&#x4F20;&#x5165;GOARCH=ppc64</a></li><li><span class="title-icon "></span><a href="#&#x4F20;&#x5165;goarchamd64"><b>9.1.2. </b>&#x4F20;&#x5165;GOARCH=amd64</a></li><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;"><b>9.1.3. </b>&#x603B;&#x7ED3;:</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x5C1D;&#x8BD5;&#x6210;&#x529F;-&#x4F7F;&#x7528;ppc32-gccgo&#x7684;&#x65B9;&#x6CD5;"><b>10. </b>&#x5C1D;&#x8BD5;&#x6210;&#x529F;, &#x4F7F;&#x7528;ppc32 gccgo&#x7684;&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x4FEE;&#x6539;go&#x6E90;&#x7801;-&#x652F;&#x6301;goarchppc32"><b>11. </b>&#x4FEE;&#x6539;go&#x6E90;&#x7801;, &#x652F;&#x6301;GOARCH=ppc32</a></li><ul><li><span class="title-icon "></span><a href="#&#x7F16;&#x8BD1;gccgo"><b>11.1. </b>&#x7F16;&#x8BD1;gccgo</a></li><ul><li><span class="title-icon "></span><a href="#crosstool-ng&#x7F16;&#x8BD1;gccgo"><b>11.1.1. </b>crosstool-ng&#x7F16;&#x8BD1;gccgo</a></li><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;crosstool-ng&#x7684;gccgo"><b>11.1.2. </b>&#x4F7F;&#x7528;crosstool-ng&#x7684;gccgo</a></li></ul><li><span class="title-icon "></span><a href="#&#x4FEE;&#x6539;go&#x6E90;&#x7801;&#x652F;&#x6301;ppc32"><b>11.2. </b>&#x4FEE;&#x6539;go&#x6E90;&#x7801;&#x652F;&#x6301;ppc32</a></li><ul><li><span class="title-icon "></span><a href="#power-isa&#x80CC;&#x666F;&#x77E5;&#x8BC6;"><b>11.2.1. </b>power ISA&#x80CC;&#x666F;&#x77E5;&#x8BC6;</a></li><li><span class="title-icon "></span><a href="#default-arch&#x9009;&#x9879;"><b>11.2.2. </b>default ARCH&#x9009;&#x9879;</a></li><li><span class="title-icon "></span><a href="#&#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x5668;&#x53C2;&#x6570;"><b>11.2.3. </b>&#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x5668;&#x53C2;&#x6570;</a></li><li><span class="title-icon "></span><a href="#&#x8981;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;"><b>11.2.4. </b>&#x8981;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;</a></li></ul></ul><li><span class="title-icon "></span><a href="#ppc64&#x65E0;&#x6CD5;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;"><b>12. </b>ppc64&#x65E0;&#x6CD5;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;</a></li><ul><li><span class="title-icon "></span><a href="#&#x8FD9;&#x4E9B;&#x7F3A;&#x5931;&#x7684;&#x7B26;&#x53F7;&#x5E94;&#x8BE5;&#x5728;&#x54EA;&#x91CC;"><b>12.1. </b>&#x8FD9;&#x4E9B;&#x7F3A;&#x5931;&#x7684;&#x7B26;&#x53F7;&#x5E94;&#x8BE5;&#x5728;&#x54EA;&#x91CC;?</a></li><li><span class="title-icon "></span><a href="#&#x4E3A;&#x4EC0;&#x4E48;generic-morestackc&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x5230;"><b>12.2. </b>&#x4E3A;&#x4EC0;&#x4E48;generic-morestack.c&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x5230;?</a></li><ul><li><span class="title-icon "></span><a href="#crosstool-ng&#x7684;bug"><b>12.2.1. </b>crosstool-ng&#x7684;bug</a></li></ul><li><span class="title-icon "></span><a href="#&#x5173;&#x4E8E;split-stack"><b>12.3. </b>&#x5173;&#x4E8E;split stack</a></li><ul><li><span class="title-icon "></span><a href="#&#x4E0A;&#x9762;&#x63D0;&#x5230;&#x7684;gold-linker&#x662F;&#x4EC0;&#x4E48;&#x610F;&#x601D;"><b>12.3.1. </b>&#x4E0A;&#x9762;&#x63D0;&#x5230;&#x7684;gold linker&#x662F;&#x4EC0;&#x4E48;&#x610F;&#x601D;?</a></li><li><span class="title-icon "></span><a href="#&#x76F8;&#x5173;&#x94FE;&#x63A5;"><b>12.3.2. </b>&#x76F8;&#x5173;&#x94FE;&#x63A5;</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x4E0A;&#x4F20;gccgo&#x5DE5;&#x5177;&#x94FE;&#x5230;artifactory"><b>13. </b>&#x4E0A;&#x4F20;gccgo&#x5DE5;&#x5177;&#x94FE;&#x5230;artifactory</a></li><li><span class="title-icon "></span><a href="#gccgo&#x7684;hello-size&#x8FC7;&#x5927;&#x95EE;&#x9898;"><b>14. </b>gccgo&#x7684;hello size&#x8FC7;&#x5927;&#x95EE;&#x9898;</a></li><ul><li><span class="title-icon "></span><a href="#&#x76F8;&#x5173;&#x547D;&#x4EE4;"><b>14.1. </b>&#x76F8;&#x5173;&#x547D;&#x4EE4;</a></li><li><span class="title-icon "></span><a href="#&#x51CF;&#x5C0F;libgoa&#x7684;&#x4F53;&#x79EF;"><b>14.2. </b>&#x51CF;&#x5C0F;libgo.a&#x7684;&#x4F53;&#x79EF;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4F7F;&#x80FD;lto"><b>14.2.1. </b>&#x4F7F;&#x80FD;lto</a></li></ul><li><span class="title-icon "></span><a href="#&#x6539;&#x52A8;&#x63D0;&#x4EA4;&#x5230;crosstool-ng"><b>14.3. </b>&#x6539;&#x52A8;&#x63D0;&#x4EA4;&#x5230;crosstool-ng</a></li><li><span class="title-icon "></span><a href="#goexport&#x5C0F;&#x8282;"><b>14.4. </b>go_export&#x5C0F;&#x8282;</a></li><li><span class="title-icon "></span><a href="#static&#x548C;static-libgo"><b>14.5. </b>static&#x548C;static-libgo</a></li></ul><li><span class="title-icon "></span><a href="#&#x8BA9;gcgo&#x652F;&#x6301;ppc32"><b>15. </b>&#x8BA9;gcgo&#x652F;&#x6301;ppc32</a></li><li><span class="title-icon "></span><a href="#&#x4E0B;&#x4E00;&#x6B65;"><b>16. </b>&#x4E0B;&#x4E00;&#x6B65;</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;-fant-f&#x8FD0;&#x884C;topid"><b>17. </b>&#x8865;&#x5145;: fant-f&#x8FD0;&#x884C;topid</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;-ppc64"><b>18. </b>&#x8865;&#x5145;: ppc64</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;-&#x4E3A;&#x4EC0;&#x4E48;gc-go&#x5DE5;&#x5177;&#x94FE;&#x7684;&#x652F;&#x6301;ppc64-&#x4F46;&#x4E0D;&#x80FD;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;"><b>19. </b>&#x8865;&#x5145;: &#x4E3A;&#x4EC0;&#x4E48;gc go&#x5DE5;&#x5177;&#x94FE;&#x7684;&#x652F;&#x6301;ppc64, &#x4F46;&#x4E0D;&#x80FD;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;?</a></li><li><span class="title-icon "></span><a href="#&#x8865;&#x5145;-elf&#x683C;&#x5F0F;"><b>20. </b>&#x8865;&#x5145;: elf&#x683C;&#x5F0F;</a></li></ul></div><a href="#gccgo&#x5DE5;&#x5177;&#x94FE;&#x4E0D;&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
 <li><a href="#gccgo&#x5DE5;&#x5177;&#x94FE;&#x4E0D;&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;">gccgo&#x5DE5;&#x5177;&#x94FE;&#x4E0D;&#x7F16;&#x8BD1;c&#x6587;&#x4EF6;</a><ul>
 <li><a href="#&#x8FC7;&#x7A0B;">&#x8FC7;&#x7A0B;</a></li>
 </ul>
@@ -2948,39 +2952,39 @@
 <h2 id="&#x8FC7;&#x7A0B;"><a name="&#x8FC7;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x8FC7;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x8FC7;&#x7A0B;</h2>
 <p>&#x4F7F;&#x7528;gccgo&#x7F16;&#x8BD1;MF14Temp&#x65F6;&#xFF0C;&#x7531;&#x4E8E;import&#x4E86;fsnotify&#x8FD9;&#x4E2A;&#x5305;&#xFF0C;&#x800C;&#x8FD9;&#x4E2A;&#x5305;&#x4F1A;&#x4F7F;&#x7528;<code>golang.org/x/sys/</code>&#x8FD9;&#x4E2A;&#x5305; &#x8FD9;&#x4E2A;&#x5305;&#x91CC;<code>unix/gccgo.go</code>&#x8FD9;&#x4E2A;go&#x6587;&#x4EF6;&#x91CC;&#x9700;&#x8981;&#x8C03;&#x7528;<code>gccgoRealSyscall</code>&#x548C;<code>gccgoRealSyscallNoError</code>&#x8FD9;&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x800C;&#x8FD9;&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x5B9E;&#x73B0;&#x5728;unix/gccgo_c.c&#x8FD9;&#x4E2A;c&#x6587;&#x4EF6;&#x4E2D;&#x3002;</p>
 <p>&#x4EA7;&#x751F;&#x4E0B;&#x8FF0;&#x94FE;&#x63A5;&#x9519;&#x8BEF;&#x7684;&#x539F;&#x56E0;&#x662F;gccgo_c.c&#x8FD9;&#x4E2A;c&#x6587;&#x4EF6;&#x6CA1;&#x6709;&#x88AB;gccgo&#x7F16;&#x8BD1;&#xFF0C;&#x56E0;&#x6B64;&#x9700;&#x8981;&#x5728;&#x7F16;&#x8BD1;MF14Temp&#x65F6;&#xFF0C;&#x52A0;&#x4E0A;&#x201C;CGO_ENABLED=1&#x201D;&#x8FD9;&#x4E2A;&#x9009;&#x9879;&#xFF0C;&#x4F7F;&#x80FD;CGO&#xFF0C;&#x8BA9;GO&#x80FD;&#x591F;&#x8C03;&#x7528;C</p>
-<pre class="language-"><code class="lang-sh"><span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>ppc64 go build <span class="token parameter variable">-o</span> MF14Temp_ppc64
-<span class="token comment"># gitlabe1.ext.net.nokia.com/godevsig/MF14Temp</span>
-/opt/crosstool/powerpc64-e6500-linux-gnu/bin/<span class="token punctuation">..</span>/lib/gcc/powerpc64-e6500-linux-gnu/10.2.0/<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/powerpc64-e6500-linux-gnu/bin/ld: /home/xming/.cache/go-build/16/16ae8d3fbaffd001bb92ecdbfd968c9b2f078bb1bfd38396335cd0a145ce241c-d<span class="token punctuation">(</span>_go_.o<span class="token punctuation">)</span>: <span class="token keyword">in</span> <span class="token keyword">function</span> <span class="token variable"><span class="token variable">`</span>golang.x2eorg<span class="token punctuation">..</span>z2fx<span class="token punctuation">..</span>z2fsys<span class="token punctuation">..</span>z2funix.SyscallNoError&apos;:
-/repo/xming/go/pkg/mod/golang.org/x/sys@v0.0.0-20191005200804-aed5e4c7ecf9/unix/gccgo.go:23: undefined reference to <span class="token variable">`</span></span>gccgoRealSyscallNoError<span class="token string">&apos;
-/opt/crosstool/powerpc64-e6500-linux-gnu/bin/../lib/gcc/powerpc64-e6500-linux-gnu/10.2.0/../../../../powerpc64-e6500-linux-gnu/bin/ld: /home/xming/.cache/go-build/16/16ae8d3fbaffd001bb92ecdbfd968c9b2f078bb1bfd38396335cd0a145ce241c-d(_go_.o): in function `golang.x2eorg..z2fx..z2fsys..z2funix.Syscall&apos;</span><span class="token builtin class-name">:</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">GOARCH=ppc64 go build -o MF14Temp_ppc64
+# gitlabe1.ext.net.nokia.com/godevsig/MF14Temp
+/opt/crosstool/powerpc64-e6500-linux-gnu/bin/../lib/gcc/powerpc64-e6500-linux-gnu/10.2.0/../../../../powerpc64-e6500-linux-gnu/bin/ld: /home/xming/.cache/go-build/16/16ae8d3fbaffd001bb92ecdbfd968c9b2f078bb1bfd38396335cd0a145ce241c-d(_go_.o): in function `golang.x2eorg..z2fx..z2fsys..z2funix.SyscallNoError&apos;:
+/repo/xming/go/pkg/mod/golang.org/x/sys@v0.0.0-20191005200804-aed5e4c7ecf9/unix/gccgo.go:23: undefined reference to `gccgoRealSyscallNoError&apos;
+/opt/crosstool/powerpc64-e6500-linux-gnu/bin/../lib/gcc/powerpc64-e6500-linux-gnu/10.2.0/../../../../powerpc64-e6500-linux-gnu/bin/ld: /home/xming/.cache/go-build/16/16ae8d3fbaffd001bb92ecdbfd968c9b2f078bb1bfd38396335cd0a145ce241c-d(_go_.o): in function `golang.x2eorg..z2fx..z2fsys..z2funix.Syscall&apos;:
 /repo/xming/go/pkg/mod/golang.org/x/sys@v0.0.0-20191005200804-aed5e4c7ecf9/unix/gccgo.go:30: undefined reference to `gccgoRealSyscall&apos;
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="gcc&#x7684;gccgo&#x5B98;&#x65B9;&#x6587;&#x6863;"><a name="gcc&#x7684;gccgo&#x5B98;&#x65B9;&#x6587;&#x6863;" class="anchor-navigation-ex-anchor" href="#gcc&#x7684;gccgo&#x5B98;&#x65B9;&#x6587;&#x6863;"><i class="fa fa-link" aria-hidden="true"></i></a>2. gcc&#x7684;gccgo&#x5B98;&#x65B9;&#x6587;&#x6863;</h1>
 <p><a href="https://gcc.gnu.org/onlinedocs/gcc-10.2.0/gccgo/" target="_blank">https://gcc.gnu.org/onlinedocs/gcc-10.2.0/gccgo/</a></p>
 <h1 id="&#x7F16;&#x8BD1;gc-go&#x5E76;&#x4E0A;&#x4F20;&#x4E0B;&#x8F7D;"><a name="&#x7F16;&#x8BD1;gc-go&#x5E76;&#x4E0A;&#x4F20;&#x4E0B;&#x8F7D;" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;gc-go&#x5E76;&#x4E0A;&#x4F20;&#x4E0B;&#x8F7D;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x7F16;&#x8BD1;gc go&#x5E76;&#x4E0A;&#x4F20;&#x4E0B;&#x8F7D;</h1>
 <p>&#x5230;<code>https://artifactory-blr1.int.net.nokia.com/artifactory/godevsig-generic-local/toolchain/gccgo/</code> &#x67E5;&#x6700;&#x65B0;&#x7684;&#x6587;&#x4EF6;&#x5939;
 &#x627E;&#x5230;commit&#x53F7;, &#x6BD4;&#x5982; 059da3dd98ab7be871a0556dd53fa4057f7dcf09
 &#x4E0B;&#x8F7D;:</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x7F16;&#x8BD1;</span>
-<span class="token builtin class-name">cd</span> golang-go
-<span class="token function">git</span> checkout release-branch.go1.16
-<span class="token builtin class-name">cd</span> src
-<span class="token assign-left variable">GOOS</span><span class="token operator">=</span>linux <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>amd64 ./bootstrap.bash
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">#&#x7F16;&#x8BD1;
+cd golang-go
+git checkout release-branch.go1.16
+cd src
+GOOS=linux GOARCH=amd64 ./bootstrap.bash
 
-<span class="token comment">#&#x4E0A;&#x4F20;</span>
-<span class="token function">curl</span> <span class="token parameter variable">-H</span> <span class="token string">&quot;X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc&quot;</span> <span class="token parameter variable">-X</span> PUT <span class="token string">&quot;https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/toolchain/gcgo/<span class="token variable"><span class="token variable">`</span><span class="token function">git</span> rev-parse HEAD<span class="token variable">`</span></span>/&quot;</span>  <span class="token parameter variable">-T</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/go-linux-amd64-bootstrap.tbz
+#&#x4E0A;&#x4F20;
+curl -H &quot;X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc&quot; -X PUT &quot;https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/toolchain/gcgo/`git rev-parse HEAD`/&quot;  -T ../../go-linux-amd64-bootstrap.tbz
 
-<span class="token comment">#&#x4E0B;&#x8F7D;</span>
-<span class="token function">curl</span> https://artifactory-blr1.int.net.nokia.com/artifactory/godevsig-generic-local/toolchain/gcgo/1cabb66796f4529afc615dd466b5667fe1509f6c/go-linux-amd64-bootstrap.tbz <span class="token parameter variable">-O</span>
-</code></pre>
+#&#x4E0B;&#x8F7D;
+curl https://artifactory-blr1.int.net.nokia.com/artifactory/godevsig-generic-local/toolchain/gcgo/1cabb66796f4529afc615dd466b5667fe1509f6c/go-linux-amd64-bootstrap.tbz -O
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="gccgo-toolchain&#x51C6;&#x5907;-&#x64CD;&#x4F5C;&#x547D;&#x4EE4;&#x7248;&#x672C;"><a name="gccgo-toolchain&#x51C6;&#x5907;-&#x64CD;&#x4F5C;&#x547D;&#x4EE4;&#x7248;&#x672C;" class="anchor-navigation-ex-anchor" href="#gccgo-toolchain&#x51C6;&#x5907;-&#x64CD;&#x4F5C;&#x547D;&#x4EE4;&#x7248;&#x672C;"><i class="fa fa-link" aria-hidden="true"></i></a>4. gccgo toolchain&#x51C6;&#x5907;, &#x64CD;&#x4F5C;&#x547D;&#x4EE4;&#x7248;&#x672C;</h1>
 <p>Steps to prepare gccgo toolchain</p>
 <h2 id="build-toolchain"><a name="build-toolchain" class="anchor-navigation-ex-anchor" href="#build-toolchain"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. build toolchain</h2>
 <ul>
 <li><p>checkout godev branch</p>
-<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">cd</span> crosstool-ng
-<span class="token function">git</span> checkout godev
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">cd crosstool-ng
+git checkout godev
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>make crosstool-ng
 ```sh</p>
@@ -2992,107 +2996,107 @@
 <p>./bootstrap
 ./configure --enable-local
 make</p>
-<pre class="language-"><code>
+<pre class="line-numbers language-undefined"><code class=" language-undefined">
 * build gccgo toolchain
 e.g. to build ppc64 gccgo
 ```sh
 ./ct-ng defconfig DEFCONFIG=samples/Nokia/isam-reborn_godev-ppc64-e6500
 ./ct-ng build
-</code></pre><ul>
-<li>find the toolchain in targets after successfully build<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">cd</span> targets
-<span class="token function">ls</span>
-<span class="token comment"># powerpc64-e6500-linux-gnu</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ul>
+<li>find the toolchain in targets after successfully build<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">cd targets
+ls
+# powerpc64-e6500-linux-gnu
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h2 id="upload-the-toolchain-to-artifactory"><a name="upload-the-toolchain-to-artifactory" class="anchor-navigation-ex-anchor" href="#upload-the-toolchain-to-artifactory"><i class="fa fa-link" aria-hidden="true"></i></a>6.1. upload the toolchain to artifactory</h2>
 <ul>
-<li>compress the toolchain folder<pre class="language-"><code class="lang-sh"><span class="token function">tar</span> cJf godev-gccgo-ppc64.tar.xz powerpc64-e6500-linux-gnu
-</code></pre>
+<li>compress the toolchain folder<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">tar cJf godev-gccgo-ppc64.tar.xz powerpc64-e6500-linux-gnu
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
-<li>upload to artifactory<pre class="language-"><code class="lang-sh"><span class="token function">curl</span> <span class="token parameter variable">-H</span> <span class="token string">&quot;X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc&quot;</span> <span class="token parameter variable">-X</span> PUT <span class="token string">&quot;https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/toolchain/gccgo/<span class="token variable"><span class="token variable">`</span><span class="token function">git</span> rev-parse HEAD<span class="token variable">`</span></span>/&quot;</span>  <span class="token parameter variable">-T</span> godev-gccgo-ppc64.tar.xz
-</code></pre>
+<li>upload to artifactory<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">curl -H &quot;X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc&quot; -X PUT &quot;https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/toolchain/gccgo/`git rev-parse HEAD`/&quot;  -T godev-gccgo-ppc64.tar.xz
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ul>
 <p>&#x540C;&#x65F6;&#x4E0A;&#x4F20;ppc&#x548C;ppc64</p>
-<pre class="language-"><code class="lang-sh">proxyoff
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">proxyoff
 
-<span class="token builtin class-name">cd</span> crosstool-ng/targets
+cd crosstool-ng/targets
 
-<span class="token function">tar</span> cJf godev-gccgo-ppc.tar.xz powerpc-e500mc-linux-gnu
-<span class="token function">tar</span> cJf godev-gccgo-ppc64.tar.xz powerpc64-e6500-linux-gnu
+tar cJf godev-gccgo-ppc.tar.xz powerpc-e500mc-linux-gnu
+tar cJf godev-gccgo-ppc64.tar.xz powerpc64-e6500-linux-gnu
 
-<span class="token function">curl</span> <span class="token parameter variable">-H</span> <span class="token string">&quot;X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc&quot;</span>  <span class="token parameter variable">-X</span> PUT <span class="token string">&quot;https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/toolchain/gccgo/<span class="token variable"><span class="token variable">`</span><span class="token function">git</span> rev-parse HEAD<span class="token variable">`</span></span>/&quot;</span>  <span class="token parameter variable">-T</span> <span class="token string">&quot;{godev-gccgo-ppc.tar.xz,godev-gccgo-ppc64.tar.xz}&quot;</span>
-</code></pre>
+curl -H &quot;X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc&quot;  -X PUT &quot;https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/toolchain/gccgo/`git rev-parse HEAD`/&quot;  -T &quot;{godev-gccgo-ppc.tar.xz,godev-gccgo-ppc64.tar.xz}&quot;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="&#x547D;&#x4EE4;cache"><a name="&#x547D;&#x4EE4;cache" class="anchor-navigation-ex-anchor" href="#&#x547D;&#x4EE4;cache"><i class="fa fa-link" aria-hidden="true"></i></a>7. &#x547D;&#x4EE4;cache</h1>
-<pre class="language-"><code class="lang-sh"><span class="token comment"># hello</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh"># hello
 yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
-$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> hello<span class="token punctuation">;</span> <span class="token function">rm</span> <span class="token parameter variable">-rf</span> /home/yingjieb/.cache/go-build/<span class="token punctuation">;</span> <span class="token function">rm</span> <span class="token parameter variable">-f</span> gccgo.log<span class="token punctuation">;</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>ppc64 /repo/yingjieb/godev/golang-go/bin/go build <span class="token parameter variable">-compiler</span> gccgo <span class="token parameter variable">-gccgoflags</span> <span class="token string">&apos;-static -Os&apos;</span> hello.go
+$ rm -f hello; rm -rf /home/yingjieb/.cache/go-build/; rm -f gccgo.log; PATH=$PATH:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin GOARCH=ppc64 /repo/yingjieb/godev/golang-go/bin/go build -compiler gccgo -gccgoflags &apos;-static -Os&apos; hello.go
 
 /repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin/powerpc-linux-strip hello
 
-<span class="token function">scp</span> yingjieb@10.182.105.138:/repo/yingjieb/godev/practice/src/examples/hello <span class="token builtin class-name">.</span>
+scp yingjieb@10.182.105.138:/repo/yingjieb/godev/practice/src/examples/hello .
 
-<span class="token comment"># topid</span>
+# topid
 yingjieb@godev-server /repo/yingjieb/godev/practice
-$ <span class="token builtin class-name">export</span> <span class="token assign-left variable">GOPATH</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">pwd</span><span class="token variable">`</span></span>:<span class="token variable">$GOPATH</span>&quot;</span>
+$ export GOPATH=&quot;`pwd`:$GOPATH&quot;
 
 yingjieb@godev-server /repo/yingjieb/godev/practice/src/tools
-$ <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>ppc64 /repo/yingjieb/godev/golang-go/bin/go build <span class="token parameter variable">-compiler</span> gccgo <span class="token parameter variable">-gccgoflags</span> <span class="token string">&apos;-static -Os&apos;</span> topid.go
+$ PATH=$PATH:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin GOARCH=ppc64 /repo/yingjieb/godev/golang-go/bin/go build -compiler gccgo -gccgoflags &apos;-static -Os&apos; topid.go
 
 /repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin/powerpc-linux-strip topid
 
-<span class="token function">scp</span> yingjieb@10.182.105.138:/repo/yingjieb/godev/practice/src/tools/topid <span class="token builtin class-name">.</span>
+scp yingjieb@10.182.105.138:/repo/yingjieb/godev/practice/src/tools/topid .
 
-./topid <span class="token parameter variable">-record</span> <span class="token parameter variable">-tag</span> fantf <span class="token parameter variable">-p</span> <span class="token number">1</span> <span class="token parameter variable">-child</span> <span class="token parameter variable">-chartserver</span> <span class="token number">10.182</span>.105.138:9887 <span class="token parameter variable">-i</span> <span class="token number">3</span>
-</code></pre>
+./topid -record -tag fantf -p 1 -child -chartserver 10.182.105.138:9887 -i 3
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x76EE;&#x6807;&#x662F;&#x4FEE;&#x6539;golang go&#x7684;&#x7F16;&#x8BD1;&#x5668;&#x6E90;&#x7801;, &#x4F7F;&#x5176;&#x652F;&#x6301;ppc32&#x7684;gccgo&#x540E;&#x7AEF;</p>
 <h1 id="go&#x6E90;&#x7801;&#x7F16;&#x8BD1;"><a name="go&#x6E90;&#x7801;&#x7F16;&#x8BD1;" class="anchor-navigation-ex-anchor" href="#go&#x6E90;&#x7801;&#x7F16;&#x8BD1;"><i class="fa fa-link" aria-hidden="true"></i></a>8. go&#x6E90;&#x7801;&#x7F16;&#x8BD1;</h1>
 <h2 id="&#x539F;&#x7248;go&#x6E90;&#x7801;&#x7F16;&#x8BD1;go-tools"><a name="&#x539F;&#x7248;go&#x6E90;&#x7801;&#x7F16;&#x8BD1;go-tools" class="anchor-navigation-ex-anchor" href="#&#x539F;&#x7248;go&#x6E90;&#x7801;&#x7F16;&#x8BD1;go-tools"><i class="fa fa-link" aria-hidden="true"></i></a>8.1. &#x539F;&#x7248;go&#x6E90;&#x7801;&#x7F16;&#x8BD1;go tools</h2>
 <p><code>git clone https://github.com/golang/go.git</code></p>
 <p><code>go build</code>&#x6E90;&#x7801;&#x5728;<code>src/cmd/go/internal/work/build.go</code></p>
 <p>&#x7B2C;&#x4E00;&#x6B21;&#x7F16;&#x8BD1;&#x9700;&#x8981;&#x5168;&#x90E8;&#x7F16;&#x8BD1;.</p>
-<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">cd</span> golang-go/src
-./make.bash <span class="token parameter variable">-a</span>
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">cd golang-go/src
+./make.bash -a
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>&#x518D;&#x7F16;<code>./make.bash --no-clean</code>&#x4F3C;&#x4E4E;&#x66F4;&#x5FEB;</p>
 <p>&#x7F16;&#x8BD1;&#x597D;&#x7684;go&#x7A0B;&#x5E8F;&#x5728;&#x5F53;&#x524D;&#x5DE5;&#x7A0B;&#x7684;bin&#x76EE;&#x5F55;&#x4E0B;</p>
-<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">cd</span> golang-go/
-<span class="token builtin class-name">export</span> <span class="token assign-left variable">GOPATH</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">$GOPATH</span>:<span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">pwd</span><span class="token variable">`</span></span>&quot;</span>
-<span class="token comment">#&#x7F16;&#x8BD1;go&#x4E3B;&#x7A0B;&#x5E8F;, &#x4F1A;&#x5728;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x751F;&#x6210;go&#x7684;&#x53EF;&#x6267;&#x884C;&#x7A0B;&#x5E8F;</span>
-<span class="token builtin class-name">cd</span> src/cmd/go
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">cd golang-go/
+export GOPATH=&quot;$GOPATH:`pwd`&quot;
+#&#x7F16;&#x8BD1;go&#x4E3B;&#x7A0B;&#x5E8F;, &#x4F1A;&#x5728;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x751F;&#x6210;go&#x7684;&#x53EF;&#x6267;&#x884C;&#x7A0B;&#x5E8F;
+cd src/cmd/go
 go build
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x6CE8;: go tools&#x662F;&#x6307;<code>GOTOOLDIR</code>&#x4E0B;&#x9762;&#x7684;&#x4E00;&#x4E9B;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;:</p>
-<pre class="language-"><code class="lang-sh">$ <span class="token function">ls</span> <span class="token string">&quot;/usr/local/go/pkg/tool/linux_amd64&quot;</span>
-addr2line  asm  buildid  cgo  compile  cover  dist  doc  fix  <span class="token function">link</span>  nm  objdump  pack  pprof  test2json  trace  vet
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">$ ls &quot;/usr/local/go/pkg/tool/linux_amd64&quot;
+addr2line  asm  buildid  cgo  compile  cover  dist  doc  fix  link  nm  objdump  pack  pprof  test2json  trace  vet
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="&#x4FEE;&#x6539;&#x7248;&#x6E90;&#x7801;&#x7F16;&#x8BD1;"><a name="&#x4FEE;&#x6539;&#x7248;&#x6E90;&#x7801;&#x7F16;&#x8BD1;" class="anchor-navigation-ex-anchor" href="#&#x4FEE;&#x6539;&#x7248;&#x6E90;&#x7801;&#x7F16;&#x8BD1;"><i class="fa fa-link" aria-hidden="true"></i></a>8.2. &#x4FEE;&#x6539;&#x7248;&#x6E90;&#x7801;&#x7F16;&#x8BD1;</h2>
 <p>&#x6211;&#x5728;godevsig&#x5206;&#x652F;&#x4FEE;&#x6539;&#x4E86;&#x6E90;&#x7801;, &#x652F;&#x6301;ppc&#x7684;gccgo
 &#x73B0;&#x5728;&#x6211;&#x60F3;&#x57FA;&#x4E8E;go1.13 release&#x5206;&#x652F;&#x81EA;&#x5DF1;&#x7F16;&#x8BD1;&#x4E00;&#x5957;&#x5DE5;&#x5177;&#x94FE;&#x51FA;&#x6765;
 &#x5728;godev-tool docker&#x91CC;&#x9762;&#x64CD;&#x4F5C;:</p>
-<pre class="language-"><code class="lang-sh"><span class="token function">git</span> checkout release-branch.go1.13
-<span class="token comment"># e164f53422&#x662F;godevsig&#x5206;&#x652F;&#x4E0A;&#x6211;&#x7684;commit</span>
-<span class="token function">git</span> cherry-pick e164f53422
-<span class="token comment">#&#x5728;1.15&#x4E4B;&#x524D;, &#x9700;&#x8981;&#x8FD9;&#x4E2A;commit&#x6765;&#x652F;&#x6301;ppc&#x7684;cgo</span>
-<span class="token function">git</span> cherry-pick 5d1378143bc
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">git checkout release-branch.go1.13
+# e164f53422&#x662F;godevsig&#x5206;&#x652F;&#x4E0A;&#x6211;&#x7684;commit
+git cherry-pick e164f53422
+#&#x5728;1.15&#x4E4B;&#x524D;, &#x9700;&#x8981;&#x8FD9;&#x4E2A;commit&#x6765;&#x652F;&#x6301;ppc&#x7684;cgo
+git cherry-pick 5d1378143bc
 
-<span class="token comment">#&#x6211;&#x8FD8;&#x60F3;&#x8981;1.14&#x7684;-trimpath&#x529F;&#x80FD;</span>
-<span class="token function">git</span> cherry-pick eb6ce1cff4
-<span class="token function">git</span> <span class="token function">rm</span> cmd/go/testdata/script/build_trimpath.txt
+#&#x6211;&#x8FD8;&#x60F3;&#x8981;1.14&#x7684;-trimpath&#x529F;&#x80FD;
+git cherry-pick eb6ce1cff4
+git rm cmd/go/testdata/script/build_trimpath.txt
 
-<span class="token comment">#gccgo&#x4E0D;&#x652F;&#x6301;go:linkname &#x6307;&#x793A;&#x7B26;, go module&#x8981;&#x7528;&#x5C31;&#x51FA;&#x9519;`//go:linkname is only supported for functions`</span>
-<span class="token comment">#&#x9700;&#x8981;&#x4E0B;&#x9762;&#x7684;patch</span>
-<span class="token function">git</span> cherry-pick baf7d95350
-<span class="token function">git</span> cherry-pick 45873a242d
+#gccgo&#x4E0D;&#x652F;&#x6301;go:linkname &#x6307;&#x793A;&#x7B26;, go module&#x8981;&#x7528;&#x5C31;&#x51FA;&#x9519;`//go:linkname is only supported for functions`
+#&#x9700;&#x8981;&#x4E0B;&#x9762;&#x7684;patch
+git cherry-pick baf7d95350
+git cherry-pick 45873a242d
 
-<span class="token builtin class-name">cd</span> golang-go/src
-<span class="token assign-left variable">GOOS</span><span class="token operator">=</span>linux <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>amd64 ./bootstrap.bash
-</code></pre>
+cd golang-go/src
+GOOS=linux GOARCH=amd64 ./bootstrap.bash
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x6CE8;: bootstrap&#x652F;&#x6301;<code>BOOTSTRAP_FORMAT=mintgz</code>&#x610F;&#x601D;&#x662F;&#x751F;&#x6210;&#x5E72;&#x51C0;&#x7684;&#x5DE5;&#x5177;&#x94FE;, &#x5220;&#x6389;&#x4E00;&#x4E9B;&#x4E0D;&#x7528;&#x7684;&#x6587;&#x4EF6;. &#x4F46;&#x4F3C;&#x4E4E;&#x5220;&#x7684;&#x592A;&#x72E0;&#x4E86;, &#x4E0D;&#x63A8;&#x8350;</p>
 <h1 id="&#x4E0D;&#x6539;&#x53D8;go-tools&#x7684;&#x5C1D;&#x8BD5;"><a name="&#x4E0D;&#x6539;&#x53D8;go-tools&#x7684;&#x5C1D;&#x8BD5;" class="anchor-navigation-ex-anchor" href="#&#x4E0D;&#x6539;&#x53D8;go-tools&#x7684;&#x5C1D;&#x8BD5;"><i class="fa fa-link" aria-hidden="true"></i></a>9. &#x4E0D;&#x6539;&#x53D8;go tools&#x7684;&#x5C1D;&#x8BD5;</h1>
 <p>&#x901A;&#x5E38;&#x6765;&#x8BB2;, &#x7528;go tools&#x9700;&#x8981;&#x4F20;&#x5165;<code>GOARCH=</code>, &#x800C;ppc32&#x662F;&#x4E0D;&#x5728;&#x5217;&#x8868;&#x91CC;&#x9762;&#x7684;:</p>
-<pre class="language-"><code class="lang-sh">$ go tool dist list <span class="token operator">|</span> <span class="token function">grep</span> linux
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">$ go tool dist list | grep linux
 linux/386
 linux/amd64
 linux/arm
@@ -3104,86 +3108,86 @@ linux/mipsle
 linux/ppc64
 linux/ppc64le
 linux/s390x
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="&#x4F7F;&#x7528;gccgo"><a name="&#x4F7F;&#x7528;gccgo" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;gccgo"><i class="fa fa-link" aria-hidden="true"></i></a>9.1. &#x4F7F;&#x7528;gccgo</h2>
 <p>&#x4E00;&#x822C;&#x7684;, go build&#x7684;&#x65F6;&#x5019;, &#x52A0;<code>-compiler gccgo</code>&#x9009;&#x9879;&#x4F7F;&#x80FD;gccgo&#x7F16;&#x8BD1;&#x5668;, &#x9700;&#x8981;&#x6709;<code>gccgo</code>&#x8FD9;&#x4E2A;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;.
 &#x5BF9;ppc32&#x6765;&#x8BF4;, &#x9996;&#x5148;&#x8981;&#x6709;crosstool-ng&#x7F16;&#x8BD1;&#x51FA;&#x6765;&#x7684;gccgo, &#x6BD4;&#x5982;<code>powerpc-e500mc-linux-gnu-gccgo</code>
 &#x5728;<code>/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/bin</code>&#x4E0B;&#x9762;
 &#x5EFA;&#x4E00;&#x4E2A;gccgo&#x7684;&#x53EF;&#x6267;&#x884C;&#x811A;&#x672C;, &#x5185;&#x5BB9;&#x5982;&#x4E0B;:
 &#x8FD9;&#x4F1A;&#x628A;&#x6240;&#x6709;&#x8C03;&#x7528;&#x5230;gccgo&#x7684;&#x53C2;&#x6570;&#x6253;&#x5370;&#x51FA;&#x6765;</p>
-<pre class="language-"><code class="lang-sh"><span class="token shebang important">#!/bin/bash</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">#!/bin/bash
 
-<span class="token punctuation">(</span>
-<span class="token builtin class-name">echo</span> <span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">pwd</span><span class="token variable">`</span></span>
-<span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">$@</span>&quot;</span>
-<span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> gccgo.log
+(
+echo `pwd`
+echo &quot;$@&quot;
+) &gt;&gt; gccgo.log
 
-<span class="token builtin class-name">exec</span> powerpc-e500mc-linux-gnu-gccgo <span class="token variable">$@</span>
-</code></pre>
+exec powerpc-e500mc-linux-gnu-gccgo $@
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x6CE8;&#x610F;, <code>go build</code>&#x4F1A;&#x4F7F;&#x7528;cache, &#x8981;&#x5F97;&#x5230;&#x5B8C;&#x6574;&#x8FC7;&#x7A0B;, &#x9700;&#x8981;&#x5220;&#x6389;cache</p>
 <h3 id="&#x4F20;&#x5165;goarchppc64"><a name="&#x4F20;&#x5165;goarchppc64" class="anchor-navigation-ex-anchor" href="#&#x4F20;&#x5165;goarchppc64"><i class="fa fa-link" aria-hidden="true"></i></a>9.1.1. &#x4F20;&#x5165;GOARCH=ppc64</h3>
-<pre class="language-"><code class="lang-sh">yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
-$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> hello<span class="token punctuation">;</span> <span class="token function">rm</span> <span class="token parameter variable">-rf</span> /home/yingjieb/.cache/go-build/<span class="token punctuation">;</span> <span class="token function">rm</span> <span class="token parameter variable">-f</span> gccgo.log<span class="token punctuation">;</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/bin <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>ppc64 go build <span class="token parameter variable">-compiler</span> gccgo hello.go
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
+$ rm -f hello; rm -rf /home/yingjieb/.cache/go-build/; rm -f gccgo.log; PATH=$PATH:/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/bin GOARCH=ppc64 go build -compiler gccgo hello.go
 yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
-$ <span class="token function">cat</span> gccgo.log
+$ cat gccgo.log
 /repo/yingjieb/godev/practice/src/examples
 -print-search-dirs
 /repo/yingjieb/godev/practice/src/examples
-<span class="token parameter variable">-dumpversion</span>
+-dumpversion
 /repo/yingjieb/godev/practice/src/examples
-<span class="token parameter variable">-dumpmachine</span>
+-dumpmachine
 /repo/yingjieb/godev/practice/src/examples
--<span class="token comment">### -x go -c -</span>
+-### -x go -c -
 /repo/yingjieb/godev/practice/src/examples
-<span class="token parameter variable">-c</span> <span class="token parameter variable">-g</span> -fdebug-prefix-map<span class="token operator">=</span>/tmp/go-build836929485<span class="token operator">=</span>/tmp/go-build -gno-record-gcc-switches -fgo-relative-import-path<span class="token operator">=</span>_/repo/yingjieb/godev/practice/src/examples <span class="token parameter variable">-o</span> /tmp/go-build836929485/b001/_go_.o <span class="token parameter variable">-I</span> /tmp/go-build836929485/b001/_importcfgroot_ /repo/yingjieb/godev/practice/src/examples/hello.go
+-c -g -fdebug-prefix-map=/tmp/go-build836929485=/tmp/go-build -gno-record-gcc-switches -fgo-relative-import-path=_/repo/yingjieb/godev/practice/src/examples -o /tmp/go-build836929485/b001/_go_.o -I /tmp/go-build836929485/b001/_importcfgroot_ /repo/yingjieb/godev/practice/src/examples/hello.go
 /repo/yingjieb/godev/practice/src/examples
--xassembler-with-cpp <span class="token parameter variable">-I</span> /tmp/go-build836929485/b001/ <span class="token parameter variable">-c</span> <span class="token parameter variable">-o</span> /tmp/go-build836929485/b001/_buildid.o <span class="token parameter variable">-D</span> GOOS_linux <span class="token parameter variable">-D</span> GOARCH_ppc64 /tmp/go-build836929485/b001/_buildid.s
+-xassembler-with-cpp -I /tmp/go-build836929485/b001/ -c -o /tmp/go-build836929485/b001/_buildid.o -D GOOS_linux -D GOARCH_ppc64 /tmp/go-build836929485/b001/_buildid.s
 /repo/yingjieb/godev/practice/src/examples
--<span class="token comment">### -x go -c -</span>
+-### -x go -c -
 /repo/yingjieb/godev/practice/src/examples
-<span class="token parameter variable">-o</span> /tmp/go-build836929485/b001/exe/a.out -Wl,-<span class="token punctuation">(</span> -Wl,--whole-archive /tmp/go-build836929485/b001/_pkg_.a -Wl,--no-whole-archive -Wl,-<span class="token punctuation">)</span> -Wl,--build-id<span class="token operator">=</span>0x66534c46775162664f44395036684634392d76552f6f79586f4a615778706b5f78586c7852795069492f476e3059334754737349613869696f4b524356432f66534c46775162664f44395036684634392d7655
-</code></pre>
+-o /tmp/go-build836929485/b001/exe/a.out -Wl,-( -Wl,--whole-archive /tmp/go-build836929485/b001/_pkg_.a -Wl,--no-whole-archive -Wl,-) -Wl,--build-id=0x66534c46775162664f44395036684634392d76552f6f79586f4a615778706b5f78586c7852795069492f476e3059334754737349613869696f4b524356432f66534c46775162664f44395036684634392d7655
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x867D;&#x7136;&#x4F20;&#x5165;&#x7684;&#x662F;<code>GOARCH=ppc64</code>, &#x4F46;&#x4F9D;&#x7136;&#x6210;&#x529F;&#x751F;&#x6210;&#x4E86;hello&#x7A0B;&#x5E8F;:</p>
-<pre class="language-"><code class="lang-sh">yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
-$ <span class="token function">file</span> hello
-hello: ELF <span class="token number">32</span>-bit MSB executable, PowerPC or cisco <span class="token number">4500</span>, version <span class="token number">1</span> <span class="token punctuation">(</span>SYSV<span class="token punctuation">)</span>, dynamically linked, interpreter /lib/ld.so.1, <span class="token keyword">for</span> GNU/Linux <span class="token number">4.9</span>.156, with debug_info, not stripped
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
+$ file hello
+hello: ELF 32-bit MSB executable, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 4.9.156, with debug_info, not stripped
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>&#x751F;&#x6210;&#x7684;hello&#x548C;libgo.so.13&#x8003;&#x5230;&#x677F;&#x5B50;&#x4E0A;(FANT-F), &#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x6267;&#x884C;:</p>
-<pre class="language-"><code class="lang-sh"><span class="token function">scp</span> yingjieb@10.182.105.138:/repo/yingjieb/godev/practice/src/examples/hello <span class="token builtin class-name">.</span>
-<span class="token function">scp</span> yingjieb@10.182.105.138:/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/powerpc-e500mc-linux-gnu/lib/libgo.so.13 <span class="token builtin class-name">.</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">scp yingjieb@10.182.105.138:/repo/yingjieb/godev/practice/src/examples/hello .
+scp yingjieb@10.182.105.138:/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/powerpc-e500mc-linux-gnu/lib/libgo.so.13 .
 
-~ <span class="token comment"># LD_LIBRARY_PATH=`pwd` ./hello</span>
-hello world<span class="token operator">!</span>
-<span class="token number">4</span>
-0x21192008 <span class="token number">4</span>
-<span class="token number">4</span>
-</code></pre>
+~ # LD_LIBRARY_PATH=`pwd` ./hello
+hello world!
+4
+0x21192008 4
+4
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="&#x4F20;&#x5165;goarchamd64"><a name="&#x4F20;&#x5165;goarchamd64" class="anchor-navigation-ex-anchor" href="#&#x4F20;&#x5165;goarchamd64"><i class="fa fa-link" aria-hidden="true"></i></a>9.1.2. &#x4F20;&#x5165;GOARCH=amd64</h3>
-<pre class="language-"><code class="lang-sh">yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
-$ <span class="token function">rm</span> <span class="token parameter variable">-f</span> hello<span class="token punctuation">;</span> <span class="token function">rm</span> <span class="token parameter variable">-rf</span> /home/yingjieb/.cache/go-build/<span class="token punctuation">;</span> <span class="token function">rm</span> <span class="token parameter variable">-f</span> gccgo.log<span class="token punctuation">;</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/bin <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>amd64 go build <span class="token parameter variable">-compiler</span> gccgo hello.go
-<span class="token comment"># command-line-arguments</span>
-go1: error: <span class="token string">&apos;-m64&apos;</span> not supported <span class="token keyword">in</span> this configuration
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
+$ rm -f hello; rm -rf /home/yingjieb/.cache/go-build/; rm -f gccgo.log; PATH=$PATH:/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/bin GOARCH=amd64 go build -compiler gccgo hello.go
+# command-line-arguments
+go1: error: &apos;-m64&apos; not supported in this configuration
 yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
-$ <span class="token function">cat</span> gccgo.log
+$ cat gccgo.log
 /repo/yingjieb/godev/practice/src/examples
 -print-search-dirs
 /repo/yingjieb/godev/practice/src/examples
-<span class="token parameter variable">-dumpversion</span>
+-dumpversion
 /repo/yingjieb/godev/practice/src/examples
-<span class="token parameter variable">-dumpmachine</span>
+-dumpmachine
 /repo/yingjieb/godev/practice/src/examples
--<span class="token comment">### -x go -c -</span>
+-### -x go -c -
 /repo/yingjieb/godev/practice/src/examples
-<span class="token parameter variable">-c</span> <span class="token parameter variable">-g</span> <span class="token parameter variable">-m64</span> -fdebug-prefix-map<span class="token operator">=</span>/tmp/go-build246565517<span class="token operator">=</span>/tmp/go-build -gno-record-gcc-switches -fgo-relative-import-path<span class="token operator">=</span>_/repo/yingjieb/godev/practice/src/examples <span class="token parameter variable">-o</span> /tmp/go-build246565517/b001/_go_.o <span class="token parameter variable">-I</span> /tmp/go-build246565517/b001/_importcfgroot_ /repo/yingjieb/godev/practice/src/examples/hello.go
-</code></pre>
+-c -g -m64 -fdebug-prefix-map=/tmp/go-build246565517=/tmp/go-build -gno-record-gcc-switches -fgo-relative-import-path=_/repo/yingjieb/godev/practice/src/examples -o /tmp/go-build246565517/b001/_go_.o -I /tmp/go-build246565517/b001/_importcfgroot_ /repo/yingjieb/godev/practice/src/examples/hello.go
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x8BF4;&#x660E;<code>go build</code>&#x786E;&#x5B9E;&#x4F1A;<strong>&#x9ED8;&#x8BA4;</strong>&#x4F20;&#x5165;&#x4E00;&#x4E9B;&#x7F16;&#x8BD1;&#x9009;&#x9879;, &#x6BD4;&#x5982;&#x8FD9;&#x91CC;, &#x56E0;&#x4E3A;&#x6307;&#x5B9A;&#x4E86;<code>GOARCH=amd64</code>, &#x4F46;&#x6211;&#x4EEC;&#x7684;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#x5668;&#x662F;<code>powerpc-e500mc-linux-gnu-gccgo</code>, &#x4E0D;&#x8BA4;x86&#x7684;<code>-m64</code>&#x9009;&#x9879;, &#x62A5;&#x9519;:
 <code>go1: error:  &apos;-m64&apos;  not supported in  this configuration</code></p>
 <h3 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>9.1.3. &#x603B;&#x7ED3;:</h3>
 <p>&#x4F7F;&#x7528;gccgo ppc32&#x7684;&#x4EA4;&#x53C9;toolchain&#x7684;&#x65F6;&#x5019;, &#x540E;&#x7AEF;&#x7F16;&#x8BD1;&#x5668;<code>powerpc-e500mc-linux-gnu-gccgo</code>&#x5C31;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;ppc32.
 &#x5F53;<code>go build</code>&#x4F20;&#x5165;<code>GOARCH=ppc64</code>&#x65F6;, &#x5E76;&#x6CA1;&#x6709;&#x4F20;&#x5165;&quot;&#x9ED8;&#x8BA4;&quot;&#x7684;ABI, &#x6240;&#x4EE5;&#x6CA1;&#x6709;&#x7ED9;&#x7F16;&#x8BD1;&#x5668;&#x9020;&#x6210;&#x56F0;&#x6270;. 
 &#x4F46;&#x8FD9;&#x91CC;&#x6709;&#x4E2A;&#x9690;&#x60A3;: </p>
-<pre class="language-"><code class="lang-sh">-xassembler-with-cpp <span class="token parameter variable">-I</span> /tmp/go-build836929485/b001/  <span class="token parameter variable">-c</span> <span class="token parameter variable">-o</span> /tmp/go-build836929485/b001/_buildid.o <span class="token parameter variable">-D</span> GOOS_linux <span class="token parameter variable">-D</span> GOARCH_ppc64 /tmp/go-build836929485/b001/_buildid.s
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">-xassembler-with-cpp -I /tmp/go-build836929485/b001/  -c -o /tmp/go-build836929485/b001/_buildid.o -D GOOS_linux -D GOARCH_ppc64 /tmp/go-build836929485/b001/_buildid.s
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>&#x8FD9;&#x91CC;&#x7684;<code>-D GOARCH_ppc64</code>&#x662F;&#x4E0D;&#x5BF9;&#x7684;.</p>
 <h1 id="&#x5C1D;&#x8BD5;&#x6210;&#x529F;-&#x4F7F;&#x7528;ppc32-gccgo&#x7684;&#x65B9;&#x6CD5;"><a name="&#x5C1D;&#x8BD5;&#x6210;&#x529F;-&#x4F7F;&#x7528;ppc32-gccgo&#x7684;&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x5C1D;&#x8BD5;&#x6210;&#x529F;-&#x4F7F;&#x7528;ppc32-gccgo&#x7684;&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>10. &#x5C1D;&#x8BD5;&#x6210;&#x529F;, &#x4F7F;&#x7528;ppc32 gccgo&#x7684;&#x65B9;&#x6CD5;</h1>
 <p>&#x5176;&#x4ED6;&#x90FD;&#x4E00;&#x6837;, &#x53EA;&#x662F;&#x8981;&#x4F20;&#x5165;<code>GOARCH=ppc64</code>&#x548C;<code>-compiler gccgo</code>, &#x5E76;&#x4E14;&#x4FDD;&#x8BC1;<code>PATH=$PATH:/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/bin</code>&#x4E0B;&#x9762;&#x6709;<code>gccgo</code>&#x94FE;&#x63A5;&#x5230;&#x540C;&#x76EE;&#x5F55;&#x4E0B;&#x7684;<code>powerpc-e500mc-linux-gnu-gccgo</code></p>
@@ -3191,21 +3195,21 @@ $ <span class="token function">cat</span> gccgo.log
 <p>&#x524D;&#x9762;&#x5DF2;&#x7ECF;&#x8BC1;&#x660E;, &#x4F7F;&#x7528;<code>GOARCH=ppc64</code>&#x662F;&#x53EF;&#x4EE5;&#x7F16;&#x8BD1;&#x6210;&#x529F;&#x7684;, &#x5E76;&#x4E14;&#x8FD0;&#x884C;&#x4E5F;&#x6CA1;&#x53D1;&#x73B0;&#x4EC0;&#x4E48;&#x95EE;&#x9898;.
 &#x4F46;&#x6CE8;&#x610F;&#x5230;ppc64&#x4F1A;&#x5B9A;&#x4E49;<code>-D GOARCH_ppc64</code>, &#x8FD9;&#x4E2A;&#x5B8F;&#x662F;&#x7ED9;C&#x548C;&#x6C47;&#x7F16;&#x770B;&#x7684;, &#x6709;&#x4EC0;&#x4E48;&#x5F71;&#x54CD;&#x5462;?
 &#x641C;&#x7D22;&#x4E00;&#x4E0B;, &#x4E0B;&#x9762;&#x7684;&#x6587;&#x4EF6;&#x4F7F;&#x7528;&#x4E86;<code>GOARCH_ppc64</code></p>
-<pre class="language-"><code class="lang-sh">src/internal/bytealg/compare_ppc64x.s
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">src/internal/bytealg/compare_ppc64x.s
 src/internal/bytealg/indexbyte_ppc64x.s
 src/crypto/md5/md5block_ppc64x.s
 
-<span class="token comment"># &#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x662F;go&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x6C47;&#x7F16;&#x652F;&#x6301;, &#x6BD4;&#x5982;gcWriteBarrier, &#x548C;cgo&#x76F8;&#x5173;&#x7684;&#x5B9E;&#x73B0;</span>
+# &#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x662F;go&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x6C47;&#x7F16;&#x652F;&#x6301;, &#x6BD4;&#x5982;gcWriteBarrier, &#x548C;cgo&#x76F8;&#x5173;&#x7684;&#x5B9E;&#x73B0;
 // +build ppc64 ppc64le
 src/runtime/asm_ppc64x.s
 
-<span class="token comment"># &#x8FD9;&#x4E2A;&#x4F3C;&#x4E4E;&#x662F;syscall&#x7684;&#x6C47;&#x7F16;&#x5B9E;&#x73B0;</span>
+# &#x8FD9;&#x4E2A;&#x4F3C;&#x4E4E;&#x662F;syscall&#x7684;&#x6C47;&#x7F16;&#x5B9E;&#x73B0;
 // +build linux
 // +build ppc64 ppc64le
 src/runtime/sys_linux_ppc64x.s
 
 src/runtime/cgo/asm_ppc64x.s
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x8981;&#x4FEE;&#x6539;go&#x6E90;&#x7801;, &#x4EE5;&#x652F;&#x6301;&#x76F4;&#x63A5;&#x4F20;&#x5165;<code>GOARCH=ppc32</code>
 &#x9996;&#x5148;&#x9700;&#x8981;crosstool-ng&#x7F16;&#x51FA;gccgo. </p>
 <h2 id="&#x7F16;&#x8BD1;gccgo"><a name="&#x7F16;&#x8BD1;gccgo" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;gccgo"><i class="fa fa-link" aria-hidden="true"></i></a>11.1. &#x7F16;&#x8BD1;gccgo</h2>
@@ -3237,34 +3241,34 @@ src/runtime/cgo/asm_ppc64x.s
 <p>&#x8FD9;&#x91CC;&#x6211;&#x7528;&#x5B98;&#x65B9;crosstool-ng
 <code>git clone https://github.com/crosstool-ng/crosstool-ng</code>
 &#x9700;&#x8981;&#x5148;&#x5B89;&#x88C5;&#x4E9B;&#x4F9D;&#x8D56;:</p>
-<pre class="language-"><code class="lang-sh"><span class="token function">apt</span> <span class="token function">install</span> flex help2man texinfo libtool-bin libncurses-dev <span class="token function">gawk</span> bison
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">apt install flex help2man texinfo libtool-bin libncurses-dev gawk bison
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>&#x8981;&#x751F;&#x6210;ct-ng</p>
-<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">cd</span> crosstool-ng
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">cd crosstool-ng
 ./bootstrap
 ./configure --enable-local
-<span class="token function">make</span>
-</code></pre>
+make
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x4F7F;&#x7528;cg-ng</p>
-<pre class="language-"><code class="lang-sh">./ct-ng <span class="token builtin class-name">help</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">./ct-ng help
 ./ct-ng list-samples
 ./ct-ng powerpc-e300c3-linux-gnu
 
-./ct-ng defconfig <span class="token assign-left variable">DEFCONFIG</span><span class="token operator">=</span>samples/Nokia/isam-reborn-ppc-P40xx
+./ct-ng defconfig DEFCONFIG=samples/Nokia/isam-reborn-ppc-P40xx
 ./ct-ng menuconfig
 ./ct-ng build
 
-<span class="token comment">#&#x4FDD;&#x5B58;config</span>
-./ct-ng savedefconfig <span class="token assign-left variable">DEFCONFIG</span><span class="token operator">=</span>samples/Nokia/isam-reborn-ppc-e6500
-</code></pre>
+#&#x4FDD;&#x5B58;config
+./ct-ng savedefconfig DEFCONFIG=samples/Nokia/isam-reborn-ppc-e6500
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x5B8C;&#x6210;&#x540E;, &#x4F1A;&#x5728;<code>targets</code>&#x4E0B;&#x9762;&#x751F;&#x6210;&#x5DE5;&#x5177;&#x94FE;</p>
 <h3 id="&#x4F7F;&#x7528;crosstool-ng&#x7684;gccgo"><a name="&#x4F7F;&#x7528;crosstool-ng&#x7684;gccgo" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;crosstool-ng&#x7684;gccgo"><i class="fa fa-link" aria-hidden="true"></i></a>11.1.2. &#x4F7F;&#x7528;crosstool-ng&#x7684;gccgo</h3>
 <p>&#x4E3A;&#x4E86;&#x7248;&#x672C;&#x4E00;&#x81F4;, &#x6211;&#x9009;&#x7528;&#x4E86;
 gcc-10.2.0, &#x91CC;&#x9762;&#x7684;go&#x7248;&#x672C;&#x662F;go1.14;
 go&#x6E90;&#x7801;&#x4F7F;&#x7528;<code>release-branch.go1.14</code>, &#x7F16;&#x8BD1;go tools.
 &#x4F7F;&#x7528;&#x65B0;&#x751F;&#x6210;&#x7684;go tools, &#x6307;&#x5B9A;gccgo&#x7F16;&#x8BD1;hello.go</p>
-<pre class="language-"><code class="lang-sh"><span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>ppc64 /repo/yingjieb/godev/golang-go/bin/go build <span class="token parameter variable">-compiler</span> gccgo <span class="token parameter variable">-gccgoflags</span> <span class="token string">&apos;-static -Os&apos;</span> hello.go
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">PATH=$PATH:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin GOARCH=ppc64 /repo/yingjieb/godev/golang-go/bin/go build -compiler gccgo -gccgoflags &apos;-static -Os&apos; hello.go
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="&#x4FEE;&#x6539;go&#x6E90;&#x7801;&#x652F;&#x6301;ppc32"><a name="&#x4FEE;&#x6539;go&#x6E90;&#x7801;&#x652F;&#x6301;ppc32" class="anchor-navigation-ex-anchor" href="#&#x4FEE;&#x6539;go&#x6E90;&#x7801;&#x652F;&#x6301;ppc32"><i class="fa fa-link" aria-hidden="true"></i></a>11.2. &#x4FEE;&#x6539;go&#x6E90;&#x7801;&#x652F;&#x6301;ppc32</h2>
 <h3 id="power-isa&#x80CC;&#x666F;&#x77E5;&#x8BC6;"><a name="power-isa&#x80CC;&#x666F;&#x77E5;&#x8BC6;" class="anchor-navigation-ex-anchor" href="#power-isa&#x80CC;&#x666F;&#x77E5;&#x8BC6;"><i class="fa fa-link" aria-hidden="true"></i></a>11.2.1. power ISA&#x80CC;&#x666F;&#x77E5;&#x8BC6;</h3>
 <p><a href="https://en.wikipedia.org/wiki/Power_ISA" target="_blank">power ISA</a></p>
@@ -3299,7 +3303,7 @@ go&#x6E90;&#x7801;&#x4F7F;&#x7528;<code>release-branch.go1.14</code>, &#x7F16;&#
 </ul>
 <h3 id="default-arch&#x9009;&#x9879;"><a name="default-arch&#x9009;&#x9879;" class="anchor-navigation-ex-anchor" href="#default-arch&#x9009;&#x9879;"><i class="fa fa-link" aria-hidden="true"></i></a>11.2.2. default ARCH&#x9009;&#x9879;</h3>
 <p>&#x6BCF;&#x4E2A;arch&#x90FD;&#x6709;&#x4E2A;default&#x9009;&#x9879;: &#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x662F;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x7684;</p>
-<pre class="language-"><code class="lang-go"><span class="token comment">// Code generated by go tool dist; DO NOT EDIT.</span>
+<pre class="line-numbers language-go" lang="go"><code class=" language-go"><span class="token comment">// Code generated by go tool dist; DO NOT EDIT.</span>
 
 <span class="token keyword">package</span> objabi
 
@@ -3317,11 +3321,11 @@ go&#x6E90;&#x7801;&#x4F7F;&#x7528;<code>release-branch.go1.14</code>, &#x7F16;&#
 <span class="token keyword">const</span> version <span class="token operator">=</span> <span class="token string">`go1.14.9`</span>
 <span class="token keyword">const</span> stackGuardMultiplierDefault <span class="token operator">=</span> <span class="token number">1</span>
 <span class="token keyword">const</span> goexperiment <span class="token operator">=</span> <span class="token string">``</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F;, PPC64&#x5B9E;&#x9645;&#x4E0A;&#x662F;<code>power8</code></p>
 <h3 id="&#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x5668;&#x53C2;&#x6570;"><a name="&#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x5668;&#x53C2;&#x6570;" class="anchor-navigation-ex-anchor" href="#&#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x5668;&#x53C2;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>11.2.3. &#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x5668;&#x53C2;&#x6570;</h3>
 <p><code>golang-go/src/cmd/go/internal/work/exec.go</code></p>
-<pre class="language-"><code class="lang-go"><span class="token comment">// gccArchArgs returns arguments to pass to gcc based on the architecture.</span>
+<pre class="line-numbers language-go" lang="go"><code class=" language-go"><span class="token comment">// gccArchArgs returns arguments to pass to gcc based on the architecture.</span>
 <span class="token keyword">func</span> <span class="token punctuation">(</span>b <span class="token operator">*</span>Builder<span class="token punctuation">)</span> <span class="token function">gccArchArgs</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token punctuation">{</span>
     <span class="token keyword">switch</span> cfg<span class="token punctuation">.</span>Goarch <span class="token punctuation">{</span>
     <span class="token keyword">case</span> <span class="token string">&quot;386&quot;</span><span class="token punctuation">:</span>
@@ -3343,38 +3347,38 @@ go&#x6E90;&#x7801;&#x4F7F;&#x7528;<code>release-branch.go1.14</code>, &#x7F16;&#
     <span class="token punctuation">}</span>
     <span class="token keyword">return</span> <span class="token boolean">nil</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="&#x8981;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;"><a name="&#x8981;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x8981;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>11.2.4. &#x8981;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;</h3>
-<pre class="language-"><code class="lang-sh">modified:   src/cmd/dist/build.go
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">modified:   src/cmd/dist/build.go
 modified:   src/cmd/dist/buildruntime.go
 modified:   src/cmd/go/internal/cfg/cfg.go
 modified:   src/internal/cfg/cfg.go
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="ppc64&#x65E0;&#x6CD5;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;"><a name="ppc64&#x65E0;&#x6CD5;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;" class="anchor-navigation-ex-anchor" href="#ppc64&#x65E0;&#x6CD5;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;"><i class="fa fa-link" aria-hidden="true"></i></a>12. ppc64&#x65E0;&#x6CD5;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;</h1>
 <p>&#x7528;gcgo&#x7F16;&#x8BD1;&#x51FA;&#x6765;&#x7684;<code>GOARCH=ppc64</code>&#x7684;&#x7248;&#x672C;&#x65E0;&#x6CD5;&#x5728;fant-g&#x4E0A;&#x8FD0;&#x884C;.
 &#x7528;gccgo&#x7F16;&#x51FA;&#x6765;&#x7684;32&#x4F4D;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x6267;&#x884C;.
 &#x7528;gccgo&#x7F16;ppc64&#x65F6;, &#x7F16;&#x8BD1;&#x51FA;&#x9519;, &#x62A5;link&#x9519;&#x8BEF;:</p>
-<pre class="language-"><code class="lang-sh">lib/gcc/powerpc-e6500-linux-gnu/10.2.0/libgcc.a<span class="token punctuation">(</span>morestack.o<span class="token punctuation">)</span>: <span class="token keyword">in</span> <span class="token keyword">function</span> <span class="token variable"><span class="token variable">`</span>__morestack&apos;:
-src/gcc/libgcc/config/rs6000/morestack.S:159: undefined reference to <span class="token variable">`</span></span>__morestack_block_signals<span class="token string">&apos;
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">lib/gcc/powerpc-e6500-linux-gnu/10.2.0/libgcc.a(morestack.o): in function `__morestack&apos;:
+src/gcc/libgcc/config/rs6000/morestack.S:159: undefined reference to `__morestack_block_signals&apos;
 
-undefined reference to `__generic_morestack&apos;</span>
-undefined reference to <span class="token variable"><span class="token variable">`</span>__morestack_unblock_signals&apos;
-undefined reference to <span class="token variable">`</span></span>__morestack_block_signals<span class="token string">&apos;
-undefined reference to `__generic_releasestack&apos;</span>
-undefined reference to <span class="token variable"><span class="token variable">`</span>__morestack_unblock_signals&apos;
-undefined reference to <span class="token variable">`</span></span>__generic_findstack<span class="token string">&apos;
-undefined reference to `__generic_morestack_set_initial_sp&apos;</span>
+undefined reference to `__generic_morestack&apos;
+undefined reference to `__morestack_unblock_signals&apos;
+undefined reference to `__morestack_block_signals&apos;
+undefined reference to `__generic_releasestack&apos;
+undefined reference to `__morestack_unblock_signals&apos;
+undefined reference to `__generic_findstack&apos;
+undefined reference to `__generic_morestack_set_initial_sp&apos;
 undefined reference to `__morestack_load_mmap&apos;
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x5BF9;hello.go&#x6765;&#x8BF4;, &#x52A0;&#x9009;&#x9879;<code>-fno-split-stack</code>&#x53EF;&#x4EE5;&#x6210;&#x529F;&#x7F16;&#x8BD1;ppc64, &#x6210;&#x529F;&#x8FD0;&#x884C;</p>
-<pre class="language-"><code class="lang-sh">/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e6500-linux-gnu/bin/powerpc-e6500-linux-gnu-gccgo  -fno-split-stack <span class="token parameter variable">-static</span> hello.go
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e6500-linux-gnu/bin/powerpc-e6500-linux-gnu-gccgo  -fno-split-stack -static hello.go
 
-<span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e6500-linux-gnu/bin <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>ppc64 /repo/yingjieb/godev/golang-go/bin/go build <span class="token parameter variable">-compiler</span> gccgo <span class="token parameter variable">-gccgoflags</span> <span class="token string">&apos;-static -Os -fno-split-stack&apos;</span> hello.go
-</code></pre>
+PATH=$PATH:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e6500-linux-gnu/bin GOARCH=ppc64 /repo/yingjieb/godev/golang-go/bin/go build -compiler gccgo -gccgoflags &apos;-static -Os -fno-split-stack&apos; hello.go
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>&#x4F46;topid.go&#x5373;&#x4F7F;&#x52A0;&#x4E86;<code>-fno-split-stack</code>, &#x8FD8;&#x662F;&#x62A5;&#x4E00;&#x6837;&#x7684;&#x94FE;&#x63A5;&#x9519;&#x8BEF;</p>
 <h2 id="&#x8FD9;&#x4E9B;&#x7F3A;&#x5931;&#x7684;&#x7B26;&#x53F7;&#x5E94;&#x8BE5;&#x5728;&#x54EA;&#x91CC;"><a name="&#x8FD9;&#x4E9B;&#x7F3A;&#x5931;&#x7684;&#x7B26;&#x53F7;&#x5E94;&#x8BE5;&#x5728;&#x54EA;&#x91CC;" class="anchor-navigation-ex-anchor" href="#&#x8FD9;&#x4E9B;&#x7F3A;&#x5931;&#x7684;&#x7B26;&#x53F7;&#x5E94;&#x8BE5;&#x5728;&#x54EA;&#x91CC;"><i class="fa fa-link" aria-hidden="true"></i></a>12.1. &#x8FD9;&#x4E9B;&#x7F3A;&#x5931;&#x7684;&#x7B26;&#x53F7;&#x5E94;&#x8BE5;&#x5728;&#x54EA;&#x91CC;?</h2>
 <p>&#x770B;&#x8D77;&#x6765;&#x662F;libgcc.a&#x7684;<code>__morestack</code>&#x51FD;&#x6570;&#x9700;&#x8981;&#x8C03;&#x7528;<code>__morestack_block_signals</code>&#x7B49;&#x51FD;&#x6570;, &#x4F46;&#x6CA1;&#x6709;&#x5B9A;&#x4E49;.</p>
-<pre class="language-"><code class="lang-sh">$ nm /repo/yingjieb/crosstoolng/github/powerpc-e6500-linux-gnu/lib/gcc/powerpc-e6500-linux-gnu/10.2.0/libgcc.a  <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">more</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">$ nm /repo/yingjieb/crosstoolng/github/powerpc-e6500-linux-gnu/lib/gcc/powerpc-e6500-linux-gnu/10.2.0/libgcc.a  | grep more
 morestack.o:
                  U __generic_morestack
                  U __generic_morestack_set_initial_sp
@@ -3386,17 +3390,17 @@ morestack.o:
 0000000000000000 D __morestack_non_split
 0000000000000060 D __morestack_set_guard
                  U __morestack_unblock_signals
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>U</code>&#x7684;&#x610F;&#x601D;&#x5C31;&#x662F;undefined
 &#x5BF9;ppc&#x6765;&#x8BF4;, gcc&#x7684;&#x4EE3;&#x7801;<code>libgcc/config/rs6000/morestack.S</code>&#x4E2D;, &#x6709;<code>__morestack</code>&#x7684;&#x5B9A;&#x4E49;, &#x786E;&#x5B9E;&#x8C03;&#x7528;&#x4E86;&#x8FD9;&#x4E9B;&#x51FD;&#x6570;.<br><img src="img/golang_toolchain_ppc_20220908092605.png" alt="">  </p>
 <p>&#x8FD9;&#x4E9B;&#x51FD;&#x6570;&#x7684;&#x5B9A;&#x4E49;&#x5728;:<code>libgcc/generic-morestack.c</code><br><img src="img/golang_toolchain_ppc_20220908092621.png" alt="">  </p>
 <p>&#x6839;&#x636E;&#x4E0B;&#x9762;&#x7684;&#x53C2;&#x8003;&#x6587;&#x7AE0;, split stack&#x529F;&#x80FD;&#x662F;<code>Ian Lance Taylor</code>&#x5728;x86&#x4E0A;&#x5B9E;&#x73B0;&#x7684;; ppc64&#x4E0A;&#x7684;&#x5B9E;&#x73B0;&#x7684;&#x4F5C;&#x8005;&#x662F;<code>Alan Modra</code>, <a href="https://gcc.gnu.org/legacy-ml/gcc-patches/2015-05/msg01519.html" target="_blank">[Patch 0/4] PowerPC64 Linux split stack support</a></p>
 <p>&#x5BF9;&#x7167;X86&#x673A;&#x5668;&#x4E0A;:</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment"># &#x5148;&#x627E;&#x5230;gcc&#x7684;lib&#x76EE;&#x5F55;, &#x662F;/usr/lib/gcc/x86_64-linux-gnu/7</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh"># &#x5148;&#x627E;&#x5230;gcc&#x7684;lib&#x76EE;&#x5F55;, &#x662F;/usr/lib/gcc/x86_64-linux-gnu/7
 gcc -print-search-dirs
 
-<span class="token comment"># &#x7528;nm&#x770B;&#x7B26;&#x53F7;&#x8868;</span>
-$ nm libgcc.a <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">more</span>
+# &#x7528;nm&#x770B;&#x7B26;&#x53F7;&#x8868;
+$ nm libgcc.a | grep more
 nm: _trampoline.o: no symbols
 nm: __main.o: no symbols
 nm: _mulhc3.o: no symbols
@@ -3433,7 +3437,7 @@ morestack.o:
 0000000000000000 T __morestack_non_split
 000000000000015f T __morestack_set_guard
                  U __morestack_unblock_signals
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>T</code>&#x8868;&#x793A;&#x662F;&#x4EE3;&#x7801;&#x7B26;&#x53F7;.
 &#x786E;&#x5B9E;&#x7684;&#x51FD;&#x6570;&#x5927;&#x90E8;&#x5206;&#x5728;<code>generic-morestack.o</code>&#x4E2D;. &#x8FD9;&#x548C;<code>libgcc/generic-morestack.c</code>&#x4EE3;&#x7801;&#x5206;&#x6790;&#x662F;&#x4E00;&#x6837;&#x7684;.
 &#x8BF4;&#x660E;&#x8FD9;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x5230;libgcc.a&#x4E2D;.</p>
@@ -3441,18 +3445,18 @@ morestack.o:
 <h2 id="&#x4E3A;&#x4EC0;&#x4E48;generic-morestackc&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x5230;"><a name="&#x4E3A;&#x4EC0;&#x4E48;generic-morestackc&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x5230;" class="anchor-navigation-ex-anchor" href="#&#x4E3A;&#x4EC0;&#x4E48;generic-morestackc&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x5230;"><i class="fa fa-link" aria-hidden="true"></i></a>12.2. &#x4E3A;&#x4EC0;&#x4E48;generic-morestack.c&#x6CA1;&#x6709;&#x7F16;&#x8BD1;&#x5230;?</h2>
 <p><code>libgcc/generic-morestack.c</code>&#x4E2D;, &#x4E3B;&#x4F53;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x8BD1;&#x6761;&#x4EF6;&#x662F;:<br><code>#if !defined __powerpc__ || defined __powerpc64__</code><br><code>__powerpc64__</code>&#x786E;&#x5B9A;&#x662F;&#x6709;&#x7684;. 
 &#x90A3;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x662F;&#x6CA1;&#x6709;&#x7F16;&#x5230;&#x5462;?<br>&#x539F;&#x6765;&#x662F;<code>libgcc/config/t-stack</code>&#x4E2D;, <code>enable_threads</code>&#x63A7;&#x5236;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x53C2;&#x4E0E;&#x7F16;&#x8BD1;:</p>
-<pre class="language-"><code class="lang-makefile"><span class="token keyword">ifeq</span> <span class="token punctuation">(</span><span class="token variable">$</span><span class="token punctuation">(</span>enable_threads<span class="token punctuation">)</span>,yes<span class="token punctuation">)</span>
+<pre class="line-numbers language-makefile" lang="makefile"><code class=" language-makefile"><span class="token keyword">ifeq</span> <span class="token punctuation">(</span><span class="token variable">$</span><span class="token punctuation">(</span>enable_threads<span class="token punctuation">)</span>,yes<span class="token punctuation">)</span>
 LIB2ADD_ST <span class="token operator">+=</span> <span class="token variable">$</span><span class="token punctuation">(</span>srcdir<span class="token punctuation">)</span>/generic-morestack.c <span class="token variable">$</span><span class="token punctuation">(</span>srcdir<span class="token punctuation">)</span>/generic-morestack-thread.c
 <span class="token keyword">endif</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>&#x5728;<a href="https://gcc.gnu.org/install/configure.html" target="_blank">gcc&#x5B89;&#x88C5;&#x624B;&#x518C;</a>&#x4E2D;, &#x6709;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;:</p>
-<pre class="language-"><code class="lang-sh">--enable-threads
-Specify that the target supports threads. This affects the Objective-C compiler and runtime library, and exception handling <span class="token keyword">for</span> other languages like C++. On some systems, this is the default.
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">--enable-threads
+Specify that the target supports threads. This affects the Objective-C compiler and runtime library, and exception handling for other languages like C++. On some systems, this is the default.
 
-In general, the best <span class="token punctuation">(</span>and, <span class="token keyword">in</span> many cases, the only known<span class="token punctuation">)</span> threading model available will be configured <span class="token keyword">for</span> use. Beware that on some systems, GCC has not been taught what threading models are generally available <span class="token keyword">for</span> the system. In this case, --enable-threads is an <span class="token builtin class-name">alias</span> <span class="token keyword">for</span> --enable-threads<span class="token operator">=</span>single.
+In general, the best (and, in many cases, the only known) threading model available will be configured for use. Beware that on some systems, GCC has not been taught what threading models are generally available for the system. In this case, --enable-threads is an alias for --enable-threads=single.
 
---enable-threads<span class="token operator">=</span>lib
-Specify that lib is the thread support library. This affects the Objective-C compiler and runtime library, and exception handling <span class="token keyword">for</span> other languages like C++. The possibilities <span class="token keyword">for</span> lib are:
+--enable-threads=lib
+Specify that lib is the thread support library. This affects the Objective-C compiler and runtime library, and exception handling for other languages like C++. The possibilities for lib are:
 
 aix
 AIX thread support.
@@ -3460,14 +3464,14 @@ AIX thread support.
 dce
 DCE thread support.
 
-<span class="token function">lynx</span>
+lynx
 LynxOS thread support.
 
 mipssde
 MIPS SDE thread support.
 
 no
-This is an <span class="token builtin class-name">alias</span> <span class="token keyword">for</span> &#x2018;single&#x2019;.
+This is an alias for &#x2018;single&#x2019;.
 
 posix
 Generic POSIX/Unix98 thread support.
@@ -3476,7 +3480,7 @@ rtems
 RTEMS thread support.
 
 single
-Disable thread support, should work <span class="token keyword">for</span> all platforms.
+Disable thread support, should work for all platforms.
 
 tpf
 TPF thread support.
@@ -3486,41 +3490,41 @@ VxWorks thread support.
 
 win32
 Microsoft Win32 API thread support.
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x5728;<code>gcc/config.gcc</code>&#x4E2D;, &#x6BCF;&#x4E2A;arch&#x548C;os&#x90FD;&#x4F1A;&#x68C0;&#x67E5;</p>
-<pre class="language-"><code class="lang-sh"><span class="token keyword">case</span> <span class="token variable">${target}</span> <span class="token keyword">in</span>
-*-*-linux* <span class="token operator">|</span> frv-*-*linux* <span class="token operator">|</span> *-*-kfreebsd*-gnu <span class="token operator">|</span> *-*-gnu* <span class="token operator">|</span> *-*-kopensolaris*-gnu <span class="token operator">|</span> *-*-uclinuxfdpiceabi<span class="token punctuation">)</span>
-    <span class="token keyword">case</span> <span class="token variable">${enable_threads}</span> <span class="token keyword">in</span>
-    <span class="token string">&quot;&quot;</span> <span class="token operator">|</span> <span class="token function">yes</span> <span class="token operator">|</span> posix<span class="token punctuation">)</span> <span class="token assign-left variable">thread_file</span><span class="token operator">=</span><span class="token string">&apos;posix&apos;</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
-    <span class="token keyword">esac</span>
-<span class="token punctuation">..</span>.
-<span class="token keyword">esac</span>
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">case ${target} in
+*-*-linux* | frv-*-*linux* | *-*-kfreebsd*-gnu | *-*-gnu* | *-*-kopensolaris*-gnu | *-*-uclinuxfdpiceabi)
+    case ${enable_threads} in
+    &quot;&quot; | yes | posix) thread_file=&apos;posix&apos; ;;
+    esac
+...
+esac
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="crosstool-ng&#x7684;bug"><a name="crosstool-ng&#x7684;bug" class="anchor-navigation-ex-anchor" href="#crosstool-ng&#x7684;bug"><i class="fa fa-link" aria-hidden="true"></i></a>12.2.1. crosstool-ng&#x7684;bug</h3>
 <p>&#x7ECF;&#x8FDB;&#x4E00;&#x6B65;&#x68C0;&#x67E5;, &#x539F;&#x7248;&#x7684;gcc&#x6CA1;&#x6709;&#x95EE;&#x9898;. &#x95EE;&#x9898;&#x5728;&#x4E8E;crosstool-ng&#x7684;&#x4E00;&#x4E2A;patch:</p>
-<pre class="language-"><code class="lang-sh">yingjieb@godev-server /repo/yingjieb/crosstoolng/github/crosstool-ng/packages/gcc/10.2.0
-$ <span class="token function">cat</span> 0008-libgcc-disable-split-stack-nothreads.patch
-disable split-stack <span class="token keyword">for</span> non-thread builds
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">yingjieb@godev-server /repo/yingjieb/crosstoolng/github/crosstool-ng/packages/gcc/10.2.0
+$ cat 0008-libgcc-disable-split-stack-nothreads.patch
+disable split-stack for non-thread builds
 
-Signed-off-by: Waldemar Brodkorb <span class="token operator">&lt;</span>wbx@openadk.org<span class="token operator">&gt;</span>
+Signed-off-by: Waldemar Brodkorb &lt;wbx@openadk.org&gt;
 
 ---
- libgcc/config/t-stack <span class="token operator">|</span>    <span class="token number">2</span> ++
- <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">2</span> insertions<span class="token punctuation">(</span>+<span class="token punctuation">)</span>
+ libgcc/config/t-stack |    2 ++
+ 1 file changed, 2 insertions(+)
 
 --- a/libgcc/config/t-stack
 +++ b/libgcc/config/t-stack
 @@ -1,4 +1,6 @@
- <span class="token comment"># Makefile fragment to provide generic support for -fsplit-stack.</span>
- <span class="token comment"># This should be used in config.host for any host which supports</span>
- <span class="token comment"># -fsplit-stack.</span>
-+ifeq <span class="token punctuation">(</span><span class="token variable"><span class="token variable">$(</span>enable_threads<span class="token variable">)</span></span>,yes<span class="token punctuation">)</span>
- LIB2ADD_ST <span class="token operator">+=</span> <span class="token variable"><span class="token variable">$(</span>srcdir<span class="token variable">)</span></span>/generic-morestack.c <span class="token variable"><span class="token variable">$(</span>srcdir<span class="token variable">)</span></span>/generic-morestack-thread.c
+ # Makefile fragment to provide generic support for -fsplit-stack.
+ # This should be used in config.host for any host which supports
+ # -fsplit-stack.
++ifeq ($(enable_threads),yes)
+ LIB2ADD_ST += $(srcdir)/generic-morestack.c $(srcdir)/generic-morestack-thread.c
 +endif
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x5C1D;&#x8BD5;&#x5728;crosstool-ng&#x7684;config&#x91CC;&#x9762;&#x52A0;:</p>
-<pre class="language-"><code class="lang-sh"><span class="token assign-left variable">CT_CC_GCC_EXTRA_CONFIG_ARRAY</span><span class="token operator">=</span><span class="token string">&quot;--enable-threads=yes&quot;</span>
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">CT_CC_GCC_EXTRA_CONFIG_ARRAY=&quot;--enable-threads=yes&quot;
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>&#x4F46;&#x4E0D;&#x8D77;&#x4F5C;&#x7528;, &#x5220;&#x9664;&#x6389;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;<code>0008-libgcc-disable-split-stack-nothreads.patch</code>&#x5C31;&#x597D;&#x4E86;.</p>
 <h2 id="&#x5173;&#x4E8E;split-stack"><a name="&#x5173;&#x4E8E;split-stack" class="anchor-navigation-ex-anchor" href="#&#x5173;&#x4E8E;split-stack"><i class="fa fa-link" aria-hidden="true"></i></a>12.3. &#x5173;&#x4E8E;split stack</h2>
 <p>gcc&#x7684;&#x5927;&#x795E;<code>Ian Lance Taylor</code>&#x6709;&#x4E24;&#x7BC7;&#x6587;&#x7AE0;:
@@ -3537,14 +3541,14 @@ Signed-off-by: Waldemar Brodkorb <span class="token operator">&lt;</span>wbx@ope
 <p><a href="https://gcc.gnu.org/legacy-ml/gcc-patches/2015-05/msg01522.html" target="_blank">https://gcc.gnu.org/legacy-ml/gcc-patches/2015-05/msg01522.html</a>
 <a href="https://groups.google.com/g/golang-codereviews/c/4T_KQys3XM0/m/VWNk2c6JCgAJ" target="_blank">https://groups.google.com/g/golang-codereviews/c/4T_KQys3XM0/m/VWNk2c6JCgAJ</a></p>
 <h1 id="&#x4E0A;&#x4F20;gccgo&#x5DE5;&#x5177;&#x94FE;&#x5230;artifactory"><a name="&#x4E0A;&#x4F20;gccgo&#x5DE5;&#x5177;&#x94FE;&#x5230;artifactory" class="anchor-navigation-ex-anchor" href="#&#x4E0A;&#x4F20;gccgo&#x5DE5;&#x5177;&#x94FE;&#x5230;artifactory"><i class="fa fa-link" aria-hidden="true"></i></a>13. &#x4E0A;&#x4F20;gccgo&#x5DE5;&#x5177;&#x94FE;&#x5230;artifactory</h1>
-<pre class="language-"><code class="lang-sh">proxyoff
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">proxyoff
 
-<span class="token builtin class-name">cd</span> crosstool-ng/targets
-<span class="token function">tar</span> cJf godev-gccgo-ppc.tar.xz powerpc-e500mc-linux-gnu
-<span class="token function">tar</span> cJf godev-gccgo-ppc64.tar.xz powerpc64-e6500-linux-gnu
+cd crosstool-ng/targets
+tar cJf godev-gccgo-ppc.tar.xz powerpc-e500mc-linux-gnu
+tar cJf godev-gccgo-ppc64.tar.xz powerpc64-e6500-linux-gnu
 
-<span class="token function">curl</span> <span class="token parameter variable">-H</span> <span class="token string">&quot;X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc&quot;</span>  <span class="token parameter variable">-X</span> PUT <span class="token string">&quot;https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/toolchain/gccgo/<span class="token variable"><span class="token variable">`</span><span class="token function">git</span> rev-parse HEAD<span class="token variable">`</span></span>/&quot;</span>  <span class="token parameter variable">-T</span> <span class="token string">&quot;{godev-gccgo-ppc.tar.xz,godev-gccgo-ppc64.tar.xz}&quot;</span>
-</code></pre>
+curl -H &quot;X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc&quot;  -X PUT &quot;https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/toolchain/gccgo/`git rev-parse HEAD`/&quot;  -T &quot;{godev-gccgo-ppc.tar.xz,godev-gccgo-ppc64.tar.xz}&quot;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x8BE6;&#x89C1;&#x7B14;&#x8BB0;<code>&#x4E91;&#x7AEF;&#x73AF;&#x5883;&#x548C;go&#x5B9E;&#x8DF5;.md</code></p>
 <h1 id="gccgo&#x7684;hello-size&#x8FC7;&#x5927;&#x95EE;&#x9898;"><a name="gccgo&#x7684;hello-size&#x8FC7;&#x5927;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#gccgo&#x7684;hello-size&#x8FC7;&#x5927;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>14. gccgo&#x7684;hello size&#x8FC7;&#x5927;&#x95EE;&#x9898;</h1>
 <p>gccgo&#x7F16;&#x8BD1;&#x51FA;&#x6765;&#x7684;&#x9759;&#x6001;&#x94FE;&#x63A5;&#x7684;hello&#x662F;17M
@@ -3562,61 +3566,61 @@ from the debugging info using the libbacktrace library.</p>
 <a href="https://sourceware.org/binutils/docs/binutils/strip.html" target="_blank">strip&#x4F7F;&#x7528;&#x8BF4;&#x660E;</a>
 <a href="https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html" target="_blank">GCC&#x7684;debug&#x9009;&#x9879;</a></p>
 <p>gcc&#x7684;&#x9009;&#x9879;&#x4E2D;, <code>-g1</code>&#x548C;<code>-gz</code>&#x770B;&#x8D77;&#x6765;&#x6BD4;&#x8F83;&#x6709;&#x7528;:</p>
-<pre class="language-"><code class="lang-sh"><span class="token parameter variable">-glevel</span>
-    Request debugging information and also use level to specify how much information. The default level is <span class="token number">2</span>.
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">-glevel
+    Request debugging information and also use level to specify how much information. The default level is 2.
 
-    Level <span class="token number">0</span> produces no debug information at all. Thus, <span class="token parameter variable">-g0</span> negates -g.
+    Level 0 produces no debug information at all. Thus, -g0 negates -g.
 
-    Level <span class="token number">1</span> produces minimal information, enough <span class="token keyword">for</span> making backtraces <span class="token keyword">in</span> parts of the program that you don&#x2019;t plan to debug. This includes descriptions of functions and external variables, and line number tables, but no information about <span class="token builtin class-name">local</span> variables.
+    Level 1 produces minimal information, enough for making backtraces in parts of the program that you don&#x2019;t plan to debug. This includes descriptions of functions and external variables, and line number tables, but no information about local variables.
 
-    Level <span class="token number">3</span> includes extra information, such as all the macro definitions present <span class="token keyword">in</span> the program. Some debuggers support macro expansion when you use -g3.
+    Level 3 includes extra information, such as all the macro definitions present in the program. Some debuggers support macro expansion when you use -g3.
 
-    If you use multiple <span class="token parameter variable">-g</span> options, with or without level numbers, the last such option is the one that is effective.
+    If you use multiple -g options, with or without level numbers, the last such option is the one that is effective.
 
-    <span class="token parameter variable">-gdwarf</span> does not accept a concatenated debug level, to avoid confusion with -gdwarf-level. Instead use an additional <span class="token parameter variable">-glevel</span> option to change the debug level <span class="token keyword">for</span> DWARF.
+    -gdwarf does not accept a concatenated debug level, to avoid confusion with -gdwarf-level. Instead use an additional -glevel option to change the debug level for DWARF.
 
--gz<span class="token punctuation">[</span><span class="token operator">=</span>type<span class="token punctuation">]</span>
-    Produce compressed debug sections <span class="token keyword">in</span> DWARF format, <span class="token keyword">if</span> that is supported. If <span class="token builtin class-name">type</span> is not given, the default <span class="token builtin class-name">type</span> depends on the capabilities of the assembler and linker used. <span class="token builtin class-name">type</span> may be one of &#x2018;none&#x2019; <span class="token punctuation">(</span>don&#x2019;t compress debug sections<span class="token punctuation">)</span>, &#x2018;zlib&#x2019; <span class="token punctuation">(</span>use zlib compression <span class="token keyword">in</span> ELF gABI <span class="token function">format</span><span class="token punctuation">)</span>, or &#x2018;zlib-gnu&#x2019; <span class="token punctuation">(</span>use zlib compression <span class="token keyword">in</span> traditional GNU <span class="token function">format</span><span class="token punctuation">)</span>. If the linker doesn&#x2019;t support writing compressed debug sections, the option is rejected. Otherwise, <span class="token keyword">if</span> the assembler does not support them, <span class="token parameter variable">-gz</span> is silently ignored when producing object files.
-</code></pre>
+-gz[=type]
+    Produce compressed debug sections in DWARF format, if that is supported. If type is not given, the default type depends on the capabilities of the assembler and linker used. type may be one of &#x2018;none&#x2019; (don&#x2019;t compress debug sections), &#x2018;zlib&#x2019; (use zlib compression in ELF gABI format), or &#x2018;zlib-gnu&#x2019; (use zlib compression in traditional GNU format). If the linker doesn&#x2019;t support writing compressed debug sections, the option is rejected. Otherwise, if the assembler does not support them, -gz is silently ignored when producing object files.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>-gz</code>&#x80FD;&#x8BA9;hello&#x4ECE;17M&#x51CF;&#x5C0F;&#x5230;8.7M</p>
 <h2 id="&#x76F8;&#x5173;&#x547D;&#x4EE4;"><a name="&#x76F8;&#x5173;&#x547D;&#x4EE4;" class="anchor-navigation-ex-anchor" href="#&#x76F8;&#x5173;&#x547D;&#x4EE4;"><i class="fa fa-link" aria-hidden="true"></i></a>14.1. &#x76F8;&#x5173;&#x547D;&#x4EE4;</h2>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x770B;&#x5177;&#x4F53;&#x90A3;&#x4E2A;section&#x7684;size</span>
-size <span class="token parameter variable">-A</span> hello
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">#&#x770B;&#x5177;&#x4F53;&#x90A3;&#x4E2A;section&#x7684;size
+size -A hello
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><a href="https://help.backtrace.io/en/articles/1716990-dwarf" target="_blank">&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;</a>&#x975E;&#x5E38;&#x8BE6;&#x7EC6;&#x7684;&#x4ECB;&#x7ECD;&#x4E86;debug&#x8282;&#x7684;&#x65B9;&#x65B9;&#x9762;&#x9762;&#x7684;&#x4FE1;&#x606F;.
 &#x7279;&#x522B;&#x7684;, objcopy&#x80FD;&#x591F;&#x53BB;&#x6389;&#x4EFB;&#x610F;&#x6307;&#x5B9A;section</p>
-<pre class="language-"><code class="lang-sh">/repo/yingjieb/godevsig/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin/powerpc-e500mc-linux-gnu-objcopy <span class="token parameter variable">-R</span> .debug_info <span class="token parameter variable">-R</span> .debug_abbrev <span class="token parameter variable">-R</span> .debug_aranges <span class="token parameter variable">-R</span> .debug_ranges <span class="token parameter variable">-R</span> .debug_loc <span class="token parameter variable">-R</span> .debug_str hello
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">/repo/yingjieb/godevsig/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin/powerpc-e500mc-linux-gnu-objcopy -R .debug_info -R .debug_abbrev -R .debug_aranges -R .debug_ranges -R .debug_loc -R .debug_str hello
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="&#x51CF;&#x5C0F;libgoa&#x7684;&#x4F53;&#x79EF;"><a name="&#x51CF;&#x5C0F;libgoa&#x7684;&#x4F53;&#x79EF;" class="anchor-navigation-ex-anchor" href="#&#x51CF;&#x5C0F;libgoa&#x7684;&#x4F53;&#x79EF;"><i class="fa fa-link" aria-hidden="true"></i></a>14.2. &#x51CF;&#x5C0F;libgo.a&#x7684;&#x4F53;&#x79EF;</h2>
 <p>gcc&#x7684;libgo&#x5728;&#x7F16;&#x8BD1;&#x7684;&#x65F6;&#x5019;, &#x6709;&#x81EA;&#x5DF1;&#x9ED8;&#x8BA4;&#x7684;&#x7F16;&#x8BD1;&#x9009;&#x9879;<code>-O2 -g</code>
 &#x7528;&#x4E0B;&#x9762;&#x7684;patch</p>
-<pre class="language-"><code class="lang-diff">diff --git a/Makefile.in b/Makefile.in
+<pre class="line-numbers language-diff" lang="diff"><code class=" language-diff">diff --git a/Makefile.in b/Makefile.in
 index 36e369df6..2e183c702 100644
 <span class="token coord">--- a/Makefile.in</span>
 <span class="token coord">+++ b/Makefile.in</span>
 @@ -619,7 +619,7 @@ CXXFLAGS_FOR_TARGET = @CXXFLAGS_FOR_TARGET@
-<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">LIBCFLAGS_FOR_TARGET = $(CFLAGS_FOR_TARGET)
-</span><span class="token prefix unchanged"> </span><span class="token line">LIBCXXFLAGS_FOR_TARGET = $(CXXFLAGS_FOR_TARGET) -fno-implicit-templates
-</span><span class="token prefix unchanged"> </span><span class="token line">LDFLAGS_FOR_TARGET = @LDFLAGS_FOR_TARGET@
-</span></span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line">GOCFLAGS_FOR_TARGET = -O2 -g
-</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">GOCFLAGS_FOR_TARGET = -Os -g1 -gz
-</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">GDCFLAGS_FOR_TARGET = -O2 -g
-</span></span>
-<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">FLAGS_FOR_TARGET = @FLAGS_FOR_TARGET@
-</span></span>diff --git a/Makefile.tpl b/Makefile.tpl
+ LIBCFLAGS_FOR_TARGET = $(CFLAGS_FOR_TARGET)
+ LIBCXXFLAGS_FOR_TARGET = $(CXXFLAGS_FOR_TARGET) -fno-implicit-templates
+ LDFLAGS_FOR_TARGET = @LDFLAGS_FOR_TARGET@
+<span class="token deleted">-GOCFLAGS_FOR_TARGET = -O2 -g</span>
+<span class="token inserted">+GOCFLAGS_FOR_TARGET = -Os -g1 -gz</span>
+ GDCFLAGS_FOR_TARGET = -O2 -g
+
+ FLAGS_FOR_TARGET = @FLAGS_FOR_TARGET@
+diff --git a/Makefile.tpl b/Makefile.tpl
 index efed15117..3c0d2e5e2 100644
 <span class="token coord">--- a/Makefile.tpl</span>
 <span class="token coord">+++ b/Makefile.tpl</span>
 @@ -542,7 +542,7 @@ CXXFLAGS_FOR_TARGET = @CXXFLAGS_FOR_TARGET@
-<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">LIBCFLAGS_FOR_TARGET = $(CFLAGS_FOR_TARGET)
-</span><span class="token prefix unchanged"> </span><span class="token line">LIBCXXFLAGS_FOR_TARGET = $(CXXFLAGS_FOR_TARGET) -fno-implicit-templates
-</span><span class="token prefix unchanged"> </span><span class="token line">LDFLAGS_FOR_TARGET = @LDFLAGS_FOR_TARGET@
-</span></span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line">GOCFLAGS_FOR_TARGET = -O2 -g
-</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">GOCFLAGS_FOR_TARGET = -Os -g1 -gz
-</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">GDCFLAGS_FOR_TARGET = -O2 -g
-</span></span>
-<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">FLAGS_FOR_TARGET = @FLAGS_FOR_TARGET@
-</span></span></code></pre>
+ LIBCFLAGS_FOR_TARGET = $(CFLAGS_FOR_TARGET)
+ LIBCXXFLAGS_FOR_TARGET = $(CXXFLAGS_FOR_TARGET) -fno-implicit-templates
+ LDFLAGS_FOR_TARGET = @LDFLAGS_FOR_TARGET@
+<span class="token deleted">-GOCFLAGS_FOR_TARGET = -O2 -g</span>
+<span class="token inserted">+GOCFLAGS_FOR_TARGET = -Os -g1 -gz</span>
+ GDCFLAGS_FOR_TARGET = -O2 -g
+
+ FLAGS_FOR_TARGET = @FLAGS_FOR_TARGET@
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x7ECF;&#x8FC7;&#x6D4B;&#x8BD5;, &#x5404;&#x4E2A;&#x9009;&#x9879;&#x7EC4;&#x5408;&#x7684;size&#x5982;&#x4E0B;:</p>
 <table>
 <thead>
@@ -3655,17 +3659,17 @@ index efed15117..3c0d2e5e2 100644
 &#x4F46;&#x7ECF;&#x8FC7;&#x9A8C;&#x8BC1;, &#x4F3C;&#x4E4E;&#x6253;&#x5F00;lto&#x4F18;&#x5316;, &#x5E76;&#x6CA1;&#x6709;&#x51CF;&#x5C0F;size.</p>
 <h2 id="&#x6539;&#x52A8;&#x63D0;&#x4EA4;&#x5230;crosstool-ng"><a name="&#x6539;&#x52A8;&#x63D0;&#x4EA4;&#x5230;crosstool-ng" class="anchor-navigation-ex-anchor" href="#&#x6539;&#x52A8;&#x63D0;&#x4EA4;&#x5230;crosstool-ng"><i class="fa fa-link" aria-hidden="true"></i></a>14.3. &#x6539;&#x52A8;&#x63D0;&#x4EA4;&#x5230;crosstool-ng</h2>
 <p>&#x5728;gcc&#x5E93;&#x4E0A;commit&#x8FD9;&#x4E2A;&#x6539;&#x52A8;, &#x751F;&#x6210;patch</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment"># -1&#x8868;&#x793A;&#x6700;&#x65B0;&#x7684;1&#x4E2A;&#x6539;&#x52A8;</span>
-<span class="token function">git</span> format-patch <span class="token parameter variable">-1</span>
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh"># -1&#x8868;&#x793A;&#x6700;&#x65B0;&#x7684;1&#x4E2A;&#x6539;&#x52A8;
+git format-patch -1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>&#x62F7;&#x8D1D;&#x8FD9;&#x4E2A;patch&#x5230;gcc&#x4E0B;&#x9762;
 <code>cp 0001-gccgo-generate-smaller-libgo-when-building-gccgo.patch crosstool-ng/packages/gcc/10.2.0/</code></p>
 <h2 id="goexport&#x5C0F;&#x8282;"><a name="goexport&#x5C0F;&#x8282;" class="anchor-navigation-ex-anchor" href="#goexport&#x5C0F;&#x8282;"><i class="fa fa-link" aria-hidden="true"></i></a>14.4. go_export&#x5C0F;&#x8282;</h2>
 <p>&#x7528;<code>size -A</code>&#x547D;&#x4EE4;&#x770B;&#x5230;, gccgo&#x7F16;&#x8BD1;&#x51FA;&#x6765;&#x7684;executable&#x4E2D;, &#x6709;<code>.go_export</code>&#x5C0F;&#x8282;, &#x5728;webhello&#x4E2D;&#x5360;1.6M
 &#x6839;&#x636E;<a href="https://github.com/golang/go/issues/26204" target="_blank">&#x8FD9;&#x4E2A;&#x8BA8;&#x8BBA;</a>, gccgo&#x7684;&#x4F5C;&#x8005;&#x8BF4;<code>.go_export</code>&#x662F;&#x7ED9;shared library&#x7528;&#x7684;, &#x6700;&#x7EC8;&#x7684;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x4E0D;&#x9700;&#x8981;. &#x4F46;&#x4ED6;&#x4E0D;&#x77E5;&#x9053;&#x600E;&#x4E48;&#x544A;&#x8BC9;linker&#x628A;&#x8FD9;&#x4E2A;&#x5C0F;&#x8282;&#x53BB;&#x6389;</p>
 <p>&#x90A3;&#x53EF;&#x4EE5;&#x5728;&#x6700;&#x540E;&#x624B;&#x52A8;&#x7528;<code>objcopy -R .go_export file</code>&#x6765;&#x5220;&#x9664;&#x8FD9;&#x4E2A;&#x5C0F;&#x8282;.</p>
-<pre class="language-"><code class="lang-sh">/opt/crosstool/powerpc64-e6500-linux-gnu/bin/powerpc64-e6500-linux-gnu-objcopy --remove-section<span class="token operator">=</span>.go_export hello
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">/opt/crosstool/powerpc64-e6500-linux-gnu/bin/powerpc64-e6500-linux-gnu-objcopy --remove-section=.go_export hello
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="static&#x548C;static-libgo"><a name="static&#x548C;static-libgo" class="anchor-navigation-ex-anchor" href="#static&#x548C;static-libgo"><i class="fa fa-link" aria-hidden="true"></i></a>14.5. static&#x548C;static-libgo</h2>
 <p>&#x4F7F;&#x7528;gccgo, &#x53EF;&#x4EE5;&#x4F20;&#x5165;<code>-gccgoflags</code>&#x4E3A;<code>-static-libgo</code>, &#x53EA;&#x628A;libgo&#x7F16;&#x8BD1;&#x5230;static&#x7684;&#x76EE;&#x6807;&#x6587;&#x4EF6;&#x4E2D;, &#x800C;libc&#x7B49;&#x5E93;&#x8FD8;&#x662F;&#x52A8;&#x6001;&#x8FDE;&#x63A5;&#x7684;.
 &#x8BE6;&#x89C1;<a href="https://stackoverflow.com/questions/20369106/gccgo-static-vs-static-libgo" target="_blank">&#x8FD9;&#x4E2A;&#x95EE;&#x7B54;</a></p>
@@ -3675,7 +3679,7 @@ index efed15117..3c0d2e5e2 100644
 <p>Quoting this super useful post from Aram H&#x103;v&#x103;rneanu from <a href="https://groups.google.com/d/msg/golang-dev/SRUK7yJVA0c/JeoCRMwzBwAJ" target="_blank">https://groups.google.com/d/msg/golang-dev/SRUK7yJVA0c/JeoCRMwzBwAJ</a></p>
 <p>&quot;I&apos;ve done many ports now, so the strategy I use
 is this (very simplified):</p>
-<pre class="language-"><code>1\. Add GOOS/GOARCH support to the toolchain
+<pre class="line-numbers language-undefined"><code class=" language-undefined">1\. Add GOOS/GOARCH support to the toolchain
 
 2\. Add some support for GOARCH in cmd/internal/obj
 3\. Add some support for GOARCH in cmd/asm
@@ -3715,7 +3719,7 @@ is this (very simplified):</p>
 15\. Make sure all.bash works.
 
 16\. Done.
-</code></pre><p>As you can see, steps 1-14 are done on amd64 (or some other supported
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>As you can see, steps 1-14 are done on amd64 (or some other supported
 platform), and only step 15 is done on the target architecture.</p>
 <p>&#x641C;&#x7D22;&#x6E90;&#x7801;&#x5927;&#x7EA6;&#x6709;5000&#x884C;&#x5305;&#x542B;ppc64&#x5B57;&#x6837;... &#x8981;&#x5B8C;&#x6574;&#x652F;&#x6301;ppc32&#x5E76;&#x975E;&#x6613;&#x4E8B;.</p>
 <h1 id="&#x4E0B;&#x4E00;&#x6B65;"><a name="&#x4E0B;&#x4E00;&#x6B65;" class="anchor-navigation-ex-anchor" href="#&#x4E0B;&#x4E00;&#x6B65;"><i class="fa fa-link" aria-hidden="true"></i></a>16. &#x4E0B;&#x4E00;&#x6B65;</h1>
@@ -3725,68 +3729,68 @@ platform), and only step 15 is done on the target architecture.</p>
 <li>&#x9AD8;&#x7248;&#x672C;</li>
 </ul>
 <h1 id="&#x8865;&#x5145;-fant-f&#x8FD0;&#x884C;topid"><a name="&#x8865;&#x5145;-fant-f&#x8FD0;&#x884C;topid" class="anchor-navigation-ex-anchor" href="#&#x8865;&#x5145;-fant-f&#x8FD0;&#x884C;topid"><i class="fa fa-link" aria-hidden="true"></i></a>17. &#x8865;&#x5145;: fant-f&#x8FD0;&#x884C;topid</h1>
-<pre class="language-"><code class="lang-sh">~ <span class="token comment"># LD_LIBRARY_PATH=`pwd` ./topid -record -tag fantf -p 1 -child -chartserver 10.182.105.138:9887 -i 3</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">~ # LD_LIBRARY_PATH=`pwd` ./topid -record -tag fantf -p 1 -child -chartserver 10.182.105.138:9887 -i 3
 Hello &#x4F60;&#x597D; Hola Hallo Bonjour Ciao &#x3A7;&#x3B1;&#x3AF;&#x3C1;&#x3B5;&#x3C4;&#x3B5; &#x3053;&#x3093;&#x306B;&#x3061;&#x306F; &#xC5EC;&#xBCF4;&#xC138;&#xC694;
-Version: <span class="token number">0.1</span>.3
+Version: 0.1.3
 Visit below URL to get the chart:
 http://10.182.105.138:9888/fantf/538600174
 
-~ <span class="token comment"># ls -lh</span>
+~ # ls -lh
 total 38M
--rwxr-xr-x    <span class="token number">1</span> root     root       <span class="token number">89</span>.7K Jul  <span class="token number">8</span> <span class="token number">14</span>:22 hello
--rwxr-xr-x    <span class="token number">1</span> root     root       <span class="token number">37</span>.8M Jul  <span class="token number">8</span> <span class="token number">14</span>:24 libgo.so.13
--rwxr-xr-x    <span class="token number">1</span> root     root      <span class="token number">258</span>.3K Jul  <span class="token number">8</span> <span class="token number">15</span>:01 topid
-~ <span class="token comment"># cat /isam/slot_default/devs/rip/boardName</span>
-FANT-F  ~ <span class="token comment">#</span>
-~ <span class="token comment">#</span>
-</code></pre>
+-rwxr-xr-x    1 root     root       89.7K Jul  8 14:22 hello
+-rwxr-xr-x    1 root     root       37.8M Jul  8 14:24 libgo.so.13
+-rwxr-xr-x    1 root     root      258.3K Jul  8 15:01 topid
+~ # cat /isam/slot_default/devs/rip/boardName
+FANT-F  ~ #
+~ #
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="&#x8865;&#x5145;-ppc64"><a name="&#x8865;&#x5145;-ppc64" class="anchor-navigation-ex-anchor" href="#&#x8865;&#x5145;-ppc64"><i class="fa fa-link" aria-hidden="true"></i></a>18. &#x8865;&#x5145;: ppc64</h1>
-<pre class="language-"><code class="lang-sh">yingjieb@godev-server /repo/yingjieb/godevsig/crosstool-ng/samples/Nokia
-$ <span class="token function">git</span> show 0a81bc37
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">yingjieb@godev-server /repo/yingjieb/godevsig/crosstool-ng/samples/Nokia
+$ git show 0a81bc37
 commit 0a81bc37a9e8d44c9d3f13c0b557854425b018db
-Author: Bai Yingjie <span class="token operator">&lt;</span>yingjie.bai@nokia-sbell.com<span class="token operator">&gt;</span>
-Date:   Tue Oct <span class="token number">20</span> 08:55:23 <span class="token number">2020</span> +0000
+Author: Bai Yingjie &lt;yingjie.bai@nokia-sbell.com&gt;
+Date:   Tue Oct 20 08:55:23 2020 +0000
 
-    godev: <span class="token builtin class-name">enable</span> the default split-stack
+    godev: enable the default split-stack
 
-    <span class="token keyword">for</span> ppc64, gccgo lib uses split-stack feature, <span class="token function">which</span> requires toolchain
+    for ppc64, gccgo lib uses split-stack feature, which requires toolchain
     support split-stack.
 
-<span class="token function">diff</span> <span class="token parameter variable">--git</span> a/packages/gcc/10.2.0/0008-libgcc-disable-split-stack-nothreads.patch b/packages/gcc/10.2.0/0008-libgcc-disable-split-stack-nothreads.patch
-deleted <span class="token function">file</span> mode <span class="token number">100644</span>
-index df91a9ff<span class="token punctuation">..</span>00000000
+diff --git a/packages/gcc/10.2.0/0008-libgcc-disable-split-stack-nothreads.patch b/packages/gcc/10.2.0/0008-libgcc-disable-split-stack-nothreads.patch
+deleted file mode 100644
+index df91a9ff..00000000
 --- a/packages/gcc/10.2.0/0008-libgcc-disable-split-stack-nothreads.patch
 +++ /dev/null
 @@ -1,17 +0,0 @@
-<span class="token parameter variable">-disable</span> split-stack <span class="token keyword">for</span> non-thread builds
+-disable split-stack for non-thread builds
 -
--Signed-off-by: Waldemar Brodkorb <span class="token operator">&lt;</span>wbx@openadk.org<span class="token operator">&gt;</span>
+-Signed-off-by: Waldemar Brodkorb &lt;wbx@openadk.org&gt;
 -
 ----
-- libgcc/config/t-stack <span class="token operator">|</span>    <span class="token number">2</span> ++
-- <span class="token number">1</span> <span class="token function">file</span> changed, <span class="token number">2</span> insertions<span class="token punctuation">(</span>+<span class="token punctuation">)</span>
+- libgcc/config/t-stack |    2 ++
+- 1 file changed, 2 insertions(+)
 -
 ---- a/libgcc/config/t-stack
 -+++ b/libgcc/config/t-stack
 -@@ -1,4 +1,6 @@
-- <span class="token comment"># Makefile fragment to provide generic support for -fsplit-stack.</span>
-- <span class="token comment"># This should be used in config.host for any host which supports</span>
-- <span class="token comment"># -fsplit-stack.</span>
--+ifeq <span class="token punctuation">(</span><span class="token variable"><span class="token variable">$(</span>enable_threads<span class="token variable">)</span></span>,yes<span class="token punctuation">)</span>
-- LIB2ADD_ST <span class="token operator">+=</span> <span class="token variable"><span class="token variable">$(</span>srcdir<span class="token variable">)</span></span>/generic-morestack.c <span class="token variable"><span class="token variable">$(</span>srcdir<span class="token variable">)</span></span>/generic-morestack-thread.c
+- # Makefile fragment to provide generic support for -fsplit-stack.
+- # This should be used in config.host for any host which supports
+- # -fsplit-stack.
+-+ifeq ($(enable_threads),yes)
+- LIB2ADD_ST += $(srcdir)/generic-morestack.c $(srcdir)/generic-morestack-thread.c
 -+endif
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="&#x8865;&#x5145;-&#x4E3A;&#x4EC0;&#x4E48;gc-go&#x5DE5;&#x5177;&#x94FE;&#x7684;&#x652F;&#x6301;ppc64-&#x4F46;&#x4E0D;&#x80FD;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;"><a name="&#x8865;&#x5145;-&#x4E3A;&#x4EC0;&#x4E48;gc-go&#x5DE5;&#x5177;&#x94FE;&#x7684;&#x652F;&#x6301;ppc64-&#x4F46;&#x4E0D;&#x80FD;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;" class="anchor-navigation-ex-anchor" href="#&#x8865;&#x5145;-&#x4E3A;&#x4EC0;&#x4E48;gc-go&#x5DE5;&#x5177;&#x94FE;&#x7684;&#x652F;&#x6301;ppc64-&#x4F46;&#x4E0D;&#x80FD;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;"><i class="fa fa-link" aria-hidden="true"></i></a>19. &#x8865;&#x5145;: &#x4E3A;&#x4EC0;&#x4E48;gc go&#x5DE5;&#x5177;&#x94FE;&#x7684;&#x652F;&#x6301;ppc64, &#x4F46;&#x4E0D;&#x80FD;&#x5728;e6500&#x4E0A;&#x8FD0;&#x884C;?</h1>
 <p>&#x56E0;&#x4E3A;gc go&#x7684;ppc64&#x7279;&#x6307;power8</p>
 <p><a href="https://github.com/golang/go/issues/19074" target="_blank">zte&#x6709;&#x4EBA;&#x652F;&#x6301;&#x4E86;e6500</a> &#x7528;&#x6CD5;&#x662F;&#x4F20;&#x5165;GOPPC
 &#x4F46;&#x6211;&#x8BD5;&#x4E86;, &#x5B98;&#x65B9;&#x6E90;&#x7801;&#x6811;&#x91CC;&#x8FD8;&#x6CA1;&#x6709;.</p>
-<pre class="language-"><code class="lang-sh"><span class="token assign-left variable">GOPPC64</span><span class="token operator">=</span>e6500 <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>ppc64 _go build hello.g
-<span class="token number">2020</span>/11/03 01:21:57 Invalid GOPPC64 value. Must be power8 or power9.
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">GOPPC64=e6500 GOARCH=ppc64 _go build hello.g
+2020/11/03 01:21:57 Invalid GOPPC64 value. Must be power8 or power9.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>&#x8FD8;&#x6709;&#x4E2A;&#x8BF4;&#x6CD5;&#x662F;, <a href="https://github.com/golang/go/issues/34850" target="_blank">&#x53BB;&#x6389;ppc64&#x7684;&#x652F;&#x6301;, &#x53EA;&#x4FDD;&#x7559;ppc64le</a></p>
 <h1 id="&#x8865;&#x5145;-elf&#x683C;&#x5F0F;"><a name="&#x8865;&#x5145;-elf&#x683C;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x8865;&#x5145;-elf&#x683C;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>20. &#x8865;&#x5145;: elf&#x683C;&#x5F0F;</h1>
 <p><a href="https://stevens.netmeister.org/631/elf.html" target="_blank">https://stevens.netmeister.org/631/elf.html</a></p>
-
+</body></html>
                                 
                                 </section>
                             
@@ -3829,7 +3833,7 @@ index df91a9ff<span class="token punctuation">..</span>00000000
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"go tools增加ppc32支持.md","level":"1.7.9.1","depth":3,"next":{"title":"编译gccgo","level":"1.7.9.2","depth":3,"path":"notes/golang_toolchain_compile_gccgo.md","ref":"notes/golang_toolchain_compile_gccgo.md","articles":[]},"previous":{"title":"Golang 环境和工具链生成","level":"1.7.9","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"go tools增加ppc32支持.md","level":"1.7.9.1","depth":3,"path":"notes/golang_toolchain_ppc.md","ref":"notes/golang_toolchain_ppc.md","articles":[]},{"title":"编译gccgo","level":"1.7.9.2","depth":3,"path":"notes/golang_toolchain_compile_gccgo.md","ref":"notes/golang_toolchain_compile_gccgo.md","articles":[]},{"title":"go on mips boards(not so updated)","level":"1.7.9.3","depth":3,"path":"notes/golang_go_on_mips.md","ref":"notes/golang_go_on_mips.md","articles":[{"title":"part 1: cross compile go","level":"1.7.9.3.1","depth":4,"path":"notes/golang_go_on_mips_part1.md","ref":"notes/golang_go_on_mips_part1.md","articles":[]},{"title":"part 2: build native go compiler","level":"1.7.9.3.2","depth":4,"path":"notes/golang_go_on_mips_part2.md","ref":"notes/golang_go_on_mips_part2.md","articles":[]},{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"path":"notes/golang_go_on_mips_part4.md","ref":"notes/golang_go_on_mips_part4.md","articles":[]},{"title":"Gentoo on mips board and build go","level":"1.7.9.3.5","depth":4,"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","ref":"notes/golang_gentoo_on_mips_board_and_build_go.md","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_toolchain_ppc.md","mtime":"2022-10-11T16:01:35.081Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T16:02:31.524Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"go tools增加ppc32支持.md","level":"1.7.9.1","depth":3,"next":{"title":"编译gccgo","level":"1.7.9.2","depth":3,"path":"notes/golang_toolchain_compile_gccgo.md","ref":"notes/golang_toolchain_compile_gccgo.md","articles":[]},"previous":{"title":"Golang 环境和工具链生成","level":"1.7.9","depth":2,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"go tools增加ppc32支持.md","level":"1.7.9.1","depth":3,"path":"notes/golang_toolchain_ppc.md","ref":"notes/golang_toolchain_ppc.md","articles":[]},{"title":"编译gccgo","level":"1.7.9.2","depth":3,"path":"notes/golang_toolchain_compile_gccgo.md","ref":"notes/golang_toolchain_compile_gccgo.md","articles":[]},{"title":"go on mips boards(not so updated)","level":"1.7.9.3","depth":3,"path":"notes/golang_go_on_mips.md","ref":"notes/golang_go_on_mips.md","articles":[{"title":"part 1: cross compile go","level":"1.7.9.3.1","depth":4,"path":"notes/golang_go_on_mips_part1.md","ref":"notes/golang_go_on_mips_part1.md","articles":[]},{"title":"part 2: build native go compiler","level":"1.7.9.3.2","depth":4,"path":"notes/golang_go_on_mips_part2.md","ref":"notes/golang_go_on_mips_part2.md","articles":[]},{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"path":"notes/golang_go_on_mips_part4.md","ref":"notes/golang_go_on_mips_part4.md","articles":[]},{"title":"Gentoo on mips board and build go","level":"1.7.9.3.5","depth":4,"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","ref":"notes/golang_gentoo_on_mips_board_and_build_go.md","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_toolchain_ppc.md","mtime":"2022-10-12T01:03:45.931Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T01:04:48.354Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

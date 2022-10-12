@@ -21,7 +21,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
                 
             
                 
@@ -2863,7 +2867,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#what-is-gccgo"><b>1. </b>What is gccgo</a></li><li><span class="title-icon "></span><a href="#current-gcc-used-by-mips-boards-doesnt-compile-go"><b>2. </b>Current gcc used by MIPS boards doesn&apos;t compile go</a></li><li><span class="title-icon "></span><a href="#build-gcc-toolchain-to-support-go"><b>3. </b>Build gcc toolchain to support go</a></li><li><span class="title-icon "></span><a href="#gcc-toolchain-needs-to-be-rebuild-to-support-go"><b>4. </b>gcc toolchain needs to be rebuild to support go</a></li><ul><li><span class="title-icon "></span><a href="#build-gcc-toolchain-natively-on-x86"><b>4.1. </b>build gcc toolchain natively on X86</a></li><li><span class="title-icon "></span><a href="#use-gccgo"><b>4.2. </b>use gccgo</a></li></ul><li><span class="title-icon "></span><a href="#c-interoperability"><b>5. </b>C Interoperability</a></li><li><span class="title-icon "></span><a href="#gcc-version-requirement"><b>6. </b>Gcc version requirement</a></li><li><span class="title-icon "></span><a href="#conclusion"><b>7. </b>Conclusion</a></li></ul></div><a href="#what-is-gccgo" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#what-is-gccgo"><b>1. </b>What is gccgo</a></li><li><span class="title-icon "></span><a href="#current-gcc-used-by-mips-boards-doesnt-compile-go"><b>2. </b>Current gcc used by MIPS boards doesn&apos;t compile go</a></li><li><span class="title-icon "></span><a href="#build-gcc-toolchain-to-support-go"><b>3. </b>Build gcc toolchain to support go</a></li><li><span class="title-icon "></span><a href="#gcc-toolchain-needs-to-be-rebuild-to-support-go"><b>4. </b>gcc toolchain needs to be rebuild to support go</a></li><ul><li><span class="title-icon "></span><a href="#build-gcc-toolchain-natively-on-x86"><b>4.1. </b>build gcc toolchain natively on X86</a></li><li><span class="title-icon "></span><a href="#use-gccgo"><b>4.2. </b>use gccgo</a></li></ul><li><span class="title-icon "></span><a href="#c-interoperability"><b>5. </b>C Interoperability</a></li><li><span class="title-icon "></span><a href="#gcc-version-requirement"><b>6. </b>Gcc version requirement</a></li><li><span class="title-icon "></span><a href="#conclusion"><b>7. </b>Conclusion</a></li></ul></div><a href="#what-is-gccgo" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
 <li><a href="#what-is-gccgo">What is gccgo</a></li>
 <li><a href="#current-gcc-used-by-mips-boards-doesnt-compile-go">Current gcc used by MIPS boards doesn&apos;t compile go</a></li>
 <li><a href="#build-gcc-toolchain-to-support-go">Build gcc toolchain to support go</a></li>
@@ -2888,17 +2892,17 @@
 <p>Building gccgo is just like building GCC with one or two additional options. See the instructions on the gcc web site. When you run configure, add the option --enable-languages=c,c++,go (along with other languages you may want to build). </p>
 <h2 id="build-gcc-toolchain-natively-on-x86"><a name="build-gcc-toolchain-natively-on-x86" class="anchor-navigation-ex-anchor" href="#build-gcc-toolchain-natively-on-x86"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. build gcc toolchain natively on X86</h2>
 <p>gccgo is another branch of gcc, called branches/gccgo:</p>
-<pre class="language-"><code class="lang-sh">svn checkout svn://gcc.gnu.org/svn/gcc/branches/gccgo gccgo
-<span class="token function">mkdir</span> objdir
-<span class="token builtin class-name">cd</span> objdir
-<span class="token punctuation">..</span>/gccgo/configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span>/opt/gccgo --enable-languages<span class="token operator">=</span>c,c++,go --with-ld<span class="token operator">=</span>/opt/gold/bin/ld
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span>
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">svn checkout svn://gcc.gnu.org/svn/gcc/branches/gccgo gccgo
+mkdir objdir
+cd objdir
+../gccgo/configure --prefix=/opt/gccgo --enable-languages=c,c++,go --with-ld=/opt/gold/bin/ld
+make
+make install
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="use-gccgo"><a name="use-gccgo" class="anchor-navigation-ex-anchor" href="#use-gccgo"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. use gccgo</h2>
-<pre class="language-"><code class="lang-sh">gccgo <span class="token parameter variable">-c</span> file.go
-gccgo <span class="token parameter variable">-o</span> <span class="token function">file</span> file.o
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">gccgo -c file.go
+gccgo -o file file.o
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="c-interoperability"><a name="c-interoperability" class="anchor-navigation-ex-anchor" href="#c-interoperability"><i class="fa fa-link" aria-hidden="true"></i></a>5. C Interoperability</h1>
 <blockquote>
 <p>When using gccgo there is limited interoperability with C, or with C++ code compiled using extern &quot;C&quot;.</p>
@@ -2923,7 +2927,7 @@ Current gcc toolchain is provided by Marvell(Cavium), which doesn&apos;t support
 <li>with additional go language enabled: add <code>--enable-languages=c,c++,go</code> when compiling the toolchain.</li>
 <li>better to be Gcc 8, Gcc 7 only supports Go 1.8</li>
 </ul>
-
+</body></html>
                                 
                                 </section>
                             
@@ -2966,7 +2970,7 @@ Current gcc toolchain is provided by Marvell(Cavium), which doesn&apos;t support
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"next":{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"path":"notes/golang_go_on_mips_part4.md","ref":"notes/golang_go_on_mips_part4.md","articles":[]},"previous":{"title":"part 2: build native go compiler","level":"1.7.9.3.2","depth":4,"path":"notes/golang_go_on_mips_part2.md","ref":"notes/golang_go_on_mips_part2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part3.md","mtime":"2022-10-11T16:01:35.077Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T16:02:31.524Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"next":{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"path":"notes/golang_go_on_mips_part4.md","ref":"notes/golang_go_on_mips_part4.md","articles":[]},"previous":{"title":"part 2: build native go compiler","level":"1.7.9.3.2","depth":4,"path":"notes/golang_go_on_mips_part2.md","ref":"notes/golang_go_on_mips_part2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part3.md","mtime":"2022-10-12T01:03:45.927Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T01:04:48.354Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -21,7 +21,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
                 
             
                 
@@ -2863,7 +2867,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x7F16;&#x8BD1;bdk"><b>1. </b>&#x7F16;&#x8BD1;BDK</a></li><li><span class="title-icon "></span><a href="#bdk-from-uboot"><b>2. </b>bdk from uboot</a></li><li><span class="title-icon "></span><a href="#octeon-main"><b>3. </b>octeon main</a></li><ul><li><span class="title-icon "></span><a href="#bdk-&#x6D41;&#x7A0B;"><b>3.1. </b>bdk &#x6D41;&#x7A0B;</a></li></ul><li><span class="title-icon "></span><a href="#78&#x7684;&#x914D;&#x7F6E;"><b>4. </b>78&#x7684;&#x914D;&#x7F6E;</a></li></ul></div><a href="#&#x7F16;&#x8BD1;bdk" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><p>BDK&#x662F;boot&#x9636;&#x6BB5;&#x6267;&#x884C;&#x7684;&#x7A0B;&#x5E8F;, &#x7C7B;&#x4F3C;boot, &#x4E3B;&#x8981;&#x8D1F;&#x8D23;&#x521D;&#x59CB;&#x5316;&#x548C;&#x68C0;&#x6D4B;&#x786C;&#x4EF6;.</p>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x7F16;&#x8BD1;bdk"><b>1. </b>&#x7F16;&#x8BD1;BDK</a></li><li><span class="title-icon "></span><a href="#bdk-from-uboot"><b>2. </b>bdk from uboot</a></li><li><span class="title-icon "></span><a href="#octeon-main"><b>3. </b>octeon main</a></li><ul><li><span class="title-icon "></span><a href="#bdk-&#x6D41;&#x7A0B;"><b>3.1. </b>bdk &#x6D41;&#x7A0B;</a></li></ul><li><span class="title-icon "></span><a href="#78&#x7684;&#x914D;&#x7F6E;"><b>4. </b>78&#x7684;&#x914D;&#x7F6E;</a></li></ul></div><a href="#&#x7F16;&#x8BD1;bdk" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><p>BDK&#x662F;boot&#x9636;&#x6BB5;&#x6267;&#x884C;&#x7684;&#x7A0B;&#x5E8F;, &#x7C7B;&#x4F3C;boot, &#x4E3B;&#x8981;&#x8D1F;&#x8D23;&#x521D;&#x59CB;&#x5316;&#x548C;&#x68C0;&#x6D4B;&#x786C;&#x4EF6;.</p>
 <ul>
 <li><a href="#&#x7F16;&#x8BD1;bdk">&#x7F16;&#x8BD1;BDK</a></li>
 <li><a href="#bdk-from-uboot">bdk from uboot</a></li>
@@ -2874,21 +2878,21 @@
 <li><a href="#78&#x7684;&#x914D;&#x7F6E;">78&#x7684;&#x914D;&#x7F6E;</a></li>
 </ul>
 <h1 id="&#x7F16;&#x8BD1;bdk"><a name="&#x7F16;&#x8BD1;bdk" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x8BD1;bdk"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x7F16;&#x8BD1;BDK</h1>
-<pre class="language-"><code>apt install gcc-multilib
+<pre class="line-numbers language-undefined"><code class=" language-undefined">apt install gcc-multilib
 export BDK_ROOT=/home/byj/repo/git/octeon/bdk-trunk
 export OCTEON_ROOT=/home/byj/repo/hg/octeon-sdk/OCTEON-SDK-3.1.1
 export PATH=${PATH}:${BDK_ROOT}/bin:${OCTEON_ROOT}/tools/bin
 make distclean
 make
-</code></pre><h1 id="bdk-from-uboot"><a name="bdk-from-uboot" class="anchor-navigation-ex-anchor" href="#bdk-from-uboot"><i class="fa fa-link" aria-hidden="true"></i></a>2. bdk from uboot</h1>
-<pre class="language-"><code>usb start
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="bdk-from-uboot"><a name="bdk-from-uboot" class="anchor-navigation-ex-anchor" href="#bdk-from-uboot"><i class="fa fa-link" aria-hidden="true"></i></a>2. bdk from uboot</h1>
+<pre class="line-numbers language-undefined"><code class=" language-undefined">usb start
 fatls usb 0:1 /target/
 fatload usb 0:1 0x400000 /target/bdk-boot-cn78xx.bin
 go 0x400000
-</code></pre><h1 id="octeon-main"><a name="octeon-main" class="anchor-navigation-ex-anchor" href="#octeon-main"><i class="fa fa-link" aria-hidden="true"></i></a>3. octeon main</h1>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h1 id="octeon-main"><a name="octeon-main" class="anchor-navigation-ex-anchor" href="#octeon-main"><i class="fa fa-link" aria-hidden="true"></i></a>3. octeon main</h1>
 <p>&#x5728;<code>bdk-boot/bdk-full-no-romfs.c</code></p>
 <h2 id="bdk-&#x6D41;&#x7A0B;"><a name="bdk-&#x6D41;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#bdk-&#x6D41;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. bdk &#x6D41;&#x7A0B;</h2>
-<pre class="language-"><code class="lang-c"><span class="token function">__start</span><span class="token punctuation">(</span>bdk<span class="token operator">-</span>start<span class="token punctuation">.</span>S<span class="token punctuation">)</span>
+<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token function">__start</span><span class="token punctuation">(</span>bdk<span class="token operator">-</span>start<span class="token punctuation">.</span>S<span class="token punctuation">)</span>
 <span class="token function">__init</span><span class="token punctuation">(</span>bdk<span class="token operator">-</span>start<span class="token punctuation">.</span>S<span class="token punctuation">)</span>
 &#x62F7;&#x8D1D;<span class="token function">code</span><span class="token punctuation">(</span>header <span class="token operator">+</span> data<span class="token punctuation">)</span>&#x5230;<span class="token number">0x80002000</span>  <span class="token operator">--</span>&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x662F;cache<span class="token operator">?</span> &#x8FD8;&#x662F;&#x8BF4;&#x5728;&#x6CA1;&#x6709;flush&#x4E4B;&#x524D;<span class="token punctuation">,</span> cache&#x91CC;&#x9762;&#x7684;&#x4E1C;&#x897F;&#x4E0D;&#x52A8;<span class="token operator">?</span>
 &#x7528;COP0_CVMMEMCTL&#x8BBE;&#x7F6E;&#x6808;&#x5728;cache&#x4E2D;<span class="token punctuation">,</span> &#x5927;&#x5C0F;&#x662F;<span class="token number">54</span><span class="token operator">*</span><span class="token number">128</span><span class="token punctuation">,</span> &#x8BE6;&#x7EC6;&#x89C1;HRM&#x5C0F;&#x8282;<span class="token number">2.5</span> Virtual Addresses and CVMSEG
@@ -2942,7 +2946,7 @@ go 0x400000
             <span class="token function">handle_script</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
             <span class="token function">dotty</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token operator">/</span>rom<span class="token operator">/</span>init<span class="token punctuation">.</span>lua
-            <span class="token keyword">while</span> Ture<span class="token operator">:</span>
+            <span class="token keyword">while</span> Ture<span class="token punctuation">:</span>
                 <span class="token operator">/</span>rom<span class="token operator">/</span>main<span class="token punctuation">.</span>lua
                     board<span class="token operator">-</span>setup
                     board<span class="token operator">-</span>ebb7800
@@ -2950,9 +2954,9 @@ go 0x400000
                         local set_config <span class="token operator">=</span> octeon<span class="token punctuation">.</span>c<span class="token punctuation">.</span>bdk_config_set
                         <span class="token function">set_config</span><span class="token punctuation">(</span>octeon<span class="token punctuation">.</span>CONFIG_PHY_IF0_PORT1<span class="token punctuation">,</span> <span class="token number">0xff000001</span><span class="token punctuation">)</span>
                         <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="78&#x7684;&#x914D;&#x7F6E;"><a name="78&#x7684;&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#78&#x7684;&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>4. 78&#x7684;&#x914D;&#x7F6E;</h1>
-<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token function">__bdk_require_depends</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token keyword">void</span> <span class="token function">__bdk_require_depends</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>QLM<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>PCIE<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -2975,8 +2979,8 @@ go 0x400000
     <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>TWSI<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">BDK_REQUIRE</span><span class="token punctuation">(</span>USB<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
-
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</body></html>
                                 
                                 </section>
                             
@@ -3019,7 +3023,7 @@ go 0x400000
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon CN78xx BDK","level":"1.16.3.5","depth":3,"next":{"title":"octeon 增加ECC中断","level":"1.16.3.6","depth":3,"path":"notes/kernel_增加ECC中断.md","ref":"notes/kernel_增加ECC中断.md","articles":[]},"previous":{"title":"octeon DDR调试","level":"1.16.3.4","depth":3,"path":"notes/CPU_MIPS_octeon_ddr调试记录.md","ref":"notes/CPU_MIPS_octeon_ddr调试记录.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon_BDK.md","mtime":"2022-10-11T16:01:35.069Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T16:02:31.524Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon CN78xx BDK","level":"1.16.3.5","depth":3,"next":{"title":"octeon 增加ECC中断","level":"1.16.3.6","depth":3,"path":"notes/kernel_增加ECC中断.md","ref":"notes/kernel_增加ECC中断.md","articles":[]},"previous":{"title":"octeon DDR调试","level":"1.16.3.4","depth":3,"path":"notes/CPU_MIPS_octeon_ddr调试记录.md","ref":"notes/CPU_MIPS_octeon_ddr调试记录.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon_BDK.md","mtime":"2022-10-12T01:03:45.923Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T01:04:48.354Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

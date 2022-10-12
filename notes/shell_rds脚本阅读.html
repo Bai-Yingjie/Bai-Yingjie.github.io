@@ -21,7 +21,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
                 
             
                 
@@ -2863,7 +2867,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#simsimcharts&#x811A;&#x672C;"><b>1. </b>simsim_charts&#x811A;&#x672C;</a></li><ul><li><span class="title-icon "></span><a href="#processdatash"><b>1.1. </b>process_data.sh</a></li><li><span class="title-icon "></span><a href="#r&#x8BED;&#x8A00;"><b>1.2. </b>R&#x8BED;&#x8A00;</a></li><li><span class="title-icon "></span><a href="#rds-lua&#x811A;&#x672C;"><b>1.3. </b>rds lua&#x811A;&#x672C;</a></li><li><span class="title-icon "></span><a href="#rds-bash&#x811A;&#x672C;"><b>1.4. </b>rds bash&#x811A;&#x672C;</a></li></ul></ul></div><a href="#simsimcharts&#x811A;&#x672C;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#simsimcharts&#x811A;&#x672C;"><b>1. </b>simsim_charts&#x811A;&#x672C;</a></li><ul><li><span class="title-icon "></span><a href="#processdatash"><b>1.1. </b>process_data.sh</a></li><li><span class="title-icon "></span><a href="#r&#x8BED;&#x8A00;"><b>1.2. </b>R&#x8BED;&#x8A00;</a></li><li><span class="title-icon "></span><a href="#rds-lua&#x811A;&#x672C;"><b>1.3. </b>rds lua&#x811A;&#x672C;</a></li><li><span class="title-icon "></span><a href="#rds-bash&#x811A;&#x672C;"><b>1.4. </b>rds bash&#x811A;&#x672C;</a></li></ul></ul></div><a href="#simsimcharts&#x811A;&#x672C;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
 <li><a href="#simsim_charts&#x811A;&#x672C;">simsim_charts&#x811A;&#x672C;</a><ul>
 <li><a href="#process_datash">process_data.sh</a></li>
 <li><a href="#r&#x8BED;&#x8A00;">R&#x8BED;&#x8A00;</a></li>
@@ -2877,82 +2881,82 @@
 <ul>
 <li>&#x4F7F;&#x7528;&#x65B9;&#x6CD5;</li>
 </ul>
-<pre class="language-"><code class="lang-sh"><span class="token assign-left variable">BENCH_SERIES</span><span class="token operator">=</span>thunder_optimized_xfs <span class="token assign-left variable">MYSQL_TEMPLATES_NAME</span><span class="token operator">=</span>optimized <span class="token assign-left variable">SYSBENCH_MAX_TIME</span><span class="token operator">=</span><span class="token number">180</span> <span class="token function">bash</span> ./start_benchmarks.sh
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">BENCH_SERIES=thunder_optimized_xfs MYSQL_TEMPLATES_NAME=optimized SYSBENCH_MAX_TIME=180 bash ./start_benchmarks.sh
 
-<span class="token assign-left variable">SYSBENCH_MAX_TIME</span><span class="token operator">=</span><span class="token number">180</span> <span class="token assign-left variable">CHART_SERIES</span><span class="token operator">=</span>results/<span class="token punctuation">{</span>thx_optimized_60s,thx_network_60s,x86_baseline_60s<span class="token punctuation">}</span> <span class="token assign-left variable">CHART_NAME</span><span class="token operator">=</span><span class="token string">&quot;_optimized_vs_network_vs_x86&quot;</span> <span class="token function">sh</span> ./process_data.sh
+SYSBENCH_MAX_TIME=180 CHART_SERIES=results/{thx_optimized_60s,thx_network_60s,x86_baseline_60s} CHART_NAME=&quot;_optimized_vs_network_vs_x86&quot; sh ./process_data.sh
 
-<span class="token assign-left variable">SYSBENCH_MAX_TIME</span><span class="token operator">=</span><span class="token number">180</span> <span class="token assign-left variable">CHART_SERIES</span><span class="token operator">=</span>results/<span class="token punctuation">{</span>thx_optimized_60s,thx_network_60s,x86_baseline_60s<span class="token punctuation">}</span> <span class="token assign-left variable">CHART_NAME</span><span class="token operator">=</span><span class="token string">&quot;_optimized_vs_network_vs_x86&quot;</span> <span class="token function">sh</span> ./create_charts.sh
-</code></pre>
+SYSBENCH_MAX_TIME=180 CHART_SERIES=results/{thx_optimized_60s,thx_network_60s,x86_baseline_60s} CHART_NAME=&quot;_optimized_vs_network_vs_x86&quot; sh ./create_charts.sh
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><p>&#x8FD9;&#x4E2A;&#x811A;&#x672C;&#x662F;&#x628A;&#x6240;&#x6709;&#x7684;CHART_SERIES&#x7684;tps&#x548C;lat&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;, &#x5168;&#x90E8;&#x63D0;&#x53D6;&#x5230;&#x6587;&#x4EF6;&#x91CC;</p>
 </li>
 <li><p><code>for series in $(eval echo $CHART_SERIES)</code>&#x91CC;&#x9762;<code>eval echo $CHART_SERIES</code>&#x7684;&#x4F5C;&#x7528;&#x662F;<strong>&#x5C55;&#x5F00;&#x53D8;&#x91CF;</strong></p>
 </li>
 </ul>
-<pre class="language-"><code class="lang-sh">$ <span class="token assign-left variable">CHART_SERIES</span><span class="token operator">=</span>results/<span class="token punctuation">{</span>thx_optimized_60s,thx_network_60s,x86_baseline_60s<span class="token punctuation">}</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">$ CHART_SERIES=results/{thx_optimized_60s,thx_network_60s,x86_baseline_60s}
 
-$ <span class="token builtin class-name">echo</span> <span class="token variable">$CHART_SERIES</span>
+$ echo $CHART_SERIES
 
-results/<span class="token punctuation">{</span>thx_optimized_60s,thx_network_60s,x86_baseline_60s<span class="token punctuation">}</span>
+results/{thx_optimized_60s,thx_network_60s,x86_baseline_60s}
 
-$ <span class="token builtin class-name">eval</span> <span class="token builtin class-name">echo</span> <span class="token variable">$CHART_SERIES</span>
+$ eval echo $CHART_SERIES
 
 results/thx_optimized_60s results/thx_network_60s results/x86_baseline_60s
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7684;shell&#x4ECE;usage&#x5F00;&#x59CB;</li>
 </ul>
-<pre class="language-"><code class="lang-shell"><span class="token function-name function">usage</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-shell" lang="shell"><code class=" language-shell">usage<span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF
 Usage:
 SYSBENCH_MAX_TIME=N CHART_SERIES=S CHART_NAME=S <span class="token variable">$0</span>
 EOF</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><p><code>for conf in A200 B5 C1 C2 C4 C8</code>&#x91CD;&#x70B9;&#x662F;in&#x540E;&#x9762;&#x7684;&#x96C6;&#x5408;&#x5C31;&#x53EA;&#x662F;&#x7528;&#x7A7A;&#x683C;&#x9694;&#x5F00;</p>
 </li>
 <li><p>&#x8981;&#x628A;&#x4E00;&#x6BB5;&#x811A;&#x672C;&#x7684;&#x8F93;&#x51FA;&#x91CD;&#x5B9A;&#x5411;&#x5230;&#x6587;&#x4EF6;, &#x53EF;&#x4EE5;&#x8FD9;&#x6837;</p>
 </li>
 </ul>
-<pre class="language-"><code class="lang-sh"><span class="token punctuation">(</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">(
 some commands
-<span class="token punctuation">)</span> <span class="token operator">&gt;</span> output-filename
-</code></pre>
+) &gt; output-filename
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>awk&#x7684;&#x4F8B;&#x5B50;</li>
 </ul>
-<pre class="language-"><code class="lang-shell"><span class="token function">awk</span> <span class="token string">&apos;
+<pre class="line-numbers language-shell" lang="shell"><code class=" language-shell"><span class="token function">awk</span> <span class="token string">&apos;
 BEGIN {OFS=&quot;,&quot;}
 /tps:/ {
-    sub(&quot;\\[ *&quot;, &quot;&quot;, $0);
-    sub(&quot;s]&quot;,&quot;&quot;,$1);
-    sub(&quot;,&quot;,&quot;&quot;,$5);
-    sub(&quot;ms&quot;,&quot;&quot;,$12);
-    print &apos;</span><span class="token punctuation">\</span>&quot;<span class="token variable">$s</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$conf</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$threads</span><span class="token punctuation">\</span>&quot;,<span class="token variable"><span class="token variable">$((</span>counter<span class="token operator">*</span>duration<span class="token variable">))</span></span><span class="token string">&apos;+$1,$1,&quot;tps&quot;,$5;
-    print &apos;</span><span class="token punctuation">\</span>&quot;<span class="token variable">$s</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$conf</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$threads</span><span class="token punctuation">\</span>&quot;,<span class="token variable"><span class="token variable">$((</span>counter<span class="token operator">*</span>duration<span class="token variable">))</span></span><span class="token string">&apos;+$1,$1,&quot;lat&quot;,$12
-}&apos;</span> <span class="token variable">$filename</span>
-</code></pre>
-<pre class="language-"><code class="lang-shell"><span class="token function">awk</span> <span class="token string">&apos;
+    sub(&quot;\\[ *&quot;, &quot;&quot;, <span class="token variable">$0</span>);
+    sub(&quot;s]&quot;,&quot;&quot;,<span class="token variable">$1</span>);
+    sub(&quot;,&quot;,&quot;&quot;,<span class="token variable">$5</span>);
+    sub(&quot;ms&quot;,&quot;&quot;,<span class="token variable">$12</span>);
+    print &apos;</span>\<span class="token string">&quot;<span class="token variable">$s</span>\&quot;,\&quot;<span class="token variable">$conf</span>\&quot;,\&quot;<span class="token variable">$threads</span>\&quot;,<span class="token variable"><span class="token variable">$((</span>counter<span class="token operator">*</span>duration<span class="token variable">))</span></span>&apos;+<span class="token variable">$1</span>,<span class="token variable">$1</span>,&quot;</span>tps<span class="token string">&quot;,<span class="token variable">$5</span>;
+    print &apos;\&quot;<span class="token variable">$s</span>\&quot;,\&quot;<span class="token variable">$conf</span>\&quot;,\&quot;<span class="token variable">$threads</span>\&quot;,<span class="token variable"><span class="token variable">$((</span>counter<span class="token operator">*</span>duration<span class="token variable">))</span></span>&apos;+<span class="token variable">$1</span>,<span class="token variable">$1</span>,&quot;</span>lat&quot;,<span class="token variable">$12</span>
+<span class="token punctuation">}</span>&apos; <span class="token variable">$filename</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" lang="shell"><code class=" language-shell"><span class="token function">awk</span> <span class="token string">&apos;
 BEGIN {OFS=&quot;,&quot;}
-/transactions:/ {sub(&quot;\\(&quot;,&quot;&quot;,$3); print &apos;</span><span class="token punctuation">\</span>&quot;<span class="token variable">$s</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$conf</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$threads</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;tps<span class="token punctuation">\</span>&quot;,<span class="token string">&apos;$3}
-/approx./ {sub(&quot;ms&quot;,&quot;&quot;,$4); print &apos;</span><span class="token punctuation">\</span>&quot;<span class="token variable">$s</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$conf</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;<span class="token variable">$threads</span><span class="token punctuation">\</span>&quot;,<span class="token punctuation">\</span>&quot;lat<span class="token punctuation">\</span>&quot;,<span class="token string">&apos;$4}&apos;</span> <span class="token variable">$f</span>
-</code></pre>
-<pre class="language-"><code class="lang-sh"><span class="token function">awk</span> <span class="token string">&apos;/search pattern1/ {Actions}
-     /search pattern2/ {Actions}&apos;</span> <span class="token function">file</span>
-</code></pre>
-<pre class="language-"><code>- awk &apos;{pattern + action}&apos; {filenames}, &#x6309;&#x884C;&#x5904;&#x7406;, &#x5BF9;&#x5339;&#x914D;patten&#x7684;&#x884C;, &#x987A;&#x5E8F;&#x6267;&#x884C;{}&#x91CC;&#x9762;&#x7684;&#x64CD;&#x4F5C;
+/transactions:/ {sub(&quot;\\(&quot;,&quot;&quot;,<span class="token variable">$3</span>); print &apos;</span>\<span class="token string">&quot;<span class="token variable">$s</span>\&quot;,\&quot;<span class="token variable">$conf</span>\&quot;,\&quot;<span class="token variable">$threads</span>\&quot;,\&quot;tps\&quot;,&apos;<span class="token variable">$3</span>}
+/approx./ {sub(&quot;</span>ms<span class="token string">&quot;,&quot;</span>&quot;,<span class="token variable">$4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> print <span class="token string">&apos;\&quot;<span class="token variable">$s</span>\&quot;,\&quot;<span class="token variable">$conf</span>\&quot;,\&quot;<span class="token variable">$threads</span>\&quot;,\&quot;lat\&quot;,&apos;</span><span class="token variable">$4</span><span class="token punctuation">}</span>&apos; <span class="token variable">$f</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">awk &apos;/search pattern1/ {Actions}
+     /search pattern2/ {Actions}&apos; file
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-undefined"><code class=" language-undefined">- awk &apos;{pattern + action}&apos; {filenames}, &#x6309;&#x884C;&#x5904;&#x7406;, &#x5BF9;&#x5339;&#x914D;patten&#x7684;&#x884C;, &#x987A;&#x5E8F;&#x6267;&#x884C;{}&#x91CC;&#x9762;&#x7684;&#x64CD;&#x4F5C;
 - patten&#x5C31;&#x662F;//&#x91CC;&#x9762;&#x7684;&#x4E1C;&#x897F;
 - $0&#x4EE3;&#x8868;&#x6574;&#x884C;,$1&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;
 - sub(match, replace, string)&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x66FF;&#x6362;
 - BEGIN&#x662F;&#x8BF4;&#x5728;&#x626B;&#x63CF;&#x4E4B;&#x524D;&#x6267;&#x884C;&#x7684;, &#x76F8;&#x5BF9;&#x7684;END&#x662F;&#x5728;&#x6700;&#x540E;&#x90FD;&#x626B;&#x63CF;&#x5B8C;&#x4E86;&#x518D;&#x6267;&#x884C;&#x7684;
 - OFS&#x662F;&#x8F93;&#x51FA;&#x7684;&#x5206;&#x9694;&#x7B26;, FS&#x662F;&#x8F93;&#x5165;&#x7684;&#x5206;&#x9694;&#x7B26;, &#x9ED8;&#x8BA4;&#x90FD;&#x662F;space
 - print&#x8F93;&#x51FA;&#x5B57;&#x7B26;&#x4E32;&#x8981;&#x52A0;&quot;&quot;, &#x6BD4;&#x5982;print &quot;hello&quot;; &#x4E0A;&#x9762;&#x8F6C;&#x4E49;&#x4E86;&quot;, &#x56E0;&#x4E3A;print&#x540E;&#x9762;&#x63A5;&#x4E86;&#x5355;&#x5F15;&#x53F7;
-</code></pre><ul>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ul>
 <li>&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6548;&#x679C;&#x5982;</li>
 </ul>
-<pre class="language-"><code>thunder_xfs,A200,1,tps,3737.49
+<pre class="line-numbers language-undefined"><code class=" language-undefined">thunder_xfs,A200,1,tps,3737.49
 thunder_xfs,A200,1,lat,75.43
 thunder_xfs,A200,4,tps,5261.52
 thunder_xfs,A200,4,lat,216.29
@@ -2964,41 +2968,41 @@ thunder_xfs,B5,4,tps,715.88
 thunder_xfs,B5,4,lat,39.76
 thunder_xfs,B5,8,tps,1160.96
 thunder_xfs,B5,8,lat,50.93
-</code></pre><h2 id="r&#x8BED;&#x8A00;"><a name="r&#x8BED;&#x8A00;" class="anchor-navigation-ex-anchor" href="#r&#x8BED;&#x8A00;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. R&#x8BED;&#x8A00;</h2>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="r&#x8BED;&#x8A00;"><a name="r&#x8BED;&#x8A00;" class="anchor-navigation-ex-anchor" href="#r&#x8BED;&#x8A00;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. R&#x8BED;&#x8A00;</h2>
 <ul>
 <li>&#x5148;&#x8981;&#x5B89;&#x88C5;R, &#x4F3C;&#x4E4E;&#x4E0D;&#x7528;&#x88C5;&#x90A3;&#x4E48;&#x591A;</li>
 </ul>
 <p><strong>apt install r-base</strong></p>
-<pre class="language-"><code>$ cat /etc/apt/sources.list
+<pre class="line-numbers language-undefined"><code class=" language-undefined">$ cat /etc/apt/sources.list
 deb http://mirror.bjtu.edu.cn/cran/bin/linux/ubuntu trusty/
-</code></pre><pre class="language-"><code>apt install libxt-dev
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><pre class="line-numbers language-undefined"><code class=" language-undefined">apt install libxt-dev
 apt install libcurl4-openssl-dev
 apt install gfortran
 apt install libmpfr-dev
 apt install liblapack-dev
 apt install r-base
 apt install r-cran*
-</code></pre><p>&#x8FD8;&#x8981;&#x8FDB;R&#x7684;shell</p>
-<pre class="language-"><code class="lang-r">install.packages<span class="token punctuation">(</span><span class="token string">&apos;ggplot2&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>&#x8FD8;&#x8981;&#x8FDB;R&#x7684;shell</p>
+<pre class="line-numbers language-r" lang="r"><code class=" language-r">install.packages<span class="token punctuation">(</span><span class="token string">&apos;ggplot2&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
 install.packages<span class="token punctuation">(</span><span class="token string">&apos;gridExtra&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
 install.packages<span class="token punctuation">(</span><span class="token string">&apos;reshape2&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
 install.packages<span class="token punctuation">(</span><span class="token string">&apos;plyr&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
 install.packages<span class="token punctuation">(</span><span class="token string">&apos;Matrix&apos;</span><span class="token punctuation">,</span> dep <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>data.frame&#x662F;&#x4E2A;&#x8868;&#x683C;, &#x4E00;&#x822C;&#x6BCF;&#x4E2A;&#x5217;&#x90FD;&#x662F;&#x540C;&#x6837;&#x7C7B;&#x578B;&#x7684;&#x5143;&#x7D20;(&#x4F3C;&#x4E4E;&#x4E0D;&#x662F;&#x5FC5;&#x987B;?), &#x800C;&#x6BCF;&#x884C;&#x597D;&#x50CF;&#x662F;&#x6761;&#x8BB0;&#x5F55;&#x7684;&#x611F;&#x89C9;</li>
 </ul>
-<pre class="language-"><code class="lang-r"><span class="token operator">&gt;</span> student<span class="token operator">&lt;-</span>data.frame<span class="token punctuation">(</span>ID<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Name<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token string">&quot;Devin&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;Edward&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;Wenli&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Gender<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token string">&quot;M&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;M&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;F&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Birthdate<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token string">&quot;1984-12-29&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;1983-5-6&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;1986-8-8&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-r" lang="r"><code class=" language-r"><span class="token operator">&gt;</span> student<span class="token operator">&lt;-</span>data.frame<span class="token punctuation">(</span>ID<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Name<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token string">&quot;Devin&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;Edward&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;Wenli&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Gender<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token string">&quot;M&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;M&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;F&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>Birthdate<span class="token operator">=</span>c<span class="token punctuation">(</span><span class="token string">&quot;1984-12-29&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;1983-5-6&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;1986-8-8&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token operator">&gt;</span> student
   ID   Name Gender  Birthdate
 <span class="token number">1</span> <span class="token number">11</span>  Devin      M <span class="token number">1984</span><span class="token operator">-</span><span class="token number">12</span><span class="token operator">-</span><span class="token number">29</span>
 <span class="token number">2</span> <span class="token number">12</span> Edward      M   <span class="token number">1983</span><span class="token operator">-</span><span class="token number">5</span><span class="token operator">-</span><span class="token number">6</span>
 <span class="token number">3</span> <span class="token number">13</span>  Wenli      F   <span class="token number">1986</span><span class="token operator">-</span><span class="token number">8</span><span class="token operator">-</span><span class="token number">8</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>&#x4EE3;&#x7801;&#x6CE8;&#x91CA;&#x4E4B;tps&#x548C;latency</li>
 </ul>
-<pre class="language-"><code class="lang-r"><span class="token comment">#sb&#x662F;data.frame&#x7C7B;&#x578B;</span>
+<pre class="line-numbers language-r" lang="r"><code class=" language-r"><span class="token comment">#sb&#x662F;data.frame&#x7C7B;&#x578B;</span>
 sb<span class="token operator">&lt;-</span>read.table<span class="token punctuation">(</span><span class="token string">&quot;$r_data_file&quot;</span><span class="token punctuation">,</span>sep<span class="token operator">=</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">,</span>as.is<span class="token operator">=</span>T<span class="token punctuation">,</span>header<span class="token operator">=</span>F<span class="token punctuation">)</span>
 <span class="token comment">#c(&#x5404;&#x4E2A;&#x5143;&#x7D20;)&#x5F62;&#x6210;&#x4E00;&#x4E2A;list, &#x8FD9;&#x91CC;&#x7684;c&#x662F;&#x4E2A;&#x51FD;&#x6570;, &#x662F;combine&#x7684;&#x610F;&#x601D;</span>
 colnames<span class="token punctuation">(</span>sb<span class="token punctuation">)</span><span class="token operator">&lt;-</span>c<span class="token punctuation">(</span><span class="token string">&quot;series&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;conf&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;threads&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;metric&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;value&quot;</span><span class="token punctuation">)</span>
@@ -3034,11 +3038,11 @@ q1<span class="token operator">&lt;-</span>ggplot<span class="token punctuation"
 svg<span class="token punctuation">(</span><span class="token string">&quot;charts/simsim_tps${CHART_NAME}.svg&quot;</span><span class="token punctuation">,</span> width<span class="token operator">=</span><span class="token number">17</span><span class="token punctuation">)</span>
 print<span class="token punctuation">(</span>q1<span class="token punctuation">)</span>
 dev.off<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>&#x4EE3;&#x7801;&#x6CE8;&#x91CA;&#x4E4B;variance</li>
 </ul>
-<pre class="language-"><code class="lang-r">sb<span class="token operator">&lt;-</span>read.table<span class="token punctuation">(</span><span class="token string">&quot;$r_data_file&quot;</span><span class="token punctuation">,</span>sep<span class="token operator">=</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">,</span>as.is<span class="token operator">=</span>T<span class="token punctuation">,</span>header<span class="token operator">=</span>F<span class="token punctuation">)</span>
+<pre class="line-numbers language-r" lang="r"><code class=" language-r">sb<span class="token operator">&lt;-</span>read.table<span class="token punctuation">(</span><span class="token string">&quot;$r_data_file&quot;</span><span class="token punctuation">,</span>sep<span class="token operator">=</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">,</span>as.is<span class="token operator">=</span>T<span class="token punctuation">,</span>header<span class="token operator">=</span>F<span class="token punctuation">)</span>
 <span class="token comment">#&#x8FD9;&#x91CC;&#x591A;&#x4E86;&#x4E00;&#x4E2A;counter, &#x662F;time*threads, &#x4F5C;&#x4E3A;x&#x8F74;</span>
 colnames<span class="token punctuation">(</span>sb<span class="token punctuation">)</span><span class="token operator">&lt;-</span>c<span class="token punctuation">(</span><span class="token string">&quot;series&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;conf&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;threads&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;counter&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;time&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;metric&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;value&quot;</span><span class="token punctuation">)</span>
 sb_tps<span class="token operator">&lt;-</span>subset<span class="token punctuation">(</span>sb<span class="token punctuation">,</span>grepl<span class="token punctuation">(</span><span class="token string">&quot;tps&quot;</span><span class="token punctuation">,</span> metric<span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -3078,43 +3082,43 @@ q1<span class="token operator">&lt;-</span>ggplot<span class="token punctuation"
   facet_grid<span class="token punctuation">(</span>conf <span class="token operator">~</span> .<span class="token punctuation">,</span> scales<span class="token operator">=</span><span class="token string">&quot;free_y&quot;</span><span class="token punctuation">)</span>
 svg<span class="token punctuation">(</span><span class="token string">&quot;charts/simsim_variance_tps${CHART_NAME}.svg&quot;</span><span class="token punctuation">,</span> height<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> width<span class="token operator">=</span><span class="token number">17</span><span class="token punctuation">)</span>
 print<span class="token punctuation">(</span>q1<span class="token punctuation">)</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="rds-lua&#x811A;&#x672C;"><a name="rds-lua&#x811A;&#x672C;" class="anchor-navigation-ex-anchor" href="#rds-lua&#x811A;&#x672C;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. rds lua&#x811A;&#x672C;</h2>
 <ul>
 <li>&#x6CE8;&#x91CA;</li>
 </ul>
 <p>&#x5355;&#x884C;&#x6CE8;&#x91CA;<code>--</code></p>
 <p>&#x591A;&#x884C;&#x6CE8;&#x91CA;</p>
-<pre class="language-"><code class="lang-lua"><span class="token comment">--[[
+<pre class="line-numbers language-lua" lang="lua"><code class=" language-lua"><span class="token comment">--[[
 ****************************************************************************
 Input parameters:
 --simsim-databases = N: the number of databases to create/use (1 by default)
 
 ****************************************************************************
 --]]</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><p>&#x611F;&#x89C9;&#x4E0A;lua&#x548C;shell&#x7684;&#x8BED;&#x6CD5;&#x7C7B;&#x4F3C;</p>
 </li>
 <li><p>sysbench&#x7684;lua&#x811A;&#x672C;&#x53EF;&#x4EE5;&#x7528;db&#x76F8;&#x5173;&#x64CD;&#x4F5C;</p>
-<pre class="language-"><code class="lang-lua"><span class="token function">db_query</span><span class="token punctuation">(</span><span class="token string">&quot;DROP DATABASE IF EXISTS &quot;</span> <span class="token operator">..</span> database_name<span class="token punctuation">)</span>      <span class="token function">db_query</span><span class="token punctuation">(</span><span class="token string">&quot;CREATE DATABASE &quot;</span> <span class="token operator">..</span> database_name<span class="token punctuation">)</span>
-</code></pre>
+<pre class="line-numbers language-lua" lang="lua"><code class=" language-lua"><span class="token function">db_query</span><span class="token punctuation">(</span><span class="token string">&quot;DROP DATABASE IF EXISTS &quot;</span> <span class="token operator">..</span> database_name<span class="token punctuation">)</span>      <span class="token function">db_query</span><span class="token punctuation">(</span><span class="token string">&quot;CREATE DATABASE &quot;</span> <span class="token operator">..</span> database_name<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>&#x5728;<code>db_query(&quot;BEGIN&quot;)</code>&#x548C;<code>db_query(&quot;COMMIT&quot;)</code>&#x4E4B;&#x95F4;&#x7684;&#x4E1C;&#x897F;&#x5C31;&#x662F;&#x4E00;&#x6B21;transaction&#x7684;&#x5185;&#x5BB9;</p>
 </li>
 <li><p>&#x4E3B;&#x8981;&#x7684;&#x4E1C;&#x897F;&#x5728;event&#x91CC;&#x9762;, sysbench&#x7684;runner&#x7EBF;&#x7A0B;&#x4F1A;&#x8C03;&#x7528;</p>
 </li>
 </ul>
-<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token operator">*</span><span class="token function">runner_thread</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>arg<span class="token punctuation">)</span>
+<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token keyword">void</span> <span class="token operator">*</span><span class="token function">runner_thread</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>arg<span class="token punctuation">)</span>
     <span class="token keyword">do</span>
         <span class="token function">execute_request</span><span class="token punctuation">(</span>test<span class="token punctuation">,</span> <span class="token operator">&amp;</span>request<span class="token punctuation">,</span> thread_id<span class="token punctuation">)</span>
             test<span class="token operator">-&gt;</span>ops<span class="token punctuation">.</span><span class="token function">execute_request</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span> thread_id<span class="token punctuation">)</span>
-                <span class="token function">sb_lua_op_execute_request</span><span class="token punctuation">(</span><span class="token class-name">sb_request_t</span> <span class="token operator">*</span>sb_req<span class="token punctuation">,</span> <span class="token keyword">int</span> thread_id<span class="token punctuation">)</span>
+                <span class="token function">sb_lua_op_execute_request</span><span class="token punctuation">(</span>sb_request_t <span class="token operator">*</span>sb_req<span class="token punctuation">,</span> <span class="token keyword">int</span> thread_id<span class="token punctuation">)</span>
                     <span class="token function">lua_getglobal</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token string">&quot;event&quot;</span><span class="token punctuation">)</span> <span class="token comment">//&#x89C1;&#x4E0B;&#x9762;</span>
                     <span class="token function">lua_pcall</span><span class="token punctuation">(</span>L<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
 
     <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>request<span class="token punctuation">.</span>type <span class="token operator">!=</span> SB_REQ_TYPE_NULL<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token operator">!</span>sb_globals<span class="token punctuation">.</span>error<span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>simsim&#x91CC;&#x9762;, event&#x91CC;&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x662F;&#x5F88;&#x591A;insert&#x5230;&#x4E0D;&#x540C;&#x7684;&#x8868;, &#x8FD9;&#x4E9B;&#x8868;&#x7684;&#x683C;&#x5F0F;&#x90FD;&#x662F;&#x5728;prepare&#x9636;&#x6BB5;&#x51C6;&#x5907;&#x597D;&#x7684;.</li>
 </ul>
@@ -3134,9 +3138,9 @@ shell&#x5185;&#x5EFA;&#x7684;&#x547D;&#x4EE4;, &#x53EF;&#x4EE5;&#x7528;help xxx&
 <ul>
 <li>&#x540E;&#x53F0;&#x8FDB;&#x7A0B;id</li>
 </ul>
-<pre class="language-"><code class="lang-shell">mysqld --defaults-file<span class="token operator">=</span><span class="token variable">$mysql_basedir</span>/my.cnf <span class="token punctuation">\</span> 
-<span class="token parameter variable">--user</span><span class="token operator">=</span>root <span class="token operator">&gt;</span>/dev/null <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span>        pids<span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$!</span>
-</code></pre>
+<pre class="line-numbers language-shell" lang="shell"><code class=" language-shell">mysqld --defaults-file<span class="token operator">=</span><span class="token variable">$mysql_basedir</span>/my.cnf \ 
+--user<span class="token operator">=</span>root <span class="token operator">&gt;</span>/dev/null 2<span class="token operator">&gt;</span><span class="token operator">&amp;</span>1 <span class="token operator">&amp;</span>        pids<span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$!</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><strong>&#x8FD9;&#x91CC;&#x9762;&#x6709;&#x4E24;&#x4E2A;&#x77E5;&#x8BC6;&#x70B9;, $!&#x662F;&#x6700;&#x65B0;&#x52A0;&#x5165;&#x540E;&#x53F0;&#x7684;&#x8FDB;&#x7A0B;id; pids&#x662F;&#x4E2A;&#x6570;&#x7EC4;, &#x5C55;&#x5F00;&#x540E;&#x5982;:pids[1]=1022</strong></p>
 <ul>
 <li>&#x5982;&#x4F55;&#x6253;&#x5370;&#x5927;&#x5757;&#x6587;&#x5B57;? --&#x7528;<code>cat &lt;&lt;EOF</code><br>```shell
@@ -3156,7 +3160,7 @@ sysbench extra arguments:   $SYSBENCH_SIMSIM_ARGS
 Single run duration:        ${SYSBENCH_MAX_TIME}s</p>
 <hr>
 <p>EOF</p>
-<pre class="language-"><code>
+<pre class="line-numbers language-undefined"><code class=" language-undefined">
 * wait&#x7528;&#x6765;&#x7B49;&#x5F85;&#x6240;&#x6709;&#x7684;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;&#x7ED3;&#x675F;
 
 &#x4E0D;&#x52A0;&#x53C2;&#x6570;&#x662F;&#x7B49;&#x5F85;&#x6240;&#x6709;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;, &#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;
@@ -3182,8 +3186,8 @@ Single run duration:        ${SYSBENCH_MAX_TIME}s</p>
 
 #   SB_CONNECT_ARGS=&quot;--mysql-socket=$SB_SOCKETS&quot;
     SB_CONNECT_ARGS=&quot;--mysql-host=127.0.0.1 --mysql-port=$SB_PORTS&quot;
-</code></pre><p><strong>&#x8FD9;&#x91CC;&#x9762;<code>SB_PORTS=&quot;$SB_PORTS,$mysql_port&quot;</code>&#x76F8;&#x5F53;&#x4E8E;&#x4E00;&#x4E2A;&#x5217;&#x8868;&#x53D8;&#x91CF;</strong></p>
-
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>&#x8FD9;&#x91CC;&#x9762;<code>SB_PORTS=&quot;$SB_PORTS,$mysql_port&quot;</code>&#x76F8;&#x5F53;&#x4E8E;&#x4E00;&#x4E2A;&#x5217;&#x8868;&#x53D8;&#x91CF;</strong></p>
+</body></html>
                                 
                                 </section>
                             
@@ -3226,7 +3230,7 @@ Single run duration:        ${SYSBENCH_MAX_TIME}s</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"RDS脚本阅读","level":"1.10.7","depth":2,"next":{"title":"Project Euler","level":"1.10.8","depth":2,"path":"notes/Project_Euler.md","ref":"notes/Project_Euler.md","articles":[]},"previous":{"title":"lua记录","level":"1.10.6","depth":2,"path":"notes/lua_记录.md","ref":"notes/lua_记录.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/shell_rds脚本阅读.md","mtime":"2022-10-11T16:01:35.497Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T16:02:31.524Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"RDS脚本阅读","level":"1.10.7","depth":2,"next":{"title":"Project Euler","level":"1.10.8","depth":2,"path":"notes/Project_Euler.md","ref":"notes/Project_Euler.md","articles":[]},"previous":{"title":"lua记录","level":"1.10.6","depth":2,"path":"notes/lua_记录.md","ref":"notes/lua_记录.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/shell_rds脚本阅读.md","mtime":"2022-10-12T01:03:46.351Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T01:04:48.354Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

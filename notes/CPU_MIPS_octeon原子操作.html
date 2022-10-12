@@ -21,7 +21,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
                 
             
                 
@@ -2863,23 +2867,23 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#gcc-syncfetchandadd&#x53CD;&#x6C47;&#x7F16;"><b>1. </b>gcc __sync_fetch_and_add&#x53CD;&#x6C47;&#x7F16;</a></li><li><span class="title-icon "></span><a href="#gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;"><b>2. </b>gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof"><b>3. </b>&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof</a></li><li><span class="title-icon "></span><a href="#gcc-builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;"><b>4. </b>gcc __builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;</a></li></ul></div><a href="#gcc-syncfetchandadd&#x53CD;&#x6C47;&#x7F16;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#gcc-syncfetchandadd&#x53CD;&#x6C47;&#x7F16;"><b>1. </b>gcc __sync_fetch_and_add&#x53CD;&#x6C47;&#x7F16;</a></li><li><span class="title-icon "></span><a href="#gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;"><b>2. </b>gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof"><b>3. </b>&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof</a></li><li><span class="title-icon "></span><a href="#gcc-builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;"><b>4. </b>gcc __builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;</a></li></ul></div><a href="#gcc-syncfetchandadd&#x53CD;&#x6C47;&#x7F16;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
 <li><a href="#gcc-__sync_fetch_and_add&#x53CD;&#x6C47;&#x7F16;">gcc __sync_fetch_and_add&#x53CD;&#x6C47;&#x7F16;</a></li>
 <li><a href="#gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;">gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;</a></li>
 <li><a href="#&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof">&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof</a></li>
 <li><a href="#gcc-__builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;">gcc __builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;</a></li>
 </ul>
 <h1 id="gcc-syncfetchandadd&#x53CD;&#x6C47;&#x7F16;"><a name="gcc-syncfetchandadd&#x53CD;&#x6C47;&#x7F16;" class="anchor-navigation-ex-anchor" href="#gcc-syncfetchandadd&#x53CD;&#x6C47;&#x7F16;"><i class="fa fa-link" aria-hidden="true"></i></a>1. gcc __sync_fetch_and_add&#x53CD;&#x6C47;&#x7F16;</h1>
-<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> global_int <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token keyword">int</span> global_int <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
 <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token function">__sync_fetch_and_add</span><span class="token punctuation">(</span> <span class="token operator">&amp;</span>global_int<span class="token punctuation">,</span> <span class="token number">1</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
-<pre class="language-"><code>gcc -O2 -march=mips64 -mabi=64 atomic.c &amp;&amp; objdump -d a.out
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-undefined"><code class=" language-undefined">gcc -O2 -march=mips64 -mabi=64 atomic.c &amp;&amp; objdump -d a.out
 
-00000001200008b0 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main</span><span class="token punctuation">&gt;</span></span>:
+00000001200008b0 &lt;main&gt;:
   1200008b0: 3c030002 lui v1,0x2
   1200008b4: 0079182d daddu v1,v1,t9
   1200008b8: 64638760 daddiu v1,v1,-30880
@@ -2888,14 +2892,14 @@
   1200008c4: c0410000 ll at,0(v0)
   1200008c8: 24210001 addiu at,at,1
   1200008cc: e0410000 sc at,0(v0)
-  1200008d0: 1020fffc beqz  at,1200008c4 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main+0x14</span><span class="token punctuation">&gt;</span></span>
+  1200008d0: 1020fffc beqz  at,1200008c4 &lt;main+0x14&gt;
   1200008d4: 00000000 nop
   1200008d8: 0000000f sync
   1200008dc: 03e00008 jr ra
   1200008e0: 00000000 nop
-</code></pre><pre class="language-"><code>gcc -O2 -march=octeon2 -mabi=64 atomic.c &amp;&amp; objdump -d a.out
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-undefined"><code class=" language-undefined">gcc -O2 -march=octeon2 -mabi=64 atomic.c &amp;&amp; objdump -d a.out
 
-00000001200008b0 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main</span><span class="token punctuation">&gt;</span></span>:
+00000001200008b0 &lt;main&gt;:
   1200008b0: 3c030002 lui v1,0x2
   1200008b4: 0079182d daddu v1,v1,t9
   1200008b8: 64638760 daddiu v1,v1,-30880
@@ -2905,14 +2909,14 @@
   1200008c8: c0410000 ll at,0(v0)
   1200008cc: 24210001 addiu at,at,1
   1200008d0: e0410000 sc at,0(v0)
-  1200008d4: 1020fffc beqz  at,1200008c8 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main+0x18</span><span class="token punctuation">&gt;</span></span>
+  1200008d4: 1020fffc beqz  at,1200008c8 &lt;main+0x18&gt;
   1200008d8: 00000000 nop
   1200008dc: 03e00008 jr ra
   1200008e0: 00000000 nop
-</code></pre><h1 id="gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;"><a name="gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>2. gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;</h1>
-<pre class="language-"><code>gcc -include octeon-atomic.h simple-test.c
-</code></pre><h1 id="&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof"><a name="&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof</h1>
-<pre class="language-"><code>sizeof char is 1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;"><a name="gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>2. gcc&#x5728;&#x547D;&#x4EE4;&#x884C;include&#x4E00;&#x4E2A;&#x5934;&#x6587;&#x4EF6;</h1>
+<pre class="line-numbers language-undefined"><code class=" language-undefined">gcc -include octeon-atomic.h simple-test.c
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h1 id="&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof"><a name="&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x57FA;&#x7840;&#x7C7B;&#x578B;sizeof</h1>
+<pre class="line-numbers language-undefined"><code class=" language-undefined">sizeof char is 1
 sizeof short is 2
 sizeof int is 4
 sizeof long is 8
@@ -2922,37 +2926,37 @@ sizeof void * is 8
 sizeof short int is 2
 sizeof long int is 8
 sizeof int long is 8
-</code></pre><h1 id="gcc-builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;"><a name="gcc-builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#gcc-builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>4. gcc __builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;</h1>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="gcc-builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;"><a name="gcc-builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#gcc-builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>4. gcc __builtin&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;</h1>
 <p><a href="https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html#Other-Builtins" target="_blank">https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html#Other-Builtins</a></p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">foo</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span>                                                    </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">{</span>                                                            </span><span class="token punctuation">\</span>
-      <span class="token expression"><span class="token keyword">typeof</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span> tmp <span class="token operator">=</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>                                       </span><span class="token punctuation">\</span>
-      <span class="token expression"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_types_compatible_p</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">long</span> <span class="token keyword">double</span><span class="token punctuation">)</span><span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-        <span class="token expression">tmp <span class="token operator">=</span> <span class="token function">foo_long_double</span> <span class="token punctuation">(</span>tmp<span class="token punctuation">)</span><span class="token punctuation">;</span>                              </span><span class="token punctuation">\</span>
-      <span class="token expression"><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_types_compatible_p</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">double</span><span class="token punctuation">)</span><span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-        <span class="token expression">tmp <span class="token operator">=</span> <span class="token function">foo_double</span> <span class="token punctuation">(</span>tmp<span class="token punctuation">)</span><span class="token punctuation">;</span>                                   </span><span class="token punctuation">\</span>
-      <span class="token expression"><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_types_compatible_p</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">float</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  </span><span class="token punctuation">\</span>
-        <span class="token expression">tmp <span class="token operator">=</span> <span class="token function">foo_float</span> <span class="token punctuation">(</span>tmp<span class="token punctuation">)</span><span class="token punctuation">;</span>                                    </span><span class="token punctuation">\</span>
-      <span class="token expression"><span class="token keyword">else</span>                                                        </span><span class="token punctuation">\</span>
-        <span class="token expression"><span class="token function">abort</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                                                 </span><span class="token punctuation">\</span>
-      <span class="token expression">tmp<span class="token punctuation">;</span>                                                        </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token punctuation">}</span><span class="token punctuation">)</span></span></span>
-</code></pre>
+<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token macro property">#<span class="token directive keyword">define</span> foo(x)                                                    \
+    ({                                                            \
+      typeof (x) tmp = (x);                                       \
+      if (__builtin_types_compatible_p (typeof (x), long double)) \
+        tmp = foo_long_double (tmp);                              \
+      else if (__builtin_types_compatible_p (typeof (x), double)) \
+        tmp = foo_double (tmp);                                   \
+      else if (__builtin_types_compatible_p (typeof (x), float))  \
+        tmp = foo_float (tmp);                                    \
+      else                                                        \
+        abort ();                                                 \
+      tmp;                                                        \
+    })</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x6709;&#x4E86;<code>__builtin_types_compatible_p</code>, &#x5C31;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x6570;&#x636E;&#x5BBD;&#x5EA6;&#x4E0D;&#x540C;&#x6765;&#x505A;&#x4E0D;&#x540C;&#x7684;&#x52A8;&#x4F5C;, &#x6BD4;&#x5982;</p>
-<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">__sync_fetch_and_add</span><span class="token expression"><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> value<span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-<span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">{</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token keyword">typeof</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">)</span> octeon_ret<span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_types_compatible_p</span><span class="token punctuation">(</span><span class="token keyword">typeof</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">long</span><span class="token punctuation">)</span><span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-        <span class="token expression">octeon_ret <span class="token operator">=</span> <span class="token function">cvmx_atomic_fetch_and_add64</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">long</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_types_compatible_p</span><span class="token punctuation">(</span><span class="token keyword">typeof</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span> </span><span class="token punctuation">\</span>
-        <span class="token expression">octeon_ret <span class="token operator">=</span> <span class="token function">cvmx_atomic_fetch_and_add32</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-    <span class="token expression"><span class="token keyword">else</span> </span><span class="token punctuation">\</span>
-        <span class="token expression"><span class="token function">assert</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">8</span> <span class="token operator">||</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-    <span class="token expression">octeon_ret<span class="token punctuation">;</span> </span><span class="token punctuation">\</span>
-<span class="token expression"><span class="token punctuation">}</span><span class="token punctuation">)</span></span></span>
-</code></pre>
+<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token macro property">#<span class="token directive keyword">define</span> __sync_fetch_and_add(ptr, value) \
+({ \
+    typeof(*(ptr)) octeon_ret; \
+    if (__builtin_types_compatible_p(typeof(*(ptr)), long)) \
+        octeon_ret = cvmx_atomic_fetch_and_add64((long *)(ptr), (value)); \
+    else if (__builtin_types_compatible_p(typeof(*(ptr)), int)) \
+        octeon_ret = cvmx_atomic_fetch_and_add32((int *)(ptr), (value)); \
+    else \
+        assert(sizeof(*(ptr)) == 8 || sizeof(*(ptr)) == 4); \
+    octeon_ret; \
+})</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>&#x6CE8;&#x610F;typeof&#x7684;&#x7528;&#x6CD5;, typeof(*ptr)&#x53EF;&#x4EE5;&#x5F97;&#x5230;ptr&#x6307;&#x5411;&#x6570;&#x636E;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;.</p>
-
+</body></html>
                                 
                                 </section>
                             
@@ -2995,7 +2999,7 @@ sizeof int long is 8
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon 原子操作","level":"1.16.3.10","depth":3,"next":{"title":"octeon 网口代码分析","level":"1.16.3.11","depth":3,"path":"notes/CPU_MIPS_octeon网口代码分析.md","ref":"notes/CPU_MIPS_octeon网口代码分析.md","articles":[]},"previous":{"title":"octeon 中断","level":"1.16.3.9","depth":3,"path":"notes/CPU_MIPS_octeon中断.md","ref":"notes/CPU_MIPS_octeon中断.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon原子操作.md","mtime":"2022-10-11T16:01:35.073Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T16:02:31.524Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon 原子操作","level":"1.16.3.10","depth":3,"next":{"title":"octeon 网口代码分析","level":"1.16.3.11","depth":3,"path":"notes/CPU_MIPS_octeon网口代码分析.md","ref":"notes/CPU_MIPS_octeon网口代码分析.md","articles":[]},"previous":{"title":"octeon 中断","level":"1.16.3.9","depth":3,"path":"notes/CPU_MIPS_octeon中断.md","ref":"notes/CPU_MIPS_octeon中断.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon原子操作.md","mtime":"2022-10-12T01:03:45.923Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T01:04:48.354Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

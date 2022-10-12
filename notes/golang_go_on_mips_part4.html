@@ -21,7 +21,11 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
                 
             
                 
@@ -2863,7 +2867,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#background"><b>1. </b>Background</a></li><ul><li><span class="title-icon "></span><a href="#single-core-performance-methodology"><b>1.1. </b>Single core performance methodology</a></li><li><span class="title-icon "></span><a href="#multi-core-performance-methodology"><b>1.2. </b>Multi-core performance methodology</a></li><li><span class="title-icon "></span><a href="#devices-under-test"><b>1.3. </b>Devices under test</a></li><li><span class="title-icon "></span><a href="#take-goroutine-into-account"><b>1.4. </b>Take goroutine into account</a></li></ul><li><span class="title-icon "></span><a href="#json-performance"><b>2. </b>Json performance</a></li><ul><li><span class="title-icon "></span><a href="#x86-vs-mips-comparison"><b>2.1. </b>X86 vs MIPS comparison</a></li><ul><li><span class="title-icon "></span><a href="#run-official-json-benchmark"><b>2.1.1. </b>run official json benchmark</a></li><li><span class="title-icon "></span><a href="#the-result"><b>2.1.2. </b>the result</a></li></ul><li><span class="title-icon "></span><a href="#writing-test-code-for-c-vs-go-comparision"><b>2.2. </b>Writing test code for C vs Go comparision</a></li><ul><li><span class="title-icon "></span><a href="#compile-and-run-the-benchmark-on-mips-board"><b>2.2.1. </b>compile and run the benchmark on MIPS board</a></li><li><span class="title-icon "></span><a href="#runtime-status"><b>2.2.2. </b>runtime status</a></li><li><span class="title-icon "></span><a href="#result"><b>2.2.3. </b>result</a></li></ul><li><span class="title-icon "></span><a href="#overall-observation"><b>2.3. </b>Overall observation</a></li></ul></ul></div><a href="#background" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#background"><b>1. </b>Background</a></li><ul><li><span class="title-icon "></span><a href="#single-core-performance-methodology"><b>1.1. </b>Single core performance methodology</a></li><li><span class="title-icon "></span><a href="#multi-core-performance-methodology"><b>1.2. </b>Multi-core performance methodology</a></li><li><span class="title-icon "></span><a href="#devices-under-test"><b>1.3. </b>Devices under test</a></li><li><span class="title-icon "></span><a href="#take-goroutine-into-account"><b>1.4. </b>Take goroutine into account</a></li></ul><li><span class="title-icon "></span><a href="#json-performance"><b>2. </b>Json performance</a></li><ul><li><span class="title-icon "></span><a href="#x86-vs-mips-comparison"><b>2.1. </b>X86 vs MIPS comparison</a></li><ul><li><span class="title-icon "></span><a href="#run-official-json-benchmark"><b>2.1.1. </b>run official json benchmark</a></li><li><span class="title-icon "></span><a href="#the-result"><b>2.1.2. </b>the result</a></li></ul><li><span class="title-icon "></span><a href="#writing-test-code-for-c-vs-go-comparision"><b>2.2. </b>Writing test code for C vs Go comparision</a></li><ul><li><span class="title-icon "></span><a href="#compile-and-run-the-benchmark-on-mips-board"><b>2.2.1. </b>compile and run the benchmark on MIPS board</a></li><li><span class="title-icon "></span><a href="#runtime-status"><b>2.2.2. </b>runtime status</a></li><li><span class="title-icon "></span><a href="#result"><b>2.2.3. </b>result</a></li></ul><li><span class="title-icon "></span><a href="#overall-observation"><b>2.3. </b>Overall observation</a></li></ul></ul></div><a href="#background" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
 <li><a href="#background">Background</a><ul>
 <li><a href="#single-core-performance-methodology">Single core performance methodology</a></li>
 <li><a href="#multi-core-performance-methodology">Multi-core performance methodology</a></li>
@@ -3022,22 +3026,22 @@ It is all about on X86, then how about on MIPS? So we decided to write a simple 
 <p>When benchmarking, run the program enough times and count the time spent as the performance index.</p>
 <h3 id="compile-and-run-the-benchmark-on-mips-board"><a name="compile-and-run-the-benchmark-on-mips-board" class="anchor-navigation-ex-anchor" href="#compile-and-run-the-benchmark-on-mips-board"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. compile and run the benchmark on MIPS board</h3>
 <p>For C implementation, we need libjansson</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#install libjansson, we are on Gentoo linux, we use emerge</span>
-<span class="token comment">#for X86, it is &apos;apt install libjansson-dev&apos;</span>
-emerge <span class="token parameter variable">-av</span> dev-libs/jansson
-<span class="token comment">#compile, into a.out</span>
-gcc <span class="token parameter variable">-O2</span> json_load.c <span class="token parameter variable">-ljansson</span>
-<span class="token comment">#benchmark it</span>
-<span class="token function">time</span> ./a.out test.json <span class="token number">100</span> <span class="token operator">&gt;</span> /dev/null
-</code></pre>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">#install libjansson, we are on Gentoo linux, we use emerge
+#for X86, it is &apos;apt install libjansson-dev&apos;
+emerge -av dev-libs/jansson
+#compile, into a.out
+gcc -O2 json_load.c -ljansson
+#benchmark it
+time ./a.out test.json 100 &gt; /dev/null
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>For Go implementation, no other package needed.</p>
-<pre class="language-"><code class="lang-sh"><span class="token comment">#compile</span>
+<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">#compile
 go build json_load.go
-<span class="token comment">#run, Go run time will automatically starts several threads</span>
-<span class="token function">time</span> ./json_load <span class="token parameter variable">-fileName</span> test.json <span class="token parameter variable">-loopNum</span> <span class="token number">100</span> <span class="token operator">&gt;</span> /dev/null
-<span class="token comment">#force single core</span>
-taskset <span class="token parameter variable">-c</span> <span class="token number">1</span> <span class="token function">time</span> ./json_load <span class="token parameter variable">-fileName</span> test.json <span class="token parameter variable">-loopNum</span> <span class="token number">100</span> <span class="token operator">&gt;</span> /dev/null
-</code></pre>
+#run, Go run time will automatically starts several threads
+time ./json_load -fileName test.json -loopNum 100 &gt; /dev/null
+#force single core
+taskset -c 1 time ./json_load -fileName test.json -loopNum 100 &gt; /dev/null
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="runtime-status"><a name="runtime-status" class="anchor-navigation-ex-anchor" href="#runtime-status"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.2. runtime status</h3>
 <p>There are 6 threads(starts with M), with 8 goroutines(starts with G) running on top of them. P represents Processor on the system.
 <code>json_load</code> is a simple benchmark that has no awareness that it is multi-threaded, in the above 8 goroutines(sometimes more depends on the runtime), there is only one that does the &quot;user&quot; work: encoding and decoding the json file.<br><img src="img/golang_go_on_mips_part4_20220908225202.png" alt="">  </p>
@@ -3058,7 +3062,7 @@ I would say the extra static size and about 30% of a single core overhead is the
 </ul>
 </li>
 </ul>
-
+</body></html>
                                 
                                 </section>
                             
@@ -3101,7 +3105,7 @@ I would say the extra static size and about 30% of a single core overhead is the
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"next":{"title":"Gentoo on mips board and build go","level":"1.7.9.3.5","depth":4,"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","ref":"notes/golang_gentoo_on_mips_board_and_build_go.md","articles":[]},"previous":{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part4.md","mtime":"2022-10-11T16:01:35.077Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-11T16:02:31.524Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"part 4: Golang json performance","level":"1.7.9.3.4","depth":4,"next":{"title":"Gentoo on mips board and build go","level":"1.7.9.3.5","depth":4,"path":"notes/golang_gentoo_on_mips_board_and_build_go.md","ref":"notes/golang_gentoo_on_mips_board_and_build_go.md","articles":[]},"previous":{"title":"part 3: gccgo experiments","level":"1.7.9.3.3","depth":4,"path":"notes/golang_go_on_mips_part3.md","ref":"notes/golang_go_on_mips_part3.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_go_on_mips_part4.md","mtime":"2022-10-12T01:03:45.927Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T01:04:48.354Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
