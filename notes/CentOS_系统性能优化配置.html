@@ -21,11 +21,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
-                
-            
-                
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
                 
             
                 
@@ -2867,7 +2863,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#system-level-performance-tuning"><b>1. </b>System Level performance tuning</a></li><ul><li><span class="title-icon "></span><a href="#cpu-frequency"><b>1.1. </b>CPU frequency</a></li><li><span class="title-icon "></span><a href="#limits"><b>1.2. </b>limits</a></li><li><span class="title-icon "></span><a href="#disable-firewall"><b>1.3. </b>disable firewall</a></li><li><span class="title-icon "></span><a href="#disable-selinux"><b>1.4. </b>disable selinux</a></li><li><span class="title-icon "></span><a href="#disable-auditd"><b>1.5. </b>disable auditd</a></li><li><span class="title-icon "></span><a href="#disable-swap"><b>1.6. </b>disable swap</a></li></ul></ul></div><a href="#system-level-performance-tuning" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#system-level-performance-tuning"><b>1. </b>System Level performance tuning</a></li><ul><li><span class="title-icon "></span><a href="#cpu-frequency"><b>1.1. </b>CPU frequency</a></li><li><span class="title-icon "></span><a href="#limits"><b>1.2. </b>limits</a></li><li><span class="title-icon "></span><a href="#disable-firewall"><b>1.3. </b>disable firewall</a></li><li><span class="title-icon "></span><a href="#disable-selinux"><b>1.4. </b>disable selinux</a></li><li><span class="title-icon "></span><a href="#disable-auditd"><b>1.5. </b>disable auditd</a></li><li><span class="title-icon "></span><a href="#disable-swap"><b>1.6. </b>disable swap</a></li></ul></ul></div><a href="#system-level-performance-tuning" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
 <li><a href="#system-level-performance-tuning">System Level performance tuning</a><ul>
 <li><a href="#cpu-frequency">CPU frequency</a></li>
 <li><a href="#limits">limits</a></li>
@@ -2881,32 +2877,32 @@
 <h1 id="system-level-performance-tuning"><a name="system-level-performance-tuning" class="anchor-navigation-ex-anchor" href="#system-level-performance-tuning"><i class="fa fa-link" aria-hidden="true"></i></a>1. System Level performance tuning</h1>
 <h2 id="cpu-frequency"><a name="cpu-frequency" class="anchor-navigation-ex-anchor" href="#cpu-frequency"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. CPU frequency</h2>
 <p>Where performance &quot;score&quot; is the key index for benchmarks/applications tests, make sure CPU frequency is set to &quot;performance&quot;, which is usually set to &quot;conservative&quot; by default.</p>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">sudo cpupower frequency-set -g performance
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>to check the current settings and CPU frequency:</p>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">sudo cpupower frequency-info
+<pre class="language-"><code>sudo cpupower frequency-set -g performance
+</code></pre><p>to check the current settings and CPU frequency:</p>
+<pre class="language-"><code>sudo cpupower frequency-info
 sudo cpupower -c all frequency-info | grep &quot;current CPU frequency&quot;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h2 id="limits"><a name="limits" class="anchor-navigation-ex-anchor" href="#limits"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. limits</h2>
+</code></pre><h2 id="limits"><a name="limits" class="anchor-navigation-ex-anchor" href="#limits"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. limits</h2>
 <p>add below to <code>/etc/security/limits.conf</code> and reboot</p>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">* soft noproc 65535
+<pre class="language-"><code>* soft noproc 65535
 * hard noproc 65535
 * soft nofile 655350
 * hard nofile 655350
 * soft memlock 60397977
 * hard memlock 60397977
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="disable-firewall"><a name="disable-firewall" class="anchor-navigation-ex-anchor" href="#disable-firewall"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. disable firewall</h2>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">sudo systemctl stop firewalld.service
+</code></pre><h2 id="disable-firewall"><a name="disable-firewall" class="anchor-navigation-ex-anchor" href="#disable-firewall"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. disable firewall</h2>
+<pre class="language-"><code>sudo systemctl stop firewalld.service
 sudo systemctl disable firewalld.service
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h2 id="disable-selinux"><a name="disable-selinux" class="anchor-navigation-ex-anchor" href="#disable-selinux"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. disable selinux</h2>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">sestatus
+</code></pre><h2 id="disable-selinux"><a name="disable-selinux" class="anchor-navigation-ex-anchor" href="#disable-selinux"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. disable selinux</h2>
+<pre class="language-"><code>sestatus
 setenforce 0
 sudo vi /etc/sysconfig/selinux
     SELINUX=disabled
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h2 id="disable-auditd"><a name="disable-auditd" class="anchor-navigation-ex-anchor" href="#disable-auditd"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. disable auditd</h2>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">sudo systemctl stop auditd.service
+</code></pre><h2 id="disable-auditd"><a name="disable-auditd" class="anchor-navigation-ex-anchor" href="#disable-auditd"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. disable auditd</h2>
+<pre class="language-"><code>sudo systemctl stop auditd.service
 sudo systemctl disable auditd.service
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h2 id="disable-swap"><a name="disable-swap" class="anchor-navigation-ex-anchor" href="#disable-swap"><i class="fa fa-link" aria-hidden="true"></i></a>1.6. disable swap</h2>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">sudo swapoff
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></body></html>
+</code></pre><h2 id="disable-swap"><a name="disable-swap" class="anchor-navigation-ex-anchor" href="#disable-swap"><i class="fa fa-link" aria-hidden="true"></i></a>1.6. disable swap</h2>
+<pre class="language-"><code>sudo swapoff
+</code></pre>
                                 
                                 </section>
                             
@@ -2949,7 +2945,7 @@ sudo systemctl disable auditd.service
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"CentOS 性能优化系统配置","level":"1.3.4","depth":2,"next":{"title":"ARM server","level":"1.4","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"Arm server 杂记","level":"1.4.1","depth":2,"path":"notes/arm_server_杂记.md","ref":"notes/arm_server_杂记.md","articles":[]}]},"previous":{"title":"ping流程和函数调用解析","level":"1.3.3","depth":2,"path":"notes/performance_ping流程和函数调用解析.md","ref":"notes/performance_ping流程和函数调用解析.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"lineHeight":"normal","cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CentOS_系统性能优化配置.md","mtime":"2022-10-12T02:24:49.470Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T02:25:44.681Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"CentOS 性能优化系统配置","level":"1.3.4","depth":2,"next":{"title":"ARM server","level":"1.4","depth":1,"path":"notes/as_title.md","ref":"notes/as_title.md","articles":[{"title":"Arm server 杂记","level":"1.4.1","depth":2,"path":"notes/arm_server_杂记.md","ref":"notes/arm_server_杂记.md","articles":[]}]},"previous":{"title":"ping流程和函数调用解析","level":"1.3.3","depth":2,"path":"notes/performance_ping流程和函数调用解析.md","ref":"notes/performance_ping流程和函数调用解析.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CentOS_系统性能优化配置.md","mtime":"2022-10-12T02:56:59.203Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T02:58:12.754Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -21,11 +21,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
-                
-            
-                
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
                 
             
                 
@@ -2867,7 +2863,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#uboot&#x8C03;&#x8BD5;"><b>1. </b>uboot&#x8C03;&#x8BD5;</a></li><ul><li><span class="title-icon "></span><a href="#setenv"><b>1.1. </b>setenv</a></li><li><span class="title-icon "></span><a href="#&#x5728;uboot&#x4E0B;&#x66F4;&#x65B0;uboot"><b>1.2. </b>&#x5728;uboot&#x4E0B;&#x66F4;&#x65B0;uboot</a></li><li><span class="title-icon "></span><a href="#fdt&#x547D;&#x4EE4;"><b>1.3. </b>fdt&#x547D;&#x4EE4;</a></li><li><span class="title-icon "></span><a href="#load-cf&#x5361;"><b>1.4. </b>load CF&#x5361;</a></li><ul><li><span class="title-icon "></span><a href="#&#x627E;&#x5230;sda1&#x5206;&#x533A;&#x7684;offset-&#x5728;pc&#x4E0A;mount"><b>1.4.1. </b>&#x627E;&#x5230;sda1&#x5206;&#x533A;&#x7684;offset, &#x5728;pc&#x4E0A;mount</a></li></ul></ul></ul></div><a href="#uboot&#x8C03;&#x8BD5;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#uboot&#x8C03;&#x8BD5;"><b>1. </b>uboot&#x8C03;&#x8BD5;</a></li><ul><li><span class="title-icon "></span><a href="#setenv"><b>1.1. </b>setenv</a></li><li><span class="title-icon "></span><a href="#&#x5728;uboot&#x4E0B;&#x66F4;&#x65B0;uboot"><b>1.2. </b>&#x5728;uboot&#x4E0B;&#x66F4;&#x65B0;uboot</a></li><li><span class="title-icon "></span><a href="#fdt&#x547D;&#x4EE4;"><b>1.3. </b>fdt&#x547D;&#x4EE4;</a></li><li><span class="title-icon "></span><a href="#load-cf&#x5361;"><b>1.4. </b>load CF&#x5361;</a></li><ul><li><span class="title-icon "></span><a href="#&#x627E;&#x5230;sda1&#x5206;&#x533A;&#x7684;offset-&#x5728;pc&#x4E0A;mount"><b>1.4.1. </b>&#x627E;&#x5230;sda1&#x5206;&#x533A;&#x7684;offset, &#x5728;pc&#x4E0A;mount</a></li></ul></ul></ul></div><a href="#uboot&#x8C03;&#x8BD5;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
 <li><a href="#uboot&#x8C03;&#x8BD5;">uboot&#x8C03;&#x8BD5;</a><ul>
 <li><a href="#setenv">setenv</a></li>
 <li><a href="#&#x5728;uboot&#x4E0B;&#x66F4;&#x65B0;uboot">&#x5728;uboot&#x4E0B;&#x66F4;&#x65B0;uboot</a></li>
@@ -2881,45 +2877,45 @@
 </ul>
 <h1 id="uboot&#x8C03;&#x8BD5;"><a name="uboot&#x8C03;&#x8BD5;" class="anchor-navigation-ex-anchor" href="#uboot&#x8C03;&#x8BD5;"><i class="fa fa-link" aria-hidden="true"></i></a>1. uboot&#x8C03;&#x8BD5;</h1>
 <h2 id="setenv"><a name="setenv" class="anchor-navigation-ex-anchor" href="#setenv"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. setenv</h2>
-<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">#&#x589E;&#x52A0;reboot=0
-setenv kernel_extra_args config_overlay=reboot=0
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x589E;&#x52A0;reboot=0</span>
+setenv kernel_extra_args <span class="token assign-left variable">config_overlay</span><span class="token operator">=</span>reboot<span class="token operator">=</span><span class="token number">0</span>
 
-#&#x4FEE;&#x6539;&#x6CE2;&#x7279;&#x7387;
-setenv baudrate 115200
-#&#x8BBE;&#x7F6E;&#x5B8C;&#x6210;&#x540E;, uboot&#x4F1A;&#x81EA;&#x52A8;&#x628A;115200&#x4F20;&#x7ED9;kernel:console=ttyS1,115200
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">#&#x4FEE;&#x6539;&#x6CE2;&#x7279;&#x7387;</span>
+setenv baudrate <span class="token number">115200</span>
+<span class="token comment">#&#x8BBE;&#x7F6E;&#x5B8C;&#x6210;&#x540E;, uboot&#x4F1A;&#x81EA;&#x52A8;&#x628A;115200&#x4F20;&#x7ED9;kernel:console=ttyS1,115200</span>
+</code></pre>
 <h2 id="&#x5728;uboot&#x4E0B;&#x66F4;&#x65B0;uboot"><a name="&#x5728;uboot&#x4E0B;&#x66F4;&#x65B0;uboot" class="anchor-navigation-ex-anchor" href="#&#x5728;uboot&#x4E0B;&#x66F4;&#x65B0;uboot"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x5728;uboot&#x4E0B;&#x66F4;&#x65B0;uboot</h2>
-<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token macro property">#<span class="token directive keyword">define</span> PKGB_FIT_IMAGE_ADDR 0xffe00000</span>
-<span class="token macro property">#<span class="token directive keyword">define</span> PKGA_FIT_IMAGE_ADDR 0xffd20000</span>
-<span class="token macro property">#<span class="token directive keyword">define</span> UBOOT_FIT_IMAGE_SIZE 0x000e0000</span>
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">PKGB_FIT_IMAGE_ADDR</span> <span class="token expression"><span class="token number">0xffe00000</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">PKGA_FIT_IMAGE_ADDR</span> <span class="token expression"><span class="token number">0xffd20000</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">UBOOT_FIT_IMAGE_SIZE</span> <span class="token expression"><span class="token number">0x000e0000</span></span></span>
 
-ext2load isam_cf <span class="token number">0</span><span class="token punctuation">:</span><span class="token number">0</span> <span class="token number">0x10000000</span> <span class="token operator">/</span>images<span class="token operator">/</span>uboot<span class="token operator">/</span>uboot3041<span class="token punctuation">.</span>itb
+ext2load isam_cf <span class="token number">0</span><span class="token operator">:</span><span class="token number">0</span> <span class="token number">0x10000000</span> <span class="token operator">/</span>images<span class="token operator">/</span>uboot<span class="token operator">/</span>uboot3041<span class="token punctuation">.</span>itb
 <span class="token comment">//&#x5176;&#x5B9E;&#x4E0D;&#x9700;&#x8981;protect off</span>
 protect off all
-<span class="token macro property">#ubootB</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">uboot</span><span class="token expression">B</span></span>
 erase <span class="token number">0xffe00000</span> <span class="token operator">+</span><span class="token number">0x000e0000</span>
 cp<span class="token punctuation">.</span>b <span class="token number">0x10000000</span> <span class="token number">0xffe00000</span> <span class="token number">0x000e0000</span>
 
-<span class="token macro property">#ubootA</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">uboot</span><span class="token expression">A</span></span>
 erase <span class="token number">0xffd20000</span> <span class="token operator">+</span><span class="token number">0x000e0000</span>
 cp<span class="token punctuation">.</span>b <span class="token number">0x10000000</span> <span class="token number">0xffd20000</span> <span class="token number">0x000e0000</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <h2 id="fdt&#x547D;&#x4EE4;"><a name="fdt&#x547D;&#x4EE4;" class="anchor-navigation-ex-anchor" href="#fdt&#x547D;&#x4EE4;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. fdt&#x547D;&#x4EE4;</h2>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">fdt addr 0x11000000
+<pre class="language-"><code>fdt addr 0x11000000
 fdt print /memory
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h2 id="load-cf&#x5361;"><a name="load-cf&#x5361;" class="anchor-navigation-ex-anchor" href="#load-cf&#x5361;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. load CF&#x5361;</h2>
+</code></pre><h2 id="load-cf&#x5361;"><a name="load-cf&#x5361;" class="anchor-navigation-ex-anchor" href="#load-cf&#x5361;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. load CF&#x5361;</h2>
 <p>4G CF&#x5361;, &#x5728;linux&#x8D77;&#x6765;&#x540E;, &#x770B;&#x5230;&#x4E24;&#x4E2A;dev, &#x5404;&#x6709;&#x4E00;&#x4E2A;&#x5206;&#x533A;:<br><code>/dev/sda   /dev/sda1  /dev/sdb   /dev/sdb1</code><br>&#x5206;&#x533A;&#x90FD;&#x662F;ext4&#x683C;&#x5F0F;. &#x5206;&#x533A;&#x8868;&#x662F;mbr&#x683C;&#x5F0F;</p>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">/dev/sda1 on /mnt/cf type ext4 (rw,relatime,data=ordered)
+<pre class="language-"><code>/dev/sda1 on /mnt/cf type ext4 (rw,relatime,data=ordered)
 /dev/sdb1 on /mnt/cf2 type ext4 (rw,relatime,data=ordered)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>&#x5728;uboot&#x9636;&#x6BB5;, &#x4F1A;&#x4ECE;cf&#x5361;load linux.itb</p>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">load_image_from_cf_card: load image /images/linuxA/linux.itb to 7a000000 done, size 14013800
+</code></pre><p>&#x5728;uboot&#x9636;&#x6BB5;, &#x4F1A;&#x4ECE;cf&#x5361;load linux.itb</p>
+<pre class="language-"><code>load_image_from_cf_card: load image /images/linuxA/linux.itb to 7a000000 done, size 14013800
 prepare_images: load all images from fit sections
 do_load_images: Kernel section at 0x7a0002a4 size=0x373d07
 do_load_images: Current dtb name: dtb3041
 do_load_images: Dtb section at 0x7a374090 size=0x95a7
 do_load_images: Rootfs section at 0x7a386ea8 size=0x9d61c8
 do_load_images: Copy rootfs to ram 0xc10000
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>&#x8FD9;&#x4E2A;linux.itb&#x6709;&#x51E0;&#x4E2A;&#x90E8;&#x5206;, &#x662F;<code>vobs/esam/build/lsfx-a/OS/images/fant-f/linux.its</code>&#x5B9A;&#x4E49;&#x597D;&#x7684;</p>
+</code></pre><p>&#x8FD9;&#x4E2A;linux.itb&#x6709;&#x51E0;&#x4E2A;&#x90E8;&#x5206;, &#x662F;<code>vobs/esam/build/lsfx-a/OS/images/fant-f/linux.its</code>&#x5B9A;&#x4E49;&#x597D;&#x7684;</p>
 <ul>
 <li>./linux.itb.version 0.2K</li>
 <li>./uImage 3.4M</li>
@@ -2933,7 +2929,7 @@ do_load_images: Copy rootfs to ram 0xc10000
 <li>sda&#x662F;&#x9AD8;2G: &#x8D77;&#x59CB;&#x5B57;&#x8282;&#x5730;&#x5740;&#x662F; 0x400000 * 512</li>
 <li>sdb&#x662F;&#x4F4E;2G: &#x8D77;&#x59CB;&#x5B57;&#x8282;&#x5730;&#x5740;&#x662F; 0x1ec0 * 512</li>
 </ul>
-<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token comment">/* compact-flash */</span>
+<pre class="language-"><code class="lang-c"><span class="token comment">/* compact-flash */</span>
 cf@<span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span> <span class="token punctuation">{</span>
     compatible <span class="token operator">=</span> <span class="token string">&quot;alu,cf&quot;</span><span class="token punctuation">;</span>
     reg <span class="token operator">=</span> <span class="token operator">&lt;</span> <span class="token number">1</span> <span class="token number">0x0800</span> <span class="token number">0x0008</span>    <span class="token comment">/* command register base */</span>
@@ -2968,32 +2964,32 @@ cf@<span class="token number">1</span><span class="token punctuation">,</span><s
         end<span class="token operator">-</span>sector <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token number">0x3d011f</span><span class="token operator">&gt;</span><span class="token punctuation">;</span> <span class="token comment">/* this is the end   LBA of /dev/hda7 */</span>
     <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <h3 id="&#x627E;&#x5230;sda1&#x5206;&#x533A;&#x7684;offset-&#x5728;pc&#x4E0A;mount"><a name="&#x627E;&#x5230;sda1&#x5206;&#x533A;&#x7684;offset-&#x5728;pc&#x4E0A;mount" class="anchor-navigation-ex-anchor" href="#&#x627E;&#x5230;sda1&#x5206;&#x533A;&#x7684;offset-&#x5728;pc&#x4E0A;mount"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.1. &#x627E;&#x5230;sda1&#x5206;&#x533A;&#x7684;offset, &#x5728;pc&#x4E0A;mount</h3>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">fdisk -l /dev/sda
+<pre class="language-"><code>fdisk -l /dev/sda
 Disk /dev/sda: 1871 MB, 1962704896 bytes, 3833408 sectors
 238 cylinders, 255 heads, 63 sectors/track
 Units: sectors of 1 * 512 = 512 bytes
 
 Device  Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id Type
 /dev/sda1    0,1,1       237,254,63          63    3823469    3823407 1866M 83 Linux
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>&#x8FD9;&#x91CC;&#x662F;&#x8BF4;, sda1&#x5206;&#x533A;&#x4ECE;sector 63&#x5F00;&#x59CB;, &#x5230;sector 3823469&#x7ED3;&#x675F;, &#x5171;3823407&#x4E2A;</p>
+</code></pre><p>&#x8FD9;&#x91CC;&#x662F;&#x8BF4;, sda1&#x5206;&#x533A;&#x4ECE;sector 63&#x5F00;&#x59CB;, &#x5230;sector 3823469&#x7ED3;&#x675F;, &#x5171;3823407&#x4E2A;</p>
 <p>&#x90A3;&#x4E48;, &#x56E0;&#x4E3A;sda&#x662F;cf&#x5361;&#x7684;&#x9AD8;2G, &#x90A3;sda1&#x6240;&#x5728;&#x7684;&#x5206;&#x533A;&#x7684;offset&#x662F;:
 (0x400000 + 63) * 512 = 2147515904</p>
 <p>&#x5728;pc&#x4E0A;mount&#x8FD9;&#x4E2A;&#x5206;&#x533A;</p>
-<pre class="line-numbers language-sh" lang="sh"><code class=" language-sh">#&#x6309;&#x7167;&#x8BA1;&#x7B97;&#x597D;&#x7684;&#x5206;&#x533A;offset&#x6765;mount
-sudo mount -o offset=2147515904 /dev/sdb mnt
-#&#x80FD;&#x770B;&#x5230;&#x6587;&#x4EF6;
-ls mnt/images/
+<pre class="language-"><code class="lang-sh"><span class="token comment">#&#x6309;&#x7167;&#x8BA1;&#x7B97;&#x597D;&#x7684;&#x5206;&#x533A;offset&#x6765;mount</span>
+<span class="token function">sudo</span> <span class="token function">mount</span> <span class="token parameter variable">-o</span> <span class="token assign-left variable">offset</span><span class="token operator">=</span><span class="token number">2147515904</span> /dev/sdb mnt
+<span class="token comment">#&#x80FD;&#x770B;&#x5230;&#x6587;&#x4EF6;</span>
+<span class="token function">ls</span> mnt/images/
 cf_low_2g_reclaim  linuxA  linuxB
 
-#&#x7528;root&#x7528;&#x6237;&#x6743;&#x9650;, &#x62F7;&#x8D1D;linux.itb
-cd mnt/images/linuxA/
-cp /home/yingjieb/work/share/swms/vobs/esam/build/lsfx-a/OS/images/fant-f/linux.itb .
-sync
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">#&#x7528;root&#x7528;&#x6237;&#x6743;&#x9650;, &#x62F7;&#x8D1D;linux.itb</span>
+<span class="token builtin class-name">cd</span> mnt/images/linuxA/
+<span class="token function">cp</span> /home/yingjieb/work/share/swms/vobs/esam/build/lsfx-a/OS/images/fant-f/linux.itb <span class="token builtin class-name">.</span>
+<span class="token function">sync</span>
+</code></pre>
 <p>&#x53C2;&#x8003;: <a href="https://superuser.com/questions/694430/how-to-inspect-disk-image" target="_blank">https://superuser.com/questions/694430/how-to-inspect-disk-image</a></p>
-</body></html>
+
                                 
                                 </section>
                             
@@ -3036,7 +3032,7 @@ sync
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"uboot杂记","level":"1.5.2","depth":2,"next":{"title":"buildroot杂记","level":"1.5.3","depth":2,"path":"notes/buildroot_杂记.md","ref":"notes/buildroot_杂记.md","articles":[]},"previous":{"title":"嵌入式调试杂记","level":"1.5.1","depth":2,"path":"notes/embedded_debugging.md","ref":"notes/embedded_debugging.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"lineHeight":"normal","cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/uboot_杂记.md","mtime":"2022-10-12T02:24:49.958Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T02:25:44.681Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"uboot杂记","level":"1.5.2","depth":2,"next":{"title":"buildroot杂记","level":"1.5.3","depth":2,"path":"notes/buildroot_杂记.md","ref":"notes/buildroot_杂记.md","articles":[]},"previous":{"title":"嵌入式调试杂记","level":"1.5.1","depth":2,"path":"notes/embedded_debugging.md","ref":"notes/embedded_debugging.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/uboot_杂记.md","mtime":"2022-10-12T02:56:59.739Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T02:58:12.754Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

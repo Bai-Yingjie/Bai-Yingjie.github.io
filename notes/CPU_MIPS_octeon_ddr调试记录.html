@@ -21,11 +21,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
-                
-            
-                
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
                 
             
                 
@@ -2867,7 +2863,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#cn70xx-ddr-ecc"><b>1. </b>CN70XX ddr ecc</a></li><li><span class="title-icon "></span><a href="#&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x7684;odt&#x914D;&#x7F6E;"><b>2. </b>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x7684;odt&#x914D;&#x7F6E;</a></li><li><span class="title-icon "></span><a href="#&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;"><b>3. </b>&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;?</a></li><li><span class="title-icon "></span><a href="#ddr&#x6D4B;&#x8BD5;"><b>4. </b>ddr&#x6D4B;&#x8BD5;</a></li></ul></div><a href="#cn70xx-ddr-ecc" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#cn70xx-ddr-ecc"><b>1. </b>CN70XX ddr ecc</a></li><li><span class="title-icon "></span><a href="#&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x7684;odt&#x914D;&#x7F6E;"><b>2. </b>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x7684;odt&#x914D;&#x7F6E;</a></li><li><span class="title-icon "></span><a href="#&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;"><b>3. </b>&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;?</a></li><li><span class="title-icon "></span><a href="#ddr&#x6D4B;&#x8BD5;"><b>4. </b>ddr&#x6D4B;&#x8BD5;</a></li></ul></div><a href="#cn70xx-ddr-ecc" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
 <li><a href="#cn70xx-ddr-ecc">CN70XX ddr ecc</a></li>
 <li><a href="#&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x7684;odt&#x914D;&#x7F6E;">&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x7684;odt&#x914D;&#x7F6E;</a></li>
 <li><a href="#&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;">&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;?</a></li>
@@ -2875,23 +2871,23 @@
 </ul>
 <h1 id="cn70xx-ddr-ecc"><a name="cn70xx-ddr-ecc" class="anchor-navigation-ex-anchor" href="#cn70xx-ddr-ecc"><i class="fa fa-link" aria-hidden="true"></i></a>1. CN70XX ddr ecc</h1>
 <p>in uboot</p>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">setenv ddr_maximum_adjacent_rlevel_delay_increment 1
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>in lib_octeon_shared.c, do the following changes:</p>
-<pre class="line-numbers language-c" lang="c"><code class=" language-c">    <span class="token macro property">#<span class="token directive keyword">define</span> RLEVEL_BITMASK_BUBBLE_BITS_ERROR        4</span>
-   Replace with<span class="token punctuation">:</span>
-    <span class="token macro property">#<span class="token directive keyword">define</span> RLEVEL_BITMASK_BUBBLE_BITS_ERROR        12</span>
+<pre class="language-"><code>setenv ddr_maximum_adjacent_rlevel_delay_increment 1
+</code></pre><p>in lib_octeon_shared.c, do the following changes:</p>
+<pre class="language-"><code class="lang-c">    <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RLEVEL_BITMASK_BUBBLE_BITS_ERROR</span>        <span class="token expression"><span class="token number">4</span></span></span>
+   Replace with<span class="token operator">:</span>
+    <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RLEVEL_BITMASK_BUBBLE_BITS_ERROR</span>        <span class="token expression"><span class="token number">12</span></span></span>
 
-    <span class="token macro property">#<span class="token directive keyword">define</span> RLEVEL_ADJACENT_DELAY_ERROR             2</span>
-   Replace with<span class="token punctuation">:</span>
-    <span class="token macro property">#<span class="token directive keyword">define</span> RLEVEL_ADJACENT_DELAY_ERROR             30</span>
+    <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RLEVEL_ADJACENT_DELAY_ERROR</span>             <span class="token expression"><span class="token number">2</span></span></span>
+   Replace with<span class="token operator">:</span>
+    <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RLEVEL_ADJACENT_DELAY_ERROR</span>             <span class="token expression"><span class="token number">30</span></span></span>
 
-    <span class="token macro property">#<span class="token directive keyword">define</span> RLEVEL_NONSEQUENTIAL_DELAY_ERROR        5</span>
-   Replace with<span class="token punctuation">:</span>
-    <span class="token macro property">#<span class="token directive keyword">define</span> RLEVEL_NONSEQUENTIAL_DELAY_ERROR        50</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RLEVEL_NONSEQUENTIAL_DELAY_ERROR</span>        <span class="token expression"><span class="token number">5</span></span></span>
+   Replace with<span class="token operator">:</span>
+    <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">RLEVEL_NONSEQUENTIAL_DELAY_ERROR</span>        <span class="token expression"><span class="token number">50</span></span></span>
+</code></pre>
 <h1 id="&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x7684;odt&#x914D;&#x7F6E;"><a name="&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x7684;odt&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x7684;odt&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x7684;odt&#x914D;&#x7F6E;</h1>
 <p>&#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x7684;&#x914D;&#x7F6E;&#x548C;&#x90A3;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x5BF9;&#x4E0D;&#x4E0A;</p>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">#define OCTEON_EVB7100_CN61XX_DRAM_ODT_1RANK_CONFIGURATION \
+<pre class="language-"><code>#define OCTEON_EVB7100_CN61XX_DRAM_ODT_1RANK_CONFIGURATION \
     /* DIMMS   reserved  WODT_MASK                LMCX_MODEREG_PARAMS1            RODT_CTL    RODT_MASK    reserved */ \
     /* =====   ======== ============== ========================================== ========= ============== ======== */ \
     /*   1 */ {   0,    0x00000001ULL, OCTEON_EVB7100_MODEREG_PARAMS1_1RANK_1SLOT,    3,     0x00000000ULL,  0  },      \
@@ -2905,13 +2901,13 @@
     /* DIMMS   reserved  WODT_MASK                LMCX_MODEREG_PARAMS1            RODT_CTL    RODT_MASK    reserved */ \
     /* =====   ======== ============== ========================================== ========= ============== ======== */ \
     /*   1 */ {   0,    0x01030203ULL, OCTEON_EVB7100_MODEREG_PARAMS1_4RANK_1SLOT,    3,     0x01010202ULL,    0  }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-undefined"><code class=" language-undefined">        static const unsigned char rodt_ohms[] = { 0, 20, 30, 40, 60, 120 };
+</code></pre><pre class="language-"><code>        static const unsigned char rodt_ohms[] = { 0, 20, 30, 40, 60, 120 };
         static const unsigned char rtt_nom_ohms[] = { 0, 60, 120, 40, 20, 30 };
         static const unsigned char rtt_nom_table[] = { 0, 2, 1, 3, 5, 4 };
         static const unsigned char rtt_wr_ohms[]  = { 0, 60, 120 };
         static const unsigned char dic_ohms[]     = { 40, 34 };
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>&#x7ED3;&#x6784;&#x4F53;c</p>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">typedef struct {
+</code></pre><p>&#x7ED3;&#x6784;&#x4F53;c</p>
+<pre class="language-"><code>typedef struct {
     uint8_t odt_ena;
     uint64_t odt_mask;
 #if defined(SWIG) || defined(SWIGLUA)
@@ -2923,13 +2919,13 @@
     uint64_t rodt_ctl;
     uint8_t dic;
 } dimm_odt_config_t;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;"><a name="&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;?</h1>
+</code></pre><h1 id="&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;"><a name="&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x5982;&#x4F55;&#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;?</h1>
 <p>&#x5728;&#x4EE3;&#x7801;&#x91CC;&#x9762;&#x52A0;</p>
-<pre class="line-numbers language-undefined"><code class=" language-undefined">uint32_t model = cvmx_get_proc_id();
+<pre class="language-"><code>uint32_t model = cvmx_get_proc_id();
 if (cvmx_get_core_num() == 0)
     cvmx_csr_db_print_decode_by_prefix(model, &quot;lmc&quot;, 1);
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h1 id="ddr&#x6D4B;&#x8BD5;"><a name="ddr&#x6D4B;&#x8BD5;" class="anchor-navigation-ex-anchor" href="#ddr&#x6D4B;&#x8BD5;"><i class="fa fa-link" aria-hidden="true"></i></a>4. ddr&#x6D4B;&#x8BD5;</h1>
-<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token comment">//&#x5185;&#x5B58;&#x6D4B;&#x8BD5;se, &#x5728;uboot&#x4E0B;&#x9762;&#x8FD0;&#x884C;</span>
+</code></pre><h1 id="ddr&#x6D4B;&#x8BD5;"><a name="ddr&#x6D4B;&#x8BD5;" class="anchor-navigation-ex-anchor" href="#ddr&#x6D4B;&#x8BD5;"><i class="fa fa-link" aria-hidden="true"></i></a>4. ddr&#x6D4B;&#x8BD5;</h1>
+<pre class="language-"><code class="lang-c"><span class="token comment">//&#x5185;&#x5B58;&#x6D4B;&#x8BD5;se, &#x5728;uboot&#x4E0B;&#x9762;&#x8FD0;&#x884C;</span>
 tftp hw<span class="token operator">-</span>ddr2
 &#x591A;&#x6838;&#x5E26;ecc
 bootoct <span class="token number">0</span> coremask<span class="token operator">=</span><span class="token number">0x0f</span> endbootargs <span class="token operator">-</span>ecc
@@ -2947,13 +2943,13 @@ Octeon <span class="token function">cust_fpxtb</span><span class="token punctuat
 setenv ddr_trace_init <span class="token number">1</span>
 Octeon <span class="token function">cust_fpxtb</span><span class="token punctuation">(</span>PKGA<span class="token punctuation">)</span># # saveenv
 <span class="token comment">//&#x67E5;&#x770B;&#x662F;&#x5426;&#x6253;&#x5F00;ecc</span>
-OCTEON_REMOTE_DEBUG<span class="token operator">=</span><span class="token number">1</span> OCTEON_REMOTE_PROTOCOL<span class="token operator">=</span>GDB<span class="token punctuation">:</span><span class="token number">135.251</span><span class="token number">.9</span><span class="token number">.60</span><span class="token punctuation">,</span><span class="token number">30000</span>  oct<span class="token operator">-</span>remote<span class="token operator">-</span>csr cvmx_lmc0_config
+OCTEON_REMOTE_DEBUG<span class="token operator">=</span><span class="token number">1</span> OCTEON_REMOTE_PROTOCOL<span class="token operator">=</span>GDB<span class="token operator">:</span><span class="token number">135.251</span><span class="token number">.9</span><span class="token number">.60</span><span class="token punctuation">,</span><span class="token number">30000</span>  oct<span class="token operator">-</span>remote<span class="token operator">-</span>csr cvmx_lmc0_config
 <span class="token comment">//&#x67E5;&#x5355;&#x53CC;bit Ecc&#x7EDF;&#x8BA1;</span>
-OCTEON_REMOTE_DEBUG<span class="token operator">=</span><span class="token number">1</span> OCTEON_REMOTE_PROTOCOL<span class="token operator">=</span>GDB<span class="token punctuation">:</span><span class="token number">135.251</span><span class="token number">.9</span><span class="token number">.60</span><span class="token punctuation">,</span><span class="token number">30000</span>  oct<span class="token operator">-</span>remote<span class="token operator">-</span>csr cvmx_lmc0_int
+OCTEON_REMOTE_DEBUG<span class="token operator">=</span><span class="token number">1</span> OCTEON_REMOTE_PROTOCOL<span class="token operator">=</span>GDB<span class="token operator">:</span><span class="token number">135.251</span><span class="token number">.9</span><span class="token number">.60</span><span class="token punctuation">,</span><span class="token number">30000</span>  oct<span class="token operator">-</span>remote<span class="token operator">-</span>csr cvmx_lmc0_int
 <span class="token comment">//&#x5355;&#x53CC;ecc</span>
 Octeon <span class="token function">cust_fpxtb</span><span class="token punctuation">(</span>PKGA<span class="token punctuation">)</span># # read64 <span class="token number">0x00011800880001F0</span>
-attempting to read from addr<span class="token punctuation">:</span> <span class="token number">0x80011800880001f0</span>
-<span class="token number">0x80011800880001f0</span><span class="token punctuation">:</span> <span class="token number">0x0</span>
+attempting to read from addr<span class="token operator">:</span> <span class="token number">0x80011800880001f0</span>
+<span class="token number">0x80011800880001f0</span><span class="token operator">:</span> <span class="token number">0x0</span>
 <span class="token comment">//&#x5F3A;&#x5236;read leveling</span>
 Octeon <span class="token function">cust_fpxtb</span><span class="token punctuation">(</span>PKGA<span class="token punctuation">)</span># # setenv ddr_rlevel_rank0_byte0 <span class="token number">3</span>
 Octeon <span class="token function">cust_fpxtb</span><span class="token punctuation">(</span>PKGA<span class="token punctuation">)</span># # saveenv
@@ -2982,8 +2978,8 @@ Octeon <span class="token function">cust_fpxtb</span><span class="token punctuat
 Octeon <span class="token function">cust_fpxtb</span><span class="token punctuation">(</span>PKGA<span class="token punctuation">)</span># # setenv ddr_rlevel_rank0_byte1 <span class="token number">4</span>
 Octeon <span class="token function">cust_fpxtb</span><span class="token punctuation">(</span>PKGA<span class="token punctuation">)</span># # setenv ddr_rlevel_rank0_byte0 <span class="token number">4</span>
 Octeon <span class="token function">cust_fpxtb</span><span class="token punctuation">(</span>PKGA<span class="token punctuation">)</span># # saveenv
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</body></html>
+</code></pre>
+
                                 
                                 </section>
                             
@@ -3026,7 +3022,7 @@ Octeon <span class="token function">cust_fpxtb</span><span class="token punctuat
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"octeon DDR调试","level":"1.16.3.4","depth":3,"next":{"title":"octeon CN78xx BDK","level":"1.16.3.5","depth":3,"path":"notes/CPU_MIPS_octeon_BDK.md","ref":"notes/CPU_MIPS_octeon_BDK.md","articles":[]},"previous":{"title":"octeon 系列处理器包处理性能","level":"1.16.3.3","depth":3,"path":"notes/CPU_MIPS_octeon_包处理性能.md","ref":"notes/CPU_MIPS_octeon_包处理性能.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"lineHeight":"normal","cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon_ddr调试记录.md","mtime":"2022-10-12T02:24:49.466Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T02:25:44.681Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"octeon DDR调试","level":"1.16.3.4","depth":3,"next":{"title":"octeon CN78xx BDK","level":"1.16.3.5","depth":3,"path":"notes/CPU_MIPS_octeon_BDK.md","ref":"notes/CPU_MIPS_octeon_BDK.md","articles":[]},"previous":{"title":"octeon 系列处理器包处理性能","level":"1.16.3.3","depth":3,"path":"notes/CPU_MIPS_octeon_包处理性能.md","ref":"notes/CPU_MIPS_octeon_包处理性能.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_MIPS_octeon_ddr调试记录.md","mtime":"2022-10-12T02:56:59.199Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T02:58:12.754Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

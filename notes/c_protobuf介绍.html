@@ -21,11 +21,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
-                
-            
-                
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
                 
             
                 
@@ -2867,7 +2863,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x5148;&#x5173;&#x6CE8;&#x4E00;&#x4E0B;gpb&#x600E;&#x4E48;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;"><b>1. </b>&#x5148;&#x5173;&#x6CE8;&#x4E00;&#x4E0B;GPB&#x600E;&#x4E48;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;</a></li><ul><li><span class="title-icon "></span><a href="#parsing-and-serializationc"><b>1.1. </b>Parsing and Serialization(C++)</a></li><ul><li><span class="title-icon "></span><a href="#&#x4E3E;&#x4F8B;"><b>1.1.1. </b>&#x4E3E;&#x4F8B;</a></li></ul></ul><li><span class="title-icon "></span><a href="#encoding&#x4ECB;&#x7ECD;"><b>2. </b>encoding&#x4ECB;&#x7ECD;</a></li></ul></div><a href="#&#x5148;&#x5173;&#x6CE8;&#x4E00;&#x4E0B;gpb&#x600E;&#x4E48;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x5148;&#x5173;&#x6CE8;&#x4E00;&#x4E0B;gpb&#x600E;&#x4E48;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;"><b>1. </b>&#x5148;&#x5173;&#x6CE8;&#x4E00;&#x4E0B;GPB&#x600E;&#x4E48;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;</a></li><ul><li><span class="title-icon "></span><a href="#parsing-and-serializationc"><b>1.1. </b>Parsing and Serialization(C++)</a></li><ul><li><span class="title-icon "></span><a href="#&#x4E3E;&#x4F8B;"><b>1.1.1. </b>&#x4E3E;&#x4F8B;</a></li></ul></ul><li><span class="title-icon "></span><a href="#encoding&#x4ECB;&#x7ECD;"><b>2. </b>encoding&#x4ECB;&#x7ECD;</a></li></ul></div><a href="#&#x5148;&#x5173;&#x6CE8;&#x4E00;&#x4E0B;gpb&#x600E;&#x4E48;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
 <li><a href="#&#x5148;&#x5173;&#x6CE8;&#x4E00;&#x4E0B;gpb&#x600E;&#x4E48;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;">&#x5148;&#x5173;&#x6CE8;&#x4E00;&#x4E0B;GPB&#x600E;&#x4E48;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;</a><ul>
 <li><a href="#parsing-and-serializationc">Parsing and Serialization(C++)</a><ul>
 <li><a href="#&#x4E3E;&#x4F8B;">&#x4E3E;&#x4F8B;</a></li>
@@ -2891,7 +2887,7 @@
 <p>These are just a couple of the options provided for parsing and serialization. Again, see the <a href="https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.message#Message" target="_blank"><code>Message</code> API reference</a> for a complete list.</p>
 <h3 id="&#x4E3E;&#x4F8B;"><a name="&#x4E3E;&#x4F8B;" class="anchor-navigation-ex-anchor" href="#&#x4E3E;&#x4F8B;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. &#x4E3E;&#x4F8B;</h3>
 <p>&#x6BD4;&#x5982;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;proto&#x662F;AddressBook, protoc&#x751F;&#x6210;&#x4E86;&#x5BF9;&#x5E94;&#x7684;&#x7C7B;.</p>
-<pre class="line-numbers language-undefined"><code class=" language-undefined"># &#x58F0;&#x660E;&#x8FD9;&#x4E2A;&#x7C7B;&#x7684;&#x5BF9;&#x8C61;
+<pre class="language-"><code># &#x58F0;&#x660E;&#x8FD9;&#x4E2A;&#x7C7B;&#x7684;&#x5BF9;&#x8C61;
 tutorial::AddressBook address_book;
 
 # &#x4ECE;os.in&#x8BFB;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x51FA;&#x6765;
@@ -2901,7 +2897,7 @@ address_book.ParseFromIstream(&amp;input)
 # &#x5199;&#x5230;os.out
 fstream output(argv[1], ios::out | ios::trunc | ios::binary);
 address_book.SerializeToOstream(&amp;output)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h1 id="encoding&#x4ECB;&#x7ECD;"><a name="encoding&#x4ECB;&#x7ECD;" class="anchor-navigation-ex-anchor" href="#encoding&#x4ECB;&#x7ECD;"><i class="fa fa-link" aria-hidden="true"></i></a>2. encoding&#x4ECB;&#x7ECD;</h1>
+</code></pre><h1 id="encoding&#x4ECB;&#x7ECD;"><a name="encoding&#x4ECB;&#x7ECD;" class="anchor-navigation-ex-anchor" href="#encoding&#x4ECB;&#x7ECD;"><i class="fa fa-link" aria-hidden="true"></i></a>2. encoding&#x4ECB;&#x7ECD;</h1>
 <p>&#x662F;binary&#x6A21;&#x5F0F;&#x7684;&#x7F16;&#x7801;, int&#x662F;&#x53D8;&#x957F;&#x7684;, &#x53EB;<code>varints</code></p>
 <p>&#x7B80;&#x660E;&#x5217;&#x8868;:<a href="https://developers.google.com/protocol-buffers/docs/encoding" target="_blank">https://developers.google.com/protocol-buffers/docs/encoding</a></p>
 <table>
@@ -2945,7 +2941,7 @@ address_book.SerializeToOstream(&amp;output)
 </tr>
 </tbody>
 </table>
-</body></html>
+
                                 
                                 </section>
                             
@@ -2988,7 +2984,7 @@ address_book.SerializeToOstream(&amp;output)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"序列化: protobuf介绍","level":"1.9.6","depth":2,"next":{"title":"进程间通信: 共享文件和共享内存(网摘)","level":"1.9.7","depth":2,"path":"notes/c_进程间通信_共享文件和共享内存.md","ref":"notes/c_进程间通信_共享文件和共享内存.md","articles":[]},"previous":{"title":"网络编程: Advanced Socket Topics(网摘)","level":"1.9.5","depth":2,"path":"notes/c_networking_socket高阶用法.md","ref":"notes/c_networking_socket高阶用法.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"lineHeight":"normal","cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/c_protobuf介绍.md","mtime":"2022-10-12T02:24:49.470Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T02:25:44.681Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"序列化: protobuf介绍","level":"1.9.6","depth":2,"next":{"title":"进程间通信: 共享文件和共享内存(网摘)","level":"1.9.7","depth":2,"path":"notes/c_进程间通信_共享文件和共享内存.md","ref":"notes/c_进程间通信_共享文件和共享内存.md","articles":[]},"previous":{"title":"网络编程: Advanced Socket Topics(网摘)","level":"1.9.5","depth":2,"path":"notes/c_networking_socket高阶用法.md","ref":"notes/c_networking_socket高阶用法.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/c_protobuf介绍.md","mtime":"2022-10-12T02:56:59.203Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T02:58:12.754Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

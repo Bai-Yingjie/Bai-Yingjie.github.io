@@ -21,11 +21,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism.css">
-                
-            
-                
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism-ext/prism-line-numbers.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
                 
             
                 
@@ -2867,7 +2863,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x73B0;&#x8C61;"><b>1. </b>&#x73B0;&#x8C61;</a></li><li><span class="title-icon "></span><a href="#&#x4ECE;rtc-efiko&#x8BF4;&#x5F00;&#x53BB;"><b>2. </b>&#x4ECE;rtc-efi.ko&#x8BF4;&#x5F00;&#x53BB;</a></li><li><span class="title-icon "></span><a href="#&#x4ECE;uefi&#x770B;&#x8D77;"><b>3. </b>&#x4ECE;UEFI&#x770B;&#x8D77;</a></li><li><span class="title-icon "></span><a href="#kernel&#x8C03;&#x7528;efi&#x7684;service&#x673A;&#x5236;&#x662F;&#x4EC0;&#x4E48;"><b>4. </b>kernel&#x8C03;&#x7528;efi&#x7684;service&#x673A;&#x5236;&#x662F;&#x4EC0;&#x4E48;?</a></li></ul></div><a href="#&#x73B0;&#x8C61;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><html><head></head><body><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x73B0;&#x8C61;"><b>1. </b>&#x73B0;&#x8C61;</a></li><li><span class="title-icon "></span><a href="#&#x4ECE;rtc-efiko&#x8BF4;&#x5F00;&#x53BB;"><b>2. </b>&#x4ECE;rtc-efi.ko&#x8BF4;&#x5F00;&#x53BB;</a></li><li><span class="title-icon "></span><a href="#&#x4ECE;uefi&#x770B;&#x8D77;"><b>3. </b>&#x4ECE;UEFI&#x770B;&#x8D77;</a></li><li><span class="title-icon "></span><a href="#kernel&#x8C03;&#x7528;efi&#x7684;service&#x673A;&#x5236;&#x662F;&#x4EC0;&#x4E48;"><b>4. </b>kernel&#x8C03;&#x7528;efi&#x7684;service&#x673A;&#x5236;&#x662F;&#x4EC0;&#x4E48;?</a></li></ul></div><a href="#&#x73B0;&#x8C61;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
 <li><a href="#&#x73B0;&#x8C61;">&#x73B0;&#x8C61;</a></li>
 <li><a href="#&#x4ECE;rtc-efiko&#x8BF4;&#x5F00;&#x53BB;">&#x4ECE;rtc-efi.ko&#x8BF4;&#x5F00;&#x53BB;</a></li>
 <li><a href="#&#x4ECE;uefi&#x770B;&#x8D77;">&#x4ECE;UEFI&#x770B;&#x8D77;</a></li>
@@ -2879,11 +2875,11 @@
 <p>&#x8FD8;&#x8BB0;&#x5F97;&#x6700;&#x5F00;&#x59CB;fedora&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;, &#x5C31;&#x662F;&#x8FD9;&#x4E2A;ko&#x8001;&#x6253;&#x5370;&#x9519;&#x8BEF;, &#x5F53;&#x65F6;&#x53EA;&#x662F;&#x7B80;&#x5355;&#x7684;&#x5220;&#x6389;&#x5B83;&#x4E86;, &#x6CA1;&#x6709;&#x591A;&#x60F3;.<br>&#x4F46;&#x73B0;&#x5728;&#x56DE;&#x8FC7;&#x5934;&#x6765;&#x518D;&#x770B;RTC&#x95EE;&#x9898;&#x7684;&#x65F6;&#x5019;, &#x624D;&#x53D1;&#x73B0;&#x8FD9;&#x4E2A;ko&#x5C31;&#x662F;key.</p>
 <p>&#x8FD9;&#x4E2A;ko&#x7684;&#x4EE3;&#x7801;&#x5F88;&#x7B80;&#x5355;, &#x5728;<code>drivers/rtc/rtc-efi.c</code><br>&#x4E24;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x51FD;&#x6570;, <code>efi_read_time()</code>&#x548C;<code>efi_set_time()</code></p>
 <p>&#x65E2;&#x7136;&#x65F6;&#x95F4;&#x4E0D;&#x5BF9;, &#x6211;&#x4EEC;&#x5C31;&#x5148;&#x6765;&#x770B;<code>efi_read_time()</code></p>
-<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">efi_read_time</span><span class="token punctuation">(</span><span class="token keyword">struct</span> device <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">struct</span> rtc_time <span class="token operator">*</span>tm<span class="token punctuation">)</span>
+<pre class="language-"><code class="lang-c"><span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">efi_read_time</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">rtc_time</span> <span class="token operator">*</span>tm<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
-    efi_status_t status<span class="token punctuation">;</span>
-    efi_time_t eft<span class="token punctuation">;</span>
-    efi_time_cap_t cap<span class="token punctuation">;</span>
+    <span class="token class-name">efi_status_t</span> status<span class="token punctuation">;</span>
+    <span class="token class-name">efi_time_t</span> eft<span class="token punctuation">;</span>
+    <span class="token class-name">efi_time_cap_t</span> cap<span class="token punctuation">;</span>
 
     status <span class="token operator">=</span> efi<span class="token punctuation">.</span><span class="token function">get_time</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>eft<span class="token punctuation">,</span> <span class="token operator">&amp;</span>cap<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -2898,14 +2894,14 @@
 
     <span class="token keyword">return</span> <span class="token function">rtc_valid_tm</span><span class="token punctuation">(</span>tm<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <p>&#x8FD9;&#x91CC;&#x9762;&#x6709;&#x4E2A;<code>efi.get_time(&amp;eft, &amp;cap)</code>, &#x5E94;&#x8BE5;&#x5C31;&#x662F;&#x83B7;&#x53D6;&#x65F6;&#x95F4;&#x4E86;, &#x800C;&#x6B63;&#x5982;&#x8FD9;&#x4E2A;ko&#x7684;&#x540D;&#x5B57;rtc-efi&#x6240;&#x6697;&#x793A;&#x7684;, &#x5B83;&#x4E0D;&#x662F;&#x76F4;&#x63A5;&#x8C03;&#x7528;linux&#x9A71;&#x52A8;&#x6765;&#x8BFB;&#x65F6;&#x95F4;, &#x800C;&#x662F;&#x8C03;efi&#x7684;run time service.</p>
 <p>&#x8FD9;&#x4E2A;<code>efi.get_time</code>&#x5728;&#x54EA;&#x5462;? <code>include/linux/efi.h</code>&#x91CC;&#x9762;&#x8BF4;&#x7684;&#x5F88;&#x6E05;&#x695A;, efi&#x6240;&#x6709;&#x7684;runtime&#x7684;&#x4E1C;&#x4E1C;&#x90FD;&#x5728;&#x8FD9;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x91CC;&#x9762;</p>
-<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token comment">/*
+<pre class="language-"><code class="lang-c"><span class="token comment">/*
  * All runtime access to EFI goes through this structure:
  */</span>
-<span class="token keyword">extern</span> <span class="token keyword">struct</span> efi <span class="token punctuation">{</span>
-    efi_system_table_t <span class="token operator">*</span>systab<span class="token punctuation">;</span>    <span class="token comment">/* EFI system table */</span>
+<span class="token keyword">extern</span> <span class="token keyword">struct</span> <span class="token class-name">efi</span> <span class="token punctuation">{</span>
+    <span class="token class-name">efi_system_table_t</span> <span class="token operator">*</span>systab<span class="token punctuation">;</span>    <span class="token comment">/* EFI system table */</span>
     <span class="token keyword">unsigned</span> <span class="token keyword">int</span> runtime_version<span class="token punctuation">;</span>  <span class="token comment">/* Runtime services version */</span>
     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> mps<span class="token punctuation">;</span>             <span class="token comment">/* MPS table */</span>
     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> acpi<span class="token punctuation">;</span>            <span class="token comment">/* ACPI table  (IA64 ext 0.71) */</span>
@@ -2921,30 +2917,30 @@
     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> runtime<span class="token punctuation">;</span>         <span class="token comment">/* runtime table */</span>
     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> config_table<span class="token punctuation">;</span>    <span class="token comment">/* config tables */</span>
     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> esrt<span class="token punctuation">;</span>            <span class="token comment">/* ESRT table */</span>
-    efi_get_time_t <span class="token operator">*</span>get_time<span class="token punctuation">;</span>
-    efi_set_time_t <span class="token operator">*</span>set_time<span class="token punctuation">;</span>
-    efi_get_wakeup_time_t <span class="token operator">*</span>get_wakeup_time<span class="token punctuation">;</span>
-    efi_set_wakeup_time_t <span class="token operator">*</span>set_wakeup_time<span class="token punctuation">;</span>
-    efi_get_variable_t <span class="token operator">*</span>get_variable<span class="token punctuation">;</span>
-    efi_get_next_variable_t <span class="token operator">*</span>get_next_variable<span class="token punctuation">;</span>
-    efi_set_variable_t <span class="token operator">*</span>set_variable<span class="token punctuation">;</span>
-    efi_set_variable_nonblocking_t <span class="token operator">*</span>set_variable_nonblocking<span class="token punctuation">;</span>
-    efi_query_variable_info_t <span class="token operator">*</span>query_variable_info<span class="token punctuation">;</span>
-    efi_update_capsule_t <span class="token operator">*</span>update_capsule<span class="token punctuation">;</span>
-    efi_query_capsule_caps_t <span class="token operator">*</span>query_capsule_caps<span class="token punctuation">;</span>
-    efi_get_next_high_mono_count_t <span class="token operator">*</span>get_next_high_mono_count<span class="token punctuation">;</span>
-    efi_reset_system_t <span class="token operator">*</span>reset_system<span class="token punctuation">;</span>
-    efi_set_virtual_address_map_t <span class="token operator">*</span>set_virtual_address_map<span class="token punctuation">;</span>
-    <span class="token keyword">struct</span> efi_memory_map <span class="token operator">*</span>memmap<span class="token punctuation">;</span>
+    <span class="token class-name">efi_get_time_t</span> <span class="token operator">*</span>get_time<span class="token punctuation">;</span>
+    <span class="token class-name">efi_set_time_t</span> <span class="token operator">*</span>set_time<span class="token punctuation">;</span>
+    <span class="token class-name">efi_get_wakeup_time_t</span> <span class="token operator">*</span>get_wakeup_time<span class="token punctuation">;</span>
+    <span class="token class-name">efi_set_wakeup_time_t</span> <span class="token operator">*</span>set_wakeup_time<span class="token punctuation">;</span>
+    <span class="token class-name">efi_get_variable_t</span> <span class="token operator">*</span>get_variable<span class="token punctuation">;</span>
+    <span class="token class-name">efi_get_next_variable_t</span> <span class="token operator">*</span>get_next_variable<span class="token punctuation">;</span>
+    <span class="token class-name">efi_set_variable_t</span> <span class="token operator">*</span>set_variable<span class="token punctuation">;</span>
+    <span class="token class-name">efi_set_variable_nonblocking_t</span> <span class="token operator">*</span>set_variable_nonblocking<span class="token punctuation">;</span>
+    <span class="token class-name">efi_query_variable_info_t</span> <span class="token operator">*</span>query_variable_info<span class="token punctuation">;</span>
+    <span class="token class-name">efi_update_capsule_t</span> <span class="token operator">*</span>update_capsule<span class="token punctuation">;</span>
+    <span class="token class-name">efi_query_capsule_caps_t</span> <span class="token operator">*</span>query_capsule_caps<span class="token punctuation">;</span>
+    <span class="token class-name">efi_get_next_high_mono_count_t</span> <span class="token operator">*</span>get_next_high_mono_count<span class="token punctuation">;</span>
+    <span class="token class-name">efi_reset_system_t</span> <span class="token operator">*</span>reset_system<span class="token punctuation">;</span>
+    <span class="token class-name">efi_set_virtual_address_map_t</span> <span class="token operator">*</span>set_virtual_address_map<span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">efi_memory_map</span> <span class="token operator">*</span>memmap<span class="token punctuation">;</span>
     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> flags<span class="token punctuation">;</span>
 <span class="token punctuation">}</span> efi<span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <h1 id="&#x4ECE;uefi&#x770B;&#x8D77;"><a name="&#x4ECE;uefi&#x770B;&#x8D77;" class="anchor-navigation-ex-anchor" href="#&#x4ECE;uefi&#x770B;&#x8D77;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x4ECE;UEFI&#x770B;&#x8D77;</h1>
 <p>&#x5B9E;&#x9645;&#x64CD;&#x4F5C;&#x786C;&#x4EF6;&#x7684;&#x5730;&#x65B9;&#x5728;uefi, &#x5728;<code>ArmPlatformPkg/ThunderPkg/Drivers/Ds1337RtcDxe/Ds1337RtcDxe.c</code></p>
 <p>&#x5728;Ds1337RtcDxeInitialize()&#x8FD9;&#x4E2A;&#x521D;&#x59CB;&#x5316;&#x51FD;&#x6570;&#x4E2D;, &#x5C31;&#x6302;&#x4E86;&#x51E0;&#x4E2A;&#x51FD;&#x6570;</p>
-<pre class="line-numbers language-c" lang="c"><code class=" language-c">EFI_STATUS
+<pre class="language-"><code class="lang-c">EFI_STATUS
 EFIAPI
-Ds1337RtcDxeInitialize <span class="token punctuation">(</span>
+<span class="token function">Ds1337RtcDxeInitialize</span> <span class="token punctuation">(</span>
   IN EFI_HANDLE         ImageHandle<span class="token punctuation">,</span>
   IN EFI_SYSTEM_TABLE   <span class="token operator">*</span>SystemTable
   <span class="token punctuation">)</span>
@@ -2955,17 +2951,17 @@ Ds1337RtcDxeInitialize <span class="token punctuation">(</span>
     SystemTable<span class="token operator">-&gt;</span>RuntimeServices<span class="token operator">-&gt;</span>GetWakeupTime <span class="token operator">=</span> GetWakeupTime<span class="token punctuation">;</span>
     SystemTable<span class="token operator">-&gt;</span>RuntimeServices<span class="token operator">-&gt;</span>SetWakeupTime <span class="token operator">=</span> SetWakeupTime<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <p>&#x771F;&#x6B63;&#x53BB;&#x8BFB;RTC&#x7684;&#x662F;&#x91CC;&#x9762;&#x7684;GetTime&#x51FD;&#x6570;, &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x8C03;&#x7528;<code>ThunderxTwsiRead8Bytes()</code>&#x53BB;&#x6700;&#x7EC8;&#x8BFB;&#x53D6;RTC&#x65F6;&#x95F4;.</p>
 <h1 id="kernel&#x8C03;&#x7528;efi&#x7684;service&#x673A;&#x5236;&#x662F;&#x4EC0;&#x4E48;"><a name="kernel&#x8C03;&#x7528;efi&#x7684;service&#x673A;&#x5236;&#x662F;&#x4EC0;&#x4E48;" class="anchor-navigation-ex-anchor" href="#kernel&#x8C03;&#x7528;efi&#x7684;service&#x673A;&#x5236;&#x662F;&#x4EC0;&#x4E48;"><i class="fa fa-link" aria-hidden="true"></i></a>4. kernel&#x8C03;&#x7528;efi&#x7684;service&#x673A;&#x5236;&#x662F;&#x4EC0;&#x4E48;?</h1>
 <p>&#x6211;&#x731C;&#x8FD9;&#x91CC;&#x9762;&#x7684;&#x5173;&#x952E;&#x5C31;&#x5E94;&#x8BE5;&#x662F;&#x8FD9;&#x4E2A;SystemTable&#x4E86;, &#x4F46;&#x8FD8;&#x6709;&#x4E9B;&#x9700;&#x8981;&#x8003;&#x8651;&#x7684;, &#x6BD4;&#x5982;uefi&#x4F20;&#x9012;&#x8FD9;&#x4E2A;&#x6307;&#x9488;, &#x662F;&#x865A;&#x62DF;&#x5730;&#x5740;&#x5417;? linux&#x5E94;&#x8BE5;&#x77E5;&#x9053;&#x8FD9;&#x4E2A;&#x6620;&#x5C04;&#x5417;? &#x6216;&#x8005;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x7269;&#x7406;&#x5730;&#x5740;? </p>
 <p>&#x8FD8;&#x662F;&#x5148;&#x4ECE;kernel&#x7684;&#x8C03;&#x7528;&#x7684;&#x5730;&#x65B9;&#x770B;&#x8D77;, &#x56DE;&#x5230;&#x524D;&#x9762;&#x7684;<code>efi_read_time()</code>
 &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x4E86;</p>
-<pre class="line-numbers language-c" lang="c"><code class=" language-c">status <span class="token operator">=</span> efi<span class="token punctuation">.</span><span class="token function">get_time</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>eft<span class="token punctuation">,</span> <span class="token operator">&amp;</span>cap<span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-"><code class="lang-c">status <span class="token operator">=</span> efi<span class="token punctuation">.</span><span class="token function">get_time</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>eft<span class="token punctuation">,</span> <span class="token operator">&amp;</span>cap<span class="token punctuation">)</span>
+</code></pre>
 <p>&#x8FD9;&#x91CC;&#x9762;&#x7684;efi&#x770B;&#x8D77;&#x6765;&#x662F;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x7684;&#x7ED3;&#x6784;&#x4F53;&#x53D8;&#x91CF;, &#x800C;get_time&#x662F;&#x54EA;&#x4E2A;?</p>
 <p>&#x5728;<code>drivers/firmware/efi/runtime-wrappers.c</code>&#x4E2D;, &#x5B83;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x4E3A;<code>virt_efi_get_time</code></p>
-<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token keyword">void</span> <span class="token function">efi_native_runtime_setup</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token function">efi_native_runtime_setup</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     efi<span class="token punctuation">.</span>get_time <span class="token operator">=</span> virt_efi_get_time<span class="token punctuation">;</span>
     efi<span class="token punctuation">.</span>set_time <span class="token operator">=</span> virt_efi_set_time<span class="token punctuation">;</span>
@@ -2981,23 +2977,23 @@ Ds1337RtcDxeInitialize <span class="token punctuation">(</span>
     efi<span class="token punctuation">.</span>update_capsule <span class="token operator">=</span> virt_efi_update_capsule<span class="token punctuation">;</span>
     efi<span class="token punctuation">.</span>query_capsule_caps <span class="token operator">=</span> virt_efi_query_capsule_caps<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <p>&#x6700;&#x540E;&#x8C03;&#x7528;<code>status = efi_call_virt(get_time, tm, tc);</code>
 &#x8FD9;&#x91CC;&#x9762;&#x7684;<code>efi_call_virt</code>&#x662F;&#x4E2A;&#x5B8F;, &#x5728;<code>arch/arm64/include/asm/efi.h</code>&#x4E2D;&#x5B9A;&#x4E49;</p>
-<pre class="line-numbers language-c" lang="c"><code class=" language-c"><span class="token macro property">#<span class="token directive keyword">define</span> efi_call_virt(f, ...)       \
-({                                  \
-    efi_##f##_t *__f;               \
-    efi_status_t __s;               \
-                                    \
-    kernel_neon_begin();            \
-    efi_virtmap_load();             \
-    __f = efi.systab-&gt;runtime-&gt;f;   \
-    __s = __f(__VA_ARGS__);         \
-    efi_virtmap_unload();           \
-    kernel_neon_end();              \
-    __s;                            \
-})</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">efi_call_virt</span><span class="token expression"><span class="token punctuation">(</span>f<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>       </span><span class="token punctuation">\</span>
+<span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">{</span>                                  </span><span class="token punctuation">\</span>
+    <span class="token expression">efi_</span><span class="token punctuation">##</span><span class="token expression">f</span><span class="token punctuation">##</span><span class="token expression">_t <span class="token operator">*</span>__f<span class="token punctuation">;</span>               </span><span class="token punctuation">\</span>
+    <span class="token expression"><span class="token class-name">efi_status_t</span> __s<span class="token punctuation">;</span>               </span><span class="token punctuation">\</span>
+                                    <span class="token punctuation">\</span>
+    <span class="token expression"><span class="token function">kernel_neon_begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            </span><span class="token punctuation">\</span>
+    <span class="token expression"><span class="token function">efi_virtmap_load</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>             </span><span class="token punctuation">\</span>
+    <span class="token expression">__f <span class="token operator">=</span> efi<span class="token punctuation">.</span>systab<span class="token operator">-&gt;</span>runtime<span class="token operator">-&gt;</span>f<span class="token punctuation">;</span>   </span><span class="token punctuation">\</span>
+    <span class="token expression">__s <span class="token operator">=</span> <span class="token function">__f</span><span class="token punctuation">(</span>__VA_ARGS__<span class="token punctuation">)</span><span class="token punctuation">;</span>         </span><span class="token punctuation">\</span>
+    <span class="token expression"><span class="token function">efi_virtmap_unload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>           </span><span class="token punctuation">\</span>
+    <span class="token expression"><span class="token function">kernel_neon_end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>              </span><span class="token punctuation">\</span>
+    <span class="token expression">__s<span class="token punctuation">;</span>                            </span><span class="token punctuation">\</span>
+<span class="token expression"><span class="token punctuation">}</span><span class="token punctuation">)</span></span></span>
+</code></pre>
 <p>&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x5F97;&#x51FA;&#x4E00;&#x4E0B;&#x51E0;&#x70B9;:</p>
 <ul>
 <li><p>&#x8981;&#x60F3;&#x8C03;&#x7528;efi&#x7684;&#x51FD;&#x6570;, &#x5FC5;&#x987B;&#x5148;load efi&#x7684;&#x5185;&#x5B58;&#x6620;&#x5C04;; &#x6B64;&#x65F6;&#x4F7F;&#x7528;<code>efi_mm, arch/arm64/kernel/efi.c</code></p>
@@ -3009,7 +3005,7 @@ Ds1337RtcDxeInitialize <span class="token punctuation">(</span>
 <li><p>neon&#x662F;&#x9002;&#x7528;&#x4E8E;ARM Cortex-A&#x7CFB;&#x5217;&#x5904;&#x7406;&#x5668;&#x7684;&#x4E00;&#x79CD;128&#x4F4D;SIMD(Single Instruction, Multiple Data,&#x5355;&#x6307;&#x4EE4;&#x3001;&#x591A;&#x6570;&#x636E;)&#x6269;&#x5C55;&#x7ED3;&#x6784;</p>
 </li>
 </ul>
-</body></html>
+
                                 
                                 </section>
                             
@@ -3052,7 +3048,7 @@ Ds1337RtcDxeInitialize <span class="token punctuation">(</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"thunder RTC时间和efi","level":"1.16.1.4","depth":3,"next":{"title":"thunder uefi和fdt","level":"1.16.1.5","depth":3,"path":"notes/CPU_ARM64_thunder_uefi_fdt.md","ref":"notes/CPU_ARM64_thunder_uefi_fdt.md","articles":[]},"previous":{"title":"thunder BDK","level":"1.16.1.3","depth":3,"path":"notes/CPU_ARM64_thunder_bdk.md","ref":"notes/CPU_ARM64_thunder_bdk.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism-ext","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"plugins":["line-numbers"],"lineHeight":"normal","cssClasses":"line-numbers","css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"prism-ext":{},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_ARM64_thunder_efi_rtc.md","mtime":"2022-10-12T02:24:49.466Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T02:25:44.681Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"thunder RTC时间和efi","level":"1.16.1.4","depth":3,"next":{"title":"thunder uefi和fdt","level":"1.16.1.5","depth":3,"path":"notes/CPU_ARM64_thunder_uefi_fdt.md","ref":"notes/CPU_ARM64_thunder_uefi_fdt.md","articles":[]},"previous":{"title":"thunder BDK","level":"1.16.1.3","depth":3,"path":"notes/CPU_ARM64_thunder_bdk.md","ref":"notes/CPU_ARM64_thunder_bdk.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","search-plus","-highlight","prism","expandable-chapters-small","github","disqus","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism.css"]},"disqus":{"useIdentifier":false,"shortName":"bai-yingjie-notes"},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"expandable-chapters-small":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/CPU_ARM64_thunder_efi_rtc.md","mtime":"2022-10-12T02:56:59.199Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-12T02:58:12.754Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
