@@ -3,6 +3,7 @@ guide: https://rust-lang.github.io/mdBook
 
 mdBook本身也是个git repo: https://github.com/rust-lang/mdBook
 
+- [再更新2022.10](#再更新202210)
 - [更新 2022.08](#更新-202208)
 - [安装](#安装)
 - [book组织](#book组织)
@@ -10,6 +11,98 @@ mdBook本身也是个git repo: https://github.com/rust-lang/mdBook
   - [book.toml](#booktoml)
   - [SUMMARY.md](#summarymd)
   - [build book](#build-book)
+
+# 再更新2022.10
+关键参考: https://www.mapull.com/gitbook/comscore/  
+这个site就是用gitbook写的, gitbook的配置写的非常到位!
+book.json
+```json
+{
+  "title": "GitBook 简明教程",
+  "language": "zh-hans",
+  "author": "码谱",
+  "links": {
+    "sidebar": {
+      "码谱": "http://www.mapull.com"
+    }
+  },
+  "plugins": [
+    "-search",
+    "-lunr",
+    "-sharing",
+    "-livereload",
+    "github",
+    "donate",
+    "chart",
+    "todo",
+    "graph",
+    "puml",
+    "katex",
+    "code",
+    "ace",
+    "sitemap-general",
+    "mermaid-gb3",
+    "include-csv",
+    "flexible-alerts",
+    "chapter-fold",
+    "anchor-navigation-ex",
+    "theme-comscore"
+  ],
+  "pluginsConfig": {
+    "anchor-navigation-ex": {
+      "showLevel": false,
+      "showGoTop": true
+    },
+    "sitemap-general": {
+      "prefix": "https://www.mapull.com/gitbook/comscore/"
+    },
+    "my-toolbar": {
+      "buttons": [
+        {
+          "label": "下载PDF",
+          "icon": "fa fa-file-pdf-o",
+          "url": "https://www.mapull.com/gitbook/comscore/book.pdf",
+          "position": "left",
+          "text": "下载PDF",
+          "target": "_blank"
+        }
+      ]
+    },
+    "donate": {
+      "wechat": "https://www.mapull.com/logo/mapull-qr.png",
+      "button": "反馈",
+      "wechatText": "微信扫码"
+    },
+    "versions": {
+      "options": [
+        {
+          "value": "https://www.mapull.com/gitbook/api/",
+          "text": "Theme API"
+        },
+        {
+          "value": "https://www.mapull.com/gitbook/comscore/",
+          "text": "Theme comscore",
+          "selected": true
+        }
+      ]
+    },
+    "github": {
+      "url": "https://gitee.com/mapull/gitbook-guide"
+    },
+    "edit-link": {
+      "base": "https://gitee.com/mapull/gitbook-guide",
+      "label": "Edit This Page"
+    }
+  },
+  "variables": {
+    "mapull": "码谱，让编程更容易。",
+    "ides": [{"name": "Eclipse"}, {"name": "IntelliJ IDEA"}, {"name": "Visual Studio Code"}]
+  },
+  "structure": {
+    "readme": "home.md"
+  }
+}
+```
 
 # 更新 2022.08
 mdbook不支持中文搜索, 故弃用. 使用gitbook代替  
