@@ -6,12 +6,13 @@
   * [我的upstream commit](notes/my_upstream.md)
 
 * [系统分析和性能](notes/as_title_system.md)
+  * [Top-down Microarchitecture Analysis Method(网摘)](notes/performance_CPU_microarchiteture_pmu.md)
   * [bcc和ebpf(starting)](notes/system_analysis_bcc和ebpf.md)
   * [OVS进程调查](notes/performance_ovs进程调查.md)
   * [ping流程和函数调用解析](notes/performance_ping流程和函数调用解析.md)
   * [CentOS 性能优化系统配置](notes/CentOS_系统性能优化配置.md)
 
-* [cloud和容器相关](notes/as_title_cloud.md)
+* [Cloud和容器相关](notes/as_title_cloud.md)
   * [云杂记](notes/cloud_杂记.md)
   * [当代容器读书笔记](notes/container_当代容器读书笔记.md)
 
@@ -139,6 +140,9 @@
   * [RDS脚本阅读](notes/shell_rds脚本阅读.md)
   * [Project Euler](notes/Project_Euler.md)
 
+* [应用相关](notes/as_title_app.md)
+  * [sysbench代码分析](notes/app_sysbench代码分析.md)
+
 * [C和Operating System](notes/as_title_cos.md)
   * [libc概览1](notes/system_libc_part1.md)
   * [libc概览2](notes/system_libc_part2.md)
@@ -158,10 +162,8 @@
   * [kernel space和user space交互(网摘, linux2.6)](notes/kernel_user_space_howto.md)
 
 * [内核 设备和驱动相关](notes/as_title_driver.md)
-  * [平台驱动](notes/platform_device_driver.md)
-  * [驱动中使用工作队列轮询](notes/driver_驱动中使用工作队列轮询.md)
+  * [平台驱动杂记](notes/platform_device_driver.md)
   * [驱动调试杂记](notes/device_driver_杂记.md)
-  * [kernel和驱动原理相关](notes/device_driver_原理相关.md)
   * [CPLD做8bit到16bit转换](notes/device_localbus_16bit读写.md)
   * [nand](notes/as_title_driver1.md)
     * [octeon nand flash驱动](notes/device_driver_octeon_nand.md)
