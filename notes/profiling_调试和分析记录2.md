@@ -515,32 +515,36 @@ pmd8的调用栈, 显示了sys_write到eventfd_write到irqfd_wakeup的过程.
 
 根据以上数据, 得出大概的延迟图(ping共计耗时0.5ms, 算上2个profiling tool的overhead):
 ```sequence
-Note Over VM A: ping
-Note Over VM A: sys_sendto
-Note Over VM A: ip stack and dev_hard_start_xmit
-VM A -> Host OVS(pmd): ICMP request
-Note Over VM A: sleep on skb receive(on behalf of ping thread in kernel)
-Note Over Host OVS(pmd): netdev_rxq_recv
-Note Over Host OVS(pmd): 消耗40us
-Note Over Host OVS(pmd): netdev_send and eventfd_write
-Host OVS(pmd) -> VM B: packet forward
-Note Over Host OVS(pmd): 唤醒本core的kworker执行中断注入, 唤醒VM B
-Note Over Host OVS(pmd): 消耗181us
-Note Over VM B: 被唤醒
-Note Over VM B: driver recv packet
-Note Over VM B: ip stack and dev_hard_start_xmit in kernel
-VM B -> Host OVS(pmd): ICMP reply
-Note Over VM B: ping process recive packet, 打印时间戳
-Note Over Host OVS(pmd): netdev_rxq_recv
-Note Over Host OVS(pmd): 消耗40us
-Note Over Host OVS(pmd): netdev_send
-Host OVS(pmd) -> VM A: packet forward and eventfd_write
-Note Over Host OVS(pmd): 唤醒本core的kworker执行中断注入, 唤醒VM A
-Note Over Host OVS(pmd): 消耗181us
-Note Over VM A: 被唤醒
-Note Over VM A: driver recv packet
-Note Over VM A: ip stack and deliver to ping process
-Note Over VM A: ping process recive packet, 打印时间戳
+participant VM A as vma
+participant Host OVS(pmd) as hovs
+participant VM B as vmb
+
+Note Over vma: ping
+Note Over vma: sys_sendto
+Note Over vma: ip stack and dev_hard_start_xmit
+vma -> hovs: ICMP request
+Note Over vma: sleep on skb receive(on behalf of ping thread in kernel)
+Note Over hovs: netdev_rxq_recv
+Note Over hovs: 消耗40us
+Note Over hovs: netdev_send and eventfd_write
+hovs -> vmb: packet forward
+Note Over hovs: 唤醒本core的kworker执行中断注入, 唤醒VM B
+Note Over hovs: 消耗181us
+Note Over vmb: 被唤醒
+Note Over vmb: driver recv packet
+Note Over vmb: ip stack and dev_hard_start_xmit in kernel
+vmb -> hovs: ICMP reply
+Note Over vmb: ping process recive packet, 打印时间戳
+Note Over hovs: netdev_rxq_recv
+Note Over hovs: 消耗40us
+Note Over hovs: netdev_send
+hovs -> vma: packet forward and eventfd_write
+Note Over hovs: 唤醒本core的kworker执行中断注入, 唤醒VM A
+Note Over hovs: 消耗181us
+Note Over vma: 被唤醒
+Note Over vma: driver recv packet
+Note Over vma: ip stack and deliver to ping process
+Note Over vma: ping process recive packet, 打印时间戳
 ```
 
 ## 问题复现
