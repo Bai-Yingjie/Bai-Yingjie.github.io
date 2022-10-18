@@ -7,6 +7,9 @@
     - [perf查看OVS转发路径执行时间](#perf查看ovs转发路径执行时间)
     - [OVS转发延时数据](#ovs转发延时数据)
   - [kernel路径延迟](#kernel路径延迟)
+    - [eventfd和irqfd中断注入流程](#eventfd和irqfd中断注入流程)
+    - [kernel延迟数据](#kernel延迟数据)
+  - [延迟图解](#延迟图解)
 
 # 查看PCI的MSI中断
 `/proc/interrupts`里能显示中断的信息, 但不能很方便的对应到是哪个设备的中断.
@@ -426,4 +429,77 @@ record命令加`-e sched -T`命令可以得到调用栈:
 
 本例中的2个pmd分别运行在core13和core15中, 触发中断注入的是OVS pmd线程的写eventfd事件, 进而kworker13和kworker15执行irqfd_inject:  
 以kworker/13:1为例, 它在29.2s 29.8s 30.2s 30.8s... 每秒2次, 都会被调度执行`irqfd_inject`, 这个符合两个VM互相ping的场景.
+
+### eventfd和irqfd中断注入流程
+最后, 整理整个流程如下:
+1. qemu创建eventfd, 调用ioctl到内核态
+2. 根据`ioctl()`, kernel执行`kvm_irqfd_assign()`, 创建`struct kvm_kernel_irqfd irqfd`, 关联eventfd到这个irqfd, 把`irqfd_wakeup()`注册到`irqfd->wait`的回调函数, 当irqfd被信号唤醒的时候, 调用`irqfd_wakeup`  
+`kvm_irqfd_assign@linux/virt/kvm/eventfd.c`
+3. qemu通过控制socket把eventfd描述符传递给OVS, 走vhost-user协议  
+![](img/profiling_调试和分析记录2_20221017234350.png)  
+4. OVS的pmd线程, 在往VM发包函数`rte_vhost_enqueue_burst()`里, 写这个eventfd, 产生系统调用到内核态  
+![](img/profiling_调试和分析记录2_20221017234410.png)  
+5. 因为之前的关联, irqfd_wakeup()被调用, 它再调用`schedule_work()`, 让kworker进程执行irqfd_inject
+6. `irqfd_inject()`完成中断注入, 并唤醒VCPU(CPU x/KVM)线程  
+![](img/profiling_调试和分析记录2_20221017234535.png)  
+7. 代表VCPU的qemu线程(CPU x/KVM)被调度执行
+
+### kernel延迟数据
+下面是systemtap捕捉到的相关内容: 见脚本`~/share/repo/save/debug/see_kfunc_run.stp`
+```
+1m37.267113s cpu15上的pmd8进程(即OVS的pmd进程)调用eventfd_write, 进而调用irqfd_wakeup
+1m37.267211s pmd8唤醒kworker/15:1
+1m37.267218s pmd8切换到kworker/15:1
+1m37.267224s kworker/15:1调用irqfd_inject
+1m37.267267s kworker/15:1唤醒"CPU 0/KVM", 目标CPU是40
+1m37.267272s kworker/15:1切换回pmd8进程
+1m37.267294s 在CPU40上, swapper/40(idle进程)切换到"CPU 0/KVM"
+1m37.267374s 在CPU40上, "CPU 0/KVM"切换回swapper/40(idle进程)
+```
+![](img/profiling_调试和分析记录2_20221017234646.png)  
+
+pmd8的调用栈, 显示了sys_write到eventfd_write到irqfd_wakeup的过程.  
+![](img/profiling_调试和分析记录2_20221017234701.png)  
+
+## 延迟图解
+正常情况下, 两个vm的ping延时在0.18ms左右; 但做profiling会有overhead, kernel路径和OVS转发路径的overhead如下:
+* kernel: overhead比较大  
+在systemtap运行时, 每次irqfd_wakeup和irqfd_inject以及调度事件被捕捉到, 其运行时的ping延时有0.46ms.
+* OVS: overhead比较小  
+在perf record期间, ping的延迟增加大约15%, 从0.18ms到0.20ms
+* 算上两个profile的overhead, ping的延迟在0.5ms左右
+* ping在VM A和VM B上的往返时间里(0.5ms), 在OVS路径上, 包括OVS转发和中断注入和唤醒的时间, 共消耗大约440us(40+181+40+181)
+* 之前做过实验, ping localhost大约为0.077ms.
+* 综上, 以ping延迟0.18ms计算, 在VM上的耗时共计大约60us, 在OVS转发路径下消耗120us, 其中用户态大概60us, kernel态60us.
+
+根据以上数据, 得出大概的延迟图(ping共计耗时0.5ms, 算上2个profiling tool的overhead):
+```sequence
+Note Over VM A: ping
+Note Over VM A: sys_sendto
+Note Over VM A: ip stack and dev_hard_start_xmit
+VM A -> Host OVS(pmd): ICMP request
+Note Over VM A: sleep on skb receive(on behalf of ping thread in kernel)
+Note Over Host OVS(pmd): netdev_rxq_recv
+Note Over Host OVS(pmd): 消耗40us
+Note Over Host OVS(pmd): netdev_send and eventfd_write
+Host OVS(pmd) -> VM B: packet forward
+Note Over Host OVS(pmd): 唤醒本core的kworker执行中断注入, 唤醒VM B
+Note Over Host OVS(pmd): 消耗181us
+Note Over VM B: 被唤醒
+Note Over VM B: driver recv packet
+Note Over VM B: ip stack and dev_hard_start_xmit in kernel
+VM B -> Host OVS(pmd): ICMP reply
+Note Over VM B: ping process recive packet, 打印时间戳
+Note Over Host OVS(pmd): netdev_rxq_recv
+Note Over Host OVS(pmd): 消耗40us
+Note Over Host OVS(pmd): netdev_send
+Host OVS(pmd) -> VM A: packet forward and eventfd_write
+Note Over Host OVS(pmd): 唤醒本core的kworker执行中断注入, 唤醒VM A
+Note Over Host OVS(pmd): 消耗181us
+Note Over VM A: 被唤醒
+Note Over VM A: driver recv packet
+Note Over VM A: ip stack and deliver to ping process
+Note Over VM A: ping process recive packet, 打印时间戳
+``` 
+
 
