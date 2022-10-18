@@ -514,12 +514,10 @@ pmd8的调用栈, 显示了sys_write到eventfd_write到irqfd_wakeup的过程.
 * 综上, 以ping延迟0.18ms计算, 在VM上的耗时共计大约60us, 在OVS转发路径下消耗120us, 其中用户态大概60us, kernel态60us.
 
 根据以上数据, 得出大概的延迟图(ping共计耗时0.5ms, 算上2个profiling tool的overhead):
-```mermaid
-sequenceDiagram
-
-participant vma as VM_A
-participant hovs as Host_OVS(pmd)
-participant vmb as VM_B
+```sequence
+participant VM_A as vma
+participant Host_OVS(pmd) as hovs
+participant VM_B as vmb
 
 Note Over vma: ping
 Note Over vma: sys_sendto
