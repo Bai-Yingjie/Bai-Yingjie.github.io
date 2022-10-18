@@ -502,7 +502,8 @@ Note Over VM A: 被唤醒
 Note Over VM A: driver recv packet
 Note Over VM A: ip stack and deliver to ping process
 Note Over VM A: ping process recive packet, 打印时间戳
-``` 
+
+```
 
 ## 问题复现
 VM1和VM2互相ping, 每秒一次ping报文. 但VM1得到的延迟异常, 为1.3ms.  

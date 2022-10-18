@@ -1,0 +1,3784 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>virtio规范阅读笔记.md · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="qemu_ovs_虚拟化环境.html" />
+    
+    
+    <link rel="prev" href="rust_cloud-hypervisor_问题与解决.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录杂记系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="as_title_perf_tools.html">
+            
+                <a href="as_title_perf_tools.html">
+            
+                    
+                    profiling工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_app_perf.html">
+            
+                <a href="as_title_app_perf.html">
+            
+                    
+                    应用profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    系统profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.5.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.4.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.5" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.6" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.7" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.3.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.4.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >virtio规范阅读笔记.md</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#virtio&#x89C4;&#x8303;"><b>1. </b>virtio&#x89C4;&#x8303;</a></li><ul><li><span class="title-icon "></span><a href="#virtio&#x8BBE;&#x5907;&#x7EC4;&#x6210;"><b>1.1. </b>virtio&#x8BBE;&#x5907;&#x7EC4;&#x6210;</a></li><ul><li><span class="title-icon "></span><a href="#device-status-field"><b>1.1.1. </b>Device status field</a></li><li><span class="title-icon "></span><a href="#feature-bits"><b>1.1.2. </b>Feature bits</a></li><li><span class="title-icon "></span><a href="#device-configuration-space"><b>1.1.3. </b>Device Configuration space</a></li><li><span class="title-icon "></span><a href="#one-or-more-virtqueues"><b>1.1.4. </b>One or more virtqueues</a></li></ul><li><span class="title-icon "></span><a href="#&#x521D;&#x59CB;&#x5316;"><b>1.2. </b>&#x521D;&#x59CB;&#x5316;</a></li><li><span class="title-icon "></span><a href="#&#x9A71;&#x52A8;&#x548C;&#x8BBE;&#x5907;&#x4EA4;&#x4E92;"><b>1.3. </b>&#x9A71;&#x52A8;&#x548C;&#x8BBE;&#x5907;&#x4EA4;&#x4E92;</a></li><ul><li><span class="title-icon "></span><a href="#&#x9A71;&#x52A8;&#x63D0;&#x4F9B;buffer&#x7ED9;&#x8BBE;&#x5907;"><b>1.3.1. </b>&#x9A71;&#x52A8;&#x63D0;&#x4F9B;buffer&#x7ED9;&#x8BBE;&#x5907;</a></li><li><span class="title-icon "></span><a href="#&#x4ECE;&#x8BBE;&#x5907;&#x63A5;&#x53D7;buffer"><b>1.3.2. </b>&#x4ECE;&#x8BBE;&#x5907;&#x63A5;&#x53D7;buffer</a></li></ul><li><span class="title-icon "></span><a href="#virtio-over-pci"><b>1.4. </b>virtio over pci</a></li><ul><li><span class="title-icon "></span><a href="#device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;"><b>1.4.1. </b>device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;</a></li><li><span class="title-icon "></span><a href="#virtio-pci&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;"><b>1.4.2. </b>virtio pci&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;</a></li><li><span class="title-icon "></span><a href="#&#x901A;&#x77E5;&#x548C;&#x4E2D;&#x65AD;"><b>1.4.3. </b>&#x901A;&#x77E5;&#x548C;&#x4E2D;&#x65AD;</a></li></ul><li><span class="title-icon "></span><a href="#virtio-over-mmio"><b>1.5. </b>Virtio Over MMIO</a></li><ul><li><span class="title-icon "></span><a href="#mmio-device-discovery"><b>1.5.1. </b>MMIO Device Discovery</a></li><li><span class="title-icon "></span><a href="#mmio-device-register-layout"><b>1.5.2. </b>MMIO Device Register Layout</a></li><li><span class="title-icon "></span><a href="#virtqueue-configuration"><b>1.5.3. </b>Virtqueue Configuration</a></li></ul><li><span class="title-icon "></span><a href="#device&#x7C7B;&#x578B;"><b>1.6. </b>device&#x7C7B;&#x578B;</a></li><ul><li><span class="title-icon "></span><a href="#network-device"><b>1.6.1. </b>Network Device</a></li><li><span class="title-icon "></span><a href="#block-device"><b>1.6.2. </b>Block Device</a></li><li><span class="title-icon "></span><a href="#&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;virtio-device"><b>1.6.3. </b>&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;virtio device</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x4EE5;&#x524D;&#x6574;&#x7406;"><b>2. </b>&#x4EE5;&#x524D;&#x6574;&#x7406;</a></li><ul><li><span class="title-icon "></span><a href="#&#x5206;&#x79BB;&#x5F0F;-split-virtqueue"><b>2.1. </b>&#x5206;&#x79BB;&#x5F0F; split virtqueue</a></li><li><span class="title-icon "></span><a href="#queue&#x7684;&#x64CD;&#x4F5C;"><b>2.2. </b>queue&#x7684;&#x64CD;&#x4F5C;</a></li><ul><li><span class="title-icon "></span><a href="#&#x7ED9;device&#x63D0;&#x4F9B;buffer"><b>2.2.1. </b>&#x7ED9;device&#x63D0;&#x4F9B;buffer</a></li><li><span class="title-icon "></span><a href="#&#x5904;&#x7406;device&#x7528;&#x8FC7;&#x7684;buffer"><b>2.2.2. </b>&#x5904;&#x7406;device&#x7528;&#x8FC7;&#x7684;buffer</a></li></ul><li><span class="title-icon "></span><a href="#&#x7D27;&#x51D1;&#x5F0F;-packed-queue"><b>2.3. </b>&#x7D27;&#x51D1;&#x5F0F; packed queue</a></li><ul><li><span class="title-icon "></span><a href="#scatter-gather&#x652F;&#x6301;"><b>2.3.1. </b>Scatter-Gather&#x652F;&#x6301;</a></li></ul></ul></ul></div><a href="#virtio&#x89C4;&#x8303;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#virtio&#x89C4;&#x8303;">virtio&#x89C4;&#x8303;</a><ul>
+<li><a href="#virtio&#x8BBE;&#x5907;&#x7EC4;&#x6210;">virtio&#x8BBE;&#x5907;&#x7EC4;&#x6210;</a><ul>
+<li><a href="#device-status-field">Device status field</a></li>
+<li><a href="#feature-bits">Feature bits</a></li>
+<li><a href="#device-configuration-space">Device Configuration space</a></li>
+<li><a href="#one-or-more-virtqueues">One or more virtqueues</a><ul>
+<li><a href="#&#x63CF;&#x8FF0;&#x7B26;&#x683C;&#x5F0F;">&#x63CF;&#x8FF0;&#x7B26;&#x683C;&#x5F0F;</a></li>
+<li><a href="#virtqueue-available-ring&#x683C;&#x5F0F;">Virtqueue Available Ring&#x683C;&#x5F0F;</a></li>
+<li><a href="#&#x4E2D;&#x65AD;&#x6291;&#x5236;">&#x4E2D;&#x65AD;&#x6291;&#x5236;</a></li>
+<li><a href="#virtqueue-used-ring">Virtqueue Used Ring</a></li>
+<li><a href="#&#x901A;&#x77E5;&#x6291;&#x5236;">&#x901A;&#x77E5;&#x6291;&#x5236;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#&#x521D;&#x59CB;&#x5316;">&#x521D;&#x59CB;&#x5316;</a></li>
+<li><a href="#&#x9A71;&#x52A8;&#x548C;&#x8BBE;&#x5907;&#x4EA4;&#x4E92;">&#x9A71;&#x52A8;&#x548C;&#x8BBE;&#x5907;&#x4EA4;&#x4E92;</a><ul>
+<li><a href="#&#x9A71;&#x52A8;&#x63D0;&#x4F9B;buffer&#x7ED9;&#x8BBE;&#x5907;">&#x9A71;&#x52A8;&#x63D0;&#x4F9B;buffer&#x7ED9;&#x8BBE;&#x5907;</a></li>
+<li><a href="#&#x4ECE;&#x8BBE;&#x5907;&#x63A5;&#x53D7;buffer">&#x4ECE;&#x8BBE;&#x5907;&#x63A5;&#x53D7;buffer</a></li>
+</ul>
+</li>
+<li><a href="#virtio-over-pci">virtio over pci</a><ul>
+<li><a href="#device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;">device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;</a><ul>
+<li><a href="#common-configuration-cfg_type-1">Common configuration, cfg_type 1</a></li>
+<li><a href="#notification-structure-cfg_type-2">Notification structure, cfg_type 2</a></li>
+<li><a href="#isr-status&#x5BC4;&#x5B58;&#x5668;-cfg_type-3">ISR status&#x5BC4;&#x5B58;&#x5668;, cfg_type 3</a></li>
+<li><a href="#pci-configuration-access-capability-cfg_type-5">PCI configuration access capability, cfg_type 5</a></li>
+</ul>
+</li>
+<li><a href="#virtio-pci&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;">virtio pci&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;</a></li>
+<li><a href="#&#x901A;&#x77E5;&#x548C;&#x4E2D;&#x65AD;">&#x901A;&#x77E5;&#x548C;&#x4E2D;&#x65AD;</a><ul>
+<li><a href="#&#x9A71;&#x52A8;&#x901A;&#x77E5;&#x8BBE;&#x5907;">&#x9A71;&#x52A8;&#x901A;&#x77E5;&#x8BBE;&#x5907;</a></li>
+<li><a href="#&#x4ECE;&#x8BBE;&#x5907;&#x7684;virtqueue&#x4E2D;&#x65AD;&#x5230;&#x9A71;&#x52A8;">&#x4ECE;&#x8BBE;&#x5907;&#x7684;Virtqueue&#x4E2D;&#x65AD;&#x5230;&#x9A71;&#x52A8;</a></li>
+<li><a href="#&#x9A71;&#x52A8;&#x5904;&#x7406;&#x4E2D;&#x65AD;">&#x9A71;&#x52A8;&#x5904;&#x7406;&#x4E2D;&#x65AD;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#virtio-over-mmio">Virtio Over MMIO</a><ul>
+<li><a href="#mmio-device-discovery">MMIO Device Discovery</a></li>
+<li><a href="#mmio-device-register-layout">MMIO Device Register Layout</a></li>
+<li><a href="#virtqueue-configuration">Virtqueue Configuration</a></li>
+</ul>
+</li>
+<li><a href="#device&#x7C7B;&#x578B;">device&#x7C7B;&#x578B;</a><ul>
+<li><a href="#network-device">Network Device</a></li>
+<li><a href="#block-device">Block Device</a></li>
+<li><a href="#&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;virtio-device">&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;virtio device</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#&#x4EE5;&#x524D;&#x6574;&#x7406;">&#x4EE5;&#x524D;&#x6574;&#x7406;</a><ul>
+<li><a href="#&#x5206;&#x79BB;&#x5F0F;-split-virtqueue">&#x5206;&#x79BB;&#x5F0F; split virtqueue</a></li>
+<li><a href="#queue&#x7684;&#x64CD;&#x4F5C;">queue&#x7684;&#x64CD;&#x4F5C;</a><ul>
+<li><a href="#&#x7ED9;device&#x63D0;&#x4F9B;buffer">&#x7ED9;device&#x63D0;&#x4F9B;buffer</a></li>
+<li><a href="#&#x5904;&#x7406;device&#x7528;&#x8FC7;&#x7684;buffer">&#x5904;&#x7406;device&#x7528;&#x8FC7;&#x7684;buffer</a></li>
+</ul>
+</li>
+<li><a href="#&#x7D27;&#x51D1;&#x5F0F;-packed-queue">&#x7D27;&#x51D1;&#x5F0F; packed queue</a><ul>
+<li><a href="#scatter-gather&#x652F;&#x6301;">Scatter-Gather&#x652F;&#x6301;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="virtio&#x89C4;&#x8303;"><a name="virtio&#x89C4;&#x8303;" class="anchor-navigation-ex-anchor" href="#virtio&#x89C4;&#x8303;"><i class="fa fa-link" aria-hidden="true"></i></a>1. virtio&#x89C4;&#x8303;</h1>
+<p><a href="http://docs.oasis-open.org/virtio/virtio/v1.0/virtio-v1.0.html" target="_blank">virtio&#x89C4;&#x8303;v1.0</a><br><a href="http://docs.oasis-open.org/virtio/virtio/v1.2/virtio-v1.2.html" target="_blank">virtio&#x89C4;&#x8303;v1.12</a></p>
+<h2 id="virtio&#x8BBE;&#x5907;&#x7EC4;&#x6210;"><a name="virtio&#x8BBE;&#x5907;&#x7EC4;&#x6210;" class="anchor-navigation-ex-anchor" href="#virtio&#x8BBE;&#x5907;&#x7EC4;&#x6210;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. virtio&#x8BBE;&#x5907;&#x7EC4;&#x6210;</h2>
+<p>virtio&#x8BBE;&#x5907;&#x53EF;&#x4EE5;&#x88AB;pci, mmio, channel io&#x7B49;bus&#x53D1;&#x73B0;, &#x6BCF;&#x4E2A;virtio&#x8BBE;&#x5907;&#x5305;&#x62EC;:</p>
+<h3 id="device-status-field"><a name="device-status-field" class="anchor-navigation-ex-anchor" href="#device-status-field"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. Device status field</h3>
+<p>&#x5305;&#x62EC;&#x51E0;&#x4E2A;&#x72B6;&#x6001;flag, &#x7528;&#x4E8E;&#x6307;&#x793A;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;&#x7684;&#x6BCF;&#x4E2A;&#x9636;&#x6BB5;&#x7684;&#x72B6;&#x6001;.</p>
+<ul>
+<li>ACKNOWLEDGE</li>
+<li>DRIVER</li>
+<li>FAILED</li>
+<li>FEATURES_OK</li>
+<li>DRIVER_OK</li>
+<li>DEVICE_NEEDS_RESET</li>
+</ul>
+<h3 id="feature-bits"><a name="feature-bits" class="anchor-navigation-ex-anchor" href="#feature-bits"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. Feature bits</h3>
+<p>device&#x63D0;&#x4F9B;feature list, driver&#x6765;&#x9009;&#x62E9;. &#x5728;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x534F;&#x5546;</p>
+<h3 id="device-configuration-space"><a name="device-configuration-space" class="anchor-navigation-ex-anchor" href="#device-configuration-space"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.3. Device Configuration space</h3>
+<ul>
+<li>&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x7528;&#x4E8E;&#x521D;&#x59CB;&#x5316;, &#x4E00;&#x822C;&#x4E0D;&#x7ECF;&#x5E38;&#x6539;&#x52A8;</li>
+<li>&#x5C0F;&#x7AEF;&#x5B57;&#x8282;&#x5E8F;</li>
+<li>driver&#x5FC5;&#x987B;&#x6309;32bit&#x8BFB;&#x5199;</li>
+<li>&#x6709;&#x4E9B;configuration&#x662F;&#x53EF;&#x9009;&#x7684;, &#x5148;&#x67E5;&#x5BF9;&#x5E94;&#x7684;feature bit&#x662F;&#x5426;&#x751F;&#x6548;</li>
+</ul>
+<h3 id="one-or-more-virtqueues"><a name="one-or-more-virtqueues" class="anchor-navigation-ex-anchor" href="#one-or-more-virtqueues"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.4. One or more virtqueues</h3>
+<p>virtqueue&#x8D1F;&#x8D23;&#x6570;&#x636E;&#x4F20;&#x8F93;, &#x8BBE;&#x5907;&#x53EF;&#x4EE5;&#x6709;0&#x4E2A;&#x6216;&#x591A;&#x4E2A;virtqueue. &#x6BCF;&#x4E2A;queue&#x6709;16bit&#x7684;size&#x53C2;&#x6570;, &#x7528;&#x4E8E;&#x8BBE;&#x7F6E;entry&#x4E2A;&#x6570;(&#x6700;&#x5927;32768)
+&#x6BCF;&#x4E2A;queue&#x90FD;&#x5305;&#x62EC;:</p>
+<ul>
+<li>Descriptor Table</li>
+<li>Available Ring</li>
+<li>Used Ring</li>
+</ul>
+<p>&#x8FD9;&#x4E09;&#x90E8;&#x5206;&#x90FD;&#x5728;guest&#x5185;&#x5B58;&#x91CC;, &#x7269;&#x7406;&#x5730;&#x5740;&#x8FDE;&#x7EED;.
+&#x8FD9;&#x4E09;&#x90E8;&#x5206;&#x7684;&#x5BF9;&#x9F50;&#x8981;&#x6C42;&#x548C;size&#x5982;&#x4E0B;:</p>
+<table>
+<thead>
+<tr>
+<th>Virtqueue Part</th>
+<th>Alignment</th>
+<th>Size(in bytes)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Descriptor Table</td>
+<td>16</td>
+<td>16&#x2217;(Queue Size)</td>
+</tr>
+<tr>
+<td>Available Ring</td>
+<td>2</td>
+<td>6 + 2&#x2217;(Queue Size)</td>
+</tr>
+<tr>
+<td>Used Ring</td>
+<td>4</td>
+<td>6 + 8&#x2217;(Queue Size)</td>
+</tr>
+</tbody>
+</table>
+<p>guest&#x9A71;&#x52A8;&#x60F3;&#x53D1;&#x9001;&#x4E00;&#x4E2A;buffer&#x5230;virtio&#x8BBE;&#x5907;&#x65F6;:</p>
+<ol>
+<li>&#x9A71;&#x52A8;&#x5148;&#x5728;<code>Descriptor Table</code>&#x586B;&#x597D;&#x4E00;&#x4E2A;slot, &#x6216;&#x8005;&#x51E0;&#x4E2A;slot&#x94FE;</li>
+<li>&#x9A71;&#x52A8;&#x5199;&#x8FD9;&#x4E2A;Descriptor index&#x5230;<code>Available Ring</code></li>
+<li>&#x9A71;&#x52A8;&#x5199;notification&#x901A;&#x77E5;device</li>
+<li>device&#x4F7F;&#x7528;&#x5B8C;&#x8FD9;&#x4E2A;buffer&#x540E;, &#x5199;Descriptor index&#x5230;<code>Used Ring</code></li>
+<li>device&#x53D1;&#x4E2D;&#x65AD;&#x7ED9;&#x9A71;&#x52A8;</li>
+</ol>
+<p>&#x9A71;&#x52A8;&#x6765;&#x5B89;&#x6392;descriptors&#x7684;frame, &#x6BD4;&#x5982;network&#x4F7F;&#x7528;12&#x5B57;&#x8282;&#x5934;&#x540E;&#x9762;&#x52A0;1514&#x5B57;&#x8282;&#x7684;packet, &#x6216;&#x8005;&#x76F4;&#x63A5;&#x5B89;&#x6392;&#x4E00;&#x4E2A;1526&#x5B57;&#x8282;&#x7684;output descriptor
+&#x8BBE;&#x5907;&#x4E0D;&#x8BE5;&#x5BF9;&#x8FD9;&#x4E2A;frame&#x6709;&#x5047;&#x8BBE;.</p>
+<h4 id="&#x63CF;&#x8FF0;&#x7B26;&#x683C;&#x5F0F;"><a name="&#x63CF;&#x8FF0;&#x7B26;&#x683C;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x63CF;&#x8FF0;&#x7B26;&#x683C;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x63CF;&#x8FF0;&#x7B26;&#x683C;&#x5F0F;</h4>
+<p>buffer&#x5206;&#x4E3A;&#x53EF;&#x8BFB;&#x7684;&#x548C;&#x53EF;&#x5199;&#x7684;, &#x4E00;&#x4E2A;&#x63CF;&#x8FF0;&#x7B26;&#x53EA;&#x80FD;&#x662F;&#x4E8C;&#x8005;&#x4E4B;&#x4E00;.
+addr&#x662F;&#x5728;guest&#x5185;&#x5B58;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtq_desc</span> <span class="token punctuation">{</span> 
+        <span class="token comment">/* Address (guest-physical). */</span> 
+        le64 addr<span class="token punctuation">;</span> 
+        <span class="token comment">/* Length. */</span> 
+        le32 len<span class="token punctuation">;</span> 
+
+<span class="token comment">/* This marks a buffer as continuing via the next field. */</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTQ_DESC_F_NEXT</span>   <span class="token expression"><span class="token number">1</span> </span></span>
+<span class="token comment">/* This marks a buffer as device write-only (otherwise device read-only). */</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTQ_DESC_F_WRITE</span>     <span class="token expression"><span class="token number">2</span> </span></span>
+<span class="token comment">/* This means the buffer contains a list of buffer descriptors. */</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTQ_DESC_F_INDIRECT</span>   <span class="token expression"><span class="token number">4</span> </span></span>
+        <span class="token comment">/* The flags as indicated above. */</span> 
+        le16 flags<span class="token punctuation">;</span> 
+        <span class="token comment">/* Next field if flags &amp; NEXT */</span> 
+        le16 next<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="virtqueue-available-ring&#x683C;&#x5F0F;"><a name="virtqueue-available-ring&#x683C;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#virtqueue-available-ring&#x683C;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>Virtqueue Available Ring&#x683C;&#x5F0F;</h4>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtq_avail</span> <span class="token punctuation">{</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTQ_AVAIL_F_NO_INTERRUPT</span>      <span class="token expression"><span class="token number">1</span> </span></span>
+        le16 flags<span class="token punctuation">;</span> 
+        le16 idx<span class="token punctuation">;</span> 
+        le16 ring<span class="token punctuation">[</span> <span class="token comment">/* Queue Size */</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> 
+        le16 used_event<span class="token punctuation">;</span> <span class="token comment">/* Only if VIRTIO_F_EVENT_IDX */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x8FD9;&#x4E2A;avail ring&#x662F;&#x9A71;&#x52A8;&#x5199;, device&#x8BFB;&#x7684;, &#x7528;&#x4E8E;&#x9A71;&#x52A8;&#x5411;device&#x63D0;&#x4F9B;buffer. &#x4E00;&#x4E2A;entry&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;descriptor table&#x91CC;&#x7684;entry(&#x5982;&#x679C;&#x662F;&#x94FE;&#x7684;&#x8BDD;, &#x5BF9;&#x5E94;&#x94FE;&#x8868;&#x5934;&#x7684;&#x90A3;&#x4E2A;entry)
+idx&#x8868;&#x793A;&#x9A71;&#x52A8;&#x4F1A;&#x628A;&#x4E0B;&#x4E00;&#x4E2A;descriptor&#x653E;&#x5728;ring&#x7684;&#x54EA;&#x91CC;.</p>
+<h4 id="&#x4E2D;&#x65AD;&#x6291;&#x5236;"><a name="&#x4E2D;&#x65AD;&#x6291;&#x5236;" class="anchor-navigation-ex-anchor" href="#&#x4E2D;&#x65AD;&#x6291;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E2D;&#x65AD;&#x6291;&#x5236;</h4>
+<p>&#x641C;&#x7D22;VIRTIO_F_EVENT_IDX feature bit</p>
+<h4 id="virtqueue-used-ring"><a name="virtqueue-used-ring" class="anchor-navigation-ex-anchor" href="#virtqueue-used-ring"><i class="fa fa-link" aria-hidden="true"></i></a>Virtqueue Used Ring</h4>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtq_used</span> <span class="token punctuation">{</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTQ_USED_F_NO_NOTIFY</span>  <span class="token expression"><span class="token number">1</span> </span></span>
+        le16 flags<span class="token punctuation">;</span> 
+        le16 idx<span class="token punctuation">;</span> 
+        <span class="token keyword">struct</span> <span class="token class-name">virtq_used_elem</span> ring<span class="token punctuation">[</span> <span class="token comment">/* Queue Size */</span><span class="token punctuation">]</span><span class="token punctuation">;</span> 
+        le16 avail_event<span class="token punctuation">;</span> <span class="token comment">/* Only if VIRTIO_F_EVENT_IDX */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span> 
+
+<span class="token comment">/* le32 is used here for ids for padding reasons. */</span> 
+<span class="token keyword">struct</span> <span class="token class-name">virtq_used_elem</span> <span class="token punctuation">{</span> 
+        <span class="token comment">/* Index of start of used descriptor chain. */</span> 
+        le32 id<span class="token punctuation">;</span> 
+        <span class="token comment">/* Total length of the descriptor chain which was used (written to) */</span> 
+        le32 len<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x8BBE;&#x5907;&#x5199;, &#x9A71;&#x52A8;&#x8BFB;. &#x8868;&#x793A;&#x8BBE;&#x5907;&#x628A;&#x7528;&#x5B8C;&#x7684;buffer&#x8FD8;&#x7ED9;&#x9A71;&#x52A8;.</p>
+<h4 id="&#x901A;&#x77E5;&#x6291;&#x5236;"><a name="&#x901A;&#x77E5;&#x6291;&#x5236;" class="anchor-navigation-ex-anchor" href="#&#x901A;&#x77E5;&#x6291;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x901A;&#x77E5;&#x6291;&#x5236;</h4>
+<p>&#x7C7B;&#x4F3C;&#x4E2D;&#x65AD;&#x6291;&#x5236;</p>
+<h2 id="&#x521D;&#x59CB;&#x5316;"><a name="&#x521D;&#x59CB;&#x5316;" class="anchor-navigation-ex-anchor" href="#&#x521D;&#x59CB;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x521D;&#x59CB;&#x5316;</h2>
+<p>driver&#x5BF9;device&#x521D;&#x59CB;&#x5316;&#x4ECE;reset device&#x5F00;&#x59CB;, &#x7136;&#x540E;&#x8BBE;&#x7F6E;&#x72B6;&#x6001;&#x6807;&#x8BB0;bit, &#x6BD4;&#x5982;set ACKNOWLEDGE status bit.
+driver&#x548C;device&#x90FD;&#x53EF;&#x4EE5;&#x5BF9;device&#x7684;configuration spce&#x7684;&#x6BCF;&#x4E2A;&#x57DF;&#x505A;&#x4FEE;&#x6539;, &#x4E3A;&#x4E86;&#x907F;&#x514D;&#x6602;&#x8D35;&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x8BFB;, &#x5982;&#x679C;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x53D1;&#x751F;&#x6539;&#x53D8;, &#x4FEE;&#x6539;&#x65B9;&#x901A;&#x77E5;&#x53E6;&#x4E00;&#x65B9;.</p>
+<p>The driver MUST follow this sequence to initialize a device:</p>
+<ol>
+<li>Reset the device.</li>
+<li>Set the ACKNOWLEDGE status bit: the guest OS has notice the device.</li>
+<li>Set the DRIVER status bit: the guest OS knows how to drive the device.</li>
+<li>Read device feature bits, and write the subset of feature bits understood by the OS and driver to the device. During this step the driver MAY read (but MUST NOT write) the device-specific configuration fields to check that it can support the device before accepting it.</li>
+<li>Set the FEATURES_OK status bit. The driver MUST NOT accept new feature bits after this step.</li>
+<li>Re-read device status to ensure the FEATURES_OK bit is still set: otherwise, the device does not support our subset of features and the device is unusable.</li>
+<li>Perform device-specific setup, including discovery of virtqueues for the device, optional per-bus setup, reading and possibly writing the device&#x2019;s virtio configuration space, and population of virtqueues.</li>
+<li>Set the DRIVER_OK status bit. At this point the device is &#x201C;live&#x201D;.</li>
+</ol>
+<h2 id="&#x9A71;&#x52A8;&#x548C;&#x8BBE;&#x5907;&#x4EA4;&#x4E92;"><a name="&#x9A71;&#x52A8;&#x548C;&#x8BBE;&#x5907;&#x4EA4;&#x4E92;" class="anchor-navigation-ex-anchor" href="#&#x9A71;&#x52A8;&#x548C;&#x8BBE;&#x5907;&#x4EA4;&#x4E92;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. &#x9A71;&#x52A8;&#x548C;&#x8BBE;&#x5907;&#x4EA4;&#x4E92;</h2>
+<p>&#x6BD4;&#x5982;, &#x6700;&#x7B80;&#x5355;&#x7684;virtio net&#x8BBE;&#x5907;, &#x6709;&#x4E00;&#x4E2A;<code>transmit virtqueue</code>&#x548C;&#x4E00;&#x4E2A;<code>receive virtqueue</code>
+&#x9A71;&#x52A8;&#x628A;&#x8981;&#x53D1;&#x9001;&#x7684;packet&#x653E;&#x5230;<code>transmit virtqueue</code>, &#x5E76;&#x5728;device use&#x6389;&#x8FD9;&#x4E2A;packet&#x540E;&#x91CA;&#x653E;&#x5BF9;&#x5E94;&#x7684;buffer
+&#x8BBE;&#x5907;&#x628A;&#x6536;&#x5230;&#x7684;packet&#x653E;&#x5230;<code>receive virtqueue</code>, &#x9A71;&#x52A8;&#x5904;&#x7406;&#x8FD9;&#x4E2A;&quot;used&quot; buffer.</p>
+<p>&#x6240;&#x4EE5;, &#x5BF9;&#x9A71;&#x52A8;&#x6765;&#x8BF4;, &#x6709;&#x4E24;&#x4E2A;&#x7C7B;&#x578B;&#x7684;&#x64CD;&#x4F5C;</p>
+<ul>
+<li>Supplying Buffers to The Device</li>
+<li>Receiving Used Buffers From The Device</li>
+</ul>
+<h3 id="&#x9A71;&#x52A8;&#x63D0;&#x4F9B;buffer&#x7ED9;&#x8BBE;&#x5907;"><a name="&#x9A71;&#x52A8;&#x63D0;&#x4F9B;buffer&#x7ED9;&#x8BBE;&#x5907;" class="anchor-navigation-ex-anchor" href="#&#x9A71;&#x52A8;&#x63D0;&#x4F9B;buffer&#x7ED9;&#x8BBE;&#x5907;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.1. &#x9A71;&#x52A8;&#x63D0;&#x4F9B;buffer&#x7ED9;&#x8BBE;&#x5907;</h3>
+<p>A buffer consists of zero or more device-readable physically-contiguous elements followed by zero or more physically-contiguous device-writable elements (each has at least one element). This algorithm maps it into the descriptor table to form a descriptor chain:</p>
+<p>for each buffer element, b:</p>
+<ol>
+<li>Get the next free descriptor table entry, d</li>
+<li>Set d.addr to the physical address of the start of b</li>
+<li>Set d.len to the length of b.</li>
+<li>If b is device-writable, set d.flags to VIRTQ_DESC_F_WRITE, otherwise 0.</li>
+<li>If there is a buffer element after this:<ol>
+<li>Set d.next to the index of the next free descriptor element.</li>
+<li>Set the VIRTQ_DESC_F_NEXT bit in d.flags.</li>
+</ol>
+</li>
+</ol>
+<p>&#x7136;&#x540E;&#x9A71;&#x52A8;&#x66F4;&#x65B0;aviable ring, &#x7136;&#x540E;&#x66F4;&#x65B0;idx. &#x9A71;&#x52A8;&#x5728;&#x66F4;&#x65B0;inx&#x524D;&#x8981;&#x505A;barrier&#x64CD;&#x4F5C;, &#x8BA9;&#x524D;&#x9762;&#x7684;&#x64CD;&#x4F5C;&#x751F;&#x6548;.
+&#x7136;&#x540E;&#x9A71;&#x52A8;&#x901A;&#x77E5;device, &#x8FD9;&#x4E2A;&#x901A;&#x77E5;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x6309;bus&#x6765;&#x7684;. &#x901A;&#x77E5;&#x4E00;&#x822C;&#x6BD4;&#x8F83;&#x6602;&#x8D35;, &#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x901A;&#x77E5;&#x6291;&#x5236;&#x6765;&#x51CF;&#x5C0F;overhead.</p>
+<h3 id="&#x4ECE;&#x8BBE;&#x5907;&#x63A5;&#x53D7;buffer"><a name="&#x4ECE;&#x8BBE;&#x5907;&#x63A5;&#x53D7;buffer" class="anchor-navigation-ex-anchor" href="#&#x4ECE;&#x8BBE;&#x5907;&#x63A5;&#x53D7;buffer"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.2. &#x4ECE;&#x8BBE;&#x5907;&#x63A5;&#x53D7;buffer</h3>
+<p>&#x9A71;&#x52A8;&#x5728;&#x6536;&#x5230;&#x4E2D;&#x65AD;&#x540E;, &#x5904;&#x7406;used ring. &#x8FD9;&#x4E2A;&#x4E2D;&#x65AD;&#x9700;&#x8981;VMM&#x6765;&#x5B9E;&#x65BD;&#x4E2D;&#x65AD;&#x6CE8;&#x5165;guest, &#x4E5F;&#x975E;&#x5E38;&#x6602;&#x8D35;. &#x540C;&#x6837;&#x53EF;&#x4EE5;&#x88AB;&#x6291;&#x5236;.</p>
+<h2 id="virtio-over-pci"><a name="virtio-over-pci" class="anchor-navigation-ex-anchor" href="#virtio-over-pci"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. virtio over pci</h2>
+<p>virtio device&#x9996;&#x5148;&#x8981;&#x6EE1;&#x8DB3;PCI&#x89C4;&#x8303;. &#x6CE8;: PCI&#x90FD;&#x662F;&#x5C0F;&#x7AEF;&#x7684;.</p>
+<ul>
+<li>PCI Vendor ID: 0x1AF4</li>
+<li>device ID &#x5206;&#x7C7B;: &#x8FC7;&#x6E21;&#x9636;&#x6BB5;&#x7684;&#x7684;PCI device ID&#x5982;&#x4E0B;<br><img src="img/virtualization_virtio&#x89C4;&#x8303;&#x9605;&#x8BFB;&#x7B14;&#x8BB0;_20221006222538.png" alt=""><br>&#x6B63;&#x5F0F;&#x7684;device id&#x4ECE;0x1040&#x5F00;&#x59CB;. &#x6BD4;&#x5982;network card&#x7684;&#x6B63;&#x5F0F;ID&#x662F;0x1041, &#x800C;&#x8FC7;&#x6E21;ID&#x662F;0x1000</li>
+</ul>
+<h3 id="device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;"><a name="device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;" class="anchor-navigation-ex-anchor" href="#device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.1. device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;</h3>
+<p>&#x5C0F;&#x7AEF;&#x683C;&#x5F0F;, 64bit&#x5BC4;&#x5B58;&#x5668;&#x4E5F;&#x8981;&#x5206;&#x4E24;&#x4E2A;32bit&#x5BC4;&#x5B58;&#x5668;&#x6765;&#x8BBF;&#x95EE;, &#x4F4E;32bit&#x5728;&#x524D;, &#x9AD8;32bit&#x5728;&#x540E;.
+device&#x7684;&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x5305;&#x62EC;&#x4EE5;&#x4E0B;&#x51E0;&#x90E8;&#x5206;:</p>
+<ul>
+<li>1 Common configuration</li>
+<li>2 Notifications</li>
+<li>3 ISR Status</li>
+<li>4 Device-specific configuration (optional)</li>
+<li>5 PCI configuration access</li>
+</ul>
+<p>&#x6BCF;&#x90E8;&#x5206;&#x90FD;&#x53EF;&#x4EE5;&#x5206;&#x522B;&#x7528;bar(Base Address register)&#x6765;map&#x5230;&#x7269;&#x7406;&#x5730;&#x5740;&#x7A7A;&#x95F4;; &#x6216;&#x8005;&#x7528;PCI&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x7684;&#x7279;&#x6B8A;&#x5BC4;&#x5B58;&#x5668;VIRTIO_PCI_CAP_PCI_CFG&#x6765;&#x8BBF;&#x95EE;.</p>
+<p>&#x4F7F;&#x7528;pci&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x7684;capability list&#x6765;&#x914D;&#x7F6E;&#x4EE5;&#x4E0A;5&#x4E2A;&#x90E8;&#x5206;.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_pci_cap</span> <span class="token punctuation">{</span> 
+        u8 cap_vndr<span class="token punctuation">;</span>    <span class="token comment">/* Generic PCI field: PCI_CAP_ID_VNDR */</span> 
+        u8 cap_next<span class="token punctuation">;</span>    <span class="token comment">/* Generic PCI field: next ptr. */</span> 
+        u8 cap_len<span class="token punctuation">;</span>     <span class="token comment">/* Generic PCI field: capability length */</span> 
+        u8 cfg_type<span class="token punctuation">;</span>    <span class="token comment">/* Identifies the structure. &#x5E8F;&#x53F7;&#x5982;&#x4E0A; */</span> 
+        u8 bar<span class="token punctuation">;</span>         <span class="token comment">/* Where to find it. 0x0&#x5230;0x5, &#x8868;&#x793A;&#x7528;&#x54EA;&#x4E2A;bar&#x6765;map&#x4E0A;&#x9762;&#x7684;cfg_type*/</span> 
+        u8 padding<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>  <span class="token comment">/* Pad to full dword. */</span> 
+        le32 offset<span class="token punctuation">;</span>    <span class="token comment">/* Offset within bar. */</span> 
+        le32 length<span class="token punctuation">;</span>    <span class="token comment">/* Length of the structure, in bytes. */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="common-configuration-cfgtype-1"><a name="common-configuration-cfgtype-1" class="anchor-navigation-ex-anchor" href="#common-configuration-cfgtype-1"><i class="fa fa-link" aria-hidden="true"></i></a>Common configuration, cfg_type 1</h4>
+<p>&#x7528;&#x4E8E;&#x548C;driver&#x534F;&#x5546;feature, queue&#x4E2A;&#x6570;, queue size, desc table, avail ring&#x548C;used ring&#x7684;&#x5730;&#x5740;.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_pci_common_cfg</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* About the whole device. */</span>
+    le32 device_feature_select<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le32 device_feature<span class="token punctuation">;</span> <span class="token comment">/* read-only for driver */</span>
+    le32 driver_feature_select<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le32 driver_feature<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 msix_config<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 num_queues<span class="token punctuation">;</span> <span class="token comment">/* read-only for driver */</span>
+    u8 device_status<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    u8 config_generation<span class="token punctuation">;</span> <span class="token comment">/* read-only for driver */</span>
+    <span class="token comment">/* About a specific virtqueue. */</span>
+    le16 queue_select<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 queue_size<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 queue_msix_vector<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 queue_enable<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le16 queue_notify_off<span class="token punctuation">;</span> <span class="token comment">/* read-only for driver */</span>
+
+    <span class="token comment">//&#x4EE5;&#x4E0B;&#x5C31;&#x662F;&#x63CF;&#x8FF0;&#x7B26;&#x533A;, driver&#x533A;, device&#x533A;&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;</span>
+    <span class="token comment">//guest driver&#x628A;&#x7269;&#x7406;&#x5730;&#x5740;&#x5199;&#x5165;&#x4E0B;&#x9762;&#x4E09;&#x4E2A;&#x5BC4;&#x5B58;&#x5668;, &#x5206;&#x522B;&#x5BF9;&#x5E94;desc&#x533A;, avail&#x533A;&#x548C;used&#x533A;.</span>
+    le64 queue_desc<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span>
+    le64 queue_avail<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span> 
+    le64 queue_used<span class="token punctuation">;</span> <span class="token comment">/* read-write */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="notification-structure-cfgtype-2"><a name="notification-structure-cfgtype-2" class="anchor-navigation-ex-anchor" href="#notification-structure-cfgtype-2"><i class="fa fa-link" aria-hidden="true"></i></a>Notification structure, cfg_type 2</h4>
+<p>This capability is immediately followed by an additional field, like so:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_pci_notify_cap</span> <span class="token punctuation">{</span> 
+        <span class="token keyword">struct</span> <span class="token class-name">virtio_pci_cap</span> cap<span class="token punctuation">;</span> 
+        le32 notify_off_multiplier<span class="token punctuation">;</span> <span class="token comment">/* Multiplier for queue_notify_off. */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x8FD9;&#x4E2A;notify_off_multiplier&#x548C;&#x5176;&#x4ED6;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x4E00;&#x8D77;, &#x53EF;&#x4EE5;&#x8BA1;&#x7B97;&#x51FA;queue notification&#x5728;bar&#x5185;&#x7684;&#x504F;&#x79FB;&#x5730;&#x5740;:<br><code>cap.offset + queue_notify_off * notify_off_multiplier</code><br>The cap.offset and notify_off_multiplier are taken from the notification capability structure above, and the queue_notify_off is taken from the common configuration structure. Note: For example, if notifier_off_multiplier is 0, the device uses the same Queue Notify address for all queues.</p>
+<h4 id="isr-status&#x5BC4;&#x5B58;&#x5668;-cfgtype-3"><a name="isr-status&#x5BC4;&#x5B58;&#x5668;-cfgtype-3" class="anchor-navigation-ex-anchor" href="#isr-status&#x5BC4;&#x5B58;&#x5668;-cfgtype-3"><i class="fa fa-link" aria-hidden="true"></i></a>ISR status&#x5BC4;&#x5B58;&#x5668;, cfg_type 3</h4>
+<p>&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5B57;&#x8282;, &#x5176;&#x4E2D;&#x53EA;&#x6709;2&#x4F4D;&#x6709;&#x7528;, &#x7528;&#x4E8E;&#x533A;&#x5206;&#x662F;queue&#x4E2D;&#x65AD;&#x8FD8;&#x662F;&#x914D;&#x7F6E;&#x53D8;&#x66F4;&#x4E2D;&#x65AD;. &#x9A71;&#x52A8;&#x8BFB;&#x6E05;, &#x5373;&#x9A71;&#x52A8;&#x8BFB;&#x8FD9;&#x4E2A;isr&#x72B6;&#x6001;&#x5BC4;&#x5B58;&#x5668;&#x7684;&#x65F6;&#x5019;, &#x5BC4;&#x5B58;&#x5668;&#x6E05;&#x96F6;, &#x4E2D;&#x65AD;de-assert.</p>
+<h4 id="pci-configuration-access-capability-cfgtype-5"><a name="pci-configuration-access-capability-cfgtype-5" class="anchor-navigation-ex-anchor" href="#pci-configuration-access-capability-cfgtype-5"><i class="fa fa-link" aria-hidden="true"></i></a>PCI configuration access capability, cfg_type 5</h4>
+<p>&#x63D0;&#x4F9B;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x8BBF;&#x95EE;device&#x914D;&#x7F6E;&#x7A7A;&#x95F4;(cfg_type 1, 2,, 3, 4)&#x7684;&#x65B9;&#x6CD5;.
+The capability is immediately followed by an additional field like so:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_pci_cfg_cap</span> <span class="token punctuation">{</span> 
+        <span class="token keyword">struct</span> <span class="token class-name">virtio_pci_cap</span> cap<span class="token punctuation">;</span> 
+        u8 pci_cfg_data<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">/* Data for BAR access. */</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The fields cap.bar, cap.length, cap.offset and pci_cfg_data are read-write (RW) for the driver.</p>
+<p>To access a device region, the driver writes into the capability structure (ie. within the PCI configuration space) as follows:</p>
+<ul>
+<li>The driver sets the BAR to access by writing to cap.bar.</li>
+<li>The driver sets the size of the access by writing 1, 2 or 4 to cap.length.</li>
+<li>The driver sets the offset within the BAR by writing to cap.offset.</li>
+</ul>
+<p>At that point, pci_cfg_data will provide a window of size cap.length into the given cap.bar at offset cap.offset.</p>
+<h3 id="virtio-pci&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;"><a name="virtio-pci&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#virtio-pci&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.2. virtio pci&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;</h3>
+<ul>
+<li>&#x9A71;&#x52A8;scan PCI capability list, &#x68C0;&#x6D4B;&#x51FA;&#x4E0A;&#x9762;&#x4E94;&#x79CD;&#x914D;&#x7F6E;layout</li>
+<li>MSI-x&#x914D;&#x7F6E;</li>
+<li>Virtqueue&#x914D;&#x7F6E;<ul>
+<li>1  Write the virtqueue index (first queue is 0) to queue_select.</li>
+<li>2  Read the virtqueue size from queue_size. This controls how big the virtqueue is (see <a href="http://docs.oasis-open.org/virtio/virtio/v1.0/cs04/virtio-v1.0-cs04.html#x1-220004" target="_blank">2.4</a> <a href="http://docs.oasis-open.org/virtio/virtio/v1.0/cs04/virtio-v1.0-cs04.html#x1-220004" target="_blank">Virtqueues</a>). If this field is 0, the virtqueue does not exist.</li>
+<li>3  Optionally, select a smaller virtqueue size and write it to queue_size.</li>
+<li>4  Allocate and zero Descriptor Table, Available and Used rings for the virtqueue in contiguous physical memory.</li>
+<li>5  Optionally, if MSI-X capability is present and enabled on the device, select a vector to use to request interrupts triggered by virtqueue events. Write the MSI-X Table entry number corresponding to this vector into queue_msix_vector. Read queue_msix_vector: on success, previously written value is returned; on failure, NO_VECTOR value is returned.</li>
+</ul>
+</li>
+</ul>
+<h3 id="&#x901A;&#x77E5;&#x548C;&#x4E2D;&#x65AD;"><a name="&#x901A;&#x77E5;&#x548C;&#x4E2D;&#x65AD;" class="anchor-navigation-ex-anchor" href="#&#x901A;&#x77E5;&#x548C;&#x4E2D;&#x65AD;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.3. &#x901A;&#x77E5;&#x548C;&#x4E2D;&#x65AD;</h3>
+<h4 id="&#x9A71;&#x52A8;&#x901A;&#x77E5;&#x8BBE;&#x5907;"><a name="&#x9A71;&#x52A8;&#x901A;&#x77E5;&#x8BBE;&#x5907;" class="anchor-navigation-ex-anchor" href="#&#x9A71;&#x52A8;&#x901A;&#x77E5;&#x8BBE;&#x5907;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9A71;&#x52A8;&#x901A;&#x77E5;&#x8BBE;&#x5907;</h4>
+<p>The driver notifies the device by writing the 16-bit virtqueue index of this virtqueue to the Queue Notify address.</p>
+<h4 id="&#x4ECE;&#x8BBE;&#x5907;&#x7684;virtqueue&#x4E2D;&#x65AD;&#x5230;&#x9A71;&#x52A8;"><a name="&#x4ECE;&#x8BBE;&#x5907;&#x7684;virtqueue&#x4E2D;&#x65AD;&#x5230;&#x9A71;&#x52A8;" class="anchor-navigation-ex-anchor" href="#&#x4ECE;&#x8BBE;&#x5907;&#x7684;virtqueue&#x4E2D;&#x65AD;&#x5230;&#x9A71;&#x52A8;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4ECE;&#x8BBE;&#x5907;&#x7684;Virtqueue&#x4E2D;&#x65AD;&#x5230;&#x9A71;&#x52A8;</h4>
+<p>If an interrupt is necessary for a virtqueue, the device would typically act as follows:</p>
+<ul>
+<li>If MSI-X capability is disabled:<ul>
+<li>Set the lower bit of the ISR Status field for the device.</li>
+<li>Send the appropriate PCI interrupt for the device.</li>
+</ul>
+</li>
+<li>If MSI-X capability is enabled:<ul>
+<li>If queue_msix_vector is not NO_VECTOR, request the appropriate MSI-X interrupt message for the device, queue_msix_vector sets the MSI-X Table entry number.</li>
+</ul>
+</li>
+</ul>
+<h4 id="&#x9A71;&#x52A8;&#x5904;&#x7406;&#x4E2D;&#x65AD;"><a name="&#x9A71;&#x52A8;&#x5904;&#x7406;&#x4E2D;&#x65AD;" class="anchor-navigation-ex-anchor" href="#&#x9A71;&#x52A8;&#x5904;&#x7406;&#x4E2D;&#x65AD;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9A71;&#x52A8;&#x5904;&#x7406;&#x4E2D;&#x65AD;</h4>
+<p>The driver interrupt handler would typically:</p>
+<ul>
+<li>If MSI-X capability is disabled:<ul>
+<li>Read the ISR Status field, which will reset it to zero.</li>
+<li>If the lower bit is set: look through the used rings of all virtqueues for the device, to see if any progress has been made by the device which requires servicing.</li>
+<li>If the second lower bit is set: re-examine the configuration space to see what changed.</li>
+</ul>
+</li>
+<li>If MSI-X capability is enabled:<ul>
+<li>Look through the used rings of all virtqueues mapped to that MSI-X vector for the device, to see if any progress has been made by the device which requires servicing.</li>
+<li>If the MSI-X vector is equal to config_msix_vector, re-examine the configuration space to see what changed.</li>
+</ul>
+</li>
+</ul>
+<h2 id="virtio-over-mmio"><a name="virtio-over-mmio" class="anchor-navigation-ex-anchor" href="#virtio-over-mmio"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. Virtio Over MMIO</h2>
+<p>Virtual environments without PCI support (a common situation in embedded devices models) might use simple memory mapped device (&#x201C;virtio-mmio&#x201D;) instead of the PCI device.
+The memory mapped virtio device behaviour is based on the PCI device specification. Therefore most operations including device initialization, queues configuration and buffer transfers are nearly identical. Existing differences are described in the following sections.</p>
+<h3 id="mmio-device-discovery"><a name="mmio-device-discovery" class="anchor-navigation-ex-anchor" href="#mmio-device-discovery"><i class="fa fa-link" aria-hidden="true"></i></a>1.5.1. MMIO Device Discovery</h3>
+<p>mmio&#x7684;virtio&#x8BBE;&#x5907;&#x4E00;&#x822C;&#x9700;&#x8981;&#x914D;dts, &#x56E0;&#x4E3A;mmio&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x53D1;&#x73B0;&#x673A;&#x5236;
+Unlike PCI, MMIO provides no generic device discovery mechanism. For each device, the guest OS will need to know the location of the registers and interrupt(s) used. The suggested binding for systems using flattened device trees is shown in this example:</p>
+<pre class="language-"><code class="lang-c"><span class="token comment">// EXAMPLE: virtio_block device taking 512 bytes at 0x1e000, interrupt 42. </span>
+virtio_block@<span class="token number">1e000</span> <span class="token punctuation">{</span> 
+        compatible <span class="token operator">=</span> <span class="token string">&quot;virtio,mmio&quot;</span><span class="token punctuation">;</span> 
+        reg <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token number">0x1e000</span> <span class="token number">0x200</span><span class="token operator">&gt;</span><span class="token punctuation">;</span> 
+        interrupts <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token number">42</span><span class="token operator">&gt;</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="mmio-device-register-layout"><a name="mmio-device-register-layout" class="anchor-navigation-ex-anchor" href="#mmio-device-register-layout"><i class="fa fa-link" aria-hidden="true"></i></a>1.5.2. MMIO Device Register Layout</h3>
+<p>virtio&#x7684;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;&#x90FD;&#x4EE5;&#x4E0A;&#x9762;&#x7684;base&#x5730;&#x5740;&#x4E3A;&#x5F00;&#x59CB;, &#x4F9D;&#x6B21;&#x6392;&#x5217;
+MMIO virtio devices provide a set of memory mapped control registers followed by a device-specific configuration space, described in the table 4.1.
+All register values are organized as Little Endian.
+&#x4E0B;&#x9762;&#x7684;table&#x5B9A;&#x4E49;&#x4E86;mmio&#x7684;&#x5BC4;&#x5B58;&#x5668;layout
+&#x6BD4;&#x5982;</p>
+<table>
+<thead>
+<tr>
+<th>Name Offset RW</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MagicValue 0x000 R</td>
+<td>0x74726976 (a Little Endian equivalent of the &#x201C;virt&#x201D; string).</td>
+</tr>
+<tr>
+<td>QueueNumMax 0x034 R</td>
+<td>Maximum virtual queue size Reading from the register returns the maximum size (number of elements) of the queue the device is ready to process or zero (0x0) if the queue is not available. This applies to the queue selected by writing to QueueSel.</td>
+</tr>
+<tr>
+<td>QueueReady 0x044 RW</td>
+<td>Virtual queue ready bit Writing one (0x1) to this register notifies the device that it can execute requests from this virtual queue. Reading from this register returns the last value written to it. Both read and write accesses apply to the queue selected by writing to QueueSel.</td>
+</tr>
+<tr>
+<td>InterruptStatus 0x60 R</td>
+<td>&#x4E2D;&#x65AD;&#x72B6;&#x6001;&#x5BC4;&#x5B58;&#x5668;</td>
+</tr>
+<tr>
+<td>InterruptACK 0x064 W</td>
+<td>&#x4E2D;&#x65AD;&#x5E94;&#x7B54;&#x5BC4;&#x5B58;&#x5668;</td>
+</tr>
+<tr>
+<td>0x100..=0xfff</td>
+<td>&#x63A7;&#x5236;&#x7A7A;&#x95F4;&#x5BC4;&#x5B58;&#x5668; Configuration space Device-specific configuration space starts at the offset 0x100 and is accessed with byte alignment. Its meaning and size depend on the device and the driver.</td>
+</tr>
+</tbody>
+</table>
+<p>&#x8865;&#x5145;, &#x4E0B;&#x9762;&#x7684;&#x51E0;&#x7EC4;&#x5BC4;&#x5B58;&#x5668;&#x662F;&#x548C;driver&#x4EA4;&#x6362;virt queue&#x5730;&#x5740;&#x4FE1;&#x606F;&#x7684;:<br><img src="img/virtualization_virtio&#x89C4;&#x8303;&#x9605;&#x8BFB;&#x7B14;&#x8BB0;_20221006223720.png" alt="">  </p>
+<p>&#x53E6;&#x5916;0x50&#x8FD9;&#x4E2A;offset&#x4E5F;&#x5F88;&#x91CD;&#x8981;, &#x8FD9;&#x4E2A;&#x662F;guest driver&#x901A;&#x77E5;device&#x7684;&#x5BC4;&#x5B58;&#x5668;, driver&#x5199;&#x8FD9;&#x4E2A;&#x5730;&#x5740;, &#x5C31;&#x4F1A;&#x89E6;&#x53D1;&#x5173;&#x8054;&#x7684;eventfd&#x7ED9;device&#x53D1;&#x4FE1;&#x53F7;.</p>
+<h3 id="virtqueue-configuration"><a name="virtqueue-configuration" class="anchor-navigation-ex-anchor" href="#virtqueue-configuration"><i class="fa fa-link" aria-hidden="true"></i></a>1.5.3. Virtqueue Configuration</h3>
+<p>The driver will typically initialize the virtual queue in the following way:</p>
+<ol>
+<li>Select the queue writing its index (first queue is 0) to QueueSel.</li>
+<li>Check if the queue is not already in use: read QueueReady, and expect a returned value of zero (0x0).</li>
+<li>Read maximum queue size (number of elements) from QueueNumMax. If the returned value is zero (0x0) the queue is not available.</li>
+<li>Allocate and zero the queue memory, making sure the memory is physically contiguous.</li>
+<li>Notify the device about the queue size by writing the size to QueueNum.</li>
+<li>Write physical addresses of the queue&#x2019;s Descriptor Area, Driver Area and Device Area to (respectively) the QueueDescLow/QueueDescHigh, QueueDriverLow/QueueDriverHigh and QueueDeviceLow/QueueDeviceHigh register pairs.</li>
+<li>Write 0x1 to QueueReady.</li>
+</ol>
+<h2 id="device&#x7C7B;&#x578B;"><a name="device&#x7C7B;&#x578B;" class="anchor-navigation-ex-anchor" href="#device&#x7C7B;&#x578B;"><i class="fa fa-link" aria-hidden="true"></i></a>1.6. device&#x7C7B;&#x578B;</h2>
+<h3 id="network-device"><a name="network-device" class="anchor-navigation-ex-anchor" href="#network-device"><i class="fa fa-link" aria-hidden="true"></i></a>1.6.1. Network Device</h3>
+<ul>
+<li>virtqueue<br>network&#x8BBE;&#x5907;&#x7684;virtqueue&#x662F;&#x4E00;&#x5BF9;&#x6216;&#x591A;&#x5BF9;receiveq&#x548C;transmitq, &#x6700;&#x540E;&#x4E00;&#x4E2A;&#x662F;controlq<br>0 receiveq1<br>1 transmitq1<br>&#x2026;<br>2(N-1) receiveqN<br>2(N-1)+1 transmitqN<br>2N controlq</li>
+<li>&#x8981;&#x53D1;&#x9001;&#x7684;<code>&#x62A5;&#x6587;&#x5934;+&#x62A5;&#x6587;</code>&#x88AB;&#x653E;&#x5230;transmitq, &#x63A5;&#x6536;&#x5230;&#x7684;<code>&#x62A5;&#x6587;&#x5934;+&#x62A5;&#x6587;</code>&#x88AB;&#x653E;&#x5230;receiveq<br>&#x8FD9;&#x4E2A;&#x62A5;&#x6587;&#x5934;&#x7684;&#x683C;&#x5F0F;&#x5982;&#x4E0B;:  <pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_net_hdr</span> <span class="token punctuation">{</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_F_NEEDS_CSUM</span>    <span class="token expression"><span class="token number">1</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_F_DATA_VALID</span>    <span class="token expression"><span class="token number">2</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_F_RSC_INFO</span>      <span class="token expression"><span class="token number">4</span> </span></span>
+      u8 flags<span class="token punctuation">;</span> 
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_NONE</span>        <span class="token expression"><span class="token number">0</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_TCPV4</span>       <span class="token expression"><span class="token number">1</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_UDP</span>         <span class="token expression"><span class="token number">3</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_TCPV6</span>       <span class="token expression"><span class="token number">4</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_UDP_L4</span>      <span class="token expression"><span class="token number">5</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">VIRTIO_NET_HDR_GSO_ECN</span>      <span class="token expression"><span class="token number">0x80</span> </span></span>
+      u8 gso_type<span class="token punctuation">;</span> 
+      le16 hdr_len<span class="token punctuation">;</span> 
+      le16 gso_size<span class="token punctuation">;</span> 
+      le16 csum_start<span class="token punctuation">;</span> 
+      le16 csum_offset<span class="token punctuation">;</span> 
+      le16 num_buffers<span class="token punctuation">;</span> 
+      le32 hash_value<span class="token punctuation">;</span>        <span class="token punctuation">(</span>Only <span class="token keyword">if</span> VIRTIO_NET_F_HASH_REPORT negotiated<span class="token punctuation">)</span> 
+      le16 hash_report<span class="token punctuation">;</span>       <span class="token punctuation">(</span>Only <span class="token keyword">if</span> VIRTIO_NET_F_HASH_REPORT negotiated<span class="token punctuation">)</span> 
+      le16 padding_reserved<span class="token punctuation">;</span>  <span class="token punctuation">(</span>Only <span class="token keyword">if</span> VIRTIO_NET_F_HASH_REPORT negotiated<span class="token punctuation">)</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+</ul>
+<h3 id="block-device"><a name="block-device" class="anchor-navigation-ex-anchor" href="#block-device"><i class="fa fa-link" aria-hidden="true"></i></a>1.6.2. Block Device</h3>
+<p>The virtio block device is a simple virtual block device (ie. disk). Read and write requests (and other exotic requests) are placed in one of its queues, and serviced (probably out of order) by the device except where noted.</p>
+<ul>
+<li>virtqueue<br>0 requestq1<br>&#x2026;<br>N-1 requestqN<br>N=1 if VIRTIO_BLK_F_MQ is not negotiated, otherwise N is set by num_queues.</li>
+<li>&#x9A71;&#x52A8;&#x628A;virtio_blk_req&#x653E;&#x5230;virtqueues, layout&#x5982;&#x4E0B;  <pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_blk_req</span> <span class="token punctuation">{</span> 
+      le32 type<span class="token punctuation">;</span> <span class="token comment">//io&#x6709;&#x5F88;&#x591A;&#x79CD;&#x64CD;&#x4F5C;, &#x8BFB;/&#x5199;/flush/erase&#x7B49;&#x7B49;</span>
+      le32 reserved<span class="token punctuation">;</span> 
+      le64 sector<span class="token punctuation">;</span> 
+      u8 data<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span> 
+      u8 status<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+<li>configuration layout  <pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">virtio_blk_config</span> <span class="token punctuation">{</span> 
+      le64 capacity<span class="token punctuation">;</span> 
+      le32 size_max<span class="token punctuation">;</span> 
+      le32 seg_max<span class="token punctuation">;</span> 
+      <span class="token keyword">struct</span> <span class="token class-name">virtio_blk_geometry</span> <span class="token punctuation">{</span> 
+              le16 cylinders<span class="token punctuation">;</span> 
+              u8 heads<span class="token punctuation">;</span> 
+              u8 sectors<span class="token punctuation">;</span> 
+      <span class="token punctuation">}</span> geometry<span class="token punctuation">;</span> 
+      le32 blk_size<span class="token punctuation">;</span> 
+      <span class="token keyword">struct</span> <span class="token class-name">virtio_blk_topology</span> <span class="token punctuation">{</span> 
+              <span class="token comment">// # of logical blocks per physical block (log2) </span>
+              u8 physical_block_exp<span class="token punctuation">;</span> 
+              <span class="token comment">// offset of first aligned logical block </span>
+              u8 alignment_offset<span class="token punctuation">;</span> 
+              <span class="token comment">// suggested minimum I/O size in blocks </span>
+              le16 min_io_size<span class="token punctuation">;</span> 
+              <span class="token comment">// optimal (suggested maximum) I/O size in blocks </span>
+              le32 opt_io_size<span class="token punctuation">;</span> 
+      <span class="token punctuation">}</span> topology<span class="token punctuation">;</span> 
+      u8 writeback<span class="token punctuation">;</span> 
+      u8 unused0<span class="token punctuation">;</span> 
+      u16 num_queues<span class="token punctuation">;</span> 
+      le32 max_discard_sectors<span class="token punctuation">;</span> 
+      le32 max_discard_seg<span class="token punctuation">;</span> 
+      le32 discard_sector_alignment<span class="token punctuation">;</span> 
+      le32 max_write_zeroes_sectors<span class="token punctuation">;</span> 
+      le32 max_write_zeroes_seg<span class="token punctuation">;</span> 
+      u8 write_zeroes_may_unmap<span class="token punctuation">;</span> 
+      u8 unused1<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span> 
+      le32 max_secure_erase_sectors<span class="token punctuation">;</span> 
+      le32 max_secure_erase_seg<span class="token punctuation">;</span> 
+      le32 secure_erase_sector_alignment<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+</ul>
+<h3 id="&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;virtio-device"><a name="&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;virtio-device" class="anchor-navigation-ex-anchor" href="#&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;virtio-device"><i class="fa fa-link" aria-hidden="true"></i></a>1.6.3. &#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;virtio device</h3>
+<ul>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-2900003" target="_blank">Console Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-3050004" target="_blank">Entropy Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-3140005" target="_blank">Traditional Memory Balloon Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-3430006" target="_blank">SCSI Host Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-3650007" target="_blank">GPU Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-3850008" target="_blank">Input Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-3960009" target="_blank">Crypto Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-43600010" target="_blank">Socket Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-45800011" target="_blank">File System Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-47800012" target="_blank">RPMB Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-49300013" target="_blank">IOMMU device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-52900014" target="_blank">Sound Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-56800015" target="_blank">Memory Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-59300016" target="_blank">I2C Adapter Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-60400017" target="_blank">SCMI Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-62100018" target="_blank">GPIO Device</a></li>
+<li><a href="https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html#x1-64100019" target="_blank">PMEM Device</a></li>
+</ul>
+<h1 id="&#x4EE5;&#x524D;&#x6574;&#x7406;"><a name="&#x4EE5;&#x524D;&#x6574;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x4EE5;&#x524D;&#x6574;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x4EE5;&#x524D;&#x6574;&#x7406;</h1>
+<h2 id="&#x5206;&#x79BB;&#x5F0F;-split-virtqueue"><a name="&#x5206;&#x79BB;&#x5F0F;-split-virtqueue" class="anchor-navigation-ex-anchor" href="#&#x5206;&#x79BB;&#x5F0F;-split-virtqueue"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x5206;&#x79BB;&#x5F0F; split virtqueue</h2>
+<p>&#x8001;&#x7684;spec&#x7528;&#x7684;&#x683C;&#x5F0F;, &#x5728;&#x5185;&#x5B58;&#x4E0A;&#x662F;&#x4E00;&#x6BB5;&#x8FDE;&#x7EED;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;, &#x5305;&#x62EC;&#x4E09;&#x90E8;&#x5206;:</p>
+<ul>
+<li>Descriptor Table - occupies the Descriptor Area</li>
+<li>Available Ring - occupies the Driver Area, &#x53EA;&#x53EF;driver&#x5199;</li>
+<li>Used Ring - occupies the Device Area, &#x53EA;&#x53EF;device&#x5199;</li>
+</ul>
+<pre class="language-"><code class="lang-c"><span class="token comment">//&#x4EE3;&#x7801;: linux/include/uapi/linux/virtio_ring.h</span>
+<span class="token keyword">struct</span> <span class="token class-name">vring</span> <span class="token punctuation">{</span>
+ <span class="token keyword">unsigned</span> <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+ <span class="token keyword">struct</span> <span class="token class-name">vring_desc</span> <span class="token operator">*</span>desc<span class="token punctuation">;</span>
+ <span class="token keyword">struct</span> <span class="token class-name">vring_avail</span> <span class="token operator">*</span>avail<span class="token punctuation">;</span>
+ <span class="token keyword">struct</span> <span class="token class-name">vring_used</span> <span class="token operator">*</span>used<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">/* The standard layout for the ring is a continuous chunk of memory which looks
+ * like this. We assume num is a power of 2.
+ *
+ * struct vring
+ * {
+ * // The actual descriptors (16 bytes each)
+ * struct vring_desc desc[num];
+ *
+ * // A ring of available descriptor heads with free-running index.
+ * __virtio16 avail_flags;
+ * __virtio16 avail_idx;
+ * __virtio16 available[num];
+ * __virtio16 used_event_idx;
+ *
+ * // Padding to the next align boundary.
+ * char pad[];
+ *
+ * // A ring of used descriptor heads with free-running index.
+ * __virtio16 used_flags;
+ * __virtio16 used_idx;
+ * struct vring_used_elem used[num];
+ * __virtio16 avail_event_idx;
+ * };
+ */</span>
+</code></pre>
+<h2 id="queue&#x7684;&#x64CD;&#x4F5C;"><a name="queue&#x7684;&#x64CD;&#x4F5C;" class="anchor-navigation-ex-anchor" href="#queue&#x7684;&#x64CD;&#x4F5C;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. queue&#x7684;&#x64CD;&#x4F5C;</h2>
+<p>&#x6BD4;&#x5982;NIC&#x9A71;&#x52A8;, &#x6709;&#x4E24;&#x4E2A;&#x961F;&#x5217;: &#x53D1;&#x9001;&#x961F;&#x5217;(transmit virtqueue)&#x548C;&#x63A5;&#x6536;&#x961F;&#x5217;(receive virtqueue)<br>driver&#x628A;&#x51FA;&#x62A5;&#x6587;&#x52A0;&#x5230;&#x53D1;&#x9001;&#x961F;&#x5217;, &#x5728;&#x62A5;&#x6587;buffer&#x88AB;device&#x4F7F;&#x7528;&#x5B8C;&#x540E;&#x518D;free&#x62A5;&#x6587;buffer<br>device&#x628A;&#x5165;&#x62A5;&#x6587;&#x52A0;&#x5230;&#x63A5;&#x6536;&#x961F;&#x5217;; &#x66F4;&#x65B0;used index, &#x540E;&#x9762;driver&#x518D;&#x5904;&#x7406;.<br><img src="img/virtualization_virtio&#x89C4;&#x8303;&#x9605;&#x8BFB;&#x7B14;&#x8BB0;_20221006225325.png" alt="">  </p>
+<h3 id="&#x7ED9;device&#x63D0;&#x4F9B;buffer"><a name="&#x7ED9;device&#x63D0;&#x4F9B;buffer" class="anchor-navigation-ex-anchor" href="#&#x7ED9;device&#x63D0;&#x4F9B;buffer"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. &#x7ED9;device&#x63D0;&#x4F9B;buffer</h3>
+<ol>
+<li>driver&#x628A;buffer&#x653E;&#x5230;Descriptor Table, descriptor&#x6709;next&#x57DF;, &#x53EF;&#x4EE5;&#x505A;&#x94FE;</li>
+<li>dirver&#x628A;buffer&#x94FE;&#x8868;&#x5934;&#x653E;&#x5230;Available Ring&#x7684;available[next entry]</li>
+<li>batching&#x6A21;&#x5F0F;&#x5141;&#x8BB8;&#x4E00;&#x6B21;&#x653E;&#x591A;&#x4E2A;&#x62A5;&#x6587;</li>
+<li>driver&#x6267;&#x884C;memory barrier&#x6307;&#x4EE4;, &#x786E;&#x4FDD;device&#x80FD;&#x770B;&#x5230;&#x63CF;&#x8FF0;&#x7B26;&#x8868;&#x548C;available ring&#x7684;&#x66F4;&#x65B0;</li>
+<li>driver&#x66F4;&#x65B0;available idx, &#x52A0;&#x4E0A;&#x672C;&#x6B21;&#x7684;&#x63CF;&#x8FF0;&#x7B26;&#x94FE;&#x8868;&#x5934;&#x7684;&#x4E2A;&#x6570;.</li>
+<li>driver&#x8FD8;&#x8981;&#x6267;&#x884C;memory barrier&#x6307;&#x4EE4;, &#x786E;&#x4FDD;&#x5728;&#x901A;&#x77E5;device&#x4E4B;&#x524D;, idx&#x5DF2;&#x7ECF;&#x66F4;&#x65B0;&#x6210;&#x529F;</li>
+<li>&#x5982;&#x679C;&#x901A;&#x77E5;&#x6CA1;&#x6709;&#x88AB;&#x6291;&#x5236;, dirver&#x53D1;available buffer&#x901A;&#x77E5;&#x7ED9;device</li>
+<li>available ring&#x548C;descriptor table&#x7684;size&#x662F;&#x4E00;&#x6837;&#x7684;(&#x6700;&#x5927;32768), &#x8FD9;&#x6837;&#x7684;&#x8BDD;, &#x53EA;&#x8981;descriptor&#x4E0D;&#x6EA2;&#x51FA;, ring&#x5C31;&#x4E0D;&#x4F1A;&#x6EA2;&#x51FA;</li>
+<li>&#x56E0;&#x4E3A;&#x901A;&#x77E5;&#x901A;&#x5E38;&#x6BD4;&#x8F83;&#x6602;&#x8D35;, &#x53EF;&#x4EE5;&#x6291;&#x5236;&#x901A;&#x77E5;; &#x901A;&#x8FC7;used_event_idx&#x548C;avil_event_idx&#x914D;&#x5408;&#x6765;&#x5B9E;&#x73B0;.
+&#x901A;&#x77E5;&#x6602;&#x8D35;&#x5230;&#x4EC0;&#x4E48;&#x7A0B;&#x5EA6;&#x5462;? &#x6BD4;&#x5982;OVS&#x7684;vhost-user backend(&#x8FD9;&#x91CC;&#x7684;device)&#x901A;&#x77E5;VM&#x7684;kernel virtio-net&#x9A71;&#x52A8;(&#x8FD9;&#x91CC;&#x7684;driver), &#x8FC7;&#x7A0B;&#x5982;&#x4E0B;:<ul>
+<li>&#x5199;eventfd, &#x4EA7;&#x751F;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x5230;&#x5185;&#x6838;&#x6001;</li>
+<li>&#x5728;&#x5185;&#x6838;&#x6001;&#x91CC;, write()&#x7CFB;&#x7EDF;&#x8C03;&#x7528;KVM&#x6CE8;&#x518C;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;irqfd_wakeup()</li>
+<li>&#x5524;&#x9192;kworker&#x7EBF;&#x7A0B;, &#x540E;&#x8005;&#x8C03;&#x7528;irqfd_inject()&#x5B8C;&#x6210;&#x4E2D;&#x65AD;&#x6CE8;&#x5165;&#x5230;VM, &#x5524;&#x9192;VM&#x7684;VCPU&#x8FDB;&#x7A0B;.</li>
+<li>VM&#x7684;VCPU&#x88AB;&#x5524;&#x9192;, &#x5F00;&#x59CB;&#x5904;&#x7406;&#x4E2D;&#x65AD;  </li>
+<li>&#x6839;&#x636E;&#x5B9E;&#x9A8C;&#x6D4B;&#x7B97;, &#x4EE5;&#x4E0A;&#x8FC7;&#x7A0B;&#x5728;&#x51E0;&#x5341;us&#x91CF;&#x7EA7;.</li>
+</ul>
+</li>
+</ol>
+<h3 id="&#x5904;&#x7406;device&#x7528;&#x8FC7;&#x7684;buffer"><a name="&#x5904;&#x7406;device&#x7528;&#x8FC7;&#x7684;buffer" class="anchor-navigation-ex-anchor" href="#&#x5904;&#x7406;device&#x7528;&#x8FC7;&#x7684;buffer"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.2. &#x5904;&#x7406;device&#x7528;&#x8FC7;&#x7684;buffer</h3>
+<ol>
+<li>device&#x4F7F;&#x7528;&#x5B8C;buffer, &#x6216;&#x662F;&#x8BFB;&#x6216;&#x662F;&#x5199;</li>
+<li>device&#x53D1;used buffer&#x901A;&#x77E5;&#x7ED9;driver</li>
+<li>driver&#x5904;&#x7406;&#x8FD9;&#x4E9B;&#x7528;&#x8FC7;&#x7684;buffer, &#x5904;&#x7406;&#x671F;&#x95F4;, &#x53EF;&#x80FD;&#x7981;&#x6B62;&#x901A;&#x77E5;, &#x518D;&#x6253;&#x5F00;&#x901A;&#x77E5;&#x7684;&#x65F6;&#x5019;, &#x68C0;&#x67E5;&#x5E76;&#x5904;&#x7406;&#x65B0;&#x7684;used buffer.</li>
+</ol>
+<h2 id="&#x7D27;&#x51D1;&#x5F0F;-packed-queue"><a name="&#x7D27;&#x51D1;&#x5F0F;-packed-queue" class="anchor-navigation-ex-anchor" href="#&#x7D27;&#x51D1;&#x5F0F;-packed-queue"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. &#x7D27;&#x51D1;&#x5F0F; packed queue</h2>
+<p>&#x5206;&#x79BB;&#x5F0F;&#x7684;queue&#x5BF9;driver&#x548C;device&#x6765;&#x8BF4;, &#x662F;&#x8BFB;&#x5199;&#x5206;&#x79BB;&#x7684;; &#x800C;&#x7D27;&#x51D1;&#x5F0F;&#x7684;queue&#x662F;&#x53EF;&#x8BFB;&#x53EF;&#x5199;&#x7684;, driver&#x548C;device&#x90FD;&#x53EF;&#x4EE5;&#x8BFB;&#x5199;.
+&#x901A;&#x8FC7;&#x534F;&#x5546;VIRTIO_F_RING_PACKED&#x6807;&#x5FD7;&#x6765;&#x5224;&#x65AD;&#x662F;&#x5426;&#x652F;&#x6301;packed queue.
+packed queue&#x6700;&#x5927;&#x652F;&#x6301;32768&#x4E2A;entry
+&#x4E5F;&#x6709;&#x4E09;&#x90E8;&#x5206;: </p>
+<ul>
+<li>descriptor ring - &#x63CF;&#x8FF0;&#x7B26;&#x533A;<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">pvirtq_desc</span> <span class="token punctuation">{</span>
+  <span class="token comment">/* Buffer Address. */</span>
+  le64 addr<span class="token punctuation">;</span>
+  <span class="token comment">/* Buffer Length. */</span>
+  le32 len<span class="token punctuation">;</span>
+  <span class="token comment">/* Buffer ID. */</span>
+  le16 id<span class="token punctuation">;</span>
+  <span class="token comment">/* The flags depending on descriptor type. */</span>
+  le16 flags<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+<li>driver event suppression - driver&#x5199;, device&#x8BFB;; &#x63A7;&#x5236;device&#x53D1;used buffer&#x901A;&#x77E5;&#x7684;&#x9891;&#x7387;? &#x51CF;&#x5C0F;&#x901A;&#x77E5;&#x53D1;&#x9001;&#x6B21;&#x6570;</li>
+<li>device event suppression - device&#x5199;, driver&#x8BFB;; &#x63A7;&#x5236;driver&#x53D1;available buffer&#x901A;&#x77E5;&#x7684;&#x9891;&#x7387;? &#x51CF;&#x5C0F;&#x901A;&#x77E5;&#x53D1;&#x9001;&#x6B21;&#x6570;<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">pvirtq_event_suppress</span> <span class="token punctuation">{</span>
+  le16 <span class="token punctuation">{</span>
+      desc_event_off <span class="token operator">:</span> <span class="token number">15</span><span class="token punctuation">;</span> <span class="token comment">/* Descriptor Ring Change Event Offset */</span>
+      desc_event_wrap <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">/* Descriptor Ring Change Event Wrap Counter */</span>
+  <span class="token punctuation">}</span> desc<span class="token punctuation">;</span> <span class="token comment">/* If desc_event_flags set to RING_EVENT_FLAGS_DESC */</span>
+  le16 <span class="token punctuation">{</span>
+      desc_event_flags <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token comment">/* Descriptor Ring Change Event Flags */</span>
+      reserved <span class="token operator">:</span> <span class="token number">14</span><span class="token punctuation">;</span> <span class="token comment">/* Reserved, set to 0 */</span>
+  <span class="token punctuation">}</span> flags<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+</ul>
+<p>driver&#x628A;buffer ID&#x5199;&#x5165;&#x63CF;&#x8FF0;&#x7B26;ring, &#x901A;&#x77E5;device; device&#x5904;&#x7406;&#x5B8C;&#x6210;&#x540E;, &#x628A;&#x63CF;&#x8FF0;&#x7B26;&#x5199;&#x56DE;&#x63CF;&#x8FF0;&#x7B26;ring(&#x8986;&#x76D6;&#x4E4B;&#x524D;driver&#x5199;&#x7684;&#x90A3;&#x4E2A;)</p>
+<h3 id="scatter-gather&#x652F;&#x6301;"><a name="scatter-gather&#x652F;&#x6301;" class="anchor-navigation-ex-anchor" href="#scatter-gather&#x652F;&#x6301;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.1. Scatter-Gather&#x652F;&#x6301;</h3>
+<p>&#x6709;&#x4E9B;&#x9A71;&#x52A8;&#x9700;&#x8981;&#x6709;&#x80FD;&#x529B;&#x63D0;&#x4F9B;&#x591A;&#x4E2A;buffer&#x7684;&#x5217;&#x8868;(Scatter-Gather list), &#x6216;&#x8005;&#x662F;&#x63CF;&#x8FF0;&#x7B26;&#x94FE;&#x7684;&#x7ED3;&#x6784;, &#x6216;&#x8005;&#x662F;&#x7528;&#x95F4;&#x63A5;&#x63CF;&#x8FF0;&#x7B26;(indirect descriptor)</p>
+<ul>
+<li>&#x94FE;&#x5F0F;&#x7684;&#x65B9;&#x5F0F;, &#x9664;&#x4E86;list&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x63CF;&#x8FF0;&#x7B26;, &#x5176;&#x4ED6;&#x63CF;&#x8FF0;&#x7B26;&#x7684;flags&#x90FD;&#x6709;<code>VIRTQ_DESC_F_NEXT</code>&#x6807;&#x8BB0;; &#x8FD9;&#x5176;&#x5B9E;&#x548C;&#x4E0A;&#x9762;&#x7684;&#x94FE;&#x65B9;&#x5F0F;&#x5DEE;&#x4E0D;&#x591A;, &#x6211;&#x7406;&#x89E3;&#x770B;&#x5230;flag&#x91CC;&#x6709;<code>VIRTQ_DESC_F_NEXT</code>, &#x90A3;&#x63CF;&#x8FF0;&#x7B26;ring&#x91CC;&#x7684;&#x4E0B;&#x4E00;&#x4E2A;&#x63CF;&#x8FF0;&#x7B26;, &#x4E5F;&#x5C5E;&#x4E8E;&#x540C;&#x4E00;&#x4E2A;&#x63CF;&#x8FF0;&#x7B26;&#x94FE;, &#x8FD9;&#x6837;&#x4F9D;&#x6B21;&#x627E;&#x4E0B;&#x53BB;, &#x6CA1;&#x6709;&#x6807;&#x8BB0;&#x7684;&#x5C31;&#x662F;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x63CF;&#x8FF0;&#x7B26;, &#x5B83;&#x5E26;buffer ID.</li>
+<li>&#x95F4;&#x63A5;&#x63CF;&#x8FF0;&#x7B26;&#x65B9;&#x5F0F;
+&#x63CF;&#x8FF0;&#x7B26;&#x5E26;VIRTQ_DESC_F_INDIRECT&#x6807;&#x8BB0;, &#x6307;&#x5411;&#x4E00;&#x4E2A;&#x95F4;&#x63A5;&#x63CF;&#x8FF0;&#x7B26;&#x8868;</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="rust_cloud-hypervisor_问题与解决.html" class="navigation navigation-prev " aria-label="Previous page: cloud hypervisor问题与解决">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="qemu_ovs_虚拟化环境.html" class="navigation navigation-next " aria-label="Next page: qemu OVS 虚拟化环境准备">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"virtio规范阅读笔记.md","level":"1.5.3","depth":2,"next":{"title":"qemu OVS 虚拟化环境准备","level":"1.5.4","depth":2,"path":"notes/qemu_ovs_虚拟化环境.md","ref":"notes/qemu_ovs_虚拟化环境.md","articles":[]},"previous":{"title":"cloud hypervisor问题与解决","level":"1.5.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/virtualization_virtio规范阅读笔记.md","mtime":"2022-10-18T03:27:30.313Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-18T03:28:39.391Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    </body>
+</html>
+
