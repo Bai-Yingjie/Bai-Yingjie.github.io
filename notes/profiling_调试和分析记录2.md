@@ -2,6 +2,11 @@
 - [一次中断执行记录和KVM虚拟机相关的trace](#一次中断执行记录和kvm虚拟机相关的trace)
   - [中断发生在core 42上](#中断发生在core-42上)
   - [core 42的正常流程](#core-42的正常流程)
+- [2个VM互相ping场景下的延迟分析](#2个vm互相ping场景下的延迟分析)
+  - [OVS路径延迟](#ovs路径延迟)
+    - [perf查看OVS转发路径执行时间](#perf查看ovs转发路径执行时间)
+    - [OVS转发延时数据](#ovs转发延时数据)
+  - [kernel路径延迟](#kernel路径延迟)
 
 # 查看PCI的MSI中断
 `/proc/interrupts`里能显示中断的信息, 但不能很方便的对应到是哪个设备的中断.
@@ -304,3 +309,121 @@ do_idle()
 //从此开始新的一轮
 cpu_pm_exit() 
 ```
+
+# 2个VM互相ping场景下的延迟分析
+场景是两个VM使用virtio-net的kernel驱动, 其后端是OVS的vhostuserclient PMD, pmd进程运行在13 15号cpu上.
+
+![](img/profiling_调试和分析记录2_20221017233656.png)  
+
+正常情况下, 两个VM的ping延迟在0.18ms, 但偶尔能看到超过1ms的情况, 延迟大了10倍.
+
+下文分析VM ping的路径延迟分布, 把总的延迟分解为可以量化的分阶段的延迟, 借此来分析异常高延迟的可能原因.
+```bash
+#系统通过isolcpus=2-23,26-47 只保留4个核给系统(centos 7.5)使用.
+HOST: 0 1 24 25
+#OVS的pmd进程跑在四个核上
+OVS: 12 13 14 15
+#两个VM分别pin了4个CPU
+VM1: 26 27 28 29
+VM2: 40 41 42 43
+```
+通过htop看到, 除了OVS的2个pmd线程, 系统负载很轻
+
+## OVS路径延迟
+### perf查看OVS转发路径执行时间
+两个VM互相ping, 一秒一次. OVS走dpdk的vhost接口.
+
+先复习一下OVS的关键路径, 要对代码熟悉:  
+这个是OVS的pmd线程从vhost口(和VM相连)收包, 转发到dpdk物理口的流程  
+![](img/profiling_调试和分析记录2_20221017233759.png)  
+
+我们要看的其实是从vhost口收包, 再转发到vhost的流程, 只是后面不一样:`netdev_send -> netdev_dpdk_vhost_send -> netdev_dpdk_vhost_send`
+
+那么转发时间, 也就是报文在OVS路径下的延迟, 是从`netdev_rxq_recv`收包, 到`netdev_send`结束的时间.
+
+下面用perf记录这个时间:
+```bash
+# 首先看看有没有这两个函数
+$ sudo perf probe -x /usr/local/sbin/ovs-vswitchd -F | grep netdev_send
+netdev_send
+netdev_send_wait
+$ sudo perf probe -x /usr/local/sbin/ovs-vswitchd -F | grep netdev_rxq_recv
+netdev_rxq_recv
+
+# 有的, 增加动态probe点
+# 收包函数
+$ sudo perf probe -x /usr/local/sbin/ovs-vswitchd --add netdev_rxq_recv
+# 发包函数, 这里的%return表示要probe这个函数返回点
+$ sudo perf probe -x /usr/local/sbin/ovs-vswitchd --add netdev_send%return
+
+# 记录30秒, -R表示记录所有打开的counter(默认是tracepoint counters)
+$ sudo perf record -e probe_ovs:netdev_rxq_recv -e probe_ovs:netdev_send -R -t 38726 -- sleep 30
+
+# 看结果
+sudo perf script | less
+# 用这个命令计算netdev_send和netdev_rxq_recv的时间差
+sudo perf script | grep -n1 netdev_send | awk '{print $5}' | awk -F"[.:]" 'NR%4==2 {print $2-t} {t=$2}'
+```
+
+### OVS转发延时数据
+![](img/profiling_调试和分析记录2_20221017233842.png)  
+这个pmd线程不断轮询是否有报文`netdev_rxq_recv()`被不断调用, 频率约为3us一次.  
+`netdev_send()`只有真正发报文才调用, 从图中看到, 从收包到发包完毕, 大约40us
+
+在30秒的时间里, 一共有9百万行记录, 这两个函数的probe点触发频率为30万次/秒, 其中netdev_send只有2次/秒.  
+差不多轮询15万次, 才有一次收包.
+```
+$ sudo perf script | wc -l
+9224453
+```
+
+## kernel路径延迟
+有时候发现VM之间ping的延时会高到2ms左右, 正常应该是0.2ms
+
+查阅相关资料, 发现kvm提供的irqfd和eventfd联用, 来触发vm的中断.  
+> 在kvm_vm_ioctl()中, 增加KVM_ASSIGN_IRQFD, 调用kvm_assign_irqfd(), 把irqfd_wakeup()加到底下eventfd的回调里面, 通过workqueue调用irqfd_inject()完成中断注入
+
+这里查看谁在什么时候调用了`irqfd_inject()`, 加`-e sched`是为了查看在中断注入后, 线程被唤醒的规律.
+```bash
+sudo trace-cmd record -p function -l irqfd_inject -e sched  sleep 10
+sudo trace-cmd report
+```
+
+下面结果中, `irqfd_inject`后会紧跟`sched_waking`事件, 去唤醒KVM VCPU的线程
+
+这里整个是说: core1运行的kworker线程, 因为irqfd_inject的触发, 去唤醒(sched_waking)qemu的vcpu线程(CPU 0/KVM), 目标是core26;  
+46us后, core26上发生sched_switch事件, 从idle进程(swapper)切换到CPU 0/KVM进程.
+```sh
+     kworker/1:0-31764 [001] 1212277.097055: function:             irqfd_inject
+     kworker/1:0-31764 [001] 1212277.097059: sched_waking:         comm=CPU 0/KVM pid=38610 prio=120 target_cpu=026
+     kworker/1:0-31764 [001] 1212277.097062: sched_wakeup:         CPU 0/KVM:38610 [120] success=1 CPU:026
+     kworker/1:0-31764 [001] 1212277.097064: sched_stat_runtime:   comm=kworker/1:0 pid=31764 runtime=14900 [ns] vruntime=9130727247869 [ns]
+     kworker/1:0-31764 [001] 1212277.097068: sched_switch:         kworker/1:0:31764 [120] t ==> swapper/1:0 [120]
+          <idle>-0     [026] 1212277.097105: sched_switch:         swapper/26:0 [120] R ==> CPU 0/KVM:38610 [120]
+       CPU 0/KVM-38610 [026] 1212277.097141: sched_waking:         comm=CPU 3/KVM pid=38614 prio=120 target_cpu=029
+...
+```
+
+record命令加`-e sched -T`命令可以得到调用栈:  
+调用栈也显示, irqfd_inject里, 在kvm_vcpu_kick时, 会swake_up某进程, 结合上面, 应该是KVM VCPU进程.
+```sh
+=> swake_up_locked (ffff000008129bd8)
+=> swake_up (ffff000008129c40)
+=> kvm_vcpu_kick (ffff0000080a9f24)
+=> vgic_queue_irq_unlock (ffff0000080c0f3c)
+=> vgic_its_trigger_msi (ffff0000080c893c)
+=> vgic_its_inject_msi (ffff0000080cae0c)
+=> kvm_set_msi (ffff0000080c25e4)
+=> kvm_set_irq (ffff0000080cbee8)
+=> irqfd_inject (ffff0000080aef58)
+=> process_one_work (ffff0000080f94e8)
+=> worker_thread (ffff0000080f9784)
+=> kthread (ffff0000081003b8)
+=> ret_from_fork (ffff000008084d70)
+```
+实际上, 这里有几个不同的irq被注入, 如下图  
+![](img/profiling_调试和分析记录2_20221017234258.png)  
+
+本例中的2个pmd分别运行在core13和core15中, 触发中断注入的是OVS pmd线程的写eventfd事件, 进而kworker13和kworker15执行irqfd_inject:  
+以kworker/13:1为例, 它在29.2s 29.8s 30.2s 30.8s... 每秒2次, 都会被调度执行`irqfd_inject`, 这个符合两个VM互相ping的场景.
+
