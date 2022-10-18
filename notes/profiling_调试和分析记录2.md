@@ -510,8 +510,7 @@ VM1和VM2互相ping, 每秒一次ping报文. 但VM1得到的延迟异常, 为1.3
 
 ### 抓ovs转发延迟 -- 没有发现
 ```bash
-sudo perf record -e probe_ovs:netdev_rxq_recv -e probe_ovs:netdev_send -R -t 6965 -- sleep 30
-sudo perf record -e probe_ovs:netdev_rxq_recv -e probe_ovs:netdev_send -R -t 6966 -- sleep 30
+aaa
 
 ```
 
