@@ -11,7 +11,7 @@
     - [kernel延迟数据](#kernel延迟数据)
   - [延迟图解](#延迟图解)
   - [问题复现](#问题复现)
-    - [抓ovs转发延迟 -- 没有发现](#抓ovs转发延迟----没有发现)
+    - [抓ovs转发延迟](#抓ovs转发延迟)
 
 # 查看PCI的MSI中断
 `/proc/interrupts`里能显示中断的信息, 但不能很方便的对应到是哪个设备的中断.
@@ -508,7 +508,8 @@ Note Over VM A: ping process recive packet, 打印时间戳
 VM1和VM2互相ping, 每秒一次ping报文. 但VM1得到的延迟异常, 为1.3ms.  
 ![](img/profiling_调试和分析记录2_20221017234837.png)  
 
-### 抓ovs转发延迟 -- 没有发现
+### 抓ovs转发延迟
+没有发现
 ```bash
 aaa
 
