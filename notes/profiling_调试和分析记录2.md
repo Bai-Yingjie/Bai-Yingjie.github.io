@@ -517,30 +517,30 @@ pmd8的调用栈, 显示了sys_write到eventfd_write到irqfd_wakeup的过程.
 ```mermaid
 sequenceDiagram
 
-participant VM_A as vma
-participant Host_OVS(pmd) as hovs
-participant VM_B as vmb
+participant vma as VM_A
+participant hovs as Host_OVS(pmd)
+participant vmb as VM_B
 
 Note Over vma: ping
 Note Over vma: sys_sendto
 Note Over vma: ip stack and dev_hard_start_xmit
-vma -> hovs: ICMP request
+vma ->> hovs: ICMP request
 Note Over vma: sleep on skb receive(on behalf of ping thread in kernel)
 Note Over hovs: netdev_rxq_recv
 Note Over hovs: 消耗40us
 Note Over hovs: netdev_send and eventfd_write
-hovs -> vmb: packet forward
+hovs ->> vmb: packet forward
 Note Over hovs: 唤醒本core的kworker执行中断注入, 唤醒VM B
 Note Over hovs: 消耗181us
 Note Over vmb: 被唤醒
 Note Over vmb: driver recv packet
 Note Over vmb: ip stack and dev_hard_start_xmit in kernel
-vmb -> hovs: ICMP reply
+vmb ->> hovs: ICMP reply
 Note Over vmb: ping process recive packet, 打印时间戳
 Note Over hovs: netdev_rxq_recv
 Note Over hovs: 消耗40us
 Note Over hovs: netdev_send
-hovs -> vma: packet forward and eventfd_write
+hovs ->> vma: packet forward and eventfd_write
 Note Over hovs: 唤醒本core的kworker执行中断注入, 唤醒VM A
 Note Over hovs: 消耗181us
 Note Over vma: 被唤醒
