@@ -1,0 +1,3512 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>qemu OVS 虚拟化环境准备 · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="qemu使用.html" />
+    
+    
+    <link rel="prev" href="virtualization_virtio规范阅读笔记.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录杂记系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="as_title_perf_tools.html">
+            
+                <a href="as_title_perf_tools.html">
+            
+                    
+                    profiling工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_app_perf.html">
+            
+                <a href="as_title_app_perf.html">
+            
+                    
+                    应用profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    系统profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.5.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.4.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.5" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.6" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.7" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.3.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.4.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >qemu OVS 虚拟化环境准备</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#virsh&#x5E38;&#x7528;&#x547D;&#x4EE4;"><b>1. </b>virsh&#x5E38;&#x7528;&#x547D;&#x4EE4;</a></li><li><span class="title-icon "></span><a href="#&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;&#x51C6;&#x5907;"><b>2. </b>&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;&#x51C6;&#x5907;</a></li><ul><li><span class="title-icon "></span><a href="#&#x5B89;&#x88C5;qemu-libvirt-virt-manager&#x7B49;"><b>2.1. </b>&#x5B89;&#x88C5;qemu libvirt virt-manager&#x7B49;</a></li><li><span class="title-icon "></span><a href="#qemu&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x53EF;&#x9009;"><b>2.2. </b>qemu&#x7F16;&#x8BD1;&#x5B89;&#x88C5;(&#x53EF;&#x9009;)</a></li><li><span class="title-icon "></span><a href="#libvirt&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;&#x53EF;&#x9009;"><b>2.3. </b>libvirt&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;(&#x53EF;&#x9009;)</a></li><ul><li><span class="title-icon "></span><a href="#libvirt&#x544A;&#x8B66;&#x4FE1;&#x606F;"><b>2.3.1. </b>libvirt&#x544A;&#x8B66;&#x4FE1;&#x606F;</a></li><li><span class="title-icon "></span><a href="#libvirt&#x4ECB;&#x7ECD;"><b>2.3.2. </b>libvirt&#x4ECB;&#x7ECD;</a></li></ul><li><span class="title-icon "></span><a href="#virt-manager&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;&#x53EF;&#x9009;"><b>2.4. </b>virt-manager&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;(&#x53EF;&#x9009;)</a></li></ul><li><span class="title-icon "></span><a href="#&#x5B89;&#x88C5;&#x865A;&#x62DF;&#x673A;"><b>3. </b>&#x5B89;&#x88C5;&#x865A;&#x62DF;&#x673A;</a></li><ul><li><span class="title-icon "></span><a href="#uefi&#x652F;&#x6301;"><b>3.1. </b>UEFI&#x652F;&#x6301;</a></li><li><span class="title-icon "></span><a href="#qemu&#x7684;user"><b>3.2. </b>qemu&#x7684;user</a></li><li><span class="title-icon "></span><a href="#&#x5B89;&#x88C5;linux&#x7F51;&#x6865;&#x5DE5;&#x5177;"><b>3.3. </b>&#x5B89;&#x88C5;linux&#x7F51;&#x6865;&#x5DE5;&#x5177;</a></li><li><span class="title-icon "></span><a href="#&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;"><b>3.4. </b>&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;</a></li><ul><li><span class="title-icon "></span><a href="#&#x8BBF;&#x95EE;qemu&#x7684;monitor"><b>3.4.1. </b>&#x8BBF;&#x95EE;qemu&#x7684;monitor</a></li></ul><li><span class="title-icon "></span><a href="#&#x865A;&#x62DF;&#x673A;&#x5171;&#x4EAB;os-image"><b>3.5. </b>&#x865A;&#x62DF;&#x673A;&#x5171;&#x4EAB;OS image</a></li><ul><li><span class="title-icon "></span><a href="#&#x95EE;&#x9898;"><b>3.5.1. </b>&#x95EE;&#x9898;</a></li><li><span class="title-icon "></span><a href="#&#x89E3;&#x51B3;"><b>3.5.2. </b>&#x89E3;&#x51B3;</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x865A;&#x62DF;&#x7F51;&#x7EDC;"><b>4. </b>&#x865A;&#x62DF;&#x7F51;&#x7EDC;</a></li><ul><li><span class="title-icon "></span><a href="#nat&#x7F51;&#x7EDC;"><b>4.1. </b>NAT&#x7F51;&#x7EDC;</a></li><li><span class="title-icon "></span><a href="#&#x7ED9;vm&#x6DFB;&#x52A0;ovs-bridge"><b>4.2. </b>&#x7ED9;VM&#x6DFB;&#x52A0;OVS bridge</a></li><ul><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;virt-manager&#x76F4;&#x63A5;&#x6DFB;&#x52A0;"><b>4.2.1. </b>&#x4F7F;&#x7528;virt-manager&#x76F4;&#x63A5;&#x6DFB;&#x52A0;</a></li><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;virsh&#x6DFB;&#x52A0;"><b>4.2.2. </b>&#x4F7F;&#x7528;virsh&#x6DFB;&#x52A0;</a></li><li><span class="title-icon "></span><a href="#&#x542F;&#x52A8;vm"><b>4.2.3. </b>&#x542F;&#x52A8;VM</a></li></ul><li><span class="title-icon "></span><a href="#&#x7ED9;vm&#x6DFB;&#x52A0;vhost&#x63A5;&#x53E3;"><b>4.3. </b>&#x7ED9;VM&#x6DFB;&#x52A0;vhost&#x63A5;&#x53E3;</a></li><ul><li><span class="title-icon "></span><a href="#troubleshooting"><b>4.3.1. </b>troubleshooting</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;"><b>5. </b>&#x53C2;&#x8003;</a></li></ul></div><a href="#virsh&#x5E38;&#x7528;&#x547D;&#x4EE4;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#virsh&#x5E38;&#x7528;&#x547D;&#x4EE4;">virsh&#x5E38;&#x7528;&#x547D;&#x4EE4;</a></li>
+<li><a href="#&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;&#x51C6;&#x5907;">&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;&#x51C6;&#x5907;</a><ul>
+<li><a href="#&#x5B89;&#x88C5;qemu-libvirt-virt-manager&#x7B49;">&#x5B89;&#x88C5;qemu libvirt virt-manager&#x7B49;</a></li>
+<li><a href="#qemu&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x53EF;&#x9009;">qemu&#x7F16;&#x8BD1;&#x5B89;&#x88C5;(&#x53EF;&#x9009;)</a></li>
+<li><a href="#libvirt&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;&#x53EF;&#x9009;">libvirt&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;(&#x53EF;&#x9009;)</a><ul>
+<li><a href="#libvirt&#x544A;&#x8B66;&#x4FE1;&#x606F;">libvirt&#x544A;&#x8B66;&#x4FE1;&#x606F;</a></li>
+<li><a href="#libvirt&#x4ECB;&#x7ECD;">libvirt&#x4ECB;&#x7ECD;</a></li>
+</ul>
+</li>
+<li><a href="#virt-manager&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;&#x53EF;&#x9009;">virt-manager&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;(&#x53EF;&#x9009;)</a></li>
+</ul>
+</li>
+<li><a href="#&#x5B89;&#x88C5;&#x865A;&#x62DF;&#x673A;">&#x5B89;&#x88C5;&#x865A;&#x62DF;&#x673A;</a><ul>
+<li><a href="#uefi&#x652F;&#x6301;">UEFI&#x652F;&#x6301;</a></li>
+<li><a href="#qemu&#x7684;user">qemu&#x7684;user</a></li>
+<li><a href="#&#x5B89;&#x88C5;linux&#x7F51;&#x6865;&#x5DE5;&#x5177;">&#x5B89;&#x88C5;linux&#x7F51;&#x6865;&#x5DE5;&#x5177;</a></li>
+<li><a href="#&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;">&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;</a><ul>
+<li><a href="#&#x8BBF;&#x95EE;qemu&#x7684;monitor">&#x8BBF;&#x95EE;qemu&#x7684;monitor</a></li>
+</ul>
+</li>
+<li><a href="#&#x865A;&#x62DF;&#x673A;&#x5171;&#x4EAB;os-image">&#x865A;&#x62DF;&#x673A;&#x5171;&#x4EAB;OS image</a><ul>
+<li><a href="#&#x95EE;&#x9898;">&#x95EE;&#x9898;</a></li>
+<li><a href="#&#x89E3;&#x51B3;">&#x89E3;&#x51B3;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#&#x865A;&#x62DF;&#x7F51;&#x7EDC;">&#x865A;&#x62DF;&#x7F51;&#x7EDC;</a><ul>
+<li><a href="#nat&#x7F51;&#x7EDC;">NAT&#x7F51;&#x7EDC;</a></li>
+<li><a href="#&#x7ED9;vm&#x6DFB;&#x52A0;ovs-bridge">&#x7ED9;VM&#x6DFB;&#x52A0;OVS bridge</a><ul>
+<li><a href="#&#x4F7F;&#x7528;virt-manager&#x76F4;&#x63A5;&#x6DFB;&#x52A0;">&#x4F7F;&#x7528;virt-manager&#x76F4;&#x63A5;&#x6DFB;&#x52A0;</a></li>
+<li><a href="#&#x4F7F;&#x7528;virsh&#x6DFB;&#x52A0;">&#x4F7F;&#x7528;virsh&#x6DFB;&#x52A0;</a></li>
+<li><a href="#&#x542F;&#x52A8;vm">&#x542F;&#x52A8;VM</a></li>
+</ul>
+</li>
+<li><a href="#&#x7ED9;vm&#x6DFB;&#x52A0;vhost&#x63A5;&#x53E3;">&#x7ED9;VM&#x6DFB;&#x52A0;vhost&#x63A5;&#x53E3;</a><ul>
+<li><a href="#troubleshooting">troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#&#x53C2;&#x8003;">&#x53C2;&#x8003;</a></li>
+</ul>
+<h1 id="virsh&#x5E38;&#x7528;&#x547D;&#x4EE4;"><a name="virsh&#x5E38;&#x7528;&#x547D;&#x4EE4;" class="anchor-navigation-ex-anchor" href="#virsh&#x5E38;&#x7528;&#x547D;&#x4EE4;"><i class="fa fa-link" aria-hidden="true"></i></a>1. virsh&#x5E38;&#x7528;&#x547D;&#x4EE4;</h1>
+<pre class="language-"><code># &#x67E5;&#x770B;VM&#x63A5;&#x53E3;&#x4FE1;&#x606F;, &#x5305;&#x62EC;MAC&#x5730;&#x5740;
+$ sudo virsh domiflist hxt-centos7.5-01
+</code></pre><h1 id="&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;&#x51C6;&#x5907;"><a name="&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;&#x51C6;&#x5907;" class="anchor-navigation-ex-anchor" href="#&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;&#x51C6;&#x5907;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;&#x51C6;&#x5907;</h1>
+<h2 id="&#x5B89;&#x88C5;qemu-libvirt-virt-manager&#x7B49;"><a name="&#x5B89;&#x88C5;qemu-libvirt-virt-manager&#x7B49;" class="anchor-navigation-ex-anchor" href="#&#x5B89;&#x88C5;qemu-libvirt-virt-manager&#x7B49;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x5B89;&#x88C5;qemu libvirt virt-manager&#x7B49;</h2>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> yum <span class="token function">install</span> <span class="token parameter variable">-y</span> qemu-kvm-ma qemu-img virt-manager libvirt libvirt-python libvirt-client virt-install virt-viewer
+</code></pre>
+<h2 id="qemu&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x53EF;&#x9009;"><a name="qemu&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x53EF;&#x9009;" class="anchor-navigation-ex-anchor" href="#qemu&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x53EF;&#x9009;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. qemu&#x7F16;&#x8BD1;&#x5B89;&#x88C5;(&#x53EF;&#x9009;)</h2>
+<p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5185;&#x90E8;git repo</p>
+<pre class="language-"><code class="lang-bash"><span class="token comment">#clone qemu</span>
+<span class="token function">git</span> clone ssh://1680532@bjsss013.hxtcorp.net:29418/virtualization/qemu
+<span class="token comment">#&#x4F7F;&#x7528;2.10&#x7248;&#x672C;</span>
+<span class="token function">git</span> checkout stable-2.10
+<span class="token comment">#&#x6216;&#x4F7F;&#x7528;&#x66F4;&#x65B0;&#x7684;2.12&#x7248;&#x672C;</span>
+<span class="token function">git</span> checkout stable-2.12
+<span class="token comment">#&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x4E60;&#x60EF;&#x6027;&#x7684;&#x5207;&#x6362;&#x5230;&#x65B0;&#x7684;&#x7F16;&#x8BD1;&#x5668;</span>
+scl <span class="token builtin class-name">enable</span> devtoolset-6 <span class="token function">bash</span>
+<span class="token comment">#&#x7F16;&#x8BD1;&#x5B89;&#x88C5;</span>
+<span class="token function">sudo</span> yum <span class="token function">install</span> glib2-devel pixman-devel libfdt-devel libaio-devel libseccomp-devel
+./configure --target-list<span class="token operator">=</span>aarch64-softmmu --enable-kvm --enable-linux-aio --enable-seccomp
+<span class="token function">make</span> <span class="token parameter variable">-j</span>
+<span class="token function">sudo</span> <span class="token function">make</span> <span class="token function">install</span> <span class="token parameter variable">-j</span>
+</code></pre>
+<ul>
+<li>&#x9ED8;&#x8BA4;&#x8DEF;&#x5F84;/usr/local</li>
+<li>&#x7F16;&#x8BD1;&#x6210;&#x529F;&#x540E;, &#x6709;qemu-system-aarch64</li>
+<li>&#x4E0D;&#x6307;&#x5B9A;aarch64-softmmu&#x7684;&#x8BDD;, &#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x7684;target list&#x4F1A;&#x5F88;&#x591A;, &#x5176;&#x4ED6;&#x67B6;&#x6784;&#x5982;mips x86_64&#x7B49;&#x4E5F;&#x4F1A;&#x7F16;&#x8BD1;</li>
+<li>&#x6CE8;&#x610F;: &#x540E;&#x9762;virt-manager&#x5B9E;&#x9645;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>/usr/libexec/qemu-kvm</code>, &#x540E;&#x8005;&#x662F;<code>yum install qemu-kvm-ma</code>&#x800C;&#x6765;, &#x548C;&#x8FD9;&#x91CC;&#x7684;qemu-system-aarch64&#x6CA1;&#x6709;&#x5173;&#x7CFB;.</li>
+</ul>
+<h2 id="libvirt&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;&#x53EF;&#x9009;"><a name="libvirt&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;&#x53EF;&#x9009;" class="anchor-navigation-ex-anchor" href="#libvirt&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;&#x53EF;&#x9009;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. libvirt&#x7F16;&#x8BD1;&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;(&#x53EF;&#x9009;)</h2>
+<pre class="language-"><code class="lang-bash"><span class="token comment">#centos7.5&#x9ED8;&#x8BA4;&#x7248;&#x672C;&#x4E3A;3.9, &#x8FD9;&#x91CC;&#x7528;&#x6700;&#x65B0;&#x7684;4.6</span>
+<span class="token function">wget</span> https://libvirt.org/sources/libvirt-4.6.0.tar.xz
+<span class="token comment">#&#x4F9D;&#x8D56;&#x5305;</span>
+<span class="token function">sudo</span> yum <span class="token function">install</span> gnutls-devel gnutls-utils libnl-devel libxml2-devel device-mapper-devel libpciaccess-devel yajl-devel jansson-devel
+<span class="token function">sudo</span> yum <span class="token function">install</span> dnsmasq dnsmasq-utils
+<span class="token comment">#&#x7F16;&#x8BD1;</span>
+./configure --with-qemu
+<span class="token function">make</span> <span class="token parameter variable">-j</span>
+<span class="token comment">#&#x8C03;&#x8BD5;&#x65F6;&#x5EFA;&#x8BAE;&#x4E0D;&#x8981;install, &#x9ED8;&#x8BA4;&#x88C5;&#x5230;/usr/local; .service&#x6587;&#x4EF6;&#x5728;/usr/local/lib/systemd/system/</span>
+<span class="token comment">#sudo make install -j</span>
+<span class="token comment">#&#x8FD0;&#x884C;</span>
+<span class="token function">sudo</span> systemctl start libvirtd
+<span class="token comment">#&#x6216;</span>
+<span class="token function">sudo</span> src/virtlogd <span class="token operator">&amp;</span>
+<span class="token function">sudo</span> src/libvirtd
+<span class="token comment">#virtsh&#x662F;libvirt&#x81EA;&#x5E26;&#x7684;&#x547D;&#x4EE4;&#x884C;&#x914D;&#x7F6E;&#x5DE5;&#x5177;</span>
+<span class="token function">sudo</span> tools/virsh
+<span class="token comment">#&#x67E5;&#x770B;&#x5DF2;&#x7ECF;&#x5B89;&#x88C5;&#x7684;&#x865A;&#x62DF;&#x673A;</span>
+<span class="token function">sudo</span> tools/virsh list <span class="token parameter variable">--all</span>
+</code></pre>
+<ul>
+<li>&#x9ED8;&#x8BA4;&#x5B89;&#x88C5;&#x5230;<code>/usr/local/bin</code></li>
+<li>&#x9ED8;&#x8BA4;&#x7684;socket&#x662F;<code>/usr/local/var/run/libvirt/libvirt-sock</code></li>
+<li>&#x6CE8;&#x610F;<code>configure</code>&#x65F6;&#x52A0;<code>--with-qemu</code>, &#x6211;&#x4E4B;&#x524D;&#x6CA1;&#x52A0;&#x4E5F;&#x80FD;&#x7F16;&#x8BD1;&#x8FC7;, &#x4F46;&#x5374;&#x7F3A;&#x5C11;qemu/kvm&#x7684;&#x652F;&#x6301; : (
+&#x68C0;&#x67E5;config.log, &#x5BFB;&#x627E;<code>QEMU:</code>&#x5E94;&#x8BE5;&#x4E3A;<code>yes</code></li>
+</ul>
+<h3 id="libvirt&#x544A;&#x8B66;&#x4FE1;&#x606F;"><a name="libvirt&#x544A;&#x8B66;&#x4FE1;&#x606F;" class="anchor-navigation-ex-anchor" href="#libvirt&#x544A;&#x8B66;&#x4FE1;&#x606F;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.1. libvirt&#x544A;&#x8B66;&#x4FE1;&#x606F;</h3>
+<p>libvirtd&#x8FD0;&#x884C;&#x65F6;&#x6709;&#x51E0;&#x4E2A;&#x544A;&#x8B66;, &#x5E94;&#x8BE5;&#x6539;&#x6389;</p>
+<pre class="language-"><code>warning : virQEMUCapsInit:958 : Failed to get host CPU cache info
+error : virCPUGetHost:457 : this function is not supported by the connection driver: cannot detect host CPU model for aarch64 architecture
+warning : virLXCDriverCapsInit:82 : Failed to get host CPU cache info
+warning : umlCapsInit:73 : Failed to get host CPU cache info
+</code></pre><h3 id="libvirt&#x4ECB;&#x7ECD;"><a name="libvirt&#x4ECB;&#x7ECD;" class="anchor-navigation-ex-anchor" href="#libvirt&#x4ECB;&#x7ECD;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.2. libvirt&#x4ECB;&#x7ECD;</h3>
+<p><img src="img/qemu_ovs_&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;_20220930113143.png" alt="">  </p>
+<h2 id="virt-manager&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;&#x53EF;&#x9009;"><a name="virt-manager&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;&#x53EF;&#x9009;" class="anchor-navigation-ex-anchor" href="#virt-manager&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;&#x53EF;&#x9009;"><i class="fa fa-link" aria-hidden="true"></i></a>2.4. virt-manager&#x5B89;&#x88C5;&#x9AD8;&#x7248;&#x672C;(&#x53EF;&#x9009;)</h2>
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x5B89;&#x88C5;&#x5FC5;&#x987B;&#x7684;&#x5305;:</span>
+<span class="token function">sudo</span> yum <span class="token function">install</span> libvirt-glib libvirt-python libosinfo python-ipaddr python-requests gtk3 vte3 gtk-vnc2
+<span class="token comment">#virt-manager&#x662F;python&#x811A;&#x672C;, &#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8FD0;&#x884C;</span>
+<span class="token function">wget</span> https://virt-manager.org/download/sources/virt-manager/virt-manager-1.5.1.tar.gz
+<span class="token comment">#&#x89E3;&#x538B;&#x540E;&#x76F4;&#x63A5;&#x8FD0;&#x884C;</span>
+<span class="token builtin class-name">cd</span> virt-manager-1.5.1
+<span class="token comment">#&#x4E5F;&#x53EF;&#x4EE5;&#x5B89;&#x88C5;, &#x9ED8;&#x8BA4;&#x5B89;&#x88C5;&#x5230;/usr/bin/</span>
+<span class="token function">sudo</span> ./setup.py <span class="token function">install</span>
+<span class="token comment">#&#x6307;&#x5B9A;socket&#x8FDE;&#x63A5;libvirtd</span>
+<span class="token function">sudo</span> ./virt-manager <span class="token parameter variable">-c</span> <span class="token string">&apos;qemu+unix:///system?socket=/usr/local/var/run/libvirt/libvirt-sock&apos;</span>
+</code></pre>
+<blockquote>
+<p>&#x672C;&#x6587;&#x4F7F;&#x7528;MobaXterm&#x6765;&#x663E;&#x793A;<code>virt-manager</code>&#x7684;&#x56FE;&#x5F62;&#x754C;&#x9762;, &#x5176;&#x539F;&#x7406;&#x662F;&#x6253;&#x5F00;ssh&#x7684;X11 forward&#x529F;&#x80FD;, &#x7528;MobaXterm&#x5185;&#x7F6E;&#x7684;X server&#x6765;&#x663E;&#x793A;&#x56FE;&#x5F62;</p>
+</blockquote>
+<ul>
+<li>&#x7528;&#x666E;&#x901A;&#x7528;&#x6237;&#x53EF;&#x80FD;&#x6709;<code>authentication unavailable: no polkit agent available to authenticate action &apos;org.libvirt.unix.manage&apos;</code>&#x9519;&#x8BEF;, &#x89E3;&#x51B3;&#x529E;&#x6CD5;: <code>sudo usermod --append --groups libvirt $(whoami)</code></li>
+<li>X11 forward&#x53EA;&#x5BF9;ssh&#x7684;owner&#x7528;&#x6237;&#x6709;&#x6548;, &#x7528;<code>sudo</code>&#x4F1A;&#x5BFC;&#x81F4;GUI&#x65E0;&#x6CD5;&#x663E;&#x793A;, &#x539F;&#x56E0;&#x662F;x11&#x91CC;root&#x7528;&#x6237;&#x4E5F;&#x6CA1;&#x6709;&#x5BF9;&#x5F53;&#x524D;&#x666E;&#x901A;&#x7528;&#x6237;session&#x7684;&#x6743;&#x9650;, &#x89E3;&#x51B3;&#x65B9;&#x6CD5;: &#x628A;&#x5F53;&#x524D;&#x7528;&#x6237;&#x7684;&#x6388;&#x6743;&#x8BB0;&#x5F55;&#x52A0;&#x5230;root&#x7528;&#x6237; <code>sudo xauth add $(xauth -f /home/bai/.Xauthority list | tail -1)</code></li>
+<li>virsh&#x6216;virt-manager&#x652F;&#x6301;remote&#x65B9;&#x5F0F;&#x8FDE;&#x63A5;hypervisor, &#x5177;&#x4F53;&#x683C;&#x5F0F;&#x53C2;&#x8003;<a href="https://libvirt.org/guide/html/Application_Development_Guide-Architecture-Remote_URIs.html" target="_blank">remote URI</a>
+&#x5728;&#x672C;&#x4F8B;&#x4E2D;, &#x56E0;&#x4E3A;&#x7F16;&#x8BD1;&#x7684;libvirt&#x9ED8;&#x8BA4;&#x8DEF;&#x5F84;&#x4E0E;&#x901A;&#x5E38;&#x53D1;&#x884C;&#x7248;&#x7684;&#x8DEF;&#x5F84;&#x4E0D;&#x540C;, &#x8FD9;&#x91CC;&#x4F7F;&#x7528;<code>qemu+unix</code>&#x8FDE;&#x63A5;&#x672C;&#x5730;&#x7684;socket.</li>
+</ul>
+<h1 id="&#x5B89;&#x88C5;&#x865A;&#x62DF;&#x673A;"><a name="&#x5B89;&#x88C5;&#x865A;&#x62DF;&#x673A;" class="anchor-navigation-ex-anchor" href="#&#x5B89;&#x88C5;&#x865A;&#x62DF;&#x673A;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x5B89;&#x88C5;&#x865A;&#x62DF;&#x673A;</h1>
+<h2 id="uefi&#x652F;&#x6301;"><a name="uefi&#x652F;&#x6301;" class="anchor-navigation-ex-anchor" href="#uefi&#x652F;&#x6301;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. UEFI&#x652F;&#x6301;</h2>
+<ul>
+<li>&#x5B89;&#x88C5;UEFI<br>&#x7B80;&#x5355;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x5148;add&#x4E00;&#x4E2A;repo<code>qemu-firmware-jenkins</code>, &#x518D;<code>yum install edk2.git-aarch64.noarch</code>
+&#x53C2;&#x8003;<a href="https://www.server-world.info/en/note?os=CentOS_7&amp;p=kvm&amp;f=11" target="_blank">KVM:UEFI</a>
+<code>rpm -ql</code>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8FD9;&#x4E2A;package&#x91CC;&#x9762;&#x7684;&#x6587;&#x4EF6;:<pre class="language-"><code class="lang-bash">$ <span class="token function">rpm</span> <span class="token parameter variable">-ql</span> edk2.git-aarch64.noarch
+/usr/share/edk2.git
+/usr/share/edk2.git/aarch64
+/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw
+/usr/share/edk2.git/aarch64/QEMU_EFI.fd
+/usr/share/edk2.git/aarch64/QEMU_VARS.fd
+/usr/share/edk2.git/aarch64/vars-template-pflash.raw
+</code></pre>
+</li>
+<li>&#x5728;<code>/etc/libvirt/qemu.conf</code>&#x52A0;&#x5165;:<pre class="language-"><code>nvram = [
+  &quot;/usr/share/edk2.git/aarch64/QEMU_EFI-pflash.raw:/usr/share/edk2.git/vars-template-pflash.raw&quot;,
+]
+</code></pre></li>
+<li>&#x5982;&#x679C;&#x4F7F;&#x7528;&#x672C;&#x6587;&#x524D;&#x9762;&#x63D0;&#x5230;&#x7684;&#x624B;&#x52A8;&#x7F16;&#x8BD1;&#x7684;libvirt, &#x5219;&#x8981;&#x5728;<code>/usr/local/etc/libvirt/qemu.conf</code>&#x91CC;&#x52A0;&#x5165;.</li>
+</ul>
+<h2 id="qemu&#x7684;user"><a name="qemu&#x7684;user" class="anchor-navigation-ex-anchor" href="#qemu&#x7684;user"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. qemu&#x7684;user</h2>
+<p>qemu&#x662F;&#x7528;libvirtd&#x8D77;&#x7684;, &#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>/usr/local/etc/libvirt/qemu.conf</code>&#x91CC;, &#x6539;&#x6210;&#x5982;&#x4E0B;, &#x4F7F;qemu&#x7684;&#x9ED8;&#x8BA4;&#x7528;&#x6237;&#x662F;root.</p>
+<pre class="language-"><code>user = &quot;root&quot;
+group = &quot;root&quot;
+</code></pre><h2 id="&#x5B89;&#x88C5;linux&#x7F51;&#x6865;&#x5DE5;&#x5177;"><a name="&#x5B89;&#x88C5;linux&#x7F51;&#x6865;&#x5DE5;&#x5177;" class="anchor-navigation-ex-anchor" href="#&#x5B89;&#x88C5;linux&#x7F51;&#x6865;&#x5DE5;&#x5177;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. &#x5B89;&#x88C5;linux&#x7F51;&#x6865;&#x5DE5;&#x5177;</h2>
+<p><code>sudo yum install bridge-utils</code></p>
+<h2 id="&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;"><a name="&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;" class="anchor-navigation-ex-anchor" href="#&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. &#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;</h2>
+<p>&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x865A;&#x62DF;&#x673A;, &#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x5BFC;&#x5165;&#x4E00;&#x4E2A;&#x521B;&#x5EFA;&#x597D;&#x7684;disk image(&#x4ECE;ISO&#x5B89;&#x88C5;&#x800C;&#x6765;), &#x914D;&#x7F6E;8 core/16384 mem;
+&#x5176;&#x4ED6;&#x57FA;&#x672C;&#x4E0A;&#x90FD;&#x662F;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;<br><img src="img/qemu_ovs_&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;_20220930113348.png" alt=""><br>&#x8FD9;&#x91CC;&#x521B;&#x5EFA;&#x4E86;&#x4E09;&#x4E2A;VM, <code>hxt-centos7.5-00, hxt-centos7.5-01, hxt-centos7.5-02</code></p>
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x5BFC;&#x51FA;xml&#x914D;&#x7F6E;&#x6587;&#x4EF6;</span>
+<span class="token function">sudo</span> tools/virsh dumpxml hxt-centos7.5-00 <span class="token operator">&gt;</span> ~/hxt-centos7.5-00.xml
+<span class="token comment">#&#x4F7F;&#x7528;&#x5DF2;&#x6709;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x673A;</span>
+<span class="token function">sudo</span> tools/virsh create ~/repo/save/vm/hxt-centos7.5-base.xml
+</code></pre>
+<h3 id="&#x8BBF;&#x95EE;qemu&#x7684;monitor"><a name="&#x8BBF;&#x95EE;qemu&#x7684;monitor" class="anchor-navigation-ex-anchor" href="#&#x8BBF;&#x95EE;qemu&#x7684;monitor"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.1. &#x8BBF;&#x95EE;qemu&#x7684;monitor</h3>
+<pre class="language-"><code class="lang-bash"><span class="token comment">#virsh&#x8BBF;&#x95EE;qemu&#x7684;monitor: --hmp&#x662F;human monitor protocol&#x7684;&#x610F;&#x601D;</span>
+<span class="token comment">#sudo virsh qemu-monitor-command &lt;vm&gt; --hmp &lt;cmd&gt;</span>
+<span class="token function">sudo</span> <span class="token function">virsh</span> qemu-monitor-command <span class="token builtin class-name">test</span> <span class="token parameter variable">--hmp</span> <span class="token builtin class-name">help</span>
+<span class="token comment">#&#x5F88;&#x6709;&#x7528;&#x7684;info&#x547D;&#x4EE4;&#x65CF;</span>
+<span class="token function">sudo</span> <span class="token function">virsh</span> qemu-monitor-command <span class="token builtin class-name">test</span> <span class="token parameter variable">--hmp</span> info
+<span class="token comment">#info qtree&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x8BE6;&#x7EC6;&#x7684;&#x8BBE;&#x5907;&#x4FE1;&#x606F;</span>
+<span class="token function">sudo</span> <span class="token function">virsh</span> qemu-monitor-command <span class="token builtin class-name">test</span> <span class="token parameter variable">--hmp</span> info qtree
+</code></pre>
+<h2 id="&#x865A;&#x62DF;&#x673A;&#x5171;&#x4EAB;os-image"><a name="&#x865A;&#x62DF;&#x673A;&#x5171;&#x4EAB;os-image" class="anchor-navigation-ex-anchor" href="#&#x865A;&#x62DF;&#x673A;&#x5171;&#x4EAB;os-image"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. &#x865A;&#x62DF;&#x673A;&#x5171;&#x4EAB;OS image</h2>
+<p>&#x591A;&#x4E2A;&#x865A;&#x62DF;&#x673A;&#x7684;OS image&#x901A;&#x5E38;&#x90FD;&#x662F;&#x57FA;&#x672C;&#x76F8;&#x540C;&#x7684;, &#x4E8E;&#x662F;&#x81EA;&#x7136;&#x60F3;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;base image, &#x51E0;&#x4E2A;VM&#x5171;&#x4EAB;&#x5B83;; &#x800C;&#x4E14;&#x67D0;&#x4E2A;VM&#x7684;&#x6539;&#x52A8;, &#x53EA;&#x4FDD;&#x5B58;&#x6539;&#x53D8;&#x7684;&#x90E8;&#x5206;, &#x80FD;&#x505A;&#x5230;&#x5417;?
+&#x53EF;&#x4EE5;, qemu&#x7684;qcow2, &#x5C31;&#x662F;qemu copy-on-write&#x7684;&#x7F29;&#x5199;, &#x5929;&#x7136;&#x652F;&#x6301;, &#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x6587;&#x7AE0;&#x8BB2;&#x7684;&#x975E;&#x5E38;&#x6E05;&#x695A;
+<a href="https://kashyapc.fedorapeople.org/virt/lc-2012/snapshots-handout.html" target="_blank">qemu qcow2 backing files &amp; overlays</a>
+&#x524D;&#x9762;&#x6211;&#x4EEC;&#x7528;&#x7684;image&#x56FA;&#x5B9A;&#x5927;&#x5C0F;&#x4E3A;32G, &#x4E3A;&#x4E86;&#x8282;&#x7701;&#x7A7A;&#x95F4;, &#x5148;shrink</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">cp</span> hxt-centos7.5-base.qcow2 hxt-centos7.5-base.qcow2.back
+<span class="token comment">#&#x538B;&#x7F29;&#x540E;33G&#x7684;image&#x53D8;&#x6210;850M, &#x6548;&#x679C;&#x975E;&#x5E38;&#x597D;</span>
+<span class="token function">sudo</span> qemu-img convert <span class="token parameter variable">-O</span> qcow2 <span class="token parameter variable">-c</span> hxt-centos7.5-base.qcow2.back hxt-centos7.5-base-shrink.qcow2
+<span class="token comment">#&#x6BD4;&#x5982;&#x6211;&#x60F3;&#x7528;hxt-centos7.5-base.qcow2&#x505A;&#x57FA;&#x7840;image, &#x5206;&#x522B;&#x521B;&#x5EFA;&#x4E24;&#x4E2A;thin&#x7684;image</span>
+<span class="token function">sudo</span> qemu-img create <span class="token parameter variable">-f</span> qcow2 <span class="token parameter variable">-b</span> hxt-centos7.5-base.qcow2 hxt-centos7.5-01.qcow2
+<span class="token function">sudo</span> qemu-img create <span class="token parameter variable">-f</span> qcow2 <span class="token parameter variable">-b</span> hxt-centos7.5-base.qcow2 hxt-centos7.5-02.qcow2
+<span class="token comment">#&#x8FD8;&#x53EF;&#x4EE5;commit&#x5728;thin image&#x4E0A;&#x7684;&#x6539;&#x53D8;, &#x56E0;&#x4E3A;&#x7528;qemu-imag info&#x80FD;&#x770B;&#x51FA;&#x6765;&#x5B83;&#x7684;backing image&#x662F;&#x8C01;</span>
+<span class="token function">sudo</span> qemu-img commit /guests/F21server.qcow2.snap
+</code></pre>
+<p>&#x53C2;&#x8003;: <a href="https://dustymabe.com/2015/01/11/qemu-img-backing-files-a-poor-mans-snapshotrollback/" target="_blank">https://dustymabe.com/2015/01/11/qemu-img-backing-files-a-poor-mans-snapshotrollback/</a></p>
+<h3 id="&#x95EE;&#x9898;"><a name="&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.1. &#x95EE;&#x9898;</h3>
+<p><strong>&#x5BFC;&#x5165;disk image&#x5931;&#x8D25;, &#x73B0;&#x8C61;&#x662F;UEFI&#x4E0D;&#x80FD;&#x542F;&#x52A8;os image</strong>, &#x7ECF;&#x9A8C;&#x8BC1;&#x548C;shrink&#x65E0;&#x5173;, &#x76F4;&#x63A5;<code>cp</code>&#x7684;image&#x4E5F;&#x4E0D;&#x884C;, &#x4F3C;&#x4E4E;virt-manager&#x65B0;&#x5EFA;VM&#x65F6;&#x5BFC;&#x5165;disk image&#x529F;&#x80FD;<strong>&#x4E0D;&#x6B63;&#x5E38;</strong>?
+UEFI&#x6253;&#x5370;&#x7684;&#x9519;&#x8BEF;&#x4FE1;&#x606F;:</p>
+<pre class="language-"><code class="lang-sh"><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span>  ProtectUefiImageCommon - Section Alignment<span class="token punctuation">(</span>0x20<span class="token punctuation">)</span> is incorrect  <span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span><span class="token operator">!</span>
+FSOpen: Open <span class="token string">&apos;\EFI\BOOT\fbaa64.efi&apos;</span> Success
+FSOpen: Open <span class="token string">&apos;\EFI\BOOT\fbaa64.efi&apos;</span> Success
+Section <span class="token number">0</span> has negative size
+Failed to load image: Unsupported
+start_image<span class="token punctuation">(</span><span class="token punctuation">)</span> returned Unsupported
+Error: Image at 0007BE8D000 start failed: Unsupported
+Unloading driver at 0x0007BE8D000
+Image Return Status <span class="token operator">=</span> Unsupported
+</code></pre>
+<p>&#x7F51;&#x4E0A;&#x6709;&#x4EBA;&#x62A5;&#x8FD9;&#x4E2A;&#x9519;&#x8BEF;, &#x662F;UEFI&#x7684;&#x95EE;&#x9898;:
+<a href="https://bugzilla.redhat.com/show_bug.cgi?id=1527283" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=1527283</a></p>
+<h3 id="&#x89E3;&#x51B3;"><a name="&#x89E3;&#x51B3;" class="anchor-navigation-ex-anchor" href="#&#x89E3;&#x51B3;"><i class="fa fa-link" aria-hidden="true"></i></a>3.5.2. &#x89E3;&#x51B3;</h3>
+<p>&#x9664;&#x4E86;&#x8981;&#x62F7;&#x8D1D;disk image, &#x8FD8;&#x8981;&#x62F7;&#x8D1D;uefi&#x7684;VARS.fd&#x6587;&#x4EF6;, &#x6BD4;&#x5982;</p>
+<pre class="language-"><code class="lang-bash"><span class="token builtin class-name">cd</span> /usr/local/var/lib/libvirt/qemu/nvram
+<span class="token comment">#&#x62F7;&#x8D1D;&#x4E4B;&#x524D;&#x53EF;&#x7528;&#x7684;vars.fd</span>
+<span class="token function">sudo</span> <span class="token function">cp</span> hxt-centos7.5-01_VARS.fd hxt-centos7.5-base_VARS.fd
+</code></pre>
+<h1 id="&#x865A;&#x62DF;&#x7F51;&#x7EDC;"><a name="&#x865A;&#x62DF;&#x7F51;&#x7EDC;" class="anchor-navigation-ex-anchor" href="#&#x865A;&#x62DF;&#x7F51;&#x7EDC;"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x865A;&#x62DF;&#x7F51;&#x7EDC;</h1>
+<h2 id="nat&#x7F51;&#x7EDC;"><a name="nat&#x7F51;&#x7EDC;" class="anchor-navigation-ex-anchor" href="#nat&#x7F51;&#x7EDC;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. NAT&#x7F51;&#x7EDC;</h2>
+<p>NAT&#x7F51;&#x7EDC;&#x7528;&#x4E8E;Internet&#x8BBF;&#x95EE;.</p>
+<p>&#x521B;&#x5EFA;&#x865A;&#x62DF;&#x7F51;&#x7EDC;network1, &#x6A21;&#x5F0F;&#x4E3A;<code>NAT to eth0</code></p>
+<p>NAT&#x7F51;&#x7EDC;network1<br><img src="img/qemu_ovs_&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;_20220930114106.png" alt="">  </p>
+<p>libvirtd&#x521B;&#x5EFA;&#x4E86;&#x865A;&#x62DF;&#x7F51;&#x6865;virbr1, &#x4EE5;&#x53CA;&#x5BF9;&#x5E94;&#x4E09;&#x4E2A;VM&#x7684;&#x4E09;&#x4E2A;&#x63A5;&#x53E3;, &#x5982;&#x4E0B;:</p>
+<pre class="language-"><code class="lang-bash">$ brctl show virbr1
+bridge name     bridge <span class="token function">id</span>               STP enabled     interfaces
+virbr1          <span class="token number">8000</span>.525400e10733       <span class="token function">yes</span>             virbr1-nic
+                                                        vnet0
+                                                        vnet1
+                                                        vnet2
+</code></pre>
+<blockquote>
+<p>&#x4E0A;&#x9762;&#x7684;vnetN&#x662F;tap&#x8BBE;&#x5907;, &#x5DE5;&#x4F5C;&#x5728;kernel&#x534F;&#x8BAE;&#x6808;&#x4E8C;&#x5C42;. &#x5176;&#x539F;&#x7406;&#x548C;tun&#x4E00;&#x6837;, &#x533A;&#x522B;&#x5728;&#x4E8E;tun&#x5DE5;&#x4F5C;&#x5728;&#x4E09;&#x5C42;.</p>
+</blockquote>
+<p>tun/tap&#x8BBE;&#x5907;&#x539F;&#x7406;&#x56FE;<br><img src="img/qemu_ovs_&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;_20220930114219.png" alt="">  </p>
+<p>&#x8FDB;&#x5165;VM, &#x914D;&#x7F6E;&#x7F51;&#x7EDC;, &#x6D4B;&#x8BD5;&#x5916;&#x7F51;&#x8FDE;&#x901A;&#x6027;</p>
+<pre class="language-"><code class="lang-bash">dhclient eth0
+<span class="token function">ip</span> addr
+<span class="token function">curl</span> baidu.com
+</code></pre>
+<h2 id="&#x7ED9;vm&#x6DFB;&#x52A0;ovs-bridge"><a name="&#x7ED9;vm&#x6DFB;&#x52A0;ovs-bridge" class="anchor-navigation-ex-anchor" href="#&#x7ED9;vm&#x6DFB;&#x52A0;ovs-bridge"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. &#x7ED9;VM&#x6DFB;&#x52A0;OVS bridge</h2>
+<p>&#x8FD9;&#x91CC;ovs&#x5DF2;&#x7ECF;&#x8FD0;&#x884C;&#x5E76;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;bridge: ovsbr0</p>
+<pre class="language-"><code class="lang-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/usr/local/share/openvswitch/scripts
+<span class="token function">sudo</span> ovs-ctl start
+<span class="token comment">#&#x6253;&#x5F00;dpdk&#x521D;&#x59CB;&#x5316;</span>
+<span class="token function">sudo</span> ovs-vsctl --no-wait <span class="token builtin class-name">set</span> Open_vSwitch <span class="token builtin class-name">.</span> other_config:dpdk-init<span class="token operator">=</span>true
+<span class="token comment">#&#x65B0;&#x589E;&#x4E00;&#x4E2A;bridge</span>
+<span class="token function">sudo</span> ovs-vsctl add-br ovsbr0 -- <span class="token builtin class-name">set</span> bridge ovsbr0 <span class="token assign-left variable">datapath_type</span><span class="token operator">=</span>netdev
+</code></pre>
+<h3 id="&#x4F7F;&#x7528;virt-manager&#x76F4;&#x63A5;&#x6DFB;&#x52A0;"><a name="&#x4F7F;&#x7528;virt-manager&#x76F4;&#x63A5;&#x6DFB;&#x52A0;" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;virt-manager&#x76F4;&#x63A5;&#x6DFB;&#x52A0;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.1. &#x4F7F;&#x7528;virt-manager&#x76F4;&#x63A5;&#x6DFB;&#x52A0;</h3>
+<p>&#x70B9;<code>Add Hardware</code>, &#x6309;&#x4E0B;&#x56FE;&#x6DFB;&#x52A0;ovsbr0</p>
+<p><img src="img/qemu_ovs_&#x865A;&#x62DF;&#x5316;&#x73AF;&#x5883;_20220930114244.png" alt="">  </p>
+<p>&#x6CE8;&#x610F;: &#x8FD8;&#x8981;&#x5728;xml&#x91CC;&#x9762;&#x52A0;&#x4E0A;<code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>virtualport</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>openvswitch<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span></code>, &#x8BE6;&#x89C1;&#x4E0B;&#x4E00;&#x5C0F;&#x8282;:
+&#x5426;&#x5219;&#x4F1A;&#x51FA;&#x73B0;&#x9519;&#x8BEF;: <code>Unable to add bridge ovsbr0 port vnet1: Operation not supported</code></p>
+<h3 id="&#x4F7F;&#x7528;virsh&#x6DFB;&#x52A0;"><a name="&#x4F7F;&#x7528;virsh&#x6DFB;&#x52A0;" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x7528;virsh&#x6DFB;&#x52A0;"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.2. &#x4F7F;&#x7528;virsh&#x6DFB;&#x52A0;</h3>
+<p>&#x53C2;&#x8003;<a href="http://docs.openvswitch.org/en/latest/howto/libvirt/" target="_blank">Open vSwitch with Libvirt</a>&#x548C;<a href="http://www.cwharvey.ca/post/openvswitch_on_gentoo/" target="_blank">OpenVSwitch KVM libvirt</a></p>
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x8FD9;&#x91CC;&#x4F7F;&#x7528;libvirt-4.6.0&#x6E90;&#x7801;&#x76EE;&#x5F55;</span>
+<span class="token builtin class-name">cd</span> libvirt-4.6.0
+<span class="token comment">#&#x7F16;&#x8F91;xml, &#x52A0;&#x4E0A;&#x4E0B;&#x9762;&#x7684;&#x914D;&#x7F6E;:</span>
+<span class="token function">sudo</span> tools/virsh edit hxt-centos7.5-01
+</code></pre>
+<pre class="language-"><code class="lang-xml">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>interface</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>bridge<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mac</span> <span class="token attr-name">address</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>52:54:00:38:fe:8c<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>source</span> <span class="token attr-name">bridge</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>ovsbr0<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>virtualport</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>openvswitch<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>model</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>virtio<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>address</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>pci<span class="token punctuation">&apos;</span></span> <span class="token attr-name">domain</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0x0000<span class="token punctuation">&apos;</span></span> <span class="token attr-name">bus</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0x04<span class="token punctuation">&apos;</span></span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0x00<span class="token punctuation">&apos;</span></span> <span class="token attr-name">function</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0x0<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>interface</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h3 id="&#x542F;&#x52A8;vm"><a name="&#x542F;&#x52A8;vm" class="anchor-navigation-ex-anchor" href="#&#x542F;&#x52A8;vm"><i class="fa fa-link" aria-hidden="true"></i></a>4.2.3. &#x542F;&#x52A8;VM</h3>
+<p>&#x6DFB;&#x52A0;&#x4E86;OVS bridge&#x4EE5;&#x540E;&#x542F;&#x52A8;VM, &#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x542F;&#x52A8;2&#x4E2A;VM, &#x53EF;&#x4EE5;&#x770B;&#x5230;libvirtd&#x4F1A;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x76F8;&#x5E94;&#x7684;port:</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> ovs-vsctl show
+f81a1c52-91c1-40a2-b993-6dfeea09317e
+    Bridge <span class="token string">&quot;ovsbr0&quot;</span>
+        Port <span class="token string">&quot;vnet3&quot;</span>
+            Interface <span class="token string">&quot;vnet3&quot;</span>
+        Port <span class="token string">&quot;vnet1&quot;</span>
+            Interface <span class="token string">&quot;vnet1&quot;</span>
+        Port <span class="token string">&quot;ovsbr0&quot;</span>
+            Interface <span class="token string">&quot;ovsbr0&quot;</span>
+                type: internal
+    ovs_version: <span class="token string">&quot;2.8.4&quot;</span>
+</code></pre>
+<blockquote>
+<p><code>vnet1</code>&#x548C;<code>vnet3</code>&#x662F;libvirtd&#x5728;VM&#x542F;&#x52A8;&#x65F6;&#x521B;&#x5EFA;&#x7684;, &#x5E76;&#x4F1A;&#x5728;VM&#x5173;&#x95ED;&#x65F6;&#x9500;&#x6BC1;.</p>
+</blockquote>
+<p>&#x6B64;&#x65F6;, &#x5728;VM&#x91CC;&#x9762;&#x914D;&#x7F6E;&#x597D;ip, &#x7ECF;&#x9A8C;&#x8BC1;&#x4E24;&#x4E2A;VM&#x53EF;&#x4EE5;&#x4E92;&#x76F8;ping&#x901A;.</p>
+<h2 id="&#x7ED9;vm&#x6DFB;&#x52A0;vhost&#x63A5;&#x53E3;"><a name="&#x7ED9;vm&#x6DFB;&#x52A0;vhost&#x63A5;&#x53E3;" class="anchor-navigation-ex-anchor" href="#&#x7ED9;vm&#x6DFB;&#x52A0;vhost&#x63A5;&#x53E3;"><i class="fa fa-link" aria-hidden="true"></i></a>4.3. &#x7ED9;VM&#x6DFB;&#x52A0;vhost&#x63A5;&#x53E3;</h2>
+<p>&#x8FD9;&#x91CC;&#x8981;&#x6DFB;&#x52A0;&#x4E24;&#x4E2A;&#x7C7B;&#x578B;&#x662F;dpdkvhostuser&#x7684;&#x7AEF;&#x53E3;</p>
+<pre class="language-"><code class="lang-bash"><span class="token comment">#&#x589E;&#x52A0;&#x4E24;&#x4E2A;port, &#x7C7B;&#x578B;&#x662F;dpdkvhostuser</span>
+<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkvhostuser0 -- <span class="token builtin class-name">set</span> Interface dpdkvhostuser0 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdkvhostuser
+<span class="token function">sudo</span> ovs-vsctl add-port ovsbr0 dpdkvhostuser1 -- <span class="token builtin class-name">set</span> Interface dpdkvhostuser1 <span class="token assign-left variable">type</span><span class="token operator">=</span>dpdkvhostuser
+</code></pre>
+<p>&#x624B;&#x5DE5;&#x4FEE;&#x6539;xml&#x6587;&#x4EF6;<code>virsh edit <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>VM</span><span class="token punctuation">&gt;</span></span></code>, &#x52A0;&#x5165;:</p>
+<pre class="language-"><code class="lang-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>memoryBacking</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hugepages</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>page</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>512<span class="token punctuation">&apos;</span></span> <span class="token attr-name">unit</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>M<span class="token punctuation">&apos;</span></span> <span class="token attr-name">nodeset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>hugepages</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cpu</span> <span class="token attr-name">mode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>host-passthrough<span class="token punctuation">&apos;</span></span> <span class="token attr-name">check</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>none<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>topology</span> <span class="token attr-name">sockets</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>1<span class="token punctuation">&apos;</span></span> <span class="token attr-name">cores</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>4<span class="token punctuation">&apos;</span></span> <span class="token attr-name">threads</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>1<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>numa</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cell</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0<span class="token punctuation">&apos;</span></span> <span class="token attr-name">cpus</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>0-3<span class="token punctuation">&apos;</span></span> <span class="token attr-name">memory</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>8388608<span class="token punctuation">&apos;</span></span> <span class="token attr-name">unit</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>KiB<span class="token punctuation">&apos;</span></span> <span class="token attr-name">memAccess</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>shared<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>numa</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>cpu</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>os</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span> <span class="token attr-name">arch</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>aarch64<span class="token punctuation">&apos;</span></span> <span class="token attr-name">machine</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>virt<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>hvm<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>devices</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>emulator</span><span class="token punctuation">&gt;</span></span>/usr/local/bin/qemu-system-aarch64<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>emulator</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>interface</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>vhostuser<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mac</span> <span class="token attr-name">address</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>00:00:00:00:00:01<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>source</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>unix<span class="token punctuation">&apos;</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>/usr/local/var/run/openvswitch/dpdkvhostuser0<span class="token punctuation">&apos;</span></span> <span class="token attr-name">mode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>client<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>model</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>virtio<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>driver</span> <span class="token attr-name">queues</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>2<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span> <span class="token attr-name">mrg_rxbuf</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>on<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>driver</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>interface</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>&#x53E6;&#x5916;&#x4E00;&#x4E2A;VM&#x4E5F;&#x76F8;&#x5E94;&#x4FEE;&#x6539;, &#x6CE8;&#x610F;<code>dpdkvhostuser0</code>&#x53D8;&#x6210;<code>dpdkvhostuser1</code></p>
+<h3 id="troubleshooting"><a name="troubleshooting" class="anchor-navigation-ex-anchor" href="#troubleshooting"><i class="fa fa-link" aria-hidden="true"></i></a>4.3.1. troubleshooting</h3>
+<ul>
+<li><p>&#x8BBF;&#x95EE;socket&#x6743;&#x9650;&#x9519;&#x8BEF;:
+<code>Failed to connect socket /usr/local/var/run/openvswitch/dpdkvhostuser1: Permission denied</code>
+&#x89E3;&#x51B3;&#x65B9;&#x6CD5;:<code>sudo chmod a+rw /usr/local/var/run/openvswitch/</code>
+&#x53C2;&#x8003;: <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1431556" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=1431556</a></p>
+</li>
+<li><p>&#x9ED8;&#x8BA4;&#x7684;qemu-kvm&#x4E0D;&#x652F;&#x6301;vhost-user
+<code>Parameter &apos;type&apos; expects a netdev backend type</code>
+&#x89E3;&#x51B3;&#x65B9;&#x6CD5;: &#x6E90;&#x7801;&#x7F16;&#x8BD1;qemu, &#x5728;xml&#x91CC;&#x7528;qemu-system-aarch64&#x66FF;&#x4EE3;&#x9ED8;&#x8BA4;&#x7684;qemu-kvm, &#x89C1;&#x4E0A;&#x9762;
+&#x53C2;&#x8003;: <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1539823" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=1539823</a></p>
+</li>
+<li><p>&#x4E24;&#x4E2A;VM&#x4E92;&#x76F8;ping&#x4E0D;&#x901A;, VM&#x91CC;&#x9762;&#x6536;&#x53D1;&#x5305;&#x7EDF;&#x8BA1;&#x4E00;&#x76F4;&#x4E3A;0</p>
+<ul>
+<li>&#x65E0;&#x6548;&#x7684;&#x5C1D;&#x8BD5;:<ul>
+<li>&#x53BB;&#x6389;&#x9009;&#x9879;&#x91CC;&#x9762;&#x7684;<code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span> <span class="token attr-name">mrg_rxbuf</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>on<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span></code></li>
+<li>&#x6539;&#x4E3A;<code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span> <span class="token attr-name">mrg_rxbuf</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>off<span class="token punctuation">&apos;</span></span><span class="token punctuation">/&gt;</span></span></code></li>
+<li>&#x53BB;&#x6389;<code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>driver</span> <span class="token attr-name">queues</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>2<span class="token punctuation">&apos;</span></span><span class="token punctuation">&gt;</span></span></code></li>
+</ul>
+</li>
+<li>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;: hugepage&#x5BF9;&#x5E94;&#x7684;node&#x8981;&#x914D;&#x7F6E;<code>memAccess=&apos;shared&apos;</code>
+&#x53C2;&#x8003;: <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1516114" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=1516114</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="&#x53C2;&#x8003;"><a name="&#x53C2;&#x8003;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x53C2;&#x8003;</h1>
+<ul>
+<li><a href="https://libvirt.org/uri.html" target="_blank">URI&#x683C;&#x5F0F;&#x8BF4;&#x660E;</a></li>
+<li><a href="https://libvirt.org/guide/html/Application_Development_Guide-Architecture-Remote_URIs.html" target="_blank">remote URI</a></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="virtualization_virtio规范阅读笔记.html" class="navigation navigation-prev " aria-label="Previous page: virtio规范阅读笔记.md">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="qemu使用.html" class="navigation navigation-next " aria-label="Next page: Qemu使用(old)">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"qemu OVS 虚拟化环境准备","level":"1.5.4","depth":2,"next":{"title":"Qemu使用(old)","level":"1.5.5","depth":2,"path":"notes/qemu使用.md","ref":"notes/qemu使用.md","articles":[]},"previous":{"title":"virtio规范阅读笔记.md","level":"1.5.3","depth":2,"path":"notes/virtualization_virtio规范阅读笔记.md","ref":"notes/virtualization_virtio规范阅读笔记.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/qemu_ovs_虚拟化环境.md","mtime":"2022-10-18T07:02:40.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-18T07:03:36.024Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
+
+    </body>
+</html>
+

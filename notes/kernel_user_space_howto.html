@@ -1,0 +1,3786 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>kernel space和user space交互(网摘, linux2.6) · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="as_title_driver.html" />
+    
+    
+    <link rel="prev" href="c_pthread_condition和mutex.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录杂记系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="as_title_perf_tools.html">
+            
+                <a href="as_title_perf_tools.html">
+            
+                    
+                    profiling工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_app_perf.html">
+            
+                <a href="as_title_app_perf.html">
+            
+                    
+                    应用profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    系统profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.5.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.14.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.4.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.5" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.6" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.7" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.3.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.4.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >kernel space和user space交互(网摘, linux2.6)</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#introduction"><b>1. </b>Introduction</a></li><ul><li><span class="title-icon "></span><a href="#preamble"><b>1.1. </b>Preamble</a></li><li><span class="title-icon "></span><a href="#how-to-use-this-document-and-intended-audience"><b>1.2. </b>How to Use This Document and Intended Audience</a></li><li><span class="title-icon "></span><a href="#requirements-to-use-this-document"><b>1.3. </b>Requirements to Use This Document</a></li><li><span class="title-icon "></span><a href="#obtain-example-source-code"><b>1.4. </b>Obtain Example Source Code</a></li><li><span class="title-icon "></span><a href="#getting-more-information"><b>1.5. </b>Getting More Information</a></li><li><span class="title-icon "></span><a href="#disclaimer"><b>1.6. </b>Disclaimer</a></li><li><span class="title-icon "></span><a href="#copyright"><b>1.7. </b>Copyright</a></li><li><span class="title-icon "></span><a href="#authors"><b>1.8. </b>Authors</a></li><li><span class="title-icon "></span><a href="#most-recent-version"><b>1.9. </b>Most recent version</a></li></ul><li><span class="title-icon "></span><a href="#procfs-sysfs-and-similar-kernel-interfaces"><b>2. </b>Procfs, Sysfs, and Similar Kernel Interfaces</a></li><ul><li><span class="title-icon "></span><a href="#introduction_1"><b>2.1. </b>Introduction</a></li><li><span class="title-icon "></span><a href="#procfs"><b>2.2. </b>Procfs</a></li><ul><li><span class="title-icon "></span><a href="#description"><b>2.2.1. </b>Description</a></li><li><span class="title-icon "></span><a href="#implementation"><b>2.2.2. </b>Implementation</a></li><li><span class="title-icon "></span><a href="#further-reading-and-resources"><b>2.2.3. </b>Further Reading and Resources</a></li></ul><li><span class="title-icon "></span><a href="#sysfs"><b>2.3. </b>Sysfs</a></li><ul><li><span class="title-icon "></span><a href="#description_1"><b>2.3.1. </b>Description</a></li><li><span class="title-icon "></span><a href="#implementation_1"><b>2.3.2. </b>Implementation</a></li></ul><li><span class="title-icon "></span><a href="#configfs"><b>2.4. </b>Configfs</a></li><ul><li><span class="title-icon "></span><a href="#description_2"><b>2.4.1. </b>Description</a></li><li><span class="title-icon "></span><a href="#resources-and-further-reading"><b>2.4.2. </b>Resources and Further Reading</a></li></ul><li><span class="title-icon "></span><a href="#debugfs"><b>2.5. </b>Debugfs</a></li><ul><li><span class="title-icon "></span><a href="#description_3"><b>2.5.1. </b>Description</a></li><li><span class="title-icon "></span><a href="#implementation_2"><b>2.5.2. </b>Implementation</a></li></ul><li><span class="title-icon "></span><a href="#sysctl"><b>2.6. </b>Sysctl</a></li><ul><li><span class="title-icon "></span><a href="#description_4"><b>2.6.1. </b>Description</a></li><li><span class="title-icon "></span><a href="#implementation_3"><b>2.6.2. </b>Implementation</a></li><li><span class="title-icon "></span><a href="#resources-and-further-reading_1"><b>2.6.3. </b>Resources and Further Reading</a></li></ul><li><span class="title-icon "></span><a href="#character-devices"><b>2.7. </b>Character Devices</a></li><ul><li><span class="title-icon "></span><a href="#description_5"><b>2.7.1. </b>Description</a></li><li><span class="title-icon "></span><a href="#implementation_4"><b>2.7.2. </b>Implementation</a></li><li><span class="title-icon "></span><a href="#resources-and-further-reading_2"><b>2.7.3. </b>Resources and Further Reading</a></li></ul></ul><li><span class="title-icon "></span><a href="#socket-based-mechanisms"><b>3. </b>Socket Based Mechanisms</a></li><ul><li><span class="title-icon "></span><a href="#introduction_2"><b>3.1. </b>Introduction</a></li><li><span class="title-icon "></span><a href="#udp-sockets"><b>3.2. </b>UDP Sockets</a></li><ul><li><span class="title-icon "></span><a href="#description_6"><b>3.2.1. </b>Description</a></li><li><span class="title-icon "></span><a href="#implementation_5"><b>3.2.2. </b>Implementation</a></li></ul><li><span class="title-icon "></span><a href="#netlink-sockets"><b>3.3. </b>Netlink Sockets</a></li><ul><li><span class="title-icon "></span><a href="#description_7"><b>3.3.1. </b>Description</a></li></ul><li><span class="title-icon "></span><a href="#implementation_6"><b>3.4. </b>Implementation</a></li><ul><li><span class="title-icon "></span><a href="#user-space"><b>3.4.1. </b>User Space</a></li><li><span class="title-icon "></span><a href="#kernel-module"><b>3.4.2. </b>Kernel Module</a></li></ul><li><span class="title-icon "></span><a href="#resources-and-further-reading_3"><b>3.5. </b>Resources and Further Reading</a></li></ul><li><span class="title-icon "></span><a href="#ioctl"><b>4. </b>Ioctl</a></li><ul><li><span class="title-icon "></span><a href="#introduction_3"><b>4.1. </b>Introduction</a></li><li><span class="title-icon "></span><a href="#implementation_7"><b>4.2. </b>Implementation</a></li><li><span class="title-icon "></span><a href="#resources-and-further-reading_4"><b>4.3. </b>Resources and Further Reading</a></li></ul><li><span class="title-icon "></span><a href="#kernel-system-calls"><b>5. </b>Kernel System Calls</a></li><ul><li><span class="title-icon "></span><a href="#introduction_4"><b>5.1. </b>Introduction</a></li><li><span class="title-icon "></span><a href="#implementation_8"><b>5.2. </b>Implementation</a></li><li><span class="title-icon "></span><a href="#resources-and-further-reading_5"><b>5.3. </b>Resources and Further Reading</a></li></ul><li><span class="title-icon "></span><a href="#sending-signals-from-the-kernel-to-the-user-space"><b>6. </b>Sending Signals from the Kernel to the User Space</a></li><ul><li><span class="title-icon "></span><a href="#introduction_5"><b>6.1. </b>Introduction</a></li><li><span class="title-icon "></span><a href="#implementation_9"><b>6.2. </b>Implementation</a></li><li><span class="title-icon "></span><a href="#resources-and-further-reading_6"><b>6.3. </b>Resources and Further Reading</a></li></ul><li><span class="title-icon "></span><a href="#upcall"><b>7. </b>Upcall</a></li><ul><li><span class="title-icon "></span><a href="#introduction_6"><b>7.1. </b>Introduction</a></li><li><span class="title-icon "></span><a href="#implementation_10"><b>7.2. </b>Implementation</a></li><li><span class="title-icon "></span><a href="#resources-and-further-reading_7"><b>7.3. </b>Resources and Further Reading</a></li></ul><li><span class="title-icon "></span><a href="#mmap"><b>8. </b>Mmap</a></li><ul><li><span class="title-icon "></span><a href="#introduction_7"><b>8.1. </b>Introduction</a></li><li><span class="title-icon "></span><a href="#implementation_11"><b>8.2. </b>Implementation</a></li><ul><li><span class="title-icon "></span><a href="#myopen"><b>8.2.1. </b>my_open</a></li><li><span class="title-icon "></span><a href="#myclose"><b>8.2.2. </b>my_close</a></li><li><span class="title-icon "></span><a href="#mymmap"><b>8.2.3. </b>my_mmap</a></li></ul><li><span class="title-icon "></span><a href="#resources-and-further-reading_8"><b>8.3. </b>Resources and Further Reading</a></li></ul></ul></div><a href="#introduction" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#preamble">Preamble</a></li>
+<li><a href="#how-to-use-this-document-and-intended-audience">How to Use This Document and Intended Audience</a></li>
+<li><a href="#requirements-to-use-this-document">Requirements to Use This Document</a></li>
+<li><a href="#obtain-example-source-code">Obtain Example Source Code</a></li>
+<li><a href="#getting-more-information">Getting More Information</a></li>
+<li><a href="#disclaimer">Disclaimer</a></li>
+<li><a href="#copyright">Copyright</a></li>
+<li><a href="#authors">Authors</a></li>
+<li><a href="#most-recent-version">Most recent version</a></li>
+</ul>
+</li>
+<li><a href="#procfs-sysfs-and-similar-kernel-interfaces">Procfs, Sysfs, and Similar Kernel Interfaces</a><ul>
+<li><a href="#introduction-1">Introduction</a></li>
+<li><a href="#procfs">Procfs</a><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#implementation">Implementation</a><ul>
+<li><a href="#1-legacy-procfs-api">1. Legacy procfs API</a></li>
+<li><a href="#2-seq_file-api">2. Seq_file API</a></li>
+</ul>
+</li>
+<li><a href="#further-reading-and-resources">Further Reading and Resources</a></li>
+</ul>
+</li>
+<li><a href="#sysfs">Sysfs</a><ul>
+<li><a href="#description-1">Description</a></li>
+<li><a href="#implementation-1">Implementation</a><ul>
+<li><a href="#module-parameter-api">Module Parameter API</a></li>
+<li><a href="#standard-sysfs-api">Standard Sysfs API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#configfs">Configfs</a><ul>
+<li><a href="#description-2">Description</a></li>
+<li><a href="#resources-and-further-reading">Resources and Further Reading</a></li>
+</ul>
+</li>
+<li><a href="#debugfs">Debugfs</a><ul>
+<li><a href="#description-3">Description</a></li>
+<li><a href="#implementation-2">Implementation</a></li>
+</ul>
+</li>
+<li><a href="#sysctl">Sysctl</a><ul>
+<li><a href="#description-4">Description</a></li>
+<li><a href="#implementation-3">Implementation</a></li>
+<li><a href="#resources-and-further-reading-1">Resources and Further Reading</a></li>
+</ul>
+</li>
+<li><a href="#character-devices">Character Devices</a><ul>
+<li><a href="#description-5">Description</a></li>
+<li><a href="#implementation-4">Implementation</a></li>
+<li><a href="#resources-and-further-reading-2">Resources and Further Reading</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#socket-based-mechanisms">Socket Based Mechanisms</a><ul>
+<li><a href="#introduction-2">Introduction</a></li>
+<li><a href="#udp-sockets">UDP Sockets</a><ul>
+<li><a href="#description-6">Description</a></li>
+<li><a href="#implementation-5">Implementation</a></li>
+</ul>
+</li>
+<li><a href="#netlink-sockets">Netlink Sockets</a><ul>
+<li><a href="#description-7">Description</a></li>
+</ul>
+</li>
+<li><a href="#implementation-6">Implementation</a><ul>
+<li><a href="#user-space">User Space</a></li>
+<li><a href="#kernel-module">Kernel Module</a></li>
+</ul>
+</li>
+<li><a href="#resources-and-further-reading-3">Resources and Further Reading</a></li>
+</ul>
+</li>
+<li><a href="#ioctl">Ioctl</a><ul>
+<li><a href="#introduction-3">Introduction</a></li>
+<li><a href="#implementation-7">Implementation</a></li>
+<li><a href="#resources-and-further-reading-4">Resources and Further Reading</a></li>
+</ul>
+</li>
+<li><a href="#kernel-system-calls">Kernel System Calls</a><ul>
+<li><a href="#introduction-4">Introduction</a></li>
+<li><a href="#implementation-8">Implementation</a></li>
+<li><a href="#resources-and-further-reading-5">Resources and Further Reading</a></li>
+</ul>
+</li>
+<li><a href="#sending-signals-from-the-kernel-to-the-user-space">Sending Signals from the Kernel to the User Space</a><ul>
+<li><a href="#introduction-5">Introduction</a></li>
+<li><a href="#implementation-9">Implementation</a></li>
+<li><a href="#resources-and-further-reading-6">Resources and Further Reading</a></li>
+</ul>
+</li>
+<li><a href="#upcall">Upcall</a><ul>
+<li><a href="#introduction-6">Introduction</a></li>
+<li><a href="#implementation-10">Implementation</a></li>
+<li><a href="#resources-and-further-reading-7">Resources and Further Reading</a></li>
+</ul>
+</li>
+<li><a href="#mmap">Mmap</a><ul>
+<li><a href="#introduction-7">Introduction</a></li>
+<li><a href="#implementation-11">Implementation</a><ul>
+<li><a href="#my_open">my_open</a></li>
+<li><a href="#my_close">my_close</a></li>
+<li><a href="#my_mmap">my_mmap</a></li>
+</ul>
+</li>
+<li><a href="#resources-and-further-reading-8">Resources and Further Reading</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>Kernel Space, User Space Interfaces</strong></p>
+<p>This document looks at the numerous and interesting ways the Linux kernel 2.6 interacts with user space programs. We explain sockets, procfs (and similar virtual filesystems), creating new Linux system calls, as well as mundane file and memory handling.</p>
+<p><strong>Revision History</strong></p>
+<p>First wiki revision- 2008-09-28 Wiki created: Ariane Keller
+Revision 0.1 - 2008-10-04 Chapter one and two: Ariane Keller
+Revision 0.2 - 2008-10-04 Added all chapters, needs format reviewing: Ariane Keller</p>
+<hr>
+<h1 id="introduction"><a name="introduction" class="anchor-navigation-ex-anchor" href="#introduction"><i class="fa fa-link" aria-hidden="true"></i></a>1. Introduction</h1>
+<h2 id="preamble"><a name="preamble" class="anchor-navigation-ex-anchor" href="#preamble"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. Preamble</h2>
+<p>This how-to aims to provide an overview over all existing communication mechanisms between Linux user and kernel space. The goal is to present a starting point for a developer who needs to transfer data between Linux kernel modules and user space programs. Each mechanism is described in its own section, with each section further divided into Description, Implementation, and Resources &amp; Further Reading. In the description section we describe the basic mechanism and intended use of the mechanism. The implementation provides an example source code along with a short description. The Resources &amp; Further reading section provides a list of useful articles and book chapters.</p>
+<p>All source code is tested on Linux kernel 2.6.23. Therefore it may not run on other (earlier or more recent) kernels. However, I try to keep it up to date.</p>
+<p>If you find a bug or if you know a communication mechanism that is not covered in this how-to please send an email to the author or update this wiki yourself.</p>
+<p><strong>Be warned:</strong> playing with your kernel may cause it to crash, necessitating a system reboot! This means: save all your files and close all programs before you insert a kernel module! You may consider to run experimental kernels in a virtual machine so your actual host system does not get affected by any crashes.</p>
+<h2 id="how-to-use-this-document-and-intended-audience"><a name="how-to-use-this-document-and-intended-audience" class="anchor-navigation-ex-anchor" href="#how-to-use-this-document-and-intended-audience"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. How to Use This Document and Intended Audience</h2>
+<p>This document is written for programmers with some experience in system programming. The focus is on a short explanation of individual mechanisms, and providing examples for them. It is assumed that the reader is able to understand the source code (with the documentation provided) and that he can use the examples as a basis for its own modules. It is assumed that a programmer reads first the description section, then has a look at the source code and finally compares the source code with the explanation in the implementation section.</p>
+<p>The examples are deliberately kept simple, and real life modules will be much more complex.</p>
+<h2 id="requirements-to-use-this-document"><a name="requirements-to-use-this-document" class="anchor-navigation-ex-anchor" href="#requirements-to-use-this-document"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. Requirements to Use This Document</h2>
+<ul>
+<li>Linux Distribution with all tools needed to build a new Linux kernel. The example code is tested on 2.6.23.</li>
+<li>Root privileges (in order to execute the example modules)</li>
+<li>Knowledge of C programming</li>
+<li>Basic knowledge of operating system concepts</li>
+</ul>
+<h2 id="obtain-example-source-code"><a name="obtain-example-source-code" class="anchor-navigation-ex-anchor" href="#obtain-example-source-code"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. Obtain Example Source Code</h2>
+<p>Throughout this document we show a lot of example source code. This code can be downloaded as a <a href="http://people.ee.ethz.ch/~arkeller/linux/code.tar.gz" target="_blank">tar.gz</a>.</p>
+<p>probably better upload the code in the LDP wiki like this: <a href="https://wiki.tldp.org/static/kernel_user_space_howto.html" title="Upload new attachment &quot;test.tgz&quot;" target="_blank">test.tgz</a></p>
+<h2 id="getting-more-information"><a name="getting-more-information" class="anchor-navigation-ex-anchor" href="#getting-more-information"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. Getting More Information</h2>
+<p>Each section contains a list to articles with further information. Personally, I like the following resources:</p>
+<ul>
+<li>There are some excellent books from O&apos;Reilly<ul>
+<li>Linux Device Driver, 3rd edition, Jonathan Corbet, Alessandro Rubini, Greg Kroah-Hartman, February 2005</li>
+<li>Understanding the Linux Kernel, 3rd edition, By Daniel P. Bovet, Marco Cesati, November 2005</li>
+<li>Understanding the Linux Network Internals, 1rd edition, By Christian Benvenuti, December 2005</li>
+</ul>
+</li>
+<li>The directory Documentation in the Linux kernel source code</li>
+<li>And of course the Linux source code itself. An excellent web page for browsing the source code is <a href="http://lxr.linux.no/linux/Documentation/" target="_blank">http://lxr.linux.no/linux/Documentation/</a>. It offers the possibility to search for keywords such as function names, defines, variables etc. It shows all the files that contain this data and provides links to the source code where the variable is used.</li>
+</ul>
+<h2 id="disclaimer"><a name="disclaimer" class="anchor-navigation-ex-anchor" href="#disclaimer"><i class="fa fa-link" aria-hidden="true"></i></a>1.6. Disclaimer</h2>
+<p>Use the information in this document at your own risk. I disavow any potential liability for the contents of this document. Use of the concepts, examples, and/or other content of this document is entirely at your own risk. Inserting a kernel module may cause your computer to be unresponsive and you may need to perform a &quot;hard-reset&quot;. Therefore save any information you want to keep before you insert a kernel module.</p>
+<p>All copyrights are owned by their owners, unless specifically noted otherwise. Use of a term in this document should not be regarded as affecting the validity of any trademark or service mark.</p>
+<p>Naming of particular products or brands should not be seen as endorsements.</p>
+<p>You are strongly recommended to take a backup of your system before major installation and backups at regular intervals.</p>
+<h2 id="copyright"><a name="copyright" class="anchor-navigation-ex-anchor" href="#copyright"><i class="fa fa-link" aria-hidden="true"></i></a>1.7. Copyright</h2>
+<p>Copyright &#xA9; 2008 Ariane Keller.
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.1 or any later version published by the Free Software Foundation with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.</p>
+<p><a href="http://wiki.tldp.org/LdpWikiDefaultLicence#GNUFreeDocumentationLicense" target="_blank">GNU Free Documentation License</a></p>
+<h2 id="authors"><a name="authors" class="anchor-navigation-ex-anchor" href="#authors"><i class="fa fa-link" aria-hidden="true"></i></a>1.8. Authors</h2>
+<p>This document was written by Ariane Keller. To contact me you can search with google for my email address. The document was reviewed by Steven to improve its readability.</p>
+<h2 id="most-recent-version"><a name="most-recent-version" class="anchor-navigation-ex-anchor" href="#most-recent-version"><i class="fa fa-link" aria-hidden="true"></i></a>1.9. Most recent version</h2>
+<p>The most recent version of this mini-HOWTO will be found on <a href="http://wiki.tldp.org/kernel_user_space_howto" target="_blank">http://wiki.tldp.org/kernel_user_space_howto</a></p>
+<hr>
+<h1 id="procfs-sysfs-and-similar-kernel-interfaces"><a name="procfs-sysfs-and-similar-kernel-interfaces" class="anchor-navigation-ex-anchor" href="#procfs-sysfs-and-similar-kernel-interfaces"><i class="fa fa-link" aria-hidden="true"></i></a>2. Procfs, Sysfs, and Similar Kernel Interfaces</h1>
+<h2 id="introduction_1"><a name="introduction_1" class="anchor-navigation-ex-anchor" href="#introduction_1"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. Introduction</h2>
+<p>These file systems are optional to the Linux kernel, and may not be enabled on your system. The file <code>/lib/modules/</code>uname -r<code>/build/.config</code> will tell you how your kernel is configured.</p>
+<p>In order to exchange data between user space and kernel space the Linux kernel provides a couple of RAM based file systems. These interfaces are, themselves, based on files. Usually a file represents a single value, but it may also represent a set of values. The user space can access these values by means of the standard read(2) and write(2) functions. For most file systems the read and write function results in a callback function in the Linux kernel which has access to the corresponding value.</p>
+<p>Despite offering similar functionality, the different RAM based file systems are all designed for separate purposes. However it is easy to use these file systems for other purposes as well. Questions such as &quot;Which file system should be used?&quot; or &quot;Why is there a need for the different file systems?&quot; often arise on the Linux kernel mailing list. The arguments are controversial and each developer seems to have a unique view.</p>
+<p>The benefit of using the read and write function in comparison to, for example, socket based approaches, is that the user space has a lot of tools available to send data to the kernel space (e.g. cat(1), echo (1)). These programs are well known to users and they can be used in scripts.</p>
+<h2 id="procfs"><a name="procfs" class="anchor-navigation-ex-anchor" href="#procfs"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. Procfs</h2>
+<h3 id="description"><a name="description" class="anchor-navigation-ex-anchor" href="#description"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. Description</h3>
+<p>The procfs, located in /proc, is the best known interface of this class. It was originally designed to export all kind of process information such as the current status of the process, or all open file descriptors to the user space. Despite its initial purposes, the procfs has been used for a lot of other purposes:</p>
+<ul>
+<li>provide information about the running system such as cpu information, information about interrupts, about the available memory or the version of the kernel.</li>
+<li>information about &quot;ide devices&quot;, &quot;scsi devices&quot; and &quot;tty&apos;s&quot;.</li>
+<li>networking information such as the arp table, network statistics or lists of used sockets</li>
+</ul>
+<p>There is a special subdirectory: /proc/sys. It allows to configure a lot of parameters of the running system. Usually each file consists of a single value. This value may correspond to:</p>
+<ul>
+<li>a limit (e.g. maximum buffer size)</li>
+<li>turn on or off a given functionality (for example routing)</li>
+<li>or represent some other kernel variable</li>
+</ul>
+<p>All directories and files below /proc/sys/ are not implemented with the procfs interface. Instead they use a mechanism called sysctl. See section sysctl for further details about sysctl.</p>
+<p>Note, despite the wide use of the procfs, it is deprecated and should only be used to export information related to a process itself.</p>
+<h3 id="implementation"><a name="implementation" class="anchor-navigation-ex-anchor" href="#implementation"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.2. Implementation</h3>
+<p>In order to use the procfs it needs to be compiled with the Linux kernel source code. This is done by setting the parameter CONFIG_PROC_FS=y. In most standard configurations this is enabled by default</p>
+<p>Procfs supports two different APIs for kernel modules: The legacy procfs API: It is easy to use as long as the amount of data to be handled is small. In this context small means smaller than one page size (PAGE_SIZE), which is in i386 systems 4096 bytes. The seq_file API: Seq_file was designed to facilitate the handling of read requests. It supports read requests for more than PAGE_SIZE bytes and it provides mechanism to traverse a list, collect the elements of the list, and send all elements to user space.</p>
+<h4 id="1-legacy-procfs-api"><a name="1-legacy-procfs-api" class="anchor-navigation-ex-anchor" href="#1-legacy-procfs-api"><i class="fa fa-link" aria-hidden="true"></i></a>1. Legacy procfs API</h4>
+<pre class="language-"><code>procfs.c        legacy procfs API
+</code></pre><p>The legacy procfs API allows for the creation of files and directories. For each file you have to specify two callback functions: One which is executed when a user reads the file and the other when a user writes to the file. The use of this API is well described in the &quot;Linux Kernel Procfs Guide&quot; distributed with the Linux kernel source code. Therefore we give here only a very basic example: A module which creates a directory as well as a file. If your file provides more than PAGE_SIZE bytes of data it is easy to get things wrong. This is due to the API of the read function: read(char <em>page, char **start, off_t off, int count, int </em>eof, void *data) The first parameter of this function is a buffer with the size corresponding to one page. Hence, if there is more data, the read has to be split in multiple pieces.</p>
+<h4 id="2-seqfile-api"><a name="2-seqfile-api" class="anchor-navigation-ex-anchor" href="#2-seqfile-api"><i class="fa fa-link" aria-hidden="true"></i></a>2. Seq_file API</h4>
+<p>The seq_file API is concerned with read requests solely - no writes. It hides the PAGE_SIZE boundary from the developer and it provides an API to step through a series of objects, collect the data from each of them and put all those data in the file. An example module can be found at <a href="http://lwn.net/Articles/22359/" target="_blank">http://lwn.net/Articles/22359/</a>.</p>
+<h3 id="further-reading-and-resources"><a name="further-reading-and-resources" class="anchor-navigation-ex-anchor" href="#further-reading-and-resources"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.3. Further Reading and Resources</h3>
+<ul>
+<li><p><a href="http://lwn.net/Articles/22355/" target="_blank">http://lwn.net/Articles/22355/</a> lwn article &quot;Driver porting: The seq_file interface&quot;.</p>
+</li>
+<li><p><a href="http://lwn.net/Articles/22359/" target="_blank">http://lwn.net/Articles/22359/</a> Example module that uses seq_file in relation with the lwn article.</p>
+</li>
+<li><p><a href="http://www.linux-mag.com/id/2739?r=s" target="_blank">http://www.linux-mag.com/id/2739?r=s</a> Linux magazine article &quot;Manipulating &quot;Seq&quot; Files&quot; covers legacy API as well as seq_file.</p>
+</li>
+<li><p><a href="http://kernelnewbies.org/Documents/SeqFileHowTo" target="_blank">http://kernelnewbies.org/Documents/SeqFileHowTo</a> Documents/SeqFileHowTo seqfile how-to on kernelnewbies</p>
+</li>
+<li><p>Linux Kernel Procfs Guide available in the Linux kernel source code Documentation/DocBook/procfs-guide.tmpl. Description of the legacy procfs API</p>
+</li>
+<li>T H E /proc F I L E S Y S T E M Description of entries in /proc, available in the Linux kernel source code Documentation/filesystems/proc.txt</li>
+</ul>
+<h2 id="sysfs"><a name="sysfs" class="anchor-navigation-ex-anchor" href="#sysfs"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. Sysfs</h2>
+<h3 id="description_1"><a name="description_1" class="anchor-navigation-ex-anchor" href="#description_1"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.1. Description</h3>
+<p>Sysfs was designed to represent the whole device model as seen from the Linux kernel. It contains information about devices, drivers and buses and their interconnections. In order to represent the hierarchy and the interconnections sysfs is heavily structured and contains a lot of links between the individual directories. As for kernel 2.6.23 it contains the following 9 top-level directories:</p>
+<ul>
+<li>sys/block/ all known block devices such as hda/ ram/ sda/</li>
+<li>sys/bus/ all registered buses. Each directory below bus/ holds by default two subdirectories:<ul>
+<li>o device/ for all devices attached to that bus o driver/ for all drivers assigned with that bus.</li>
+</ul>
+</li>
+<li>sys/class/ for each device type there is a subdirectory: for example /printer or /sound</li>
+<li>sys/device/ all devices known by the kernel, organised by the bus they are connected to</li>
+<li>sys/firmware/ files in this directory handle the firmware of some hardware devices</li>
+<li>sys/fs/ files to control a file system, currently used by FUSE, a user space file system implementation</li>
+<li>sys/kernel/ holds directories (mount points) for other filesystems such as debugfs, securityfs.</li>
+<li>sys/module/ each kernel module loaded is represented with a directory.</li>
+<li>sys/power/ files to handle the power state of some hardware</li>
+</ul>
+<h3 id="implementation_1"><a name="implementation_1" class="anchor-navigation-ex-anchor" href="#implementation_1"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.2. Implementation</h3>
+<p>In order to use sysfs it needs to be compiled with the Linux kernel source code. This is done by setting the parameter CONFIG_SYSFS=y.</p>
+<p>The philosophy behind sysfs is to represent each value with a dedicated file. In addition each file has a maximum size of PAGE_SIZE bytes.</p>
+<p>For a kernel module there are three possibilities to use a file below /sys:</p>
+<ol>
+<li>module parameter</li>
+<li>register new subsystem</li>
+<li>debugfs: debugfs, mounted in /sys/kernel/debug. More information about debugfs.</li>
+</ol>
+<h4 id="module-parameter-api"><a name="module-parameter-api" class="anchor-navigation-ex-anchor" href="#module-parameter-api"><i class="fa fa-link" aria-hidden="true"></i></a>Module Parameter API</h4>
+<p>Similar to command line arguments for applications, Linux kernel modules may allow a set of parameters. These parameters can not only be specified upon module insertion but also during module run time. A module parameter can be defined with the following macro: module_param_named(name, value, type, perm) This macro creates a parameter called &quot;name&quot; which corresponds to the variable with name &quot;value&quot; of type &quot;type&quot;. There are many predefined types such as byte (for a single character), int (for an integer) or charp (for a string). It is also possible to add new types. The file include/linux/stat.h provides all predefined types as well as an introduction how to define new types.</p>
+<p>The module_param macro creates a file called /sys/modules/module_name/name with the access rights specified by perm. Depending on the specified access rights, the file - and thereby the parameter value - can be read or written. If perm is set to 0 the file is not created, and therefore the parameter cannot be accessed during run time.</p>
+<p>The module does not receive a notification when a user reads or writes a given parameter, but the value is silently changed. Therefore it is not possible to do some additional stuff when a parameter changes its value. This may be acceptable in some circumstances as for changing a debug level, but in most circumstances the module wants to do some additional stuff such as sanity checks or manipulating a data structure.</p>
+<h4 id="standard-sysfs-api"><a name="standard-sysfs-api" class="anchor-navigation-ex-anchor" href="#standard-sysfs-api"><i class="fa fa-link" aria-hidden="true"></i></a>Standard Sysfs API</h4>
+<p>The standard sysfs API uses a dedicated terminology: A file is called an attribute, the function executed upon reading an attribute is called show and the one for writing an attribute store.</p>
+<p>Before starting with the implementation of a module which uses sysfs you have to figure out which subdirectory it belongs to. If you deal with a bus, it belongs to bus/, with a file system it belongs to fs/ or with a block device it belongs to block/. The API to use depends on the given subdirectory. We first show an example which uses the low level sysfs functions to add a new directory to fs/, and in a second example we show how to add a new entry to the bus/ directory.</p>
+<p><strong>1. new fs/ entry</strong></p>
+<pre class="language-"><code>sysfs_ex.c      creates the directory /sys/fs/myfs/ along with two files first and second. Both containing one single integer value.
+</code></pre><p>The first step is to declare our subsystem. This can be done with the use of the decl_subsys macro (on top of the file). This macro creates a struct kset with the name myfs_subsys.</p>
+<p>The module_init() function performs the proper registration of our subsystem: The macro kobj_set_kset_s initializes myfs_subsys so that it will be part of the fs_subsys. The field myfs_subsys.kobj.ktype points to a structure which holds all the attributes as well as the functions to read and write the attributes. And finally a call to register_subsystem() registers our subsystem.</p>
+<p>Files are generally represented by a struct attribute. This struct holds the name as well as the access permission for the corresponding file, but no data. Therefore you have to create your own attribute type which consists of at least the struct attribute and the value corresponding to that file.</p>
+<p>By design all attributes share the same show and store functions. Each time one of these two functions is invoked it gets the corresponding struct attribute as an argument. Therefore in the show and store functions you can obtain the value corresponding to the file being read/written and you can manipulate it accordingly. For this purpose you need the macro container_of(ptr, type, member). ptr is a pointer to the member of the struct. type is the type of the struct this member is emeded in and member is the name of the member within the struct.</p>
+<p><strong>2. new bus/ entry</strong></p>
+<pre class="language-"><code>sysfs_ex2.c     use of sysfs in combination with a bus. It provides the possibility to read and write one value with the help of &quot;my_pseude_bus&quot;.
+</code></pre><p>First of all we define our bus my_pseudo_bus. Then we create our attribute with the help of the BUS_ATTR macro. In the init function we register our pseudo bus and we create a file (attribute). If we would like more than one attribute we would have to use BUS_ATTR several times and provide for each attribute its own store and show function. This example is similar to the debugging facility of the scsi bus, which is implemented in drivers/scsi/scsi_debug.c Resources and Further Reading</p>
+<ul>
+<li>Understanding the Linux Kernel p. 527</li>
+<li>Linux Device Driver p. 362, 377 for the bus directory</li>
+<li>Linux kernel source code: drivers/scsi/scsi_debug.c</li>
+</ul>
+<h2 id="configfs"><a name="configfs" class="anchor-navigation-ex-anchor" href="#configfs"><i class="fa fa-link" aria-hidden="true"></i></a>2.4. Configfs</h2>
+<h3 id="description_2"><a name="description_2" class="anchor-navigation-ex-anchor" href="#description_2"><i class="fa fa-link" aria-hidden="true"></i></a>2.4.1. Description</h3>
+<p>The configfs is somewhat the counterpart of the sysfs. It can be seen as a filesystem based manager of kernel objects. An important difference between configfs and sysfs is that in configfs all objects are created from user space with a call to mkdir(2). The kernel responds with creating the attributes (files) and then they can be read and written by the user. If the user no longer needs the files, he calls rmdir(2) and everything gets deleted. Therefore the life cycle of a configfs object is fully controlled by user space.</p>
+<p>Each time mkdir is invoked a new &quot;config_item&quot; is created by the kernel implementation. This config_item represents the files (attributes), the show and store callback functions as well as the associated value. Therefore each mkdir creates a new directory along with new files which represent new values.</p>
+<p>Configfs has the same limitations than sysfs: each file should represent only one value and it should be smaller than PAGE_SIZE bytes. Implementation</p>
+<p>In order to use configfs it needs to be compiled with the Linux kernel source code. This is done by setting the parameter CONFIG_CONFIGFS_FS=y.</p>
+<p>In order to access configfs it has to be mounted with the following command:</p>
+<pre class="language-"><code>mount -t configfs none /config
+</code></pre><p>The Linux kernel documentation provides a good manual for configfs along with an example module. Therefore we do not describe the configfs implementation aspects.</p>
+<h3 id="resources-and-further-reading"><a name="resources-and-further-reading" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading"><i class="fa fa-link" aria-hidden="true"></i></a>2.4.2. Resources and Further Reading</h3>
+<ul>
+<li>Linux kernel source code: Documentation/filesystems/configfs</li>
+</ul>
+<h2 id="debugfs"><a name="debugfs" class="anchor-navigation-ex-anchor" href="#debugfs"><i class="fa fa-link" aria-hidden="true"></i></a>2.5. Debugfs</h2>
+<h3 id="description_3"><a name="description_3" class="anchor-navigation-ex-anchor" href="#description_3"><i class="fa fa-link" aria-hidden="true"></i></a>2.5.1. Description</h3>
+<p>Debugfs is a simple to use RAM based file system especially designed for debugging purposes. Developers are encouraged to use debugfs instead of procfs in order to obtain some debugging information from their kernel code. Debugfs is quite flexible: it provides the possibility to set or get a single value with the help of just one line of code but the developer is also allowed to write its own read/write functions, and he can use the seq_file interface described in the procfs section.</p>
+<h3 id="implementation_2"><a name="implementation_2" class="anchor-navigation-ex-anchor" href="#implementation_2"><i class="fa fa-link" aria-hidden="true"></i></a>2.5.2. Implementation</h3>
+<p>In order to use debugfs it needs to be compiled with the Linux kernel source code. This is done by setting the parameter CONFIG_DEBUG_FS=y.</p>
+<p>Before having access to the debugfs it has to be mounted with the following command.</p>
+<pre class="language-"><code>mount -t debugfs none /sys/kernel/debug
+</code></pre><pre class="language-"><code>debugfs.c       kernel module that implements the &quot;one line&quot; API for a variable of type u8 as well as the API with which you can specify your own read and write functions.
+</code></pre><p>All the &quot;one line&quot; APIs start with debugfs<em>create</em> and are listed in include/linux/debugfs.h</p>
+<p>The API with which you can provide your own read and write functions is similar to the one of procfs. In contrast to sysfs, you may create directories and files without having to care about a given hierarchy. Resources and Further Reading</p>
+<ul>
+<li>Kernel source code: include/linux/debugfs.h List of all one line APIs.</li>
+<li><p><a href="http://kerneltrap.org/node/4394" target="_blank">http://kerneltrap.org/node/4394</a> announcement of the debugfs by Greg KH.</p>
+</li>
+<li><p><a href="http://lwn.net/Articles/115405/" target="_blank">http://lwn.net/Articles/115405/</a> article on lwn about debugfs</p>
+</li>
+</ul>
+<h2 id="sysctl"><a name="sysctl" class="anchor-navigation-ex-anchor" href="#sysctl"><i class="fa fa-link" aria-hidden="true"></i></a>2.6. Sysctl</h2>
+<h3 id="description_4"><a name="description_4" class="anchor-navigation-ex-anchor" href="#description_4"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.1. Description</h3>
+<p>The sysctl infrastructure is designed to configure kernel parameters at run time. The sysctl interface is heavily used by the Linux networking subsystem. It can be used to configure some core kernel parameters; represented as files in /proc/sys/*. The values can be accessed by using cat(1), echo(1) or the sysctl(8) commands. If a value is set by the echo command it only persists as long as the kernel is running, but gets lost as soon as the machine is rebooted. In order to change the values permanently they have to be written to the file /etc/sysctl.conf. Upon restarting the machine all values specified in this file are written to the corresponding files in /proc/sys/.</p>
+<h3 id="implementation_3"><a name="implementation_3" class="anchor-navigation-ex-anchor" href="#implementation_3"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.2. Implementation</h3>
+<pre class="language-"><code>sysctl.c        sysctl example module: write an integer to /proc/sys/net/test/value1 and value2 respectively
+</code></pre><p>Each entry in the /proc/sys directory is represented by an entry in a table maintained by the Linux kernel, arranged in a hierarchy. A directory is represented by an entry pointing to a subtable. A file is represented by an entry of type struct ctl_table. This entry consists of the data represented by this file along with some access rules.</p>
+<p>New files and directories can be added by expanding one of the subtables. In this example we add a new directory called test below the /proc/sys/net/ directory. Our directory has got two files: value1 and value2. Each of these files hold an integer variable which can have a value between 10 and 20. The user root is allowed to change the entries whereas normal user are allowed to read the entries.</p>
+<p>Each file is represented with an entry in the test_table[] array:</p>
+<pre class="language-"><code>    static ctl_table test_table[] = {
+            {
+            .ctl_name       = CTL_UNNUMBERED,
+            .procname       = &quot;value1&quot;,
+            .data           = &amp;value1,
+            .maxlen         = sizeof(int),
+            .mode           = 0644,
+            .proc_handler   = &amp;proc_dointvec_minmax,
+            .strategy       = &amp;sysctl_intvec,
+            .extra1         = &amp;min,
+            .extra2         = &amp;max
+            },
+            ...
+    }
+</code></pre><p>The struct ctl_table entries are:</p>
+<ul>
+<li>.ctl_name: For new entries this has to be CTL_UNNUMBERED (according to Documentation/sysctl/ctl_unnumbered.txt).</li>
+<li>.procname: The name of the file.</li>
+<li>.data: A reference to the data we want to be shown in the file.</li>
+<li>maxlen: The size of the data.</li>
+<li>mode: Access permissions (read, write, execute for user, group, others)</li>
+<li>proc_handler: The routine which handles read and write requests. There is a set of default routines declared near the end of include/linux/sysctl.h</li>
+<li>strategy: Some routine that enforces additional access control. In this example it checks that the value to be written is between min and max.</li>
+</ul>
+<pre class="language-"><code>    static ctl_table test_net_table[] = {
+            {
+                    .ctl_name       = CTL_UNNUMBERED,
+                    .procname       = &quot;test&quot;,
+                    .mode           = 0555,
+                    .child          = test_table
+            },
+            { .ctl_name = 0 }
+    };
+</code></pre><p>This table represents our test directory. The entry .child says that the elements below this directory are represented by the table test_table, discussed above.</p>
+<pre class="language-"><code>    static ctl_table test_root_table[] = {
+            {
+                    .ctl_name       = CTL_UNNUMBERED,
+                    .procname       = &quot;net&quot;,
+                    .mode           = 0555,
+                    .child          = test_net_table
+            },
+            { .ctl_name = 0 }
+    };
+</code></pre><p>This table represents the directory to which we want to attach our new directory. In this example, this is the net directory. In the module_init() function we have to register this root table with a call to register_sysctl_table(test_root_table);</p>
+<h3 id="resources-and-further-reading_1"><a name="resources-and-further-reading_1" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_1"><i class="fa fa-link" aria-hidden="true"></i></a>2.6.3. Resources and Further Reading</h3>
+<ul>
+<li>Linux kernel source code: net/core/sysctl_net_core.c</li>
+<li>Linux kernel Documentation: Documentation/sysctl/ctl_unnumbered.txt</li>
+</ul>
+<h2 id="character-devices"><a name="character-devices" class="anchor-navigation-ex-anchor" href="#character-devices"><i class="fa fa-link" aria-hidden="true"></i></a>2.7. Character Devices</h2>
+<h3 id="description_5"><a name="description_5" class="anchor-navigation-ex-anchor" href="#description_5"><i class="fa fa-link" aria-hidden="true"></i></a>2.7.1. Description</h3>
+<p>As the name suggests, this interface was designed for character device drivers, and is commonly used for communication between uer and kernel space. (For example, users with sufficient privileges my write directly to the virtual terminal 1 with echo &quot;hi there&quot; &gt; /dev/tty1).</p>
+<p>Each module can register itself as a character device and provide some read and write functions which handle the data. Files representing character devices are located within the /dev directory (where you will also find block devices, but we will not be describing them further). Usually these files correspond to a hardware device.</p>
+<h3 id="implementation_4"><a name="implementation_4" class="anchor-navigation-ex-anchor" href="#implementation_4"><i class="fa fa-link" aria-hidden="true"></i></a>2.7.2. Implementation</h3>
+<pre class="language-"><code>cdev.c  kernel module that prints its majorNumber to the system log. The minorNumber can be chosen to be 0.
+</code></pre><p>As with all file system based approaches the module has to specify a read and a write callback function. Therefore, we have to register ourself with the function register_chrdev(unsigned int major, const char <em>name, struct file_operations </em>ops);. major is the major number of this device. We can set it to 0 to let the kernel choose an appropriate number. name is the name of this character device, as it will be shown below the /dev directory. ops is a pointer to the read and write functions.</p>
+<p>In contrast to most file system based approaches seen so far, the user has to create the device file explicitly with a call to:</p>
+<pre class="language-"><code>mknod /dev/arbitrary_name c majorNumber minorNumber
+</code></pre><h3 id="resources-and-further-reading_2"><a name="resources-and-further-reading_2" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_2"><i class="fa fa-link" aria-hidden="true"></i></a>2.7.3. Resources and Further Reading</h3>
+<ul>
+<li>man mknod(1)</li>
+<li>Linux Device Driver chapter 3.</li>
+</ul>
+<hr>
+<h1 id="socket-based-mechanisms"><a name="socket-based-mechanisms" class="anchor-navigation-ex-anchor" href="#socket-based-mechanisms"><i class="fa fa-link" aria-hidden="true"></i></a>3. Socket Based Mechanisms</h1>
+<h2 id="introduction_2"><a name="introduction_2" class="anchor-navigation-ex-anchor" href="#introduction_2"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. Introduction</h2>
+<p>Beside the file system based mechanism described in the last section, there are mechanisms based on the socket interface. Sockets allow the Linux kernel to send notifications to a user space application. This is in contrast to the file system mechanisms, where the kernel can alter a file, but the user program does not know of any change until it choses to access that file. The socket based mechanisms allow the applications to listen on a socket, and the kernel can send them messages at any time. This leads to a communication mechanism in which user space and kernel space are equal partners.</p>
+<p>There are different socket families which can be used to achieve this goal:</p>
+<p><strong>AF_INET</strong>: designed for network communication, but UDP sockets can also be used for the communication between a kernel module and the user space. The use of UDP sockets for node local communication involves a lot of overhead.</p>
+<p><strong>AF_PACKET</strong>: allows the user to define all packet headers.</p>
+<p><strong>AF_NETLINK</strong> (netlink sockets): They are especially designed for the communication between the kernel space and the user space. There are different netlink socket types currently implemented in the kernel, all of which deal with a specific subset of the networking part of the Linux kernel.</p>
+<p>In this section we briefly cover UDP sockets, as they are the most flexible communication mechanism. Afterwards we look at netlink sockets, with a special focus on &quot;generic netlink sockets&quot;.</p>
+<h2 id="udp-sockets"><a name="udp-sockets" class="anchor-navigation-ex-anchor" href="#udp-sockets"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. UDP Sockets</h2>
+<h3 id="description_6"><a name="description_6" class="anchor-navigation-ex-anchor" href="#description_6"><i class="fa fa-link" aria-hidden="true"></i></a>3.2.1. Description</h3>
+<p>We briefly describe UDP sockets, since their usage in user space is well known and they provide a lot of flexibility. With UDP sockets it is possible to have communication between a kernel module on one system and a user space application on an other machine.</p>
+<h3 id="implementation_5"><a name="implementation_5" class="anchor-navigation-ex-anchor" href="#implementation_5"><i class="fa fa-link" aria-hidden="true"></i></a>3.2.2. Implementation</h3>
+<pre class="language-"><code>udpRecvCallback.c       kernel module that provides a callback function to receive messages on port number 5555.
+udpUser.c       user space program that sends a message to the kernel which sends the message back.
+</code></pre><p>The user space program sends the string &quot;hello world&quot; to the kernel, which listens on port 5555. The module prints the payload to the system log file and sends it back to the application. The application receives the message and prints the payload to stdout.</p>
+<p>The user space code does not need any explanation, since a lot of documentation is available for socket programming. The module implementation requires some understanding of the Linux kernel. The module_init function performs three actions:</p>
+<ol>
+<li>Create a socket to receive UDP packets. As is well known from user space, we first create the socket and then we bind it. In addition we specify a callback function, which is executed every time a packet is received on that socket. This callback function is executed in &quot;interrupt context&quot;. This implies that only a restricted set of operations can be performed in that function, and it is not allowed to send any messages.</li>
+<li>Therefore we define a work_queue with which we can delay the sending of the answer until we have left interrupt context.</li>
+<li>Finally, we create a socket to send the answer back to the application.</li>
+</ol>
+<p>Each time the module receives a packet, the callback function cb_data() is executed. The only thing this callback function does is to submit the send_answer() function to the work_queue. If the kernel decides that there is no better work to do, it executes the send_answer function. The send_answer() function receives the packets, by dequeuing them from the sockets-receive-queue, with skb_dequeue. Since more than one packet can be received by the socket between two consecutive executions of send_answer(), this function may need to dequeue multiple messages. The number of messages in the socket queue can be obtained with a call to skb_queue_len(). After having dequeued the packet the message is printed to the system log and a message is send back to the application with the sock_sendmsg() function. Since this function assumes to be executed from user space, we have to adjust the boundaries for the allowed memory region with the help of the set_fs macro.</p>
+<h2 id="netlink-sockets"><a name="netlink-sockets" class="anchor-navigation-ex-anchor" href="#netlink-sockets"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. Netlink Sockets</h2>
+<h3 id="description_7"><a name="description_7" class="anchor-navigation-ex-anchor" href="#description_7"><i class="fa fa-link" aria-hidden="true"></i></a>3.3.1. Description</h3>
+<p>Netlink is a special IPC used for transferring information between kernel and user space processes, and provides a full-duplex communication link between the Linux kernel and user space. It makes use of the standard socket APIs for user-space processes, and a special kernel API for kernel modules. Netlink sockets use the address family AF_NETLINK, as compared to AF_INET used by a TCP/IP socket.</p>
+<p>Netlink sockets have the following advantages over other communication mechanisms:</p>
+<ul>
+<li>It is simple to interact with the standard Linux kernel as only a constant has to be added to the Linux kernel source code. There is no risk to pollute the kernel or to drive it in instability, since the socket can immediately be used.</li>
+<li>Netlink sockets are asynchronous as they provide queues, meaning they do not disturb kernel scheduling. This is in contrast to system calls which have to be executed immediately.</li>
+<li>Netlink sockets provide the possibility of multicast.</li>
+<li>Netlink sockets provide a truly bidirectional communication channel: A message transfer can be initiated by either the kernel or the user space application.</li>
+<li>They have less overhead (header and processing) compared to standard UDP sockets.</li>
+</ul>
+<p>Beside these advantages netlink sockets have two drawbacks:</p>
+<ul>
+<li>Each entity using netlink sockets has to define its own protocol type (family) in the kernel header file include/linux/netlink.h, necessiating a kernel re-compilation before it can be used.</li>
+<li>The maximum number of netlink families is fixed to 32. If everyone registers its own protocol this number will be exhausted.</li>
+</ul>
+<p>To eliminate these drawbacks the &quot;Generic Netlink Family&quot; was implemented. It acts as a Netlink multiplexer, in a sense that different applications may use the generic netlink address family.</p>
+<p>Generic Netlink communications are essentially a series of different communication channels which are multiplexed on a single Netlink family. Communication channels are uniquely identified by channel numbers which are dynamically allocated by the Generic Netlink controller. Kernel or user space users which provide services, establish new communication channels by registering their services with the Generic Netlink controller. Users of the service, then query the controller to see if the service exists and to determine the correct channel number.</p>
+<p>Each generic netlink family can provide different &quot;attributes&quot; and &quot;commands&quot;. Each command has its own callback function in the kernel module and may receive messages with different attributes. Both commands and attributes, are &quot;addressed&quot; by an identifier.</p>
+<h2 id="implementation_6"><a name="implementation_6" class="anchor-navigation-ex-anchor" href="#implementation_6"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. Implementation</h2>
+<pre class="language-"><code>gnKernel.c      kernel module that implements a generic netlink family (CONTROL_EXMPL)
+gnUser.c        user space program that sends a message to the kernel and receives an answer back
+</code></pre><p>Here we describe how to use this generic netlink protocol to exchange data between user space and kernel space.</p>
+<h3 id="user-space"><a name="user-space" class="anchor-navigation-ex-anchor" href="#user-space"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.1. User Space</h3>
+<p>Although the user space application could be written just with the help of the well known socket operations it is not reasonable to do so. For convenient user space programming there exists the libnl netlink library. It provides functions dedicated to be used for generic netlink socket communication. The libnetlink library supports generic netlink as of version 1.1, so probably you need to download the actual version from <a href="http://people.suug.ch/~tgr/libnl/" target="_blank">http://people.suug.ch/~tgr/libnl/</a>. A program that uses this library needs to be compiled with -lnl specified.</p>
+<p>User Space Sending Phase::</p>
+<ol>
+<li>nl_handle_alloc: create a socket</li>
+<li>genl_connect: connect to the NETLINK_GENERIC socket family.</li>
+<li>genl_ctrl_resolve: resolve the ID for the particular generic netlink family we want to talk with. In this example we have called the family CONTROL_EXMPL.</li>
+<li>genlmsg_put: create the generic netlink message header. In most cases you can leave all the arguments as in the example except the DOC_EXMPL_C_ECHO argument. This specifies which callback function of your kernel module gets executed. In this example there is just one callback function.</li>
+<li>nla<em>put</em>*: put the data into the message. All the possibilities are listed in the file attr.c of libnl. The second argument is used by the kernel module to distinguish which attribute was sent. In this example we have only one attribute: DOC_EXMPL_A_MSG which is a null terminated string.</li>
+<li>nl_send_auto_complete: send the message to the kernel</li>
+</ol>
+<p>Receiving Phase:</p>
+<ol>
+<li>nl<em>socket_modify_cb: Add a callback function to the socket. This callback function gets executed when the socket receives a message. In the callback function the message needs to be decoded. We use nla_parse for this. Using genlmsg_parse would be more specific, but I could not link genlmsg_parse with my program. The nla_get</em><em> functions are the counterpart of the nla<em>put</em></em> functions, and are used to get a specific attribute from the message.</li>
+<li>nl_recvmsgs_default: wait until a message is received.</li>
+</ol>
+<h3 id="kernel-module"><a name="kernel-module" class="anchor-navigation-ex-anchor" href="#kernel-module"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.2. Kernel Module</h3>
+<p>In the module_init function we need to register our generic netlink family with a call to genl_register_family. As an argument we have to specify a struct genl_family which holds the name of our family (CONTROL_EXMPL). In a second step we have to register the functions that get executed upon receiving a message from the user space. This is done with genl_register_ops which takes as an argument the family to which this function belongs and a struct genl_ops. This struct specifies the actual callback function as well as a security policy checked before the actual callback function gets executed. This means that if you want to receive, for example an integer, but the user space program sends a string, your callback function does not get invoked.</p>
+<p>The actual callback function is doc_exmpl_echo. It performs two things: prints the received message, and sends a message back to the user space process. The callback function has as an argument a struct genl_info *info which holds the already parsed message. This struct contains an array which has an entry for each possible attribute. Our example has only one attribute (DOC_EXMPL_A_MSG). The data related to this attribute is saved in info-&gt;attrs[DOC_EXMPL_A_MSG];. In order to obtain the data for a given attribute there is a simple function: nla_data.</p>
+<p>The sending process is very similar to the user space sending process.</p>
+<ol>
+<li>genlmsg_new: this allocates a new skb that will be sent to the user space. Since we do not yet know the final size, we use the macro NLMSG_GOODSIZE.</li>
+<li>genlmsg_put: fills the generic netlink header. All messages sent by kernel have pid = 0</li>
+<li>nla_put_string: write a string into the message.</li>
+<li>genlmsg_end: finalize the message</li>
+<li>genlmsg_unicast: send the message back to the user space program.</li>
+</ol>
+<h2 id="resources-and-further-reading_3"><a name="resources-and-further-reading_3" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_3"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. Resources and Further Reading</h2>
+<ul>
+<li><p><a href="http://www.linuxjournal.com/article/7356" target="_blank">http://www.linuxjournal.com/article/7356</a> Kernel Korner - Why and How to Use Netlink Socket, Kevin Kaichuan He</p>
+</li>
+<li><p>man 3 netlink</p>
+</li>
+<li>man 7 netlink</li>
+<li>man 3 rtnetlink</li>
+<li>man 7 rtnetlink</li>
+<li><p><a href="http://www.linux-foundation.org/en/Net:Generic_Netlink_HOWTO" target="_blank">http://www.linux-foundation.org/en/Net:Generic_Netlink_HOWTO</a></p>
+</li>
+<li><p><a href="http://lwn.net/Articles/208755/" target="_blank">http://lwn.net/Articles/208755/</a> Patch: Generic Netlink HOW-TO based on Jamal&apos;s original doc</p>
+</li>
+<li><p><a href="http://people.suug.ch/~tgr/libnl/" target="_blank">http://people.suug.ch/~tgr/libnl/</a> libnl - netlink library: the library along with a doxygen documentation.</p>
+</li>
+</ul>
+<hr>
+<h1 id="ioctl"><a name="ioctl" class="anchor-navigation-ex-anchor" href="#ioctl"><i class="fa fa-link" aria-hidden="true"></i></a>4. Ioctl</h1>
+<h2 id="introduction_3"><a name="introduction_3" class="anchor-navigation-ex-anchor" href="#introduction_3"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. Introduction</h2>
+<p>In addition to the read and write functions described in the section Procfs, Sysfs, and Similar Kernel Interfaces all file based mechanisms offer the possibility of additional control commands which are supported by the ioctl method.. The ioctl mechanism is implemented as a single system call which multiplexes the different commands to the appropriate kernel space function. A call to ioctl has three arguments: a file (or socket) descriptor, a number identifying the command, and a data argument. The multiplexing is done based on a) the file descriptor and b) the number of the command. Conceptually it would be possible to use any number for your new ioctl command, but this is strongly discouraged, and a system wide unique number should be used instead. This ensures that it is not possible to execute an ioctl on a wrong device leading to unexpected behavior. The exact mechanism to obtain a unique command number is described in the Linux kernel file Documentation/ioctl-number.txt.</p>
+<p>There are different argument types for an ioctl.</p>
+<ul>
+<li>The command does not require any data.</li>
+<li>The command writes some data to the kernel.</li>
+<li>The command reads some data from the kernel.</li>
+<li>The kernel module reads the data and exchanges it with some new data.</li>
+</ul>
+<p>The argument type can be specified when the command number is generated as described in the Linux kernel file Documentation/ioctl-number.txt.</p>
+<h2 id="implementation_7"><a name="implementation_7" class="anchor-navigation-ex-anchor" href="#implementation_7"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. Implementation</h2>
+<pre class="language-"><code>ioctl.c         kernel module that uses ioctl in combination with a character device.The ioctl allows to send a message of up to 200 bytes.
+ioctl_user.c    user space program that uses ioctl to send a message to the kernel
+</code></pre><p>In order to demonstrate the use of the ioctl mechanism we extend the character device example from section Character Device. Despite sending some data with the read and write system calls, we can now also use ioctl. We have implemented two ioctl commands one for sending data to the kernel and the other for reading data from the kernel. This extension is quite straight forward: Define your ioctl handler function in the struct file_operations (as was already done for the read and write handler function). The callback function consists mainly of a switch statement, which parses the different commands. If the specified command number does not exist ENOTTY is returned, which translates to &quot;Inappropriate ioctl for device&quot;.</p>
+<h2 id="resources-and-further-reading_4"><a name="resources-and-further-reading_4" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_4"><i class="fa fa-link" aria-hidden="true"></i></a>4.3. Resources and Further Reading</h2>
+<ul>
+<li>Linux Device Driver p. 135</li>
+<li>Linux kernel source code: Documentation/ioctl-number.txt</li>
+</ul>
+<hr>
+<h1 id="kernel-system-calls"><a name="kernel-system-calls" class="anchor-navigation-ex-anchor" href="#kernel-system-calls"><i class="fa fa-link" aria-hidden="true"></i></a>5. Kernel System Calls</h1>
+<h2 id="introduction_4"><a name="introduction_4" class="anchor-navigation-ex-anchor" href="#introduction_4"><i class="fa fa-link" aria-hidden="true"></i></a>5.1. Introduction</h2>
+<p>System calls are used when a user space program wants to use some data or some service provided by the Linux kernel. In current Linux kernel (2.6.23) there exist 324 system calls. All system calls provide a function which is useful for many application programs (such as file operations, network operations or process related operations). There is no point in adding a very specific system call which can be used only by a specific program.</p>
+<p>Usually the system call gets invoked by a wrapper function provided by glibc (for example open(), socket(), getpid()). Internally each system call is identified by a unique number.</p>
+<p>When a user space process invokes a system call, the CPU switches to kernel mode and executes the appropriate kernel function.</p>
+<p>In order to actually do the switch from user mode to kernel mode there are some assembly instructions. For x86 architectures there are two possibilities: &quot;int $0x80&quot;, or the newer &quot;sysenter&quot;. Both possibilities cause:</p>
+<ul>
+<li>the CPU to switch to kernel mode,</li>
+<li>the necessary registers to be saved</li>
+<li>some validity checks</li>
+<li>invoke the system call corresponding to the number provided by the user space process.</li>
+</ul>
+<p>If the system call service routine has finished, the system_call function checks whether there is some other work to do (such as rescheduling or signal processing) and it finally restores the user mode process context.</p>
+<h2 id="implementation_8"><a name="implementation_8" class="anchor-navigation-ex-anchor" href="#implementation_8"><i class="fa fa-link" aria-hidden="true"></i></a>5.2. Implementation</h2>
+<p>System calls are a low level construct, therefore they are heavily integrated in the Linux kernel. In order to add a new system call to the Linux kernel, you have to modify a number of Linux kernel files:</p>
+<ol>
+<li>include/asm-i386/unistd.h<ul>
+<li>This file defines the system call numbers provided by the user space to identify the system call. Add your system call at the end and increment the total number of system calls.</li>
+</ul>
+</li>
+</ol>
+<pre class="language-"><code>                  #define __NR_mysyscall          325
+                  #define NR_syscalls 326
+</code></pre><ol>
+<li>include/linux/syscalls.h<ul>
+<li>This file contains the declaration of all system calls. Add your system call at the end.</li>
+</ul>
+</li>
+</ol>
+<pre class="language-"><code>                  asmlinkage long sys_mysyscall(char __user *data, int len);
+</code></pre><ol>
+<li>arch/i386/kernel/syscall_table.S<ul>
+<li>This file is a table with all the available system calls. In order to make your call accessible add the following line at the bottom of this file:</li>
+</ul>
+</li>
+</ol>
+<pre class="language-"><code>                  .long sys_mycall
+</code></pre><ol>
+<li>add a new directory mysyscall<ul>
+<li>Since the system call has to be integrated in the kernel we add a new directory &quot;mysyscall&quot; for our system call in the top level directory of the Linux source code.</li>
+</ul>
+</li>
+<li>Makefile<ul>
+<li>Add the new directory to the variable core-y (search for core-y.*+=) in the top level Makefile.</li>
+</ul>
+</li>
+<li>Write your new system call function in the file mysyscall/mysyscall.c<ul>
+<li>This example prints the message provided by the user space to the system log file and exchanges it with &quot;hello world&quot;.</li>
+</ul>
+</li>
+</ol>
+<pre class="language-"><code>                  #include &lt;linux/linkage.h&gt;
+                  #include &lt;asm/uaccess.h&gt;
+                  asmlinkage long sys_mysyscall(char __user *buf, int len)
+                  {
+                    char msg [200];
+                    if(strlen_user(buf) &gt; 200)
+                             return -EINVAL;
+                    copy_from_user(msg, buf, strlen_user(buf));
+                    printk(&quot;mysyscall: %s\n&quot;, msg);
+                    copy_to_user(buf, &quot;hello world&quot;, strlen(&quot;hello world&quot;)+1);
+                    return strlen(&quot;hello world&quot;)+1;
+                  }
+</code></pre><ol>
+<li>Add a Makefile to your directory with the following line:</li>
+</ol>
+<pre class="language-"><code>                  obj-y:= mysyscall.o
+</code></pre><p>With this you have completed the kernel implementation. After having compiled and installed the new kernel, user space applications can make use of the new system call. The following is an example code which uses the new system call:</p>
+<pre class="language-"><code>            #include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">&gt;</span></span>
+            #include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string.h</span><span class="token punctuation">&gt;</span></span>
+            #include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>unistd.h</span><span class="token punctuation">&gt;</span></span>
+            #include &lt;sys/syscall.h&gt;
+            #define MYSYSCALL 325
+            int main(){
+                    char *buf [20];
+                    memcpy(buf, &quot;hi kernel&quot;, strlen(&quot;hi kernel&quot;) +1);
+                    syscall(MYSYSCALL, buf, 10);
+                    printf(&quot;kernel said %s\n&quot;, buf);
+                    return 0;
+            }
+</code></pre><h2 id="resources-and-further-reading_5"><a name="resources-and-further-reading_5" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_5"><i class="fa fa-link" aria-hidden="true"></i></a>5.3. Resources and Further Reading</h2>
+<ul>
+<li>Linux Device Driver, p. 398</li>
+</ul>
+<hr>
+<h1 id="sending-signals-from-the-kernel-to-the-user-space"><a name="sending-signals-from-the-kernel-to-the-user-space" class="anchor-navigation-ex-anchor" href="#sending-signals-from-the-kernel-to-the-user-space"><i class="fa fa-link" aria-hidden="true"></i></a>6. Sending Signals from the Kernel to the User Space</h1>
+<h2 id="introduction_5"><a name="introduction_5" class="anchor-navigation-ex-anchor" href="#introduction_5"><i class="fa fa-link" aria-hidden="true"></i></a>6.1. Introduction</h2>
+<p>This approach is somewhat different from the others, since only the kernel can send a signal to the user space, but not vice versa. Additionally, the amount of data to be sent is quite limited. There are two types of signal APIs in user space: &quot;normal&quot; signals which do not have any data, and &quot;realtime&quot; signals which carry 32 bits of data. The main difference between them is that real time signals are queued, whereas normal signals are not. This means that if more than one normal signal is sent to a process before it is able to process it, it receives this signal only once, whereas he receives all real time signals.</p>
+<p>The user space process registers a signal handler function with the kernel. This adds the address of the signal handler function to the process descriptor. This function gets executed each time a certain signal is delivered.</p>
+<p>The sending phase of a signal consists of two parts:</p>
+<ol>
+<li>Update the process descriptor with the new signal.</li>
+<li>If this process is to be rescheduled, or if it returns from an interrupt, it first checks whether there is a signal pending. If yes, it executes first the signal handler and only then does it continue with the rest of the program.</li>
+</ol>
+<h2 id="implementation_9"><a name="implementation_9" class="anchor-navigation-ex-anchor" href="#implementation_9"><i class="fa fa-link" aria-hidden="true"></i></a>6.2. Implementation</h2>
+<pre class="language-"><code>signal_kernel.c         kernel module that sends a signal to a user space process. The kernel needs to know the PID of the user space process. Therefore the user space process writes its PID in the debugfs file signalconfpid.
+signal_user.c   user space program that receives the signal.
+</code></pre><p>In order to be able to send a signal from kernel space to user space, the kernel needs to know the pid of the user space process. Therefore in this dummy example the user space process sends its pid to the kernel. As soon as the kernel module receives the pid, it looks for the corresponding process descriptor, and sends a signal to it. All information related to the signal is saved in a struct siginfo. We are able to send 32 bit of data in si_int. In order that the user space interprets this signal as a real time signal and that we can therefore access the data part, we need to set si_code to SI_QUEUE. Otherwise our data is not received by the user space function.</p>
+<h2 id="resources-and-further-reading_6"><a name="resources-and-further-reading_6" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_6"><i class="fa fa-link" aria-hidden="true"></i></a>6.3. Resources and Further Reading</h2>
+<ul>
+<li>man 7 signal</li>
+<li>Understanding the Linux Kernel chapter 11</li>
+</ul>
+<hr>
+<h1 id="upcall"><a name="upcall" class="anchor-navigation-ex-anchor" href="#upcall"><i class="fa fa-link" aria-hidden="true"></i></a>7. Upcall</h1>
+<h2 id="introduction_6"><a name="introduction_6" class="anchor-navigation-ex-anchor" href="#introduction_6"><i class="fa fa-link" aria-hidden="true"></i></a>7.1. Introduction</h2>
+<p>The upcall functionality of the Linux kernel allows a kernel module to invoke a function in user space. It is possible to start a program in user space, and give it some command line arguments, as well as setting environment variables.</p>
+<h2 id="implementation_10"><a name="implementation_10" class="anchor-navigation-ex-anchor" href="#implementation_10"><i class="fa fa-link" aria-hidden="true"></i></a>7.2. Implementation</h2>
+<pre class="language-"><code>usermodehelper.c        kernel module that starts a process
+callee.c        user space program that will be executed on behalf of the kernel
+</code></pre><p>Our example consists of a kernel module usermodehelper and a user space program callee. Since callee is not started within a shell, we cannot use printf to verify its correct execution, instead we let him run the beep command and let the kernel module specify how many times to beep. The callee gets invoked by the following function prototype: int call_usermodehelper(char <em>path, char <em>*argv, char </em></em>envp, enum umh_wait wait) With the following arguments:</p>
+<ul>
+<li>path: The path to the user space program</li>
+<li>argv: The arguments for the user space program</li>
+<li>envp: A set of environment varialbes</li>
+<li>umh_wait: Enum that says whether the kernel module has to wait or whether it can continue with the execution:<ul>
+<li>UMH_NO_WAIT: don&apos;t wait at all</li>
+<li>UMH_WAIT_EXEC: wait for the exec, but not the process</li>
+<li>UMH_WAIT_PROC: wait for the process to complete</li>
+</ul>
+</li>
+</ul>
+<h2 id="resources-and-further-reading_7"><a name="resources-and-further-reading_7" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_7"><i class="fa fa-link" aria-hidden="true"></i></a>7.3. Resources and Further Reading</h2>
+<ul>
+<li>Understanding the Linux Network Internals Chapter 5</li>
+</ul>
+<h1 id="mmap"><a name="mmap" class="anchor-navigation-ex-anchor" href="#mmap"><i class="fa fa-link" aria-hidden="true"></i></a>8. Mmap</h1>
+<h2 id="introduction_7"><a name="introduction_7" class="anchor-navigation-ex-anchor" href="#introduction_7"><i class="fa fa-link" aria-hidden="true"></i></a>8.1. Introduction</h2>
+<p>Memory mapping is the only way to transfer data between user and kernel spaces that does not involve explicit copying, and is the fastest way to handle large amounts of data.</p>
+<p>There is a major difference between the conventional read(2) and write(2) functions and mmap. While data is transfered with mmap no &quot;control&quot; messages are exchanged. This means that a user space process can put data into the memory, but that the kernel does not know that new data is available. The same holds for the opposite scenario: The kernel puts its data into the shared memory, but the user space process does not get a notification of this event. This characteristic implies that memory mapping has to be used with some other communication means that transfers control messages, or that the shared memory needs to be checked in regular intervals for new content. Similar to the read and write function calls mmap can be used with different file systems and with sockets.</p>
+<h2 id="implementation_11"><a name="implementation_11" class="anchor-navigation-ex-anchor" href="#implementation_11"><i class="fa fa-link" aria-hidden="true"></i></a>8.2. Implementation</h2>
+<pre class="language-"><code>mmap_simple_kernel.c    kernel module that provides the mmap system call based on debugfs.
+mmap_user.c     user space program that will share a memory area with the kernel module
+</code></pre><p>Of course we need some memory that we want to map between user space and kernel space. In this example we share some RAM but if you are writing a device driver, this could be the memory of your device. We use debugfs and attach the memory area to a file. This allows the user space process to access the shared memory area with the help of a file descriptor.</p>
+<p>The user space program uses the system calls open, mmap, memcpy and close, which are all documented in the Linux man pages.</p>
+<p>The kernel module is more challenging. Please note that the discussed module offers only the most basic functionality, and that usually mmap is just one of the functions provided to handle a file. In the module_init function we create the file as discussed in section debugfs. Since it is an example module, our file_operations struct contains only three entries: my_open, my_close and my_mmap.</p>
+<h3 id="myopen"><a name="myopen" class="anchor-navigation-ex-anchor" href="#myopen"><i class="fa fa-link" aria-hidden="true"></i></a>8.2.1. my_open</h3>
+<p>In this function we allocate the memory that will later be shared with the user space process. Since memory mapping is done on a PAGE_SIZE basis we allocate one page of memory with get_zeroed_page(GFP_KERNEL) We initialize the memory with a message form the kernel that states the name of this file. We set the private_data pointer of this file to the allocated memory in order to access it later in the my_mmap and my_close function</p>
+<h3 id="myclose"><a name="myclose" class="anchor-navigation-ex-anchor" href="#myclose"><i class="fa fa-link" aria-hidden="true"></i></a>8.2.2. my_close</h3>
+<p>This function frees the memory allocated during my_open.</p>
+<h3 id="mymmap"><a name="mymmap" class="anchor-navigation-ex-anchor" href="#mymmap"><i class="fa fa-link" aria-hidden="true"></i></a>8.2.3. my_mmap</h3>
+<p>This function initializes the vm_area_struct to point to the mmap functions specific to our implementation. mmap_open und mmap_close are used only for bookkeeping. mmap_nopages is called when the user space process references a memory area that is not in its memory. Therefore mmap_nopages does the real mapping between user space and kernel space. The most important function is virt_to_page which takes the memory area to be shared as an argument and returns a struct page * that can be used by the user space to access this memory area.</p>
+<h2 id="resources-and-further-reading_8"><a name="resources-and-further-reading_8" class="anchor-navigation-ex-anchor" href="#resources-and-further-reading_8"><i class="fa fa-link" aria-hidden="true"></i></a>8.3. Resources and Further Reading</h2>
+<ul>
+<li>man(2) mmap</li>
+<li>Linux Device Driver, Chapter 15</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="c_pthread_condition和mutex.html" class="navigation navigation-prev " aria-label="Previous page: 并发 任务 事件 和锁.md">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="as_title_driver.html" class="navigation navigation-next " aria-label="Next page: 内核 设备和驱动相关">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"kernel space和user space交互(网摘, linux2.6)","level":"1.14.16","depth":2,"next":{"title":"内核 设备和驱动相关","level":"1.15","depth":1,"path":"notes/as_title_driver.md","ref":"notes/as_title_driver.md","articles":[{"title":"平台驱动杂记","level":"1.15.1","depth":2,"path":"notes/platform_device_driver.md","ref":"notes/platform_device_driver.md","articles":[]},{"title":"驱动调试杂记","level":"1.15.2","depth":2,"path":"notes/device_driver_杂记.md","ref":"notes/device_driver_杂记.md","articles":[]},{"title":"CPLD做8bit到16bit转换","level":"1.15.3","depth":2,"path":"notes/device_localbus_16bit读写.md","ref":"notes/device_localbus_16bit读写.md","articles":[]},{"title":"nand","level":"1.15.4","depth":2,"path":"notes/as_title_driver1.md","ref":"notes/as_title_driver1.md","articles":[{"title":"octeon nand flash驱动","level":"1.15.4.1","depth":3,"path":"notes/device_driver_octeon_nand.md","ref":"notes/device_driver_octeon_nand.md","articles":[]},{"title":"Nand flash概率写失败问题分析","level":"1.15.4.2","depth":3,"path":"notes/device_driver_nand概率写失败问题分析.md","ref":"notes/device_driver_nand概率写失败问题分析.md","articles":[]}]},{"title":"octeon remote-pci.c阅读","level":"1.15.5","depth":2,"path":"notes/octeon_remote_pci.md","ref":"notes/octeon_remote_pci.md","articles":[]},{"title":"VFIO简介","level":"1.15.6","depth":2,"path":"notes/Device_VFIO_notes.md","ref":"notes/Device_VFIO_notes.md","articles":[]},{"title":"智能网卡和DPDK","level":"1.15.7","depth":2,"path":"notes/as_title_driver2.md","ref":"notes/as_title_driver2.md","articles":[{"title":"智能网卡对比","level":"1.15.7.1","depth":3,"path":"notes/smartNIC_智能网卡对比.md","ref":"notes/smartNIC_智能网卡对比.md","articles":[]},{"title":"octeon PCI NIC","level":"1.15.7.2","depth":3,"path":"notes/octeon_pci_NIC.md","ref":"notes/octeon_pci_NIC.md","articles":[]},{"title":"octeon liquidIO","level":"1.15.7.3","depth":3,"path":"notes/as_title_driver3.md","ref":"notes/as_title_driver3.md","articles":[{"title":"PCI-NIC 代码阅读 --app篇","level":"1.15.7.3.1","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读app篇.md","ref":"notes/smartNIC_liquidIO_代码阅读app篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --api篇","level":"1.15.7.3.2","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读api篇.md","ref":"notes/smartNIC_liquidIO_代码阅读api篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --driver篇之结构体","level":"1.15.7.3.3","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","ref":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","articles":[]},{"title":"PCI-NIC 代码阅读 --driver篇","level":"1.15.7.3.4","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读driver篇.md","ref":"notes/smartNIC_liquidIO_代码阅读driver篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --真NIC篇","level":"1.15.7.3.5","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读真NIC篇.md","ref":"notes/smartNIC_liquidIO_代码阅读真NIC篇.md","articles":[]}]},{"title":"DPDK使用(2014)","level":"1.15.7.4","depth":3,"path":"notes/networking_dpdk使用_2014.md","ref":"notes/networking_dpdk使用_2014.md","articles":[]}]},{"title":"nvme要点介绍","level":"1.15.8","depth":2,"path":"notes/device_nvme要点介绍.md","ref":"notes/device_nvme要点介绍.md","articles":[]}]},"previous":{"title":"并发 任务 事件 和锁.md","level":"1.14.15","depth":2,"path":"notes/c_pthread_condition和mutex.md","ref":"notes/c_pthread_condition和mutex.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/kernel_user_space_howto.md","mtime":"2022-10-18T07:02:40.188Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-18T07:03:36.024Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
+
+    </body>
+</html>
+
