@@ -202,7 +202,7 @@ WARNING: probe kernel.statement("do_debug_exception@arch/arm64/mm/fault.c:862") 
 根据我现在的理解, 原因可能是: 在`entry.S`中, `el0_dbg`调用的`do_debug_exception`, 已经是在breakpoint的异常处理了; 而stap尝试再次注册一个动态probe, 那么需要替换目标地址的指令为break, 如果可以的话, 会造成breakpoint异常处理无限嵌套, 即处理break异常的函数再次触发break异常.
 
 ### 时钟中断的调用路径
-从结果里还能找到arch_timer中断的记录
+从结果里还能找到arch_timer中断的记录  
 ![](img/profiling_perf命令备忘录_20221017182834.png)  
 
 ## perf trace
