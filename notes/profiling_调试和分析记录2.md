@@ -10,6 +10,8 @@
     - [eventfd和irqfd中断注入流程](#eventfd和irqfd中断注入流程)
     - [kernel延迟数据](#kernel延迟数据)
   - [延迟图解](#延迟图解)
+  - [问题复现](#问题复现)
+    - [抓ovs转发延迟 -- 没有发现](#抓ovs转发延迟----没有发现)
 
 # 查看PCI的MSI中断
 `/proc/interrupts`里能显示中断的信息, 但不能很方便的对应到是哪个设备的中断.
@@ -501,5 +503,25 @@ Note Over VM A: driver recv packet
 Note Over VM A: ip stack and deliver to ping process
 Note Over VM A: ping process recive packet, 打印时间戳
 ``` 
+
+## 问题复现
+VM1和VM2互相ping, 每秒一次ping报文. 但VM1得到的延迟异常, 为1.3ms.  
+![](img/profiling_调试和分析记录2_20221017234837.png)  
+
+### 抓ovs转发延迟 -- 没有发现
+```bash
+sudo perf record -e probe_ovs:netdev_rxq_recv -e probe_ovs:netdev_send -R -t 6965 -- sleep 30
+sudo perf record -e probe_ovs:netdev_rxq_recv -e probe_ovs:netdev_send -R -t 6966 -- sleep 30
+#没有发现, 转发耗时在20 ~ 60 us之间; 两个pmd都查了
+sudo perf script | grep -n1 netdev_send | awk '{print $5}' | awk -F"[.:]" 'NR%4==2 {print $2-t} {t=$2}' 
+49
+25
+43
+23
+43
+23
+41
+...
+```
 
 
