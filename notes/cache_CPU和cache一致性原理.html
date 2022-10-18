@@ -1,0 +1,3317 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>CPU和cache一致性原理 · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="as_title_cpu1.html" />
+    
+    
+    <link rel="prev" href="as_title_cpu.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录杂记系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="as_title_perf_tools.html">
+            
+                <a href="as_title_perf_tools.html">
+            
+                    
+                    profiling工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_app_perf.html">
+            
+                <a href="as_title_app_perf.html">
+            
+                    
+                    应用profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    系统profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.5.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.4.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.16.1" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.5" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.6" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.7" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.3.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.4.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >CPU和cache一致性原理</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x548C;&#x5185;&#x5B58;&#x5C4F;&#x969C;"><b>1. </b>&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x548C;&#x5185;&#x5B58;&#x5C4F;&#x969C;</a></li><ul><li><span class="title-icon "></span><a href="#&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;-directory&#x7C7B;&#x7684;&#x534F;&#x8BAE;"><b>1.1. </b>&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;: directory&#x7C7B;&#x7684;&#x534F;&#x8BAE;</a></li><li><span class="title-icon "></span><a href="#&#x5185;&#x5B58;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;-mesi&#x534F;&#x8BAE;&#x7528;&#x4E8E;pentium-ii-1998-&#x5C5E;&#x4E8E;snooping&#x7C7B;&#x7684;&#x534F;&#x8BAE;"><b>1.2. </b>&#x5185;&#x5B58;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;: MESI&#x534F;&#x8BAE;(&#x7528;&#x4E8E;Pentium II, 1998), &#x5C5E;&#x4E8E;snooping&#x7C7B;&#x7684;&#x534F;&#x8BAE;</a></li><ul><li><span class="title-icon "></span><a href="#&#x57FA;&#x672C;&#x6982;&#x5FF5;"><b>1.2.1. </b>&#x57FA;&#x672C;&#x6982;&#x5FF5;</a></li><li><span class="title-icon "></span><a href="#&#x4E3E;&#x4F8B;-atomic"><b>1.2.2. </b>&#x4E3E;&#x4F8B;: atomic</a></li></ul><li><span class="title-icon "></span><a href="#write-buffer"><b>1.3. </b>write buffer</a></li><ul><li><span class="title-icon "></span><a href="#&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;"><b>1.3.1. </b>&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;:</a></li><li><span class="title-icon "></span><a href="#&#x7528;write-memory-barrier&#x89E3;&#x51B3;"><b>1.3.2. </b>&#x7528;Write memory barrier&#x89E3;&#x51B3;</a></li></ul><li><span class="title-icon "></span><a href="#invalid-queue"><b>1.4. </b>invalid queue</a></li><ul><li><span class="title-icon "></span><a href="#&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;_1"><b>1.4.1. </b>&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;</a></li><li><span class="title-icon "></span><a href="#&#x7528;read-memory-barrier&#x89E3;&#x51B3;"><b>1.4.2. </b>&#x7528;Read memory barrier&#x89E3;&#x51B3;</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x5185;&#x5B58;&#x5BF9;&#x9F50;"><b>2. </b>&#x5185;&#x5B58;&#x5BF9;&#x9F50;</a></li><li><span class="title-icon "></span><a href="#pthread&#x7684;spin-lock&#x5B9E;&#x73B0;"><b>3. </b>pthread&#x7684;spin lock&#x5B9E;&#x73B0;</a></li><ul><li><span class="title-icon "></span><a href="#&#x5176;&#x4ED6;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;"><b>3.1. </b>&#x5176;&#x4ED6;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;</a></li></ul></ul></div><a href="#&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x548C;&#x5185;&#x5B58;&#x5C4F;&#x969C;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x548C;&#x5185;&#x5B58;&#x5C4F;&#x969C;">&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x548C;&#x5185;&#x5B58;&#x5C4F;&#x969C;</a><ul>
+<li><a href="#&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;-directory&#x7C7B;&#x7684;&#x534F;&#x8BAE;">&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;: directory&#x7C7B;&#x7684;&#x534F;&#x8BAE;</a></li>
+<li><a href="#&#x5185;&#x5B58;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;-mesi&#x534F;&#x8BAE;&#x7528;&#x4E8E;pentium-ii-1998-&#x5C5E;&#x4E8E;snooping&#x7C7B;&#x7684;&#x534F;&#x8BAE;">&#x5185;&#x5B58;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;: MESI&#x534F;&#x8BAE;(&#x7528;&#x4E8E;Pentium II, 1998), &#x5C5E;&#x4E8E;snooping&#x7C7B;&#x7684;&#x534F;&#x8BAE;</a><ul>
+<li><a href="#&#x57FA;&#x672C;&#x6982;&#x5FF5;">&#x57FA;&#x672C;&#x6982;&#x5FF5;</a></li>
+<li><a href="#&#x4E3E;&#x4F8B;-atomic">&#x4E3E;&#x4F8B;: atomic</a></li>
+</ul>
+</li>
+<li><a href="#write-buffer">write buffer</a><ul>
+<li><a href="#&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;">&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;:</a></li>
+<li><a href="#&#x7528;write-memory-barrier&#x89E3;&#x51B3;">&#x7528;Write memory barrier&#x89E3;&#x51B3;</a></li>
+</ul>
+</li>
+<li><a href="#invalid-queue">invalid queue</a><ul>
+<li><a href="#&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;-1">&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;</a></li>
+<li><a href="#&#x7528;read-memory-barrier&#x89E3;&#x51B3;">&#x7528;Read memory barrier&#x89E3;&#x51B3;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#&#x5185;&#x5B58;&#x5BF9;&#x9F50;">&#x5185;&#x5B58;&#x5BF9;&#x9F50;</a></li>
+<li><a href="#pthread&#x7684;spin-lock&#x5B9E;&#x73B0;">pthread&#x7684;spin lock&#x5B9E;&#x73B0;</a><ul>
+<li><a href="#&#x5176;&#x4ED6;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;">&#x5176;&#x4ED6;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x548C;&#x5185;&#x5B58;&#x5C4F;&#x969C;"><a name="&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x548C;&#x5185;&#x5B58;&#x5C4F;&#x969C;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x548C;&#x5185;&#x5B58;&#x5C4F;&#x969C;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x548C;&#x5185;&#x5B58;&#x5C4F;&#x969C;</h1>
+<h2 id="&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;-directory&#x7C7B;&#x7684;&#x534F;&#x8BAE;"><a name="&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;-directory&#x7C7B;&#x7684;&#x534F;&#x8BAE;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;-directory&#x7C7B;&#x7684;&#x534F;&#x8BAE;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x5185;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;: directory&#x7C7B;&#x7684;&#x534F;&#x8BAE;</h2>
+<p>&#x76EE;&#x5F55;&#x7C7B;&#x7684;&#x534F;&#x8BAE;, &#x662F;&#x5728;&#x4E00;&#x4E2A;&#x8868;&#x91CC;&#x8BB0;&#x5F55;&#x6838;&#x7BA1;&#x7406;&#x6240;&#x6709;cache&#x7684;&#x72B6;&#x6001;, &#x4E5F;&#x57FA;&#x672C;&#x5206;&#x4E09;&#x5927;&#x7C7B;:Invalid Shared Exclusive 
+CPU&#x7684;&#x6240;&#x6709;&#x8BFB;&#x5199;, &#x4E5F;&#x4F1A;&#x53D1;message&#x7ED9;&#x8FD9;&#x4E2A;directory, &#x6765;&#x4FDD;&#x8BC1;&#x4E00;&#x81F4;&#x6027;.
+&#x6269;&#x5C55;&#x6027;&#x597D;?</p>
+<h2 id="&#x5185;&#x5B58;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;-mesi&#x534F;&#x8BAE;&#x7528;&#x4E8E;pentium-ii-1998-&#x5C5E;&#x4E8E;snooping&#x7C7B;&#x7684;&#x534F;&#x8BAE;"><a name="&#x5185;&#x5B58;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;-mesi&#x534F;&#x8BAE;&#x7528;&#x4E8E;pentium-ii-1998-&#x5C5E;&#x4E8E;snooping&#x7C7B;&#x7684;&#x534F;&#x8BAE;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x5B58;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;-mesi&#x534F;&#x8BAE;&#x7528;&#x4E8E;pentium-ii-1998-&#x5C5E;&#x4E8E;snooping&#x7C7B;&#x7684;&#x534F;&#x8BAE;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x5185;&#x5B58;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;: MESI&#x534F;&#x8BAE;(&#x7528;&#x4E8E;Pentium II, 1998), &#x5C5E;&#x4E8E;snooping&#x7C7B;&#x7684;&#x534F;&#x8BAE;</h2>
+<p><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017095632.png" alt=""><br>&#x4E0A;&#x56FE;A&#x662F;&#x6307;&#x53D1;&#x8D77;&#x6539;&#x53D8;&#x7684;cache line. B&#x662F;&#x76D1;&#x542C;&#x6539;&#x53D8;&#x7684;cache line.
+&#x4EE5;cache line&#x4E3A;&#x57FA;&#x672C;&#x5355;&#x4F4D;, &#x6709;&#x56DB;&#x79CD;&#x72B6;&#x6001;:</p>
+<ul>
+<li>Modified </li>
+<li>Exclusive</li>
+<li>Shared</li>
+<li>Invalid</li>
+</ul>
+<p>&#x6CE8;&#x610F;cache&#x4E00;&#x81F4;&#x6027;&#x5E76;&#x4E0D;&#x5355;&#x6307;L2&#x6216;L3, &#x5728;&#x73B0;&#x4EE3;CPU&#x4E0A;, &#x901A;&#x5E38;&#x4E00;&#x4E2A;core&#x6709;&#x81EA;&#x5DF1;&#x7684;private L1 cache, &#x8FD9;&#x4E2A;cache&#x4E5F;&#x8981;&#x9075;&#x4ECE;cache&#x4E00;&#x81F4;&#x6027;&#x534F;&#x8BAE;.</p>
+<p>&#x53EF;&#x4EE5;&#x53CD;&#x8BC1;: &#x5728;spin lock&#x573A;&#x666F;&#x4E0B;, &#x5982;&#x679C;CPU&#x7684;L1 cache&#x662F;&#x5F7C;&#x6B64;&#x5B64;&#x7ACB;&#x7684;, &#x672A;&#x53D6;&#x5F97;&#x9501;&#x7684;CPU, &#x56E0;&#x4E3A;&#x5DF2;&#x7ECF;&#x5C06;lock&#x503C;cache&#x5230;L1, &#x6BCF;&#x6B21;&#x8BFB;&#x90FD;&#x6709;L1 read hit, &#x90A3;&#x4E48;&#x6BCF;&#x6B21;&#x90FD;&#x5C06;&#x770B;&#x5230;&#x540C;&#x4E00;&#x4E2A;&#x503C;, &#x6C38;&#x8FDC;&#x83B7;&#x53D6;&#x4E0D;&#x5230;&#x9501;.</p>
+<h3 id="&#x57FA;&#x672C;&#x6982;&#x5FF5;"><a name="&#x57FA;&#x672C;&#x6982;&#x5FF5;" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x672C;&#x6982;&#x5FF5;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.1. &#x57FA;&#x672C;&#x6982;&#x5FF5;</h3>
+<ul>
+<li>read: &#x8BFB;&#x4E00;&#x4E2A;cache line&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;</li>
+<li>read response: &#x54CD;&#x5E94;&#x524D;&#x4E00;&#x4E2A;read&#x547D;&#x4EE4;, &#x53EF;&#x4EE5;&#x7531;memory&#x6216;cache&#x63D0;&#x4F9B;; &#x5982;&#x679C;&#x4E00;&#x4E2A;cache&#x6709;&#x8FD9;&#x4E2A;data, &#x5E76;&#x4E14;&#x5728;&quot;Modified&quot;&#x72B6;&#x6001;, &#x8FD9;&#x4E2A;cache<strong>&#x5FC5;&#x987B;</strong>&#x54CD;&#x5E94;read&#x547D;&#x4EE4;</li>
+<li>invalidate: &#x88AB;&#x5931;&#x6548;&#x7684;cache line&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;</li>
+<li>invalidate acknowledge: &#x6536;&#x5230;invalidate&#x6D88;&#x606F;&#x7684;CPU, &#x5FC5;&#x987B;&#x5728;&#x79FB;&#x9664;&#x88AB;&#x5931;&#x6548;cache line&#x540E;, &#x53D1;invalidate acknowledge&#x6D88;&#x606F;.</li>
+<li>read invalidate: &#x5728;&#x53D1;read&#x5730;&#x5740;&#x7684;&#x540C;&#x65F6;, &#x6307;&#x793A;&#x5176;&#x4ED6;cache&#x79FB;&#x9664;&#x8FD9;&#x4E2A;&#x6570;&#x636E;. 
+&#x662F;read&#x548C;invalidate&#x7684;&#x7EC4;&#x5408;, &#x9700;&#x8981;read response &#x548C;&#x4E00;&#x7EC4;invalidate acknowledge</li>
+<li>writeback: &#x628A;&quot;Modified&quot;&#x72B6;&#x6001;&#x7684;cache line&#x5199;&#x5165;&#x5230;memory, &#x4EE5;&#x53CA;&#x53EF;&#x80FD;&#x7684;cache; &#x4E3A;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x817E;&#x7A7A;&#x95F4;.</li>
+</ul>
+<h3 id="&#x4E3E;&#x4F8B;-atomic"><a name="&#x4E3E;&#x4F8B;-atomic" class="anchor-navigation-ex-anchor" href="#&#x4E3E;&#x4F8B;-atomic"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.2. &#x4E3E;&#x4F8B;: atomic</h3>
+<p>&#x6BD4;&#x5982;<code>atomic_inc()</code>, &#x662F;&#x4E2A;read-modify-write&#x7684;&#x8FC7;&#x7A0B;, &#x5177;&#x4F53;&#x800C;&#x8A00;:</p>
+<ol>
+<li>CPU&#x53D1;read invalidate&#x547D;&#x4EE4;, &#x901A;&#x8FC7;read invalidate&#x6765;&#x5F97;&#x5230;data, &#x540C;&#x65F6;&#x901A;&#x77E5;&#x5176;&#x4ED6;&#x6301;&#x6709;&#x8FD9;&#x4E2A;data&#x7684;CPU&#x7684;cache line&#x90FD;&#x5931;&#x6548;</li>
+<li>&#x53EA;&#x6709;CPU&#x6536;&#x5230;&#x5B8C;&#x6574;&#x7684;invalidate acknowledge&#x6D88;&#x606F;&#x540E;, &#x624D;&#x80FD;&#x5B8C;&#x6210;&#x8FD9;&#x6B21;transition<br>&#x73B0;&#x4EE3;CPU&#x901A;&#x5E38;&#x6709;&#x539F;&#x5B50;&#x6307;&#x4EE4;&#x6765;&#x652F;&#x6301;atomic&#x64CD;&#x4F5C;, &#x4F46;&#x5176;bus&#x4E0A;&#x7684;&#x534F;&#x8BAE;&#x903B;&#x8F91;&#x8FD8;&#x662F;&#x7C7B;&#x4F3C;&#x7684;.</li>
+</ol>
+<p>&#x518D;&#x6BD4;&#x5982;&#x4E0B;&#x9762;&#x7684;while&#x8BFB;&#x53D6;current_ticket, &#x5047;&#x8BBE;&#x6B64;&#x65F6;CPU&#x7684;cache&#x6CA1;&#x6709;&#x8FD9;&#x4E2A;data, &#x90A3;&#x4E48;&#x5C31;&#x662F;CPU&#x53D1;read&#x547D;&#x4EE4;, &#x7B49;&#x5F85;read response&#x5F97;&#x5230;data.
+&#x72B6;&#x6001;&#x4ECE;invalid&#x8F6C;&#x53D8;&#x5230;shared.<br><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017095855.png" alt="">  </p>
+<p>&#x518D;&#x6BD4;&#x5982;, &#x66F4;&#x65B0;current ticket&#x65F6;, &#x4F9D;&#x6B21;&#x5B8C;&#x6210;</p>
+<ol>
+<li>&#x672C;&#x6765;&#x8FD9;&#x4E2A;cache line&#x662F;<strong>shared</strong>&#x72B6;&#x6001;, &#x6B64;&#x65F6;&#x84DD;&#x8272;&#x90E8;&#x5206;&#x8981;&#x66F4;&#x6539;&#x53D8;&#x91CF;, CPU&#x5C31;&#x4F1A;&#x53D1;invalidate&#x547D;&#x4EE4;</li>
+<li>CPU&#x7B49;&#x5F85;invalidate acknowledge&#x76F8;&#x5E94;, &#x8FD9;&#x91CC;&#x56FE;&#x4E0A;&#x753B;&#x4E86;8&#x4E2A;CPU&#x90FD;&#x6709;&#x8FD9;&#x4E2A;data, &#x90A3;&#x8981;&#x7B49;8&#x4E2A;&#x54CD;&#x5E94;&#x56DE;&#x6765;</li>
+<li>&#x6B64;&#x65F6;&#x72B6;&#x6001;&#x4E3A;<strong>exclusive</strong></li>
+<li>CPU&#x628A;&#x66F4;&#x65B0;&#x7684;data&#x5199;&#x5230;cache line&#x91CC;, &#x53D8;&#x4E3A;<strong>modified</strong>&#x72B6;&#x6001;. &#x84DD;&#x8272;CPU</li>
+<li>&#x5176;&#x4ED6;&#x7684;CPU read&#x8FD9;&#x4E2A;data, &#x6BD4;&#x5982;&#x4E0A;&#x9762;&#x90A3;&#x4E2A;&#x4E0D;&#x65AD;while&#x8BFB;current_ticket&#x7684;CPU</li>
+<li>&#x84DD;&#x8272;CPU&#x5FC5;&#x987B;&#x54CD;&#x5E94;&#x7EA2;&#x8272;CPU&#x7684;read, &#x7528;read response&#x628A;cache line&#x8FD4;&#x56DE;&#x7ED9;read&#x8BF7;&#x6C42;&#x7684;CPU, &#x6B64;&#x65F6;&#x4E5F;&#x6709;&#x53EF;&#x80FD;writeback&#x5230;&#x5185;&#x5B58;&#x91CC;.</li>
+<li>&#x7EA2;&#x8272;CPU&#x5F97;&#x5230;data&#x7684;cache line&#x62F7;&#x8D1D;, &#x8FD9;&#x6B21;&#x503C;&#x66F4;&#x65B0;&#x4E86;, &#x7EA2;&#x8272;CPU&#x9000;&#x51FA;&#x7B49;&#x5F85;.</li>
+</ol>
+<p><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017095928.png" alt="">  </p>
+<h2 id="write-buffer"><a name="write-buffer" class="anchor-navigation-ex-anchor" href="#write-buffer"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. write buffer</h2>
+<p>&#x5982;&#x524D;&#x9762;&#x6240;&#x8FF0;, &#x5BF9;&#x53D8;&#x91CF;&#x5199;, &#x8981;&#x5148;invalidate cache line, &#x8981;&#x7B49;&#x5F85;&#x5176;&#x4ED6;cache&#x8FD4;&#x56DE;invalidate acknowledge, &#x6700;&#x540E;&#x518D;&#x5199;cache line. 
+&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x6BD4;&#x8F83;&#x6602;&#x8D35;.<br><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017095953.png" alt="">  </p>
+<p>&#x6240;&#x4EE5;&#x4EA7;&#x751F;&#x4E86;write buffer, &#x6216;&#x8005;&#x53EB;store buffer. &#x8FD9;&#x6837;CPU&#x653E;&#x4E0B;&#x6570;&#x636E;, &#x5C31;&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;, &#x4E0D;&#x7528;&#x7B49;&#x5F85;.<br><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017100034.png" alt="">  </p>
+<h3 id="&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;"><a name="&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.1. &#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;:</h3>
+<p><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017100146.png" alt="">  </p>
+<p>&#x5728;&#x4E0B;&#x9762;&#x7684;&#x60C5;&#x51B5;&#x4E0B;, a&#x88AB;&#x5199;&#x5165;store buffer, &#x6B64;&#x65F6;&#x5176;&#x4ED6;cache&#x53EF;&#x80FD;&#x8FD8;&#x5728;refer a=0
+&#x5728;&#x6267;&#x884C;b=1&#x65F6;, b&#x662F;exclusive&#x72B6;&#x6001;, &#x662F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5199;cache&#x7684;;<br>&#x5F53;&#x6536;&#x5230;read(b)&#x7684;&#x8BF7;&#x6C42;&#x65F6;, &#x54CD;&#x5E94;read_reply(b,1)<br>&#x6700;&#x540E;CPU1 &#x770B;&#x5230;&#x4E86;b&#x7684;&#x66F4;&#x65B0;, &#x800C;&#x6CA1;&#x770B;&#x5230;a&#x7684;&#x66F4;&#x65B0;. &#x5BFC;&#x81F4;assert fail</p>
+<p><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017100322.png" alt="">  </p>
+<h3 id="&#x7528;write-memory-barrier&#x89E3;&#x51B3;"><a name="&#x7528;write-memory-barrier&#x89E3;&#x51B3;" class="anchor-navigation-ex-anchor" href="#&#x7528;write-memory-barrier&#x89E3;&#x51B3;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.2. &#x7528;Write memory barrier&#x89E3;&#x51B3;</h3>
+<p>&#x5199;&#x5C4F;&#x969C;&#x6307;&#x4EE4;smp_wmb()&#x662F;&#x7528;&#x6765;&#x89E3;&#x51B3;&#x4E0A;&#x8FF0;&#x95EE;&#x9898;&#x7684;:</p>
+<ul>
+<li>&#x5728;&#x53D1;&#x751F;&#x5176;&#x4ED6;&#x7684;store&#x547D;&#x4EE4;&#x5199;cache&#x4E4B;&#x524D;, &#x5F3A;&#x5236;CPU&#x53BB;flush&#x5B83;&#x7684;store buffer</li>
+<li>CPU&#x53EF;&#x4EE5;stall, &#x4E5F;&#x53EF;&#x4EE5;&#x628A;&#x540E;&#x7EED;&#x7684;store&#x547D;&#x4EE4;&#x7528;store buffer&#x5148;&#x4FDD;&#x5B58;, &#x76F4;&#x5230;&#x628A;&#x4E4B;&#x524D;&#x7684;store buffer&#x6E05;&#x7A7A;.</li>
+</ul>
+<p><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017100411.png" alt="">  </p>
+<p>&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;:<br><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017100439.png" alt="">  </p>
+<h2 id="invalid-queue"><a name="invalid-queue" class="anchor-navigation-ex-anchor" href="#invalid-queue"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. invalid queue</h2>
+<p>invalid&#x6D88;&#x606F;&#x53EF;&#x80FD;&#x4F1A;&#x6162;, &#x6BD4;&#x5982;&#x4E00;&#x4E2A;data&#x6709;&#x5F88;&#x591A;&#x4EFD;cache line&#x7684;&#x62F7;&#x8D1D;, &#x8981;&#x7B49;&#x5230;&#x6240;&#x6709;&#x7684;invalidate acknowledgements&#x90FD;&#x5B8C;&#x6210;&#x5417;?<br>&#x867D;&#x7136;&#x6709;store buffer, &#x4F46;store buffer&#x6EA2;&#x51FA;&#x600E;&#x4E48;&#x529E;?<br>&#x4E0D;&#x7B49;cache&#x884C;&#x4E0D;&#x884C;?</p>
+<ul>
+<li>&#x63A5;&#x6536;CPU&#x7528;invalid queue&#x4FDD;&#x5B58;invalid&#x6D88;&#x606F;</li>
+<li>&#x9A6C;&#x4E0A;&#x5B8C;&#x6210;acknowledge, &#x901A;&#x77E5;&#x53D1;&#x8D77;CPU&#x53EF;&#x4EE5;&#x5F80;&#x4E0B;&#x8D70;</li>
+<li>&#x7531;invalid queue&#x5B9E;&#x65BD;&#x540E;&#x9762;&#x7684;invalid&#x64CD;&#x4F5C;</li>
+</ul>
+<p><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017100556.png" alt="">  </p>
+<h3 id="&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;_1"><a name="&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;_1" class="anchor-navigation-ex-anchor" href="#&#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;_1"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.1. &#x5E26;&#x6765;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;</h3>
+<p>&#x8FD9;&#x91CC;&#x5DF2;&#x7ECF;&#x7528;smp_wmb()&#x6765;&#x89E3;&#x51B3;&#x4E86;store buffer&#x7684;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;.</p>
+<p>&#x4F46;CPU1&#x6536;&#x5230;invalidate(a)&#x540E;, &#x662F;&#x653E;&#x5230;&#x961F;&#x5217;&#x91CC;&#x7684;.<br>&#x5BFC;&#x81F4;&#x5728;&#x770B;&#x5230;b&#x53D8;&#x4E3A;1&#x540E;&#x7684;assert(), &#x5BF9;a&#x7684;&#x8BBF;&#x95EE;&#x662F;cache hit(&#x56E0;&#x4E3A;&#x8FD8;&#x6CA1;&#x6709;&#x6765;&#x5F97;&#x53CA;invalidate, &#x53EF;&#x80FD;&#x56E0;&#x4E3A;invalidate queue&#x6682;&#x5B58;&#x7684;invalidate&#x6D88;&#x606F;&#x6BD4;&#x8F83;&#x591A;.<br>&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;, CPU1&#x8BFB;&#x5230;a&#x8FD8;&#x662F;0  </p>
+<p><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017100637.png" alt="">  </p>
+<h3 id="&#x7528;read-memory-barrier&#x89E3;&#x51B3;"><a name="&#x7528;read-memory-barrier&#x89E3;&#x51B3;" class="anchor-navigation-ex-anchor" href="#&#x7528;read-memory-barrier&#x89E3;&#x51B3;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.2. &#x7528;Read memory barrier&#x89E3;&#x51B3;</h3>
+<p>smp_rmb(): &#x6807;&#x8BB0;invalidate queue&#x4E2D;&#x7684;&#x6240;&#x6709;entry(&#x5373;invalidate&#x6D88;&#x606F;), &#x4F7F;&#x5F97;&#x540E;&#x7EED;&#x7684;load(&#x8BFB;)&#x64CD;&#x4F5C;&#x90FD;&#x8981;&#x7B49;&#x5F85;, &#x76F4;&#x5230;&#x6240;&#x6709;&#x7684;&#x88AB;&#x6807;&#x8BB0;&#x7684;entry&#x90FD;&#x88AB;&#x6210;&#x529F;&#x5E94;&#x7528;&#x5230;cache.<br>&#x8FD9;&#x6837;&#x8BFB;&#x7684;&#x65F6;&#x5019;, &#x5C31;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&quot;&#x5047;&#x7684;&quot;cache hit.  </p>
+<p><img src="img/cache_CPU&#x548C;cache&#x4E00;&#x81F4;&#x6027;&#x539F;&#x7406;_20221017100727.png" alt="">  </p>
+<p>&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;:
+&#x5728;CPU1&#x6267;&#x884C;while(b==0)&#x540E;&#x52A0;&#x5165;&#x8BFB;&#x5C4F;&#x969C;&#x6307;&#x4EE4;:</p>
+<ul>
+<li>CPU1&#x5FC5;&#x987B;&#x505C;&#x4E0B;&#x6765;&#x7B49;&#x5F85;invalidate queue&#x5B8C;&#x6210;</li>
+<li>invalidate queue&#x91CC;&#x7684;invalidate(a)&#x6D88;&#x606F;, &#x628A;a&#x7684;cache line&#x4ECE;cache&#x91CC;&#x79FB;&#x9664;&#x4E86;</li>
+<li>CPU1&#x6267;&#x884C;assert, &#x56E0;&#x4E3A;cache&#x91CC;&#x6CA1;&#x6709;a&#x4E86;, &#x53D1;&#x751F;cache miss, &#x4EA7;&#x751F;&#x4E86;read&#x6D88;&#x606F;</li>
+<li>CPU0&#x54CD;&#x5E94;&#x8FD9;&#x4E2A;read&#x6D88;&#x606F;, &#x8FD4;&#x56DE;&#x65B0;&#x7684;a=1</li>
+<li>CPU1&#x6536;&#x5230;a&#x7684;&#x503C;&#x4E3A;1, &#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x65AD;&#x8A00;.</li>
+</ul>
+<h1 id="&#x5185;&#x5B58;&#x5BF9;&#x9F50;"><a name="&#x5185;&#x5B58;&#x5BF9;&#x9F50;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x5B58;&#x5BF9;&#x9F50;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x5185;&#x5B58;&#x5BF9;&#x9F50;</h1>
+<pre class="language-"><code class="lang-c">addr <span class="token operator">&amp;</span> <span class="token operator">~</span><span class="token punctuation">(</span>align <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token comment">//</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> p<span class="token operator">/</span>x <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+$<span class="token number">3</span> <span class="token operator">=</span> <span class="token number">0xfffffff8</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> p<span class="token operator">/</span>x <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">64</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+$<span class="token number">5</span> <span class="token operator">=</span> <span class="token number">0xffffffc0</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> p<span class="token operator">/</span>x <span class="token operator">~</span><span class="token punctuation">(</span><span class="token number">128</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+$<span class="token number">6</span> <span class="token operator">=</span> <span class="token number">0xffffff80</span>
+</code></pre>
+<h1 id="pthread&#x7684;spin-lock&#x5B9E;&#x73B0;"><a name="pthread&#x7684;spin-lock&#x5B9E;&#x73B0;" class="anchor-navigation-ex-anchor" href="#pthread&#x7684;spin-lock&#x5B9E;&#x73B0;"><i class="fa fa-link" aria-hidden="true"></i></a>3. pthread&#x7684;spin lock&#x5B9E;&#x73B0;</h1>
+<p>pthread&#x5E93;&#x5B9E;&#x73B0;&#x4E86;spin lock, pthread_spinlock_t&#x503C;&#x4E3A;0&#x8868;&#x793A;&#x7A7A;&#x95F2;, &#x503C;&#x4E3A;1&#x8868;&#x793A;&#x88AB;&#x9501;.</p>
+<p>&#x5176;&#x5B9E;&#x73B0;&#x5982;&#x4E0B;:</p>
+<pre class="language-"><code class="lang-c"># &#x7528;perf probe&#x80FD;&#x770B;&#x5230;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;<span class="token punctuation">,</span> &#x9700;&#x8981;libc&#x7684;debug&#x7B26;&#x53F7;
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">perf</span> <span class="token expression">probe <span class="token operator">-</span>x <span class="token operator">/</span>lib64<span class="token operator">/</span>libpthread<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">-</span>L pthread_spin_lock</span></span>
+
+<span class="token operator">&lt;</span>pthread_spin_lock@<span class="token operator">/</span>usr<span class="token operator">/</span>src<span class="token operator">/</span>debug<span class="token operator">/</span>glibc<span class="token operator">-</span><span class="token number">2.17</span><span class="token operator">-</span>c758a686<span class="token operator">/</span>nptl<span class="token operator">/</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span>nptl<span class="token operator">/</span>pthread_spin_lock<span class="token punctuation">.</span>c<span class="token operator">:</span><span class="token number">0</span><span class="token operator">&gt;</span>
+<span class="token function">pthread_spin_lock</span> <span class="token punctuation">(</span><span class="token class-name">pthread_spinlock_t</span> <span class="token operator">*</span>lock<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">/* atomic_exchange &#x901A;&#x5E38;&#x8981;&#x66F4;&#x7701;&#x6307;&#x4EE4;, &#x800C;
+        atomic_compare_and_exchange&#x5728;&#x9501;&#x5DF2;&#x7ECF;&#x88AB;&#x522B;&#x4EBA;&#x6301;&#x6709;&#x7684;&#x65F6;&#x5019;, &#x4EA7;&#x751F;&#x7684;bus traffic&#x66F4;&#x5C11;
+        &#x8FD9;&#x91CC;&#x5047;&#x8BBE;&#x7B2C;&#x4E00;&#x6B21;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x9501;, &#x5927;&#x90E8;&#x5206;&#x60C5;&#x51B5;&#x4E0B;&#x662F;&#x6210;&#x529F;&#x7684;, &#x6240;&#x4EE5;&#x7B2C;&#x4E00;&#x6B21;&#x7528;atomic_exchange, &#x4E0D;&#x6210;&#x529F;&#x540E;&#x9762;&#x518D;&#x7528;atomic_compare_and_exchange.
+    */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">atomic_exchange_acq</span> <span class="token punctuation">(</span>lock<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token comment">/* &#x7B49;&#x5F85;&#x9501;&#x91CA;&#x653E;. &#x5982;&#x679C;&#x6CA1;&#x6709;&#x8FD9;&#x4E2A;while, &#x76F4;&#x63A5;&#x7528;cmpxchg&#x4F1A;&#x5E26;&#x6765;&#x6602;&#x8D35;&#x7684;&#x6838;&#x4E4B;&#x95F4;&#x7684;&#x540C;&#x6B65;&#x5F00;&#x9500;, &#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x5148;&#x7B49;&#x5F85;lock&#x503C;&#x53D8;&#x4E3A;0.
+        &#x8FD9;&#x91CC;&#x4E5F;&#x53EF;&#x4EE5;&#x52A0;wait--&#x8BA1;&#x6570;, &#x9632;&#x6B62;&#x65E0;&#x9650;&#x7B49;&#x5F85;
+    */</span> 
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">*</span>lock <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">/* &#x6709;&#x4EBA;&#x91CA;&#x653E;&#x4E86;&#x9501;, &#x8FD9;&#x91CC;&#x5C31;&#x628A;&#x9501;&#x7F6E;1. &#x4E5F;&#x8981;&#x7528;&#x5FAA;&#x73AF;.
+        &#x6700;&#x7B80;&#x5355;&#x7684;&#x5B9E;&#x73B0;&#x662F;, &#x524D;&#x9762;&#x90FD;&#x4E0D;&#x8981;, &#x53EA;&#x8981;&#x8FD9;&#x4E2A;while, &#x4E5F;&#x80FD;&#x641E;&#x5B9A;
+        &#x4EE3;&#x4EF7;&#x662F;&#x591A;&#x6838;&#x7684;&#x540C;&#x6B65;traffic&#x4F1A;&#x53D8;&#x591A;, &#x901A;&#x5E38;&#x8FD9;&#x79CD;&#x540C;&#x6B65;&#x5F00;&#x9500;&#x6BD4;&#x8F83;&#x5927;
+    */</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">atomic_compare_and_exchange_val_acq</span> <span class="token punctuation">(</span>lock<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">perf</span> <span class="token expression">probe <span class="token operator">-</span>x <span class="token operator">/</span>lib64<span class="token operator">/</span>libpthread<span class="token punctuation">.</span>so<span class="token punctuation">.</span><span class="token number">0</span> <span class="token operator">-</span>L pthread_spin_unlock</span></span>
+<span class="token function">pthread_spin_unlock</span> <span class="token punctuation">(</span><span class="token class-name">pthread_spinlock_t</span> <span class="token operator">*</span>lock<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">atomic_full_barrier</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//&#x503C;&#x4E3A;0&#x8868;&#x793A;&#x91CA;&#x653E;&#x9501;.</span>
+    <span class="token operator">*</span>lock <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x5176;&#x4ED6;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;"><a name="&#x5176;&#x4ED6;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x5176;&#x4ED6;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x5176;&#x4ED6;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;</h2>
+<p>&#x8FD8;&#x6709;&#x7528;&#x8BA1;&#x6570;&#x5668;++, &#x7528;atomic_inc(&#x8BA1;&#x6570;&#x5668;)&#x7B49;&#x65B9;&#x5F0F;&#x7684;spin lock&#x5B9E;&#x73B0;. 
+&#x6240;&#x6709;&#x8FD9;&#x4E9B;&#x5B9E;&#x73B0;, &#x90FD;&#x9700;&#x8981;atomic_xxx, &#x6765;&#x539F;&#x5B50;&#x7684;&#x6539;&#x53D8;lock&#x53D8;&#x91CF;&#x7684;&#x503C;.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="as_title_cpu.html" class="navigation navigation-prev " aria-label="Previous page: CPU Arch相关">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="as_title_cpu1.html" class="navigation navigation-next " aria-label="Next page: ARM64">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"CPU和cache一致性原理","level":"1.16.1","depth":2,"next":{"title":"ARM64","level":"1.16.2","depth":2,"path":"notes/as_title_cpu1.md","ref":"notes/as_title_cpu1.md","articles":[{"title":"thunder 概览","level":"1.16.2.1","depth":3,"path":"notes/CPU_ARM64_thunder_overview.md","ref":"notes/CPU_ARM64_thunder_overview.md","articles":[]},{"title":"thunder 开发板操作记录","level":"1.16.2.2","depth":3,"path":"notes/CPU_ARM64_thunder_开发板操作记录.md","ref":"notes/CPU_ARM64_thunder_开发板操作记录.md","articles":[]},{"title":"thunder BDK","level":"1.16.2.3","depth":3,"path":"notes/CPU_ARM64_thunder_bdk.md","ref":"notes/CPU_ARM64_thunder_bdk.md","articles":[]},{"title":"thunder RTC时间和efi","level":"1.16.2.4","depth":3,"path":"notes/CPU_ARM64_thunder_efi_rtc.md","ref":"notes/CPU_ARM64_thunder_efi_rtc.md","articles":[]},{"title":"thunder uefi和fdt","level":"1.16.2.5","depth":3,"path":"notes/CPU_ARM64_thunder_uefi_fdt.md","ref":"notes/CPU_ARM64_thunder_uefi_fdt.md","articles":[]},{"title":"thunder atf","level":"1.16.2.6","depth":3,"path":"notes/CPU_ARM64_thunder_atf.md","ref":"notes/CPU_ARM64_thunder_atf.md","articles":[]},{"title":"thunder kernel启动打印流程","level":"1.16.2.7","depth":3,"path":"notes/CPU_ARM64_thunder_kernel_boot.md","ref":"notes/CPU_ARM64_thunder_kernel_boot.md","articles":[]}]},"previous":{"title":"CPU Arch相关","level":"1.16","depth":1,"path":"notes/as_title_cpu.md","ref":"notes/as_title_cpu.md","articles":[{"title":"CPU和cache一致性原理","level":"1.16.1","depth":2,"path":"notes/cache_CPU和cache一致性原理.md","ref":"notes/cache_CPU和cache一致性原理.md","articles":[]},{"title":"ARM64","level":"1.16.2","depth":2,"path":"notes/as_title_cpu1.md","ref":"notes/as_title_cpu1.md","articles":[{"title":"thunder 概览","level":"1.16.2.1","depth":3,"path":"notes/CPU_ARM64_thunder_overview.md","ref":"notes/CPU_ARM64_thunder_overview.md","articles":[]},{"title":"thunder 开发板操作记录","level":"1.16.2.2","depth":3,"path":"notes/CPU_ARM64_thunder_开发板操作记录.md","ref":"notes/CPU_ARM64_thunder_开发板操作记录.md","articles":[]},{"title":"thunder BDK","level":"1.16.2.3","depth":3,"path":"notes/CPU_ARM64_thunder_bdk.md","ref":"notes/CPU_ARM64_thunder_bdk.md","articles":[]},{"title":"thunder RTC时间和efi","level":"1.16.2.4","depth":3,"path":"notes/CPU_ARM64_thunder_efi_rtc.md","ref":"notes/CPU_ARM64_thunder_efi_rtc.md","articles":[]},{"title":"thunder uefi和fdt","level":"1.16.2.5","depth":3,"path":"notes/CPU_ARM64_thunder_uefi_fdt.md","ref":"notes/CPU_ARM64_thunder_uefi_fdt.md","articles":[]},{"title":"thunder atf","level":"1.16.2.6","depth":3,"path":"notes/CPU_ARM64_thunder_atf.md","ref":"notes/CPU_ARM64_thunder_atf.md","articles":[]},{"title":"thunder kernel启动打印流程","level":"1.16.2.7","depth":3,"path":"notes/CPU_ARM64_thunder_kernel_boot.md","ref":"notes/CPU_ARM64_thunder_kernel_boot.md","articles":[]}]},{"title":"PPC","level":"1.16.3","depth":2,"path":"notes/as_title_cpu2.md","ref":"notes/as_title_cpu2.md","articles":[{"title":"PPC启动多核linux: 流程和内存映射","level":"1.16.3.1","depth":3,"path":"notes/CPU_PPC启动多核Linux_流程和内存映射.md","ref":"notes/CPU_PPC启动多核Linux_流程和内存映射.md","articles":[]},{"title":"PPC kernel升级记录","level":"1.16.3.2","depth":3,"path":"notes/CPU_PPC_kernel升级记录.md","ref":"notes/CPU_PPC_kernel升级记录.md","articles":[]}]},{"title":"MIPS","level":"1.16.4","depth":2,"path":"notes/as_title_cpu3.md","ref":"notes/as_title_cpu3.md","articles":[{"title":"octeon 地址空间和寄存器访问","level":"1.16.4.1","depth":3,"path":"notes/CPU_MIPS_octeon地址空间和寄存器访问.md","ref":"notes/CPU_MIPS_octeon地址空间和寄存器访问.md","articles":[]},{"title":"octeon 操作记录","level":"1.16.4.2","depth":3,"path":"notes/CPU_MIPS_octeon操作记录.md","ref":"notes/CPU_MIPS_octeon操作记录.md","articles":[]},{"title":"octeon 系列处理器包处理性能","level":"1.16.4.3","depth":3,"path":"notes/CPU_MIPS_octeon_包处理性能.md","ref":"notes/CPU_MIPS_octeon_包处理性能.md","articles":[]},{"title":"octeon DDR调试","level":"1.16.4.4","depth":3,"path":"notes/CPU_MIPS_octeon_ddr调试记录.md","ref":"notes/CPU_MIPS_octeon_ddr调试记录.md","articles":[]},{"title":"octeon CN78xx BDK","level":"1.16.4.5","depth":3,"path":"notes/CPU_MIPS_octeon_BDK.md","ref":"notes/CPU_MIPS_octeon_BDK.md","articles":[]},{"title":"octeon 增加ECC中断","level":"1.16.4.6","depth":3,"path":"notes/kernel_增加ECC中断.md","ref":"notes/kernel_增加ECC中断.md","articles":[]},{"title":"octeon hw-ddr2代码走读","level":"1.16.4.7","depth":3,"path":"notes/CPU_MIPS_octeon_hw-ddr2代码走读.md","ref":"notes/CPU_MIPS_octeon_hw-ddr2代码走读.md","articles":[]},{"title":"octeon reboot调试和DDR中断","level":"1.16.4.8","depth":3,"path":"notes/CPU_MIPS_octeon_reboot调试和ddr中断.md","ref":"notes/CPU_MIPS_octeon_reboot调试和ddr中断.md","articles":[]},{"title":"octeon 中断","level":"1.16.4.9","depth":3,"path":"notes/CPU_MIPS_octeon中断.md","ref":"notes/CPU_MIPS_octeon中断.md","articles":[]},{"title":"octeon 原子操作","level":"1.16.4.10","depth":3,"path":"notes/CPU_MIPS_octeon原子操作.md","ref":"notes/CPU_MIPS_octeon原子操作.md","articles":[]},{"title":"octeon 网口代码分析","level":"1.16.4.11","depth":3,"path":"notes/CPU_MIPS_octeon网口代码分析.md","ref":"notes/CPU_MIPS_octeon网口代码分析.md","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/cache_CPU和cache一致性原理.md","mtime":"2022-10-18T02:30:39.984Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-18T02:31:53.901Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    </body>
+</html>
+

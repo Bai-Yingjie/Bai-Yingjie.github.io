@@ -1,0 +1,3482 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>linux虚拟网络接口(网摘) · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="as_title_arm_server.html" />
+    
+    
+    <link rel="prev" href="networking_virtualization_杂记.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录杂记系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="as_title_perf_tools.html">
+            
+                <a href="as_title_perf_tools.html">
+            
+                    
+                    profiling工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_app_perf.html">
+            
+                <a href="as_title_app_perf.html">
+            
+                    
+                    应用profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    系统profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.5.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.3.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.4.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.5" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.6" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.7" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.3.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.4.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >linux虚拟网络接口(网摘)</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#introduction"><b>1. </b>Introduction</a></li><ul><li><span class="title-icon "></span><a href="#bridge"><b>1.1. </b>Bridge</a></li><ul><li><span class="title-icon "></span><a href="#what-is-a-bridge"><b>1.1.1. </b>What is a bridge</a></li><li><span class="title-icon "></span><a href="#when-to-use-a-bridge"><b>1.1.2. </b>When to use a bridge</a></li><li><span class="title-icon "></span><a href="#how-to-create-a-bridge"><b>1.1.3. </b>How to create a bridge</a></li></ul><li><span class="title-icon "></span><a href="#bonding"><b>1.2. </b>Bonding</a></li><ul><li><span class="title-icon "></span><a href="#what-is-bonding"><b>1.2.1. </b>What is bonding</a></li><li><span class="title-icon "></span><a href="#when-to-use-bonding"><b>1.2.2. </b>When to use bonding</a></li><li><span class="title-icon "></span><a href="#how-to-create-a-bond"><b>1.2.3. </b>How to create a bond</a></li></ul><li><span class="title-icon "></span><a href="#team"><b>1.3. </b>Team</a></li><ul><li><span class="title-icon "></span><a href="#what-is-team"><b>1.3.1. </b>What is team</a></li><li><span class="title-icon "></span><a href="#when-to-use-team"><b>1.3.2. </b>When to use team</a></li><li><span class="title-icon "></span><a href="#how-to-create-team"><b>1.3.3. </b>How to create team</a></li></ul><li><span class="title-icon "></span><a href="#vlan"><b>1.4. </b>VLAN</a></li><ul><li><span class="title-icon "></span><a href="#what-is-vlan"><b>1.4.1. </b>What is VLAN</a></li><li><span class="title-icon "></span><a href="#when-to-use-vlan"><b>1.4.2. </b>When to use VLAN</a></li><li><span class="title-icon "></span><a href="#how-to-create-vlan"><b>1.4.3. </b>How to create VLAN</a></li></ul><li><span class="title-icon "></span><a href="#vxlan"><b>1.5. </b>VXLAN</a></li><ul><li><span class="title-icon "></span><a href="#what-is-vxlan"><b>1.5.1. </b>What is VXLAN</a></li><li><span class="title-icon "></span><a href="#when-to-use-vxlan"><b>1.5.2. </b>When to use VXLAN</a></li><li><span class="title-icon "></span><a href="#how-to-create-vxlan"><b>1.5.3. </b>How to create vxlan</a></li></ul><li><span class="title-icon "></span><a href="#macvlan"><b>1.6. </b>MACVLAN</a></li><ul><li><span class="title-icon "></span><a href="#what-is-macvlan"><b>1.6.1. </b>What is MACVLAN</a></li><li><span class="title-icon "></span><a href="#when-to-use-macvlan"><b>1.6.2. </b>When to use MACVLAN</a></li><li><span class="title-icon "></span><a href="#how-to-setup-macvlan"><b>1.6.3. </b>How to setup MACVLAN</a></li></ul><li><span class="title-icon "></span><a href="#ipvlan"><b>1.7. </b>IPVLAN</a></li><ul><li><span class="title-icon "></span><a href="#what-is-ipvlan"><b>1.7.1. </b>What is IPVLAN</a></li><li><span class="title-icon "></span><a href="#when-to-use-ipvlan"><b>1.7.2. </b>When to use IPVLAN</a></li><li><span class="title-icon "></span><a href="#how-to-setup-ipvlan"><b>1.7.3. </b>How to setup IPVLAN</a></li></ul><li><span class="title-icon "></span><a href="#macvtapipvtap"><b>1.8. </b>MACVTAP/IPVTAP</a></li><ul><li><span class="title-icon "></span><a href="#what-is-macvtapipvtap"><b>1.8.1. </b>What is MACVTAP/IPVTAP</a></li><li><span class="title-icon "></span><a href="#when-to-use-macvtapipvtap"><b>1.8.2. </b>When to use MACVTAP/IPVTAP</a></li><li><span class="title-icon "></span><a href="#how-to-create-macvtap"><b>1.8.3. </b>How to create MACVTAP</a></li></ul><li><span class="title-icon "></span><a href="#macsec"><b>1.9. </b>MACsec</a></li><ul><li><span class="title-icon "></span><a href="#what-is-macsec"><b>1.9.1. </b>What is MACsec</a></li><li><span class="title-icon "></span><a href="#when-to-use-macsec"><b>1.9.2. </b>When to use MACsec</a></li><li><span class="title-icon "></span><a href="#how-to-setup-macsec"><b>1.9.3. </b>How to setup MACsec</a></li></ul><li><span class="title-icon "></span><a href="#veth"><b>1.10. </b>VETH</a></li><ul><li><span class="title-icon "></span><a href="#what-is-veth"><b>1.10.1. </b>What is VETH</a></li><li><span class="title-icon "></span><a href="#when-to-use-veth"><b>1.10.2. </b>When to use VETH</a></li><li><span class="title-icon "></span><a href="#how-to-setup-veth"><b>1.10.3. </b>How to setup VETH</a></li></ul><li><span class="title-icon "></span><a href="#vcan"><b>1.11. </b>VCAN</a></li><ul><li><span class="title-icon "></span><a href="#what-is-vcan"><b>1.11.1. </b>What is VCAN</a></li><li><span class="title-icon "></span><a href="#when-to-use-can"><b>1.11.2. </b>When to use CAN</a></li><li><span class="title-icon "></span><a href="#how-to-create-vcan"><b>1.11.3. </b>How to create VCAN</a></li></ul><li><span class="title-icon "></span><a href="#vxcan"><b>1.12. </b>VXCAN</a></li><ul><li><span class="title-icon "></span><a href="#what-is-vxcan"><b>1.12.1. </b>what is VXCAN</a></li><li><span class="title-icon "></span><a href="#when-to-use-vxcan"><b>1.12.2. </b>When to use VXCAN</a></li><li><span class="title-icon "></span><a href="#how-to-setup-vxcan"><b>1.12.3. </b>How to setup VXCAN</a></li></ul><li><span class="title-icon "></span><a href="#ipoib"><b>1.13. </b>IPOIB</a></li><ul><li><span class="title-icon "></span><a href="#what-is-it"><b>1.13.1. </b>What is it</a></li><li><span class="title-icon "></span><a href="#when-to-use"><b>1.13.2. </b>When to use</a></li><li><span class="title-icon "></span><a href="#how-to-create"><b>1.13.3. </b>How to create</a></li></ul><li><span class="title-icon "></span><a href="#nlmon"><b>1.14. </b>nlmon</a></li><ul><li><span class="title-icon "></span><a href="#what-is-nlmon"><b>1.14.1. </b>What is nlmon</a></li><li><span class="title-icon "></span><a href="#when-to-use-nlmon"><b>1.14.2. </b>When to use nlmon</a></li><li><span class="title-icon "></span><a href="#how-to-create-nlmon"><b>1.14.3. </b>How to create nlmon</a></li></ul><li><span class="title-icon "></span><a href="#dummy"><b>1.15. </b>Dummy</a></li><ul><li><span class="title-icon "></span><a href="#what-is-dummy"><b>1.15.1. </b>What is Dummy</a></li><li><span class="title-icon "></span><a href="#when-to-use-dummy"><b>1.15.2. </b>When to use Dummy</a></li><li><span class="title-icon "></span><a href="#how-to-create-dummy"><b>1.15.3. </b>How to create Dummy</a></li></ul><li><span class="title-icon "></span><a href="#ifb"><b>1.16. </b>IFB</a></li><ul><li><span class="title-icon "></span><a href="#what-is-ifb"><b>1.16.1. </b>What is IFB</a></li><li><span class="title-icon "></span><a href="#when-to-use-ifb"><b>1.16.2. </b>When to use IFB</a></li><li><span class="title-icon "></span><a href="#how-to-create-an-ifb-interface"><b>1.16.3. </b>How to create an IFB interface</a></li></ul></ul></ul></div><a href="#introduction" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#bridge">Bridge</a><ul>
+<li><a href="#what-is-a-bridge">What is a bridge</a></li>
+<li><a href="#when-to-use-a-bridge">When to use a bridge</a></li>
+<li><a href="#how-to-create-a-bridge">How to create a bridge</a></li>
+</ul>
+</li>
+<li><a href="#bonding">Bonding</a><ul>
+<li><a href="#what-is-bonding">What is bonding</a></li>
+<li><a href="#when-to-use-bonding">When to use bonding</a></li>
+<li><a href="#how-to-create-a-bond">How to create a bond</a></li>
+</ul>
+</li>
+<li><a href="#team">Team</a><ul>
+<li><a href="#what-is-team">What is team</a></li>
+<li><a href="#when-to-use-team">When to use team</a></li>
+<li><a href="#how-to-create-team">How to create team</a></li>
+</ul>
+</li>
+<li><a href="#vlan">VLAN</a><ul>
+<li><a href="#what-is-vlan">What is VLAN</a></li>
+<li><a href="#when-to-use-vlan">When to use VLAN</a></li>
+<li><a href="#how-to-create-vlan">How to create VLAN</a></li>
+</ul>
+</li>
+<li><a href="#vxlan">VXLAN</a><ul>
+<li><a href="#what-is-vxlan">What is VXLAN</a></li>
+<li><a href="#when-to-use-vxlan">When to use VXLAN</a></li>
+<li><a href="#how-to-create-vxlan">How to create vxlan</a></li>
+</ul>
+</li>
+<li><a href="#macvlan">MACVLAN</a><ul>
+<li><a href="#what-is-macvlan">What is MACVLAN</a></li>
+<li><a href="#when-to-use-macvlan">When to use MACVLAN</a></li>
+<li><a href="#how-to-setup-macvlan">How to setup MACVLAN</a></li>
+</ul>
+</li>
+<li><a href="#ipvlan">IPVLAN</a><ul>
+<li><a href="#what-is-ipvlan">What is IPVLAN</a></li>
+<li><a href="#when-to-use-ipvlan">When to use IPVLAN</a></li>
+<li><a href="#how-to-setup-ipvlan">How to setup IPVLAN</a></li>
+</ul>
+</li>
+<li><a href="#macvtapipvtap">MACVTAP/IPVTAP</a><ul>
+<li><a href="#what-is-macvtapipvtap">What is MACVTAP/IPVTAP</a></li>
+<li><a href="#when-to-use-macvtapipvtap">When to use MACVTAP/IPVTAP</a></li>
+<li><a href="#how-to-create-macvtap">How to create MACVTAP</a></li>
+</ul>
+</li>
+<li><a href="#macsec">MACsec</a><ul>
+<li><a href="#what-is-macsec">What is MACsec</a></li>
+<li><a href="#when-to-use-macsec">When to use MACsec</a></li>
+<li><a href="#how-to-setup-macsec">How to setup MACsec</a></li>
+</ul>
+</li>
+<li><a href="#veth">VETH</a><ul>
+<li><a href="#what-is-veth">What is VETH</a></li>
+<li><a href="#when-to-use-veth">When to use VETH</a></li>
+<li><a href="#how-to-setup-veth">How to setup VETH</a></li>
+</ul>
+</li>
+<li><a href="#vcan">VCAN</a><ul>
+<li><a href="#what-is-vcan">What is VCAN</a></li>
+<li><a href="#when-to-use-can">When to use CAN</a></li>
+<li><a href="#how-to-create-vcan">How to create VCAN</a></li>
+</ul>
+</li>
+<li><a href="#vxcan">VXCAN</a><ul>
+<li><a href="#what-is-vxcan">what is VXCAN</a></li>
+<li><a href="#when-to-use-vxcan">When to use VXCAN</a></li>
+<li><a href="#how-to-setup-vxcan">How to setup VXCAN</a></li>
+</ul>
+</li>
+<li><a href="#ipoib">IPOIB</a><ul>
+<li><a href="#what-is-it">What is it</a></li>
+<li><a href="#when-to-use">When to use</a></li>
+<li><a href="#how-to-create">How to create</a></li>
+</ul>
+</li>
+<li><a href="#nlmon">nlmon</a><ul>
+<li><a href="#what-is-nlmon">What is nlmon</a></li>
+<li><a href="#when-to-use-nlmon">When to use nlmon</a></li>
+<li><a href="#how-to-create-nlmon">How to create nlmon</a></li>
+</ul>
+</li>
+<li><a href="#dummy">Dummy</a><ul>
+<li><a href="#what-is-dummy">What is Dummy</a></li>
+<li><a href="#when-to-use-dummy">When to use Dummy</a></li>
+<li><a href="#how-to-create-dummy">How to create Dummy</a></li>
+</ul>
+</li>
+<li><a href="#ifb">IFB</a><ul>
+<li><a href="#what-is-ifb">What is IFB</a></li>
+<li><a href="#when-to-use-ifb">When to use IFB</a></li>
+<li><a href="#how-to-create-an-ifb-interface">How to create an IFB interface</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="introduction"><a name="introduction" class="anchor-navigation-ex-anchor" href="#introduction"><i class="fa fa-link" aria-hidden="true"></i></a>1. Introduction</h1>
+<p>In this post I will give a brief introduction for all commonly used virtual interfaces. There is no code analysis. Only brief introduction and the usage on <em>Linux</em>. So anyone with a network background could have a look at this blog post. The interface list can be obtained with the command <code>ip link help</code>.</p>
+<p>The first part is some frequently used interfaces and some interfaces that can be easily confused with one another. The second part will be a brief introduction of all kinds of tunnels(TBD).</p>
+<h2 id="bridge"><a name="bridge" class="anchor-navigation-ex-anchor" href="#bridge"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. Bridge</h2>
+<h3 id="what-is-a-bridge"><a name="what-is-a-bridge" class="anchor-navigation-ex-anchor" href="#what-is-a-bridge"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. What is a bridge</h3>
+<p>A linux bridge behaves like a network switch. It forwards packets between interfaces that are connected on it. It&#x2019;s usually used for forwarding packets on routers, gateways, or between VMs and network namespaces on a host. It also supports STP, VLAN filter and multicast snooping.</p>
+<p><a href="https://liuhangbin.netlify.app/bridge.png" target="_blank"><img src="https://liuhangbin.netlify.app/bridge.png" alt="bridge"></a></p>
+<h3 id="when-to-use-a-bridge"><a name="when-to-use-a-bridge" class="anchor-navigation-ex-anchor" href="#when-to-use-a-bridge"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. When to use a bridge</h3>
+<p>When you want to establish communication channels between VMs, containers and your hosts.</p>
+<h3 id="how-to-create-a-bridge"><a name="how-to-create-a-bridge" class="anchor-navigation-ex-anchor" href="#how-to-create-a-bridge"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.3. How to create a bridge</h3>
+<pre class="language-"><code># ip link add br0 type bridge
+# ip link set eth0 master br0
+# ip link set tap1 master br0
+# ip link set tap2 master br0
+# ip link set veth1 master br0
+</code></pre><p>This creates a bridge device named br0 and set two tap devices(tap1, tap2), a veth device(veth1) and a physical device(eth0) as its slaves, as shown in the picture.</p>
+<h2 id="bonding"><a name="bonding" class="anchor-navigation-ex-anchor" href="#bonding"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. Bonding</h2>
+<h3 id="what-is-bonding"><a name="what-is-bonding" class="anchor-navigation-ex-anchor" href="#what-is-bonding"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.1. What is bonding</h3>
+<p>The Linux bonding driver provides a method for aggregating multiple network interfaces into a single logical &#x201C;bonded&#x201D; interface. The behavior of the bonded interfaces depends on the mode; generally speaking, modes provide either hot standby or load balancing services.</p>
+<p><a href="https://liuhangbin.netlify.app/bond.png" target="_blank"><img src="https://liuhangbin.netlify.app/bond.png" alt="bond"></a></p>
+<h3 id="when-to-use-bonding"><a name="when-to-use-bonding" class="anchor-navigation-ex-anchor" href="#when-to-use-bonding"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.2. When to use bonding</h3>
+<p>When you want to increase your link speed or do failover on your server.</p>
+<h3 id="how-to-create-a-bond"><a name="how-to-create-a-bond" class="anchor-navigation-ex-anchor" href="#how-to-create-a-bond"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.3. How to create a bond</h3>
+<pre class="language-"><code>ip link add bond1 type bond miimon 100 mode active-backup
+ip link set eth0 master bond1
+ip link set eth1 master bond1
+</code></pre><p>This creates a bond interface named bond1 with mode active-backup. For other modes, please see: <a href="https://www.kernel.org/doc/Documentation/networking/bonding.txt" target="_blank">Kernel bonding doc</a></p>
+<h2 id="team"><a name="team" class="anchor-navigation-ex-anchor" href="#team"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. Team</h2>
+<h3 id="what-is-team"><a name="what-is-team" class="anchor-navigation-ex-anchor" href="#what-is-team"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.1. What is team</h3>
+<p>Similar to bonding, the purpose of the team device is to provide a mechanism to team multiple NICs (ports) into one logical one (teamdev) at L2 layer.</p>
+<p><a href="https://liuhangbin.netlify.app/team.png" target="_blank"><img src="https://liuhangbin.netlify.app/team.png" alt="team"></a></p>
+<p>The main thing to realize is that the Team project is not trying to replicate or mimic the bonding driver. What it does is to solve the same problem using a different approach, using e.g. lockless (RCU) TX/RX path and modular design.</p>
+<p>But there are also some functional difference between bonding and team. e.g. team supports LACP load-balancing, NS/NA (IPV6) link monitoring, D-Bus interface, etc., that are absent in bonding. For further details about the differences between bonding and Team, see: <a href="https://github.com/jpirko/libteam/wiki/Bonding-vs.-Team-features" target="_blank">Bonding vs Team</a>.</p>
+<h3 id="when-to-use-team"><a name="when-to-use-team" class="anchor-navigation-ex-anchor" href="#when-to-use-team"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.2. When to use team</h3>
+<p>When you want to use some features that bonding doesn&#x2019;t provide.</p>
+<h3 id="how-to-create-team"><a name="how-to-create-team" class="anchor-navigation-ex-anchor" href="#how-to-create-team"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.3. How to create team</h3>
+<pre class="language-"><code># teamd -o -n -U -d -t team0 -c &apos;{&quot;runner&quot;: {&quot;name&quot;: &quot;activebackup&quot;},&quot;link_watch&quot;: {&quot;name&quot;: &quot;ethtool&quot;}}&apos;
+# ip link set eth0 down
+# ip link set eth1 down
+# teamdctl team0 port add eth0
+# teamdctl team0 port add eth1
+</code></pre><p>This creates a team interface named team0 with mode active-backup, and adds eth0, eth1 as team0&#x2019;s sub-interfaces.</p>
+<p>More info: a new driver called <a href="https://www.kernel.org/doc/html/latest/networking/net_failover.html" target="_blank">net_failover</a> has been added to linux recently. It&#x2019;s another failover master netdev for virtualization and manages a primary (a passthru/vf device) and standby (the original paravirtual interface) slave netdevs.</p>
+<p><a href="https://liuhangbin.netlify.app/net_failover.png" target="_blank"><img src="https://liuhangbin.netlify.app/net_failover.png" alt="net_failover"></a></p>
+<h2 id="vlan"><a name="vlan" class="anchor-navigation-ex-anchor" href="#vlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. VLAN</h2>
+<h3 id="what-is-vlan"><a name="what-is-vlan" class="anchor-navigation-ex-anchor" href="#what-is-vlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.1. What is VLAN</h3>
+<p>VLAN, aka virtual LAN. It separates broadcast domains by adding tags to network packets. VLANs allow network administrators to group hosts under the same switch or between different switches.</p>
+<p>The VLAN header looks like: <a href="https://liuhangbin.netlify.app/vlan_01.png" target="_blank"><img src="https://liuhangbin.netlify.app/vlan_01.png" alt="vlan header"></a></p>
+<h3 id="when-to-use-vlan"><a name="when-to-use-vlan" class="anchor-navigation-ex-anchor" href="#when-to-use-vlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.2. When to use VLAN</h3>
+<p>When you want to seperate subnet in VMs, namespaces or hosts</p>
+<h3 id="how-to-create-vlan"><a name="how-to-create-vlan" class="anchor-navigation-ex-anchor" href="#how-to-create-vlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.3. How to create VLAN</h3>
+<pre class="language-"><code># ip link add link eth0 name eth0.2 type vlan id 2
+# ip link add link eth0 name eth0.3 type vlan id 3
+</code></pre><p>This add VLAN 2 with name eth0.2 and vlan 3 with name eth0.3. The topology looks like: <a href="https://liuhangbin.netlify.app/vlan.png" target="_blank"><img src="https://liuhangbin.netlify.app/vlan.png" alt="vlan"></a></p>
+<p><em>Note</em>: When configuring a VLAN, you need to make sure the switch connected to the host is able to handle VLAN tags, e.g. by setting the switch port to trunk mode.</p>
+<h2 id="vxlan"><a name="vxlan" class="anchor-navigation-ex-anchor" href="#vxlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. VXLAN</h2>
+<h3 id="what-is-vxlan"><a name="what-is-vxlan" class="anchor-navigation-ex-anchor" href="#what-is-vxlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.5.1. What is VXLAN</h3>
+<p>VXLAN(Virtual eXtensible Local Area Network) protocol is a tunnelling protocol designed to solve the problem of limited VLAN IDs (4096) in IEEE 802.1q. It is described by <a href="https://tools.ietf.org/html/rfc7348" target="_blank">IETF RFC 7348</a>.</p>
+<p>With a 24-bit segment ID, aka &#x201C;VXLAN Network Identifier (VNI)&#x201D;, VXLAN allows up to 2^24(16 777 216) virtual LANs, which is 4096 times of VLAN capacity.</p>
+<p>VXLAN encapsulates Layer 2 frames with a VXLAN header into a UDP-IP packet, which looks like:</p>
+<p><a href="https://liuhangbin.netlify.app/vxlan_01.png" target="_blank"><img src="https://liuhangbin.netlify.app/vxlan_01.png" alt="VXLAN Header"></a></p>
+<h3 id="when-to-use-vxlan"><a name="when-to-use-vxlan" class="anchor-navigation-ex-anchor" href="#when-to-use-vxlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.5.2. When to use VXLAN</h3>
+<p>VXLAN is typically deployed in data centers on virtualized hosts, which may be spread across multiple racks.</p>
+<p><a href="https://liuhangbin.netlify.app/vxlan.png" target="_blank"><img src="https://liuhangbin.netlify.app/vxlan.png" alt="VXLAN TOPO"></a></p>
+<h3 id="how-to-create-vxlan"><a name="how-to-create-vxlan" class="anchor-navigation-ex-anchor" href="#how-to-create-vxlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.5.3. How to create vxlan</h3>
+<pre class="language-"><code># ip link add vx0 type vxlan id 100 local 1.1.1.1 remote 2.2.2.2 dev eth0 dstport 4789
+</code></pre><p>For reference, you can read the <a href="https://www.kernel.org/doc/Documentation/networking/vxlan.txt" target="_blank">vxlan kernel doc</a> or <a href="https://vincent.bernat.ch/en/blog/2017-vxlan-linux" target="_blank">an other vxlan introduction</a></p>
+<h2 id="macvlan"><a name="macvlan" class="anchor-navigation-ex-anchor" href="#macvlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.6. MACVLAN</h2>
+<h3 id="what-is-macvlan"><a name="what-is-macvlan" class="anchor-navigation-ex-anchor" href="#what-is-macvlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.6.1. What is MACVLAN</h3>
+<p>With VLAN, we can create multiple interfaces on top of a single one and filter packages based on VLAN tag. With MACVLAN, we can create multiple interfaces with different Layer 2 (i.e. Ethernet MAC) addresses on top of a single one .</p>
+<p>Before MACVLAN, if users wanted to connect to physical network from VM or namespace, they would have needed to create TAP/VETH devices and attach one side to bridge, and attach a physical interface to the bridge on the host at the same time.</p>
+<p><a href="https://liuhangbin.netlify.app/br_ns.png" target="_blank"><img src="https://liuhangbin.netlify.app/br_ns.png" alt="Namespaces on bridge"></a></p>
+<p>Now, with MACVLAN, they can bind a physical interface, associated to a MACVLAN, directly to namespaces, without the need for a bridge.</p>
+<p><a href="https://liuhangbin.netlify.app/macvlan.png" target="_blank"><img src="https://liuhangbin.netlify.app/macvlan.png" alt="MACVLAN"></a></p>
+<p>There are four MACVLAN types:</p>
+<ol>
+<li><p>Private: doesn&#x2019;t allow communication between MACVLAN instances on the same physical interface, even if the external switch supports hairpin mode.</p>
+<p><a href="https://liuhangbin.netlify.app/macvlan_01.png" target="_blank"><img src="https://liuhangbin.netlify.app/macvlan_01.png" alt="MACVLAN Private"></a></p>
+</li>
+<li><p>VEPA: data from one macvlan instance to the other on the same physical interface is transmitted over the physical interface. Either the attached switch needs to support hairpin mode, or there must be a TCP/IP router forwarding the packets in order to allow communication.</p>
+<p><a href="https://liuhangbin.netlify.app/macvlan_02.png" target="_blank"><img src="https://liuhangbin.netlify.app/macvlan_02.png" alt="MACVLAN VEPA"></a></p>
+</li>
+<li><p>Bridge: all endpoints are directly connected to each other with a simple bridge via physical interface.</p>
+<p><a href="https://liuhangbin.netlify.app/macvlan_03.png" target="_blank"><img src="https://liuhangbin.netlify.app/macvlan_03.png" alt="MACVLAN Bridge"></a></p>
+</li>
+<li><p>Passthru: allows a single VM to be connected directly to the physical interface.</p>
+<p><a href="https://liuhangbin.netlify.app/macvlan_04.png" target="_blank"><img src="https://liuhangbin.netlify.app/macvlan_04.png" alt="MACVLAN Passthru"></a></p>
+</li>
+<li><p>Source: the source mode is used to filter traffic based on a list of allowed source MAC addresses, to create MAC-based VLAN associations. Please see the <a href="https://git.kernel.org/pub/scm/linux/kernel/git/davem/net.git/commit/?id=79cf79abce71" target="_blank">commit message</a></p>
+</li>
+</ol>
+<p>The type is chosen according to different needs. Bridge mode is the most commonly used</p>
+<h3 id="when-to-use-macvlan"><a name="when-to-use-macvlan" class="anchor-navigation-ex-anchor" href="#when-to-use-macvlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.6.2. When to use MACVLAN</h3>
+<p>Users want to connect directly to physical network from Containers.</p>
+<h3 id="how-to-setup-macvlan"><a name="how-to-setup-macvlan" class="anchor-navigation-ex-anchor" href="#how-to-setup-macvlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.6.3. How to setup MACVLAN</h3>
+<pre class="language-"><code># ip link add macv1 link eth0 type macvlan mode bridge
+# ip link add macv2 link eth0 type macvlan mode bridge
+# ip netns add net1
+# ip netns add net2
+# ip link set macvlan1 netns net1
+# ip link set macvlan2 netns net2
+</code></pre><p>This creates two new MACVLAN devices in bridge mode. And assigns these two devices to two different namespaces.</p>
+<h2 id="ipvlan"><a name="ipvlan" class="anchor-navigation-ex-anchor" href="#ipvlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.7. IPVLAN</h2>
+<h3 id="what-is-ipvlan"><a name="what-is-ipvlan" class="anchor-navigation-ex-anchor" href="#what-is-ipvlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.7.1. What is IPVLAN</h3>
+<p>IPVLAN is similar to MACVLAN with the difference being that the endpoints have the same mac address.</p>
+<p><a href="https://liuhangbin.netlify.app/ipvlan.png" target="_blank"><img src="https://liuhangbin.netlify.app/ipvlan.png" alt="IPVLAN"></a></p>
+<p>IPVLAN supports L2 and L3 mode. IPVLAN L2 mode acts like a MACVLAN in bridge mode. The parent interface looks like a bridge or switch.</p>
+<p><a href="https://liuhangbin.netlify.app/ipvlan_01.png" target="_blank"><img src="https://liuhangbin.netlify.app/ipvlan_01.png" alt="IPVLAN L2"></a></p>
+<p>In IPVLAN l3 mode, the parent interface acts like a router and packets are routed between endpoints, which gives better scalability.</p>
+<p><a href="https://liuhangbin.netlify.app/ipvlan_02.png" target="_blank"><img src="https://liuhangbin.netlify.app/ipvlan_02.png" alt="IPVLAN L3"></a></p>
+<h3 id="when-to-use-ipvlan"><a name="when-to-use-ipvlan" class="anchor-navigation-ex-anchor" href="#when-to-use-ipvlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.7.2. When to use IPVLAN</h3>
+<p>Quoting the <a href="https://www.kernel.org/doc/Documentation/networking/ipvlan.txt" target="_blank">IPVLAN kernel doc</a>&lt;/dt&gt;</p>
+<p><dd>MACVLAN and IPVLAN are very similar in many regards and the specific use case could very well define which device to choose. if one of the following situations defines your use case then you can choose to use ipvlan -</dd></p>
+<ul>
+<li>The Linux host that is connected to the external switch / router has policy configured that allows only one mac per port.</li>
+<li>No of virtual devices created on a master exceed the mac capacity and puts the NIC in promiscuous mode and degraded performance is a concern.</li>
+<li>If the slave device is to be put into the hostile / untrusted network namespace where L2 on the slave could be changed / misused.</li>
+</ul>
+<h3 id="how-to-setup-ipvlan"><a name="how-to-setup-ipvlan" class="anchor-navigation-ex-anchor" href="#how-to-setup-ipvlan"><i class="fa fa-link" aria-hidden="true"></i></a>1.7.3. How to setup IPVLAN</h3>
+<pre class="language-"><code># ip netns add ns0
+# ip link add name ipv1 link eth0 type ipvlan mode l2
+# ip link set dev ipvl0 netns ns0
+</code></pre><p>This creates an IPVLAN device named ipvl0 with mode L2, assigned to namespace ns0.</p>
+<h2 id="macvtapipvtap"><a name="macvtapipvtap" class="anchor-navigation-ex-anchor" href="#macvtapipvtap"><i class="fa fa-link" aria-hidden="true"></i></a>1.8. MACVTAP/IPVTAP</h2>
+<h3 id="what-is-macvtapipvtap"><a name="what-is-macvtapipvtap" class="anchor-navigation-ex-anchor" href="#what-is-macvtapipvtap"><i class="fa fa-link" aria-hidden="true"></i></a>1.8.1. What is MACVTAP/IPVTAP</h3>
+<p>MACVTAP/IPVTAP is a new device driver meant to simplify virtualized bridged networking. When a MACVTAP/IPVTAP instance is created on top of a physical interface, the kernel also creates a character device /dev/tapX to be used just like a TUN/TAP device, which can be directly used by KVM/QEMU.</p>
+<p>with MACVTAP/IPVTAP, we can replace the combination of TUN/TAP and bridge drivers with a single module.</p>
+<p><a href="https://liuhangbin.netlify.app/macvtap.png" target="_blank"><img src="https://liuhangbin.netlify.app/macvtap.png" alt="MACVTAP"></a></p>
+<h3 id="when-to-use-macvtapipvtap"><a name="when-to-use-macvtapipvtap" class="anchor-navigation-ex-anchor" href="#when-to-use-macvtapipvtap"><i class="fa fa-link" aria-hidden="true"></i></a>1.8.2. When to use MACVTAP/IPVTAP</h3>
+<p>Typically, this is used to make both the guest and the host show up directly on the switch to which the host is connected. The difference between MACVTAP and IPVTAP is same with MACVLAN/IPVLAN.</p>
+<h3 id="how-to-create-macvtap"><a name="how-to-create-macvtap" class="anchor-navigation-ex-anchor" href="#how-to-create-macvtap"><i class="fa fa-link" aria-hidden="true"></i></a>1.8.3. How to create MACVTAP</h3>
+<pre class="language-"><code># ip link add link eth0 name macvtap0 type macvtap
+</code></pre><h2 id="macsec"><a name="macsec" class="anchor-navigation-ex-anchor" href="#macsec"><i class="fa fa-link" aria-hidden="true"></i></a>1.9. MACsec</h2>
+<h3 id="what-is-macsec"><a name="what-is-macsec" class="anchor-navigation-ex-anchor" href="#what-is-macsec"><i class="fa fa-link" aria-hidden="true"></i></a>1.9.1. What is MACsec</h3>
+<p>MACsec is an IEEE standard for security in wired Ethernet LANs. Similiar to IPsec, as a layer 2 specification, MACsec can protect not only IP traffic, but also ARP, neighbour discovery, and DHCP. The MACSEC headers looks like</p>
+<p><a href="https://liuhangbin.netlify.app/macsec_01.png" target="_blank"><img src="https://liuhangbin.netlify.app/macsec_01.png" alt="MACSEC Header"></a></p>
+<h3 id="when-to-use-macsec"><a name="when-to-use-macsec" class="anchor-navigation-ex-anchor" href="#when-to-use-macsec"><i class="fa fa-link" aria-hidden="true"></i></a>1.9.2. When to use MACsec</h3>
+<p>The main use case for MACsec is to secure all messages on a standard LAN, includeing ARP, NS and DHCP message.</p>
+<p><a href="https://liuhangbin.netlify.app/macsec.png" target="_blank"><img src="https://liuhangbin.netlify.app/macsec.png" alt="MACSEC"></a></p>
+<h3 id="how-to-setup-macsec"><a name="how-to-setup-macsec" class="anchor-navigation-ex-anchor" href="#how-to-setup-macsec"><i class="fa fa-link" aria-hidden="true"></i></a>1.9.3. How to setup MACsec</h3>
+<pre class="language-"><code># ip link add macsec0 link eth1 type macsec
+</code></pre><p><em>Note</em>: This only adds a MACsec device macsec0 on interface eth1. For more detailed configurations, please see the &#x201C;Configuration example&#x201D; Section in <a href="https://developers.redhat.com/blog/2016/10/14/macsec-a-different-solution-to-encrypt-network-traffic/" target="_blank">MACsec introduction by Sabrina</a></p>
+<h2 id="veth"><a name="veth" class="anchor-navigation-ex-anchor" href="#veth"><i class="fa fa-link" aria-hidden="true"></i></a>1.10. VETH</h2>
+<h3 id="what-is-veth"><a name="what-is-veth" class="anchor-navigation-ex-anchor" href="#what-is-veth"><i class="fa fa-link" aria-hidden="true"></i></a>1.10.1. What is VETH</h3>
+<p>This device is a local Ethernet tunnel. Devices are created in pairs.</p>
+<p>Packets transmitted on one device in the pair are immediately received on the other device. When either device is down the link state of the pair is down.</p>
+<p><a href="https://liuhangbin.netlify.app/veth.png" target="_blank"><img src="https://liuhangbin.netlify.app/veth.png" alt="VETH"></a></p>
+<h3 id="when-to-use-veth"><a name="when-to-use-veth" class="anchor-navigation-ex-anchor" href="#when-to-use-veth"><i class="fa fa-link" aria-hidden="true"></i></a>1.10.2. When to use VETH</h3>
+<p>When namespaces need to communicate to the main host namespace, or between each other.</p>
+<h3 id="how-to-setup-veth"><a name="how-to-setup-veth" class="anchor-navigation-ex-anchor" href="#how-to-setup-veth"><i class="fa fa-link" aria-hidden="true"></i></a>1.10.3. How to setup VETH</h3>
+<pre class="language-"><code># ip netns add net1
+# ip netns add net2
+# ip link add veth1 netns net1 type veth peer name veth2 netns net2
+</code></pre><p>This creates two namespaces net1, net2 and a pair of veth devices, and assigns veth1 to namespace net1, and veth2 to namespace net2. These two namespaces are connected with this veth pair. Assign a pair of IP addresses, and you can ping and communicate between the two namespaces.</p>
+<h2 id="vcan"><a name="vcan" class="anchor-navigation-ex-anchor" href="#vcan"><i class="fa fa-link" aria-hidden="true"></i></a>1.11. VCAN</h2>
+<h3 id="what-is-vcan"><a name="what-is-vcan" class="anchor-navigation-ex-anchor" href="#what-is-vcan"><i class="fa fa-link" aria-hidden="true"></i></a>1.11.1. What is VCAN</h3>
+<p>Similar to the network loopback devices, VCAN offers a virtual local CAN (Controller Area Network) interface, so users can send/receive can message via VCAN interface. CAN is mostly used in the automotive field nowadays.</p>
+<p>For more CAN protocol information, please refer to <a href="https://www.kernel.org/doc/Documentation/networking/can.txt" target="_blank">kernel can doc</a></p>
+<h3 id="when-to-use-can"><a name="when-to-use-can" class="anchor-navigation-ex-anchor" href="#when-to-use-can"><i class="fa fa-link" aria-hidden="true"></i></a>1.11.2. When to use CAN</h3>
+<p>When you want to test a CAN protocol implementation on the local host.</p>
+<h3 id="how-to-create-vcan"><a name="how-to-create-vcan" class="anchor-navigation-ex-anchor" href="#how-to-create-vcan"><i class="fa fa-link" aria-hidden="true"></i></a>1.11.3. How to create VCAN</h3>
+<pre class="language-"><code># ip link add dev vcan1 type vcan
+</code></pre><h2 id="vxcan"><a name="vxcan" class="anchor-navigation-ex-anchor" href="#vxcan"><i class="fa fa-link" aria-hidden="true"></i></a>1.12. VXCAN</h2>
+<h3 id="what-is-vxcan"><a name="what-is-vxcan" class="anchor-navigation-ex-anchor" href="#what-is-vxcan"><i class="fa fa-link" aria-hidden="true"></i></a>1.12.1. what is VXCAN</h3>
+<p>Similar to the veth(virtual ethernet) driver, vxcan(Virtual CAN Tunnel) implements a local CAN traffic tunnel between two virtual CAN network devices. When creating a vxcan, two VXCAN devices are created as a pair. When one end receives the packet it appears on its pair and vice versa. VXCAN can be used for cross namespace communication.</p>
+<h3 id="when-to-use-vxcan"><a name="when-to-use-vxcan" class="anchor-navigation-ex-anchor" href="#when-to-use-vxcan"><i class="fa fa-link" aria-hidden="true"></i></a>1.12.2. When to use VXCAN</h3>
+<p>When you want to send CAN message across namespaces.</p>
+<h3 id="how-to-setup-vxcan"><a name="how-to-setup-vxcan" class="anchor-navigation-ex-anchor" href="#how-to-setup-vxcan"><i class="fa fa-link" aria-hidden="true"></i></a>1.12.3. How to setup VXCAN</h3>
+<pre class="language-"><code># ip netns add net1
+# ip netns add net2
+# ip link add vxcan1 netns net1 type vxcan peer name vxcan2 netns net2
+</code></pre><h2 id="ipoib"><a name="ipoib" class="anchor-navigation-ex-anchor" href="#ipoib"><i class="fa fa-link" aria-hidden="true"></i></a>1.13. IPOIB</h2>
+<h3 id="what-is-it"><a name="what-is-it" class="anchor-navigation-ex-anchor" href="#what-is-it"><i class="fa fa-link" aria-hidden="true"></i></a>1.13.1. What is it</h3>
+<p>IPOIB a device to support IP-over-InfiniBand protocol. This transports IP packets over InfiniBand so you can use your IB device as a fast NIC.</p>
+<p>The IPoIB driver supports two modes of operation: datagram and connected. In datagram mode, the IB UD (Unreliable Datagram) transport is used. In connected mode, the IB RC (Reliable Connected) transport is used. Connected mode takes advantage of the connected nature of the IB transport and allows an MTU up to the maximal IP packet size of 64K.</p>
+<p>For more details, please see <a href="https://www.kernel.org/doc/Documentation/infiniband/ipoib.txt" target="_blank">ipoib kernel doc</a></p>
+<h3 id="when-to-use"><a name="when-to-use" class="anchor-navigation-ex-anchor" href="#when-to-use"><i class="fa fa-link" aria-hidden="true"></i></a>1.13.2. When to use</h3>
+<p>When you have an IB device and want to communicate with a remote host via IP.</p>
+<h3 id="how-to-create"><a name="how-to-create" class="anchor-navigation-ex-anchor" href="#how-to-create"><i class="fa fa-link" aria-hidden="true"></i></a>1.13.3. How to create</h3>
+<pre class="language-"><code># ip link add ipoib0 type ipoib mode connected
+</code></pre><h2 id="nlmon"><a name="nlmon" class="anchor-navigation-ex-anchor" href="#nlmon"><i class="fa fa-link" aria-hidden="true"></i></a>1.14. nlmon</h2>
+<h3 id="what-is-nlmon"><a name="what-is-nlmon" class="anchor-navigation-ex-anchor" href="#what-is-nlmon"><i class="fa fa-link" aria-hidden="true"></i></a>1.14.1. What is nlmon</h3>
+<p>nlmon is a netlink monitor device</p>
+<h3 id="when-to-use-nlmon"><a name="when-to-use-nlmon" class="anchor-navigation-ex-anchor" href="#when-to-use-nlmon"><i class="fa fa-link" aria-hidden="true"></i></a>1.14.2. When to use nlmon</h3>
+<p>When you want to monitor system netlink messages</p>
+<h3 id="how-to-create-nlmon"><a name="how-to-create-nlmon" class="anchor-navigation-ex-anchor" href="#how-to-create-nlmon"><i class="fa fa-link" aria-hidden="true"></i></a>1.14.3. How to create nlmon</h3>
+<pre class="language-"><code># ip link add nlmon0 type nlmon
+# ip link set nlmon0 up
+# tcpdump -i nlmon0 -w nlmsg.pcap
+</code></pre><p>This creates a nlmon device named nlmon0 and sets it up. Use a packet sniffer (e.g. tcpdump) to capture netlink messages. Recent versions of wireshark feature decoding of netlink messages.</p>
+<h2 id="dummy"><a name="dummy" class="anchor-navigation-ex-anchor" href="#dummy"><i class="fa fa-link" aria-hidden="true"></i></a>1.15. Dummy</h2>
+<h3 id="what-is-dummy"><a name="what-is-dummy" class="anchor-navigation-ex-anchor" href="#what-is-dummy"><i class="fa fa-link" aria-hidden="true"></i></a>1.15.1. What is Dummy</h3>
+<p>The dummy interface is entirely virtual, like e.g. the loopback interface. The purpose of dummy driver is to provide a device to route packets through, without actually transmitting them.</p>
+<h3 id="when-to-use-dummy"><a name="when-to-use-dummy" class="anchor-navigation-ex-anchor" href="#when-to-use-dummy"><i class="fa fa-link" aria-hidden="true"></i></a>1.15.2. When to use Dummy</h3>
+<p>It was used to make inactive SLIP address look like a real address for local programs. Nowadays it&#x2019;s mostly used for testing and debugging.</p>
+<h3 id="how-to-create-dummy"><a name="how-to-create-dummy" class="anchor-navigation-ex-anchor" href="#how-to-create-dummy"><i class="fa fa-link" aria-hidden="true"></i></a>1.15.3. How to create Dummy</h3>
+<pre class="language-"><code># ip link add dummy1 type dummy
+# ip addr add 1.1.1.1/24 dev dummy1
+# ip link set dummy1 up
+</code></pre><h2 id="ifb"><a name="ifb" class="anchor-navigation-ex-anchor" href="#ifb"><i class="fa fa-link" aria-hidden="true"></i></a>1.16. IFB</h2>
+<h3 id="what-is-ifb"><a name="what-is-ifb" class="anchor-navigation-ex-anchor" href="#what-is-ifb"><i class="fa fa-link" aria-hidden="true"></i></a>1.16.1. What is IFB</h3>
+<p>The IFB (Intermediate Functional Block) driver supplies a device that allows concentration of traffic from several sources, and shaping incoming traffic instead of dropping it.</p>
+<h3 id="when-to-use-ifb"><a name="when-to-use-ifb" class="anchor-navigation-ex-anchor" href="#when-to-use-ifb"><i class="fa fa-link" aria-hidden="true"></i></a>1.16.2. When to use IFB</h3>
+<p>When you want to queue and shape incoming traffics.</p>
+<h3 id="how-to-create-an-ifb-interface"><a name="how-to-create-an-ifb-interface" class="anchor-navigation-ex-anchor" href="#how-to-create-an-ifb-interface"><i class="fa fa-link" aria-hidden="true"></i></a>1.16.3. How to create an IFB interface</h3>
+<p>IFB is an alternative to tc filters for handling ingress traffic, by redirecting it to a virtual interface and treat is as egress traffic there.You need one ifb interface per physical interface, to redirect ingress traffic from eth0 to ifb0, eth1 to ifb1 and so on.</p>
+<p>First, add ifb interfaces.</p>
+<pre class="language-"><code># ip link add ifb0 type ifb
+# ip link set ifb0 up
+</code></pre><p>And redirect ingress traffic from the physical interfaces to corresponding ifb interface. For eth0 -&gt; ifb0:</p>
+<pre class="language-"><code># tc qdisc add dev eth0 handle ffff: ingress
+# tc filter add dev eth0 parent ffff: protocol ip u32 match u32 0 0 action mirred egress redirect dev ifb0
+</code></pre><p>Again, repeat for eth1 -&gt; ifb1, eth2 -&gt; ifb2 and so on, until all the interfaces you want to shape are covered.</p>
+<p>Now, you can apply all the rules you want. Egress rules for eth0 go as usual in eth0. Let&#x2019;s limit bandwidth, for example:</p>
+<pre class="language-"><code># tc qdisc add dev eth0 root handle 1: htb default 10
+# tc class add dev eth0 parent 1: classid 1:1 htb rate 1mbit
+# tc class add dev eth0 parent 1:1 classid 1:10 htb rate 1mbit
+</code></pre><p>Ingress rules for eth0, now go as egress rules on ifb0 (whatever goes into ifb0 must come out, and only eth0 ingress traffic goes into ifb0). Again, a bandwidth limit example:</p>
+<pre class="language-"><code># tc qdisc add dev ifb0 root handle 1: htb default 10
+# tc class add dev ifb0 parent 1: classid 1:1 htb rate 1mbit
+# tc class add dev ifb0 parent 1:1 classid 1:10 htb rate 1mbit
+</code></pre><p>The advantage of this approach is that egress rules are much more flexible than ingress filters. Filters only allow you to drop packets, not introduce wait times, for example. By handling ingress traffic as egress you can setup queue disciplines, with traffic classes and, if need be, filters. You get access to the whole tc tree, not only simple filters.</p>
+<p>For more IFB qdisc use cases, please refer to: <a href="https://wiki.linuxfoundation.org/networking/ifb" target="_blank">Linux Foundation wiki - IFB</a></p>
+<p>Author Hangbin Liu</p>
+<p>LastMod 2019-09-18 <a href="https://liuhangbin.netlify.app/commit/d761a5f188b48e70f7974fa427708143f343dce3" title="Posts: add new virtual iface and tc usage" target="_blank">(d761a5f)</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="networking_virtualization_杂记.html" class="navigation navigation-prev " aria-label="Previous page: 虚拟化网络杂记">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="as_title_arm_server.html" class="navigation navigation-next " aria-label="Next page: ARM server">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"linux虚拟网络接口(网摘)","level":"1.6.3.5","depth":3,"next":{"title":"ARM server","level":"1.7","depth":1,"path":"notes/as_title_arm_server.md","ref":"notes/as_title_arm_server.md","articles":[{"title":"Arm server 杂记","level":"1.7.1","depth":2,"path":"notes/arm_server_杂记.md","ref":"notes/arm_server_杂记.md","articles":[]}]},"previous":{"title":"虚拟化网络杂记","level":"1.6.3.4","depth":3,"path":"notes/networking_virtualization_杂记.md","ref":"notes/networking_virtualization_杂记.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/networking_linux虚拟网络接口.md","mtime":"2022-10-18T02:30:40.548Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-18T02:31:53.901Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    </body>
+</html>
+

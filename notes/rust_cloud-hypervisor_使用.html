@@ -1,0 +1,3778 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>cloud hypervisor使用 · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="rust_cloud-hypervisor_问题与解决.html" />
+    
+    
+    <link rel="prev" href="rust_cloud-hypervisor_代码.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录杂记系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="as_title_perf_tools.html">
+            
+                <a href="as_title_perf_tools.html">
+            
+                    
+                    profiling工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_app_perf.html">
+            
+                <a href="as_title_app_perf.html">
+            
+                    
+                    应用profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    系统profiling和优化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.5.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.4.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.5" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.6" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.7" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.3.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.4.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >cloud hypervisor使用</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x547D;&#x4EE4;&#x8BB0;&#x5F55;"><b>1. </b>&#x547D;&#x4EE4;&#x8BB0;&#x5F55;</a></li><ul><li><span class="title-icon "></span><a href="#&#x547D;&#x4EE4;&#x884C;&#x542F;&#x52A8;"><b>1.1. </b>&#x547D;&#x4EE4;&#x884C;&#x542F;&#x52A8;</a></li><li><span class="title-icon "></span><a href="#ch-remote&#x542F;&#x52A8;"><b>1.2. </b>ch-remote&#x542F;&#x52A8;</a></li></ul><li><span class="title-icon "></span><a href="#&#x542F;&#x52A8;"><b>2. </b>&#x542F;&#x52A8;</a></li><ul><li><span class="title-icon "></span><a href="#&#x53EF;&#x9009;&#x53C2;&#x6570;"><b>2.1. </b>&#x53EF;&#x9009;&#x53C2;&#x6570;</a></li></ul><li><span class="title-icon "></span><a href="#virtiofsd"><b>3. </b>virtiofsd</a></li><li><span class="title-icon "></span><a href="#rest-api"><b>4. </b>rest API</a></li><ul><li><span class="title-icon "></span><a href="#ping"><b>4.1. </b>ping</a></li><li><span class="title-icon "></span><a href="#dump-vm-info"><b>4.2. </b>dump vm info</a></li><li><span class="title-icon "></span><a href="#reboot-shutdown"><b>4.3. </b>reboot shutdown</a></li><li><span class="title-icon "></span><a href="#&#x5176;&#x4ED6;"><b>4.4. </b>&#x5176;&#x4ED6;</a></li></ul><li><span class="title-icon "></span><a href="#guest-kernel&#x542F;&#x52A8;&#x6253;&#x5370;"><b>5. </b>guest kernel&#x542F;&#x52A8;&#x6253;&#x5370;</a></li><li><span class="title-icon "></span><a href="#gdb&#x8C03;&#x8BD5;"><b>6. </b>gdb&#x8C03;&#x8BD5;</a></li><ul><li><span class="title-icon "></span><a href="#rust-gdb"><b>6.1. </b>rust-gdb</a></li></ul><li><span class="title-icon "></span><a href="#&#x6D4B;&#x8BD5;&#x573A;&#x666F;-vm&#x5185;virtio-net&#x7F51;&#x53E3;ping&#x5BF9;&#x5E94;&#x7684;tap&#x53E3;"><b>7. </b>&#x6D4B;&#x8BD5;&#x573A;&#x666F;: vm&#x5185;virtio-net&#x7F51;&#x53E3;ping&#x5BF9;&#x5E94;&#x7684;tap&#x53E3;</a></li><ul><li><span class="title-icon "></span><a href="#gdb&#x89C2;&#x5BDF;"><b>7.1. </b>gdb&#x89C2;&#x5BDF;</a></li><ul><li><span class="title-icon "></span><a href="#ping&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x5426;"><b>7.1.1. </b>ping&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;VM exit -- &#x5426;</a></li><li><span class="title-icon "></span><a href="#vmm&#x540E;&#x7AEF;&#x600E;&#x4E48;&#x5DE5;&#x4F5C;"><b>7.1.2. </b>vmm&#x540E;&#x7AEF;&#x600E;&#x4E48;&#x5DE5;&#x4F5C;</a></li><li><span class="title-icon "></span><a href="#&#x5199;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x5426;"><b>7.1.3. </b>&#x5199;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;VM exit -- &#x5426;</a></li><li><span class="title-icon "></span><a href="#lspci&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x662F;"><b>7.1.4. </b>lspci&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;VM exit -- &#x662F;</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x6700;&#x5C0F;&#x5316;&#x542F;&#x52A8;"><b>8. </b>&#x6700;&#x5C0F;&#x5316;&#x542F;&#x52A8;</a></li><li><span class="title-icon "></span><a href="#&#x53C2;&#x8003;&#x96C6;&#x6210;"><b>9. </b>&#x53C2;&#x8003;&#x96C6;&#x6210;</a></li><li><span class="title-icon "></span><a href="#release&#x8FC7;&#x7A0B;"><b>10. </b>release&#x8FC7;&#x7A0B;</a></li></ul></div><a href="#&#x547D;&#x4EE4;&#x8BB0;&#x5F55;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#&#x547D;&#x4EE4;&#x8BB0;&#x5F55;">&#x547D;&#x4EE4;&#x8BB0;&#x5F55;</a><ul>
+<li><a href="#&#x547D;&#x4EE4;&#x884C;&#x542F;&#x52A8;">&#x547D;&#x4EE4;&#x884C;&#x542F;&#x52A8;</a></li>
+<li><a href="#ch-remote&#x542F;&#x52A8;">ch-remote&#x542F;&#x52A8;</a></li>
+</ul>
+</li>
+<li><a href="#&#x542F;&#x52A8;">&#x542F;&#x52A8;</a><ul>
+<li><a href="#&#x53EF;&#x9009;&#x53C2;&#x6570;">&#x53EF;&#x9009;&#x53C2;&#x6570;</a></li>
+</ul>
+</li>
+<li><a href="#virtiofsd">virtiofsd</a></li>
+<li><a href="#rest-api">rest API</a><ul>
+<li><a href="#ping">ping</a></li>
+<li><a href="#dump-vm-info">dump vm info</a></li>
+<li><a href="#reboot-shutdown">reboot shutdown</a></li>
+<li><a href="#&#x5176;&#x4ED6;">&#x5176;&#x4ED6;</a></li>
+</ul>
+</li>
+<li><a href="#guest-kernel&#x542F;&#x52A8;&#x6253;&#x5370;">guest kernel&#x542F;&#x52A8;&#x6253;&#x5370;</a></li>
+<li><a href="#gdb&#x8C03;&#x8BD5;">gdb&#x8C03;&#x8BD5;</a><ul>
+<li><a href="#rust-gdb">rust-gdb</a></li>
+</ul>
+</li>
+<li><a href="#&#x6D4B;&#x8BD5;&#x573A;&#x666F;-vm&#x5185;virtio-net&#x7F51;&#x53E3;ping&#x5BF9;&#x5E94;&#x7684;tap&#x53E3;">&#x6D4B;&#x8BD5;&#x573A;&#x666F;: vm&#x5185;virtio-net&#x7F51;&#x53E3;ping&#x5BF9;&#x5E94;&#x7684;tap&#x53E3;</a><ul>
+<li><a href="#gdb&#x89C2;&#x5BDF;">gdb&#x89C2;&#x5BDF;</a><ul>
+<li><a href="#ping&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x5426;">ping&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;VM exit -- &#x5426;</a></li>
+<li><a href="#vmm&#x540E;&#x7AEF;&#x600E;&#x4E48;&#x5DE5;&#x4F5C;">vmm&#x540E;&#x7AEF;&#x600E;&#x4E48;&#x5DE5;&#x4F5C;</a></li>
+<li><a href="#&#x5199;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x5426;">&#x5199;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;VM exit -- &#x5426;</a></li>
+<li><a href="#lspci&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x662F;">lspci&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;VM exit -- &#x662F;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#&#x6700;&#x5C0F;&#x5316;&#x542F;&#x52A8;">&#x6700;&#x5C0F;&#x5316;&#x542F;&#x52A8;</a></li>
+<li><a href="#&#x53C2;&#x8003;&#x96C6;&#x6210;">&#x53C2;&#x8003;&#x96C6;&#x6210;</a></li>
+<li><a href="#release&#x8FC7;&#x7A0B;">release&#x8FC7;&#x7A0B;</a></li>
+</ul>
+<h1 id="&#x547D;&#x4EE4;&#x8BB0;&#x5F55;"><a name="&#x547D;&#x4EE4;&#x8BB0;&#x5F55;" class="anchor-navigation-ex-anchor" href="#&#x547D;&#x4EE4;&#x8BB0;&#x5F55;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x547D;&#x4EE4;&#x8BB0;&#x5F55;</h1>
+<h2 id="&#x547D;&#x4EE4;&#x884C;&#x542F;&#x52A8;"><a name="&#x547D;&#x4EE4;&#x884C;&#x542F;&#x52A8;" class="anchor-navigation-ex-anchor" href="#&#x547D;&#x4EE4;&#x884C;&#x542F;&#x52A8;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x547D;&#x4EE4;&#x884C;&#x542F;&#x52A8;</h2>
+<pre class="language-"><code class="lang-sh">bin/cloud-hypervisor <span class="token parameter variable">--seccomp</span> <span class="token boolean">false</span> --api-socket clh.sock <span class="token parameter variable">--cpus</span> <span class="token assign-left variable">boot</span><span class="token operator">=</span><span class="token number">2</span> <span class="token parameter variable">--memory</span> <span class="token assign-left variable">size</span><span class="token operator">=</span>2048M,shared<span class="token operator">=</span>on <span class="token parameter variable">--kernel</span> kernel/vmlinux.bin <span class="token parameter variable">--initramfs</span> rootfs/boot/rootfs.cpio.gz <span class="token parameter variable">--cmdline</span> <span class="token string">&quot;console=hvc0 config_overlay=linux_shell_only=1 init=/init&quot;</span>
+</code></pre>
+<h2 id="ch-remote&#x542F;&#x52A8;"><a name="ch-remote&#x542F;&#x52A8;" class="anchor-navigation-ex-anchor" href="#ch-remote&#x542F;&#x52A8;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. ch-remote&#x542F;&#x52A8;</h2>
+<pre class="language-"><code class="lang-sh"><span class="token comment"># &#x5148;&#x542F;&#x52A8;&#x4E3B;&#x7A0B;&#x5E8F;, &#x4E3B;&#x7A0B;&#x5E8F;&#x7B49;&#x5F85;&#x547D;&#x4EE4;</span>
+bin/cloud-hypervisor <span class="token parameter variable">--seccomp</span> <span class="token boolean">false</span> --api-socket clh.sock
+
+<span class="token comment"># create</span>
+bin/ch-remote --api-socket clh.sock create <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+{
+     &quot;cpus&quot;:{&quot;boot_vcpus&quot;:2, &quot;max_vcpus&quot;:4},
+     &quot;memory&quot;:{&quot;size&quot;:2147483648, &quot;shared&quot;:true},
+     &quot;kernel&quot;:{&quot;path&quot;:&quot;/work/kernel/vmlinux.bin&quot;},
+     &quot;cmdline&quot;:{&quot;args&quot;:&quot;console=ttyS0 console=hvc0 config_overlay=linux_shell_only=1 init=/init&quot;},
+     &quot;initramfs&quot;:{&quot;path&quot;:&quot;/work/rootfs/boot/rootfs.cpio.gz&quot;},
+     &quot;console&quot;:{&quot;mode&quot;:&quot;Pty&quot;},
+     &quot;serial&quot;:{&quot;file&quot;:&quot;/work/run/serial&quot;, &quot;mode&quot;:&quot;File&quot;}
+}
+EOF</span>
+
+<span class="token comment"># boot</span>
+bin/ch-remote --api-socket clh.sock boot
+
+<span class="token comment"># &#x8BBF;&#x95EE;pty, &#x5148;&#x627E;&#x5230;&#x662F;pty&#x51E0;</span>
+socat -,rawer,escape<span class="token operator">=</span><span class="token number">29</span> /dev/pts/2
+
+<span class="token comment"># shutdown</span>
+bin/ch-remote --api-socket clh.sock <span class="token function">shutdown</span>
+</code></pre>
+<h1 id="&#x542F;&#x52A8;"><a name="&#x542F;&#x52A8;" class="anchor-navigation-ex-anchor" href="#&#x542F;&#x52A8;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x542F;&#x52A8;</h1>
+<pre class="language-"><code class="lang-sh"><span class="token comment"># virt-customize&#x9700;&#x8981;&#x8FD9;&#x4E2A;</span>
+<span class="token function">apt</span> <span class="token function">install</span> libguestfs-tools
+<span class="token comment"># &#x9ED8;&#x8BA4;ubuntu&#x7684;cloud image&#x662F;&#x6CA1;&#x6709;&#x9ED8;&#x8BA4;&#x7528;&#x6237;&#x7684;, &#x4E5F;&#x6CA1;&#x6709;root&#x5BC6;&#x7801;</span>
+<span class="token comment"># &#x7528;&#x4E0B;&#x9762;&#x7684;&#x547D;&#x4EE4;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;</span>
+<span class="token function">sudo</span> virt-customize <span class="token parameter variable">-a</span> focal-server-cloudimg-amd64.img --root-password password:ubuntu
+
+<span class="token function">wget</span> https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
+
+qemu-img convert <span class="token parameter variable">-p</span> <span class="token parameter variable">-f</span> qcow2 <span class="token parameter variable">-O</span> raw focal-server-cloudimg-amd64.img focal-server-cloudimg-amd64.raw
+
+<span class="token function">wget</span> https://github.com/cloud-hypervisor/rust-hypervisor-firmware/releases/download/0.4.0/hypervisor-fw
+</code></pre>
+<p>&#x542F;&#x52A8;&#x793A;&#x4F8B;:</p>
+<pre class="language-"><code class="lang-sh">$ <span class="token function">sudo</span> setcap cap_net_admin+ep ./cloud-hypervisor/target/release/cloud-hypervisor
+
+<span class="token comment"># &#x5982;&#x679C;&#x6709;&#x6743;&#x9650;&#x95EE;&#x9898;, &#x628A;/dev/kvm&#x7684;other&#x8BBE;&#x4E3A;&#x8BFB;&#x5199;</span>
+<span class="token comment"># &#x6216;&#x8005;&#x52A0;&#x5165;kvm&#x7EC4;</span>
+<span class="token function">sudo</span> <span class="token function">chmod</span> o+rw /dev/kvm
+
+$ ./cloud-hypervisor/target/release/cloud-hypervisor <span class="token punctuation">\</span>
+    <span class="token parameter variable">--kernel</span> ./hypervisor-fw <span class="token punctuation">\</span>
+    <span class="token parameter variable">--disk</span> <span class="token assign-left variable">path</span><span class="token operator">=</span>focal-server-cloudimg-amd64.raw <span class="token punctuation">\</span>
+    <span class="token parameter variable">--cpus</span> <span class="token assign-left variable">boot</span><span class="token operator">=</span><span class="token number">4</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--memory</span> <span class="token assign-left variable">size</span><span class="token operator">=</span>1024M <span class="token punctuation">\</span>
+    <span class="token parameter variable">--net</span> <span class="token string">&quot;tap=,mac=,ip=,mask=&quot;</span>
+</code></pre>
+<h2 id="&#x53EF;&#x9009;&#x53C2;&#x6570;"><a name="&#x53EF;&#x9009;&#x53C2;&#x6570;" class="anchor-navigation-ex-anchor" href="#&#x53EF;&#x9009;&#x53C2;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x53EF;&#x9009;&#x53C2;&#x6570;</h2>
+<pre class="language-"><code class="lang-sh">cloud-hypervisor <span class="token parameter variable">-h</span>
+    --api-socket /path/to/uds
+    <span class="token parameter variable">--kernel</span>
+    <span class="token parameter variable">--cmdline</span>
+    <span class="token parameter variable">--console</span>
+    <span class="token parameter variable">--cpus</span>
+    <span class="token parameter variable">--device</span>
+    <span class="token parameter variable">--disk</span>
+    --event-monitor
+    <span class="token parameter variable">--fs</span>
+    <span class="token parameter variable">--initramfs</span>
+    --log-file
+    <span class="token parameter variable">--memory</span>
+    --memory-zone
+    <span class="token parameter variable">--net</span>
+    <span class="token parameter variable">--numa</span>
+    <span class="token parameter variable">--platform</span>
+    <span class="token parameter variable">--pmem</span>
+    <span class="token parameter variable">--restore</span>
+    <span class="token parameter variable">--rng</span>
+    <span class="token parameter variable">--seccomp</span>
+    <span class="token parameter variable">--serial</span>
+    <span class="token parameter variable">--vsock</span>
+    <span class="token parameter variable">--watchdog</span>
+</code></pre>
+<h1 id="virtiofsd"><a name="virtiofsd" class="anchor-navigation-ex-anchor" href="#virtiofsd"><i class="fa fa-link" aria-hidden="true"></i></a>3. virtiofsd</h1>
+<p>virtiofsd&#x662F;&#x7528;virtiofs&#x534F;&#x8BAE;&#x6765;&#x5171;&#x4EAB;host&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x5230;guest&#x7684;&#x4E00;&#x4E2A;&#x5DE5;&#x5177;.<br>host&#x4E0A;&#x9700;&#x8981;&#x8FD0;&#x884C;virtiofsd, &#x6307;&#x5B9A;socket&#x8DEF;&#x5F84;&#x548C;&#x8981;&#x5171;&#x4EAB;&#x7684;&#x76EE;&#x5F55;; &#x540C;&#x65F6;&#x7ED9;cloud hypervisor&#x6307;&#x5B9A;&#x4E00;&#x4E2A;tag</p>
+<pre class="language-"><code>virtiofsd --log-level error --seccomp none --cache=never --socket-path=$WORK_DIR/run/rootextra.sock --shared-dir=$WORK_DIR/rootfs &amp;
+ch-remote --api-socket $WORK_DIR/run/clh.sock add-fs tag=rootextra,socket=$WORK_DIR/run/rootextra.sock
+</code></pre><p>&#x5728;guest&#x91CC;&#x9762;, &#x7528;&#x6307;&#x5B9A;&#x7684;tag&#x6765;mount:</p>
+<pre class="language-"><code>mount rootextra /rootextra -t virtiofs -o noatime
+</code></pre><h1 id="rest-api"><a name="rest-api" class="anchor-navigation-ex-anchor" href="#rest-api"><i class="fa fa-link" aria-hidden="true"></i></a>4. rest API</h1>
+<h2 id="ping"><a name="ping" class="anchor-navigation-ex-anchor" href="#ping"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. ping</h2>
+<pre class="language-"><code class="lang-sh"><span class="token function">curl</span> --unix-socket /tmp/clh.sock <span class="token parameter variable">-i</span> <span class="token parameter variable">-X</span> GET <span class="token string">&apos;http://localhost/api/v1/vmm.ping&apos;</span>
+</code></pre>
+<h2 id="dump-vm-info"><a name="dump-vm-info" class="anchor-navigation-ex-anchor" href="#dump-vm-info"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. dump vm info</h2>
+<p>&#x5047;&#x8BBE;&#x4F7F;&#x7528;<code>--api-socket /tmp/clh.sock</code>&#x542F;&#x52A8;clh</p>
+<pre class="language-"><code class="lang-sh"><span class="token function">curl</span> --unix-socket /tmp/clh.sock <span class="token parameter variable">-i</span> <span class="token parameter variable">-X</span> GET <span class="token string">&apos;http://localhost/api/v1/vm.info&apos;</span> <span class="token parameter variable">-H</span> <span class="token string">&apos;Accept: application/json&apos;</span> <span class="token operator">|</span> <span class="token function">tail</span> <span class="token parameter variable">-1</span> <span class="token operator">|</span> jq <span class="token builtin class-name">.</span>
+</code></pre>
+<p>&#x5217;&#x8868;&#x5982;&#x4E0B;:</p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;config&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;cpus&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;boot_vcpus&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;max_vcpus&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;topology&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;kvm_hyperv&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;max_phys_bits&quot;</span><span class="token operator">:</span> <span class="token number">46</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;affinity&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;features&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;memory&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;size&quot;</span><span class="token operator">:</span> <span class="token number">1073741824</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;mergeable&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;hotplug_method&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Acpi&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;hotplug_size&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;hotplugged_size&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;shared&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;hugepages&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;hugepage_size&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;prefault&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;zones&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;kernel&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;./hypervisor-fw&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;initramfs&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;cmdline&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;args&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;disks&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;focal-server-cloudimg-amd64.raw&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;readonly&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;direct&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;iommu&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;num_queues&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;queue_size&quot;</span><span class="token operator">:</span> <span class="token number">128</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;vhost_user&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;vhost_socket&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;poll_queue&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;rate_limiter_config&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_disk0&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;disable_io_uring&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;pci_segment&quot;</span><span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">}</span>
+    <span class="token property">&quot;net&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">&quot;tap&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;ip&quot;</span><span class="token operator">:</span> <span class="token string">&quot;192.168.249.1&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;mask&quot;</span><span class="token operator">:</span> <span class="token string">&quot;255.255.255.0&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;mac&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2e:cc:5f:b8:cd:dc&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;host_mac&quot;</span><span class="token operator">:</span> <span class="token string">&quot;82:22:4f:c3:21:da&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;iommu&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;num_queues&quot;</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;queue_size&quot;</span><span class="token operator">:</span> <span class="token number">256</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;vhost_user&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;vhost_socket&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;vhost_mode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Client&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_net1&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;fds&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;rate_limiter_config&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;pci_segment&quot;</span><span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;rng&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;src&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/dev/urandom&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;iommu&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;balloon&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;fs&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;pmem&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;serial&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;file&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;mode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Null&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;iommu&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;console&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;file&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;mode&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Tty&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;iommu&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;devices&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;user_devices&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;vdpa&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;vsock&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;iommu&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;sgx_epc&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;numa&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;watchdog&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;platform&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;state&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Running&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;memory_actual_size&quot;</span><span class="token operator">:</span> <span class="token number">1073741824</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;device_tree&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;__rng&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;__rng&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;resources&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_virtio-pci-__rng&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;pci_bdf&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;_disk0&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_disk0&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;resources&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_virtio-pci-_disk0&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;pci_bdf&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;_net1&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_net1&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;resources&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_virtio-pci-_net1&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;pci_bdf&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;_virtio-pci-__console&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_virtio-pci-__console&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;resources&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">&quot;PciBar&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">&quot;index&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;base&quot;</span><span class="token operator">:</span> <span class="token number">70364448686080</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;size&quot;</span><span class="token operator">:</span> <span class="token number">524288</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;type_&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Mmio64&quot;</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;prefetchable&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;__console&quot;</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;pci_bdf&quot;</span><span class="token operator">:</span> <span class="token string">&quot;0000:00:01.0&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;__serial&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;__serial&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;resources&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;pci_bdf&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;_virtio-pci-_disk0&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_virtio-pci-_disk0&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;resources&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">&quot;PciBar&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">&quot;index&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;base&quot;</span><span class="token operator">:</span> <span class="token number">3891789824</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;size&quot;</span><span class="token operator">:</span> <span class="token number">524288</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;type_&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Mmio32&quot;</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;prefetchable&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;_disk0&quot;</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;pci_bdf&quot;</span><span class="token operator">:</span> <span class="token string">&quot;0000:00:02.0&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;_virtio-pci-_net1&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_virtio-pci-_net1&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;resources&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">&quot;PciBar&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">&quot;index&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;base&quot;</span><span class="token operator">:</span> <span class="token number">70364448161792</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;size&quot;</span><span class="token operator">:</span> <span class="token number">524288</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;type_&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Mmio64&quot;</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;prefetchable&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;_net1&quot;</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;pci_bdf&quot;</span><span class="token operator">:</span> <span class="token string">&quot;0000:00:03.0&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;__console&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;__console&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;resources&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_virtio-pci-__console&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;pci_bdf&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;__ioapic&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;__ioapic&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;resources&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;pci_bdf&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;_virtio-pci-__rng&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;_virtio-pci-__rng&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;resources&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">&quot;PciBar&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">&quot;index&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;base&quot;</span><span class="token operator">:</span> <span class="token number">70364447637504</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;size&quot;</span><span class="token operator">:</span> <span class="token number">524288</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;type_&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Mmio64&quot;</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;prefetchable&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;parent&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;children&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;__rng&quot;</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;pci_bdf&quot;</span><span class="token operator">:</span> <span class="token string">&quot;0000:00:04.0&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="reboot-shutdown"><a name="reboot-shutdown" class="anchor-navigation-ex-anchor" href="#reboot-shutdown"><i class="fa fa-link" aria-hidden="true"></i></a>4.3. reboot shutdown</h2>
+<pre class="language-"><code class="lang-sh"><span class="token function">curl</span> --unix-socket /tmp/cloud-hypervisor.sock <span class="token parameter variable">-i</span> <span class="token parameter variable">-X</span> PUT <span class="token string">&apos;http://localhost/api/v1/vm.reboot&apos;</span>
+<span class="token function">curl</span> --unix-socket /tmp/cloud-hypervisor.sock <span class="token parameter variable">-i</span> <span class="token parameter variable">-X</span> PUT <span class="token string">&apos;http://localhost/api/v1/vm.shutdown&apos;</span>
+</code></pre>
+<h2 id="&#x5176;&#x4ED6;"><a name="&#x5176;&#x4ED6;" class="anchor-navigation-ex-anchor" href="#&#x5176;&#x4ED6;"><i class="fa fa-link" aria-hidden="true"></i></a>4.4. &#x5176;&#x4ED6;</h2>
+<p>&#x6BD4;&#x5982;&#x6682;&#x505C;, &#x6062;&#x590D;, add net, add disk, remove device, dump counters&#x7B49;&#x7B49;&#x90FD;&#x652F;&#x6301;.
+&#x4F8B;&#x5982;:</p>
+<pre class="language-"><code class="lang-sh"><span class="token function">curl</span> --unix-socket /tmp/clh.sock <span class="token parameter variable">-i</span> <span class="token parameter variable">-X</span> GET <span class="token string">&apos;http://localhost/api/v1/vm.counters&apos;</span>
+</code></pre>
+<h1 id="guest-kernel&#x542F;&#x52A8;&#x6253;&#x5370;"><a name="guest-kernel&#x542F;&#x52A8;&#x6253;&#x5370;" class="anchor-navigation-ex-anchor" href="#guest-kernel&#x542F;&#x52A8;&#x6253;&#x5370;"><i class="fa fa-link" aria-hidden="true"></i></a>5. guest kernel&#x542F;&#x52A8;&#x6253;&#x5370;</h1>
+<p>&#x4EE5;ubuntu&#x7684;&#x4E91;&#x955C;&#x50CF;&#x4E3A;&#x4F8B;:</p>
+<pre class="language-"><code>Command line: BOOT_IMAGE=/boot/vmlinuz-5.4.0-113-generic root=LABEL=cloudimg-rootfs ro console=tty1 console=ttyS0
+BIOS-provided physical RAM map
+efi: EFI v2.80 by
+
+Hypervisor detected: KVM
+clocksource: kvm-clock
+tsc: Detected 2394.454 MHz processor
+
+Zone ranges:
+    DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+    DMA32    [mem 0x0000000001000000-0x000000003fffffff]
+    Normal   empty
+    Device   empty
+Early memory node ranges
+    node   0: [mem 0x0000000000001000-0x000000000009ffff]
+    node   0: [mem 0x000000000013f000-0x000000003fffffff]
+Initmem setup node 0 [mem 0x0000000000001000-0x000000003fffffff]
+
+On node 0 totalpages: 261984 //1G
+
+Booting paravirtualized kernel on KVM //guest kernel&#x77E5;&#x9053;&#x81EA;&#x5DF1;&#x662F;&#x5728;KVM&#x4E0A;&#x542F;&#x52A8;&#x7684;
+NR_IRQS: 524544, nr_irqs: 256, preallocated irqs: 0
+printk: console [tty1] enabled
+printk: console [ttyS0] enabled
+
+LSM: Security Framework initializing
+Yama: becoming mindful.
+AppArmor: AppArmor initialized
+
+PCI host bridge to bus 0000:00
+pci_bus 0000:00: root bus resource [mem 0xe8000000-0xe80fffff]
+pci_bus 0000:00: root bus resource [mem 0xc0000000-0xe7ffffff window]
+pci_bus 0000:00: root bus resource [mem 0x100000000-0x3ffeffffffff window]
+pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+pci_bus 0000:00: root bus resource [bus 00]
+pci 0000:00:00.0: [8086:0d57] type 00 class 0x060000 //INTEL
+pci 0000:00:01.0: [1af4:1043] type 00 class 0xffff00 //virtio
+pci 0000:00:01.0: reg 0x10: [mem 0x3ffefff80000-0x3ffeffffffff 64bit] //&#x8D44;&#x6E90;&#x5DF2;&#x7ECF;&#x5206;&#x914D;&#x597D;
+pci 0000:00:02.0: [1af4:1042] type 00 class 0x018000
+pci 0000:00:02.0: reg 0x10: [mem 0xe7f80000-0xe7ffffff]
+pci 0000:00:03.0: [1af4:1041] type 00 class 0x020000
+pci 0000:00:03.0: reg 0x10: [mem 0x3ffefff00000-0x3ffefff7ffff 64bit]
+pci 0000:00:04.0: [1af4:1044] type 00 class 0xffff00
+pci 0000:00:04.0: reg 0x10: [mem 0x3ffeffe80000-0x3ffeffefffff 64bit]
+pci_bus 0000:00: on NUMA node 0
+
+iommu: Default domain type: Translated
+
+PCI: Using ACPI for IRQ routing
+PCI: pci_cache_line_size set to 64 bytes
+
+tcpip&#x534F;&#x8BAE;&#x6808;&#x521D;&#x59CB;&#x5316;
+
+virtio-pci 0000:00:01.0: enabling device (0000 -&gt; 0002)
+virtio-pci 0000:00:02.0: enabling device (0000 -&gt; 0002)
+virtio-pci 0000:00:03.0: enabling device (0000 -&gt; 0002)
+virtio-pci 0000:00:04.0: enabling device (0000 -&gt; 0002)
+
+Serial: 8250/16550 driver, 32 ports, IRQ sharing enabled
+
+loop, tun, vfio, usb, i2c&#x9A71;&#x52A8;&#x521D;&#x59CB;&#x5316;
+
+systemd&#x5F00;&#x59CB;&#x5DE5;&#x4F5C;
+&#x4E00;&#x5806;&#x7684;audit&#x6253;&#x5370;...
+</code></pre><h1 id="gdb&#x8C03;&#x8BD5;"><a name="gdb&#x8C03;&#x8BD5;" class="anchor-navigation-ex-anchor" href="#gdb&#x8C03;&#x8BD5;"><i class="fa fa-link" aria-hidden="true"></i></a>6. gdb&#x8C03;&#x8BD5;</h1>
+<p>&#x7528;&#x4E0A;&#x9762;&#x7684;&#x547D;&#x4EE4;&#x542F;&#x52A8;hypervisor&#x540E;, &#x7528;gdb&#x8C03;&#x8BD5;:</p>
+<pre class="language-"><code class="lang-sh">gdb cloud-hypervisor <span class="token parameter variable">-p</span> <span class="token number">18294</span>
+Reading symbols from cloud-hypervisor<span class="token punctuation">..</span>.done
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> b mmio_read
+Breakpoint <span class="token number">1</span> at 0x7f766eb1d1ee: <span class="token function">file</span> vmm/src/vm.rs, line <span class="token number">384</span>.
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> b mmio_write
+Breakpoint <span class="token number">2</span> at 0x7f766eb1d3a1: <span class="token function">file</span> vmm/src/vm.rs, line <span class="token number">391</span>.
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> info b
+Num     Type           Disp Enb Address            What
+<span class="token number">1</span>       breakpoint     keep y   0x00007f766eb1d1ee <span class="token keyword">in</span> <span class="token operator">&lt;</span>vmm::vm::VmOpsHandler as hypervisor::vm::VmOps<span class="token operator">&gt;</span>::mmio_read at vmm/src/vm.rs:384
+<span class="token number">2</span>       breakpoint     keep y   0x00007f766eb1d3a1 <span class="token keyword">in</span> <span class="token operator">&lt;</span>vmm::vm::VmOpsHandler as hypervisor::vm::VmOps<span class="token operator">&gt;</span>::mmio_write at vmm/src/vm.rs:391
+
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> b src/kvm/mod.rs:1145
+Breakpoint <span class="token number">4</span> at 0x7f766f2759d7: <span class="token function">file</span> hypervisor/src/kvm/mod.rs, line <span class="token number">1145</span>.
+
+//&#x53EA;&#x5BF9;thread <span class="token number">4</span>&#x6253;&#x65AD;&#x70B9;
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span> b kvm_ioctls::ioctls::vcpu::VcpuFd::run thread <span class="token number">4</span>
+</code></pre>
+<h2 id="rust-gdb"><a name="rust-gdb" class="anchor-navigation-ex-anchor" href="#rust-gdb"><i class="fa fa-link" aria-hidden="true"></i></a>6.1. rust-gdb</h2>
+<p>&#x53C2;&#x8003;<a href="https://bitshifter.github.io/rr+rust/index.html#1" target="_blank">https://bitshifter.github.io/rr+rust/index.html#1</a></p>
+<p>&#x9700;&#x8981;&#x5728;root&#x7528;&#x6237;&#x4E0B;&#x5B89;&#x88C5;rust. &#x6211;&#x4ECE;&#x666E;&#x901A;&#x7528;&#x6237;&#x62F7;&#x8D1D;<code>~/.cargo</code>&#x548C;<code>~/.rustp</code>&#x597D;&#x50CF;&#x4E5F;&#x80FD;&#x7528;.</p>
+<pre class="language-"><code class="lang-sh"><span class="token comment"># su root</span>
+~/.cargo/bin/rust-gdb <span class="token parameter variable">-p</span> <span class="token number">19507</span>
+b kvm_ioctls::ioctls::vcpu::VcpuFd::run
+</code></pre>
+<h1 id="&#x6D4B;&#x8BD5;&#x573A;&#x666F;-vm&#x5185;virtio-net&#x7F51;&#x53E3;ping&#x5BF9;&#x5E94;&#x7684;tap&#x53E3;"><a name="&#x6D4B;&#x8BD5;&#x573A;&#x666F;-vm&#x5185;virtio-net&#x7F51;&#x53E3;ping&#x5BF9;&#x5E94;&#x7684;tap&#x53E3;" class="anchor-navigation-ex-anchor" href="#&#x6D4B;&#x8BD5;&#x573A;&#x666F;-vm&#x5185;virtio-net&#x7F51;&#x53E3;ping&#x5BF9;&#x5E94;&#x7684;tap&#x53E3;"><i class="fa fa-link" aria-hidden="true"></i></a>7. &#x6D4B;&#x8BD5;&#x573A;&#x666F;: vm&#x5185;virtio-net&#x7F51;&#x53E3;ping&#x5BF9;&#x5E94;&#x7684;tap&#x53E3;</h1>
+<p>&#x542F;&#x52A8;hypervisor&#x540E;, VM&#x5185;&#x6709;virtio-net&#x7F51;&#x53E3;:</p>
+<pre class="language-"><code class="lang-sh">root@ubuntu:~<span class="token comment"># ethtool -i ens3</span>
+driver: virtio_net
+version: <span class="token number">1.0</span>.0
+bus-info: 0000:00:03.0
+</code></pre>
+<p>&#x67E5;&#x770B;pci&#x62D3;&#x6251;:
+&#x6CE8;: lspci&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;, &#x4F1A;&#x9891;&#x7E41;&#x7684;&#x89E6;&#x53D1;vm exit, &#x65AD;&#x70B9;&#x8868;&#x9762;&#x662F;VM&#x5728;&#x505A;<code>VcpuExit::IoOut</code></p>
+<pre class="language-"><code class="lang-sh">root@ubuntu:~<span class="token comment"># lspci</span>
+00:00.0 Host bridge: Intel Corporation Device 0d57
+00:01.0 Unassigned class <span class="token punctuation">[</span>ffff<span class="token punctuation">]</span>: Red Hat, Inc. Virtio console <span class="token punctuation">(</span>rev 01<span class="token punctuation">)</span>
+00:02.0 Mass storage controller: Red Hat, Inc. Virtio block device <span class="token punctuation">(</span>rev 01<span class="token punctuation">)</span>
+00:03.0 Ethernet controller: Red Hat, Inc. Virtio network device <span class="token punctuation">(</span>rev 01<span class="token punctuation">)</span>
+00:04.0 Unassigned class <span class="token punctuation">[</span>ffff<span class="token punctuation">]</span>: Red Hat, Inc. Virtio RNG <span class="token punctuation">(</span>rev 01<span class="token punctuation">)</span>
+</code></pre>
+<p>&#x540C;&#x65F6;, hypervisor&#x4F1A;&#x5728;host&#x4E0A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7F51;&#x53E3;<code>vmtap0</code>, &#x5E76;&#x914D;&#x7F6E;IP<code>192.168.249.1/24</code></p>
+<p>&#x9ED8;&#x8BA4;vm&#x7684;ens3&#x662F;down&#x7684;, &#x4E0B;&#x9762;&#x914D;&#x7F6E;&#x5176;&#x4E3A;up, ip&#x4E3A;192.168.249.2</p>
+<pre class="language-"><code class="lang-sh"><span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> up dev ens3
+<span class="token function">ip</span> addr <span class="token function">add</span> <span class="token number">192.168</span>.249.2/24 dev ens3
+</code></pre>
+<p>&#x6B64;&#x65F6;&#x53EF;&#x4EE5;ping&#x901A;<code>vmtap0</code>:</p>
+<pre class="language-"><code class="lang-sh"><span class="token function">ping</span> <span class="token number">192.168</span>.249.1
+</code></pre>
+<h2 id="gdb&#x89C2;&#x5BDF;"><a name="gdb&#x89C2;&#x5BDF;" class="anchor-navigation-ex-anchor" href="#gdb&#x89C2;&#x5BDF;"><i class="fa fa-link" aria-hidden="true"></i></a>7.1. gdb&#x89C2;&#x5BDF;</h2>
+<p>&#x8BBE;&#x65AD;&#x70B9;:</p>
+<pre class="language-"><code class="lang-sh"><span class="token comment"># su root</span>
+~/.cargo/bin/rust-gdb <span class="token parameter variable">-p</span> <span class="token number">19507</span>
+b kvm_ioctls::ioctls::vcpu::VcpuFd::run
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x7684;<code>kvm_ioctls::ioctls::vcpu::VcpuFd::run</code>&#x662F;&#x4E0B;&#x9762;&#x4EE3;&#x7801;:<br><img src="img/rust_cloud-hypervisor_&#x4F7F;&#x7528;_20220826234318.png" alt=""><br><img src="img/rust_cloud-hypervisor_&#x4F7F;&#x7528;_20220826234424.png" alt=""><br>&#x662F;KVM_RUN&#x7684;&#x5FAA;&#x73AF;&#x4E3B;&#x4F53;.</p>
+<h3 id="ping&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x5426;"><a name="ping&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x5426;" class="anchor-navigation-ex-anchor" href="#ping&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x5426;"><i class="fa fa-link" aria-hidden="true"></i></a>7.1.1. ping&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;VM exit -- &#x5426;</h3>
+<p>&#x4E00;&#x76F4;ping, &#x540C;&#x65F6;&#x505A;gdb&#x89C2;&#x5BDF;
+gdb&#x8BBE;&#x7F6E;&#x4E0A;&#x9762;&#x7684;&#x65AD;&#x70B9;&#x540E;, continue&#x6267;&#x884C;, &#x9664;&#x4E86;&#x7B2C;&#x4E00;&#x6B21;continue&#x540E;&#x4F1A;&#x89E6;&#x53D1;&#x65AD;&#x70B9;, &#x540E;&#x9762;&#x4E0D;&#x7BA1;&#x600E;&#x4E48;ping, &#x90FD;&#x6CA1;&#x6709;&#x89E6;&#x53D1;&#x65AD;&#x70B9;.
+&#x8BF4;&#x660E;:</p>
+<ul>
+<li>virtio-net&#x5728;ping&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;, VM&#x5E76;&#x6CA1;&#x6709;exit, VM&#x4E00;&#x76F4;&quot;&#x5168;&#x901F;&quot;&#x8FD0;&#x884C;</li>
+<li>&#x56E0;&#x4E3A;VM&#x6CA1;&#x6709;exit, &#x4E5F;&#x5C31;&#x6CA1;&#x6709;mmio_read, mmio_write&#x7B49;&#x89E6;&#x53D1;VMM&#x540E;&#x7AEF;&#x7684;&#x52A8;&#x4F5C;; &#x5C31;&#x662F;&#x8BF4;guest driver&#x5728;&#x6536;&#x53D1;&#x62A5;&#x6587;&#x7684;&#x65F6;&#x5019;, &#x5BF9;vring&#x7684;&#x64CD;&#x4F5C;, &#x5BF9;bar&#x5BC4;&#x5B58;&#x5668;&#x7684;&#x64CD;&#x4F5C;, &#x7EDF;&#x7EDF;&#x6CA1;&#x6709;&#x89E6;&#x53D1;mmio exit.</li>
+</ul>
+<h3 id="vmm&#x540E;&#x7AEF;&#x600E;&#x4E48;&#x5DE5;&#x4F5C;"><a name="vmm&#x540E;&#x7AEF;&#x600E;&#x4E48;&#x5DE5;&#x4F5C;" class="anchor-navigation-ex-anchor" href="#vmm&#x540E;&#x7AEF;&#x600E;&#x4E48;&#x5DE5;&#x4F5C;"><i class="fa fa-link" aria-hidden="true"></i></a>7.1.2. vmm&#x540E;&#x7AEF;&#x600E;&#x4E48;&#x5DE5;&#x4F5C;</h3>
+<p>&#x524D;&#x9762;&#x770B;&#x5230;, ping&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x6CA1;&#x6709;&#x89C2;&#x5BDF;&#x5230;VM exit, &#x90A3;VMM&#x540E;&#x7AEF;&#x5982;&#x4F55;&#x54CD;&#x5E94;guest driver&#x7684;&#x8BFB;&#x5199;&#x5BC4;&#x5B58;&#x5668;&#x8BF7;&#x6C42;&#x7684;&#x5462;?
+&#x4F1A;&#x4E0D;&#x4F1A;&#x5728;&#x5176;&#x4ED6;&#x4EE3;&#x7801;&#x8DEF;&#x5F84;&#x4E0B;&#x9762;&#x8C03;&#x7528;&#x4E86;&#x5BC4;&#x5B58;&#x5668;&#x8BBF;&#x95EE;&#x7684;&#x51FD;&#x6570;&#x5462;?</p>
+<p>&#x5148;&#x770B;&#x770B;&#x6709;&#x6CA1;&#x6709;&#x4EBA;&#x8C03;&#x7528;mmio_write&#x548C;mmio_read</p>
+<pre class="language-"><code>(gdb) b mmio_read
+(gdb) b mmio_write
+</code></pre><p>&#x6CE8;:
+&#x7528;<code>b vmm::vm::VmOpsHandler::mmio_read</code>&#x662F;&#x4E0D;&#x8BA4;&#x7684;.
+&#x7528;&#x8FD9;&#x6837;&#x7684;&#x8BED;&#x6CD5;gdb&#x53EF;&#x4EE5;&#x8BA4;:</p>
+<pre class="language-"><code>(gdb) b <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">vmm:</span>:vm::VmOpsHandler</span> <span class="token attr-name">as</span> <span class="token attr-name"><span class="token namespace">hypervisor:</span>:vm::VmOps</span><span class="token punctuation">&gt;</span></span>::mmio_read
+</code></pre><p>&#x7EE7;&#x7EED;&#x5728;VM&#x91CC;ping, &#x6CA1;&#x6709;&#x89E6;&#x53D1;&#x65AD;&#x70B9;.</p>
+<p>&#x518D;&#x589E;&#x52A0;</p>
+<pre class="language-"><code>(gdb) b vm_device::bus::Bus::read
+(gdb) b vm_device::bus::Bus::write
+</code></pre><p>&#x4F9D;&#x65E7;&#x6CA1;&#x89E6;&#x53D1;.</p>
+<p>&#x770B;&#x770B;&#x6709;&#x6CA1;&#x6709;&#x8BA4;&#x8C03;&#x7528;<code>VirtioPciDevice</code>&#x7684;read:</p>
+<pre class="language-"><code>b <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">virtio_devices:</span>:transport::pci_device::VirtioPciDevice</span> <span class="token attr-name">as</span> <span class="token attr-name"><span class="token namespace">vm_device:</span>:bus::BusDevice</span><span class="token punctuation">&gt;</span></span>::read
+b <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">virtio_devices:</span>:transport::pci_device::VirtioPciDevice</span> <span class="token attr-name">as</span> <span class="token attr-name"><span class="token namespace">vm_device:</span>:bus::BusDevice</span><span class="token punctuation">&gt;</span></span>::write
+</code></pre><p>&#x8FD8;&#x662F;&#x6CA1;&#x6709;&#x89E6;&#x53D1;</p>
+<p>&#x7EE7;&#x7EED;&#x770B;pci&#x7684;&#x8BFB;&#x5199;bar&#x64CD;&#x4F5C;:</p>
+<pre class="language-"><code>b <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">virtio_devices:</span>:transport::pci_device::VirtioPciDevice</span> <span class="token attr-name">as</span> <span class="token attr-name"><span class="token namespace">pci:</span>:device::PciDevice</span><span class="token punctuation">&gt;</span></span>::read_bar
+b <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">virtio_devices:</span>:transport::pci_device::VirtioPciDevice</span> <span class="token attr-name">as</span> <span class="token attr-name"><span class="token namespace">pci:</span>:device::PciDevice</span><span class="token punctuation">&gt;</span></span>::write_bar
+</code></pre><p>&#x8FD8;&#x662F;&#x6CA1;&#x6709;&#x89E6;&#x53D1;</p>
+<p>&#x81F3;&#x6B64;, VM exit&#x8DEF;&#x5F84;&#x6CA1;&#x6709;&#x89E6;&#x53D1;virtio-net&#x540E;&#x7AEF;&#x7684;&#x52A8;&#x4F5C;.</p>
+<p>&#x6240;&#x4EE5;, &#x5230;&#x8FD9;&#x91CC;&#x5F88;&#x6E05;&#x695A;&#x4E86;, <strong>virtio-net&#x8BBE;&#x5907;&#x5728;&#x5DE5;&#x4F5C;&#x7684;&#x65F6;&#x5019;, &#x5B8C;&#x5168;&#x4E0D;&#x9700;&#x8981;&#x5728;VM exit&#x548C;VM enter&#x4E4B;&#x95F4;&#x8FDB;&#x884C;&#x5207;&#x6362;.</strong> guest driver&#x548C;vmm device&#x5728;virtio ring&#x7684;&#x534F;&#x8BAE;&#x4E0B;, &#x901A;&#x8FC7;ioeventfd&#x548C;irqfd&#x6765;&#x4E92;&#x76F8;&quot;&#x901A;&#x77E5;&quot;, &#x5728;VM&#x4E0D;exit&#x7684;&#x60C5;&#x51B5;&#x4E0B;, &#x5B8C;&#x6210;&#x62A5;&#x6587;&#x7684;&#x4EA4;&#x4E92;.
+&#x89C1;<code>cloud-hypervisor/net_util/src/queue_pair.rs</code>&#x7684;<code>process_tx()</code>&#x548C;<code>process_rx()</code>&#x51FD;&#x6570;.</p>
+<p>&#x518D;&#x6B21;&#x786E;&#x8BA4;, <code>pci::device::PciDevice::read_bar/write_bar</code>&#x5E76;&#x6CA1;&#x6709;&#x5728;virtio-net&#x62A5;&#x6587;&#x4EA4;&#x6362;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x88AB;&#x8C03;&#x7528;.</p>
+<h3 id="&#x5199;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x5426;"><a name="&#x5199;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x5426;" class="anchor-navigation-ex-anchor" href="#&#x5199;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x5426;"><i class="fa fa-link" aria-hidden="true"></i></a>7.1.3. &#x5199;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;VM exit -- &#x5426;</h3>
+<pre class="language-"><code class="lang-sh"><span class="token builtin class-name">echo</span> abc <span class="token operator">&gt;</span> abc.txt
+<span class="token function">sync</span>
+//&#x6267;&#x884C;&#x7684;&#x5F88;&#x5FEB;
+<span class="token function">dd</span> <span class="token assign-left variable">if</span><span class="token operator">=</span>/dev/zero <span class="token assign-left variable">of</span><span class="token operator">=</span>out.dd <span class="token assign-left variable">bs</span><span class="token operator">=</span>1M <span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token number">4</span>
+<span class="token number">4194304</span> bytes <span class="token punctuation">(</span><span class="token number">4.2</span> MB, <span class="token number">4.0</span> MiB<span class="token punctuation">)</span> copied, <span class="token number">0.0129554</span> s, <span class="token number">324</span> MB/s
+</code></pre>
+<h3 id="lspci&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x662F;"><a name="lspci&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x662F;" class="anchor-navigation-ex-anchor" href="#lspci&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;vm-exit----&#x662F;"><i class="fa fa-link" aria-hidden="true"></i></a>7.1.4. lspci&#x662F;&#x5426;&#x4F1A;&#x89E6;&#x53D1;VM exit -- &#x662F;</h3>
+<p>&#x5728;vm&#x91CC;&#x9762;&#x6267;&#x884C;<code>lspci</code>, &#x53EF;&#x4EE5;&#x770B;&#x5230;&#x65AD;&#x70B9;&#x88AB;&#x89E6;&#x53D1;:</p>
+<pre class="language-"><code>(gdb) bt
+#0  kvm_ioctls::ioctls::vcpu::VcpuFd::run
+#1  0x00007fee2b19b9c5 in <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">hypervisor:</span>:kvm::KvmVcpu</span> <span class="token attr-name">as</span> <span class="token attr-name"><span class="token namespace">hypervisor:</span>:cpu::Vcpu</span><span class="token punctuation">&gt;</span></span>::run
+#2  0x00007fee2aca1b45 in vmm::cpu::Vcpu::run
+#3  0x00007fee2ac7f5cb in vmm::cpu::CpuManager::start_vcpu::{{closure}}::{{closure}} ()
+#4  0x00007fee2acd51bb in std::panicking::try::do_call
+#5  0x00007fee2acd5c5b in __rust_try
+#6  0x00007fee2acd46e1 in std::panicking::try
+#7  0x00007fee2ab64211 in std::panic::catch_unwind
+#8  0x00007fee2ac7eaf4 in vmm::cpu::CpuManager::start_vcpu::{{closure}}
+#9  0x00007fee2aa607c3 in std::sys_common::backtrace::__rust_begin_short_backtrace
+#10 0x00007fee2a9cbde0 in std::thread::Builder::spawn_unchecked_::{{closure}}::{{closure}}
+#11 0x00007fee2acdc7c4 in &lt;core::panic::unwind_safe::AssertUnwindSafe<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>F</span><span class="token punctuation">&gt;</span></span>
+#12 0x00007fee2acd50a2 in std::panicking::try::do_call
+#13 0x00007fee2acd5c5b in __rust_try
+#14 0x00007fee2acd44e7 in std::panicking::try
+#15 0x00007fee2ab64254 in std::panic::catch_unwind
+#16 0x00007fee2a9cafb3 in std::thread::Builder::spawn_unchecked_::{{closure}}
+#17 0x00007fee2a82f74f in core::ops::function::FnOnce::call_once{{vtable-shim}}
+#18 0x00007fee2b423ff3 in &lt;alloc::boxed::Box<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>F,A</span><span class="token punctuation">&gt;</span></span> as core::ops::function::FnOnce<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Args</span><span class="token punctuation">&gt;</span></span>&gt;::call_once
+#19 &lt;alloc::boxed::Box<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>F,A</span><span class="token punctuation">&gt;</span></span> as core::ops::function::FnOnce<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Args</span><span class="token punctuation">&gt;</span></span>&gt;::call_once
+#20 std::sys::unix::thread::Thread::new::thread_start
+#21 0x00007fee2b44c2e5 in start
+#22 0x00007fee2b44d3d9 in __clone
+
+(gdb) n
+(gdb) n
+(gdb) finish
+(gdb) n
+1147                    VcpuExit::IoIn(addr, data) =&gt; {
+</code></pre><p>&#x6700;&#x540E;&#x8DDF;&#x4E0B;&#x6765;vm&#x5728;&#x505A;<code>VcpuExit::IoIn</code>&#x548C;<code>VcpuExit::IoOut</code>, vmm&#x8C03;&#x7528;&#x5BF9;&#x5E94;&#x7684;<code>pio_read</code>&#x548C;<code>pio_write</code>&#x6765;&#x54CD;&#x5E94;.
+&#x6CE8;: lspci&#x6CA1;&#x6709;&#x89E6;&#x53D1;mmio&#x76F8;&#x5173;&#x7684;&#x8C03;&#x7528;, &#x53EA;&#x6709;pio.</p>
+<h1 id="&#x6700;&#x5C0F;&#x5316;&#x542F;&#x52A8;"><a name="&#x6700;&#x5C0F;&#x5316;&#x542F;&#x52A8;" class="anchor-navigation-ex-anchor" href="#&#x6700;&#x5C0F;&#x5316;&#x542F;&#x52A8;"><i class="fa fa-link" aria-hidden="true"></i></a>8. &#x6700;&#x5C0F;&#x5316;&#x542F;&#x52A8;</h1>
+<p><a href="https://bl.ocks.org/gdamjan/1f260b58eb9fb1ba62d2234958582405" target="_blank">https://bl.ocks.org/gdamjan/1f260b58eb9fb1ba62d2234958582405</a>
+<a href="https://alpinelinux.org/downloads/" target="_blank">https://alpinelinux.org/downloads/</a></p>
+<h1 id="&#x53C2;&#x8003;&#x96C6;&#x6210;"><a name="&#x53C2;&#x8003;&#x96C6;&#x6210;" class="anchor-navigation-ex-anchor" href="#&#x53C2;&#x8003;&#x96C6;&#x6210;"><i class="fa fa-link" aria-hidden="true"></i></a>9. &#x53C2;&#x8003;&#x96C6;&#x6210;</h1>
+<p>&#x89C1;: cloud-hypervisor/scripts/run_integration_tests_x86_64.sh</p>
+<h1 id="release&#x8FC7;&#x7A0B;"><a name="release&#x8FC7;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#release&#x8FC7;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>10. release&#x8FC7;&#x7A0B;</h1>
+<pre class="language-"><code class="lang-yaml"><span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Code checkout
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v2
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install musl<span class="token punctuation">-</span>gcc
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> sudo apt install <span class="token punctuation">-</span>y musl<span class="token punctuation">-</span>tools //&#x9700;&#x8981;musl<span class="token punctuation">-</span>tools
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install Rust toolchain (x86_64<span class="token punctuation">-</span>unknown<span class="token punctuation">-</span>linux<span class="token punctuation">-</span>gnu) //gnu target&#x662F;&#x52A8;&#x6001;&#x94FE;&#x63A5;
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions<span class="token punctuation">-</span>rs/toolchain@v1
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+            <span class="token key atrule">toolchain</span><span class="token punctuation">:</span> <span class="token string">&quot;1.60&quot;</span>
+            <span class="token key atrule">target</span><span class="token punctuation">:</span> x86_64<span class="token punctuation">-</span>unknown<span class="token punctuation">-</span>linux<span class="token punctuation">-</span>gnu
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install Rust toolchain (x86_64<span class="token punctuation">-</span>unknown<span class="token punctuation">-</span>linux<span class="token punctuation">-</span>musl) //musl target&#x662F;&#x9759;&#x6001;&#x94FE;&#x63A5;
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions<span class="token punctuation">-</span>rs/toolchain@v1
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+            <span class="token key atrule">toolchain</span><span class="token punctuation">:</span> <span class="token string">&quot;1.60&quot;</span>
+            <span class="token key atrule">target</span><span class="token punctuation">:</span> x86_64<span class="token punctuation">-</span>unknown<span class="token punctuation">-</span>linux<span class="token punctuation">-</span>musl
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Build
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions<span class="token punctuation">-</span>rs/cargo@v1
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+            <span class="token key atrule">toolchain</span><span class="token punctuation">:</span> <span class="token string">&quot;1.60&quot;</span>
+            <span class="token key atrule">command</span><span class="token punctuation">:</span> build
+            <span class="token key atrule">args</span><span class="token punctuation">:</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>all <span class="token punctuation">-</span><span class="token punctuation">-</span>release <span class="token punctuation">-</span><span class="token punctuation">-</span>target=x86_64<span class="token punctuation">-</span>unknown<span class="token punctuation">-</span>linux<span class="token punctuation">-</span>gnu
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Static Build
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions<span class="token punctuation">-</span>rs/cargo@v1
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+            <span class="token key atrule">toolchain</span><span class="token punctuation">:</span> <span class="token string">&quot;1.60&quot;</span>
+            <span class="token key atrule">command</span><span class="token punctuation">:</span> build
+            <span class="token key atrule">args</span><span class="token punctuation">:</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>all <span class="token punctuation">-</span><span class="token punctuation">-</span>release <span class="token punctuation">-</span><span class="token punctuation">-</span>target=x86_64<span class="token punctuation">-</span>unknown<span class="token punctuation">-</span>linux<span class="token punctuation">-</span>musl
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Strip cloud<span class="token punctuation">-</span>hypervisor binaries
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> strip target/<span class="token important">*/release/cloud-hypervisor</span> //strip
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install Rust toolchain (aarch64<span class="token punctuation">-</span>unknown<span class="token punctuation">-</span>linux<span class="token punctuation">-</span>musl) //aarch64 musl
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions<span class="token punctuation">-</span>rs/toolchain@v1
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+            <span class="token key atrule">toolchain</span><span class="token punctuation">:</span> <span class="token string">&quot;1.60&quot;</span>
+            <span class="token key atrule">target</span><span class="token punctuation">:</span> aarch64<span class="token punctuation">-</span>unknown<span class="token punctuation">-</span>linux<span class="token punctuation">-</span>musl
+            <span class="token key atrule">override</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Static Build (AArch64)
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions<span class="token punctuation">-</span>rs/cargo@v1
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+            <span class="token key atrule">use-cross</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+            <span class="token key atrule">command</span><span class="token punctuation">:</span> build
+            <span class="token key atrule">args</span><span class="token punctuation">:</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>all <span class="token punctuation">-</span><span class="token punctuation">-</span>release <span class="token punctuation">-</span><span class="token punctuation">-</span>target=aarch64<span class="token punctuation">-</span>unknown<span class="token punctuation">-</span>linux<span class="token punctuation">-</span>musl
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Upload static cloud<span class="token punctuation">-</span>hypervisor //&#x4E0A;&#x4F20;asset
+        <span class="token key atrule">id</span><span class="token punctuation">:</span> upload<span class="token punctuation">-</span>release<span class="token punctuation">-</span>static<span class="token punctuation">-</span>cloud<span class="token punctuation">-</span>hypervisor
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/upload<span class="token punctuation">-</span>release<span class="token punctuation">-</span>asset@v1
+        <span class="token key atrule">env</span><span class="token punctuation">:</span>
+          <span class="token key atrule">GITHUB_TOKEN</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.GITHUB_TOKEN <span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">upload_url</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> steps.create_release.outputs.upload_url <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">asset_path</span><span class="token punctuation">:</span> target/x86_64<span class="token punctuation">-</span>unknown<span class="token punctuation">-</span>linux<span class="token punctuation">-</span>musl/release/cloud<span class="token punctuation">-</span>hypervisor
+          <span class="token key atrule">asset_name</span><span class="token punctuation">:</span> cloud<span class="token punctuation">-</span>hypervisor<span class="token punctuation">-</span>static
+          <span class="token key atrule">asset_content_type</span><span class="token punctuation">:</span> application/octet<span class="token punctuation">-</span>stream
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="rust_cloud-hypervisor_代码.html" class="navigation navigation-prev " aria-label="Previous page: cloud hypervisor代码">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="rust_cloud-hypervisor_问题与解决.html" class="navigation navigation-next " aria-label="Next page: cloud hypervisor问题与解决">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"cloud hypervisor使用","level":"1.5.2.5","depth":3,"next":{"title":"cloud hypervisor问题与解决","level":"1.5.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]},"previous":{"title":"cloud hypervisor代码","level":"1.5.2.4","depth":3,"path":"notes/rust_cloud-hypervisor_代码.md","ref":"notes/rust_cloud-hypervisor_代码.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_cloud-hypervisor_使用.md","mtime":"2022-10-18T02:30:40.552Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-18T02:31:53.901Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    </body>
+</html>
+
