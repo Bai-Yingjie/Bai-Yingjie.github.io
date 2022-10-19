@@ -28,6 +28,7 @@
     * [ping流程和函数调用解析](notes/performance_ping流程和函数调用解析.md)
     * [VM互相ping场景下的延迟分析](notes/profiling_VM互相ping场景下的延迟分析.md)
     * [谁创建了bond0设备: ftrace kprobe uprobe perf综合使用](notes/debugging_ftrace_谁创建了bond0设备.md)
+    * [unixbench之file copy分析](notes/profiling_unixbench之filecopy分析.md)
   * [CPU ARCH相关](notes/as_title_arch_perf.md)
     * [Top-down Microarchitecture Analysis Method(网摘)](notes/performance_CPU_microarchiteture_pmu.md)
 
