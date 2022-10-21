@@ -1,0 +1,3680 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Linux内核调试的方式以及工具集锦(网摘) · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="profiling_user_space_Ptrace_Utrace_Uprobes.html" />
+    
+    
+    <link rel="prev" href="调试和分析工具概览.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录5.html">
+            
+                <a href="profiling_调试和分析记录5.html">
+            
+                    
+                    调试和分析记录5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="profiling_调试和分析记录1.html">
+            
+                <a href="profiling_调试和分析记录1.html">
+            
+                    
+                    调试和分析记录1
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="调试和分析工具概览.html">
+            
+                <a href="调试和分析工具概览.html">
+            
+                    
+                    profiling和debugging工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.2.1" data-path="profiling_Linux内核调试的方式以及工具集锦.html">
+            
+                <a href="profiling_Linux内核调试的方式以及工具集锦.html">
+            
+                    
+                    Linux内核调试的方式以及工具集锦(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_user_space_Ptrace_Utrace_Uprobes.html">
+            
+                <a href="profiling_user_space_Ptrace_Utrace_Uprobes.html">
+            
+                    
+                    Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="debugging_gdb备忘录.html">
+            
+                <a href="debugging_gdb备忘录.html">
+            
+                    
+                    gdb备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="profiling_perf命令备忘录2.html">
+            
+                <a href="profiling_perf命令备忘录2.html">
+            
+                    
+                    perf命令备忘录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="profiling_perf学习笔记之实战篇.html">
+            
+                <a href="profiling_perf学习笔记之实战篇.html">
+            
+                    
+                    perf学习笔记之实战篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="profiling_perf学习笔记之入门篇.html">
+            
+                <a href="profiling_perf学习笔记之入门篇.html">
+            
+                    
+                    perf学习笔记之入门篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.8" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.9" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.10" data-path="profiling_systemtap实例.html">
+            
+                <a href="profiling_systemtap实例.html">
+            
+                    
+                    systemtap实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.11" data-path="profiling_Comparing_SystemTap_and_bpftrace.html">
+            
+                <a href="profiling_Comparing_SystemTap_and_bpftrace.html">
+            
+                    
+                    Comparing SystemTap and bpftrace(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.12" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    profiling和debugging实例
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="profiling_VM互相ping场景下的延迟分析.html">
+            
+                <a href="profiling_VM互相ping场景下的延迟分析.html">
+            
+                    
+                    VM互相ping场景下的延迟分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="debugging_ftrace_谁创建了bond0设备.html">
+            
+                <a href="debugging_ftrace_谁创建了bond0设备.html">
+            
+                    
+                    谁创建了bond0设备: ftrace kprobe uprobe perf综合使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="profiling_unixbench之filecopy分析.html">
+            
+                <a href="profiling_unixbench之filecopy分析.html">
+            
+                    
+                    unixbench之file copy分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.3.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="kernel_异常打印分析实例.html">
+            
+                <a href="kernel_异常打印分析实例.html">
+            
+                    
+                    kernel bug异常打印分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.17" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.4.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.5" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.6" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.7" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.3.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.4.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Linux内核调试的方式以及工具集锦(网摘)</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x4EE5;&#x53CA;&#x5DE5;&#x5177;&#x603B;&#x7ED3;"><b>1. </b>&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x4EE5;&#x53CA;&#x5DE5;&#x5177;&#x603B;&#x7ED3;</a></li><li><span class="title-icon "></span><a href="#&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><b>2. </b>&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li><ul><li><span class="title-icon "></span><a href="#procfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><b>2.1. </b>procfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li><li><span class="title-icon "></span><a href="#sysfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><b>2.2. </b>sysfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li><li><span class="title-icon "></span><a href="#debugfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><b>2.3. </b>debugfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li><li><span class="title-icon "></span><a href="#relayfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><b>2.4. </b>relayfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li><li><span class="title-icon "></span><a href="#seqfile"><b>2.5. </b>seq_file</a></li></ul><li><span class="title-icon "></span><a href="#printk"><b>3. </b>printk</a></li><li><span class="title-icon "></span><a href="#ftrace--trace-cmd"><b>4. </b>ftrace &amp;&amp; trace-cmd</a></li><ul><li><span class="title-icon "></span><a href="#trace--ftrace"><b>4.1. </b>trace &amp;&amp; ftrace</a></li><li><span class="title-icon "></span><a href="#ftrace&#x524D;&#x7AEF;&#x5DE5;&#x5177;trace-cmd"><b>4.2. </b>ftrace&#x524D;&#x7AEF;&#x5DE5;&#x5177;trace-cmd</a></li></ul><li><span class="title-icon "></span><a href="#kprobe--systemtap"><b>5. </b>Kprobe &amp;&amp; systemtap</a></li><ul><li><span class="title-icon "></span><a href="#&#x5185;&#x6838;kprobe&#x673A;&#x5236;"><b>5.1. </b>&#x5185;&#x6838;kprobe&#x673A;&#x5236;</a></li><li><span class="title-icon "></span><a href="#&#x524D;&#x7AEF;&#x5DE5;&#x5177;systemtap"><b>5.2. </b>&#x524D;&#x7AEF;&#x5DE5;&#x5177;systemtap</a></li></ul><li><span class="title-icon "></span><a href="#kgdb--kgtp"><b>6. </b>kgdb &amp;&amp; kgtp</a></li><ul><li><span class="title-icon "></span><a href="#kgdb"><b>6.1. </b>kgdb</a></li><li><span class="title-icon "></span><a href="#kgtp"><b>6.2. </b>KGTP</a></li></ul><li><span class="title-icon "></span><a href="#perf"><b>7. </b>perf</a></li><li><span class="title-icon "></span><a href="#&#x5176;&#x4ED6;tracer&#x5DE5;&#x5177;"><b>8. </b>&#x5176;&#x4ED6;Tracer&#x5DE5;&#x5177;</a></li><ul><li><span class="title-icon "></span><a href="#lttng"><b>8.1. </b>LTTng</a></li><li><span class="title-icon "></span><a href="#ebpf"><b>8.2. </b>eBPF</a></li><li><span class="title-icon "></span><a href="#ktap"><b>8.3. </b>Ktap</a></li><li><span class="title-icon "></span><a href="#dtrace4linux"><b>8.4. </b>dtrace4linux</a></li><li><span class="title-icon "></span><a href="#ol-dtrace"><b>8.5. </b>OL DTrace</a></li><li><span class="title-icon "></span><a href="#sysdig"><b>8.6. </b>sysdig</a></li></ul></ul></div><a href="#&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x4EE5;&#x53CA;&#x5DE5;&#x5177;&#x603B;&#x7ED3;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x4EE5;&#x53CA;&#x5DE5;&#x5177;&#x603B;&#x7ED3;">&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x4EE5;&#x53CA;&#x5DE5;&#x5177;&#x603B;&#x7ED3;</a></li>
+<li><a href="#&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;">&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a><ul>
+<li><a href="#procfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;">procfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="#sysfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;">sysfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="#debugfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;">debugfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="#relayfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;">relayfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="#seq_file">seq_file</a></li>
+</ul>
+</li>
+<li><a href="#printk">printk</a></li>
+<li><a href="#ftrace--trace-cmd">ftrace &amp;&amp; trace-cmd</a><ul>
+<li><a href="#trace--ftrace">trace &amp;&amp; ftrace</a></li>
+<li><a href="#ftrace&#x524D;&#x7AEF;&#x5DE5;&#x5177;trace-cmd">ftrace&#x524D;&#x7AEF;&#x5DE5;&#x5177;trace-cmd</a></li>
+</ul>
+</li>
+<li><a href="#kprobe--systemtap">Kprobe &amp;&amp; systemtap</a><ul>
+<li><a href="#&#x5185;&#x6838;kprobe&#x673A;&#x5236;">&#x5185;&#x6838;kprobe&#x673A;&#x5236;</a></li>
+<li><a href="#&#x524D;&#x7AEF;&#x5DE5;&#x5177;systemtap">&#x524D;&#x7AEF;&#x5DE5;&#x5177;systemtap</a></li>
+</ul>
+</li>
+<li><a href="#kgdb--kgtp">kgdb &amp;&amp; kgtp</a><ul>
+<li><a href="#kgdb">kgdb</a></li>
+<li><a href="#kgtp">KGTP</a></li>
+</ul>
+</li>
+<li><a href="#perf">perf</a></li>
+<li><a href="#&#x5176;&#x4ED6;tracer&#x5DE5;&#x5177;">&#x5176;&#x4ED6;Tracer&#x5DE5;&#x5177;</a><ul>
+<li><a href="#lttng">LTTng</a></li>
+<li><a href="#ebpf">eBPF</a></li>
+<li><a href="#ktap">Ktap</a></li>
+<li><a href="#dtrace4linux">dtrace4linux</a></li>
+<li><a href="#ol-dtrace">OL DTrace</a></li>
+<li><a href="#sysdig">sysdig</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x539F;&#x6587;: <a href="https://blog.csdn.net/gatieme/article/details/68948080" target="_blank">https://blog.csdn.net/gatieme/article/details/68948080</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">CSDN</th>
+<th style="text-align:center">GitHub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="http://blog.csdn.net/gatieme/article/details/68948080" target="_blank">Linux&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x7684;&#x65B9;&#x5F0F;&#x4EE5;&#x53CA;&#x5DE5;&#x5177;&#x96C6;</a></td>
+<td style="text-align:center"><a href="https://github.com/gatieme/LDD-LinuxDeviceDrivers/tree/master/study/debug" target="_blank"><code>LDD-LinuxDeviceDrivers/study/debug</code></a></td>
+</tr>
+</tbody>
+</table>
+<pre class="language-"><code>&quot;&#x8C03;&#x8BD5;&#x96BE;&#x5EA6;&#x672C;&#x6765;&#x5C31;&#x662F;&#x5199;&#x4EE3;&#x7801;&#x7684;&#x4E24;&#x500D;. &#x56E0;&#x6B64;, &#x5982;&#x679C;&#x4F60;&#x5199;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x806A;&#x660E;&#x7528;&#x5C3D;, &#x6839;&#x636E;&#x5B9A;&#x4E49;, &#x4F60;&#x5C31;&#x6CA1;&#x6709;&#x80FD;&#x8010;&#x53BB;&#x8C03;&#x8BD5;&#x5B83;&#x4E86;.&quot;
+        --Brian Kernighan
+</code></pre><h1 id="&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x4EE5;&#x53CA;&#x5DE5;&#x5177;&#x603B;&#x7ED3;"><a name="&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x4EE5;&#x53CA;&#x5DE5;&#x5177;&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x4EE5;&#x53CA;&#x5DE5;&#x5177;&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x5185;&#x6838;&#x8C03;&#x8BD5;&#x4EE5;&#x53CA;&#x5DE5;&#x5177;&#x603B;&#x7ED3;</h1>
+<p>&#x5185;&#x6838;&#x603B;&#x662F;&#x90A3;&#x4E48;&#x6349;&#x6478;&#x4E0D;&#x900F;, &#x5185;&#x6838;&#x4E5F;&#x4F1A;&#x72AF;&#x9519;, &#x4F46;&#x662F;&#x8C03;&#x8BD5;&#x5374;&#x4E0D;&#x80FD;&#x50CF;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7A0B;&#x5E8F;&#x90A3;&#x6837;, &#x4E3A;&#x6B64;&#x5185;&#x6838;&#x5F00;&#x53D1;&#x8005;&#x4E3A;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x5DE5;&#x5177;&#x548C;&#x7CFB;&#x7EDF;&#x6765;&#x652F;&#x6301;&#x5185;&#x6838;&#x7684;&#x8C03;&#x8BD5;.</p>
+<p>&#x5185;&#x6838;&#x7684;&#x8C03;&#x8BD5;, &#x5176;&#x672C;&#x8D28;&#x662F;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x4E0E;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7684;&#x6570;&#x636E;&#x4EA4;&#x6362;, &#x5185;&#x6838;&#x5F00;&#x53D1;&#x8005;&#x4EEC;&#x63D0;&#x4F9B;&#x4E86;&#x591A;&#x6837;&#x7684;&#x5F62;&#x5F0F;&#x6765;&#x5B8C;&#x6210;&#x8FD9;&#x4E00;&#x529F;&#x80FD;.
+| &#x5DE5;&#x5177; | &#x63CF;&#x8FF0; |
+| :-: |  :-: |
+| debugfs&#x7B49;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF; | &#x63D0;&#x4F9B;&#x4E86; <code>procfs</code>, <code>sysfs</code>, <code>debugfs</code>&#x4EE5;&#x53CA; <code>relayfs</code> &#x6765;&#x4E0E;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x4EA4;&#x4E92;, &#x5C24;&#x5176;&#x662F; <strong><code>debugfs</code></strong>, &#x8FD9;&#x662F;&#x5185;&#x6838;&#x5F00;&#x53D1;&#x8005;&#x4EEC;&#x5B9E;&#x73B0;&#x7684;&#x4E13;&#x95E8;&#x7528;&#x6765;&#x8C03;&#x8BD5;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x63A5;&#x53E3;. &#x5176;&#x4ED6;&#x7684;&#x5DE5;&#x5177;&#x6216;&#x8005;&#x63A5;&#x53E3;, &#x591A;&#x6570;&#x90FD;&#x4F9D;&#x8D56;&#x4E8E; <code>debugfs</code>. |
+| printk | &#x5F3A;&#x5927;&#x7684;&#x8F93;&#x51FA;&#x7CFB;&#x7EDF;, &#x6CA1;&#x6709;&#x4EC0;&#x4E48;&#x903B;&#x8F91;&#x4E0A;&#x7684;<code>bug</code>&#x662F;&#x7528;<code>PRINT</code>&#x89E3;&#x51B3;&#x4E0D;&#x4E86;&#x7684; |
+| ftrace&#x4EE5;&#x53CA;&#x5176;&#x524D;&#x7AEF;&#x5DE5;&#x5177;trace-cmd&#x7B49; | <strong>&#x5185;&#x6838;</strong>&#x63D0;&#x4F9B;&#x4E86; <strong><code>ftrace</code></strong> &#x5DE5;&#x5177;&#x6765;&#x5B9E;&#x73B0;&#x68C0;&#x67E5;&#x70B9;, &#x4E8B;&#x4EF6;&#x7B49;&#x7684;&#x68C0;&#x6D4B;, &#x8FD9;&#x4E00;&#x6846;&#x67B6;&#x4F9D;&#x8D56;&#x4E8E; <code>debugfs</code>, &#x4ED6;&#x5728; <code>debugfs</code> &#x4E2D;&#x7684; <code>tracing</code> &#x5B50;&#x7CFB;&#x7EDF;&#x4E2D;&#x4E3A;&#x7528;&#x6237;&#x63D0;&#x4F9B;&#x4E86;&#x4E30;&#x5BCC;&#x7684;&#x64CD;&#x4F5C;&#x63A5;&#x53E3;, &#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8BE5;&#x7CFB;&#x7EDF;&#x5BF9;&#x5185;&#x6838;&#x5B9E;&#x73B0;&#x68C0;&#x6D4B;&#x548C;&#x5206;&#x6790;. &#x529F;&#x80FD;&#x867D;&#x7136;&#x5F3A;&#x5927;, &#x4F46;&#x662F;&#x5176;&#x64CD;&#x4F5C;&#x5E76;&#x4E0D;&#x662F;&#x5F88;&#x7B80;&#x5355;, &#x56E0;&#x6B64;<strong>&#x4F7F;&#x7528;&#x8005;&#x4EEC;</strong>&#x4E3A;&#x5B9E;&#x73B0;&#x4E86; <strong><code>trace-cmd</code></strong> &#x7B49;&#x524D;&#x7AEF;&#x5DE5;&#x5177;, &#x7B80;&#x5316;&#x4E86; <code>ftrace</code> &#x7684;&#x4F7F;&#x7528;. |
+| <code>kprobe</code>&#x4EE5;&#x53CA;&#x66F4;&#x5F3A;&#x5927;&#x7684;<code>systemtap</code> | &#x5185;&#x6838;&#x4E2D;&#x5B9E;&#x73B0;&#x7684; <code>krpobe</code> &#x901A;&#x8FC7;&#x7C7B;&#x4F3C;&#x4E0E;&#x4EE3;&#x7801;&#x52AB;&#x6301;&#x4E00;&#x6837;&#x7684;&#x6280;&#x5DE7;, &#x5728;&#x5185;&#x6838;&#x7684;&#x4EE3;&#x7801;&#x6216;&#x8005;&#x51FD;&#x6570;&#x6267;&#x884C;&#x524D;&#x540E;, &#x5F3A;&#x5236;&#x52A0;&#x4E0A;&#x67D0;&#x4E9B;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;, &#x53EF;&#x4EE5;&#x5F88;&#x5DE7;&#x5999;&#x7684;&#x5B8C;&#x6210;&#x8C03;&#x8BD5;&#x5DE5;&#x4F5C;, &#x8FD9;&#x662F;&#x4E00;&#x9879;&#x5148;&#x8FDB;&#x7684;&#x8C03;&#x8BD5;&#x6280;&#x672F;, &#x4F46;&#x662F;&#x4ECD;&#x7136;&#x6709;&#x89C9;&#x5F97;&#x5B83;&#x4E0D;&#x591F;&#x597D;, &#x52AB;&#x6301;&#x4EE3;&#x7801;&#x9700;&#x8981;&#x7528;&#x9A71;&#x52A8;&#x7684;&#x65B9;&#x5F0F;&#x7F16;&#x8BD1;&#x5E76;&#x52A0;&#x8F7D;, &#x80FD;&#x4E0D;&#x80FD;&#x901A;&#x8FC7;&#x811A;&#x672C;&#x7684;&#x65B9;&#x5F0F;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x52AB;&#x6301;&#x4EE3;&#x7801;&#x5E76;&#x81EA;&#x52A8;&#x52A0;&#x8F7D;&#x548C;&#x6536;&#x96C6;&#x6570;&#x636E;, &#x4E8E;&#x662F;<code>systemtap</code> &#x51FA;&#x73B0;&#x4E86;. &#x901A;&#x8FC7; <code>systemtap</code> &#x7528;&#x6237;&#x53EA;&#x9700;&#x8981;&#x7F16;&#x5199;&#x811A;&#x672C;, &#x5C31;&#x53EF;&#x4EE5;&#x5B8C;&#x6210;&#x8C03;&#x8BD5;&#x5E76;&#x52A8;&#x6001;&#x5206;&#x6790;&#x5185;&#x6838;. |
+| kgdb &amp;&amp; kgtp | <code>KGDB</code> &#x662F;&#x5927;&#x540D;&#x9F0E;&#x9F0E;&#x7684;&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x5DE5;&#x5177;, <code>KGTP</code>&#x5219;&#x901A;&#x8FC7;&#x9A71;&#x52A8;&#x7684;&#x65B9;&#x5F0F;&#x5F3A;&#x5316;&#x4E86; <code>gdb</code>&#x7684;&#x529F;&#x80FD;, &#x8BF8;&#x5982;tracepoint, &#x6253;&#x5370;&#x5185;&#x6838;&#x53D8;&#x91CF;&#x7B49;. |
+| perf | <code>erf Event</code>&#x662F;&#x4E00;&#x6B3E;&#x968F; <code>inux</code>&#x5185;&#x6838;&#x4EE3;&#x7801;&#x4E00;&#x540C;&#x53D1;&#x5E03;&#x548C;&#x7EF4;&#x62A4;&#x7684;&#x6027;&#x80FD;&#x8BCA;&#x65AD;&#x5DE5;&#x5177;, &#x6838;&#x793E;&#x533A;&#x7EF4;&#x62A4;&#x548C;&#x53D1;&#x5C55;. <code>Perf</code> &#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x6027;&#x80FD;&#x7EDF;&#x8BA1;&#x5206;&#x6790;, &#x4E5F;&#x53EF;&#x4EE5;&#x5E94;&#x7528;&#x4E8E;&#x5185;&#x6838;&#x4EE3;&#x7801;&#x7684;&#x6027;&#x80FD;&#x7EDF;&#x8BA1;&#x548C;&#x5206;&#x6790;. &#x5F97;&#x76CA;&#x4E8E;&#x5176;&#x4F18;&#x79C0;&#x7684;&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x8BBE;&#x8BA1;, &#x8D8A;&#x6765;&#x8D8A;&#x591A;&#x7684;&#x65B0;&#x529F;&#x80FD;&#x88AB;&#x52A0;&#x5165; <code>Perf</code>, &#x4F7F;&#x5176;&#x5DF2;&#x7ECF;&#x6210;&#x4E3A;&#x4E00;&#x4E2A;&#x591A;&#x529F;&#x80FD;&#x7684;&#x6027;&#x80FD;&#x7EDF;&#x8BA1;&#x5DE5;&#x5177;&#x96C6; |
+| LTTng | <code>LTTng</code> &#x662F;&#x4E00;&#x4E2A; <code>Linux</code> &#x5E73;&#x53F0;&#x5F00;&#x6E90;&#x7684;&#x8DDF;&#x8E2A;&#x5DE5;&#x5177;, &#x662F;&#x4E00;&#x5957;&#x8F6F;&#x4EF6;&#x7EC4;&#x4EF6;, &#x53EF;&#x5141;&#x8BB8;&#x8DDF;&#x8E2A; <code>Linux</code> &#x5185;&#x6838;&#x548C;&#x7528;&#x6237;&#x7A0B;&#x5E8F;, &#x5E76;&#x63A7;&#x5236;&#x8DDF;&#x8E2A;&#x4F1A;&#x8BDD;(&#x5F00;&#x59CB;/&#x505C;&#x6B62;&#x8DDF;&#x8E2A;&#x3001;&#x542F;&#x52A8;/&#x505C;&#x6B62;&#x4E8B;&#x4EF6; &#x7B49;&#x7B49;). |</p>
+<h1 id="&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><a name="&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;" class="anchor-navigation-ex-anchor" href="#&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</h1>
+<p>&#x5185;&#x6838;&#x4E2D;&#x6709;&#x4E09;&#x4E2A;&#x5E38;&#x7528;&#x7684;&#x4F2A;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;: procfs, debugfs&#x548C;sysfs.
+| &#x6587;&#x4EF6;&#x7CFB;&#x7EDF; | &#x63CF;&#x8FF0; |
+| :-: |  :-: |
+| procfs | The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures. |
+| sysfs | The filesystem for exporting kernel objects. |
+| debugfs | Debugfs exists as a simple way for kernel developers to make information available to user space. |
+| relayfs | A significantly streamlined version of relayfs was recently accepted into the -mm kernel tree. |</p>
+<p>&#x5B83;&#x4EEC;&#x90FD;&#x7528;&#x4E8E;Linux&#x5185;&#x6838;&#x548C;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7684;&#x6570;&#x636E;&#x4EA4;&#x6362;, &#x4F46;&#x662F;&#x9002;&#x7528;&#x7684;&#x573A;&#x666F;&#x6709;&#x6240;&#x5DEE;&#x5F02;&#xFF1A;</p>
+<ul>
+<li><code>procfs</code> &#x5386;&#x53F2;&#x6700;&#x65E9;, &#x6700;&#x521D;&#x5C31;&#x662F;&#x7528;&#x6765;&#x8DDF;&#x5185;&#x6838;&#x4EA4;&#x4E92;&#x7684;&#x552F;&#x4E00;&#x65B9;&#x5F0F;, &#x7528;&#x6765;&#x83B7;&#x53D6;&#x5904;&#x7406;&#x5668;&#x3001;&#x5185;&#x5B58;&#x3001;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x3001;&#x8FDB;&#x7A0B;&#x7B49;&#x5404;&#x79CD;&#x4FE1;&#x606F;.</li>
+<li><code>sysfs</code> &#x8DDF; <code>kobject</code> &#x6846;&#x67B6;&#x7D27;&#x5BC6;&#x8054;&#x7CFB;, &#x800C; <code>kobject</code> &#x662F;&#x4E3A;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x6A21;&#x578B;&#x800C;&#x5B58;&#x5728;&#x7684;, &#x6240;&#x4EE5; <code>sysfs</code> &#x662F;&#x4E3A;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x670D;&#x52A1;&#x7684;.</li>
+<li><code>debugfs</code> &#x4ECE;&#x540D;&#x5B57;&#x6765;&#x770B;&#x5C31;&#x662F;&#x4E3A; <code>debug</code> &#x800C;&#x751F;, &#x6240;&#x4EE5;&#x66F4;&#x52A0;&#x7075;&#x6D3B;.</li>
+<li><code>relayfs</code> &#x662F;&#x4E00;&#x4E2A;&#x5FEB;&#x901F;&#x7684;&#x8F6C;&#x53D1; <code>(relay)</code> &#x6570;&#x636E;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;, &#x5B83;&#x4EE5;&#x5176;&#x529F;&#x80FD;&#x800C;&#x5F97;&#x540D;. &#x5B83;&#x4E3A;&#x90A3;&#x4E9B;&#x9700;&#x8981;&#x4ECE;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x8F6C;&#x53D1;&#x5927;&#x91CF;&#x6570;&#x636E;&#x5230;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7684;&#x5DE5;&#x5177;&#x548C;&#x5E94;&#x7528;&#x63D0;&#x4F9B;&#x4E86;&#x5FEB;&#x901F;&#x6709;&#x6548;&#x7684;&#x8F6C;&#x53D1;&#x673A;&#x5236;.</li>
+</ul>
+<p><a href="http://www.ibm.com/developerworks/cn/linux/l-kerns-usrs2/" target="_blank">&#x5728; Linux &#x4E0B;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x65B9;&#x5F0F;, &#x7B2C;2 &#x90E8;&#x5206;: procfs&#x3001;seq_file&#x3001;debugfs&#x548C;relayfs</a></p>
+<p><a href="http://www.tinylab.org/show-the-usage-of-procfs-sysfs-debugfs/" target="_blank">Linux &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF1A;procfs, sysfs, debugfs &#x7528;&#x6CD5;&#x7B80;&#x4ECB;</a></p>
+<h2 id="procfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><a name="procfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;" class="anchor-navigation-ex-anchor" href="#procfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. procfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</h2>
+<p><code>procfs</code> &#x662F;&#x6BD4;&#x8F83;&#x8001;&#x7684;&#x4E00;&#x79CD;&#x7528;&#x6237;&#x6001;&#x4E0E;&#x5185;&#x6838;&#x6001;&#x7684;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x65B9;&#x5F0F;, &#x5185;&#x6838;&#x7684;&#x5F88;&#x591A;&#x6570;&#x636E;&#x90FD;&#x662F;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x51FA;&#x53E3;&#x7ED9;&#x7528;&#x6237;&#x7684;, &#x5185;&#x6838;&#x7684;&#x5F88;&#x591A;&#x53C2;&#x6570;&#x4E5F;&#x662F;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x8BA9;&#x7528;&#x6237;&#x65B9;&#x4FBF;&#x8BBE;&#x7F6E;&#x7684;. &#x9664;&#x4E86; <code>sysctl</code> &#x51FA;&#x53E3;&#x5230; <code>/proc</code> &#x4E0B;&#x7684;&#x53C2;&#x6570;, <code>procfs</code> &#x63D0;&#x4F9B;&#x7684;&#x5927;&#x90E8;&#x5206;&#x5185;&#x6838;&#x53C2;&#x6570;&#x662F;&#x53EA;&#x8BFB;&#x7684;. &#x5B9E;&#x9645;&#x4E0A;, &#x5F88;&#x591A;&#x5E94;&#x7528;&#x4E25;&#x91CD;&#x5730;&#x4F9D;&#x8D56;&#x4E8E;<code>procfs</code>, &#x56E0;&#x6B64;&#x5B83;&#x51E0;&#x4E4E;&#x662F;&#x5FC5;&#x4E0D;&#x53EF;&#x5C11;&#x7684;&#x7EC4;&#x4EF6;. &#x524D;&#x9762;&#x90E8;&#x5206;&#x7684;&#x51E0;&#x4E2A;&#x4F8B;&#x5B50;&#x5B9E;&#x9645;&#x4E0A;&#x5DF2;&#x7ECF;&#x4F7F;&#x7528;&#x5B83;&#x6765;&#x51FA;&#x53E3;&#x5185;&#x6838;&#x6570;&#x636E;, &#x4F46;&#x662F;&#x5E76;&#x6CA1;&#x6709;&#x8BB2;&#x89E3;&#x5982;&#x4F55;&#x4F7F;&#x7528;, &#x672C;&#x8282;&#x5C06;&#x8BB2;&#x89E3;&#x5982;&#x4F55;&#x4F7F;&#x7528;<code>procfs</code>.</p>
+<p><a href="http://www.cnblogs.com/hoys/archive/2011/04/10/2011141.html" target="_blank">&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x65B9;&#x5F0F;(2)------procfs</a></p>
+<h2 id="sysfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><a name="sysfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;" class="anchor-navigation-ex-anchor" href="#sysfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. sysfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</h2>
+<p>&#x5185;&#x6838;&#x5B50;&#x7CFB;&#x7EDF;&#x6216;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x7F16;&#x8BD1;&#x5230;&#x5185;&#x6838;, &#x4E5F;&#x53EF;&#x4EE5;&#x7F16;&#x8BD1;&#x6210;&#x6A21;&#x5757;, &#x7F16;&#x8BD1;&#x5230;&#x5185;&#x6838;, &#x4F7F;&#x7528;&#x524D;&#x4E00;&#x8282;&#x4ECB;&#x7ECD;&#x7684;&#x65B9;&#x6CD5;&#x901A;&#x8FC7;&#x5185;&#x6838;&#x542F;&#x52A8;&#x53C2;&#x6570;&#x6765;&#x5411;&#x5B83;&#x4EEC;&#x4F20;&#x9012;&#x53C2;&#x6570;, &#x5982;&#x679C;&#x7F16;&#x8BD1;&#x6210;&#x6A21;&#x5757;, &#x5219;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x884C;&#x5728;&#x63D2;&#x5165;&#x6A21;&#x5757;&#x65F6;&#x4F20;&#x9012;&#x53C2;&#x6570;, &#x6216;&#x8005;&#x5728;&#x8FD0;&#x884C;&#x65F6;, &#x901A;&#x8FC7; <code>sysfs</code> &#x6765;&#x8BBE;&#x7F6E;&#x6216;&#x8BFB;&#x53D6;&#x6A21;&#x5757;&#x6570;&#x636E;.</p>
+<p><code>Sysfs</code> &#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E;&#x5185;&#x5B58;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;, &#x5B9E;&#x9645;&#x4E0A;&#x5B83;&#x57FA;&#x4E8E;<code>ramfs</code>, <code>sysfs</code> &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x79CD;&#x628A;&#x5185;&#x6838;&#x6570;&#x636E;&#x7ED3;&#x6784;, &#x5B83;&#x4EEC;&#x7684;&#x5C5E;&#x6027;&#x4EE5;&#x53CA;&#x5C5E;&#x6027;&#x4E0E;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x8054;&#x7CFB;&#x5F00;&#x653E;&#x7ED9;&#x7528;&#x6237;&#x6001;&#x7684;&#x65B9;&#x5F0F;, &#x5B83;&#x4E0E; <code>kobject</code> &#x5B50;&#x7CFB;&#x7EDF;&#x7D27;&#x5BC6;&#x5730;&#x7ED3;&#x5408;&#x5728;&#x4E00;&#x8D77;, &#x56E0;&#x6B64;&#x5185;&#x6838;&#x5F00;&#x53D1;&#x8005;&#x4E0D;&#x9700;&#x8981;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x5B83;, &#x800C;&#x662F;&#x5185;&#x6838;&#x7684;&#x5404;&#x4E2A;&#x5B50;&#x7CFB;&#x7EDF;&#x4F7F;&#x7528;&#x5B83;. &#x7528;&#x6237;&#x8981;&#x60F3;&#x4F7F;&#x7528; <code>sysfs</code> &#x8BFB;&#x53D6;&#x548C;&#x8BBE;&#x7F6E;&#x5185;&#x6838;&#x53C2;&#x6570;, &#x4EC5;&#x9700;&#x88C5;&#x8F7D; <code>sysfs</code> &#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6587;&#x4EF6;&#x64CD;&#x4F5C;&#x5E94;&#x7528;&#x6765;&#x8BFB;&#x53D6;&#x548C;&#x8BBE;&#x7F6E;&#x5185;&#x6838;&#x901A;&#x8FC7; <code>sysfs</code> &#x5F00;&#x653E;&#x7ED9;&#x7528;&#x6237;&#x7684;&#x5404;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;</p>
+<pre class="language-"><code>mkdir -p /sysfs
+mount -t sysfs sysfs /sysfs
+</code></pre><p>&#x6CE8;&#x610F;, &#x4E0D;&#x8981;&#x628A; <code>sysfs</code> &#x548C; <code>sysctl</code> &#x6DF7;&#x6DC6;, <code>sysctl</code> &#x662F;&#x5185;&#x6838;&#x7684;&#x4E00;&#x4E9B;&#x63A7;&#x5236;&#x53C2;&#x6570;, &#x5176;&#x76EE;&#x7684;&#x662F;&#x65B9;&#x4FBF;&#x7528;&#x6237;&#x5BF9;&#x5185;&#x6838;&#x7684;&#x884C;&#x4E3A;&#x8FDB;&#x884C;&#x63A7;&#x5236;, &#x800C; <code>sysfs</code> &#x4EC5;&#x4EC5;&#x662F;&#x628A;&#x5185;&#x6838;&#x7684; <code>kobject</code> &#x5BF9;&#x8C61;&#x7684;&#x5C42;&#x6B21;&#x5173;&#x7CFB;&#x4E0E;&#x5C5E;&#x6027;&#x5F00;&#x653E;&#x7ED9;&#x7528;&#x6237;&#x67E5;&#x770B;, &#x56E0;&#x6B64; <code>sysfs</code> &#x7684;&#x7EDD;&#x5927;&#x90E8;&#x5206;&#x662F;&#x53EA;&#x8BFB;&#x7684;, &#x6A21;&#x5757;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A; <code>kobject</code> &#x4E5F;&#x88AB;&#x51FA;&#x53E3;&#x5230; <code>sysfs</code>, &#x6A21;&#x5757;&#x53C2;&#x6570;&#x5219;&#x662F;&#x4F5C;&#x4E3A;&#x6A21;&#x5757;&#x5C5E;&#x6027;&#x51FA;&#x53E3;&#x7684;, &#x5185;&#x6838;&#x5B9E;&#x73B0;&#x8005;&#x4E3A;&#x6A21;&#x5757;&#x7684;&#x4F7F;&#x7528;&#x63D0;&#x4F9B;&#x4E86;&#x66F4;&#x7075;&#x6D3B;&#x7684;&#x65B9;&#x5F0F;, &#x5141;&#x8BB8;&#x7528;&#x6237;&#x8BBE;&#x7F6E;&#x6A21;&#x5757;&#x53C2;&#x6570;&#x5728; <code>sysfs</code> &#x7684;&#x53EF;&#x89C1;&#x6027;&#x5E76;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x5728;&#x7F16;&#x5199;&#x6A21;&#x5757;&#x65F6;&#x8BBE;&#x7F6E;&#x8FD9;&#x4E9B;&#x53C2;&#x6570;&#x5728; <code>sysfs</code> &#x4E0B;&#x7684;&#x8BBF;&#x95EE;&#x6743;&#x9650;, &#x7136;&#x540E;&#x7528;&#x6237;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>sysfs</code> &#x6765;&#x67E5;&#x770B;&#x548C;&#x8BBE;&#x7F6E;&#x6A21;&#x5757;&#x53C2;&#x6570;, &#x4ECE;&#x800C;&#x4F7F;&#x5F97;&#x7528;&#x6237;&#x80FD;&#x5728;&#x6A21;&#x5757;&#x8FD0;&#x884C;&#x65F6;&#x63A7;&#x5236;&#x6A21;&#x5757;&#x884C;&#x4E3A;.</p>
+<p><a href="http://www.cnblogs.com/hoys/archive/2011/04/10/2011470.html" target="_blank">&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x65B9;&#x5F0F;(6)------&#x6A21;&#x5757;&#x53C2;&#x6570;&#x4E0E;sysfs</a></p>
+<h2 id="debugfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><a name="debugfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;" class="anchor-navigation-ex-anchor" href="#debugfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. debugfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</h2>
+<p>&#x5185;&#x6838;&#x5F00;&#x53D1;&#x8005;&#x7ECF;&#x5E38;&#x9700;&#x8981;&#x5411;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x5E94;&#x7528;&#x8F93;&#x51FA;&#x4E00;&#x4E9B;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;, &#x5728;&#x7A33;&#x5B9A;&#x7684;&#x7CFB;&#x7EDF;&#x4E2D;&#x53EF;&#x80FD;&#x6839;&#x672C;&#x4E0D;&#x9700;&#x8981;&#x8FD9;&#x4E9B;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;, &#x4F46;&#x662F;&#x5728;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;, &#x4E3A;&#x4E86;&#x641E;&#x6E05;&#x695A;&#x5185;&#x6838;&#x7684;&#x884C;&#x4E3A;, &#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x975E;&#x5E38;&#x5FC5;&#x8981;, <code>printk</code>&#x53EF;&#x80FD;&#x662F;&#x7528;&#x7684;&#x6700;&#x591A;&#x7684;, &#x4F46;&#x5B83;&#x5E76;&#x4E0D;&#x662F;&#x6700;&#x597D;&#x7684;, &#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x53EA;&#x662F;&#x5728;&#x5F00;&#x53D1;&#x4E2D;&#x7528;&#x4E8E;&#x8C03;&#x8BD5;, &#x800C; <code>printk</code> &#x5C06;&#x4E00;&#x76F4;&#x8F93;&#x51FA;, &#x56E0;&#x6B64;&#x5F00;&#x53D1;&#x5B8C;&#x6BD5;&#x540E;&#x9700;&#x8981;&#x6E05;&#x9664;&#x4E0D;&#x5FC5;&#x8981;&#x7684; <code>printk</code> &#x8BED;&#x53E5;, &#x53E6;&#x5916;&#x5982;&#x679C;&#x5F00;&#x53D1;&#x8005;&#x5E0C;&#x671B;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x5E94;&#x7528;&#x80FD;&#x591F;&#x6539;&#x53D8;&#x5185;&#x6838;&#x884C;&#x4E3A;&#x65F6;, <code>printk</code> &#x5C31;&#x65E0;&#x6CD5;&#x5B9E;&#x73B0;.</p>
+<p>&#x56E0;&#x6B64;, &#x9700;&#x8981;&#x4E00;&#x79CD;&#x65B0;&#x7684;&#x673A;&#x5236;, &#x90A3;&#x53EA;&#x6709;&#x5728;&#x9700;&#x8981;&#x7684;&#x65F6;&#x5019;&#x4F7F;&#x7528;, &#x5B83;&#x5728;&#x9700;&#x8981;&#x65F6;&#x901A;&#x8FC7;&#x5728;&#x4E00;&#x4E2A;&#x865A;&#x62DF;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E2D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x6587;&#x4EF6;&#x6765;&#x5411;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x5E94;&#x7528;&#x63D0;&#x4F9B;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;.</p>
+<p>&#x6709;&#x51E0;&#x79CD;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x4E0A;&#x8FF0;&#x8981;&#x6C42;&#xFF1A;</p>
+<ul>
+<li>&#x4F7F;&#x7528; <code>procfs</code>, &#x5728; <code>/proc</code> &#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x8F93;&#x51FA;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;, &#x4F46;&#x662F; <code>procfs</code> &#x5BF9;&#x4E8E;&#x5927;&#x4E8E;&#x4E00;&#x4E2A;&#x5185;&#x5B58;&#x9875;(&#x5BF9;&#x4E8E; x86 &#x662F; 4K)&#x7684;&#x8F93;&#x51FA;&#x6BD4;&#x8F83;&#x9EBB;&#x70E6;, &#x800C;&#x4E14;&#x901F;&#x5EA6;&#x6162;, &#x6709;&#x65F6;&#x56DE;&#x51FA;&#x73B0;&#x4E00;&#x4E9B;&#x610F;&#x60F3;&#x4E0D;&#x5230;&#x7684;&#x95EE;&#x9898;.</li>
+<li>&#x4F7F;&#x7528; <code>sysfs</code>( 2.6 &#x5185;&#x6838;&#x5F15;&#x5165;&#x7684;&#x65B0;&#x7684;&#x865A;&#x62DF;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;), &#x5728;&#x5F88;&#x591A;&#x60C5;&#x51B5;&#x4E0B;, &#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x53EF;&#x4EE5;&#x5B58;&#x653E;&#x5728;&#x90A3;&#x91CC;, &#x4F46;&#x662F;<code>sysfs</code>&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x7CFB;&#x7EDF;&#x7BA1;&#x7406;&#xFF0C;&#x5B83;&#x5E0C;&#x671B;&#x6BCF;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x5BF9;&#x5E94;&#x5185;&#x6838;&#x7684;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x5B83;&#x8F93;&#x51FA;&#x590D;&#x6742;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x6216;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x662F;&#x975E;&#x5E38;&#x56F0;&#x96BE;&#x7684;.</li>
+<li>&#x4F7F;&#x7528; <code>libfs</code> &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;, &#x8BE5;&#x65B9;&#x6CD5;&#x6781;&#x5176;&#x7075;&#x6D3B;, &#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x4E3A;&#x65B0;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x8BBE;&#x7F6E;&#x4E00;&#x4E9B;&#x89C4;&#x5219;, &#x4F7F;&#x7528; <code>libfs</code> &#x4F7F;&#x5F97;&#x521B;&#x5EFA;&#x65B0;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x66F4;&#x52A0;&#x7B80;&#x5355;, &#x4F46;&#x662F;&#x4ECD;&#x7136;&#x8D85;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x5F00;&#x53D1;&#x8005;&#x7684;&#x60F3;&#x8C61;.</li>
+</ul>
+<p>&#x4E3A;&#x4E86;&#x4F7F;&#x5F97;&#x5F00;&#x53D1;&#x8005;&#x66F4;&#x52A0;&#x5BB9;&#x6613;&#x4F7F;&#x7528;&#x8FD9;&#x6837;&#x7684;&#x673A;&#x5236;, <code>Greg Kroah-Hartman</code> &#x5F00;&#x53D1;&#x4E86; <code>debugfs</code>(&#x5728; 2.6.11 &#x4E2D;&#x7B2C;&#x4E00;&#x6B21;&#x5F15;&#x5165;), &#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x865A;&#x62DF;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;, &#x4E13;&#x95E8;&#x7528;&#x4E8E;&#x8F93;&#x51FA;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;, &#x8BE5;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x975E;&#x5E38;&#x5C0F;, &#x5F88;&#x5BB9;&#x6613;&#x4F7F;&#x7528;, &#x53EF;&#x4EE5;&#x5728;&#x914D;&#x7F6E;&#x5185;&#x6838;&#x65F6;&#x9009;&#x62E9;&#x662F;&#x5426;&#x6784;&#x4EF6;&#x5230;&#x5185;&#x6838;&#x4E2D;, &#x5728;&#x4E0D;&#x9009;&#x62E9;&#x5B83;&#x7684;&#x60C5;&#x51B5;&#x4E0B;, &#x4F7F;&#x7528;&#x5B83;&#x63D0;&#x4F9B;&#x7684;API&#x7684;&#x5185;&#x6838;&#x90E8;&#x5206;&#x4E0D;&#x9700;&#x8981;&#x505A;&#x4EFB;&#x4F55;&#x6539;&#x52A8;.</p>
+<p><a href="http://www.cnblogs.com/hoys/archive/2011/04/10/2011124.html" target="_blank">&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x65B9;&#x5F0F;(1)------debugfs</a></p>
+<p><a href="http://www.cnblogs.com/wwang/archive/2011/01/17/1937609.html" target="_blank">Linux&#x5185;&#x6838;&#x91CC;&#x7684;DebugFS</a></p>
+<p><a href="http://soft.chinabyte.com/os/110/12377610.shtml" target="_blank">Linux&#x9A71;&#x52A8;&#x8C03;&#x8BD5;&#x7684;Debugfs&#x7684;&#x4F7F;&#x7528;&#x7B80;&#x4ECB;</a></p>
+<p><a href="http://blog.sina.com.cn/s/blog_40d2f1c80100p7u2.html" target="_blank">Linux Debugfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4ECB;&#x7ECD;&#x53CA;&#x4F7F;&#x7528;</a></p>
+<p><a href="http://www.cnblogs.com/wwang/archive/2011/01/17/1937609.html" target="_blank">Linux&#x5185;&#x6838;&#x91CC;&#x7684;DebugFS</a></p>
+<p><a href="http://opensourceforu.com/2010/10/debugging-linux-kernel-with-debugfs/" target="_blank">Debugging the Linux Kernel with debugfs</a></p>
+<p><a href="http://lxr.free-electrons.com/source/drivers/base/power/wakeup.c" target="_blank">debugfs-seq_file</a></p>
+<p><a href="http://blog.sina.com.cn/s/blog_40d2f1c80100p7u2.html" target="_blank">Linux Debugfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4ECB;&#x7ECD;&#x53CA;&#x4F7F;&#x7528;</a></p>
+<p><a href="http://www.tinylab.org/show-the-usage-of-procfs-sysfs-debugfs/" target="_blank">Linux &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF1A;procfs, sysfs, debugfs &#x7528;&#x6CD5;&#x7B80;&#x4ECB;</a></p>
+<p><a href="http://www.cnblogs.com/hoys/archive/2011/04/10/2011124.html" target="_blank">&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x65B9;&#x5F0F;(1)------debugfs</a></p>
+<p><a href="http://www.xuebuyuan.com/1023006.html" target="_blank">Linux &#x8FD0;&#x7528;debugfs&#x8C03;&#x8BD5;&#x65B9;&#x6CD5;</a></p>
+<h2 id="relayfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><a name="relayfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;" class="anchor-navigation-ex-anchor" href="#relayfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"><i class="fa fa-link" aria-hidden="true"></i></a>2.4. relayfs&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</h2>
+<p><code>relayfs</code> &#x662F;&#x4E00;&#x4E2A;&#x5FEB;&#x901F;&#x7684;&#x8F6C;&#x53D1;(relay)&#x6570;&#x636E;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;, &#x5B83;&#x4EE5;&#x5176;&#x529F;&#x80FD;&#x800C;&#x5F97;&#x540D;. &#x5B83;&#x4E3A;&#x90A3;&#x4E9B;&#x9700;&#x8981;&#x4ECE;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x8F6C;&#x53D1;&#x5927;&#x91CF;&#x6570;&#x636E;&#x5230;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7684;&#x5DE5;&#x5177;&#x548C;&#x5E94;&#x7528;&#x63D0;&#x4F9B;&#x4E86;&#x5FEB;&#x901F;&#x6709;&#x6548;&#x7684;&#x8F6C;&#x53D1;&#x673A;&#x5236;.</p>
+<p><code>Channel</code> &#x662F; <code>relayfs</code> &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x5B9A;&#x4E49;&#x7684;&#x4E00;&#x4E2A;&#x4E3B;&#x8981;&#x6982;&#x5FF5;, &#x6BCF;&#x4E00;&#x4E2A; <code>channel</code> &#x7531;&#x4E00;&#x7EC4;&#x5185;&#x6838;&#x7F13;&#x5B58;&#x7EC4;&#x6210;, &#x6BCF;&#x4E00;&#x4E2A; <code>CPU</code> &#x6709;&#x4E00;&#x4E2A;&#x5BF9;&#x5E94;&#x4E8E;&#x8BE5; <code>channel</code> &#x7684;&#x5185;&#x6838;&#x7F13;&#x5B58;, &#x6BCF;&#x4E00;&#x4E2A;&#x5185;&#x6838;&#x7F13;&#x5B58;&#x7528;&#x4E00;&#x4E2A;&#x5728; <code>relayfs</code> &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x6587;&#x4EF6;&#x6587;&#x4EF6;&#x8868;&#x793A;, &#x5185;&#x6838;&#x4F7F;&#x7528; <code>relayfs</code> &#x63D0;&#x4F9B;&#x7684;&#x5199;&#x51FD;&#x6570;&#x628A;&#x9700;&#x8981;&#x8F6C;&#x53D1;&#x7ED9;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7684;&#x6570;&#x636E;&#x5FEB;&#x901F;&#x5730;&#x5199;&#x5165;&#x5F53;&#x524D; <code>CPU</code> &#x4E0A;&#x7684; <code>channel</code> &#x5185;&#x6838;&#x7F13;&#x5B58;, &#x7528;&#x6237;&#x7A7A;&#x95F4;&#x5E94;&#x7528;&#x901A;&#x8FC7;&#x6807;&#x51C6;&#x7684;&#x6587;&#x4EF6; <code>I/O</code> &#x51FD;&#x6570;&#x5728;&#x5BF9;&#x5E94;&#x7684; <code>channel</code> &#x6587;&#x4EF6;&#x4E2D;&#x53EF;&#x4EE5;&#x5FEB;&#x901F;&#x5730;&#x53D6;&#x5F97;&#x8FD9;&#x4E9B;&#x88AB;&#x8F6C;&#x53D1;&#x51FA;&#x7684;&#x6570;&#x636E; <code>mmap</code> &#x6765;. &#x5199;&#x5165;&#x5230; <code>channel</code> &#x4E2D;&#x7684;&#x6570;&#x636E;&#x7684;&#x683C;&#x5F0F;&#x5B8C;&#x5168;&#x53D6;&#x51B3;&#x4E8E;&#x5185;&#x6838;&#x4E2D;&#x521B;&#x5EFA; <code>channel</code> &#x7684;&#x6A21;&#x5757;&#x6216;&#x5B50;&#x7CFB;&#x7EDF;.</p>
+<p><code>relayfs</code> &#x7684;&#x7528;&#x6237;&#x7A7A;&#x95F4;API :</p>
+<p><code>relayfs</code> &#x5B9E;&#x73B0;&#x4E86;&#x56DB;&#x4E2A;&#x6807;&#x51C6;&#x7684;&#x6587;&#x4EF6; <code>I/O</code> &#x51FD;&#x6570;, <code>open</code>&#x3001;<code>mmap</code>&#x3001;<code>poll</code>&#x548C;<code>close</code>
+| &#x51FD;&#x6570; | &#x63CF;&#x8FF0; |
+| :-: |  :-: |
+| <code>open</code> | &#x6253;&#x5F00;&#x4E00;&#x4E2A; <code>channel</code> &#x5728;&#x67D0;&#x4E00;&#x4E2A; CPU &#x4E0A;&#x7684;&#x7F13;&#x5B58;&#x5BF9;&#x5E94;&#x7684;&#x6587;&#x4EF6;. |
+| <code>mmap</code> | &#x628A;&#x6253;&#x5F00;&#x7684; <code>channel</code> &#x7F13;&#x5B58;&#x6620;&#x5C04;&#x5230;&#x8C03;&#x7528;&#x8005;&#x8FDB;&#x7A0B;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;. |
+| <code>read</code> | &#x8BFB;&#x53D6; <code>channel</code> &#x7F13;&#x5B58;, &#x968F;&#x540E;&#x7684;&#x8BFB;&#x64CD;&#x4F5C;&#x5C06;&#x770B;&#x4E0D;&#x5230;&#x88AB;&#x8BE5;&#x51FD;&#x6570;&#x6D88;&#x8017;&#x7684;&#x5B57;&#x8282;, &#x5982;&#x679C; <code>channel</code> &#x7684;&#x64CD;&#x4F5C;&#x6A21;&#x5F0F;&#x4E3A;&#x975E;&#x8986;&#x76D6;&#x5199;, &#x90A3;&#x4E48;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x5E94;&#x7528;&#x5728;&#x6709;&#x5185;&#x6838;&#x6A21;&#x5757;&#x5199;&#x65F6;&#x4ECD;&#x53EF;&#x4EE5;&#x8BFB;&#x53D6;, &#x4F46;&#x662F;&#x5982; <code>channel</code> &#x7684;&#x64CD;&#x4F5C;&#x6A21;&#x5F0F;&#x4E3A;&#x8986;&#x76D6;&#x5F0F;, &#x90A3;&#x4E48;&#x5728;&#x8BFB;&#x64CD;&#x4F5C;&#x671F;&#x95F4;&#x5982;&#x679C;&#x6709;&#x5185;&#x6838;&#x6A21;&#x5757;&#x8FDB;&#x884C;&#x5199;&#xFF0C;&#x7ED3;&#x679C;&#x5C06;&#x65E0;&#x6CD5;&#x9884;&#x77E5;, &#x56E0;&#x6B64;&#x5BF9;&#x4E8E;&#x8986;&#x76D6;&#x5F0F;&#x5199;&#x7684; <code>channel</code>, &#x7528;&#x6237;&#x5E94;&#x5F53;&#x5728;&#x786E;&#x8BA4;&#x5728; <code>channel</code> &#x7684;&#x5199;&#x5B8C;&#x5168;&#x7ED3;&#x675F;&#x540E;&#x518D;&#x8FDB;&#x884C;&#x8BFB;. |
+| <code>poll</code> | &#x7528;&#x4E8E;&#x901A;&#x77E5;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x5E94;&#x7528;&#x8F6C;&#x53D1;&#x6570;&#x636E;&#x8DE8;&#x8D8A;&#x4E86;&#x5B50;&#x7F13;&#x5B58;&#x7684;&#x8FB9;&#x754C;, &#x652F;&#x6301;&#x7684;&#x8F6E;&#x8BE2;&#x6807;&#x5FD7;&#x6709; <code>POLLIN</code>&#x3001;<code>POLLRDNORM</code> &#x548C; <code>POLLERR</code> |
+| <code>close</code> | &#x5173;&#x95ED; <code>open</code> &#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;, &#x5982;&#x679C;&#x6CA1;&#x6709;&#x8FDB;&#x7A0B;&#x6216;&#x5185;&#x6838;&#x6A21;&#x5757;&#x6253;&#x5F00;&#x8BE5; <code>channel</code> &#x7F13;&#x5B58;, <code>close</code> &#x51FD;&#x6570;&#x5C06;&#x91CA;&#x653E;&#x8BE5; <code>channel</code> &#x7F13;&#x5B58; |</p>
+<p>&#x6CE8;&#x610F; : &#x7528;&#x6237;&#x6001;&#x5E94;&#x7528;&#x5728;&#x4F7F;&#x7528;&#x4E0A;&#x8FF0; <code>API</code> &#x65F6;&#x5FC5;&#x987B;&#x4FDD;&#x8BC1;&#x5DF2;&#x7ECF;&#x6302;&#x8F7D;&#x4E86; <code>relayfs</code> &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;, &#x4F46;&#x5185;&#x6838;&#x5728;&#x521B;&#x5EFA;&#x548C;&#x4F7F;&#x7528; <code>channel</code> &#x65F6;&#x4E0D;&#x9700;&#x8981; <code>relayfs</code> &#x5DF2;&#x7ECF;&#x6302;&#x8F7D;. &#x4E0B;&#x9762;&#x547D;&#x4EE4;&#x5C06;&#x628A; <code>relayfs</code> &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x6302;&#x8F7D;&#x5230; <code>/mnt/relay</code>.</p>
+<p><a href="http://www.cnblogs.com/hoys/archive/2011/04/10/2011270.html" target="_blank">&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x65B9;&#x5F0F;(4)------relayfs</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-relay/" target="_blank">Relay&#xFF1A;&#x4E00;&#x79CD;&#x5185;&#x6838;&#x5230;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7684;&#x9AD8;&#x6548;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x6280;&#x672F;</a></p>
+<h2 id="seqfile"><a name="seqfile" class="anchor-navigation-ex-anchor" href="#seqfile"><i class="fa fa-link" aria-hidden="true"></i></a>2.5. seq_file</h2>
+<p>&#x4E00;&#x822C;&#x5730;, &#x5185;&#x6838;&#x901A;&#x8FC7;&#x5728; <code>procfs</code> &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E0B;&#x5EFA;&#x7ACB;&#x6587;&#x4EF6;&#x6765;&#x5411;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x63D0;&#x4F9B;&#x8F93;&#x51FA;&#x4FE1;&#x606F;, &#x7528;&#x6237;&#x7A7A;&#x95F4;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EFB;&#x4F55;&#x6587;&#x672C;&#x9605;&#x8BFB;&#x5E94;&#x7528;&#x67E5;&#x770B;&#x8BE5;&#x6587;&#x4EF6;&#x4FE1;&#x606F;, &#x4F46;&#x662F; <code>procfs</code> &#x6709;&#x4E00;&#x4E2A;&#x7F3A;&#x9677;, &#x5982;&#x679C;&#x8F93;&#x51FA;&#x5185;&#x5BB9;&#x5927;&#x4E8E;1&#x4E2A;&#x5185;&#x5B58;&#x9875;, &#x9700;&#x8981;&#x591A;&#x6B21;&#x8BFB;, &#x56E0;&#x6B64;&#x5904;&#x7406;&#x8D77;&#x6765;&#x5F88;&#x96BE;, &#x53E6;&#x5916;, &#x5982;&#x679C;&#x8F93;&#x51FA;&#x592A;&#x5927;, &#x901F;&#x5EA6;&#x6BD4;&#x8F83;&#x6162;, &#x6709;&#x65F6;&#x4F1A;&#x51FA;&#x73B0;&#x4E00;&#x4E9B;&#x610F;&#x60F3;&#x4E0D;&#x5230;&#x7684;&#x60C5;&#x51B5;, <code>Alexander Viro</code> &#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x5957;&#x65B0;&#x7684;&#x529F;&#x80FD;, &#x4F7F;&#x5F97;&#x5185;&#x6838;&#x8F93;&#x51FA;&#x5927;&#x6587;&#x4EF6;&#x4FE1;&#x606F;&#x66F4;&#x5BB9;&#x6613;, &#x8BE5;&#x529F;&#x80FD;&#x51FA;&#x73B0;&#x5728; <code>2.4.15</code>(&#x5305;&#x62EC; 2.4.15), &#x4EE5;&#x540E;&#x7684;&#x6240;&#x6709; <code>2.4</code> &#x5185;&#x6838;&#x4EE5;&#x53CA; <code>2.6</code> &#x5185;&#x6838;&#x4E2D;, &#x5C24;&#x5176;&#x662F;&#x5728; <code>2.6</code> &#x5185;&#x6838;&#x4E2D;&#xFF0C;&#x5DF2;&#x7ECF;&#x5927;&#x91CF;&#x5730;&#x4F7F;&#x7528;&#x4E86;&#x8BE5;&#x529F;&#x80FD;.</p>
+<p><a href="http://www.cnblogs.com/hoys/archive/2011/04/10/2011261.html" target="_blank">&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x4E0E;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x65B9;&#x5F0F;(3)------seq_file</a></p>
+<p><a href="http://blog.chinaunix.net/uid-20543672-id-3235254.html" target="_blank">&#x5185;&#x6838;proc&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E0E;seq&#x63A5;&#x53E3;(4)---seq_file&#x63A5;&#x53E3;&#x7F16;&#x7A0B;&#x6D45;&#x6790;</a></p>
+<p><a href="http://www.cnblogs.com/qq78292959/archive/2012/06/13/2547335.html" target="_blank">Linux&#x5185;&#x6838;&#x4E2D;&#x7684;seq&#x64CD;&#x4F5C;</a></p>
+<p><a href="http://www.cppblog.com/csjiaxin/articles/136681.html" target="_blank">seq_file&#x6E90;&#x7801;&#x5206;&#x6790;</a></p>
+<p><a href="http://blog.chinaunix.net/uid-317451-id-92670.html" target="_blank">&#x7528;&#x5E8F;&#x5217;&#x6587;&#x4EF6;(seq_file)&#x63A5;&#x53E3;&#x5BFC;&#x51FA;&#x5E38;&#x7528;&#x6570;&#x636E;&#x7ED3;&#x6784;</a></p>
+<p><a href="http://blog.csdn.net/a8039974/article/details/24052619" target="_blank">seq_file&#x673A;&#x5236;</a></p>
+<h1 id="printk"><a name="printk" class="anchor-navigation-ex-anchor" href="#printk"><i class="fa fa-link" aria-hidden="true"></i></a>3. printk</h1>
+<p>&#x5728;&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x6280;&#x672F;&#x4E4B;&#x4E2D;, &#x6700;&#x7B80;&#x5355;&#x7684;&#x5C31;&#x662F; <code>printk</code> &#x7684;&#x4F7F;&#x7528;&#x4E86;, &#x5B83;&#x7684;&#x7528;&#x6CD5;&#x548C;C&#x8BED;&#x8A00;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x7684; <code>printf</code> &#x4F7F;&#x7528;&#x7C7B;&#x4F3C;, &#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x4F9D;&#x9760;&#x7684;&#x662F; <code>stdio.h</code> &#x4E2D;&#x7684;&#x5E93;, &#x800C;&#x5728; <code>linux</code> &#x5185;&#x6838;&#x4E2D;&#x6CA1;&#x6709;&#x8FD9;&#x4E2A;&#x5E93;, &#x6240;&#x4EE5;&#x5728; <code>linux</code> &#x5185;&#x6838;&#x4E2D;, &#x5B9E;&#x73B0;&#x4E86;&#x81EA;&#x5DF1;&#x7684;&#x4E00;&#x5957;&#x5E93;&#x51FD;&#x6570;, <code>printk</code> &#x5C31;&#x662F;&#x6807;&#x51C6;&#x7684;&#x8F93;&#x51FA;&#x51FD;&#x6570;.</p>
+<p><a href="http://www.cnblogs.com/veryStrong/p/6218383.html" target="_blank">linux&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x6280;&#x672F;&#x4E4B;printk</a></p>
+<p><a href="http://blog.csdn.net/tonywgx/article/details/17504001" target="_blank">&#x8C03;&#x6574;&#x5185;&#x6838;printk&#x7684;&#x6253;&#x5370;&#x7EA7;&#x522B;</a></p>
+<p><a href="http://blog.csdn.net/itsenlin/article/details/43205983" target="_blank">linux&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;--&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x65B9;&#x6CD5;&#x4E4B;printk</a></p>
+<h1 id="ftrace--trace-cmd"><a name="ftrace--trace-cmd" class="anchor-navigation-ex-anchor" href="#ftrace--trace-cmd"><i class="fa fa-link" aria-hidden="true"></i></a>4. ftrace &amp;&amp; trace-cmd</h1>
+<h2 id="trace--ftrace"><a name="trace--ftrace" class="anchor-navigation-ex-anchor" href="#trace--ftrace"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. trace &amp;&amp; ftrace</h2>
+<p>Linux&#x5F53;&#x524D;&#x7248;&#x672C;&#x4E2D;, &#x529F;&#x80FD;&#x6700;&#x5F3A;&#x5927;&#x7684;&#x8C03;&#x8BD5;&#x3001;&#x8DDF;&#x8E2A;&#x624B;&#x6BB5;. &#x5176;&#x6700;&#x57FA;&#x672C;&#x7684;&#x529F;&#x80FD;&#x662F;&#x63D0;&#x4F9B;&#x4E86;&#x52A8;&#x6001;&#x548C;&#x9759;&#x6001;&#x63A2;&#x6D4B;&#x70B9;, &#x7528;&#x4E8E;&#x63A2;&#x6D4B;&#x5185;&#x6838;&#x4E2D;&#x6307;&#x5B9A;&#x4F4D;&#x7F6E;&#x4E0A;&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;.</p>
+<p>&#x9759;&#x6001;&#x63A2;&#x6D4B;&#x70B9;, &#x662F;&#x5728;&#x5185;&#x6838;&#x4EE3;&#x7801;&#x4E2D;&#x8C03;&#x7528; <code>ftrace</code> &#x63D0;&#x4F9B;&#x7684;&#x76F8;&#x5E94;&#x63A5;&#x53E3;&#x5B9E;&#x73B0;, &#x79F0;&#x4E4B;&#x4E3A;&#x9759;&#x6001;&#x662F;&#x56E0;&#x4E3A;, &#x662F;&#x5728;&#x5185;&#x6838;&#x4EE3;&#x7801;&#x4E2D;&#x5199;&#x6B7B;&#x7684;, &#x9759;&#x6001;&#x7F16;&#x8BD1;&#x5230;&#x5185;&#x6838;&#x4EE3;&#x7801;&#x4E2D;&#x7684;, &#x5728;&#x5185;&#x6838;&#x7F16;&#x8BD1;&#x540E;, &#x5C31;&#x4E0D;&#x80FD;&#x518D;&#x52A8;&#x6001;&#x4FEE;&#x6539;. &#x5728;&#x5F00;&#x542F; <code>ftrace</code> &#x76F8;&#x5173;&#x7684;&#x5185;&#x6838;&#x914D;&#x7F6E;&#x9009;&#x9879;&#x540E;, &#x5185;&#x6838;&#x4E2D;&#x5DF2;&#x7ECF;&#x5728;&#x4E00;&#x4E9B;&#x5173;&#x952E;&#x7684;&#x5730;&#x65B9;&#x8BBE;&#x7F6E;&#x4E86;&#x9759;&#x6001;&#x63A2;&#x6D4B;&#x70B9;, &#x9700;&#x8981;&#x4F7F;&#x7528;&#x65F6;, &#x5373;&#x53EF;&#x67E5;&#x770B;&#x5230;&#x76F8;&#x5E94;&#x7684;&#x4FE1;&#x606F;.</p>
+<p>&#x52A8;&#x6001;&#x63A2;&#x6D4B;&#x70B9;, &#x57FA;&#x672C;&#x539F;&#x7406;&#x4E3A; : &#x5229;&#x7528; <code>mcount</code> &#x673A;&#x5236;, &#x5728;&#x5185;&#x6838;&#x7F16;&#x8BD1;&#x65F6;, &#x5728;&#x6BCF;&#x4E2A;&#x51FD;&#x6570;&#x5165;&#x53E3;&#x4FDD;&#x7559;&#x6570;&#x4E2A;&#x5B57;&#x8282;, &#x7136;&#x540E;&#x5728;&#x4F7F;&#x7528; <code>ftrace</code> &#x65F6;, &#x5C06;&#x4FDD;&#x7559;&#x7684;&#x5B57;&#x8282;&#x66FF;&#x6362;&#x4E3A;&#x9700;&#x8981;&#x7684;&#x6307;&#x4EE4;, &#x6BD4;&#x5982;&#x8DF3;&#x8F6C;&#x5230;&#x9700;&#x8981;&#x7684;&#x6267;&#x884C;&#x63A2;&#x6D4B;&#x64CD;&#x4F5C;&#x7684;&#x4EE3;&#x7801;&#x3002;</p>
+<p><code>ftrace</code> &#x7684;&#x4F5C;&#x7528;&#x662F;&#x5E2E;&#x52A9;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x4E86;&#x89E3; Linux &#x5185;&#x6838;&#x7684;&#x8FD0;&#x884C;&#x65F6;&#x884C;&#x4E3A;, &#x4EE5;&#x4FBF;&#x8FDB;&#x884C;&#x6545;&#x969C;&#x8C03;&#x8BD5;&#x6216;&#x6027;&#x80FD;&#x5206;&#x6790;.</p>
+<p>&#x6700;&#x65E9; <code>ftrace</code> &#x662F;&#x4E00;&#x4E2A; <code>function tracer</code>, &#x4EC5;&#x80FD;&#x591F;&#x8BB0;&#x5F55;&#x5185;&#x6838;&#x7684;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x6D41;&#x7A0B;. &#x5982;&#x4ECA; <code>ftrace</code> &#x5DF2;&#x7ECF;&#x6210;&#x4E3A;&#x4E00;&#x4E2A; <code>framework</code>, &#x91C7;&#x7528; <code>plugin</code> &#x7684;&#x65B9;&#x5F0F;&#x652F;&#x6301;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x6DFB;&#x52A0;&#x66F4;&#x591A;&#x79CD;&#x7C7B;&#x7684; <code>trace</code> &#x529F;&#x80FD;.</p>
+<p><code>Ftrace</code> &#x7531; <code>RedHat</code> &#x7684; <code>Steve Rostedt</code> &#x8D1F;&#x8D23;&#x7EF4;&#x62A4;. &#x5230; <code>2.6.30</code> &#x4E3A;&#x6B62;, &#x5DF2;&#x7ECF;&#x652F;&#x6301;&#x7684; <code>tracer</code> &#x5305;&#x62EC; :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Tracer</th>
+<th style="text-align:center">&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Function tracer &#x548C; Function graph tracer</td>
+<td style="text-align:center">&#x8DDF;&#x8E2A;&#x51FD;&#x6570;&#x8C03;&#x7528;</td>
+</tr>
+<tr>
+<td style="text-align:center">Schedule switch tracer</td>
+<td style="text-align:center">&#x8DDF;&#x8E2A;&#x8FDB;&#x7A0B;&#x8C03;&#x5EA6;&#x60C5;&#x51B5;</td>
+</tr>
+<tr>
+<td style="text-align:center">Wakeup tracer</td>
+<td style="text-align:center">&#x8DDF;&#x8E2A;&#x8FDB;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x5EF6;&#x8FDF;, &#x5373;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#x8FDB;&#x7A0B;&#x4ECE;&#x8FDB;&#x5165; <code>ready</code> &#x72B6;&#x6001;&#x5230;&#x83B7;&#x5F97; <code>CPU</code> &#x7684;&#x5EF6;&#x8FDF;&#x65F6;&#x95F4;. &#x8BE5; <code>tracer</code> &#x53EA;&#x9488;&#x5BF9;&#x5B9E;&#x65F6;&#x8FDB;&#x7A0B;</td>
+</tr>
+<tr>
+<td style="text-align:center">Irqsoff tracer</td>
+<td style="text-align:center">&#x5F53;&#x4E2D;&#x65AD;&#x88AB;&#x7981;&#x6B62;&#x65F6;, &#x7CFB;&#x7EDF;&#x65E0;&#x6CD5;&#x76F8;&#x5E94;&#x5916;&#x90E8;&#x4E8B;&#x4EF6;, &#x6BD4;&#x5982;&#x952E;&#x76D8;&#x548C;&#x9F20;&#x6807;, &#x65F6;&#x949F;&#x4E5F;&#x65E0;&#x6CD5;&#x4EA7;&#x751F; <code>tick</code> &#x4E2D;&#x65AD;. &#x8FD9;&#x610F;&#x5473;&#x7740;&#x7CFB;&#x7EDF;&#x54CD;&#x5E94;&#x5EF6;&#x8FDF;, <code>irqsoff</code> &#x8FD9;&#x4E2A; <code>tracer</code> &#x80FD;&#x591F;&#x8DDF;&#x8E2A;&#x5E76;&#x8BB0;&#x5F55;&#x5185;&#x6838;&#x4E2D;&#x54EA;&#x4E9B;&#x51FD;&#x6570;&#x7981;&#x6B62;&#x4E86;&#x4E2D;&#x65AD;, &#x5BF9;&#x4E8E;&#x5176;&#x4E2D;&#x4E2D;&#x65AD;&#x7981;&#x6B62;&#x65F6;&#x95F4;&#x6700;&#x957F;&#x7684;, <code>irqsoff</code> &#x5C06;&#x5728; <code>log</code> &#x6587;&#x4EF6;&#x7684;&#x7B2C;&#x4E00;&#x884C;&#x6807;&#x793A;&#x51FA;&#x6765;, &#x4ECE;&#x800C;&#x4F7F;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x53EF;&#x4EE5;&#x8FC5;&#x901F;&#x5B9A;&#x4F4D;&#x9020;&#x6210;&#x54CD;&#x5E94;&#x5EF6;&#x8FDF;&#x7684;&#x7F6A;&#x9B41;&#x7978;&#x9996;.</td>
+</tr>
+<tr>
+<td style="text-align:center">Preemptoff tracer</td>
+<td style="text-align:center">&#x548C;&#x524D;&#x4E00;&#x4E2A; <code>tracer</code> &#x7C7B;&#x4F3C;, <code>preemptoff tracer</code> &#x8DDF;&#x8E2A;&#x5E76;&#x8BB0;&#x5F55;&#x7981;&#x6B62;&#x5185;&#x6838;&#x62A2;&#x5360;&#x7684;&#x51FD;&#x6570;, &#x5E76;&#x6E05;&#x6670;&#x5730;&#x663E;&#x793A;&#x51FA;&#x7981;&#x6B62;&#x62A2;&#x5360;&#x65F6;&#x95F4;&#x6700;&#x957F;&#x7684;&#x5185;&#x6838;&#x51FD;&#x6570;.</td>
+</tr>
+<tr>
+<td style="text-align:center">Preemptirqsoff tracer</td>
+<td style="text-align:center">&#x540C;&#x4E0A;, &#x8DDF;&#x8E2A;&#x548C;&#x8BB0;&#x5F55;&#x7981;&#x6B62;&#x4E2D;&#x65AD;&#x6216;&#x8005;&#x7981;&#x6B62;&#x62A2;&#x5360;&#x7684;&#x5185;&#x6838;&#x51FD;&#x6570;, &#x4EE5;&#x53CA;&#x7981;&#x6B62;&#x65F6;&#x95F4;&#x6700;&#x957F;&#x7684;&#x51FD;&#x6570;.</td>
+</tr>
+<tr>
+<td style="text-align:center">Branch tracer</td>
+<td style="text-align:center">&#x8DDF;&#x8E2A;&#x5185;&#x6838;&#x7A0B;&#x5E8F;&#x4E2D;&#x7684; <code>likely/unlikely</code> &#x5206;&#x652F;&#x9884;&#x6D4B;&#x547D;&#x4E2D;&#x7387;&#x60C5;&#x51B5;. <code>Branch tracer</code> &#x80FD;&#x591F;&#x8BB0;&#x5F55;&#x8FD9;&#x4E9B;&#x5206;&#x652F;&#x8BED;&#x53E5;&#x6709;&#x591A;&#x5C11;&#x6B21;&#x9884;&#x6D4B;&#x6210;&#x529F;. &#x4ECE;&#x800C;&#x4E3A;&#x4F18;&#x5316;&#x7A0B;&#x5E8F;&#x63D0;&#x4F9B;&#x7EBF;&#x7D22;.</td>
+</tr>
+<tr>
+<td style="text-align:center">Hardware branch tracer</td>
+<td style="text-align:center">&#x5229;&#x7528;&#x5904;&#x7406;&#x5668;&#x7684;&#x5206;&#x652F;&#x8DDF;&#x8E2A;&#x80FD;&#x529B;, &#x5B9E;&#x73B0;&#x786C;&#x4EF6;&#x7EA7;&#x522B;&#x7684;&#x6307;&#x4EE4;&#x8DF3;&#x8F6C;&#x8BB0;&#x5F55;. &#x5728; <code>x86</code> &#x4E0A;, &#x4E3B;&#x8981;&#x5229;&#x7528;&#x4E86; <code>BTS</code> &#x8FD9;&#x4E2A;&#x7279;&#x6027;.</td>
+</tr>
+<tr>
+<td style="text-align:center">Initcall tracer</td>
+<td style="text-align:center">&#x8BB0;&#x5F55;&#x7CFB;&#x7EDF;&#x5728; <code>boot</code> &#x9636;&#x6BB5;&#x6240;&#x8C03;&#x7528;&#x7684; <code>init call</code>.</td>
+</tr>
+<tr>
+<td style="text-align:center">Mmiotrace tracer</td>
+<td style="text-align:center">&#x8BB0;&#x5F55; <code>memory map IO</code> &#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;.</td>
+</tr>
+<tr>
+<td style="text-align:center">Power tracer</td>
+<td style="text-align:center">&#x8BB0;&#x5F55;&#x7CFB;&#x7EDF;&#x7535;&#x6E90;&#x7BA1;&#x7406;&#x76F8;&#x5173;&#x7684;&#x4FE1;&#x606F;</td>
+</tr>
+<tr>
+<td style="text-align:center">Sysprof tracer</td>
+<td style="text-align:center">&#x7F3A;&#x7701;&#x60C5;&#x51B5;&#x4E0B;, <code>sysprof tracer</code> &#x6BCF;&#x9694; <code>1 msec</code> &#x5BF9;&#x5185;&#x6838;&#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x91C7;&#x6837;&#xFF0C;&#x8BB0;&#x5F55;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x548C;&#x5806;&#x6808;&#x4FE1;&#x606F;.</td>
+</tr>
+<tr>
+<td style="text-align:center">Kernel memory tracer</td>
+<td style="text-align:center">&#x5185;&#x5B58; <code>tracer</code> &#x4E3B;&#x8981;&#x7528;&#x6765;&#x8DDF;&#x8E2A; <code>slab allocator</code> &#x7684;&#x5206;&#x914D;&#x60C5;&#x51B5;. &#x5305;&#x62EC; <code>kfree</code>, <code>kmem_cache_alloc</code> &#x7B49; API &#x7684;&#x8C03;&#x7528;&#x60C5;&#x51B5;, &#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x6839;&#x636E; <code>tracer</code> &#x6536;&#x96C6;&#x5230;&#x7684;&#x4FE1;&#x606F;&#x5206;&#x6790;&#x5185;&#x90E8;&#x788E;&#x7247;&#x60C5;&#x51B5;, &#x627E;&#x51FA;&#x5185;&#x5B58;&#x5206;&#x914D;&#x6700;&#x9891;&#x7E41;&#x7684;&#x4EE3;&#x7801;&#x7247;&#x65AD;, &#x7B49;&#x7B49;.</td>
+</tr>
+<tr>
+<td style="text-align:center">Workqueue statistical tracer</td>
+<td style="text-align:center">&#x8FD9;&#x662F;&#x4E00;&#x4E2A; <code>statistic tracer</code>, &#x7EDF;&#x8BA1;&#x7CFB;&#x7EDF;&#x4E2D;&#x6240;&#x6709;&#x7684; <code>workqueue</code> &#x7684;&#x5DE5;&#x4F5C;&#x60C5;&#x51B5;, &#x6BD4;&#x5982;&#x6709;&#x591A;&#x5C11;&#x4E2A; <code>work</code> &#x88AB;&#x63D2;&#x5165; <code>workqueue</code>, &#x591A;&#x5C11;&#x4E2A;&#x5DF2;&#x7ECF;&#x88AB;&#x6267;&#x884C;&#x7B49;. &#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x53EF;&#x4EE5;&#x4EE5;&#x6B64;&#x6765;&#x51B3;&#x5B9A;&#x5177;&#x4F53;&#x7684; <code>workqueue</code> &#x5B9E;&#x73B0;, &#x6BD4;&#x5982;&#x662F;&#x4F7F;&#x7528; <code>single threaded workqueue</code> &#x8FD8;&#x662F; <code>per cpu workqueue</code>.</td>
+</tr>
+<tr>
+<td style="text-align:center">Event tracer</td>
+<td style="text-align:center">&#x8DDF;&#x8E2A;&#x7CFB;&#x7EDF;&#x4E8B;&#x4EF6;, &#x6BD4;&#x5982; <code>timer</code>, &#x7CFB;&#x7EDF;&#x8C03;&#x7528;, &#x4E2D;&#x65AD;&#x7B49;.</td>
+</tr>
+</tbody>
+</table>
+<p>&#x8FD9;&#x91CC;&#x8FD8;&#x6CA1;&#x6709;&#x5217;&#x51FA;&#x6240;&#x6709;&#x7684; <code>tracer</code>, <code>ftrace</code> &#x662F;&#x76EE;&#x524D;&#x975E;&#x5E38;&#x6D3B;&#x8DC3;&#x7684;&#x5F00;&#x53D1;&#x9886;&#x57DF;, &#x65B0;&#x7684; <code>tracer</code> &#x5C06;&#x4E0D;&#x65AD;&#x88AB;&#x52A0;&#x5165;&#x5185;&#x6838;&#x3002;</p>
+<p><a href="http://blog.yufeng.info/archives/1012" target="_blank">ftrace&#x548C;&#x5B83;&#x7684;&#x524D;&#x7AEF;&#x5DE5;&#x5177;trace-cmd(&#x6DF1;&#x5165;&#x4E86;&#x89E3;Linux&#x7CFB;&#x7EDF;&#x7684;&#x5229;&#x5668;)</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-ftrace/" target="_blank">ftrace &#x7B80;&#x4ECB;</a></p>
+<p><a href="http://blog.chinaunix.net/uid-20589411-id-3501525.html" target="_blank">&#x5185;&#x6838;&#x6027;&#x80FD;&#x8C03;&#x8BD5;--ftrace</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-ftrace1" target="_blank">&#x4F7F;&#x7528; ftrace &#x8C03;&#x8BD5; Linux &#x5185;&#x6838;&#xFF0C;&#x7B2C; 1 &#x90E8;&#x5206;</a></p>
+<p><a href="http://blog.csdn.net/cybertan/article/details/8258394" target="_blank">ftrace&#x7684;&#x4F7F;&#x7528;</a></p>
+<p><a href="http://blog.chinaunix.net/uid-24063584-id-2642103.html" target="_blank">[&#x8F6C;]Linux&#x5185;&#x6838;&#x8DDF;&#x8E2A;&#x4E4B;trace&#x6846;&#x67B6;&#x5206;&#x6790;</a></p>
+<p><a href="http://blog.csdn.net/jscese/article/details/46415531" target="_blank">Linux trace&#x4F7F;&#x7528;&#x5165;&#x95E8;</a></p>
+<h2 id="ftrace&#x524D;&#x7AEF;&#x5DE5;&#x5177;trace-cmd"><a name="ftrace&#x524D;&#x7AEF;&#x5DE5;&#x5177;trace-cmd" class="anchor-navigation-ex-anchor" href="#ftrace&#x524D;&#x7AEF;&#x5DE5;&#x5177;trace-cmd"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. ftrace&#x524D;&#x7AEF;&#x5DE5;&#x5177;trace-cmd</h2>
+<p><code>trace-cmd</code> &#x548C; &#x5F00;&#x6E90;&#x7684; <code>kernelshark</code> &#x5747;&#x662F;&#x5185;&#x6838;<code>Ftrace</code> &#x7684;&#x524D;&#x6BB5;&#x5DE5;&#x5177;, &#x7528;&#x4E8E;&#x5206;&#x5206;&#x6790;&#x6838;&#x6027;&#x80FD;.</p>
+<p>&#x4ED6;&#x4EEC;&#x76F8;&#x5F53;&#x4E8E;&#x662F;&#x4E00;&#x4E2A; <code>/sys/kernel/debug/tracing</code> &#x4E2D;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x63A5;&#x53E3;&#x7684;&#x5C01;&#x88C5;, &#x4E3A;&#x7528;&#x6237;&#x63D0;&#x4F9B;&#x4E86;&#x66F4;&#x52A0;&#x76F4;&#x63A5;&#x548C;&#x65B9;&#x4FBF;&#x7684;&#x64CD;&#x4F5C;.</p>
+<pre class="language-"><code class="lang-sh"><span class="token comment">#  &#x6536;&#x96C6;&#x4FE1;&#x606F;</span>
+<span class="token function">sudo</span> trace-cmd reord subsystem:tracing 
+<span class="token comment">#  &#x89E3;&#x6790;&#x7ED3;&#x679C;</span>
+<span class="token comment">#sudo trace-cmd report</span>
+</code></pre>
+<p><a href="https://lwn.net/Articles/410200/" target="_blank">trace-cmd: A front-end for Ftrace</a></p>
+<p>&#x5176;&#x672C;&#x8D28;&#x5C31;&#x662F;&#x5BF9;<code>/sys/kernel/debug/tracing/events</code> &#x4E0B;&#x5404;&#x4E2A;&#x6A21;&#x5757;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;, &#x6536;&#x96C6;&#x6570;&#x636E;&#x5E76;&#x89E3;&#x6790;</p>
+<h1 id="kprobe--systemtap"><a name="kprobe--systemtap" class="anchor-navigation-ex-anchor" href="#kprobe--systemtap"><i class="fa fa-link" aria-hidden="true"></i></a>5. Kprobe &amp;&amp; systemtap</h1>
+<h2 id="&#x5185;&#x6838;kprobe&#x673A;&#x5236;"><a name="&#x5185;&#x6838;kprobe&#x673A;&#x5236;" class="anchor-navigation-ex-anchor" href="#&#x5185;&#x6838;kprobe&#x673A;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>5.1. &#x5185;&#x6838;kprobe&#x673A;&#x5236;</h2>
+<p><code>kprobe</code> &#x662F; <code>linux</code> &#x5185;&#x6838;&#x7684;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x7279;&#x6027;, &#x662F;&#x4E00;&#x4E2A;&#x8F7B;&#x91CF;&#x7EA7;&#x7684;&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x5DE5;&#x5177;, &#x540C;&#x65F6;&#x5B83;&#x53C8;&#x662F;&#x5176;&#x4ED6;&#x4E00;&#x4E9B;&#x66F4;&#x9AD8;&#x7EA7;&#x7684;&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x5DE5;&#x5177;(&#x6BD4;&#x5982; <code>perf</code> &#x548C; <code>systemtap</code>)&#x7684; &#x201C;&#x57FA;&#x7840;&#x8BBE;&#x65BD;&#x201D;, 4.0&#x7248;&#x672C;&#x7684;&#x5185;&#x6838;&#x4E2D;, &#x5F3A;&#x5927;&#x7684; <code>eBPF</code> &#x7279;&#x6027;&#x4E5F;&#x5BC4;&#x751F;&#x4E8E; <code>kprobe</code> &#x4E4B;&#x4E0A;, &#x6240;&#x4EE5; <code>kprobe</code> &#x5728;&#x5185;&#x6838;&#x4E2D;&#x7684;&#x5730;&#x4F4D;&#x5C31;&#x53EF;&#x89C1;&#x4E00;&#x6591;&#x4E86;.</p>
+<p><code>Kprobes</code> &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x5F3A;&#x884C;&#x8FDB;&#x5165;&#x4EFB;&#x4F55;&#x5185;&#x6838;&#x4F8B;&#x7A0B;&#x5E76;&#x4ECE;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x5668;&#x65E0;&#x5E72;&#x6270;&#x5730;&#x6536;&#x96C6;&#x4FE1;&#x606F;&#x7684;&#x63A5;&#x53E3;. &#x4F7F;&#x7528; <code>Kprobes</code> &#x53EF;&#x4EE5;&#x6536;&#x96C6;&#x5904;&#x7406;&#x5668;&#x5BC4;&#x5B58;&#x5668;&#x548C;&#x5168;&#x5C40;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7B49;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x3002;&#x5F00;&#x53D1;&#x8005;&#x751A;&#x81F3;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>Kprobes</code> &#x6765;&#x4FEE;&#x6539; &#x5BC4;&#x5B58;&#x5668;&#x503C;&#x548C;&#x5168;&#x5C40;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x503C;.</p>
+<p>&#x5982;&#x4F55;&#x9AD8;&#x6548;&#x5730;&#x8C03;&#x8BD5;&#x5185;&#x6838;?</p>
+<p><code>printk</code> &#x662F;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;, &#x4F46;&#x662F; <code>printk</code> &#x7EC8;&#x5F52;&#x662F;&#x6BEB;&#x65E0;&#x9009;&#x62E9;&#x5730;&#x5168;&#x91CF;&#x8F93;&#x51FA;, &#x67D0;&#x4E9B;&#x573A;&#x666F;&#x4E0B;&#x4E0D;&#x5B9E;&#x7528;, &#x4E8E;&#x662F;&#x4F60;&#x53EF;&#x4EE5;&#x8BD5;&#x4E00;&#x4E0B;<code>tracepoint</code>, &#x6211;&#x4F7F;&#x80FD; <code>tracepoint</code> &#x673A;&#x5236;&#x7684;&#x65F6;&#x5019;&#x624D;&#x8F93;&#x51FA;. &#x5BF9;&#x4E8E;&#x50BB;&#x50BB;&#x5730;&#x653E;&#x7F6E; <code>printk</code> &#x6765;&#x8F93;&#x51FA;&#x4FE1;&#x606F;&#x7684;&#x65B9;&#x5F0F;, <code>tracepoint</code> &#x662F;&#x4E2A;&#x8FDB;&#x6B65;, &#x4F46;&#x662F; <code>tracepoint</code> &#x53EA;&#x662F;&#x5185;&#x6838;&#x5728;&#x67D0;&#x4E9B;&#x7279;&#x5B9A;&#x884C;&#x4E3A;(&#x6BD4;&#x5982;&#x8FDB;&#x7A0B;&#x5207;&#x6362;)&#x4E0A;&#x90E8;&#x7F72;&#x7684;&#x4E00;&#x4E9B;&#x9759;&#x6001;&#x951A;&#x70B9;, &#x8FD9;&#x4E9B;&#x951A;&#x70B9;&#x5E76;&#x4E0D;&#x4E00;&#x5B9A;&#x662F;&#x4F60;&#x9700;&#x8981;&#x7684;, &#x6240;&#x4EE5;&#x4F60;&#x4ECD;&#x7136;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x90E8;&#x7F72;<code>tracepoint</code>, &#x91CD;&#x65B0;&#x7F16;&#x8BD1;&#x5185;&#x6838;. &#x90A3;&#x4E48; <code>kprobe</code> &#x7684;&#x51FA;&#x73B0;&#x5C31;&#x5F88;&#x6709;&#x5FC5;&#x8981;&#x4E86;, &#x5B83;&#x53EF;&#x4EE5;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x5185;&#x6838;&#x4E2D;&#x52A8;&#x6001;&#x63D2;&#x5165;&#x63A2;&#x6D4B;&#x70B9;, &#x6267;&#x884C;&#x4F60;&#x9884;&#x5B9A;&#x4E49;&#x7684;&#x64CD;&#x4F5C;.</p>
+<p>&#x5B83;&#x7684;&#x57FA;&#x672C;&#x5DE5;&#x4F5C;&#x673A;&#x5236;&#x662F; : &#x7528;&#x6237;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x63A2;&#x6D4B;&#x70B9;, &#x5E76;&#x628A;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x5B9A;&#x4E49;&#x7684;&#x5904;&#x7406;&#x51FD;&#x6570;&#x5173;&#x8054;&#x5230;&#x8BE5;&#x63A2;&#x6D4B;&#x70B9;, &#x5F53;&#x5185;&#x6838;&#x6267;&#x884C;&#x5230;&#x8BE5;&#x63A2;&#x6D4B;&#x70B9;&#x65F6;, &#x76F8;&#x5E94;&#x7684;&#x5173;&#x8054;&#x51FD;&#x6570;&#x88AB;&#x6267;&#x884C;&#xFF0C;&#x7136;&#x540E;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x6B63;&#x5E38;&#x7684;&#x4EE3;&#x7801;&#x8DEF;&#x5F84;.</p>
+<p>kprobe &#x5B9E;&#x73B0;&#x4E86;&#x4E09;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x63A2;&#x6D4B;&#x70B9; : <code>kprobes</code>, <code>jprobes</code>&#x548C; <code>kretprobes</code>(&#x4E5F;&#x53EB;&#x8FD4;&#x56DE;&#x63A2;&#x6D4B;&#x70B9;). <code>kprobes</code> &#x662F;&#x53EF;&#x4EE5;&#x88AB;&#x63D2;&#x5165;&#x5230;&#x5185;&#x6838;&#x7684;&#x4EFB;&#x4F55;&#x6307;&#x4EE4;&#x4F4D;&#x7F6E;&#x7684;&#x63A2;&#x6D4B;&#x70B9;, <code>jprobes</code> &#x5219;&#x53EA;&#x80FD;&#x88AB;&#x63D2;&#x5165;&#x5230;&#x4E00;&#x4E2A;&#x5185;&#x6838;&#x51FD;&#x6570;&#x7684;&#x5165;&#x53E3;, &#x800C; <code>kretprobes</code> &#x5219;&#x662F;&#x5728;&#x6307;&#x5B9A;&#x7684;&#x5185;&#x6838;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x65F6;&#x624D;&#x88AB;&#x6267;&#x884C;.</p>
+<p><a href="http://blog.itpub.net/15480802/viewspace-1162094/" target="_blank">kprobe&#x5DE5;&#x4F5C;&#x539F;&#x7406;</a></p>
+<p><a href="http://blog.csdn.net/feixiaoxing/article/details/40351811" target="_blank">&#x968F;&#x60F3;&#x5F55;(&#x5F3A;&#x5927;&#x7684;kprobe)</a></p>
+<p><a href="http://www.cnblogs.com/honpey/p/4575928.html" target="_blank">kprobe&#x539F;&#x7406;&#x89E3;&#x6790;&#xFF08;&#x4E00;)</a></p>
+<h2 id="&#x524D;&#x7AEF;&#x5DE5;&#x5177;systemtap"><a name="&#x524D;&#x7AEF;&#x5DE5;&#x5177;systemtap" class="anchor-navigation-ex-anchor" href="#&#x524D;&#x7AEF;&#x5DE5;&#x5177;systemtap"><i class="fa fa-link" aria-hidden="true"></i></a>5.2. &#x524D;&#x7AEF;&#x5DE5;&#x5177;systemtap</h2>
+<p><code>SystemTap</code> &#x662F;&#x76D1;&#x63A7;&#x548C;&#x8DDF;&#x8E2A;&#x8FD0;&#x884C;&#x4E2D;&#x7684; Linux &#x5185;&#x6838;&#x7684;&#x64CD;&#x4F5C;&#x7684;&#x52A8;&#x6001;&#x65B9;&#x6CD5;. &#x8FD9;&#x53E5;&#x8BDD;&#x7684;&#x5173;&#x952E;&#x8BCD;&#x662F;&#x52A8;&#x6001;, &#x56E0;&#x4E3A; <code>SystemTap</code> &#x6CA1;&#x6709;&#x4F7F;&#x7528;&#x5DE5;&#x5177;&#x6784;&#x5EFA;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x5185;&#x6838;, &#x800C;&#x662F;&#x5141;&#x8BB8;&#x60A8;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x52A8;&#x6001;&#x5730;&#x5B89;&#x88C5;&#x8BE5;&#x5DE5;&#x5177;. &#x5B83;&#x901A;&#x8FC7;&#x4E00;&#x4E2A; <code>Kprobes</code> &#x7684;&#x5E94;&#x7528;&#x7F16;&#x7A0B;&#x63A5;&#x53E3; (<code>API</code>) &#x6765;&#x5B9E;&#x73B0;&#x8BE5;&#x76EE;&#x7684;.</p>
+<p><code>SystemTap</code> &#x4E0E;&#x4E00;&#x79CD;&#x540D;&#x4E3A; <code>DTrace</code> &#x7684;&#x8001;&#x6280;&#x672F;&#x76F8;&#x4F3C;&#xFF0C;&#x8BE5;&#x6280;&#x672F;&#x6E90;&#x4E8E; <code>Sun Solaris</code> &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;. &#x5728; <code>DTrace</code> &#x4E2D;, &#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x53EF;&#x4EE5;&#x7528; <code>D</code> &#x7F16;&#x7A0B;&#x8BED;&#x8A00;(C&#x8BED;&#x8A00;&#x7684;&#x5B50;&#x96C6;, &#x4F46;&#x4FEE;&#x6539;&#x4E3A;&#x652F;&#x6301;&#x8DDF;&#x8E2A;&#x884C;&#x4E3A;)&#x7F16;&#x5199;&#x811A;&#x672C;. <code>DTrace</code> &#x811A;&#x672C;&#x5305;&#x542B;&#x8BB8;&#x591A;&#x63A2;&#x9488;&#x548C;&#x76F8;&#x5173;&#x8054;&#x7684;&#x64CD;&#x4F5C;, &#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x5728;&#x63A2;&#x9488; &#x201C;&#x89E6;&#x53D1;&#x201D; &#x65F6;&#x53D1;&#x751F;. &#x4F8B;&#x5982;, &#x63A2;&#x9488;&#x53EF;&#x4EE5;&#x8868;&#x793A;&#x7B80;&#x5355;&#x7684;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8868;&#x793A;&#x66F4;&#x52A0;&#x590D;&#x6742;&#x7684;&#x4EA4;&#x4E92;&#xFF0C;&#x6BD4;&#x5982;&#x6267;&#x884C;&#x7279;&#x5B9A;&#x7684;&#x4EE3;&#x7801;&#x884C;</p>
+<p><code>DTrace</code> &#x662F; <code>Solaris</code> &#x6700;&#x5F15;&#x4EBA;&#x6CE8;&#x76EE;&#x7684;&#x90E8;&#x5206;, &#x6240;&#x4EE5;&#x5728;&#x5176;&#x4ED6;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x5F00;&#x53D1;&#x5B83;&#x5E76;&#x4E0D;&#x5947;&#x602A;. <code>DTrace</code> &#x662F;&#x5728; <code>Common Development and Distribution License (CDDL)</code> &#x4E4B;&#x4E0B;&#x53D1;&#x884C;&#x7684;, &#x5E76;&#x4E14;&#x88AB;&#x79FB;&#x690D;&#x5230; <code>FreeBSD</code> &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;.</p>
+<p>&#x53E6;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x6709;&#x7528;&#x7684;&#x5185;&#x6838;&#x8DDF;&#x8E2A;&#x5DE5;&#x5177;&#x662F; <code>ProbeVue</code>, &#x5B83;&#x662F; <code>IBM</code> &#x4E3A; <code>IBM&#xAE; AIX&#xAE;</code> &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF; 6.1 &#x5F00;&#x53D1;&#x7684;. &#x60A8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>ProbeVue</code> &#x63A2;&#x67E5;&#x7CFB;&#x7EDF;&#x7684;&#x884C;&#x4E3A;&#x548C;&#x6027;&#x80FD;, &#x4EE5;&#x53CA;&#x63D0;&#x4F9B;&#x7279;&#x5B9A;&#x8FDB;&#x7A0B;&#x7684;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;. &#x8FD9;&#x4E2A;&#x5DE5;&#x5177;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7684;&#x5185;&#x6838;&#x4EE5;&#x52A8;&#x6001;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x8DDF;&#x8E2A;.</p>
+<p>&#x8003;&#x8651;&#x5230; <code>DTrace</code> &#x548C; <code>ProbeVue</code> &#x5728;&#x5404;&#x81EA;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x5DE8;&#x5927;&#x4F5C;&#x7528;, &#x4E3A; Linux &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7B56;&#x5212;&#x4E00;&#x4E2A;&#x5B9E;&#x73B0;&#x8BE5;&#x529F;&#x80FD;&#x7684;&#x5F00;&#x6E90;&#x9879;&#x76EE;&#x662F;&#x52BF;&#x4E0D;&#x53EF;&#x6321;&#x7684;. <code>SystemTap</code> &#x4ECE; 2005 &#x5E74;&#x5F00;&#x59CB;&#x5F00;&#x53D1;, &#x5B83;&#x63D0;&#x4F9B;&#x4E0E; <code>DTrace</code> &#x548C; <code>ProbeVue</code> &#x7C7B;&#x4F3C;&#x7684;&#x529F;&#x80FD;. &#x8BB8;&#x591A;&#x793E;&#x533A;&#x8FD8;&#x8FDB;&#x4E00;&#x6B65;&#x5B8C;&#x5584;&#x4E86;&#x5B83;, &#x5305;&#x62EC; <code>Red Hat</code>&#x3001;<code>Intel</code>&#x3001;<code>Hitachi</code> &#x548C; <code>IBM</code> &#x7B49;.</p>
+<p>&#x8FD9;&#x4E9B;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x5728;&#x529F;&#x80FD;&#x4E0A;&#x90FD;&#x662F;&#x7C7B;&#x4F3C;&#x7684;, &#x5728;&#x89E6;&#x53D1;&#x63A2;&#x9488;&#x65F6;&#x4F7F;&#x7528;&#x63A2;&#x9488;&#x548C;&#x76F8;&#x5173;&#x8054;&#x7684;&#x64CD;&#x4F5C;&#x811A;&#x672C;.</p>
+<p><a href="https://segmentfault.com/a/1190000000671438" target="_blank">SystemTap &#x5B66;&#x4E60;&#x7B14;&#x8BB0; - &#x5B89;&#x88C5;&#x7BC7;</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-systemtap/" target="_blank">Linux &#x81EA;&#x68C0;&#x548C; SystemTap &#x7528;&#x4E8E;&#x52A8;&#x6001;&#x5185;&#x6838;&#x5206;&#x6790;&#x7684;&#x63A5;&#x53E3;&#x548C;&#x8BED;&#x8A00;</a></p>
+<p><a href="http://dtrace.org/blogs/brendan/2011/10/15/using-systemtap/" target="_blank">Brendan&apos;s blog Using SystemTap</a></p>
+<p><a href="http://blog.csdn.net/zhangskd/article/details/25708441" target="_blank">&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x795E;&#x5668;SystemTap &#x2014; &#x7B80;&#x4ECB;&#x4E0E;&#x4F7F;&#x7528;&#xFF08;&#x4E00;&#xFF09;</a></p>
+<p><a href="http://www.cnblogs.com/hazir/p/systemtap_introduction.html" target="_blank">&#x5185;&#x6838;&#x63A2;&#x6D4B;&#x5DE5;&#x5177;systemtap&#x7B80;&#x4ECB;</a></p>
+<p><a href="http://blog.csdn.net/kafeiflynn/article/details/6429976" target="_blank">SystemTap Beginner</a></p>
+<p><a href="http://blog.csdn.net/heli007/article/details/7187748" target="_blank">&#x4F7F;&#x7528;systemtap&#x8C03;&#x8BD5;linux&#x5185;&#x6838;</a></p>
+<p><a href="http://ddebs.ubuntu.com/pool/main/l/linux" target="_blank">Ubuntu Kernel Debuginfo</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-systemtap3/" target="_blank">Linux &#x4E0B;&#x7684;&#x4E00;&#x4E2A;&#x5168;&#x65B0;&#x7684;&#x6027;&#x80FD;&#x6D4B;&#x91CF;&#x548C;&#x8C03;&#x5F0F;&#x8BCA;&#x65AD;&#x5DE5;&#x5177; Systemtap, &#x7B2C; 3 &#x90E8;&#x5206;: Systemtap</a></p>
+<h1 id="kgdb--kgtp"><a name="kgdb--kgtp" class="anchor-navigation-ex-anchor" href="#kgdb--kgtp"><i class="fa fa-link" aria-hidden="true"></i></a>6. kgdb &amp;&amp; kgtp</h1>
+<h2 id="kgdb"><a name="kgdb" class="anchor-navigation-ex-anchor" href="#kgdb"><i class="fa fa-link" aria-hidden="true"></i></a>6.1. kgdb</h2>
+<p><code>KDB</code> &#x548C; <code>KGDB</code> &#x5408;&#x5E76;, &#x5E76;&#x8FDB;&#x5165;&#x5185;&#x6838;</p>
+<p><code>KGDB</code> &#x662F;&#x5927;&#x540D;&#x9F0E;&#x9F0E;&#x7684;&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x5DE5;&#x5177;, &#x4ED6;&#x662F;&#x7531; <code>KDB</code> &#x548C; <code>KGDB</code> &#x9879;&#x76EE;&#x5408;&#x5E76;&#x800C;&#x6765;.</p>
+<p><code>kdb</code> &#x662F;&#x4E00;&#x4E2A;Linux&#x7CFB;&#x7EDF;&#x7684;&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x5668;, &#x5B83;&#x662F;&#x7531;SGI&#x516C;&#x53F8;&#x5F00;&#x53D1;&#x7684;&#x9075;&#x5FAA;GPL&#x8BB8;&#x53EF;&#x8BC1;&#x7684;&#x5F00;&#x653E;&#x6E90;&#x7801;&#x8C03;&#x8BD5;&#x5DE5;&#x5177;. <code>kdb</code> &#x5D4C;&#x5165;&#x5728;Linux &#x5185;&#x6838;&#x4E2D;. &#x4E3A;&#x5185;&#x6838;&amp;&amp;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x5458;&#x63D0;&#x4F9B;&#x8C03;&#x8BD5;&#x624B;&#x6BB5;. &#x5B83;&#x9002;&#x5408;&#x4E8E;&#x8C03;&#x8BD5;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x7684;&#x7A0B;&#x5E8F;&#x4EE3;&#x7801;. &#x8B6C;&#x5982;&#x8FDB;&#x884C;&#x8BBE;&#x5907;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x8C03;&#x8BD5;. &#x5185;&#x6838;&#x6A21;&#x5757;&#x7684;&#x8C03;&#x8BD5;&#x7B49;.</p>
+<p><code>kgdb</code> &#x548C; <code>kdb</code> &#x73B0;&#x5728;&#x5DF2;&#x7ECF;&#x5408;&#x5E76;&#x4E86;. &#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;<code>kgdb</code> &#x800C;&#x8A00;, &#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>gdbmonitor</code> &#x547D;&#x4EE4;&#x6765;&#x4F7F;&#x7528; <code>kdb</code> &#x547D;&#x4EE4;. &#x6BD4;&#x5982;</p>
+<pre class="language-"><code>(gdb)gdb monitor ps -A
+</code></pre><p>&#x5C31;&#x53EF;&#x4EE5;&#x8FD0;&#x884C; <code>kdb</code> &#x7684; <code>ps</code> &#x547D;&#x4EE4;&#x4E86;.</p>
+<p>&#x5206;&#x6790;&#x4E00;&#x4E0B; <code>kdb</code> &#x8865;&#x4E01;&#x548C;&#x5408;&#x5165;&#x4E3B;&#x7EBF;&#x7684; <code>kdb</code> &#x6709;&#x5565;&#x4E0D;&#x540C;</p>
+<p><code>kdb</code>&#x8DDF; <code>kgdb</code> &#x5408;&#x5E76;&#x4E4B;&#x540E;, &#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>kgdb</code> &#x7684;IO &#x9A71;&#x52A8;(&#x6BD4;&#x5982;&#x952E;&#x76D8;), &#x4F46;&#x662F;&#x540C;&#x65F6;&#x4E5F; <code>kdb</code> &#x4E5F;&#x4E27;&#x5931;&#x4E86;&#x4E00;&#x4E9B;&#x529F;&#x80FD;. &#x5408;&#x5E76;&#x4E4B;&#x540E;&#x7684;<code>kdb</code>&#x4E0D;&#x5728;&#x652F;&#x6301;&#x6C47;&#x7F16;&#x7EA7;&#x7684;&#x6E90;&#x7801;&#x8C03;&#x8BD5;. &#x56E0;&#x6B64;&#x5B83;&#x73B0;&#x5728;&#x4E5F;&#x662F;&#x5E73;&#x53F0;&#x72EC;&#x7ACB;&#x7684;.</p>
+<ul>
+<li><code>kdump</code>&#x548C;<code>kexec</code>&#x5DF2;&#x7ECF;&#x88AB;&#x79FB;&#x9664;&#x3002;</li>
+<li>&#x4ECE;<code>/proc/meninfo</code>&#x4E2D;&#x83B7;&#x53D6;&#x7684;&#x4FE1;&#x606F;&#x6BD4;&#x4EE5;&#x524D;&#x5C11;&#x4E86;&#x3002;</li>
+<li><code>bt</code>&#x547D;&#x4EE4;&#x73B0;&#x5728;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x5185;&#x6838;&#x7684;<code>backtracer</code>&#xFF0C;&#x800C;&#x4E0D;&#x662F;<code>kdb</code>&#x539F;&#x6765;&#x4F7F;&#x7528;&#x7684;&#x53CD;&#x6C47;&#x7F16;&#x3002;</li>
+<li>&#x5408;&#x5E76;&#x4E4B;&#x540E;&#x7684;<code>kdb</code>&#x4E0D;&#x5728;&#x5177;&#x6709;&#x539F;&#x6765;&#x7684;&#x53CD;&#x6C47;&#x7F16;&#xFF08;<code>id</code>&#x547D;&#x4EE4;&#xFF09;</li>
+</ul>
+<p>&#x603B;&#x7ED3;&#x4E00;&#x4E0B; : <code>kdb</code> &#x548C; <code>kgdb</code> &#x5408;&#x5E76;&#x4E4B;&#x540E;&#xFF0C;&#x7CFB;&#x7EDF;&#x4E2D;&#x5BF9;&#x8FD9;&#x4E24;&#x79CD;&#x8C03;&#x8BD5;&#x65B9;&#x5F0F;&#x51E0;&#x4E4E;&#x6CA1;&#x6709;&#x4E86;&#x660E;&#x663E;&#x7684;&#x754C;&#x9650;&#xFF0C;&#x6BD4;&#x5982;&#x901A;&#x8FC7;&#x4E32;&#x53E3;&#x8FDB;&#x884C;&#x8FDC;&#x7A0B;&#x8BBF;&#x95EE;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>kgdb</code> &#x547D;&#x4EE4;, &#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>kdb</code> &#x547D;&#x4EE4;&#xFF08;&#x4F7F;&#x7528;gdb monitor&#x5B9E;&#x73B0;&#xFF09;</p>
+<h2 id="kgtp"><a name="kgtp" class="anchor-navigation-ex-anchor" href="#kgtp"><i class="fa fa-link" aria-hidden="true"></i></a>6.2. KGTP</h2>
+<p><code>KGTP</code> &#x662F;&#x4E00;&#x4E2A; &#x5B9E;&#x65F6; &#x8F7B;&#x91CF;&#x7EA7; Linux &#x8C03;&#x8BD5;&#x5668; &#x548C; &#x8DDF;&#x8E2A;&#x5668;. &#x4F7F;&#x7528; <code>KGTP</code></p>
+<p>&#x4F7F;&#x7528; <code>KGTP</code> &#x4E0D;&#x9700;&#x8981;&#x5728; Linux &#x5185;&#x6838;&#x4E0A;&#x6253; <code>PATCH</code> &#x6216;&#x8005;&#x91CD;&#x65B0;&#x7F16;&#x8BD1;, &#x53EA;&#x8981;&#x7F16;&#x8BD1;<code>KGTP</code>&#x6A21;&#x5757;&#x5E76; <code>insmod</code> &#x5C31;&#x53EF;&#x4EE5;.</p>
+<p>&#x5176;&#x8BA9; Linux &#x5185;&#x6838;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x8FDC;&#x7A0B; <code>GDB</code> &#x8C03;&#x8BD5;&#x63A5;&#x53E3;, &#x4E8E;&#x662F;&#x5728;&#x672C;&#x5730;&#x6216;&#x8005;&#x8FDC;&#x7A0B;&#x7684;&#x4E3B;&#x673A;&#x4E0A;&#x7684;GDB&#x53EF;&#x4EE5;&#x5728;&#x4E0D;&#x9700;&#x8981;&#x505C;&#x6B62;&#x5185;&#x6838;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x7528; <code>GDB tracepoint</code> &#x548C;&#x5176;&#x4ED6;&#x4E00;&#x4E9B;&#x529F;&#x80FD; &#x8C03;&#x8BD5; &#x548C; &#x8DDF;&#x8E2A; Linux.</p>
+<p>&#x5373;&#x4F7F;&#x677F;&#x5B50;&#x4E0A;&#x6CA1;&#x6709; GDB &#x800C;&#x4E14;&#x5176;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;&#x8FDC;&#x7A0B;&#x63A5;&#x53E3;, KGTP &#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x79BB;&#x7EBF;&#x8C03;&#x8BD5;&#x7684;&#x529F;&#x80FD;&#x8C03;&#x8BD5;&#x5185;&#x6838;&#xFF08;&#x89C1;<a href="http://code.google.com/p/kgtp/wiki/HOWTOCN#/sys/kernel/debug/gtpframe&#x548C;&#x79BB;&#x7EBF;&#x8C03;&#x8BD5;&#xFF09;&#x3002;" target="_blank">http://code.google.com/p/kgtp/wiki/HOWTOCN#/sys/kernel/debug/gtpframe&#x548C;&#x79BB;&#x7EBF;&#x8C03;&#x8BD5;&#xFF09;&#x3002;</a></p>
+<p>KGTP&#x652F;&#x6301; X86-32 &#xFF0C; X86-64 &#xFF0C; MIPS &#x548C; ARM &#x3002; 
+KGTP&#x5728;Linux&#x5185;&#x6838; 2.6.18&#x5230;upstream &#x4E0A;&#x90FD;&#x88AB;&#x6D4B;&#x8BD5;&#x8FC7;&#x3002; 
+&#x800C;&#x4E14;&#x8FD8;&#x53EF;&#x4EE5;&#x7528;&#x5728; Android &#x4E0A;(&#x89C1; <a href="http://code.google.com/p/kgtp/wiki/HowToUseKGTPinAndroid" target="_blank">HowToUseKGTPinAndroid</a>)</p>
+<p><a href="https://github.com/teawater/kgtp" target="_blank">github-KGTP</a></p>
+<p><a href="http://blog.csdn.net/djinglan/article/details/15335653" target="_blank">KGTP&#x5185;&#x6838;&#x8C03;&#x8BD5;&#x4F7F;&#x7528;</a></p>
+<p><a href="http://blog.csdn.net/calmdownba/article/details/38659317" target="_blank">KGTP&#x4E2D;&#x589E;&#x52A0;&#x5BF9;GDB&#x547D;&#x4EE4;&quot;set trace-buffer-size&quot;&#x7684;&#x652F;&#x6301; - Week 5</a></p>
+<h1 id="perf"><a name="perf" class="anchor-navigation-ex-anchor" href="#perf"><i class="fa fa-link" aria-hidden="true"></i></a>7. perf</h1>
+<p><code>Perf</code> &#x662F;&#x7528;&#x6765;&#x8FDB;&#x884C;&#x8F6F;&#x4EF6;&#x6027;&#x80FD;&#x5206;&#x6790;&#x7684;&#x5DE5;&#x5177;&#x3002; 
+&#x901A;&#x8FC7;&#x5B83;, &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x5229;&#x7528; <code>PMU</code>, <code>tracepoint</code> &#x548C;&#x5185;&#x6838;&#x4E2D;&#x7684;&#x7279;&#x6B8A;&#x8BA1;&#x6570;&#x5668;&#x6765;&#x8FDB;&#x884C;&#x6027;&#x80FD;&#x7EDF;&#x8BA1;. &#x5B83;&#x4E0D;&#x4F46;&#x53EF;&#x4EE5;&#x5206;&#x6790;&#x6307;&#x5B9A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x6027;&#x80FD;&#x95EE;&#x9898; (per thread). &#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5206;&#x6790;&#x5185;&#x6838;&#x7684;&#x6027;&#x80FD;&#x95EE;&#x9898;, &#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x5206;&#x6790;&#x5E94;&#x7528;&#x4EE3;&#x7801;&#x548C;&#x5185;&#x6838;&#xFF0C;&#x4ECE;&#x800C;&#x5168;&#x9762;&#x7406;&#x89E3;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x7684;&#x6027;&#x80FD;&#x74F6;&#x9888;.</p>
+<p>&#x6700;&#x521D;&#x7684;&#x65F6;&#x5019;, &#x5B83;&#x53EB;&#x505A; <code>Performance counter</code>, &#x5728; 2.6.31 &#x4E2D;&#x7B2C;&#x4E00;&#x6B21;&#x4EAE;&#x76F8;. &#x6B64;&#x540E;&#x4ED6;&#x6210;&#x4E3A;&#x5185;&#x6838;&#x5F00;&#x53D1;&#x6700;&#x4E3A;&#x6D3B;&#x8DC3;&#x7684;&#x4E00;&#x4E2A;&#x9886;&#x57DF;. &#x5728; 2.6.32 &#x4E2D;&#x5B83;&#x6B63;&#x5F0F;&#x6539;&#x540D;&#x4E3A; <code>Performance Event</code>, &#x56E0;&#x4E3A; <code>perf</code> &#x5DF2;&#x4E0D;&#x518D;&#x4EC5;&#x4EC5;&#x4F5C;&#x4E3A; <code>PMU</code> &#x7684;&#x62BD;&#x8C61;, &#x800C;&#x662F;&#x80FD;&#x591F;&#x5904;&#x7406;&#x6240;&#x6709;&#x7684;&#x6027;&#x80FD;&#x76F8;&#x5173;&#x7684;&#x4E8B;&#x4EF6;.</p>
+<p>&#x4F7F;&#x7528; <code>perf</code>, &#x60A8;&#x53EF;&#x4EE5;&#x5206;&#x6790;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x671F;&#x95F4;&#x53D1;&#x751F;&#x7684;&#x786C;&#x4EF6;&#x4E8B;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982; <code>instructions retired</code> , <code>processor clock cycles</code> &#x7B49;; &#x60A8;&#x4E5F;&#x53EF;&#x4EE5;&#x5206;&#x6790;&#x8F6F;&#x4EF6;&#x4E8B;&#x4EF6;, &#x6BD4;&#x5982; <code>Page Fault</code> &#x548C;&#x8FDB;&#x7A0B;&#x5207;&#x6362;&#x3002; 
+&#x8FD9;&#x4F7F;&#x5F97; <code>Perf</code> &#x62E5;&#x6709;&#x4E86;&#x4F17;&#x591A;&#x7684;&#x6027;&#x80FD;&#x5206;&#x6790;&#x80FD;&#x529B;, &#x4E3E;&#x4F8B;&#x6765;&#x8BF4;&#xFF0C;&#x4F7F;&#x7528; <code>Perf</code> &#x53EF;&#x4EE5;&#x8BA1;&#x7B97;&#x6BCF;&#x4E2A;&#x65F6;&#x949F;&#x5468;&#x671F;&#x5185;&#x7684;&#x6307;&#x4EE4;&#x6570;, &#x79F0;&#x4E3A; <code>IPC</code>, <code>IPC</code> &#x504F;&#x4F4E;&#x8868;&#x660E;&#x4EE3;&#x7801;&#x6CA1;&#x6709;&#x5F88;&#x597D;&#x5730;&#x5229;&#x7528; CPU.</p>
+<p><code>Perf</code> &#x8FD8;&#x53EF;&#x4EE5;&#x5BF9;&#x7A0B;&#x5E8F;&#x8FDB;&#x884C;&#x51FD;&#x6570;&#x7EA7;&#x522B;&#x7684;&#x91C7;&#x6837;, &#x4ECE;&#x800C;&#x4E86;&#x89E3;&#x7A0B;&#x5E8F;&#x7684;&#x6027;&#x80FD;&#x74F6;&#x9888;&#x7A76;&#x7ADF;&#x5728;&#x54EA;&#x91CC;&#x7B49;&#x7B49;. <code>Perf</code> &#x8FD8;&#x53EF;&#x4EE5;&#x66FF;&#x4EE3; <code>strace</code>, &#x53EF;&#x4EE5;&#x6DFB;&#x52A0;&#x52A8;&#x6001;&#x5185;&#x6838; <code>probe</code> &#x70B9;. &#x8FD8;&#x53EF;&#x4EE5;&#x505A; <code>benchmark</code> &#x8861;&#x91CF;&#x8C03;&#x5EA6;&#x5668;&#x7684;&#x597D;&#x574F;.</p>
+<p>&#x4EBA;&#x4EEC;&#x6216;&#x8BB8;&#x4F1A;&#x79F0;&#x5B83;&#x4E3A;&#x8FDB;&#x884C;&#x6027;&#x80FD;&#x5206;&#x6790;&#x7684;&#x201D;&#x745E;&#x58EB;&#x519B;&#x5200;&#x201D;, &#x4F46;&#x6211;&#x4E0D;&#x559C;&#x6B22;&#x8FD9;&#x4E2A;&#x6BD4;&#x55BB;, &#x6211;&#x89C9;&#x5F97; <code>perf</code> &#x5E94;&#x8BE5;&#x662F;&#x4E00;&#x628A;&#x4E16;&#x95F4;&#x5C11;&#x6709;&#x7684;&#x501A;&#x5929;&#x5251;. 
+&#x91D1;&#x5EB8;&#x7B14;&#x4E0B;&#x7684;&#x5F88;&#x591A;&#x4EBA;&#x90FD;&#x6709;&#x5BF9;&#x5B9D;&#x5200;&#x7684;&#x7656;&#x597D;, &#x5373;&#x4FBF;&#x672C;&#x9886;&#x4F4E;&#x5FAE;&#x4E0D;&#x914D;&#x62E5;&#x6709;, &#x4F46;&#x662F;&#x559C;&#x6B22;, &#x4FBF;&#x65E0;&#x53EF;&#x5948;&#x4F55;. &#x6211;&#x6050;&#x6015;&#x6B63;&#x5982;&#x8FD9;&#x4E9B;&#x4EBA;&#x4E00;&#x6837;, &#x56E0;&#x6B64;&#x8FDB;&#x4E86;&#x9152;&#x9986;&#x5BA2;&#x6808;, &#x89C1;&#x5230;&#x76F8;&#x719F;&#x6216;&#x8005;&#x4E0D;&#x76F8;&#x719F;&#x7684;&#x4EBA;, &#x5C31;&#x8981;&#x5174;&#x51B2;&#x51B2;&#x5730;&#x8981;&#x8BB2;&#x8BB2;&#x90A3;&#x501A;&#x5929;&#x5251;&#x7684;&#x6545;&#x4E8B;.</p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-perf1/index.html" target="_blank">Perf - Linux&#x4E0B;&#x7684;&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x8C03;&#x4F18;&#x5DE5;&#x5177;&#xFF0C;&#x7B2C; 1 &#x90E8;&#x5206;</a></p>
+<p><a href="http://www.brendangregg.com/perf.html" target="_blank">perf Examples</a></p>
+<p>&#x6539;&#x8FDB;&#x7248;&#x7684;perf, <a href="https://github.com/brendangregg/perf-tools" target="_blank">Performance analysis tools based on Linux perf_events (aka perf) and ftrace</a></p>
+<p><a href="http://blog.chinaunix.net/uid-10540984-id-3854969.html" target="_blank">Perf&#x4F7F;&#x7528;&#x6559;&#x7A0B;</a></p>
+<p><a href="http://blog.csdn.net/trochiluses/article/details/10261339" target="_blank">linux&#x4E0B;&#x7684;&#x5185;&#x6838;&#x6D4B;&#x8BD5;&#x5DE5;&#x5177;------perf&#x4F7F;&#x7528;&#x7B80;&#x4ECB;</a></p>
+<p><a href="http://www.cnblogs.com/helloworldtoyou/p/5585152.html" target="_blank">perf &#x79FB;&#x690D;</a></p>
+<h1 id="&#x5176;&#x4ED6;tracer&#x5DE5;&#x5177;"><a name="&#x5176;&#x4ED6;tracer&#x5DE5;&#x5177;" class="anchor-navigation-ex-anchor" href="#&#x5176;&#x4ED6;tracer&#x5DE5;&#x5177;"><i class="fa fa-link" aria-hidden="true"></i></a>8. &#x5176;&#x4ED6;Tracer&#x5DE5;&#x5177;</h1>
+<h2 id="lttng"><a name="lttng" class="anchor-navigation-ex-anchor" href="#lttng"><i class="fa fa-link" aria-hidden="true"></i></a>8.1. LTTng</h2>
+<p><code>LTTng</code> &#x662F;&#x4E00;&#x4E2A; <code>Linux</code> &#x5E73;&#x53F0;&#x5F00;&#x6E90;&#x7684;&#x8DDF;&#x8E2A;&#x5DE5;&#x5177;, &#x662F;&#x4E00;&#x5957;&#x8F6F;&#x4EF6;&#x7EC4;&#x4EF6;, &#x53EF;&#x5141;&#x8BB8;&#x8DDF;&#x8E2A; <code>Linux</code> &#x5185;&#x6838;&#x548C;&#x7528;&#x6237;&#x7A0B;&#x5E8F;, &#x5E76;&#x63A7;&#x5236;&#x8DDF;&#x8E2A;&#x4F1A;&#x8BDD;(&#x5F00;&#x59CB;/&#x505C;&#x6B62;&#x8DDF;&#x8E2A;&#x3001;&#x542F;&#x52A8;/&#x505C;&#x6B62;&#x4E8B;&#x4EF6; &#x7B49;&#x7B49;). &#x8FD9;&#x4E9B;&#x7EC4;&#x4EF6;&#x88AB;&#x7ED1;&#x5B9A;&#x5982;&#x4E0B;&#x4E09;&#x4E2A;&#x5305; :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">&#x5305;</th>
+<th style="text-align:center">&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">LTTng-tools</td>
+<td style="text-align:center">&#x5E93;&#x548C;&#x7528;&#x4E8E;&#x8DDF;&#x8E2A;&#x4F1A;&#x8BDD;&#x7684;&#x547D;&#x4EE4;&#x884C;&#x63A5;&#x53E3;</td>
+</tr>
+<tr>
+<td style="text-align:center">LTTng-modules</td>
+<td style="text-align:center">&#x5141;&#x8BB8;&#x7528; LTTng &#x8DDF;&#x8E2A; Linux &#x7684; Linux &#x5185;&#x6838;&#x6A21;&#x5757;</td>
+</tr>
+<tr>
+<td style="text-align:center">LTTng-UST</td>
+<td style="text-align:center">&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x8DDF;&#x8E2A;&#x5E93;</td>
+</tr>
+</tbody>
+</table>
+<p><a href="http://www.open-open.com/lib/view/open1413946397247.html" target="_blank">Linux &#x5E73;&#x53F0;&#x5F00;&#x6E90;&#x7684;&#x8DDF;&#x8E2A;&#x5DE5;&#x5177;&#xFF1A;LTTng</a></p>
+<p><a href="http://blog.csdn.net/xsckernel/article/details/17794551" target="_blank">&#x7528;lttng &#x8DDF;&#x8E2A;&#x5185;&#x6838;</a></p>
+<p><a href="http://blog.csdn.net/ganggexiongqi/article/details/6664331" target="_blank">LTTng and LTTng project</a></p>
+<h2 id="ebpf"><a name="ebpf" class="anchor-navigation-ex-anchor" href="#ebpf"><i class="fa fa-link" aria-hidden="true"></i></a>8.2. eBPF</h2>
+<p>extended Berkeley Packet Filter&#xFF08;eBPF&#xFF09;&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x5728;&#x4E8B;&#x4EF6;&#x4E0A;&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;&#x7684;&#x9AD8;&#x6548;&#x5185;&#x6838;&#x865A;&#x62DF;&#x673A;&#xFF08;JIT&#xFF09;&#x3002;&#x5B83;&#x53EF;&#x80FD;&#x6700;&#x7EC8;&#x4F1A;&#x63D0;&#x4F9B; ftrace &#x548C; perf_events &#x7684;&#x5185;&#x6838;&#x7F16;&#x7A0B;&#xFF0C;&#x5E76;&#x5F3A;&#x5316;&#x5176;&#x4ED6;&#x7684; tracer&#x3002;&#x8FD9;&#x662F; Alexei Starovoitov &#x76EE;&#x524D;&#x6B63;&#x5728;&#x5F00;&#x53D1;&#x7684;&#xFF0C;&#x8FD8;&#x6CA1;&#x6709;&#x5B8C;&#x5168;&#x96C6;&#x6210;&#xFF0C;&#x4F46;&#x662F;&#x4ECE;4.1&#x5F00;&#x59CB;&#x5DF2;&#x7ECF;&#x5BF9;&#x4E00;&#x4E9B;&#x4F18;&#x79C0;&#x7684;&#x5DE5;&#x5177;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x5185;&#x6838;&#x652F;&#x6301;&#x4E86;&#xFF0C;&#x5982;&#x5757;&#x8BBE;&#x5907;I/O&#x7684;&#x5EF6;&#x8FDF;&#x70ED;&#x56FE;&#x3002;&#x53EF;&#x53C2;&#x8003;&#x5176;&#x4E3B;&#x8981;&#x4F5C;&#x8005; Alexei Starovoitov &#x7684;BPF slides&#x548C;eBPF samples&#x3002;</p>
+<h2 id="ktap"><a name="ktap" class="anchor-navigation-ex-anchor" href="#ktap"><i class="fa fa-link" aria-hidden="true"></i></a>8.3. Ktap</h2>
+<p>ktap &#x5728;&#x8FC7;&#x53BB;&#x662F;&#x4E00;&#x6B3E;&#x524D;&#x666F;&#x5F88;&#x597D;&#x7684; tracer&#xFF0C;&#x5B83;&#x4F7F;&#x7528;&#x5185;&#x6838;&#x4E2D;&#x7684; lua &#x865A;&#x62DF;&#x673A;&#x5904;&#x7406;&#xFF0C;&#x5728;&#x6CA1;&#x6709;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x5728;&#x5D4C;&#x5165;&#x5F0F;&#x8BBE;&#x5907;&#x4E0A;&#x8FD0;&#x884C;&#x7684;&#x5F88;&#x597D;&#x3002;&#x5B83;&#x5206;&#x4E3A;&#x51E0;&#x4E2A;&#x6B65;&#x9AA4;&#xFF0C;&#x5E76;&#x5728;&#x6709;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x4F3C;&#x4E4E;&#x8D85;&#x8FC7;&#x4E86; Linux &#x4E0A;&#x6240;&#x6709;&#x7684;&#x8FFD;&#x8E2A;&#x5668;&#x3002;&#x7136;&#x540E; eBPF &#x5F00;&#x59CB;&#x8FDB;&#x884C;&#x5185;&#x6838;&#x96C6;&#x6210;&#xFF0C;&#x800C; ktap &#x7684;&#x96C6;&#x6210;&#x5728;&#x5B83;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; eBPF &#x66FF;&#x4EE3;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x865A;&#x62DF;&#x673A;&#x540E;&#x624D;&#x5F00;&#x59CB;&#x3002;&#x56E0;&#x4E3A; eBPF &#x4ECD;&#x5C06;&#x6301;&#x7EED;&#x96C6;&#x6210;&#x51E0;&#x4E2A;&#x6708;&#xFF0C;ktap &#x5F00;&#x53D1;&#x8005;&#x8981;&#x7EE7;&#x7EED;&#x7B49;&#x4E0A;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x3002;&#x6211;&#x5E0C;??&#x4ECA;&#x5E74;&#x665A;&#x4E9B;&#x65F6;&#x5019;&#x5B83;&#x80FD;&#x91CD;&#x65B0;&#x5F00;&#x53D1;&#x3002;</p>
+<h2 id="dtrace4linux"><a name="dtrace4linux" class="anchor-navigation-ex-anchor" href="#dtrace4linux"><i class="fa fa-link" aria-hidden="true"></i></a>8.4. dtrace4linux</h2>
+<p>dtrace4linux &#x4E3B;&#x8981;&#x662F; Paul Fox &#x4E00;&#x4E2A;&#x4EBA;&#x5728;&#x4E1A;&#x4F59;&#x65F6;&#x95F4;&#x5B8C;&#x6210;&#x7684;&#xFF0C;&#x5B83;&#x662F; Sun DTrace &#x7684; Linux &#x7248;&#x672C;&#x3002;&#x5B83;&#x5F15;&#x5165;&#x77A9;&#x76EE;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x4E9B; provider &#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#xFF0C;&#x4F46;&#x662F;&#x4ECE;&#x67D0;&#x79CD;&#x7A0B;&#x5EA6;&#x4E0A;&#x6765;&#x8BF4;&#x8FD8;&#x4E0D;&#x5B8C;&#x6574;&#xFF0C;&#x66F4;&#x591A;&#x7684;&#x662F;&#x4E00;&#x79CD;&#x5B9E;&#x9A8C;&#x6027;&#x7684;&#x5DE5;&#x5177;&#xFF08;&#x4E0D;&#x5B89;&#x5168;&#xFF09;&#x3002;&#x6211;&#x8BA4;&#x4E3A;&#xFF0C;&#x987E;&#x5FCC;&#x5230;&#x8BB8;&#x53EF;&#x95EE;&#x9898;&#xFF0C;&#x4EBA;&#x4EEC;&#x4F1A;&#x5C0F;&#x5FC3;&#x7FFC;&#x7FFC;&#x7684;&#x4E3A; dtrace4linux &#x8D21;&#x732E;&#x4EE3;&#x7801;&#xFF1A;&#x7531;&#x4E8E;&#x5F53;&#x5E74; Sun &#x5F00;&#x6E90;DTrace &#x4F7F;&#x7528;&#x7684;&#x662F; CDDL &#x534F;&#x8BAE;&#xFF0C;&#x800C; dtrace4linux &#x4E5F;&#x4E0D;&#x5927;&#x53EF;&#x80FD;&#x6700;&#x7EC8;&#x8FDB;&#x5165; Linux kernel&#x3002;Paul &#x7684;&#x65B9;&#x6CD5;&#x5F88;&#x53EF;&#x80FD;&#x4F1A;&#x4F7F;&#x5176;&#x6210;&#x4E3A;&#x4E00;&#x4E2A; add-on&#x3002;&#x6211;&#x5F88;&#x4E50;&#x610F;&#x770B;&#x5230; Linux &#x5E73;&#x53F0;&#x4E0A;&#x7684; DTrace &#x548C;&#x8FD9;&#x4E2A;&#x9879;&#x76EE;&#x7684;&#x5B8C;&#x6210;&#xFF0C;&#x6211;&#x8BA4;&#x4E3A;&#x5F53;&#x6211;&#x52A0;&#x5165; Netflix &#x540E;&#x5C06;&#x4F1A;&#x82B1;&#x4E9B;&#x65F6;&#x95F4;&#x6765;&#x534F;&#x52A9;&#x5B8C;&#x6210;&#x8FD9;&#x4E2A;&#x9879;&#x76EE;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x6211;&#x8FD8;&#x662F;&#x8981;&#x7EE7;&#x7EED;&#x4F7F;&#x7528;&#x5185;&#x7F6E;&#x7684; tracers&#xFF0C;&#x5982; ftrace &#x548C; perf_events&#x3002;</p>
+<h2 id="ol-dtrace"><a name="ol-dtrace" class="anchor-navigation-ex-anchor" href="#ol-dtrace"><i class="fa fa-link" aria-hidden="true"></i></a>8.5. OL DTrace</h2>
+<p>Oracle Linux DTrace&#x4E3A;&#x4E86;&#x5C06; DTrace &#x5F15;&#x5165; Linux&#xFF0C;&#x7279;&#x522B;&#x662F; Oracle Linux&#xFF0C;&#x505A;&#x51FA;&#x4E86;&#x5F88;&#x5927;&#x7684;&#x52AA;&#x529B;&#x3002;&#x8FD9;&#x4E9B;&#x5E74;&#x6765;&#x53D1;&#x5E03;&#x7684;&#x591A;&#x4E2A;&#x7248;&#x672C;&#x8868;&#x660E;&#x4E86;&#x5B83;&#x7684;&#x7A33;&#x5B9A;&#x8FDB;&#x5C55;&#x3002;&#x5F00;&#x53D1;&#x8005;&#x4EEC;&#x4EE5;&#x4E00;&#x79CD;&#x5BF9;&#x8FD9;&#x4E2A;&#x9879;&#x76EE;&#x7684;&#x524D;&#x666F;&#x770B;&#x597D;&#x7684;&#x6001;&#x5EA6;&#x8C08;&#x8BBA;&#x7740;&#x6539;&#x8FDB; DTrace &#x6D4B;&#x8BD5;&#x5957;&#x4EF6;&#x3002;&#x5F88;&#x591A;&#x6709;&#x7528;&#x7684; provider &#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#x4E86;&#xFF0C;&#x5982;&#xFF1A;syscall, profile, sdt, proc, sched &#x4EE5;&#x53CA; USDT&#x3002;&#x6211;&#x5F88;&#x671F;&#x5F85; fbt&#xFF08;function boundary tracing, &#x7528;&#x4E8E;&#x5185;&#x6838;&#x52A8;&#x6001;&#x8DDF;&#x8E2A;&#xFF09;&#x7684;&#x5B8C;&#x6210;&#xFF0C;&#x5B83;&#x662F; Linux &#x5185;&#x6838;&#x4E0A;&#x975E;&#x5E38;&#x68D2;&#x7684; provider&#x3002;OL DTrace &#x6700;&#x7EC8;&#x7684;&#x6210;&#x529F;&#x5C06;&#x53D6;&#x51B3;&#x4E8E;&#x4EBA;&#x4EEC;&#x5BF9;&#x8FD0;&#x884C; Oracle Linux&#xFF08;&#x4E3A;&#x6280;&#x672F;&#x652F;&#x6301;&#x4ED8;&#x8D39;&#xFF09;&#x6709;&#x591A;&#x5927;&#x5174;&#x8DA3;&#xFF0C;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#x53D6;&#x51B3;&#x4E8E;&#x5B83;&#x662F;&#x5426;&#x5B8C;&#x5168;&#x5F00;&#x6E90;&#xFF1A;&#x5B83;&#x7684;&#x5185;&#x6838;&#x5143;&#x4EF6;&#x662F;&#x5F00;&#x6E90;&#x7684;&#xFF0C;&#x800C;&#x6211;&#x6CA1;&#x6709;&#x770B;&#x5230;&#x5B83;&#x7684;&#x7528;&#x6237;&#x7EA7;&#x522B;&#x4EE3;&#x7801;&#x3002;</p>
+<h2 id="sysdig"><a name="sysdig" class="anchor-navigation-ex-anchor" href="#sysdig"><i class="fa fa-link" aria-hidden="true"></i></a>8.6. sysdig</h2>
+<p>sysdig&#x662F;&#x4E00;&#x4E2A;&#x4F7F;&#x7528;&#x7C7B;tcpdump&#x8BED;&#x6CD5;&#x6765;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E8B;&#x4EF6;&#x7684;&#x65B0;tracer&#xFF0C;&#x5B83;&#x4F7F;&#x7528;lua&#x63D0;&#x4EA4;&#x8FDB;&#x7A0B;&#x3002;&#x5B83;&#x5F88;&#x4F18;&#x79C0;&#xFF0C;&#x5B83;&#x89C1;&#x8BC1;&#x4E86;&#x7CFB;&#x7EDF;&#x8DDF;&#x8E2A;&#x9886;&#x57DF;&#x7684;&#x53D8;&#x9769;&#x3002;&#x5B83;&#x7684;&#x5C40;&#x9650;&#x6027;&#x5728;&#x4E8E;&#x5B83;&#x53EA;&#x5728;&#x5F53;&#x524D;&#x8FDB;&#x884C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#xFF0C;&#x5728;&#x63D0;&#x4EA4;&#x8FDB;&#x884C;&#x65F6;&#x5C06;&#x6240;&#x6709;&#x4E8B;&#x4EF6;&#x8F6C;&#x50A8;&#x4E3A;&#x7528;&#x6237;&#x7EA7;&#x522B;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x505A;&#x5F88;&#x591A;&#x4E8B;&#x60C5;&#xFF0C;&#x7136;&#x800C;&#x6211;&#x8FD8;&#x662F;&#x5F88;&#x5E0C;&#x671B;&#x5B83;&#x80FD;&#x652F;&#x6301;&#x8DDF;&#x8E2A;&#x70B9;&#x3001;kprobe&#x548C;uprobe&#x3002;&#x6211;&#x8FD8;&#x671F;&#x5F85;&#x5B83;&#x80FD;&#x652F;&#x6301;eBPF&#x505A;&#x5185;&#x6838;&#x6458;&#x8981;&#x3002;&#x76EE;&#x524D;&#xFF0C;sysdig&#x5F00;&#x53D1;&#x8005;&#x6B63;&#x5728;&#x589E;&#x52A0;&#x5BB9;&#x5668;&#x652F;&#x6301;&#x3002;&#x7559;&#x610F;&#x8FD9;&#x4E9B;&#x5185;&#x5BB9;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="调试和分析工具概览.html" class="navigation navigation-prev " aria-label="Previous page: profiling和debugging工具相关">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="profiling_user_space_Ptrace_Utrace_Uprobes.html" class="navigation navigation-next " aria-label="Next page: Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Linux内核调试的方式以及工具集锦(网摘)","level":"1.3.2.1","depth":3,"next":{"title":"Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps","level":"1.3.2.2","depth":3,"path":"notes/profiling_user_space_Ptrace_Utrace_Uprobes.md","ref":"notes/profiling_user_space_Ptrace_Utrace_Uprobes.md","articles":[]},"previous":{"title":"profiling和debugging工具相关","level":"1.3.2","depth":2,"path":"notes/调试和分析工具概览.md","ref":"notes/调试和分析工具概览.md","articles":[{"title":"Linux内核调试的方式以及工具集锦(网摘)","level":"1.3.2.1","depth":3,"path":"notes/profiling_Linux内核调试的方式以及工具集锦.md","ref":"notes/profiling_Linux内核调试的方式以及工具集锦.md","articles":[]},{"title":"Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps","level":"1.3.2.2","depth":3,"path":"notes/profiling_user_space_Ptrace_Utrace_Uprobes.md","ref":"notes/profiling_user_space_Ptrace_Utrace_Uprobes.md","articles":[]},{"title":"gdb备忘录","level":"1.3.2.3","depth":3,"path":"notes/debugging_gdb备忘录.md","ref":"notes/debugging_gdb备忘录.md","articles":[]},{"title":"perf命令备忘录","level":"1.3.2.4","depth":3,"path":"notes/profiling_perf命令备忘录.md","ref":"notes/profiling_perf命令备忘录.md","articles":[]},{"title":"perf命令备忘录2","level":"1.3.2.5","depth":3,"path":"notes/profiling_perf命令备忘录2.md","ref":"notes/profiling_perf命令备忘录2.md","articles":[]},{"title":"perf学习笔记之实战篇","level":"1.3.2.6","depth":3,"path":"notes/profiling_perf学习笔记之实战篇.md","ref":"notes/profiling_perf学习笔记之实战篇.md","articles":[]},{"title":"perf学习笔记之入门篇","level":"1.3.2.7","depth":3,"path":"notes/profiling_perf学习笔记之入门篇.md","ref":"notes/profiling_perf学习笔记之入门篇.md","articles":[]},{"title":"ftrace和trace-cmd记录","level":"1.3.2.8","depth":3,"path":"notes/profiling_ftrace和trace-cmd记录.md","ref":"notes/profiling_ftrace和trace-cmd记录.md","articles":[]},{"title":"ftrace使用实例","level":"1.3.2.9","depth":3,"path":"notes/profiling_ftrace使用实例.md","ref":"notes/profiling_ftrace使用实例.md","articles":[]},{"title":"systemtap实例","level":"1.3.2.10","depth":3,"path":"notes/profiling_systemtap实例.md","ref":"notes/profiling_systemtap实例.md","articles":[]},{"title":"Comparing SystemTap and bpftrace(网摘)","level":"1.3.2.11","depth":3,"path":"notes/profiling_Comparing_SystemTap_and_bpftrace.md","ref":"notes/profiling_Comparing_SystemTap_and_bpftrace.md","articles":[]},{"title":"bcc和ebpf(starting)","level":"1.3.2.12","depth":3,"path":"notes/system_analysis_bcc和ebpf.md","ref":"notes/system_analysis_bcc和ebpf.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/profiling_Linux内核调试的方式以及工具集锦.md","mtime":"2022-10-21T16:44:34.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-21T16:45:38.319Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
+
+    </body>
+</html>
+

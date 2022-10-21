@@ -28,7 +28,7 @@ AW: Qualcomm server SOC Amberwing(48 core AARCH64)
 hp380: Intel 2699v4
 
 # 现象
-unixbench的file copy项里, AW比Intel慢4到5倍
+unixbench的file copy项里, AW比Intel慢4到5倍  
 ![](img/profiling_unixbench之filecopy分析_20221019160314.png)  
 
 ![](img/profiling_unixbench之filecopy分析_20221019160327.png)  
@@ -178,19 +178,21 @@ sudo perf report
 在SDP1上, 4.9.0-2.el7.aarch64(64K):
 * tmpfs情况下, 关闭auditd, 系统write效率提高大约24%, read提高17%, 拷贝提高20%  
 
-环境: 4.9.0-2.el7.aarch64(64K), tmpfs  
-|auditd|read|write|copy
-|--|--|--|--
-|auditd on|895906|1163064|502048
-|auditd off|1055766|1445539|607435
+环境: 4.9.0-2.el7.aarch64(64K), tmpfs
+
+| auditd     | read    | write   | copy   |
+| ---------- | ------- | ------- | ------ |
+| auditd on  | 895906  | 1163064 | 502048 |
+| auditd off | 1055766 | 1445539 | 607435 |
 
 * 普通ssd, 关闭auditd, 读提高6%, 写提高27%, 拷贝提高6%  
 
-环境: 4.9.0-2.el7.aarch64(64K), ssd(240G)  
-|auditd|read|write|copy
-|--|--|--|--
-|auditd on|260701|1158512|212135
-|auditd off|278926|1478228|226238
+环境: 4.9.0-2.el7.aarch64(64K), ssd(240G)
+
+| auditd     | read   | write   | copy   |
+| ---------- | ------ | ------- | ------ |
+| auditd on  | 260701 | 1158512 | 212135 |
+| auditd off | 278926 | 1478228 | 226238 |
 
 * 综合以上, audit关闭对tmpfs提升大, 对普通的ssd提升较小.  
 是不是因为有实际的磁盘读写, 相对慢的磁盘开销导致的?
@@ -236,10 +238,11 @@ auditd on: r260701, w1158512, c212135
 sdp2比sdp1, 读快了22%, 写慢了8%, 拷贝快了18%
 
 环境: AWSDP, xfs on ssd(240G), audit off
-|kernel|read|write|copy
-|--|--|--|--
-|4.9|278926|1478228|226238
-|4.10|341409|1360577|267056
+
+| kernel | read   | write   | copy   |
+| ------ | ------ | ------- | ------ |
+| 4.9    | 278926 | 1478228 | 226238 |
+| 4.10   | 341409 | 1360577 | 267056 |
 
 
 ## 和2699对比
@@ -249,10 +252,11 @@ sdp2比sdp1, 读快了22%, 写慢了8%, 拷贝快了18%
 * 读是2699v4的35%, 写是44%, 拷贝是36%
 
 环境: xfs on ssd, auditd on
-|CPU/server/kernel|read|write|copy
-|--|--|--|--
-|AW/SDP/4.9|260701|1158512|212135
-|2699v4/HP380/3.10|739714|2628781|574521
+
+| CPU/server/kernel | read   | write   | copy   |
+| ----------------- | ------ | ------- | ------ |
+| AW/SDP/4.9        | 260701 | 1158512 | 212135 |
+| 2699v4/HP380/3.10 | 739714 | 2628781 | 574521 |
 
 
 # profiling

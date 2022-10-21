@@ -13,6 +13,8 @@
     * [调试和分析记录2](notes/profiling_调试和分析记录2.md)
     * [调试和分析记录1](notes/profiling_调试和分析记录1.md)
   * [profiling和debugging工具相关](notes/调试和分析工具概览.md)
+    * [Linux内核调试的方式以及工具集锦(网摘)](notes/profiling_Linux内核调试的方式以及工具集锦.md)
+    * [Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps](notes/profiling_user_space_Ptrace_Utrace_Uprobes.md)
     * [gdb备忘录](notes/debugging_gdb备忘录.md)
     * [perf命令备忘录](notes/profiling_perf命令备忘录.md)
     * [perf命令备忘录2](notes/profiling_perf命令备忘录2.md)

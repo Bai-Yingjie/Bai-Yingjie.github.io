@@ -23,18 +23,18 @@
 本文在raspberry pi 4上调试gvisor的kvm模式, 目的是理解gvisor的kvm运行机制.
 
 # 环境
-|环境|说明
-|--|--
-|硬件| raspberry pi 4B
-|OS| ubuntu server 21.10 for arm64
-|kernel| Linux ubuntu 5.13.0-1022-raspi #24-Ubuntu SMP PREEMPT Wed Mar 16 07:19:33 UTC 2022 aarch64 aarch64 aarch64 GNU/Linux
+| 环境   | 说明                           |
+| ------ | ------------------------------ |
+| 硬件   | raspberry pi 4B                |
+| OS     | ubuntu server 21.10 for arm64  |
+| kernel | Linux ubuntu 5.13.0-1022-raspi |
 
 # gvisor编译
-|gvisor信息|说明
-|--|--
-|版本|https://github.com/google/gvisor.git
-|分支|master
-|编译|make copy TARGETS=runsc DESTINATION=bin/
+| gvisor信息 | 说明                                     |
+| ---------- | ---------------------------------------- |
+| 版本       | https://github.com/google/gvisor.git     |
+| 分支       | master                                   |
+| 编译       | make copy TARGETS=runsc DESTINATION=bin/ |
 
 # gvisor编译
 ## go分支编译

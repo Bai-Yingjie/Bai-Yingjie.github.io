@@ -158,7 +158,7 @@ cat trace
 
 #### 还有哪些函数可能有问题
 以`__ia32`开头, 以`32`结尾的Weak函数:
-```sg
+```sh
 /sys/kernel/debug/tracing # cat /proc/kallsyms | grep __ia32 | grep "32$"
 ffffffff8117ee90 W __ia32_sys_io_getevents_time32
 ffffffff8117ef10 W __ia32_sys_io_pgetevents_time32
