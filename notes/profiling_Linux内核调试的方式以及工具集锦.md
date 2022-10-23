@@ -39,6 +39,7 @@
 内核总是那么捉摸不透, 内核也会犯错, 但是调试却不能像用户空间程序那样, 为此内核开发者为我们提供了一系列的工具和系统来支持内核的调试.
 
 内核的调试, 其本质是内核空间与用户空间的数据交换, 内核开发者们提供了多样的形式来完成这一功能.
+
 | 工具 | 描述 |
 | :-: |  :-: |
 | debugfs等文件系统 | 提供了 `procfs`, `sysfs`, `debugfs`以及 `relayfs` 来与用户空间进行数据交互, 尤其是 **`debugfs`**, 这是内核开发者们实现的专门用来调试的文件系统接口. 其他的工具或者接口, 多数都依赖于 `debugfs`. |
@@ -51,6 +52,7 @@
 
 # 用户空间与内核空间数据交换的文件系统
 内核中有三个常用的伪文件系统: procfs, debugfs和sysfs.
+
 | 文件系统 | 描述 |
 | :-: |  :-: |
 | procfs | The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures. |
@@ -128,6 +130,7 @@ mount -t sysfs sysfs /sysfs
 `relayfs` 的用户空间API :
 
 `relayfs` 实现了四个标准的文件 `I/O` 函数, `open`、`mmap`、`poll`和`close`
+
 | 函数 | 描述 |
 | :-: |  :-: |
 | `open` | 打开一个 `channel` 在某一个 CPU 上的缓存对应的文件. |
