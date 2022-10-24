@@ -1,0 +1,3891 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Get started with XDP(网摘) · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="networking_linux收包路径图解.html" />
+    
+    
+    <link rel="prev" href="networking_Potential_Performance_Bottleneck_in_Linux_TCP.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录5.html">
+            
+                <a href="profiling_调试和分析记录5.html">
+            
+                    
+                    调试和分析记录5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="profiling_调试和分析记录1.html">
+            
+                <a href="profiling_调试和分析记录1.html">
+            
+                    
+                    调试和分析记录1
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="调试和分析工具概览.html">
+            
+                <a href="调试和分析工具概览.html">
+            
+                    
+                    profiling和debugging工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="profiling_Linux内核调试的方式以及工具集锦.html">
+            
+                <a href="profiling_Linux内核调试的方式以及工具集锦.html">
+            
+                    
+                    Linux内核调试的方式以及工具集锦(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_user_space_Ptrace_Utrace_Uprobes.html">
+            
+                <a href="profiling_user_space_Ptrace_Utrace_Uprobes.html">
+            
+                    
+                    Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="debugging_gdb备忘录.html">
+            
+                <a href="debugging_gdb备忘录.html">
+            
+                    
+                    gdb备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="profiling_perf命令备忘录2.html">
+            
+                <a href="profiling_perf命令备忘录2.html">
+            
+                    
+                    perf命令备忘录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="profiling_perf学习笔记之实战篇.html">
+            
+                <a href="profiling_perf学习笔记之实战篇.html">
+            
+                    
+                    perf学习笔记之实战篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="profiling_perf学习笔记之入门篇.html">
+            
+                <a href="profiling_perf学习笔记之入门篇.html">
+            
+                    
+                    perf学习笔记之入门篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.8" data-path="profiling_用kprobe和perf_记录函数参数.html">
+            
+                <a href="profiling_用kprobe和perf_记录函数参数.html">
+            
+                    
+                    使用kprobe和perf结合记录函数参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.9" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.10" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.11" data-path="profiling_systemtap实例.html">
+            
+                <a href="profiling_systemtap实例.html">
+            
+                    
+                    systemtap实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.12" data-path="profiling_systemtap基础.html">
+            
+                <a href="profiling_systemtap基础.html">
+            
+                    
+                    systemtap基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.13" data-path="profiling_perf-tools_example.html">
+            
+                <a href="profiling_perf-tools_example.html">
+            
+                    
+                    perf-tools 系统tracing工具集
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.14" data-path="profiling_Comparing_SystemTap_and_bpftrace.html">
+            
+                <a href="profiling_Comparing_SystemTap_and_bpftrace.html">
+            
+                    
+                    Comparing SystemTap and bpftrace(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.15" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    profiling和debugging实例
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="profiling_调查ftrace显示调用栈全0问题.html">
+            
+                <a href="profiling_调查ftrace显示调用栈全0问题.html">
+            
+                    
+                    调查ftrace显示调用栈全0问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="profiling_eoe_filter写tap设备失败问题.html">
+            
+                <a href="profiling_eoe_filter写tap设备失败问题.html">
+            
+                    
+                    eoe_filter写tap设备失败问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="profiling_VM互相ping场景下的延迟分析.html">
+            
+                <a href="profiling_VM互相ping场景下的延迟分析.html">
+            
+                    
+                    VM互相ping场景下的延迟分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.6" data-path="debugging_ftrace_谁创建了bond0设备.html">
+            
+                <a href="debugging_ftrace_谁创建了bond0设备.html">
+            
+                    
+                    谁创建了bond0设备: ftrace kprobe uprobe perf综合使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.7" data-path="profiling_unixbench之filecopy分析.html">
+            
+                <a href="profiling_unixbench之filecopy分析.html">
+            
+                    
+                    unixbench之file copy分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.8" data-path="profiling_lmbench之lat_tcp分析.html">
+            
+                <a href="profiling_lmbench之lat_tcp分析.html">
+            
+                    
+                    lmbench之lat_tcp分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记2.html">
+            
+                <a href="networking_杂记2.html">
+            
+                    
+                    networking杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="networking_优化linux网络栈_接收路径.html">
+            
+                <a href="networking_优化linux网络栈_接收路径.html">
+            
+                    
+                    优化linux网络栈: 接收路径(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="networking_优化linux网络栈_发送路径.html">
+            
+                <a href="networking_优化linux网络栈_发送路径.html">
+            
+                    
+                    优化linux网络栈: 发送路径(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="networking_Potential_Performance_Bottleneck_in_Linux_TCP.html">
+            
+                <a href="networking_Potential_Performance_Bottleneck_in_Linux_TCP.html">
+            
+                    
+                    Potential Performance Bottleneck in Linux TCP(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.6" data-path="networking_xdp入门.html">
+            
+                <a href="networking_xdp入门.html">
+            
+                    
+                    Get started with XDP(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="networking_linux收包路径图解.html">
+            
+                <a href="networking_linux收包路径图解.html">
+            
+                    
+                    linux收包路径图解(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.8.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.9.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="kernel_异常打印分析实例.html">
+            
+                <a href="kernel_异常打印分析实例.html">
+            
+                    
+                    kernel bug异常打印分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.17" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.4.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.5" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.6" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.7" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.3.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.4.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Get started with XDP(网摘)</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#prerequisites"><b>1.1. </b>Prerequisites</a></li><li><span class="title-icon "></span><a href="#task-1-write-and-run-a-simple-program-with-xdp"><b>1.2. </b>Task 1: Write and run a simple program with XDP</a></li><ul><li><span class="title-icon "></span><a href="#task-11-write-a-program-to-drop-all-packets"><b>1.2.1. </b>Task 1.1: Write a program to drop all packets</a></li><li><span class="title-icon "></span><a href="#task-12-build-and-dump-the-bpf-object"><b>1.2.2. </b>Task 1.2: Build and dump the BPF object</a></li><li><span class="title-icon "></span><a href="#task-13-load-a-bpf-object"><b>1.2.3. </b>Task 1.3: Load a BPF object</a></li><li><span class="title-icon "></span><a href="#task-14-show-information-on-a-running-bpf-object"><b>1.2.4. </b>Task 1.4: Show information on a running BPF object</a></li><li><span class="title-icon "></span><a href="#task-15-unload-the-xdp-program"><b>1.2.5. </b>Task 1.5: Unload the XDP program</a></li></ul><li><span class="title-icon "></span><a href="#task-2-drop-specific-packets-with-xdp"><b>1.3. </b>Task 2: Drop specific packets with XDP</a></li><li><span class="title-icon "></span><a href="#task-3-map-and-count-the-processed-packets"><b>1.4. </b>Task 3: Map and count the processed packets</a></li><li><span class="title-icon "></span><a href="#task-4-load-xdp-objects-with-the-custom-loader"><b>1.5. </b>Task 4: Load XDP objects with the custom loader</a></li><li><span class="title-icon "></span><a href="#summary"><b>1.6. </b>Summary</a></li></ul></ul></div><a href="#" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#task-1-write-and-run-a-simple-program-with-xdp">Task 1: Write and run a simple program with XDP</a><ul>
+<li><a href="#task-11-write-a-program-to-drop-all-packets">Task 1.1: Write a program to drop all packets</a></li>
+<li><a href="#task-12-build-and-dump-the-bpf-object">Task 1.2: Build and dump the BPF object</a></li>
+<li><a href="#task-13-load-a-bpf-object">Task 1.3: Load a BPF object</a></li>
+<li><a href="#task-14-show-information-on-a-running-bpf-object">Task 1.4: Show information on a running BPF object</a></li>
+<li><a href="#task-15-unload-the-xdp-program">Task 1.5: Unload the XDP program</a></li>
+</ul>
+</li>
+<li><a href="#task-2-drop-specific-packets-with-xdp">Task 2: Drop specific packets with XDP</a></li>
+<li><a href="#task-3-map-and-count-the-processed-packets">Task 3: Map and count the processed packets</a></li>
+<li><a href="#task-4-load-xdp-objects-with-the-custom-loader">Task 4: Load XDP objects with the custom loader</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+<p>Get started with XDP
+&#x539F;&#x6587;: <a href="https://developers.redhat.com/blog/2021/04/01/get-started-with-xdp#" target="_blank">https://developers.redhat.com/blog/2021/04/01/get-started-with-xdp#</a></p>
+<p>XDP (eXpress Data Path) is a powerful new networking feature in Linux that enables high-performance programmable access to networking packets before they enter the networking stack. But XDP has a high learning curve. Many developers have written introduction blogs for this feature, such as Paolo Abeni&apos;s <a href="https://developers.redhat.com/blog/2018/12/06/achieving-high-performance-low-latency-networking-with-xdp-part-1/" target="_blank"><em>Achieving high-performance, low-latency networking with XDP: Part I </em></a>and Toke&apos;s <em><a href="https://www.redhat.com/en/blog/using-express-data-path-xdp-red-hat-enterprise-linux-8" target="_blank">Using the eXpress Data Path (XDP) in Red Hat Enterprise Linux 8</a></em>.</p>
+<p>XDP is based on <a href="https://opensource.com/article/17/9/intro-ebpf" target="_blank">extended Berkeley Packet Filter (eBPF)</a> and is still fast-moving. The eBPF/XDP coding format and style are also changing. So developers are creating tools and frameworks to make eBPF and XDP applications easy to write. Two of these resources, the <a href="https://github.com/libbpf/libbpf.git" target="_blank">libbpf</a> library and the <a href="https://github.com/xdp-project/xdp-tools" target="_blank">xdp-tools </a>utilities, are the topics of this article.</p>
+<p>The article shows how to start writing XDP programs through the following tasks:</p>
+<ol>
+<li>Write and run a small introductory program:<ol>
+<li>Write a program to drop all packets.</li>
+<li>Build and view a BPF object.</li>
+<li>Load a BPF object.</li>
+<li>Show information on a running BPF object.</li>
+<li>Unload a BPF object.</li>
+</ol>
+</li>
+<li>Extend the program to let you deal with specific types of packets.</li>
+<li>Use a packet counter to use BPF maps.</li>
+<li>Add a customized userspace tool to load the BPF program.</li>
+</ol>
+<p>The reader needs to be familiar with C code and IP header structures. All examples are tested with Red Hat Enterprise Linux (RHEL) 8.3.</p>
+<h2 id="prerequisites"><a name="prerequisites" class="anchor-navigation-ex-anchor" href="#prerequisites"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. Prerequisites</h2>
+<p>To prepare the developing environment, install the following packages:</p>
+<pre class="language-"><code class="lang-sh">$ <span class="token function">sudo</span> dnf <span class="token function">install</span> clang llvm gcc libbpf libbpf-devel libxdp libxdp-devel xdp-tools bpftool kernel-headers
+</code></pre>
+<h2 id="task-1-write-and-run-a-simple-program-with-xdp"><a name="task-1-write-and-run-a-simple-program-with-xdp" class="anchor-navigation-ex-anchor" href="#task-1-write-and-run-a-simple-program-with-xdp"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. Task 1: Write and run a simple program with XDP</h2>
+<p>This section teaches the minimal tasks you need to use XDP.</p>
+<h3 id="task-11-write-a-program-to-drop-all-packets"><a name="task-11-write-a-program-to-drop-all-packets" class="anchor-navigation-ex-anchor" href="#task-11-write-a-program-to-drop-all-packets"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.1. Task 1.1: Write a program to drop all packets</h3>
+<p>Let&apos;s start with a simple XDP program in C:</p>
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/bpf.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bpf/bpf_helpers.h&gt;</span></span>
+
+<span class="token function">SEC</span><span class="token punctuation">(</span><span class="token string">&quot;xdp_drop&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">int</span> <span class="token function">xdp_drop_prog</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">xdp_md</span> <span class="token operator">*</span>ctx<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> XDP_DROP<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">char</span> _license<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">SEC</span><span class="token punctuation">(</span><span class="token string">&quot;license&quot;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token string">&quot;GPL&quot;</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The <code>linux/bpf.h</code> header file is provided by the kernel-header package, which defines all the supported BPF helpers and xdp_actions, like the <code>XDP_DROP</code> action used in this example.</p>
+<p>The <code>bpf/bpf_helpers.h</code> header is provided by libbpf-devel, which provides some useful eBPF macros, like the <code>SEC</code> macro used in this example. <code>SEC</code>, short for <em>section,</em> is used to place a fragment of the compiled object in different ELF sections, which we will see in later output from the <code>llvm-objdump</code> command.</p>
+<p>The <code>xdp_drop_prog()</code> function takes a parameter <code>struct xdp_md *ctx</code>, which we have not used yet. I will talk about it later. This function returns <code>XDP_DROP</code>, which means we will drop all incoming packets. Other XDP actions include <code>XDP_PASS</code>, <code>XDP_TX</code>, and <code>XDP_REDIRECT</code>.</p>
+<p>Finally, the last line formally specifies the license associated with this program. Some eBPF helpers are accessible only by GPL-licensed programs, and the verifier will use this information to enforce such a restriction.</p>
+<h3 id="task-12-build-and-dump-the-bpf-object"><a name="task-12-build-and-dump-the-bpf-object" class="anchor-navigation-ex-anchor" href="#task-12-build-and-dump-the-bpf-object"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.2. Task 1.2: Build and dump the BPF object</h3>
+<p>Let&apos;s build the program in the previous section with <code>clang</code>:</p>
+<pre class="language-"><code class="lang-sh">**$ clang <span class="token parameter variable">-O2</span> <span class="token parameter variable">-g</span> <span class="token parameter variable">-Wall</span> <span class="token parameter variable">-target</span> bpf <span class="token parameter variable">-c</span> xdp_drop.c <span class="token parameter variable">-o</span> xdp_drop.o**
+</code></pre>
+<p>The <code>-O</code> option specified which optimization level to use,  and<code>-g</code> generates debugging information.</p>
+<p>You can use <code>llvm-objdump</code> to show the ELF format after the build. <code>llvm-objdump</code> is very useful if you want to know what a program does and you don&apos;t have the source code. The <code>-h</code> option displays the sections in the object, and the <code>-S</code> option displays the source interleaved with the disassembled object code. We&apos;ll show each of those options in turn.</p>
+<pre class="language-"><code class="lang-sh">**$ llvm-objdump <span class="token parameter variable">-h</span> xdp_drop.o**
+xdp_drop:       <span class="token function">file</span> <span class="token function">format</span> ELF64-BPF
+
+Sections:
+Idx Name            Size     VMA              Type
+  <span class="token number">0</span>                 00000000 0000000000000000
+  <span class="token number">1</span> .strtab         000000ad 0000000000000000
+  <span class="token number">2</span> .text           00000000 0000000000000000 TEXT
+  <span class="token number">3</span> xdp_drop        00000010 0000000000000000 TEXT
+  <span class="token number">4</span> license         00000004 0000000000000000 DATA
+  <span class="token number">5</span> .debug_str      00000125 0000000000000000
+  <span class="token number">6</span> .debug_abbrev   000000ba 0000000000000000
+  <span class="token number">7</span> .debug_info     00000114 0000000000000000
+  <span class="token number">8</span> .rel.debug_info 000001c0 0000000000000000
+  <span class="token number">9</span> .BTF            000001df 0000000000000000
+ <span class="token number">10</span> .rel.BTF        00000010 0000000000000000
+ <span class="token number">11</span> .BTF.ext        00000050 0000000000000000
+ <span class="token number">12</span> .rel.BTF.ext    00000020 0000000000000000
+ <span class="token number">13</span> .eh_frame       00000030 0000000000000000 DATA
+ <span class="token number">14</span> .rel.eh_frame   00000010 0000000000000000
+ <span class="token number">15</span> .debug_line     00000084 0000000000000000
+ <span class="token number">16</span> .rel.debug_line 00000010 0000000000000000
+ <span class="token number">17</span> .llvm_addrsig   00000002 0000000000000000
+ <span class="token number">18</span> .symtab         000002d0 0000000000000000
+
+**$ llvm-objdump <span class="token parameter variable">-S</span> -no-show-raw-insn xdp_drop.o**
+xdp_drop:       <span class="token function">file</span> <span class="token function">format</span> ELF64-BPF
+
+Disassembly of section xdp_drop:
+
+0000000000000000 xdp_drop_prog:
+<span class="token punctuation">;</span>       <span class="token builtin class-name">return</span> XDP_DROP<span class="token punctuation">;</span>
+       <span class="token number">0</span>:       r0 <span class="token operator">=</span> <span class="token number">1</span>
+       <span class="token number">1</span>:       <span class="token builtin class-name">exit</span>
+</code></pre>
+<h3 id="task-13-load-a-bpf-object"><a name="task-13-load-a-bpf-object" class="anchor-navigation-ex-anchor" href="#task-13-load-a-bpf-object"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.3. Task 1.3: Load a BPF object</h3>
+<p>After you build the object, there are multiple ways to load it.</p>
+<blockquote>
+<p><strong>Warning</strong>: Do not load test XDP programs on the default interface. Instead, use the <a href="https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking/#veth" target="_blank">veth interface</a> for testing. This is advisable to protect you from losing network connectivity because the program is dropping packets.</p>
+</blockquote>
+<p>The easiest way to load the program is using the <code>ip</code> command, like this:</p>
+<pre class="language-"><code class="lang-sh">**$ <span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> veth1 xdpgeneric obj xdp_drop.o sec xdp_drop**
+</code></pre>
+<p>But<code>ip</code> doesn&apos;t support the <a href="https://www.kernel.org/doc/html/latest/bpf/btf.html" target="_blank">BPF Type Format (BTF) </a>type map that we will talk about later. Although the latest <a href="https://git.kernel.org/pub/scm/network/iproute2/iproute2-next.git/commit/?id=f98ce50046b433687c0a661b6b9107a0603d1058" target="_blank">ip-next </a>release has fixed this issue by adding libbpf support, it has not been backported to the main line yet.</p>
+<p>The recommended way to load the XDP object on RHEL is using <code>xdp-loader</code>. This command depends on libbpf, which has full BTF support, and is the only way to load multiple programs on one interface.</p>
+<p>To get Red Hat support for XDP, use <code>libxdp</code>, as explained in the article <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.3_release_notes/rhel-8-3-0-release#enhancement_networking" target="_blank">XDP is conditionally supported in RHEL 8.3 release notes</a>.</p>
+<p>Now let&apos;s load the object on interface <code>veth1</code> with <code>xdp-loader</code>. We specify <code>-m sbk</code> to use skb mode. Other possible modes include native and offload. But because these modes are not supported on all NIC drivers, we will just use skb mode in this article. The<code>-s xdp_drop</code> option specifies the use of the section we created, <code>xdp_drop</code>:</p>
+<pre class="language-"><code class="lang-sh">**$ <span class="token function">sudo</span> xdp-loader load <span class="token parameter variable">-m</span> skb <span class="token parameter variable">-s</span> xdp_drop veth1 xdp_drop.o**
+</code></pre>
+<h3 id="task-14-show-information-on-a-running-bpf-object"><a name="task-14-show-information-on-a-running-bpf-object" class="anchor-navigation-ex-anchor" href="#task-14-show-information-on-a-running-bpf-object"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.4. Task 1.4: Show information on a running BPF object</h3>
+<p>There are also multiple ways to show information about a loaded XDP program:</p>
+<pre class="language-"><code class="lang-sh">**$ <span class="token function">sudo</span> xdp-loader status** CURRENT XDP PROGRAM STATUS:
+
+Interface        Prio  Program name     Mode     ID   Tag               Chain actions
+-------------------------------------------------------------------------------------
+lo               <span class="token operator">&lt;</span>no XDP program<span class="token operator">&gt;</span>
+ens3             <span class="token operator">&lt;</span>no XDP program<span class="token operator">&gt;</span>
+veth1                  xdp_dispatcher   skb      <span class="token number">15</span>   d51e469e988d81da
+ <span class="token operator">=</span><span class="token operator">&gt;</span>              <span class="token number">50</span>    xdp_drop_prog             <span class="token number">20</span>   57cd311f2e27366b  XDP_PASS
+
+$ **sudo bpftool prog show**
+<span class="token number">15</span>: xdp  name xdp_dispatcher  tag d51e469e988d81da  gpl
+        loaded_at <span class="token number">2021</span>-01-13T03:24:43-0500  uid <span class="token number">0</span>
+        xlated 616B  jited 638B  memlock 4096B  map_ids <span class="token number">8</span>
+        btf_id <span class="token number">12</span>
+<span class="token number">20</span>: ext  name xdp_drop_prog  tag 57cd311f2e27366b  gpl
+        loaded_at <span class="token number">2021</span>-01-13T03:24:43-0500  uid <span class="token number">0</span>
+        xlated 16B  jited 40B  memlock 4096B
+        btf_id <span class="token number">16</span>
+
+$ **sudo <span class="token function">ip</span> <span class="token function">link</span> show veth1**
+<span class="token number">4</span>: veth1@if3: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="token operator">&gt;</span> mtu <span class="token number">1500</span> xdpgeneric qdisc noqueue state UP mode DEFAULT group default qlen <span class="token number">1000</span>
+    link/ether ba:4d:98:21:3b:b3 brd ff:ff:ff:ff:ff:ff link-netns ns
+    prog/xdp <span class="token function">id</span> <span class="token number">15</span> tag d51e469e988d81da jited
+</code></pre>
+<p>If you load your program with <code>ip</code> cmd, only one XDP program can be loaded simultaneously. If you load your program with<code>xdp-loader</code>, two programs will be loaded by default. One is <code>xdp_dispatcher</code>, created by <code>xdp_loader</code>, and the other is <code>xdp_drop_prog</code>, written by us. The second command issued above shows that <code>xdp_dispatcher</code> is running with ID 15 and <code>xdp_drop_prog</code> is running with ID 20.</p>
+<h3 id="task-15-unload-the-xdp-program"><a name="task-15-unload-the-xdp-program" class="anchor-navigation-ex-anchor" href="#task-15-unload-the-xdp-program"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.5. Task 1.5: Unload the XDP program</h3>
+<p>If you use <code>ip cmd</code> to load the program, you can unload the program through:</p>
+<pre class="language-"><code class="lang-sh">**$ <span class="token function">sudo</span> <span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> veth1 xdpgeneric off**
+</code></pre>
+<p>Use the <code>xdp</code> flag that corresponds to the way you loaded the file. In this example, we specified <code>xdpgeneric off</code> because we loaded our program beginning with <code>ip link set veth1 xdpgeneric obj</code>. Specify <code>xdp off</code> if you loaded your beginning with <code>ip link set veth1 xdp obj</code>.</p>
+<p>To unload all XDP programs on an interface, issue <code>xdp-loader</code> with the <code>-a</code> option:</p>
+<pre class="language-"><code class="lang-sh">**$ <span class="token function">sudo</span> xdp-loader unload <span class="token parameter variable">-a</span> veth1**
+</code></pre>
+<h2 id="task-2-drop-specific-packets-with-xdp"><a name="task-2-drop-specific-packets-with-xdp" class="anchor-navigation-ex-anchor" href="#task-2-drop-specific-packets-with-xdp"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. Task 2: Drop specific packets with XDP</h2>
+<p>The first example dropped every packet, which has no practical use. Now let&apos;s do some real stuff. The example in this section drops all IPv6 packets:</p>
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/bpf.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bpf/bpf_helpers.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/if_ether.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;arpa/inet.h&gt;</span></span>
+
+<span class="token function">SEC</span><span class="token punctuation">(</span><span class="token string">&quot;xdp_drop&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">int</span> <span class="token function">xdp_drop_prog</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">xdp_md</span> <span class="token operator">*</span>ctx<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">void</span> <span class="token operator">*</span>data_end <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">)</span>ctx<span class="token operator">-&gt;</span>data_end<span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token operator">*</span>data <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">)</span>ctx<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">ethhdr</span> <span class="token operator">*</span>eth <span class="token operator">=</span> data<span class="token punctuation">;</span>
+    __u16 h_proto<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>data <span class="token operator">+</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">ethhdr</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> data_end<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> XDP_DROP<span class="token punctuation">;</span>
+
+    h_proto <span class="token operator">=</span> eth<span class="token operator">-&gt;</span>h_proto<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>h_proto <span class="token operator">==</span> <span class="token function">htons</span><span class="token punctuation">(</span>ETH_P_IPV6<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> XDP_DROP<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> XDP_PASS<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">char</span> _license<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">SEC</span><span class="token punctuation">(</span><span class="token string">&quot;license&quot;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token string">&quot;GPL&quot;</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Compare the code just shown with the first program. Here we added two more header files:<code>linux/if_ether.h</code> to get the<code>ethhdr</code> struct and <code>arpa/inet.h</code> to get the <code>htons()</code> function.</p>
+<p>The <code>struct xdp_md</code> is also used in this example. It&apos;s defined (in Linux 5.10) like this:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">xdp_md</span> <span class="token punctuation">{</span>
+    __u32 data<span class="token punctuation">;</span>
+    __u32 data_end<span class="token punctuation">;</span>
+    __u32 data_meta<span class="token punctuation">;</span>
+    <span class="token comment">/* Below access go through struct xdp_rxq_info */</span>
+    __u32 ingress_ifindex<span class="token punctuation">;</span> <span class="token comment">/* rxq-&gt;dev-&gt;ifindex */</span>
+    __u32 rx_queue_index<span class="token punctuation">;</span>  <span class="token comment">/* rxq-&gt;queue_index  */</span>
+
+    __u32 egress_ifindex<span class="token punctuation">;</span>  <span class="token comment">/* txq-&gt;dev-&gt;ifindex */</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The packet contents lie between <code>ctx-&gt;data</code> and <code>ctx-&gt;data_end</code>. The data starts with an Ethernet header, so we assign the data to<code>ethhdr</code> like this:</p>
+<pre class="language-"><code class="lang-c">    <span class="token keyword">void</span> <span class="token operator">*</span>data <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">)</span>ctx<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">ethhdr</span> <span class="token operator">*</span>eth <span class="token operator">=</span> data<span class="token punctuation">;</span>
+</code></pre>
+<p>When accessing the data in <code>struct ethhdr</code>, we must make sure we don&apos;t access invalid areas by checking whether <code>data + sizeof(struct ethhdr) &gt; data_end</code>, and returning without further action if it&apos;s true. This check is compulsory by the <a href="https://www.kernel.org/doc/html/latest/networking/filter.html#ebpf-verifier" target="_blank">BPF verifer</a> that verifies your program at runtime.</p>
+<p>Then, determine whether the protocol in the Ethernet header is IPv6 by checking <code>h_proto == htons(ETH_P_IPV6)</code>, and if it is, drop the packet by returning <code>XDP_DROP</code>. For other packets, we just return <code>XDP_PASS</code>.</p>
+<h2 id="task-3-map-and-count-the-processed-packets"><a name="task-3-map-and-count-the-processed-packets" class="anchor-navigation-ex-anchor" href="#task-3-map-and-count-the-processed-packets"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. Task 3: Map and count the processed packets</h2>
+<p>In the previous example, we dropped IPv6 packets. In this example, we will keep track of how many packets we dropped. The example introduces another BPF feature: maps. BPF maps are used to share data between the kernel and userspace. We can update the map data in the kernel and read it from userspace, or vice versa.</p>
+<p>Here is an example of a new BTF-defined map (introduced by upstream <a href="https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=abd29c931459" target="_blank">commit abd29c931459</a>):</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token punctuation">{</span>
+        <span class="token function">__uint</span><span class="token punctuation">(</span>type<span class="token punctuation">,</span> BPF_MAP_TYPE_PERCPU_ARRAY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">__type</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> __u32<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">__type</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> <span class="token keyword">long</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">__uint</span><span class="token punctuation">(</span>max_entries<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> rxcnt <span class="token function">SEC</span><span class="token punctuation">(</span><span class="token string">&quot;.maps&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The map is named as <code>rxcnt</code> with type <code>BPF_MAP_TYPE_PERCPU_ARRAY</code>. This type indicates that we will have one instance of the map per CPU core; thus, if you have 4 cores, you will have 4 instances of the map. We will use each map to count how many packets are processed per core. The rest of the structure defines the key/value type and limits the maximum number entries to 1, because we need to count only one number (the number of received IPv6 packets). In C code, it would look like we defined an array on each CPU with a size of one, .e.g, <code>unsigned int rxcnt[1]</code>.</p>
+<p>Our program looks up the value of the <code>rxcnt</code> entry with the function <code>bpf_map_lookup_elem()</code> and updates the value. Here is the full code:</p>
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/bpf.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bpf/bpf_helpers.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/if_ether.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;arpa/inet.h&gt;</span></span>
+
+<span class="token keyword">struct</span> <span class="token punctuation">{</span>
+        <span class="token function">__uint</span><span class="token punctuation">(</span>type<span class="token punctuation">,</span> BPF_MAP_TYPE_PERCPU_ARRAY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">__type</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> __u32<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">__type</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> <span class="token keyword">long</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">__uint</span><span class="token punctuation">(</span>max_entries<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> rxcnt <span class="token function">SEC</span><span class="token punctuation">(</span><span class="token string">&quot;.maps&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">SEC</span><span class="token punctuation">(</span><span class="token string">&quot;xdp_drop_ipv6&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">int</span> <span class="token function">xdp_drop_ipv6_prog</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">xdp_md</span> <span class="token operator">*</span>ctx<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+        <span class="token keyword">void</span> <span class="token operator">*</span>data_end <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">)</span>ctx<span class="token operator">-&gt;</span>data_end<span class="token punctuation">;</span>
+        <span class="token keyword">void</span> <span class="token operator">*</span>data <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">)</span>ctx<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+        <span class="token keyword">struct</span> <span class="token class-name">ethhdr</span> <span class="token operator">*</span>eth <span class="token operator">=</span> data<span class="token punctuation">;</span>
+        __u16 h_proto<span class="token punctuation">;</span>
+        __u32 key <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">long</span> <span class="token operator">*</span>value<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>data <span class="token operator">+</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">ethhdr</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> data_end<span class="token punctuation">)</span>
+                <span class="token keyword">return</span> XDP_DROP<span class="token punctuation">;</span>
+
+        h_proto <span class="token operator">=</span> eth<span class="token operator">-&gt;</span>h_proto<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>h_proto <span class="token operator">==</span> <span class="token function">htons</span><span class="token punctuation">(</span>ETH_P_IPV6<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                value <span class="token operator">=</span> <span class="token function">bpf_map_lookup_elem</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>rxcnt<span class="token punctuation">,</span> <span class="token operator">&amp;</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+                        <span class="token operator">*</span>value <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> XDP_DROP<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> XDP_PASS<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">char</span> _license<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">SEC</span><span class="token punctuation">(</span><span class="token string">&quot;license&quot;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token string">&quot;GPL&quot;</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Let&apos;s name the new program <code>xdp_drop_ipv6_count.c</code> and build it to create the object file <code>xdp_drop_ipv6_count.o</code>. After loading the object, send some IPv6 packets to this interface. Using the <code>bpftool map show</code> command, we can see that the <code>rxcnt</code> ID in our map is 13. Then we can use <code>bpftool map dump id 13</code> to show that 13 packets were processed on CPU 0 and 7 packets were processed on CPU 1:</p>
+<pre class="language-"><code class="lang-sh">**$ <span class="token function">sudo</span> xdp-loader load <span class="token parameter variable">-m</span> skb <span class="token parameter variable">-s</span> xdp_drop_ipv6 veth1 xdp_drop_ipv6_count.o**
+<span class="token punctuation">..</span>.*receive some IPv6 packets*
+
+**$ <span class="token function">sudo</span> bpftool map show** bpftool map show
+<span class="token number">13</span>: percpu_array  name rxcnt  flags 0x0
+        key 4B  value 8B  max_entries <span class="token number">1</span>  memlock 4096B
+        btf_id <span class="token number">20</span>
+<span class="token number">19</span>: array  name xdp_disp.rodata  flags 0x480
+        key 4B  value 84B  max_entries <span class="token number">1</span>  memlock 8192B
+        btf_id <span class="token number">28</span>  frozen
+<span class="token comment"># bpftool map dump id 13</span>
+<span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">&quot;key&quot;</span><span class="token builtin class-name">:</span> <span class="token number">0</span>,
+        <span class="token string">&quot;values&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+                <span class="token string">&quot;cpu&quot;</span><span class="token builtin class-name">:</span> <span class="token number">0</span>,
+                <span class="token string">&quot;value&quot;</span><span class="token builtin class-name">:</span> <span class="token number">13</span>
+            <span class="token punctuation">}</span>,<span class="token punctuation">{</span>
+                <span class="token string">&quot;cpu&quot;</span><span class="token builtin class-name">:</span> <span class="token number">1</span>,
+                <span class="token string">&quot;value&quot;</span><span class="token builtin class-name">:</span> <span class="token number">7</span>
+            <span class="token punctuation">}</span>,<span class="token punctuation">{</span>
+                <span class="token string">&quot;cpu&quot;</span><span class="token builtin class-name">:</span> <span class="token number">2</span>,
+                <span class="token string">&quot;value&quot;</span><span class="token builtin class-name">:</span> <span class="token number">0</span>
+            <span class="token punctuation">}</span>,<span class="token punctuation">{</span>
+                <span class="token string">&quot;cpu&quot;</span><span class="token builtin class-name">:</span> <span class="token number">3</span>,
+                <span class="token string">&quot;value&quot;</span><span class="token builtin class-name">:</span> <span class="token number">0</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>BPF supports many more <a href="https://prototype-kernel.readthedocs.io/en/latest/bpf/ebpf_maps_types.html" target="_blank">map types</a>, such as BPF_MAP_TYPE_HASH, BPF_MAP_TYPE_ARRAY, etc.</p>
+<h2 id="task-4-load-xdp-objects-with-the-custom-loader"><a name="task-4-load-xdp-objects-with-the-custom-loader" class="anchor-navigation-ex-anchor" href="#task-4-load-xdp-objects-with-the-custom-loader"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. Task 4: Load XDP objects with the custom loader</h2>
+<p>We can load the XDP objects with<code>ip</code> and show the map number with <code>bpftool</code>. But if we want more advanced features (to create, read, and write maps, attach XDP programs to interfaces, etc.), we need to write the loader ourselves.</p>
+<p>Here is an example of how to show the total packets and the number of packets per second (PPS) we dropped. In this example, I hard-coded a lot of stuff such as kernel object name, section name, etc. These all can be set via parameters in your own code.</p>
+<p>The purpose of each function is explained by comments in the code:</p>
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/if_link.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;signal.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;net/if.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;assert.h&gt;</span></span>
+
+<span class="token comment">/* In this example we use libbpf-devel and libxdp-devel */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bpf/bpf.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bpf/libbpf.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;xdp/libxdp.h&gt;</span></span>
+
+<span class="token comment">/* We define the following global variables */</span>
+<span class="token keyword">static</span> <span class="token keyword">int</span> ifindex<span class="token punctuation">;</span>
+<span class="token keyword">struct</span> <span class="token class-name">xdp_program</span> <span class="token operator">*</span>prog <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+
+<span class="token comment">/* This function will remove XDP from the link when the program exits. */</span>
+<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">int_exit</span><span class="token punctuation">(</span><span class="token keyword">int</span> sig<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">xdp_program__close</span><span class="token punctuation">(</span>prog<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/* This function will count the per-CPU number of packets and print out
+ * the total number of dropped packets number and PPS (packets per second).
+ */</span>
+<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">poll_stats</span><span class="token punctuation">(</span><span class="token keyword">int</span> map_fd<span class="token punctuation">,</span> <span class="token keyword">int</span> interval<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> ncpus <span class="token operator">=</span> <span class="token function">libbpf_num_possible_cpus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>ncpus <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Error get possible cpus\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">long</span> values<span class="token punctuation">[</span>ncpus<span class="token punctuation">]</span><span class="token punctuation">,</span> prev<span class="token punctuation">[</span>ncpus<span class="token punctuation">]</span><span class="token punctuation">,</span> total_pkts<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> i<span class="token punctuation">,</span> key <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token function">memset</span><span class="token punctuation">(</span>prev<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>prev<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">long</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token function">sleep</span><span class="token punctuation">(</span>interval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">assert</span><span class="token punctuation">(</span><span class="token function">bpf_map_lookup_elem</span><span class="token punctuation">(</span>map_fd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>key<span class="token punctuation">,</span> values<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> ncpus<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+            sum <span class="token operator">+=</span> <span class="token punctuation">(</span>values<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> prev<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>sum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            total_pkts <span class="token operator">+=</span> sum<span class="token punctuation">;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;total dropped %10llu, %10llu pkt/s\n&quot;</span><span class="token punctuation">,</span>
+                   total_pkts<span class="token punctuation">,</span> sum <span class="token operator">/</span> interval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">memcpy</span><span class="token punctuation">(</span>prev<span class="token punctuation">,</span> values<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> prog_fd<span class="token punctuation">,</span> map_fd<span class="token punctuation">,</span> ret<span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">bpf_object</span> <span class="token operator">*</span>bpf_obj<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>argc <span class="token operator">!=</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Usage: %s IFNAME\n&quot;</span><span class="token punctuation">,</span> argv<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    ifindex <span class="token operator">=</span> <span class="token function">if_nametoindex</span><span class="token punctuation">(</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ifindex<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;get ifindex from interface name failed\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/* load XDP object by libxdp */</span>
+    prog <span class="token operator">=</span> <span class="token function">xdp_program__open_file</span><span class="token punctuation">(</span><span class="token string">&quot;xdp_drop_ipv6_count.o&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;xdp_drop_ipv6&quot;</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>prog<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Error, load xdp prog failed\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/* attach XDP program to interface with skb mode
+     * Please set ulimit if you got an -EPERM error.
+     */</span>
+    ret <span class="token operator">=</span> <span class="token function">xdp_program__attach</span><span class="token punctuation">(</span>prog<span class="token punctuation">,</span> ifindex<span class="token punctuation">,</span> XDP_MODE_SKB<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>ret<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Error, Set xdp fd on %d failed\n&quot;</span><span class="token punctuation">,</span> ifindex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/* Find the map fd from the bpf object */</span>
+    bpf_obj <span class="token operator">=</span> <span class="token function">xdp_program__bpf_obj</span><span class="token punctuation">(</span>prog<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    map_fd <span class="token operator">=</span> <span class="token function">bpf_object__find_map_fd_by_name</span><span class="token punctuation">(</span>bpf_obj<span class="token punctuation">,</span> <span class="token string">&quot;rxcnt&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>map_fd <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;Error, get map fd from bpf obj failed\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> map_fd<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/* Remove attached program when it is interrupted or killed */</span>
+    <span class="token function">signal</span><span class="token punctuation">(</span>SIGINT<span class="token punctuation">,</span> int_exit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">signal</span><span class="token punctuation">(</span>SIGTERM<span class="token punctuation">,</span> int_exit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">poll_stats</span><span class="token punctuation">(</span>map_fd<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Set the <code>ulimit</code> to unlimited and build the program with the <code>-lbpf -lxdp</code> flags. Then run the program, which shows the packet count output:</p>
+<pre class="language-"><code class="lang-sh">**$ <span class="token function">sudo</span> <span class="token builtin class-name">ulimit</span> <span class="token parameter variable">-l</span> unlimited
+$ gcc xdp_drop_ipv6_count_user.c <span class="token parameter variable">-o</span> xdp_drop_ipv6_count <span class="token parameter variable">-lbpf</span> <span class="token parameter variable">-lxdp</span>
+$ <span class="token function">sudo</span> ./xdp_drop_ipv6_count veth1**
+total dropped          <span class="token number">2</span>,          <span class="token number">1</span> pkt/s
+total dropped        <span class="token number">129</span>,         <span class="token number">63</span> pkt/s
+total dropped        <span class="token number">311</span>,         <span class="token number">91</span> pkt/s
+total dropped        <span class="token number">492</span>,         <span class="token number">90</span> pkt/s
+total dropped        <span class="token number">674</span>,         <span class="token number">91</span> pkt/s
+total dropped        <span class="token number">856</span>,         <span class="token number">91</span> pkt/s
+total dropped       <span class="token number">1038</span>,         <span class="token number">91</span> pkt/s
+^C
+</code></pre>
+<h2 id="summary"><a name="summary" class="anchor-navigation-ex-anchor" href="#summary"><i class="fa fa-link" aria-hidden="true"></i></a>1.6. Summary</h2>
+<p>This article helps you understand what a XDP program looks like, how to add a BPF map, and how to write a custom loader. To learn more about XDP programming, please visit <a href="https://github.com/xdp-project/xdp-tutorial" target="_blank">xdp-tutorial</a>.</p>
+<p><em>Last updated: April 7, 2022</em></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="networking_Potential_Performance_Bottleneck_in_Linux_TCP.html" class="navigation navigation-prev " aria-label="Previous page: Potential Performance Bottleneck in Linux TCP(网摘)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="networking_linux收包路径图解.html" class="navigation navigation-next " aria-label="Next page: linux收包路径图解(网摘)">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Get started with XDP(网摘)","level":"1.6.6","depth":2,"next":{"title":"linux收包路径图解(网摘)","level":"1.6.7","depth":2,"path":"notes/networking_linux收包路径图解.md","ref":"notes/networking_linux收包路径图解.md","articles":[]},"previous":{"title":"Potential Performance Bottleneck in Linux TCP(网摘)","level":"1.6.5","depth":2,"path":"notes/networking_Potential_Performance_Bottleneck_in_Linux_TCP.md","ref":"notes/networking_Potential_Performance_Bottleneck_in_Linux_TCP.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/networking_xdp入门.md","mtime":"2022-10-24T15:53:27.949Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-24T15:54:32.069Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
+
+    </body>
+</html>
+
