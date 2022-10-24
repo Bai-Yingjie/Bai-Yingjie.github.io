@@ -24,6 +24,8 @@
     * [ftrace和trace-cmd记录](notes/profiling_ftrace和trace-cmd记录.md)
     * [ftrace使用实例](notes/profiling_ftrace使用实例.md)
     * [systemtap实例](notes/profiling_systemtap实例.md)
+    * [systemtap基础](notes/profiling_systemtap基础.md)
+    * [perf-tools 系统tracing工具集](notes/profiling_perf-tools_example.md)
     * [Comparing SystemTap and bpftrace(网摘)](notes/profiling_Comparing_SystemTap_and_bpftrace.md)
     * [bcc和ebpf(starting)](notes/system_analysis_bcc和ebpf.md)
   * [profiling和debugging实例](notes/as_title_os_perf.md)
@@ -34,6 +36,7 @@
     * [VM互相ping场景下的延迟分析](notes/profiling_VM互相ping场景下的延迟分析.md)
     * [谁创建了bond0设备: ftrace kprobe uprobe perf综合使用](notes/debugging_ftrace_谁创建了bond0设备.md)
     * [unixbench之file copy分析](notes/profiling_unixbench之filecopy分析.md)
+    * [lmbench之lat_tcp分析](notes/profiling_lmbench之lat_tcp分析.md)
   * [CPU ARCH相关](notes/as_title_arch_perf.md)
     * [Top-down Microarchitecture Analysis Method(网摘)](notes/performance_CPU_microarchiteture_pmu.md)
 
@@ -58,7 +61,10 @@
   * [Qemu使用(old)](notes/qemu使用.md)
 
 * [计算机网络相关](notes/as_title_networking.md)
+  * [networking杂记2](notes/networking_杂记2.md)
   * [networking杂记1](notes/networking_杂记1.md)
+  * [优化linux网络栈: 接收路径(网摘)](notes/networking_优化linux网络栈_接收路径.md)
+  * [优化linux网络栈: 发送路径(网摘)](notes/networking_优化linux网络栈_发送路径.md)
   * [Qemu OVS和DPDK](notes/as_title_qemu_ovs.md)
     * [OVS-DPDK编译运行](notes/OVS_DPDK_编译运行.md)
     * [OVS架构和代码](notes/OVS_架构和代码.md)
