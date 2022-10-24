@@ -1,15 +1,276 @@
-- [分析实战](#分析实战)
-- [预备知识strace](#预备知识strace)
+- [进程非正常退出是什么原因?](#进程非正常退出是什么原因)
+  - [背景](#背景)
+    - [复现命令](#复现命令)
+  - [调查log](#调查log)
+  - [顺藤摸瓜 -- 看相关代码](#顺藤摸瓜----看相关代码)
+  - [按图索骥 -- 使用perf probe查看调用栈](#按图索骥----使用perf-probe查看调用栈)
+    - [准备工作1: 查符号](#准备工作1-查符号)
+    - [准备工作2: 拷贝nostrip文件到板子](#准备工作2-拷贝nostrip文件到板子)
+    - [动态probe](#动态probe)
+    - [probe到的调用栈](#probe到的调用栈)
+  - [梳理代码流程](#梳理代码流程)
+  - [罪魁祸首](#罪魁祸首)
+  - [后记](#后记)
+- [哪个进程一直在打印错误信息?](#哪个进程一直在打印错误信息)
+  - [背景](#背景-1)
+  - [思路](#思路)
+  - [准备知识](#准备知识)
+  - [perf record 加filter](#perf-record-加filter)
+  - [罪魁祸首](#罪魁祸首-1)
+  - [更进一步?](#更进一步)
+  - [结论](#结论)
+- [锁性能分析实战](#锁性能分析实战)
+  - [预备知识strace](#预备知识strace)
   - [理解pthread_create](#理解pthread_create)
   - [mutex竞争](#mutex竞争)
   - [用perf分析](#用perf分析)
 
-# 分析实战
+# 进程非正常退出是什么原因?
+## 背景
+升级gcc7.3后, s6报告dmscontroller_app非正常退出.
+串口的相关打印只说了是dmscontroller_app被终止.
+```sh
+cat /tmp/messages | grep dmscontroller_app
+
+Jan 1 16:00:07.000000 APP_NAME:app_finish,APP_VERSION:62.993,MSG: dmscontroller_app terminated (rc=1)
+Jan 1 16:00:07.000000 APP_NAME:escalate,APP_VERSION:62.993,MSG: dmscontroller_app escalated to level 6
+Jan 1 16:00:07.000000 APP_NAME:escalate,APP_VERSION:62.993,MSG: dmscontroller_app is beyond last escalation level, running again /isam/slot_default/dmscontroller_app/escalation/level1
+```  
+### 复现命令
+不用重启
+```sh
+s6-rc -v2 -d change isam-apps
+s6-rc -v2 -u change isam-apps
+```
+
+用老的gcc4.7, 没有这个问题. 为什么升级个gcc, 就会有问题呢?
+
+## 调查log
+先从调查这个app的log开始入手:
+```sh
+cd /isam/slot_default/dmscontroller_app
+# log为空
+cat log/traces.log
+```
+在run目录下有应用自己的log
+
+```sh
+/isam/slot_default/dmscontroller_app/run # cat dmsc.log
+DMS-C is now launching!
+ydbg_link_modeule 0
+ydbg_link_modeule 0
+ydbg_link_modeule 0
+DMS-Controller initializing...
+success to exec /isam/slot_default/dmsupgrader_app/script/dms_upgrade.sh
+All handlers init OK!
+ysys_onterm enter reason=0 status=2 !
+DMSController state: init
+syncpoint FastReady reached
+LocEv_FASTready occurred
+--- start_phase0() begin
+--- DmsHandle::startPhase0() begin
+--- DmsHandle::startPhase0() ok
+--- start_phase0() ok
+ysystem_exec status: 19
+start DMS(confd) for phase0 failed 1 times
+--- DmsHandle::startPhase0() begin
+--- DmsHandle::startPhase0() ok
+ysystem_exec status: 19
+start DMS(confd) for phase0 failed 2 times
+--- DmsHandle::startPhase0() begin
+--- DmsHandle::startPhase0() ok
+ysystem_exec status: 19
+start of DMS(confd) for phase0 failed!!!
+exiting for fallback or escalation...
+```
+从log看, 事件`LocEv_FASTready`发生后, `start_phase0()`被调用.
+`DmsHandle::startPhase0()`开始干活, 但似乎有问题, 重试3次失败.
+
+## 顺藤摸瓜 -- 看相关代码
+最后的错误打印在`y/src/dmscontroller/logic/src/dmscstate_init.cpp`
+
+![](img/profiling_perf学习笔记之实战篇_20221024142228.png)  
+
+这里面有`onFail`, 是什么原因导致fail的呢?  
+直接看这块的C++代码似乎比较绕, 有没有更简单的方法?
+
+## 按图索骥 -- 使用perf probe查看调用栈
+前面我们找到关键函数`LocEv_StartPhase0::onFail`, 这是个C++函数.
+我们前面使用过perf probe, 它可以动态probe用户进程的调用栈. 但需要解析函数符号和debug信息
+
+### 准备工作1: 查符号
+在工作站上就能查符号, 使用nm命令: 因为是标准elf格式, x86版本的nm也能解析.
+```
+$ nm dmscontroller_app_isam-reborn-cavium-sdmva.nostrip | grep onFail | grep LocEv_StartPhase0
+100045d8 T _ZN17LocEv_StartPhase06onFailEv
+```
+因为C++被编译后, 符号会被编译器mangle, 所以这里我们查到实际上是这个函数:
+
+`_ZN17LocEv_StartPhase06onFailEv`
+
+
+### 准备工作2: 拷贝nostrip文件到板子
+默认的bin是strip过的, 没有debug信息. 所以要先考一个nostrip的版本
+```sh
+/isam/slot_default/dmscontroller_app/run # scp yingjieb@172.24.213.190:/repo/yingjieb/ms/swms/y/build/dmscontroller/dmscontroller_app_isam-reborn-cavium-sdmva.nostrip .
+#修改链接就可以了
+/isam/slot_default/dmscontroller_app/run # ln -snf dmscontroller_app_isam-reborn-cavium-sdmva.nostrip dmscontroller_app
+```
+
+### 动态probe
+都在`/isam/slot_default/dmscontroller_app/run`下面操作.
+前面我们拷贝了这个app的nostrip版本, 这个是有debug信息的.
+```sh
+# 先把app都停掉
+s6-rc -v2 -d change isam-apps
+
+# 增加动态probe点
+perf probe -x dmscontroller_app --add _ZN17LocEv_StartPhase06onFailEv
+# 对整个系统进行probe 60秒
+perf record -e probe_dmscontroller_app_isam:_ZN17LocEv_StartPhase06onFailEv -aR -g --call-graph dwarf -- sleep 60 &
+# 在60秒内复现问题
+s6-rc -v2 -u change isam-apps
+```
+注:
+* 需要kernel4.9
+* 需要这个changeset  
+306 925aee28979d linux-4.9-preparation 2019-08-22 Bai Yingjie perf tools: Add support for MIPS userspace DWARF callchains.
+
+### probe到的调用栈
+![](img/profiling_perf学习笔记之实战篇_20221024142507.png)  
+
+或者用`perf report`
+![](img/profiling_perf学习笔记之实战篇_20221024142519.png)  
+
+
+## 梳理代码流程
+对照调用栈, 就可以按图索骥了.  
+`y/src/dmscontroller/logic/src/yeventwrap.hpp`  
+是一个叫YEventTemp...trigger的函数调用了这个onFail()  
+![](img/profiling_perf学习笔记之实战篇_20221024142704.png)  
+这个trigger又是在yevent_cb里面调用的, 后者在这个模板类的构造函数里面, 被注册到yevent_new  
+![](img/profiling_perf学习笔记之实战篇_20221024142729.png)  
+
+这个是在初始化时确定的, 那运行时是怎么调用的?
+还是要看调用栈, 在代码里找`ysystem_onterm`  
+在`y/src/dmscontroller/logic/src/dmshandle.cpp`
+
+![](img/profiling_perf学习笔记之实战篇_20221024142749.png)  
+
+现在清楚了:  
+`yevent_t *ysystem_exec(char **command, ysystem_terminate_cb_t on_terminate, ysystem_data_cb_t on_data, void *ctx)`
+
+`ysystem_exec`接受一个cmd, 一个结束回调函数; dms的这个回调函数里, 调用trigger, 最后调用onFail. -- 似乎是挺饶.
+看起来是这个cmd运行失败, 导致后面的问题
+
+## 罪魁祸首
+代码里写了, cmd是`confd --start-phase0`, 运行一下, 果然有问题:  
+![](img/profiling_perf学习笔记之实战篇_20221024142911.png)  
+
+不像在shell直接运行会打印具体错误, `ysystem_exec`执行这个cmd失败了, 却没有任何可见的打印, 导致问题没有机会在"第一现场"被发现.
+
+## 后记
+其实, log里面就有问题函数的打印, 直接看代码可能也行. 
+这么说perf probe不用也行咯? 换个角度想, 如果代码里没有这个打印呢?
+进一步说, 如果没有任何log打印呢?
+
+# 哪个进程一直在打印错误信息?
+## 背景
+板子在一直在串口打印东西, 很烦人. 我想找到是哪个app干的.  
+![](img/profiling_perf学习笔记之实战篇_20221024142940.png)  
+
+## 思路
+* 这个是个串口打印, 最终是要内核打印到串口上的, 那对app来说, 最后都是走write系统调用
+* write系统调用有很多, 对这个打印来讲, 它的fd不是1(stdout)就是2(stderr)
+* 用perf可以看write系统调用, 但要结合fd来过滤, 否则会有海量的信息.
+## 准备知识
+perf record支持filter功能, 比如
+```sh
+# Trace read() syscalls, when requested bytes is less than 10:
+perf record -e 'syscalls:sys_enter_read' --filter 'count < 10' -a
+
+# Trace previously created probe when the bytes (alias) variable is greater than 100:
+perf record -e probe:tcp_sendmsg --filter 'bytes > 100'
+
+# Trace previous probe when size is non-zero, and state is not TCP_ESTABLISHED(1) (needs debuginfo):
+perf record -e probe:tcp_sendmsg --filter 'size > 0 && skc_state != 1' -a
+
+# Trace all block completions, of size at least 100 Kbytes, until Ctrl-C:
+perf record -e block:block_rq_complete --filter 'nr_sector > 200'
+
+# Trace all block completions, synchronous writes only, until Ctrl-C:
+perf record -e block:block_rq_complete --filter 'rwbs == "WS"'
+
+# Trace all block completions, all types of writes, until Ctrl-C:
+perf record -e block:block_rq_complete --filter 'rwbs ~ "*W*"'
+```
+
+----
+我们要看的write系统调用, 怎么找到filter的关键词?  
+先list看一下, syscalls:sys_enter_write是个tracepoint类型的事件  
+![](img/profiling_perf学习笔记之实战篇_20221024143043.png)  
+
+----
+到`/sys/kernel/debug/tracing/events/syscalls/sys_enter_write`目录下去找format,  
+perf会按照这个格式记录write调用.
+
+field后面都是关键词.  
+![](img/profiling_perf学习笔记之实战篇_20221024143136.png)  
+准备完成, 可以开始了:
+
+## perf record 加filter
+sys_enter_write是内置的perf event, 可以直接用  
+`perf record -e syscalls:sys_enter_write -aR -g --call-graph dwarf --filter 'fd == 2' -- sleep 30`
+
+注意这里用了`fd == 2`的filter
+
+过程如下: 最后perf报告说是有30个samples. 数一数, 是不是前面打印了30行?  
+![](img/profiling_perf学习笔记之实战篇_20221024143204.png)  
+
+用`perf script`查看结果  
+![](img/profiling_perf学习笔记之实战篇_20221024143219.png)  
+很可惜调用栈没有打印完整, 我不是用了dwarf解析了么...
+
+
+## 罪魁祸首
+用程序名和线程号, 那就可以找到罪魁祸首: `collectd`  
+![](img/profiling_perf学习笔记之实战篇_20221024143238.png)  
+注: 板子上的busybox提供的`ps -T`是显示线程  
+看起来collectd是个第三方的package.  
+调查一下果然在buildroot里`package/collectd`
+
+
+## 更进一步?
+记录`syscalls:sys_enter_write`的调用栈解析不完整, 但也留下了线索.
+
+下面用`perf probe`方式来记录:  
+`perf probe -x /lib/libc-2.16.so _IO_file_xsputn`  
+![](img/profiling_perf学习笔记之实战篇_20221024143330.png)  
+
+这次显示有590个samples. 很显然里面有很多我们不需要的.  
+搜索一下前面出现的writer, 仍然没有更多的调用栈.  
+![](img/profiling_perf学习笔记之实战篇_20221024143359.png)  
+
+----
+注: 
+perf list看到probe类型的事件也标识为tracepoint event  
+![](img/profiling_perf学习笔记之实战篇_20221024143418.png)  
+
+perf probe kernel函数, 放在`/sys/kernel/debug/tracing/events/probe`下面  
+perf probe libc的函数, 放在`/sys/kernel/debug/tracing/events/probe_libc`下面  
+![](img/profiling_perf学习笔记之实战篇_20221024143555.png)  
+
+## 结论
+经过简单几步, 就能找到打印的进程, 比grep代码是不是还快一点?
+有时候grep代码还不一定能找到. 
+有时候调用栈不全, 要结合代码分析才行.
+
+# 锁性能分析实战
 如何分析我的`misc/atomic-test/pthread_mutex.c`
 
 这个文件根据core个数起相应的线程, 这些线程都要对一个全局变量操作, 这些操作用锁保护.
 
-# 预备知识strace
+## 预备知识strace
 比如在一个窗口sleep 666  
 在另外一个窗口strace这个pid  
 然后在sleep窗口ctrl+c, 此时strace能捕捉到这个signal
