@@ -1,0 +1,4170 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>地址空间类型和DMA · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="platform_device_driver.html" />
+    
+    
+    <link rel="prev" href="as_title_driver.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录5.html">
+            
+                <a href="profiling_调试和分析记录5.html">
+            
+                    
+                    调试和分析记录5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="profiling_调试和分析记录1.html">
+            
+                <a href="profiling_调试和分析记录1.html">
+            
+                    
+                    调试和分析记录1
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="调试和分析工具概览.html">
+            
+                <a href="调试和分析工具概览.html">
+            
+                    
+                    profiling和debugging工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="profiling_Linux内核调试的方式以及工具集锦.html">
+            
+                <a href="profiling_Linux内核调试的方式以及工具集锦.html">
+            
+                    
+                    Linux内核调试的方式以及工具集锦(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_user_space_Ptrace_Utrace_Uprobes.html">
+            
+                <a href="profiling_user_space_Ptrace_Utrace_Uprobes.html">
+            
+                    
+                    Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="debugging_gdb备忘录.html">
+            
+                <a href="debugging_gdb备忘录.html">
+            
+                    
+                    gdb备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="profiling_perf命令备忘录2.html">
+            
+                <a href="profiling_perf命令备忘录2.html">
+            
+                    
+                    perf命令备忘录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="profiling_perf学习笔记之实战篇.html">
+            
+                <a href="profiling_perf学习笔记之实战篇.html">
+            
+                    
+                    perf学习笔记之实战篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="profiling_perf学习笔记之入门篇.html">
+            
+                <a href="profiling_perf学习笔记之入门篇.html">
+            
+                    
+                    perf学习笔记之入门篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.8" data-path="profiling_用kprobe和perf_记录函数参数.html">
+            
+                <a href="profiling_用kprobe和perf_记录函数参数.html">
+            
+                    
+                    使用kprobe和perf结合记录函数参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.9" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.10" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.11" data-path="profiling_systemtap实例.html">
+            
+                <a href="profiling_systemtap实例.html">
+            
+                    
+                    systemtap实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.12" data-path="profiling_systemtap基础.html">
+            
+                <a href="profiling_systemtap基础.html">
+            
+                    
+                    systemtap基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.13" data-path="profiling_perf-tools_example.html">
+            
+                <a href="profiling_perf-tools_example.html">
+            
+                    
+                    perf-tools 系统tracing工具集
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.14" data-path="profiling_Comparing_SystemTap_and_bpftrace.html">
+            
+                <a href="profiling_Comparing_SystemTap_and_bpftrace.html">
+            
+                    
+                    Comparing SystemTap and bpftrace(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.15" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    profiling和debugging实例
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="profiling_调查ftrace显示调用栈全0问题.html">
+            
+                <a href="profiling_调查ftrace显示调用栈全0问题.html">
+            
+                    
+                    调查ftrace显示调用栈全0问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="profiling_eoe_filter写tap设备失败问题.html">
+            
+                <a href="profiling_eoe_filter写tap设备失败问题.html">
+            
+                    
+                    eoe_filter写tap设备失败问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="profiling_VM互相ping场景下的延迟分析.html">
+            
+                <a href="profiling_VM互相ping场景下的延迟分析.html">
+            
+                    
+                    VM互相ping场景下的延迟分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.6" data-path="debugging_ftrace_谁创建了bond0设备.html">
+            
+                <a href="debugging_ftrace_谁创建了bond0设备.html">
+            
+                    
+                    谁创建了bond0设备: ftrace kprobe uprobe perf综合使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.7" data-path="profiling_unixbench之filecopy分析.html">
+            
+                <a href="profiling_unixbench之filecopy分析.html">
+            
+                    
+                    unixbench之file copy分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.8" data-path="profiling_lmbench之lat_tcp分析.html">
+            
+                <a href="profiling_lmbench之lat_tcp分析.html">
+            
+                    
+                    lmbench之lat_tcp分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记2.html">
+            
+                <a href="networking_杂记2.html">
+            
+                    
+                    networking杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="networking_优化linux网络栈_接收路径.html">
+            
+                <a href="networking_优化linux网络栈_接收路径.html">
+            
+                    
+                    优化linux网络栈: 接收路径(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="networking_优化linux网络栈_发送路径.html">
+            
+                <a href="networking_优化linux网络栈_发送路径.html">
+            
+                    
+                    优化linux网络栈: 发送路径(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="networking_Potential_Performance_Bottleneck_in_Linux_TCP.html">
+            
+                <a href="networking_Potential_Performance_Bottleneck_in_Linux_TCP.html">
+            
+                    
+                    Potential Performance Bottleneck in Linux TCP(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="networking_xdp入门.html">
+            
+                <a href="networking_xdp入门.html">
+            
+                    
+                    Get started with XDP(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="networking_linux收包路径图解.html">
+            
+                <a href="networking_linux收包路径图解.html">
+            
+                    
+                    linux收包路径图解(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.8.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.9.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="kernel_异常打印分析实例.html">
+            
+                <a href="kernel_异常打印分析实例.html">
+            
+                    
+                    kernel bug异常打印分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.17" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.15.1" data-path="device_driver_地址空间类型和DMA.html">
+            
+                <a href="device_driver_地址空间类型和DMA.html">
+            
+                    
+                    地址空间类型和DMA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="platform_device_driver2.html">
+            
+                <a href="platform_device_driver2.html">
+            
+                    
+                    平台驱动杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="device_driver_内核中的时间和延迟操作.html">
+            
+                <a href="device_driver_内核中的时间和延迟操作.html">
+            
+                    
+                    内核中的时间和延迟操作.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.7.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.9" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.10" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.10.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.10.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.10.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.10.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.10.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.10.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.10.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.10.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.10.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.11" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.5" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.6" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.7" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.3.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.4.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >地址空间类型和DMA</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x5730;&#x5740;&#x7C7B;&#x578B;"><b>1. </b>&#x5730;&#x5740;&#x7C7B;&#x578B;</a></li><li><span class="title-icon "></span><a href="#&#x6982;&#x5FF5;&#x8BF4;&#x660E;"><b>2. </b>&#x6982;&#x5FF5;&#x8BF4;&#x660E;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4E0D;&#x540C;&#x5730;&#x5740;&#x7684;&#x8F6C;&#x6362;"><b>2.1. </b>&#x4E0D;&#x540C;&#x5730;&#x5740;&#x7684;&#x8F6C;&#x6362;</a></li><li><span class="title-icon "></span><a href="#dma&#x7C7B;&#x578B;"><b>2.2. </b>DMA&#x7C7B;&#x578B;</a></li></ul><li><span class="title-icon "></span><a href="#&#x5177;&#x4F53;&#x4EE3;&#x7801;"><b>3. </b>&#x5177;&#x4F53;&#x4EE3;&#x7801;</a></li><ul><li><span class="title-icon "></span><a href="#&#x54EA;&#x4E9B;&#x5185;&#x5B58;&#x53EF;&#x4EE5;dma"><b>3.1. </b>&#x54EA;&#x4E9B;&#x5185;&#x5B58;&#x53EF;&#x4EE5;DMA?</a></li><li><span class="title-icon "></span><a href="#dma-addressing-capabilities"><b>3.2. </b>DMA addressing capabilities</a></li><li><span class="title-icon "></span><a href="#using-consistent-dma-mappings"><b>3.3. </b>Using Consistent DMA mappings</a></li><li><span class="title-icon "></span><a href="#dma-direction"><b>3.4. </b>DMA Direction</a></li><li><span class="title-icon "></span><a href="#using-streaming-dma-mappings"><b>3.5. </b>Using Streaming DMA mappings</a></li><li><span class="title-icon "></span><a href="#handling-errors"><b>3.6. </b>Handling Errors</a></li><li><span class="title-icon "></span><a href="#optimizing-unmap-state-space-consumption"><b>3.7. </b>Optimizing Unmap State Space Consumption</a></li><li><span class="title-icon "></span><a href="#platform-issues"><b>3.8. </b>Platform Issues</a></li></ul><li><span class="title-icon "></span><a href="#dynamic-dma-mapping-using-the-generic-device"><b>4. </b>Dynamic DMA mapping using the generic device</a></li><ul><li><span class="title-icon "></span><a href="#part-i---dmaapi"><b>4.1. </b>Part I - dma_API</a></li><li><span class="title-icon "></span><a href="#part-ia---using-large-dma-coherent-buffers"><b>4.2. </b>Part Ia - Using large DMA-coherent buffers</a></li><li><span class="title-icon "></span><a href="#part-ib---using-small-dma-coherent-buffers"><b>4.3. </b>Part Ib - Using small DMA-coherent buffers</a></li><li><span class="title-icon "></span><a href="#part-ic---dma-addressing-limitations"><b>4.4. </b>Part Ic - DMA addressing limitations</a></li><li><span class="title-icon "></span><a href="#part-id---streaming-dma-mappings"><b>4.5. </b>Part Id - Streaming DMA mappings</a></li><li><span class="title-icon "></span><a href="#part-ii---non-coherent-dma-allocations"><b>4.6. </b>Part II - Non-coherent DMA allocations</a></li></ul></ul></div><a href="#&#x5730;&#x5740;&#x7C7B;&#x578B;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#&#x5730;&#x5740;&#x7C7B;&#x578B;">&#x5730;&#x5740;&#x7C7B;&#x578B;</a></li>
+<li><a href="#&#x6982;&#x5FF5;&#x8BF4;&#x660E;">&#x6982;&#x5FF5;&#x8BF4;&#x660E;</a><ul>
+<li><a href="#&#x4E0D;&#x540C;&#x5730;&#x5740;&#x7684;&#x8F6C;&#x6362;">&#x4E0D;&#x540C;&#x5730;&#x5740;&#x7684;&#x8F6C;&#x6362;</a></li>
+<li><a href="#dma&#x7C7B;&#x578B;">DMA&#x7C7B;&#x578B;</a></li>
+</ul>
+</li>
+<li><a href="#&#x5177;&#x4F53;&#x4EE3;&#x7801;">&#x5177;&#x4F53;&#x4EE3;&#x7801;</a><ul>
+<li><a href="#&#x54EA;&#x4E9B;&#x5185;&#x5B58;&#x53EF;&#x4EE5;dma">&#x54EA;&#x4E9B;&#x5185;&#x5B58;&#x53EF;&#x4EE5;DMA?</a></li>
+<li><a href="#dma-addressing-capabilities">DMA addressing capabilities</a></li>
+<li><a href="#using-consistent-dma-mappings">Using Consistent DMA mappings</a></li>
+<li><a href="#dma-direction">DMA Direction</a></li>
+<li><a href="#using-streaming-dma-mappings">Using Streaming DMA mappings</a></li>
+<li><a href="#handling-errors">Handling Errors</a></li>
+<li><a href="#optimizing-unmap-state-space-consumption">Optimizing Unmap State Space Consumption</a></li>
+<li><a href="#platform-issues">Platform Issues</a></li>
+</ul>
+</li>
+<li><a href="#dynamic-dma-mapping-using-the-generic-device">Dynamic DMA mapping using the generic device</a><ul>
+<li><a href="#part-i---dma_api">Part I - dma_API</a></li>
+<li><a href="#part-ia---using-large-dma-coherent-buffers">Part Ia - Using large DMA-coherent buffers</a></li>
+<li><a href="#part-ib---using-small-dma-coherent-buffers">Part Ib - Using small DMA-coherent buffers</a></li>
+<li><a href="#part-ic---dma-addressing-limitations">Part Ic - DMA addressing limitations</a></li>
+<li><a href="#part-id---streaming-dma-mappings">Part Id - Streaming DMA mappings</a></li>
+<li><a href="#part-ii---non-coherent-dma-allocations">Part II - Non-coherent DMA allocations</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="&#x5730;&#x5740;&#x7C7B;&#x578B;"><a name="&#x5730;&#x5740;&#x7C7B;&#x578B;" class="anchor-navigation-ex-anchor" href="#&#x5730;&#x5740;&#x7C7B;&#x578B;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x5730;&#x5740;&#x7C7B;&#x578B;</h1>
+<ul>
+<li>&#x865A;&#x62DF;&#x5730;&#x5740;: kernel&#x8FD0;&#x884C;&#x5728;&#x865A;&#x62DF;&#x5730;&#x5740;, kmalloc(), vmalloc()&#x7B49;&#x8FD4;&#x56DE;&#x7684;&#x90FD;&#x662F;&#x865A;&#x62DF;&#x5730;&#x5740;, &#x53EF;&#x4EE5;&#x7528;<code>void *</code>&#x6765;&#x8868;&#x793A;</li>
+<li>&#x7269;&#x7406;&#x5730;&#x5740;: &#x7528;<code>phys_addr_t</code>&#x6216;<code>resource_size_t</code>&#x6765;&#x8868;&#x793A;, &#x5728;<code>/proc/iomem</code>&#x662F;&#x7269;&#x7406;&#x5730;&#x5740;. &#x9A71;&#x52A8;&#x8981;&#x7528;&#x7684;&#x8BDD;, &#x8981;&#x5148;<a href="https://www.kernel.org/doc/html/latest/driver-api/device-io.html#c.ioremap" title="ioremap" target="_blank"><code>ioremap()</code></a>&#x5230;&#x865A;&#x62DF;&#x5730;&#x5740;</li>
+<li>bus&#x5730;&#x5740;: &#x662F;&#x5BF9;IO&#x8BBE;&#x5907;&#x6765;&#x8BF4;&#x7684;. &#x5982;&#x679C;&#x4E00;&#x4E2A;IO&#x8BBE;&#x5907;&#x7531;MMIO&#x5730;&#x5740;(memory mapped IO), &#x6216;&#x8005;&#x4F7F;&#x7528;DMA&#x6765;&#x8BFB;&#x5199;&#x7CFB;&#x7EDF;&#x5185;&#x5B58;, &#x90A3;&#x8FD9;&#x4E2A;&#x8BBE;&#x5907;&#x4F7F;&#x7528;&#x7684;&#x5730;&#x5740;&#x5C31;&#x662F;bus address. &#x6709;&#x7684;&#x7CFB;&#x7EDF;&#x4E0B;bus&#x5730;&#x5740;&#x5C31;&#x662F;&#x7269;&#x7406;&#x5730;&#x5740;, &#x4F46;&#x5927;&#x90E8;&#x5206;&#x60C5;&#x51B5;&#x4E0B;, bus&#x5730;&#x5740;&#x8981;&#x7ECF;&#x8FC7;IOMMU&#x8F6C;&#x6362;. IOMMU&#x53EF;&#x4EE5;&#x4EFB;&#x610F;map&#x7269;&#x7406;&#x5730;&#x5740;&#x548C;bus&#x5730;&#x5740;.</li>
+</ul>
+<p>&#x4ECE;&#x8BBE;&#x5907;&#x89D2;&#x5EA6;&#x6765;&#x770B;, &#x5B83;&#x64CD;&#x505A;&#x7684;&#x662F;bus&#x5730;&#x5740;. &#x4E2A;&#x4EBA;&#x7406;&#x89E3;bus&#x5730;&#x5740;&#x5C31;&#x662F;&#x6BCF;&#x4E2A;&#x8BBE;&#x5907;&#x89C6;&#x89D2;&#x4E0B;&#x7684;&quot;&#x865A;&#x62DF;&#x5730;&#x5740;&quot;, IOMMU&#x5C31;&#x662F;&#x8D1F;&#x8D23;&#x7FFB;&#x8BD1;&#x7269;&#x7406;&#x5730;&#x5740;&#x548C;bus&#x5730;&#x5740;&#x7684;. &#x8FD9;&#x4E2A;&#x7FFB;&#x8BD1;&#x5BF9;&#x8BBE;&#x5907;&#x6765;&#x8BF4;&#x662F;&#x9694;&#x79BB;&#x7684;, &#x6BD4;&#x5982;&#x5728;&#x4E00;&#x4E2A;64&#x4F4D;&#x7CFB;&#x7EDF;&#x4E0B;, &#x67D0;&#x4E2A;pcie&#x8BBE;&#x5907;&#x4F7F;&#x80FD;&#x4E86;64bit DMA, &#x4F46;&#x8BBE;&#x5907;&#x53EF;&#x4EE5;&#x53EA;&#x7528;&#x7ECF;&#x8FC7;IOMMU&#x7684;32bit DMA&#x5730;&#x5740;.</p>
+<h1 id="&#x6982;&#x5FF5;&#x8BF4;&#x660E;"><a name="&#x6982;&#x5FF5;&#x8BF4;&#x660E;" class="anchor-navigation-ex-anchor" href="#&#x6982;&#x5FF5;&#x8BF4;&#x660E;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x6982;&#x5FF5;&#x8BF4;&#x660E;</h1>
+<h2 id="&#x4E0D;&#x540C;&#x5730;&#x5740;&#x7684;&#x8F6C;&#x6362;"><a name="&#x4E0D;&#x540C;&#x5730;&#x5740;&#x7684;&#x8F6C;&#x6362;" class="anchor-navigation-ex-anchor" href="#&#x4E0D;&#x540C;&#x5730;&#x5740;&#x7684;&#x8F6C;&#x6362;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x4E0D;&#x540C;&#x5730;&#x5740;&#x7684;&#x8F6C;&#x6362;</h2>
+<pre class="language-"><code>             CPU                  CPU                  Bus
+           Virtual              Physical             Address
+           Address              Address               Space
+            Space                Space
+
+          +-------+             +------+             +------+
+          |       |             |MMIO  |   Offset    |      |
+          |       |  Virtual    |Space |   applied   |      |
+        C +-------+ --------&gt; B +------+ ----------&gt; +------+ A
+          |       |  mapping    |      |   by host   |      |
++-----+   |       |             |      |   bridge    |      |   +--------+
+|     |   |       |             +------+             |      |   |        |
+| CPU |   |       |             | RAM  |             |      |   | Device |
+|     |   |       |             |      |             |      |   |        |
++-----+   +-------+             +------+             +------+   +--------+
+          |       |  Virtual    |Buffer|   Mapping   |      |
+        X +-------+ --------&gt; Y +------+ &lt;---------- +------+ Z
+          |       |  mapping    | RAM  |   by IOMMU
+          |       |             |      |
+          |       |             |      |
+          +-------+             +------+
+</code></pre><p>&#x5728;&#x7CFB;&#x7EDF;&#x679A;&#x4E3E;&#x671F;&#x95F4;, kernel&#x77E5;&#x9053;IO&#x8BBE;&#x5907;&#x548C;&#x6240;&#x6709;&#x7684;MMIO&#x7A7A;&#x95F4;, &#x4E5F;&#x77E5;&#x9053;host gridge&#x7684;&#x7A7A;&#x95F4;.<br>&#x6BD4;&#x5982;&#x4E00;&#x4E2A;pci&#x8BBE;&#x5907;&#x6709;&#x4E2A;BAR, kernel&#x8BFB;&#x53D6;BAR&#x7684;bus&#x5730;&#x5740;<code>(A)</code>, &#x8F6C;&#x6362;&#x6210;CPU&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;<code>(B)</code>. B&#x5730;&#x5740;&#x5B58;&#x50A8;&#x5728;<code>resource</code>&#x7ED3;&#x6784;&#x4F53;&#x91CC;, &#x5728;<code>/proc/iomem</code>&#x91CC;&#x9762;&#x4F53;&#x73B0;.</p>
+<p>&#x4E0A;&#x9762;&#x662F;kernel&#x53D1;&#x73B0;&#x4E00;&#x4E2A;pci&#x8BBE;&#x5907;, &#x5E76;&#x8BFB;&#x53D6;pci&#x6807;&#x51C6;&#x7684;BAR&#x5BC4;&#x5B58;&#x5668;, &#x7136;&#x540E;&#x5206;&#x914D;resource&#x7A7A;&#x95F4;&#x7684;&#x8FC7;&#x7A0B;, &#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x662F;generic&#x7684;, &#x4E0D;&#x9700;&#x8981;&#x9A71;&#x52A8;&#x53C2;&#x4E0E;.</p>
+<p>&#x5230;&#x9A71;&#x52A8;&#x53C2;&#x4E0E;&#x7684;&#x65F6;&#x5019;, &#x9A71;&#x52A8;&#x58F0;&#x660E;&#x5B83;&#x53EF;&#x4EE5;own&#x4E00;&#x4E2A;device, &#x5B83;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<a href="https://www.kernel.org/doc/html/latest/driver-api/device-io.html#c.ioremap" title="ioremap" target="_blank"><code>ioremap()</code></a>&#x628A;&#x8FD9;&#x4E2A;&#x7269;&#x7406;&#x5730;&#x5740;<code>(B)</code>&#x8F6C;&#x6362;&#x6210;&#x865A;&#x62DF;&#x5730;&#x5740;<code>(C)</code>. &#x9A71;&#x52A8;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>ioread32(C)</code>&#x6765;&#x8BBF;&#x95EE;&#x8FD9;&#x4E2A;device&#x7684;bus&#x5730;&#x5740;<code>(A)</code></p>
+<p>&#x5982;&#x679C;&#x8BBE;&#x5907;&#x652F;&#x6301;DMA, &#x9A71;&#x52A8;&#x5C31;&#x7528;<a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.kmalloc" title="kmalloc" target="_blank"><code>kmalloc()</code></a>&#x6765;&#x7533;&#x8BF7;&#x4E00;&#x4E2A;&#x8FDE;&#x7EED;&#x7684;buffer, &#x8FD4;&#x56DE;&#x865A;&#x62DF;&#x5730;&#x5740;<code>(X)</code>. &#x865A;&#x62DF;&#x5730;&#x5740;<code>(X)</code>&#x901A;&#x8FC7;&#x7CFB;&#x7EDF;MMU&#x8F6C;&#x6362;&#x6210;&#x7269;&#x7406;&#x5730;&#x5740;<code>(Y)</code>.</p>
+<ul>
+<li>&#x9A71;&#x52A8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x865A;&#x62DF;&#x5730;&#x5740;X&#x6765;&#x8BBF;&#x95EE;&#x8FD9;&#x4E2A;buffer</li>
+<li>&#x4F46;DMA&#x63A7;&#x5236;&#x5668;&#x4E0D;&#x8D70;CPU&#x7684;MMU, &#x5C31;&#x6CA1;&#x6CD5;&#x7528;X</li>
+</ul>
+<p>&#x5728;&#x6CA1;&#x6709;IOMMU&#x7684;&#x7CFB;&#x7EDF;&#x4E2D;, &#x8BBE;&#x5907;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x7269;&#x7406;&#x5730;&#x5740;<code>(Y)</code>; &#x4F46;&#x6709;IOMMU&#x7684;&#x7CFB;&#x7EDF;, &#x9700;&#x8981;&#x901A;&#x8FC7;IOMMU&#x628A;&#x7269;&#x7406;&#x5730;&#x5740;<code>(Y)</code>&#x8F6C;&#x6362;&#x6210;DMA&#x5730;&#x5740;<code>(Z)</code>. &#x8FD9;&#x5C31;&#x662F;DMA API&#x7684;&#x7531;&#x6765;:<br>&#x6BD4;&#x5982;<code>dma_map_single()</code>&#x7528;&#x4F20;&#x5165;&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;<code>(X)</code>&#x914D;&#x7F6E;&#x597D;&#x9700;&#x8981;&#x7684;IOMMU&#x6620;&#x5C04;, &#x8FD4;&#x56DE;DMA&#x5730;&#x5740;<code>(Z)</code>. &#x9A71;&#x52A8;&#x5728;&#x628A;&#x8FD9;&#x4E2A;DMA&#x5730;&#x5740;<code>(Z)</code>&#x544A;&#x8BC9;device: &#x5F80;&#x8FD9;&#x4E2A;&#x5730;&#x5740;<code>(Z)</code>&#x505A;DMA. &#x56E0;&#x4E3A;IOMMU&#x5DF2;&#x7ECF;&#x628A;&#x7269;&#x7406;&#x5730;&#x5740;<code>(Y)</code>&#x6620;&#x5C04;&#x6210;&#x4E86;<code>(Z)</code>.</p>
+<p>DMA transfer&#x5B8C;&#x6210;&#x540E;, &#x9A71;&#x52A8;&#x518D;unmap&#x8FD9;&#x4E2A;&#x6620;&#x5C04;.</p>
+<p>DMA&#x7684;API&#x662F;&#x67B6;&#x6784;&#x65E0;&#x5173;&#x7684;. &#x9A71;&#x52A8;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;&#x67B6;&#x6784;&#x65E0;&#x5173;&#x7684;API, &#x6BD4;&#x5982;<code>dma_map_*()</code>&#x800C;&#x4E0D;&#x662F;&#x5177;&#x4F53;&#x603B;&#x7EBF;&#x7684;<code>pci_map_*()</code></p>
+<p>&#x8981;&#x4F7F;&#x7528;DMA&#x7684;API:</p>
+<pre class="language-"><code class="lang-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/dma-mapping.h&gt;</span></span>
+</code></pre>
+<p>&#x53C2;&#x8003;: <a href="platform_device_driver.html">&#x8BBE;&#x5907;&#x5730;&#x5740;</a></p>
+<h2 id="dma&#x7C7B;&#x578B;"><a name="dma&#x7C7B;&#x578B;" class="anchor-navigation-ex-anchor" href="#dma&#x7C7B;&#x578B;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. DMA&#x7C7B;&#x578B;</h2>
+<p>DMA&#x6709;&#x4E24;&#x79CD;&#x7C7B;&#x578B;:</p>
+<ul>
+<li><p>Consistent/synchronous/coherent: &#x53CD;&#x6B63;&#x90FD;&#x662F;&#x4E00;&#x81F4;&#x7684;&#x610F;&#x601D;. &#x5C31;&#x662F;&#x8BF4;CPU&#x548C;&#x8BBE;&#x5907;&#x5BF9;DMA buffer&#x7684;&#x64CD;&#x505A;&#x5373;&#x4F7F;&#x4E0D;&#x7528;&#x663E;&#x793A;&#x7684;flush&#x64CD;&#x505A;, &#x5BF9;&#x65B9;&#x90FD;&#x770B;&#x5F97;&#x5230;. &#x7528;<code>dma_alloc_coherent()</code> API&#x7684;&#x5C31;&#x662F;consistent&#x65B9;&#x5F0F;. &#x6BD4;&#x5982;:</p>
+<ul>
+<li>Network card DMA ring descriptors.</li>
+<li>SCSI adapter mailbox command data structures.</li>
+<li>Device firmware microcode executed out of main memory.</li>
+</ul>
+</li>
+<li><p>Streaming/asynchronous/outside the coherency domain: &#x901A;&#x5E38;&#x662F;&#x4E00;&#x6B21;DMA transfer&#x7528;&#x7684;, &#x7528;&#x5B8C;&#x9A6C;&#x4E0A;unmap. &#x8BBE;&#x5907;&#x53EF;&#x4EE5;&#x4F18;&#x5316;&#x987A;&#x5E8F;&#x8BBF;&#x95EE;. &#x7528;<code>dma_map_{single,sg}()</code> API&#x7684;&#x662F;streaming
+The interfaces for using this type of mapping were designed in such a way that an implementation can make whatever performance optimizations the hardware allows. To this end, when using such mappings you must be explicit about what you want to happen.</p>
+<ul>
+<li>Networking buffers transmitted/received by a device. &#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x662F;&#x6307;packet&#x7684;data, &#x4E0D;&#x662F;descriptor</li>
+<li>Filesystem buffers written/read by a SCSI device.</li>
+</ul>
+</li>
+</ul>
+<p>Neither type of DMA mapping has alignment restrictions that come from the underlying bus, although some devices may have such restrictions. Also, systems with caches that aren&#x2019;t DMA-coherent will work better when the underlying buffers don&#x2019;t share cache lines with other data.</p>
+<p>&#x6CE8;&#x610F;, &#x5BF9;Consistent DMA&#x6765;&#x8BF4;, &#x5FC5;&#x8981;&#x7684;memory barrier&#x8FD8;&#x8981;driver&#x81EA;&#x5DF1;&#x5199;.<br>Consistent DMA memory does not preclude the usage of proper memory barriers. The CPU may reorder stores to consistent memory just as it may normal memory. Example: if it is important for the device to see the first word of a descriptor updated before the second, you must do something like:</p>
+<pre class="language-"><code class="lang-c">desc<span class="token operator">-&gt;</span>word0 <span class="token operator">=</span> address<span class="token punctuation">;</span>
+<span class="token function">wmb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+desc<span class="token operator">-&gt;</span>word1 <span class="token operator">=</span> DESC_VALID<span class="token punctuation">;</span>
+</code></pre>
+<p>in order to get correct behavior on all platforms.</p>
+<p>Also, on some platforms your driver may need to flush CPU write buffers in much the same way as it needs to flush write buffers found in PCI bridges (such as by reading a register&#x2019;s value after writing it).</p>
+<h1 id="&#x5177;&#x4F53;&#x4EE3;&#x7801;"><a name="&#x5177;&#x4F53;&#x4EE3;&#x7801;" class="anchor-navigation-ex-anchor" href="#&#x5177;&#x4F53;&#x4EE3;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x5177;&#x4F53;&#x4EE3;&#x7801;</h1>
+<h2 id="&#x54EA;&#x4E9B;&#x5185;&#x5B58;&#x53EF;&#x4EE5;dma"><a name="&#x54EA;&#x4E9B;&#x5185;&#x5B58;&#x53EF;&#x4EE5;dma" class="anchor-navigation-ex-anchor" href="#&#x54EA;&#x4E9B;&#x5185;&#x5B58;&#x53EF;&#x4EE5;dma"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x54EA;&#x4E9B;&#x5185;&#x5B58;&#x53EF;&#x4EE5;DMA?</h2>
+<p>&#x53EF;&#x4EE5;&#x7684;:</p>
+<ul>
+<li><a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.kmalloc" title="kmalloc" target="_blank"><code>kmalloc()</code></a></li>
+<li><a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.kmem_cache_alloc" title="kmem_cache_alloc" target="_blank"><code>kmem_cache_alloc()</code></a></li>
+<li><code>__get_free_page*()</code></li>
+</ul>
+<p>&#x4E0D;&#x884C;&#x7684;:</p>
+<ul>
+<li><a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.vmalloc" title="vmalloc" target="_blank"><code>vmalloc()</code></a></li>
+<li><code>kmap()</code>: &#x548C;<code>vmalloc()</code>&#x5DEE;&#x4E0D;&#x591A;.</li>
+<li>cacheline&#x4E0D;&#x5BF9;&#x9F50;&#x7684;&#x5730;&#x5740;</li>
+</ul>
+<p>&#x597D;&#x50CF;block IO&#x548C;network&#x7684;buffer&#x4FDD;&#x8BC1;&#x80FD;DMA</p>
+<h2 id="dma-addressing-capabilities"><a name="dma-addressing-capabilities" class="anchor-navigation-ex-anchor" href="#dma-addressing-capabilities"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. DMA addressing capabilities</h2>
+<p>&#x8C03;&#x7528;&#x4E0B;&#x9762;&#x7684;&#x51FD;&#x6570;&#x6765;&#x914D;&#x7F6E;DMA&#x7684;&#x5C5E;&#x6027;
+The standard 64-bit addressing device would do something like this:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> <span class="token function">dma_set_mask_and_coherent</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> u64 mask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>If the device only supports 32-bit addressing for descriptors in the coherent allocations, but supports full 64-bits for streaming mappings it would look like this:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dma_set_mask</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> <span class="token function">DMA_BIT_MASK</span><span class="token punctuation">(</span><span class="token number">64</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">dev_warn</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> <span class="token string">&quot;mydev: No suitable DMA available\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">goto</span> ignore_this_device<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The coherent mask will always be able to set the same or a smaller mask as the streaming mask. However for the rare case that a device driver only uses consistent allocations, one would have to check the return value from dma_set_coherent_mask().</p>
+<p>Finally, if your device can only drive the low 24-bits of address you might do something like:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dma_set_mask</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> <span class="token function">DMA_BIT_MASK</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">dev_warn</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> <span class="token string">&quot;mydev: 24-bit DMA addressing not available\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">goto</span> ignore_this_device<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>When dma_set_mask() or dma_set_mask_and_coherent() is successful, and returns zero, the kernel saves away this mask you have provided. The kernel will use this information later when you make DMA mappings.</p>
+<h2 id="using-consistent-dma-mappings"><a name="using-consistent-dma-mappings" class="anchor-navigation-ex-anchor" href="#using-consistent-dma-mappings"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. Using Consistent DMA mappings</h2>
+<p>To allocate and map large (PAGE_SIZE or so) consistent DMA regions, you should do:</p>
+<pre class="language-"><code class="lang-c"><span class="token class-name">dma_addr_t</span> dma_handle<span class="token punctuation">;</span>
+
+cpu_addr <span class="token operator">=</span> <span class="token function">dma_alloc_coherent</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token operator">&amp;</span>dma_handle<span class="token punctuation">,</span> gfp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>where device is a <code>struct device *</code>. This may be called in interrupt context with the GFP_ATOMIC flag.</p>
+<p>Size is the length of the region you want to allocate, in bytes.</p>
+<p>This routine will allocate RAM for that region, so it acts similarly to __get_free_pages() (but takes size instead of a page order). If your driver needs regions sized smaller than a page, you may prefer using the dma_pool interface, described below.</p>
+<p>The consistent DMA mapping interfaces, will by default return a DMA address which is 32-bit addressable. Even if the device indicates (via the DMA mask) that it may address the upper 32-bits, consistent allocation will only return &gt; 32-bit addresses for DMA if the consistent DMA mask has been explicitly changed via dma_set_coherent_mask(). This is true of the dma_pool interface as well.</p>
+<p>dma_alloc_coherent() returns two values: the virtual address which you can use to access it from the CPU and dma_handle which you pass to the card.</p>
+<p>The CPU virtual address and the DMA address are both guaranteed to be aligned to the smallest PAGE_SIZE order which is greater than or equal to the requested size. This invariant exists (for example) to guarantee that if you allocate a chunk which is smaller than or equal to 64 kilobytes, the extent of the buffer you receive will not cross a 64K boundary.</p>
+<p>To unmap and free such a DMA region, you call:</p>
+<pre class="language-"><code class="lang-c"><span class="token function">dma_free_coherent</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> size<span class="token punctuation">,</span> cpu_addr<span class="token punctuation">,</span> dma_handle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>where dev, size are the same as in the above call and cpu_addr and dma_handle are the values dma_alloc_coherent() returned to you. This function may not be called in interrupt context.</p>
+<p>If your driver needs lots of smaller memory regions, you can write custom code to subdivide pages returned by dma_alloc_coherent(), or you can use the dma_pool API to do that. A dma_pool is like a kmem_cache, but it uses dma_alloc_coherent(), not __get_free_pages(). Also, it understands common hardware constraints for alignment, like queue heads needing to be aligned on N byte boundaries.</p>
+<p>Create a dma_pool like this:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">dma_pool</span> <span class="token operator">*</span>pool<span class="token punctuation">;</span>
+
+pool <span class="token operator">=</span> <span class="token function">dma_pool_create</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> dev<span class="token punctuation">,</span> size<span class="token punctuation">,</span> align<span class="token punctuation">,</span> boundary<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The &#x201C;name&#x201D; is for diagnostics (like a kmem_cache name); dev and size are as above. The device&#x2019;s hardware alignment requirement for this type of data is &#x201C;align&#x201D; (which is expressed in bytes, and must be a power of two). If your device has no boundary crossing restrictions, pass 0 for boundary; passing 4096 says memory allocated from this pool must not cross 4KByte boundaries (but at that time it may be better to use dma_alloc_coherent() directly instead).</p>
+<p>Allocate memory from a DMA pool like this:</p>
+<pre class="language-"><code class="lang-c">cpu_addr <span class="token operator">=</span> <span class="token function">dma_pool_alloc</span><span class="token punctuation">(</span>pool<span class="token punctuation">,</span> flags<span class="token punctuation">,</span> <span class="token operator">&amp;</span>dma_handle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>flags are GFP_KERNEL if blocking is permitted (not in_interrupt nor holding SMP locks), GFP_ATOMIC otherwise. Like dma_alloc_coherent(), this returns two values, cpu_addr and dma_handle.</p>
+<p>Free memory that was allocated from a dma_pool like this:</p>
+<pre class="language-"><code class="lang-c"><span class="token function">dma_pool_free</span><span class="token punctuation">(</span>pool<span class="token punctuation">,</span> cpu_addr<span class="token punctuation">,</span> dma_handle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>where pool is what you passed to <a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.dma_pool_alloc" title="dma_pool_alloc" target="_blank"><code>dma_pool_alloc()</code></a>, and cpu_addr and dma_handle are the values <a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.dma_pool_alloc" title="dma_pool_alloc" target="_blank"><code>dma_pool_alloc()</code></a> returned. This function may be called in interrupt context.</p>
+<p>Destroy a dma_pool by calling:</p>
+<pre class="language-"><code class="lang-c"><span class="token function">dma_pool_destroy</span><span class="token punctuation">(</span>pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Make sure you&#x2019;ve called <a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.dma_pool_free" title="dma_pool_free" target="_blank"><code>dma_pool_free()</code></a> for all memory allocated from a pool before you destroy the pool. This function may not be called in interrupt context.</p>
+<h2 id="dma-direction"><a name="dma-direction" class="anchor-navigation-ex-anchor" href="#dma-direction"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. DMA Direction</h2>
+<p>The interfaces described in subsequent portions of this document take a DMA direction argument, which is an integer and takes on one of the following values:</p>
+<pre class="language-"><code class="lang-c">DMA_BIDIRECTIONAL
+DMA_TO_DEVICE
+DMA_FROM_DEVICE
+DMA_NONE
+</code></pre>
+<p>You should provide the exact DMA direction if you know it.</p>
+<p>DMA_TO_DEVICE means &#x201C;from main memory to the device&#x201D; DMA_FROM_DEVICE means &#x201C;from the device to main memory&#x201D; It is the direction in which the data moves during the DMA transfer.</p>
+<p>You are <em>strongly</em> encouraged to specify this as precisely as you possibly can.</p>
+<p>If you absolutely cannot know the direction of the DMA transfer, specify DMA_BIDIRECTIONAL. It means that the DMA can go in either direction. The platform guarantees that you may legally specify this, and that it will work, but this may be at the cost of performance for example.</p>
+<p>The value DMA_NONE is to be used for debugging. One can hold this in a data structure before you come to know the precise direction, and this will help catch cases where your direction tracking logic has failed to set things up properly.</p>
+<p>Another advantage of specifying this value precisely (outside of potential platform-specific optimizations of such) is for debugging. Some platforms actually have a write permission boolean which DMA mappings can be marked with, much like page protections in the user program address space. Such platforms can and do report errors in the kernel logs when the DMA controller hardware detects violation of the permission setting.</p>
+<p>Only streaming mappings specify a direction, consistent mappings implicitly have a direction attribute setting of DMA_BIDIRECTIONAL.</p>
+<p>The SCSI subsystem tells you the direction to use in the &#x2018;sc_data_direction&#x2019; member of the SCSI command your driver is working on.</p>
+<p>For Networking drivers, it&#x2019;s a rather simple affair. For transmit packets, map/unmap them with the DMA_TO_DEVICE direction specifier. For receive packets, just the opposite, map/unmap them with the DMA_FROM_DEVICE direction specifier.</p>
+<h2 id="using-streaming-dma-mappings"><a name="using-streaming-dma-mappings" class="anchor-navigation-ex-anchor" href="#using-streaming-dma-mappings"><i class="fa fa-link" aria-hidden="true"></i></a>3.5. Using Streaming DMA mappings</h2>
+<p>The streaming DMA mapping routines <strong>can be called from interrupt context</strong>. There are two versions of each map/unmap, one which will map/unmap a single memory region, and one which will map/unmap a <strong>scatterlist</strong>.</p>
+<p>To map a single region, you do:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev <span class="token operator">=</span> <span class="token operator">&amp;</span>my_dev<span class="token operator">-&gt;</span>dev<span class="token punctuation">;</span>
+<span class="token class-name">dma_addr_t</span> dma_handle<span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token operator">*</span>addr <span class="token operator">=</span> buffer<span class="token operator">-&gt;</span>ptr<span class="token punctuation">;</span>
+<span class="token class-name">size_t</span> size <span class="token operator">=</span> buffer<span class="token operator">-&gt;</span>len<span class="token punctuation">;</span>
+
+dma_handle <span class="token operator">=</span> <span class="token function">dma_map_single</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> addr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dma_mapping_error</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> dma_handle<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*
+         * reduce current DMA mapping usage,
+         * delay and try again later or
+         * reset driver.
+         */</span>
+        <span class="token keyword">goto</span> map_error_handling<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>and to unmap it:</p>
+<pre class="language-"><code class="lang-c"><span class="token function">dma_unmap_single</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> dma_handle<span class="token punctuation">,</span> size<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>You should call dma_mapping_error() as dma_map_single() could fail and return error. Doing so will ensure that the mapping code will work correctly on all DMA implementations without any dependency on the specifics of the underlying implementation. Using the returned address without checking for errors could result in failures ranging from panics to silent data corruption. The same applies to dma_map_page() as well.</p>
+<p>You should call dma_unmap_single() when the DMA activity is finished, e.g., from the interrupt which told you that the DMA transfer is done. &#x5728;DMA&#x5B8C;&#x6210;&#x4E2D;&#x65AD;&#x91CC;&#x8C03;&#x7528;unmap.</p>
+<p>&#x76F4;&#x63A5;&#x4F7F;&#x7528;buffer-&gt;ptr&#x7684;&#x574F;&#x5904;&#x662F;&#x4E0D;&#x80FD;&#x7528;HIGHMEM&#x533A;&#x95F4;. &#x7528;<code>dma_map_page()</code>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;HIGHMEM&#x5185;&#x5B58;:<br>Using CPU pointers like this for single mappings has a disadvantage: you cannot reference HIGHMEM memory in this way. Thus, there is a map/unmap interface pair akin to dma_{map,unmap}_single(). These interfaces deal with page/offset pairs instead of CPU pointers. Specifically:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev <span class="token operator">=</span> <span class="token operator">&amp;</span>my_dev<span class="token operator">-&gt;</span>dev<span class="token punctuation">;</span>
+<span class="token class-name">dma_addr_t</span> dma_handle<span class="token punctuation">;</span>
+<span class="token keyword">struct</span> <span class="token class-name">page</span> <span class="token operator">*</span>page <span class="token operator">=</span> buffer<span class="token operator">-&gt;</span>page<span class="token punctuation">;</span>
+<span class="token keyword">unsigned</span> <span class="token keyword">long</span> offset <span class="token operator">=</span> buffer<span class="token operator">-&gt;</span>offset<span class="token punctuation">;</span>
+<span class="token class-name">size_t</span> size <span class="token operator">=</span> buffer<span class="token operator">-&gt;</span>len<span class="token punctuation">;</span>
+
+dma_handle <span class="token operator">=</span> <span class="token function">dma_map_page</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> page<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> size<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dma_mapping_error</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> dma_handle<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*
+         * reduce current DMA mapping usage,
+         * delay and try again later or
+         * reset driver.
+         */</span>
+        <span class="token keyword">goto</span> map_error_handling<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token function">dma_unmap_page</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> dma_handle<span class="token punctuation">,</span> size<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Here, &#x201C;offset&#x201D; means byte offset within the given page.</p>
+<p>You should call dma_mapping_error() as dma_map_page() could fail and return error as outlined under the dma_map_single() discussion.</p>
+<p>You should call dma_unmap_page() when the DMA activity is finished, e.g., from the interrupt which told you that the DMA transfer is done.</p>
+<p>With scatterlists, you map a region gathered from several regions by:
+&#x8FD9;&#x91CC;&#x7684;<code>sg</code>&#x662F;<code>scatter-gather</code>&#x7684;&#x610F;&#x601D;, &#x5BF9;&#x5E94;<code>single</code></p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">int</span> i<span class="token punctuation">,</span> count <span class="token operator">=</span> <span class="token function">dma_map_sg</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> sglist<span class="token punctuation">,</span> nents<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">struct</span> <span class="token class-name">scatterlist</span> <span class="token operator">*</span>sg<span class="token punctuation">;</span>
+
+<span class="token function">for_each_sg</span><span class="token punctuation">(</span>sglist<span class="token punctuation">,</span> sg<span class="token punctuation">,</span> count<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        hw_address<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">sg_dma_address</span><span class="token punctuation">(</span>sg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        hw_len<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">sg_dma_len</span><span class="token punctuation">(</span>sg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>where nents is the number of entries in the sglist.</p>
+<p>The implementation is free to merge several consecutive sglist entries into one (e.g. if DMA mapping is done with PAGE_SIZE granularity, any consecutive sglist entries can be merged into one provided the first one ends and the second one starts on a page boundary - in fact this is a huge advantage for cards which either cannot do scatter-gather or have very limited number of scatter-gather entries) and returns the actual number of sg entries it mapped them to. On failure 0 is returned.</p>
+<p>Then you should loop count times (note: this can be less than nents times) and use sg_dma_address() and sg_dma_len() macros where you previously accessed sg-&gt;address and sg-&gt;length as shown above.</p>
+<p>To unmap a scatterlist, just call:</p>
+<pre class="language-"><code class="lang-c"><span class="token function">dma_unmap_sg</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> sglist<span class="token punctuation">,</span> nents<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Again, make sure DMA activity has already finished.</p>
+<blockquote>
+<p>The &#x2018;nents&#x2019; argument to the dma<em>unmap_sg call must be the _same</em> one you passed into the dma<em>map_sg call, it should _NOT</em> be the &#x2018;count&#x2019; value <em>returned</em> from the dma_map_sg call.</p>
+</blockquote>
+<p>Every dma<em>map</em>{single,sg}() call should have its dma<em>unmap</em>{single,sg}() counterpart, because the DMA address space is a shared resource and you could render the machine unusable by consuming all DMA addresses.</p>
+<p>If you need to use the same streaming DMA region multiple times and touch the data in between the DMA transfers, the buffer needs to be synced properly in order for the CPU and device to see the most up-to-date and correct copy of the DMA buffer.</p>
+<p>DMA&#x4F20;&#x8F93;&#x7684;&#x65F6;&#x5019;, CPU&#x4E5F;&#x60F3;&#x6539;&#x8FD9;&#x4E2A;buffer&#x7684;data, &#x9700;&#x8981;&#x7528;&#x4E0B;&#x9762;&#x7684;API:
+So, firstly, just map it with dma<em>map</em>{single,sg}(), and after each DMA transfer call either:</p>
+<pre class="language-"><code class="lang-c"><span class="token function">dma_sync_single_for_cpu</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> dma_handle<span class="token punctuation">,</span> size<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>or:</p>
+<pre class="language-"><code class="lang-c"><span class="token function">dma_sync_sg_for_cpu</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> sglist<span class="token punctuation">,</span> nents<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>as appropriate.  </p>
+<blockquote>
+<p>The &#x2018;nents&#x2019; argument to <code>dma_sync_sg_for_cpu()</code> and <code>dma_sync_sg_for_device()</code> must be the same passed to <code>dma_map_sg()</code>. It is <em>NOT</em> the count returned by <code>dma_map_sg()</code>.</p>
+</blockquote>
+<p>After the last DMA transfer call one of the DMA unmap routines <code>dma_unmap_{single,sg}()</code>. If you don&#x2019;t touch the data from the first <code>dma_map_*()</code> call till <code>dma_unmap_*()</code>, then you don&#x2019;t have to call the <code>dma_sync_*()</code> routines at all.</p>
+<p>Here is pseudo code which shows a situation in which you would need to use the dma<em>sync</em>*() interfaces:</p>
+<pre class="language-"><code class="lang-c"><span class="token function">my_card_setup_receive_buffer</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">my_card</span> <span class="token operator">*</span>cp<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>buffer<span class="token punctuation">,</span> <span class="token keyword">int</span> len<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+        <span class="token class-name">dma_addr_t</span> mapping<span class="token punctuation">;</span>
+
+        mapping <span class="token operator">=</span> <span class="token function">dma_map_single</span><span class="token punctuation">(</span>cp<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> buffer<span class="token punctuation">,</span> len<span class="token punctuation">,</span> DMA_FROM_DEVICE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dma_mapping_error</span><span class="token punctuation">(</span>cp<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> mapping<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment">/*
+                 * reduce current DMA mapping usage,
+                 * delay and try again later or
+                 * reset driver.
+                 */</span>
+                <span class="token keyword">goto</span> map_error_handling<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        cp<span class="token operator">-&gt;</span>rx_buf <span class="token operator">=</span> buffer<span class="token punctuation">;</span>
+        cp<span class="token operator">-&gt;</span>rx_len <span class="token operator">=</span> len<span class="token punctuation">;</span>
+        cp<span class="token operator">-&gt;</span>rx_dma <span class="token operator">=</span> mapping<span class="token punctuation">;</span>
+
+        <span class="token function">give_rx_buf_to_card</span><span class="token punctuation">(</span>cp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token function">my_card_interrupt_handler</span><span class="token punctuation">(</span><span class="token keyword">int</span> irq<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>devid<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">pt_regs</span> <span class="token operator">*</span>regs<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+        <span class="token keyword">struct</span> <span class="token class-name">my_card</span> <span class="token operator">*</span>cp <span class="token operator">=</span> devid<span class="token punctuation">;</span>
+
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">read_card_status</span><span class="token punctuation">(</span>cp<span class="token punctuation">)</span> <span class="token operator">==</span> RX_BUF_TRANSFERRED<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">struct</span> <span class="token class-name">my_card_header</span> <span class="token operator">*</span>hp<span class="token punctuation">;</span>
+
+                <span class="token comment">/* Examine the header to see if we wish
+                 * to accept the data.  But synchronize
+                 * the DMA transfer with the CPU first
+                 * so that we see updated contents.
+                 */</span>
+                <span class="token function">dma_sync_single_for_cpu</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>cp<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> cp<span class="token operator">-&gt;</span>rx_dma<span class="token punctuation">,</span>
+                                        cp<span class="token operator">-&gt;</span>rx_len<span class="token punctuation">,</span>
+                                        DMA_FROM_DEVICE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token comment">/* Now it is safe to examine the buffer. */</span>
+                hp <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">my_card_header</span> <span class="token operator">*</span><span class="token punctuation">)</span> cp<span class="token operator">-&gt;</span>rx_buf<span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">header_is_ok</span><span class="token punctuation">(</span>hp<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token function">dma_unmap_single</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>cp<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> cp<span class="token operator">-&gt;</span>rx_dma<span class="token punctuation">,</span> cp<span class="token operator">-&gt;</span>rx_len<span class="token punctuation">,</span>
+                                         DMA_FROM_DEVICE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token function">pass_to_upper_layers</span><span class="token punctuation">(</span>cp<span class="token operator">-&gt;</span>rx_buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token function">make_and_setup_new_rx_buf</span><span class="token punctuation">(</span>cp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                        <span class="token comment">/* CPU should not write to
+                         * DMA_FROM_DEVICE-mapped area,
+                         * so dma_sync_single_for_device() is
+                         * not needed here. It would be required
+                         * for DMA_BIDIRECTIONAL mapping if
+                         * the memory was modified.
+                         */</span>
+                        <span class="token function">give_rx_buf_to_card</span><span class="token punctuation">(</span>cp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Drivers converted fully to this interface should not use virt_to_bus() any longer, nor should they use bus_to_virt(). Some drivers have to be changed a little bit, because there is no longer an equivalent to bus_to_virt() in the dynamic DMA mapping scheme - you have to always store the DMA addresses returned by the dma_alloc_coherent(), <a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.dma_pool_alloc" title="dma_pool_alloc" target="_blank"><code>dma_pool_alloc()</code></a>, and dma_map_single() calls (dma_map_sg() stores them in the scatterlist itself if the platform supports dynamic DMA mapping in hardware) in your driver structures and/or in the card registers.</p>
+<p>All drivers should be using these interfaces with no exceptions. It is planned to completely remove virt_to_bus() and bus_to_virt() as they are entirely deprecated. Some ports already do not provide these as it is impossible to correctly support them.</p>
+<p>&#x6CE8;&#x610F;, &#x9A71;&#x52A8;&#x4E0D;&#x8981;&#x518D;&#x7528;<code>virt_to_bus()</code> and <code>bus_to_virt()</code>, &#x4EE5;&#x540E;kernel&#x5C31;&#x4E0D;&#x7EF4;&#x62A4;&#x8FD9;&#x4E24;&#x4E2A;API&#x4E86;.</p>
+<h2 id="handling-errors"><a name="handling-errors" class="anchor-navigation-ex-anchor" href="#handling-errors"><i class="fa fa-link" aria-hidden="true"></i></a>3.6. Handling Errors</h2>
+<p>DMA address space is limited on some architectures and an allocation failure can be determined by:</p>
+<ul>
+<li>checking if dma_alloc_coherent() returns NULL or dma_map_sg returns 0</li>
+<li>checking the dma_addr_t returned from dma_map_single() and dma_map_page() by using dma_mapping_error():<pre class="language-"><code class="lang-c"><span class="token class-name">dma_addr_t</span> dma_handle<span class="token punctuation">;</span>
+dma_handle <span class="token operator">=</span> <span class="token function">dma_map_single</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> addr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dma_mapping_error</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> dma_handle<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">/*
+     * reduce current DMA mapping usage,
+     * delay and try again later or
+     * reset driver.
+     */</span>
+    <span class="token keyword">goto</span> map_error_handling<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li>unmap pages that are already mapped, when mapping error occurs in the middle of a multiple page mapping attempt. These example are applicable to dma_map_page() as well.</li>
+</ul>
+<p>Example 1:</p>
+<pre class="language-"><code class="lang-c"><span class="token class-name">dma_addr_t</span> dma_handle1<span class="token punctuation">;</span>
+<span class="token class-name">dma_addr_t</span> dma_handle2<span class="token punctuation">;</span>
+
+dma_handle1 <span class="token operator">=</span> <span class="token function">dma_map_single</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> addr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dma_mapping_error</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> dma_handle1<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*
+         * reduce current DMA mapping usage,
+         * delay and try again later or
+         * reset driver.
+         */</span>
+        <span class="token keyword">goto</span> map_error_handling1<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+dma_handle2 <span class="token operator">=</span> <span class="token function">dma_map_single</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> addr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dma_mapping_error</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> dma_handle2<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*
+         * reduce current DMA mapping usage,
+         * delay and try again later or
+         * reset driver.
+         */</span>
+        <span class="token keyword">goto</span> map_error_handling2<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+map_error_handling2<span class="token operator">:</span>
+        <span class="token function">dma_unmap_single</span><span class="token punctuation">(</span>dma_handle1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+map_error_handling1<span class="token operator">:</span>
+</code></pre>
+<p>Example 2:</p>
+<pre class="language-"><code class="lang-c"><span class="token comment">/*
+ * if buffers are allocated in a loop, unmap all mapped buffers when
+ * mapping error is detected in the middle
+ */</span>
+
+<span class="token class-name">dma_addr_t</span> dma_addr<span class="token punctuation">;</span>
+<span class="token class-name">dma_addr_t</span> array<span class="token punctuation">[</span>DMA_BUFFERS<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> save_index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> DMA_BUFFERS<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+        dma_addr <span class="token operator">=</span> <span class="token function">dma_map_single</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> addr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> direction<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dma_mapping_error</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> dma_addr<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment">/*
+                 * reduce current DMA mapping usage,
+                 * delay and try again later or
+                 * reset driver.
+                 */</span>
+                <span class="token keyword">goto</span> map_error_handling<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>dma_addr <span class="token operator">=</span> dma_addr<span class="token punctuation">;</span>
+        save_index<span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+map_error_handling<span class="token operator">:</span>
+
+<span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> save_index<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+        <span class="token function">dma_unmap_single</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>dma_addr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Networking drivers must call dev_kfree_skb() to free the socket buffer and return NETDEV_TX_OK if the DMA mapping fails on the transmit hook (ndo_start_xmit). This means that the socket buffer is just dropped in the failure case.</p>
+<p>SCSI drivers must return SCSI_MLQUEUE_HOST_BUSY if the DMA mapping fails in the queuecommand hook. This means that the SCSI subsystem passes the command to the driver again later.</p>
+<h2 id="optimizing-unmap-state-space-consumption"><a name="optimizing-unmap-state-space-consumption" class="anchor-navigation-ex-anchor" href="#optimizing-unmap-state-space-consumption"><i class="fa fa-link" aria-hidden="true"></i></a>3.7. Optimizing Unmap State Space Consumption</h2>
+<p>On many platforms, <code>dma_unmap_{single,page}()</code> is simply a nop. Therefore, keeping track of the mapping address and length is a waste of space. Instead of filling your drivers up with ifdefs and the like to &#x201C;work around&#x201D; this (which would defeat the whole purpose of a portable API) the following facilities are provided.</p>
+<p>Actually, instead of describing the macros one by one, we&#x2019;ll transform some example code.</p>
+<ol>
+<li><p>Use <code>DEFINE_DMA_UNMAP_{ADDR,LEN}</code> in state saving structures. Example, before:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">ring_state</span> <span class="token punctuation">{</span>
+        <span class="token keyword">struct</span> <span class="token class-name">sk_buff</span> <span class="token operator">*</span>skb<span class="token punctuation">;</span>
+        <span class="token class-name">dma_addr_t</span> mapping<span class="token punctuation">;</span>
+        __u32 len<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>after:</p>
+<p>```c
+struct ring_state {</p>
+<pre class="language-"><code>    struct sk_buff *skb;
+    DEFINE_DMA_UNMAP_ADDR(mapping);
+    DEFINE_DMA_UNMAP_LEN(len);
+</code></pre><p>};</p>
+</li>
+</ol>
+<ol>
+<li><p>Use dma<em>unmap</em>{addr,len}_set() to set these values. Example, before:</p>
+<pre class="language-"><code class="lang-c">ringp<span class="token operator">-&gt;</span>mapping <span class="token operator">=</span> FOO<span class="token punctuation">;</span>
+ringp<span class="token operator">-&gt;</span>len <span class="token operator">=</span> BAR<span class="token punctuation">;</span>
+</code></pre>
+<p>after:</p>
+<pre class="language-"><code class="lang-c"><span class="token function">dma_unmap_addr_set</span><span class="token punctuation">(</span>ringp<span class="token punctuation">,</span> mapping<span class="token punctuation">,</span> FOO<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">dma_unmap_len_set</span><span class="token punctuation">(</span>ringp<span class="token punctuation">,</span> len<span class="token punctuation">,</span> BAR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+<li><p>Use dma<em>unmap</em>{addr,len}() to access these values. Example, before:</p>
+<pre class="language-"><code class="lang-c"><span class="token function">dma_unmap_single</span><span class="token punctuation">(</span>dev<span class="token punctuation">,</span> ringp<span class="token operator">-&gt;</span>mapping<span class="token punctuation">,</span> ringp<span class="token operator">-&gt;</span>len<span class="token punctuation">,</span>
+                 DMA_FROM_DEVICE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>after:</p>
+<pre class="language-"><code>dma_unmap_single(dev,
+                 dma_unmap_addr(ringp, mapping),
+                 dma_unmap_len(ringp, len),
+                 DMA_FROM_DEVICE);
+</code></pre></li>
+</ol>
+<p>It really should be self-explanatory. We treat the ADDR and LEN separately, because it is possible for an implementation to only need the address in order to perform the unmap operation.</p>
+<h2 id="platform-issues"><a name="platform-issues" class="anchor-navigation-ex-anchor" href="#platform-issues"><i class="fa fa-link" aria-hidden="true"></i></a>3.8. Platform Issues</h2>
+<p>If you are just writing drivers for Linux and do not maintain an architecture port for the kernel, you can safely skip down to &#x201C;Closing&#x201D;.</p>
+<ol>
+<li><p>Struct scatterlist requirements.</p>
+<p>You need to enable CONFIG_NEED_SG_DMA_LENGTH if the architecture supports IOMMUs (including software IOMMU).</p>
+</li>
+<li><p>ARCH_DMA_MINALIGN</p>
+<p>Architectures must ensure that kmalloc&#x2019;ed buffer is DMA-safe. Drivers and subsystems depend on it. If an architecture isn&#x2019;t fully DMA-coherent (i.e. hardware doesn&#x2019;t ensure that data in the CPU cache is identical to data in main memory), ARCH_DMA_MINALIGN must be set so that the memory allocator makes sure that kmalloc&#x2019;ed buffer doesn&#x2019;t share a cache line with the others. See arch/arm/include/asm/cache.h as an example.</p>
+<p>Note that ARCH_DMA_MINALIGN is about DMA memory alignment constraints. You don&#x2019;t need to worry about the architecture data alignment constraints (e.g. the alignment constraints about 64-bit objects).</p>
+</li>
+</ol>
+<h1 id="dynamic-dma-mapping-using-the-generic-device"><a name="dynamic-dma-mapping-using-the-generic-device" class="anchor-navigation-ex-anchor" href="#dynamic-dma-mapping-using-the-generic-device"><i class="fa fa-link" aria-hidden="true"></i></a>4. Dynamic DMA mapping using the generic device</h1>
+<h2 id="part-i---dmaapi"><a name="part-i---dmaapi" class="anchor-navigation-ex-anchor" href="#part-i---dmaapi"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. Part I - dma_API</h2>
+<p>To get the dma_API, you must #include <linux dma-mapping.h="">. This provides dma_addr_t and the interfaces described below.</linux></p>
+<p>A dma_addr_t can hold any valid DMA address for the platform. It can be given to a device to use as a DMA source or target. A CPU cannot reference a dma_addr_t directly because there may be translation between its physical address space and the DMA address space.</p>
+<h2 id="part-ia---using-large-dma-coherent-buffers"><a name="part-ia---using-large-dma-coherent-buffers" class="anchor-navigation-ex-anchor" href="#part-ia---using-large-dma-coherent-buffers"><i class="fa fa-link" aria-hidden="true"></i></a>4.2. Part Ia - Using large DMA-coherent buffers</h2>
+<pre class="language-"><code>void *
+dma_alloc_coherent(struct device *dev, size_t size,
+                   dma_addr_t *dma_handle, gfp_t flag)
+</code></pre><p>&#x8FD4;&#x56DE;&#x7684;<code>void *</code>&#x5C31;&#x662F;&#x65B0;&#x7533;&#x8BF7;buffer&#x7684;CPU&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;, &#x800C;<code>dma_addr_t *dma_handle</code>&#x662F;DMA&#x5730;&#x5740;, &#x5373;&#x53EF;&#x4EE5;&#x7ED9;device&#x7528;&#x7684;bus&#x5730;&#x5740;.<br>Consistent memory is memory for which a write by either the device or the processor can immediately be read by the processor or device without having to worry about caching effects. (You may however need to make sure to flush the processor&#x2019;s write buffers before telling devices to read that memory.)</p>
+<p>This routine allocates a region of <size> bytes of consistent memory.</size></p>
+<p>It returns a pointer to the allocated region (in the processor&#x2019;s virtual address space) or NULL if the allocation failed.</p>
+<p>It also returns a <dma_handle> which may be cast to an unsigned integer the same width as the bus and given to the device as the DMA address base of the region.</dma_handle></p>
+<p>Note: consistent memory can be expensive on some platforms, and the minimum allocation length may be as big as a page, so you should consolidate your requests for consistent memory as much as possible. The simplest way to do that is to use the dma_pool calls (see below).</p>
+<p>The flag parameter (dma<em>alloc_coherent() only) allows the caller to specify the `GFP</em><code>flags (see [</code>kmalloc()`](<a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.kmalloc" target="_blank">https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.kmalloc</a> &quot;kmalloc&quot;)) for the allocation (the implementation may choose to ignore flags that affect the location of the returned memory, like GFP_DMA).</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span>
+<span class="token function">dma_free_coherent</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>cpu_addr<span class="token punctuation">,</span>
+                  <span class="token class-name">dma_addr_t</span> dma_handle<span class="token punctuation">)</span>
+</code></pre>
+<p>Free a region of consistent memory you previously allocated. dev, size and dma_handle must all be the same as those passed into dma_alloc_coherent(). cpu_addr must be the virtual address returned by the dma_alloc_coherent().</p>
+<p>Note that unlike their sibling allocation calls, these routines may only be called with IRQs enabled.</p>
+<h2 id="part-ib---using-small-dma-coherent-buffers"><a name="part-ib---using-small-dma-coherent-buffers" class="anchor-navigation-ex-anchor" href="#part-ib---using-small-dma-coherent-buffers"><i class="fa fa-link" aria-hidden="true"></i></a>4.3. Part Ib - Using small DMA-coherent buffers</h2>
+<p>To get this part of the dma_API, you must #include <linux dmapool.h=""></linux></p>
+<p>Many drivers need lots of small DMA-coherent memory regions for DMA descriptors or I/O buffers. Rather than allocating in units of a page or more using dma_alloc_coherent(), you can use DMA pools. These work much like a struct kmem_cache, except that they use the DMA-coherent allocator, not __get_free_pages(). Also, they understand common hardware constraints for alignment, like queue heads needing to be aligned on N-byte boundaries.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">dma_pool</span> <span class="token operator">*</span>
+<span class="token function">dma_pool_create</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>name<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span>
+                <span class="token class-name">size_t</span> size<span class="token punctuation">,</span> <span class="token class-name">size_t</span> align<span class="token punctuation">,</span> <span class="token class-name">size_t</span> alloc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.dma_pool_create" title="dma_pool_create" target="_blank"><code>dma_pool_create()</code></a> initializes a pool of DMA-coherent buffers for use with a given device. It must be called in a context which can sleep.</p>
+<p>The &#x201C;name&#x201D; is for diagnostics (like a struct kmem_cache name); dev and size are like what you&#x2019;d pass to dma_alloc_coherent(). The device&#x2019;s hardware alignment requirement for this type of data is &#x201C;align&#x201D; (which is expressed in bytes, and must be a power of two). If your device has no boundary crossing restrictions, pass 0 for alloc; passing 4096 says memory allocated from this pool must not cross 4KByte boundaries.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token operator">*</span>
+<span class="token function">dma_pool_zalloc</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">dma_pool</span> <span class="token operator">*</span>pool<span class="token punctuation">,</span> <span class="token class-name">gfp_t</span> mem_flags<span class="token punctuation">,</span>
+                <span class="token class-name">dma_addr_t</span> <span class="token operator">*</span>handle<span class="token punctuation">)</span>
+</code></pre>
+<p>Wraps <a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.dma_pool_alloc" title="dma_pool_alloc" target="_blank"><code>dma_pool_alloc()</code></a> and also zeroes the returned memory if the allocation attempt succeeded.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token operator">*</span>
+<span class="token function">dma_pool_alloc</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">dma_pool</span> <span class="token operator">*</span>pool<span class="token punctuation">,</span> <span class="token class-name">gfp_t</span> gfp_flags<span class="token punctuation">,</span>
+               <span class="token class-name">dma_addr_t</span> <span class="token operator">*</span>dma_handle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This allocates memory from the pool; the returned memory will meet the size and alignment requirements specified at creation time. Pass GFP_ATOMIC to prevent blocking, or if it&#x2019;s permitted (not in_interrupt, not holding SMP locks), pass GFP_KERNEL to allow blocking. Like dma_alloc_coherent(), this returns two values: an address usable by the CPU, and the DMA address usable by the pool&#x2019;s device.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span>
+<span class="token function">dma_pool_free</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">dma_pool</span> <span class="token operator">*</span>pool<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>vaddr<span class="token punctuation">,</span>
+              <span class="token class-name">dma_addr_t</span> addr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This puts memory back into the pool. The pool is what was passed to <a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.dma_pool_alloc" title="dma_pool_alloc" target="_blank"><code>dma_pool_alloc()</code></a>; the CPU (vaddr) and DMA addresses are what were returned when that routine allocated the memory being freed.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span>
+<span class="token function">dma_pool_destroy</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">dma_pool</span> <span class="token operator">*</span>pool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.dma_pool_destroy" title="dma_pool_destroy" target="_blank"><code>dma_pool_destroy()</code></a> frees the resources of the pool. It must be called in a context which can sleep. Make sure you&#x2019;ve freed all allocated memory back to the pool before you destroy it.</p>
+<h2 id="part-ic---dma-addressing-limitations"><a name="part-ic---dma-addressing-limitations" class="anchor-navigation-ex-anchor" href="#part-ic---dma-addressing-limitations"><i class="fa fa-link" aria-hidden="true"></i></a>4.4. Part Ic - DMA addressing limitations</h2>
+<p>&#x4E3B;&#x8981;&#x662F;&#x4ECB;&#x7ECD;</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">int</span>
+<span class="token function">dma_set_mask_and_coherent</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> u64 mask<span class="token punctuation">)</span>
+
+<span class="token keyword">int</span>
+<span class="token function">dma_set_mask</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> u64 mask<span class="token punctuation">)</span>
+
+<span class="token keyword">int</span>
+<span class="token function">dma_set_coherent_mask</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> u64 mask<span class="token punctuation">)</span>
+
+u64
+<span class="token function">dma_get_required_mask</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">)</span>
+
+<span class="token class-name">size_t</span>
+<span class="token function">dma_max_mapping_size</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+bool
+<span class="token function">dma_need_sync</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token class-name">dma_addr_t</span> dma_addr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">unsigned</span> <span class="token keyword">long</span>
+<span class="token function">dma_get_merge_boundary</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="part-id---streaming-dma-mappings"><a name="part-id---streaming-dma-mappings" class="anchor-navigation-ex-anchor" href="#part-id---streaming-dma-mappings"><i class="fa fa-link" aria-hidden="true"></i></a>4.5. Part Id - Streaming DMA mappings</h2>
+<pre class="language-"><code class="lang-c"><span class="token class-name">dma_addr_t</span>
+<span class="token function">dma_map_single</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>cpu_addr<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">,</span>
+               <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> direction<span class="token punctuation">)</span>
+<span class="token class-name">dma_addr_t</span>
+<span class="token function">dma_map_page</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">page</span> <span class="token operator">*</span>page<span class="token punctuation">,</span>
+             <span class="token keyword">unsigned</span> <span class="token keyword">long</span> offset<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">,</span>
+             <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> direction<span class="token punctuation">)</span>
+
+<span class="token class-name">dma_addr_t</span>
+<span class="token function">dma_map_resource</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token class-name">phys_addr_t</span> phys_addr<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">,</span>
+                 <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> dir<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> attrs<span class="token punctuation">)</span>
+
+<span class="token keyword">int</span>
+<span class="token function">dma_map_sg</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">scatterlist</span> <span class="token operator">*</span>sg<span class="token punctuation">,</span>
+           <span class="token keyword">int</span> nents<span class="token punctuation">,</span> <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> direction<span class="token punctuation">)</span>
+</code></pre>
+<p>&#x7528;&#x8FD9;&#x4E2A;API&#x9700;&#x8981;&#x6CE8;&#x610F;:</p>
+<blockquote>
+<p>Not all memory regions in a machine can be mapped by this API. Further, contiguous kernel virtual space may not be contiguous as physical memory. Since this API does not provide any scatter/gather capability, it will fail if the user tries to map a non-physically contiguous piece of memory. For this reason, memory to be mapped by this API should be obtained from sources which guarantee it to be physically contiguous (like kmalloc).</p>
+<p>Further, the DMA address of the memory must be within the dma_mask of the device (the dma_mask is a bit mask of the addressable region for the device, i.e., if the DMA address of the memory ANDed with the dma_mask is still equal to the DMA address, then the device can perform DMA to the memory). To ensure that the memory allocated by kmalloc is within the dma_mask, the driver may specify various platform-dependent flags to restrict the DMA address range of the allocation (e.g., on x86, GFP_DMA guarantees to be within the first 16MB of available DMA addresses, as required by ISA devices).</p>
+<p>Note also that the above constraints on physical contiguity and dma<em>mask may not apply if the platform has an IOMMU (a device which maps an I/O DMA address to a physical memory address). However, to be portable, device driver writers may _not</em> assume that such an IOMMU exists.</p>
+</blockquote>
+<p>&#x53E6;&#x5916;, memory coherency&#x662F;&#x4EE5;cacheline&#x4E3A;&#x5355;&#x4F4D;&#x7684;, &#x4F46;&#x4E00;&#x822C;&#x7F16;&#x8BD1;&#x7684;&#x65F6;&#x5019;&#x4E0D;&#x77E5;&#x9053;. &#x90A3;&#x4E48;&#x4E00;&#x822C;&#x7684;&#x505A;&#x6CD5;&#x662F;&#x4F7F;&#x7528;page&#x5BF9;&#x9F50;&#x7684;&#x65B9;&#x5F0F;, &#x56E0;&#x4E3A;page&#x5BF9;&#x9F50;&#x4E00;&#x5B9A;&#x4E5F;&#x662F;cachline&#x5BF9;&#x9F50;&#x7684;.  </p>
+<blockquote>
+<p>Memory coherency operates at a granularity called the cache line width. In order for memory mapped by this API to operate correctly, the mapped region must begin exactly on a cache line boundary and end exactly on one (to prevent two separately mapped regions from sharing a single cache line). Since the cache line size may not be known at compile time, the API will not enforce this requirement. Therefore, it is recommended that driver writers who don&#x2019;t take special care to determine the cache line size at run time only map virtual regions that begin and end on page boundaries (which are guaranteed also to be cache line boundaries).</p>
+<p>DMA_TO_DEVICE synchronisation must be done after the last modification of the memory region by the software and before it is handed off to the device. Once this primitive is used, memory covered by this primitive should be treated as read-only by the device. If the device may write to it at any point, it should be DMA_BIDIRECTIONAL (see below).</p>
+<p>DMA_FROM_DEVICE synchronisation must be done before the driver accesses data that may be changed by the device. This memory should be treated as read-only by the driver. If the driver needs to write to it at any point, it should be DMA_BIDIRECTIONAL (see below).</p>
+<p>DMA_BIDIRECTIONAL requires special handling: it means that the driver isn&#x2019;t sure if the memory was modified before being handed off to the device and also isn&#x2019;t sure if the device will also modify it. Thus, you must always sync bidirectional memory twice: once before the memory is handed off to the device (to make sure all memory changes are flushed from the processor) and once before the data may be accessed after being used by the device (to make sure any processor cache lines are updated with data that the device may have changed).</p>
+</blockquote>
+<p>&#x5728;DMA&#x4F20;&#x8F93;&#x524D;&#x540E;, &#x5FC5;&#x987B;&#x8981;&#x4EE3;&#x7801;&#x663E;&#x5F0F;&#x8C03;&#x7528;&#x4E0B;&#x9762;&#x7684;sync&#x51FD;&#x6570;&#x6765;&#x4FDD;&#x8BC1;&#x6570;&#x636E;&#x4E00;&#x81F4;&#x6027;:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span>
+<span class="token function">dma_sync_single_for_cpu</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token class-name">dma_addr_t</span> dma_handle<span class="token punctuation">,</span>
+                        <span class="token class-name">size_t</span> size<span class="token punctuation">,</span>
+                        <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> direction<span class="token punctuation">)</span>
+
+<span class="token keyword">void</span>
+<span class="token function">dma_sync_single_for_device</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token class-name">dma_addr_t</span> dma_handle<span class="token punctuation">,</span>
+                           <span class="token class-name">size_t</span> size<span class="token punctuation">,</span>
+                           <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> direction<span class="token punctuation">)</span>
+
+<span class="token keyword">void</span>
+<span class="token function">dma_sync_sg_for_cpu</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">scatterlist</span> <span class="token operator">*</span>sg<span class="token punctuation">,</span>
+                    <span class="token keyword">int</span> nents<span class="token punctuation">,</span>
+                    <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> direction<span class="token punctuation">)</span>
+
+<span class="token keyword">void</span>
+<span class="token function">dma_sync_sg_for_device</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">scatterlist</span> <span class="token operator">*</span>sg<span class="token punctuation">,</span>
+                       <span class="token keyword">int</span> nents<span class="token punctuation">,</span>
+                       <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> direction<span class="token punctuation">)</span>
+</code></pre>
+<p>You must do this:</p>
+<ul>
+<li>Before reading values that have been written by DMA from the device (use the DMA_FROM_DEVICE direction)</li>
+<li>After writing values that will be written to the device using DMA (use the DMA_TO_DEVICE) direction</li>
+<li>before <em>and</em> after handing memory to the device if the memory is DMA_BIDIRECTIONAL</li>
+</ul>
+<h2 id="part-ii---non-coherent-dma-allocations"><a name="part-ii---non-coherent-dma-allocations" class="anchor-navigation-ex-anchor" href="#part-ii---non-coherent-dma-allocations"><i class="fa fa-link" aria-hidden="true"></i></a>4.6. Part II - Non-coherent DMA allocations</h2>
+<p>These APIs allow to allocate pages that are guaranteed to be DMA addressable by the passed in device, but which need explicit management of memory ownership for the kernel vs the device.</p>
+<p>If you don&#x2019;t understand how cache line coherency works between a processor and an I/O device, you should not be using this part of the API.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">page</span> <span class="token operator">*</span>
+<span class="token function">dma_alloc_pages</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">,</span> <span class="token class-name">dma_addr_t</span> <span class="token operator">*</span>dma_handle<span class="token punctuation">,</span>
+                <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> dir<span class="token punctuation">,</span> <span class="token class-name">gfp_t</span> gfp<span class="token punctuation">)</span>
+</code></pre>
+<p>This routine allocates a region of <size> bytes of non-coherent memory. It returns a pointer to first struct page for the region, or NULL if the allocation failed. The resulting struct page can be used for everything a struct page is suitable for.</size></p>
+<p>It also returns a <dma_handle> which may be cast to an unsigned integer the same width as the bus and given to the device as the DMA address base of the region.</dma_handle></p>
+<p>The dir parameter specified if data is read and/or written by the device, see dma_map_single() for details.</p>
+<p>The gfp parameter allows the caller to specify the <code>GFP_</code> flags (see <a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.kmalloc" title="kmalloc" target="_blank"><code>kmalloc()</code></a>) for the allocation, but rejects flags used to specify a memory zone such as GFP_DMA or GFP_HIGHMEM.</p>
+<p>Before giving the memory to the device, dma_sync_single_for_device() needs to be called, and before reading memory written by the device, dma_sync_single_for_cpu(), just like for streaming DMA mappings that are reused.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">int</span>
+<span class="token function">dma_mmap_pages</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">vm_area_struct</span> <span class="token operator">*</span>vma<span class="token punctuation">,</span>
+               <span class="token class-name">size_t</span> size<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">page</span> <span class="token operator">*</span>page<span class="token punctuation">)</span>
+</code></pre>
+<p>Map an allocation returned from dma_alloc_pages() into a user address space. dev and size must be the same as those passed into dma_alloc_pages(). page must be the pointer returned by dma_alloc_pages().</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token operator">*</span>
+<span class="token function">dma_alloc_noncoherent</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">,</span>
+                <span class="token class-name">dma_addr_t</span> <span class="token operator">*</span>dma_handle<span class="token punctuation">,</span> <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> dir<span class="token punctuation">,</span>
+                <span class="token class-name">gfp_t</span> gfp<span class="token punctuation">)</span>
+</code></pre>
+<p>This routine is a convenient wrapper around dma_alloc_pages that returns the kernel virtual address for the allocated memory instead of the page structure.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">struct</span> <span class="token class-name">sg_table</span> <span class="token operator">*</span>
+<span class="token function">dma_alloc_noncontiguous</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">,</span>
+                        <span class="token keyword">enum</span> <span class="token class-name">dma_data_direction</span> dir<span class="token punctuation">,</span> <span class="token class-name">gfp_t</span> gfp<span class="token punctuation">,</span>
+                        <span class="token keyword">unsigned</span> <span class="token keyword">long</span> attrs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This routine allocates <size> bytes of non-coherent and possibly non-contiguous memory. It returns a pointer to struct sg_table that describes the allocated and DMA mapped memory, or NULL if the allocation failed. The resulting memory can be used for struct page mapped into a scatterlist are suitable for.</size></p>
+<p>The return sg_table is guaranteed to have 1 single DMA mapped segment as indicated by sgt-&gt;nents, but it might have multiple CPU side segments as indicated by sgt-&gt;orig_nents.</p>
+<p>The dir parameter specified if data is read and/or written by the device, see dma_map_single() for details.</p>
+<p>The gfp parameter allows the caller to specify the <code>GFP_</code> flags (see <a href="https://www.kernel.org/doc/html/latest/core-api/mm-api.html#c.kmalloc" title="kmalloc" target="_blank"><code>kmalloc()</code></a>) for the allocation, but rejects flags used to specify a memory zone such as GFP_DMA or GFP_HIGHMEM.</p>
+<p>The attrs argument must be either 0 or DMA_ATTR_ALLOC_SINGLE_PAGES.</p>
+<p>Before giving the memory to the device, dma_sync_sgtable_for_device() needs to be called, and before reading memory written by the device, dma_sync_sgtable_for_cpu(), just like for streaming DMA mappings that are reused.</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">void</span> <span class="token operator">*</span>
+<span class="token function">dma_vmap_noncontiguous</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">,</span>
+        <span class="token keyword">struct</span> <span class="token class-name">sg_table</span> <span class="token operator">*</span>sgt<span class="token punctuation">)</span>
+</code></pre>
+<p>Return a contiguous kernel mapping for an allocation returned from dma_alloc_noncontiguous(). dev and size must be the same as those passed into dma_alloc_noncontiguous(). sgt must be the pointer returned by dma_alloc_noncontiguous().</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">int</span>
+<span class="token function">dma_mmap_noncontiguous</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">device</span> <span class="token operator">*</span>dev<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">vm_area_struct</span> <span class="token operator">*</span>vma<span class="token punctuation">,</span>
+                       <span class="token class-name">size_t</span> size<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">sg_table</span> <span class="token operator">*</span>sgt<span class="token punctuation">)</span>
+</code></pre>
+<p>Map an allocation returned from dma_alloc_noncontiguous() into a user address space. dev and size must be the same as those passed into dma_alloc_noncontiguous(). sgt must be the pointer returned by dma_alloc_noncontiguous().</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="as_title_driver.html" class="navigation navigation-prev " aria-label="Previous page: 内核 设备和驱动相关">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="platform_device_driver.html" class="navigation navigation-next " aria-label="Next page: 平台驱动杂记">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"地址空间类型和DMA","level":"1.15.1","depth":2,"next":{"title":"平台驱动杂记","level":"1.15.2","depth":2,"path":"notes/platform_device_driver.md","ref":"notes/platform_device_driver.md","articles":[]},"previous":{"title":"内核 设备和驱动相关","level":"1.15","depth":1,"path":"notes/as_title_driver.md","ref":"notes/as_title_driver.md","articles":[{"title":"地址空间类型和DMA","level":"1.15.1","depth":2,"path":"notes/device_driver_地址空间类型和DMA.md","ref":"notes/device_driver_地址空间类型和DMA.md","articles":[]},{"title":"平台驱动杂记","level":"1.15.2","depth":2,"path":"notes/platform_device_driver.md","ref":"notes/platform_device_driver.md","articles":[]},{"title":"平台驱动杂记2","level":"1.15.3","depth":2,"path":"notes/platform_device_driver2.md","ref":"notes/platform_device_driver2.md","articles":[]},{"title":"内核中的时间和延迟操作.md","level":"1.15.4","depth":2,"path":"notes/device_driver_内核中的时间和延迟操作.md","ref":"notes/device_driver_内核中的时间和延迟操作.md","articles":[]},{"title":"驱动调试杂记","level":"1.15.5","depth":2,"path":"notes/device_driver_杂记.md","ref":"notes/device_driver_杂记.md","articles":[]},{"title":"CPLD做8bit到16bit转换","level":"1.15.6","depth":2,"path":"notes/device_localbus_16bit读写.md","ref":"notes/device_localbus_16bit读写.md","articles":[]},{"title":"nand","level":"1.15.7","depth":2,"path":"notes/as_title_driver1.md","ref":"notes/as_title_driver1.md","articles":[{"title":"octeon nand flash驱动","level":"1.15.7.1","depth":3,"path":"notes/device_driver_octeon_nand.md","ref":"notes/device_driver_octeon_nand.md","articles":[]},{"title":"Nand flash概率写失败问题分析","level":"1.15.7.2","depth":3,"path":"notes/device_driver_nand概率写失败问题分析.md","ref":"notes/device_driver_nand概率写失败问题分析.md","articles":[]}]},{"title":"octeon remote-pci.c阅读","level":"1.15.8","depth":2,"path":"notes/octeon_remote_pci.md","ref":"notes/octeon_remote_pci.md","articles":[]},{"title":"VFIO简介","level":"1.15.9","depth":2,"path":"notes/Device_VFIO_notes.md","ref":"notes/Device_VFIO_notes.md","articles":[]},{"title":"智能网卡和DPDK","level":"1.15.10","depth":2,"path":"notes/as_title_driver2.md","ref":"notes/as_title_driver2.md","articles":[{"title":"智能网卡对比","level":"1.15.10.1","depth":3,"path":"notes/smartNIC_智能网卡对比.md","ref":"notes/smartNIC_智能网卡对比.md","articles":[]},{"title":"octeon PCI NIC","level":"1.15.10.2","depth":3,"path":"notes/octeon_pci_NIC.md","ref":"notes/octeon_pci_NIC.md","articles":[]},{"title":"octeon liquidIO","level":"1.15.10.3","depth":3,"path":"notes/as_title_driver3.md","ref":"notes/as_title_driver3.md","articles":[{"title":"PCI-NIC 代码阅读 --app篇","level":"1.15.10.3.1","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读app篇.md","ref":"notes/smartNIC_liquidIO_代码阅读app篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --api篇","level":"1.15.10.3.2","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读api篇.md","ref":"notes/smartNIC_liquidIO_代码阅读api篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --driver篇之结构体","level":"1.15.10.3.3","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","ref":"notes/smartNIC_liquidIO_代码阅读driver篇之结构体.md","articles":[]},{"title":"PCI-NIC 代码阅读 --driver篇","level":"1.15.10.3.4","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读driver篇.md","ref":"notes/smartNIC_liquidIO_代码阅读driver篇.md","articles":[]},{"title":"PCI-NIC 代码阅读 --真NIC篇","level":"1.15.10.3.5","depth":4,"path":"notes/smartNIC_liquidIO_代码阅读真NIC篇.md","ref":"notes/smartNIC_liquidIO_代码阅读真NIC篇.md","articles":[]}]},{"title":"DPDK使用(2014)","level":"1.15.10.4","depth":3,"path":"notes/networking_dpdk使用_2014.md","ref":"notes/networking_dpdk使用_2014.md","articles":[]}]},{"title":"nvme要点介绍","level":"1.15.11","depth":2,"path":"notes/device_nvme要点介绍.md","ref":"notes/device_nvme要点介绍.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/device_driver_地址空间类型和DMA.md","mtime":"2022-10-25T14:51:03.113Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-25T14:52:02.376Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
+
+    </body>
+</html>
+

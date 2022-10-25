@@ -198,7 +198,10 @@
   * [CentOS 性能优化系统配置](notes/CentOS_系统性能优化配置.md)
 
 * [内核 设备和驱动相关](notes/as_title_driver.md)
+  * [地址空间类型和DMA](notes/device_driver_地址空间类型和DMA.md)
   * [平台驱动杂记](notes/platform_device_driver.md)
+  * [平台驱动杂记2](notes/platform_device_driver2.md)
+  * [内核中的时间和延迟操作.md](notes/device_driver_内核中的时间和延迟操作.md)
   * [驱动调试杂记](notes/device_driver_杂记.md)
   * [CPLD做8bit到16bit转换](notes/device_localbus_16bit读写.md)
   * [nand](notes/as_title_driver1.md)
