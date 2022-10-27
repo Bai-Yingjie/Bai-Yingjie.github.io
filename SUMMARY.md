@@ -201,6 +201,7 @@
   * [地址空间类型和DMA](notes/device_driver_地址空间类型和DMA.md)
   * [平台驱动杂记](notes/platform_device_driver.md)
   * [平台驱动杂记2](notes/platform_device_driver2.md)
+  * [pci驱动概述](notes/device_driver_pci驱动概述.md)
   * [内核中的时间和延迟操作.md](notes/device_driver_内核中的时间和延迟操作.md)
   * [驱动调试杂记](notes/device_driver_杂记.md)
   * [CPLD做8bit到16bit转换](notes/device_localbus_16bit读写.md)

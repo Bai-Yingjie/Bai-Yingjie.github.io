@@ -1,0 +1,4250 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>pci驱动概述 · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="device_driver_内核中的时间和延迟操作.html" />
+    
+    
+    <link rel="prev" href="platform_device_driver2.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录5.html">
+            
+                <a href="profiling_调试和分析记录5.html">
+            
+                    
+                    调试和分析记录5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="profiling_调试和分析记录1.html">
+            
+                <a href="profiling_调试和分析记录1.html">
+            
+                    
+                    调试和分析记录1
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="调试和分析工具概览.html">
+            
+                <a href="调试和分析工具概览.html">
+            
+                    
+                    profiling和debugging工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="profiling_Linux内核调试的方式以及工具集锦.html">
+            
+                <a href="profiling_Linux内核调试的方式以及工具集锦.html">
+            
+                    
+                    Linux内核调试的方式以及工具集锦(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_user_space_Ptrace_Utrace_Uprobes.html">
+            
+                <a href="profiling_user_space_Ptrace_Utrace_Uprobes.html">
+            
+                    
+                    Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="debugging_gdb备忘录.html">
+            
+                <a href="debugging_gdb备忘录.html">
+            
+                    
+                    gdb备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="profiling_perf命令备忘录2.html">
+            
+                <a href="profiling_perf命令备忘录2.html">
+            
+                    
+                    perf命令备忘录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="profiling_perf学习笔记之实战篇.html">
+            
+                <a href="profiling_perf学习笔记之实战篇.html">
+            
+                    
+                    perf学习笔记之实战篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="profiling_perf学习笔记之入门篇.html">
+            
+                <a href="profiling_perf学习笔记之入门篇.html">
+            
+                    
+                    perf学习笔记之入门篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.8" data-path="profiling_用kprobe和perf_记录函数参数.html">
+            
+                <a href="profiling_用kprobe和perf_记录函数参数.html">
+            
+                    
+                    使用kprobe和perf结合记录函数参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.9" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.10" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.11" data-path="profiling_systemtap实例.html">
+            
+                <a href="profiling_systemtap实例.html">
+            
+                    
+                    systemtap实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.12" data-path="profiling_systemtap基础.html">
+            
+                <a href="profiling_systemtap基础.html">
+            
+                    
+                    systemtap基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.13" data-path="profiling_perf-tools_example.html">
+            
+                <a href="profiling_perf-tools_example.html">
+            
+                    
+                    perf-tools 系统tracing工具集
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.14" data-path="profiling_Comparing_SystemTap_and_bpftrace.html">
+            
+                <a href="profiling_Comparing_SystemTap_and_bpftrace.html">
+            
+                    
+                    Comparing SystemTap and bpftrace(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.15" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    profiling和debugging实例
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="profiling_调查ftrace显示调用栈全0问题.html">
+            
+                <a href="profiling_调查ftrace显示调用栈全0问题.html">
+            
+                    
+                    调查ftrace显示调用栈全0问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="profiling_eoe_filter写tap设备失败问题.html">
+            
+                <a href="profiling_eoe_filter写tap设备失败问题.html">
+            
+                    
+                    eoe_filter写tap设备失败问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="profiling_VM互相ping场景下的延迟分析.html">
+            
+                <a href="profiling_VM互相ping场景下的延迟分析.html">
+            
+                    
+                    VM互相ping场景下的延迟分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.6" data-path="debugging_ftrace_谁创建了bond0设备.html">
+            
+                <a href="debugging_ftrace_谁创建了bond0设备.html">
+            
+                    
+                    谁创建了bond0设备: ftrace kprobe uprobe perf综合使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.7" data-path="profiling_unixbench之filecopy分析.html">
+            
+                <a href="profiling_unixbench之filecopy分析.html">
+            
+                    
+                    unixbench之file copy分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.8" data-path="profiling_lmbench之lat_tcp分析.html">
+            
+                <a href="profiling_lmbench之lat_tcp分析.html">
+            
+                    
+                    lmbench之lat_tcp分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记2.html">
+            
+                <a href="networking_杂记2.html">
+            
+                    
+                    networking杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="networking_优化linux网络栈_接收路径.html">
+            
+                <a href="networking_优化linux网络栈_接收路径.html">
+            
+                    
+                    优化linux网络栈: 接收路径(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="networking_优化linux网络栈_发送路径.html">
+            
+                <a href="networking_优化linux网络栈_发送路径.html">
+            
+                    
+                    优化linux网络栈: 发送路径(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="networking_Potential_Performance_Bottleneck_in_Linux_TCP.html">
+            
+                <a href="networking_Potential_Performance_Bottleneck_in_Linux_TCP.html">
+            
+                    
+                    Potential Performance Bottleneck in Linux TCP(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="networking_xdp入门.html">
+            
+                <a href="networking_xdp入门.html">
+            
+                    
+                    Get started with XDP(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="networking_linux收包路径图解.html">
+            
+                <a href="networking_linux收包路径图解.html">
+            
+                    
+                    linux收包路径图解(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.8.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.9.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="kernel_异常打印分析实例.html">
+            
+                <a href="kernel_异常打印分析实例.html">
+            
+                    
+                    kernel bug异常打印分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.8.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法和arm64小知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.17" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="device_driver_地址空间类型和DMA.html">
+            
+                <a href="device_driver_地址空间类型和DMA.html">
+            
+                    
+                    地址空间类型和DMA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="platform_device_driver2.html">
+            
+                <a href="platform_device_driver2.html">
+            
+                    
+                    平台驱动杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.15.4" data-path="device_driver_pci驱动概述.html">
+            
+                <a href="device_driver_pci驱动概述.html">
+            
+                    
+                    pci驱动概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="device_driver_内核中的时间和延迟操作.html">
+            
+                <a href="device_driver_内核中的时间和延迟操作.html">
+            
+                    
+                    内核中的时间和延迟操作.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.8.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.9" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.10" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.11" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.11.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.11.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.11.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.11.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.11.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.11.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.11.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.11.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.11.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.12" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.5" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.6" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.7" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.3.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.4.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >pci驱动概述</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#pci&#x57FA;&#x7840;&#x77E5;&#x8BC6;"><b>1. </b>PCI&#x57FA;&#x7840;&#x77E5;&#x8BC6;</a></li><ul><li><span class="title-icon "></span><a href="#header-type-0x0"><b>1.1. </b>Header Type 0x0</a></li><li><span class="title-icon "></span><a href="#header-type-0x1-pci-to-pci-bridge"><b>1.2. </b>Header Type 0x1 (PCI-to-PCI bridge)</a></li><li><span class="title-icon "></span><a href="#header-type-0x2-pci-to-cardbus-bridge"><b>1.3. </b>Header Type 0x2 (PCI-to-CardBus bridge)</a></li><li><span class="title-icon "></span><a href="#command-register"><b>1.4. </b>Command Register</a></li><li><span class="title-icon "></span><a href="#status-register"><b>1.5. </b>Status Register</a></li></ul><li><span class="title-icon "></span><a href="#kernel&#x4EE3;&#x7801;"><b>2. </b>kernel&#x4EE3;&#x7801;</a></li><ul><li><span class="title-icon "></span><a href="#&#x9A71;&#x52A8;&#x6CE8;&#x518C;"><b>2.1. </b>&#x9A71;&#x52A8;&#x6CE8;&#x518C;</a></li><li><span class="title-icon "></span><a href="#&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x6B65;&#x9AA4;-device-initialization-steps"><b>2.2. </b>&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x6B65;&#x9AA4; Device Initialization Steps</a></li><ul><li><span class="title-icon "></span><a href="#&#x4F7F;&#x80FD;pci&#x8BBE;&#x5907;-enable-the-pci-device"><b>2.2.1. </b>&#x4F7F;&#x80FD;PCI&#x8BBE;&#x5907; Enable the PCI device</a></li><li><span class="title-icon "></span><a href="#request-mmioiop-resources"><b>2.2.2. </b>Request MMIO/IOP resources</a></li><li><span class="title-icon "></span><a href="#set-the-dma-mask-size"><b>2.2.3. </b>Set the DMA mask size</a></li><li><span class="title-icon "></span><a href="#setup-shared-control-data"><b>2.2.4. </b>Setup shared control data</a></li><li><span class="title-icon "></span><a href="#initialize-device-registers"><b>2.2.5. </b>Initialize device registers</a></li><li><span class="title-icon "></span><a href="#register-irq-handler"><b>2.2.6. </b>Register IRQ handler</a></li></ul><li><span class="title-icon "></span><a href="#pci-device-shutdown"><b>2.3. </b>PCI device shutdown</a></li><ul><li><span class="title-icon "></span><a href="#stop-irqs-on-the-device"><b>2.3.1. </b>Stop IRQs on the device</a></li><li><span class="title-icon "></span><a href="#release-the-irq"><b>2.3.2. </b>Release the IRQ</a></li><li><span class="title-icon "></span><a href="#stop-all-dma-activity"><b>2.3.3. </b>Stop all DMA activity</a></li><li><span class="title-icon "></span><a href="#release-dma-buffers"><b>2.3.4. </b>Release DMA buffers</a></li><li><span class="title-icon "></span><a href="#unregister-from-other-subsystems"><b>2.3.5. </b>Unregister from other subsystems</a></li><li><span class="title-icon "></span><a href="#disable-device-from-responding-to-mmioio-port-addresses"><b>2.3.6. </b>Disable Device from responding to MMIO/IO Port addresses</a></li><li><span class="title-icon "></span><a href="#release-mmioio-port-resources"><b>2.3.7. </b>Release MMIO/IO Port Resource(s)</a></li></ul><li><span class="title-icon "></span><a href="#how-to-access-pci-config-space"><b>2.4. </b>How to access PCI config space</a></li><li><span class="title-icon "></span><a href="#17-other-interesting-functions"><b>2.5. </b>1.7. Other interesting functions</a></li><li><span class="title-icon "></span><a href="#miscellaneous-hints"><b>2.6. </b>Miscellaneous hints</a></li><li><span class="title-icon "></span><a href="#vendor-and-device-identifications"><b>2.7. </b>Vendor and device identifications</a></li><li><span class="title-icon "></span><a href="#obsolete-functions"><b>2.8. </b>Obsolete functions</a></li><li><span class="title-icon "></span><a href="#mmio-space-and-write-posting"><b>2.9. </b>MMIO Space and &quot;Write Posting&quot;</a></li></ul></ul></div><a href="#pci&#x57FA;&#x7840;&#x77E5;&#x8BC6;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+<li><a href="#pci&#x57FA;&#x7840;&#x77E5;&#x8BC6;">PCI&#x57FA;&#x7840;&#x77E5;&#x8BC6;</a><ul>
+<li><a href="#header-type-0x0">Header Type 0x0</a></li>
+<li><a href="#header-type-0x1-pci-to-pci-bridge">Header Type 0x1 (PCI-to-PCI bridge)</a></li>
+<li><a href="#header-type-0x2-pci-to-cardbus-bridge">Header Type 0x2 (PCI-to-CardBus bridge)</a></li>
+<li><a href="#command-register">Command Register</a></li>
+<li><a href="#status-register">Status Register</a></li>
+</ul>
+</li>
+<li><a href="#kernel&#x4EE3;&#x7801;">kernel&#x4EE3;&#x7801;</a><ul>
+<li><a href="#&#x9A71;&#x52A8;&#x6CE8;&#x518C;">&#x9A71;&#x52A8;&#x6CE8;&#x518C;</a></li>
+<li><a href="#&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x6B65;&#x9AA4;-device-initialization-steps">&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x6B65;&#x9AA4; Device Initialization Steps</a><ul>
+<li><a href="#&#x4F7F;&#x80FD;pci&#x8BBE;&#x5907;-enable-the-pci-device">&#x4F7F;&#x80FD;PCI&#x8BBE;&#x5907; Enable the PCI device</a></li>
+<li><a href="#request-mmioiop-resources">Request MMIO/IOP resources</a></li>
+<li><a href="#set-the-dma-mask-size">Set the DMA mask size</a></li>
+<li><a href="#setup-shared-control-data">Setup shared control data</a></li>
+<li><a href="#initialize-device-registers">Initialize device registers</a></li>
+<li><a href="#register-irq-handler">Register IRQ handler</a></li>
+</ul>
+</li>
+<li><a href="#pci-device-shutdown">PCI device shutdown</a><ul>
+<li><a href="#stop-irqs-on-the-device">Stop IRQs on the device</a></li>
+<li><a href="#release-the-irq">Release the IRQ</a></li>
+<li><a href="#stop-all-dma-activity">Stop all DMA activity</a></li>
+<li><a href="#release-dma-buffers">Release DMA buffers</a></li>
+<li><a href="#unregister-from-other-subsystems">Unregister from other subsystems</a></li>
+<li><a href="#disable-device-from-responding-to-mmioio-port-addresses">Disable Device from responding to MMIO/IO Port addresses</a></li>
+<li><a href="#release-mmioio-port-resources">Release MMIO/IO Port Resource(s)</a></li>
+</ul>
+</li>
+<li><a href="#how-to-access-pci-config-space">How to access PCI config space</a></li>
+<li><a href="#17-other-interesting-functions">1.7. Other interesting functions</a></li>
+<li><a href="#miscellaneous-hints">Miscellaneous hints</a></li>
+<li><a href="#vendor-and-device-identifications">Vendor and device identifications</a></li>
+<li><a href="#obsolete-functions">Obsolete functions</a></li>
+<li><a href="#mmio-space-and-write-posting">MMIO Space and &quot;Write Posting&quot;</a>
+&#x53C2;&#x8003;: <a href="https://www.kernel.org/doc/html/latest/PCI/pci.html" target="_blank">https://www.kernel.org/doc/html/latest/PCI/pci.html</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="pci&#x57FA;&#x7840;&#x77E5;&#x8BC6;"><a name="pci&#x57FA;&#x7840;&#x77E5;&#x8BC6;" class="anchor-navigation-ex-anchor" href="#pci&#x57FA;&#x7840;&#x77E5;&#x8BC6;"><i class="fa fa-link" aria-hidden="true"></i></a>1. PCI&#x57FA;&#x7840;&#x77E5;&#x8BC6;</h1>
+<h2 id="header-type-0x0"><a name="header-type-0x0" class="anchor-navigation-ex-anchor" href="#header-type-0x0"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. Header Type 0x0</h2>
+<p>This table is applicable if the Header Type is <code>0x0</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Offset</th>
+<th>Bits 31-24</th>
+<th>Bits 23-16</th>
+<th>Bits 15-8</th>
+<th>Bits 7-0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0</td>
+<td>0x0</td>
+<td>Device ID</td>
+<td>Vendor ID</td>
+</tr>
+<tr>
+<td>0x1</td>
+<td>0x4</td>
+<td>Status</td>
+<td>Command</td>
+</tr>
+<tr>
+<td>0x2</td>
+<td>0x8</td>
+<td>Class code</td>
+<td>Subclass</td>
+<td>Prog IF</td>
+<td>Revision ID</td>
+</tr>
+<tr>
+<td>0x3</td>
+<td>0xC</td>
+<td>BIST</td>
+<td>Header type</td>
+<td>Latency Timer</td>
+<td>Cache Line Size</td>
+</tr>
+<tr>
+<td>0x4</td>
+<td>0x10</td>
+<td>Base address #0 (BAR0)</td>
+</tr>
+<tr>
+<td>0x5</td>
+<td>0x14</td>
+<td>Base address #1 (BAR1)</td>
+</tr>
+<tr>
+<td>0x6</td>
+<td>0x18</td>
+<td>Base address #2 (BAR2)</td>
+</tr>
+<tr>
+<td>0x7</td>
+<td>0x1C</td>
+<td>Base address #3 (BAR3)</td>
+</tr>
+<tr>
+<td>0x8</td>
+<td>0x20</td>
+<td>Base address #4 (BAR4)</td>
+</tr>
+<tr>
+<td>0x9</td>
+<td>0x24</td>
+<td>Base address #5 (BAR5)</td>
+</tr>
+<tr>
+<td>0xA</td>
+<td>0x28</td>
+<td>Cardbus CIS Pointer</td>
+</tr>
+<tr>
+<td>0xB</td>
+<td>0x2C</td>
+<td>Subsystem ID</td>
+<td>Subsystem Vendor ID</td>
+</tr>
+<tr>
+<td>0xC</td>
+<td>0x30</td>
+<td>Expansion ROM base address</td>
+</tr>
+<tr>
+<td>0xD</td>
+<td>0x34</td>
+<td>Reserved</td>
+<td>Capabilities Pointer</td>
+</tr>
+<tr>
+<td>0xE</td>
+<td>0x38</td>
+<td>Reserved</td>
+</tr>
+<tr>
+<td>0xF</td>
+<td>0x3C</td>
+<td>Max latency</td>
+<td>Min Grant</td>
+<td>Interrupt PIN</td>
+<td>Interrupt Line</td>
+</tr>
+</tbody>
+</table>
+<h2 id="header-type-0x1-pci-to-pci-bridge"><a name="header-type-0x1-pci-to-pci-bridge" class="anchor-navigation-ex-anchor" href="#header-type-0x1-pci-to-pci-bridge"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. Header Type 0x1 (PCI-to-PCI bridge)</h2>
+<p>This table is applicable if the Header Type is <code>0x1</code> (PCI-to-PCI bridge)</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Offset</th>
+<th>Bits 31-24</th>
+<th>Bits 23-16</th>
+<th>Bits 15-8</th>
+<th>Bits 7-0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0</td>
+<td>0x0</td>
+<td>Device ID</td>
+<td>Vendor ID</td>
+</tr>
+<tr>
+<td>0x1</td>
+<td>0x4</td>
+<td>Status</td>
+<td>Command</td>
+</tr>
+<tr>
+<td>0x2</td>
+<td>0x8</td>
+<td>Class code</td>
+<td>Subclass</td>
+<td>Prog IF</td>
+<td>Revision ID</td>
+</tr>
+<tr>
+<td>0x3</td>
+<td>0xC</td>
+<td>BIST</td>
+<td>Header type</td>
+<td>Latency Timer</td>
+<td>Cache Line Size</td>
+</tr>
+<tr>
+<td>0x4</td>
+<td>0x10</td>
+<td>Base address #0 (BAR0)</td>
+</tr>
+<tr>
+<td>0x5</td>
+<td>0x14</td>
+<td>Base address #1 (BAR1)</td>
+</tr>
+<tr>
+<td>0x6</td>
+<td>0x18</td>
+<td>Secondary Latency Timer</td>
+<td>Subordinate Bus Number</td>
+<td>Secondary Bus Number</td>
+<td>Primary Bus Number</td>
+</tr>
+<tr>
+<td>0x7</td>
+<td>0x1C</td>
+<td>Secondary Status</td>
+<td>I/O Limit</td>
+<td>I/O Base</td>
+</tr>
+<tr>
+<td>0x8</td>
+<td>0x20</td>
+<td>Memory Limit</td>
+<td>Memory Base</td>
+</tr>
+<tr>
+<td>0x9</td>
+<td>0x24</td>
+<td>Prefetchable Memory Limit</td>
+<td>Prefetchable Memory Base</td>
+</tr>
+<tr>
+<td>0xA</td>
+<td>0x28</td>
+<td>Prefetchable Base Upper 32 Bits</td>
+</tr>
+<tr>
+<td>0xB</td>
+<td>0x2C</td>
+<td>Prefetchable Limit Upper 32 Bits</td>
+</tr>
+<tr>
+<td>0xC</td>
+<td>0x30</td>
+<td>I/O Limit Upper 16 Bits</td>
+<td>I/O Base Upper 16 Bits</td>
+</tr>
+<tr>
+<td>0xD</td>
+<td>0x34</td>
+<td>Reserved</td>
+<td>Capability Pointer</td>
+</tr>
+<tr>
+<td>0xE</td>
+<td>0x38</td>
+<td>Expansion ROM base address</td>
+</tr>
+<tr>
+<td>0xF</td>
+<td>0x3C</td>
+<td>Bridge Control</td>
+<td>Interrupt PIN</td>
+<td>Interrupt Line</td>
+</tr>
+</tbody>
+</table>
+<h2 id="header-type-0x2-pci-to-cardbus-bridge"><a name="header-type-0x2-pci-to-cardbus-bridge" class="anchor-navigation-ex-anchor" href="#header-type-0x2-pci-to-cardbus-bridge"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. Header Type 0x2 (PCI-to-CardBus bridge)</h2>
+<p>This table is applicable if the Header Type is <code>0x2</code> (PCI-to-CardBus bridge)</p>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Offset</th>
+<th>Bits 31-24</th>
+<th>Bits 23-16</th>
+<th>Bits 15-8</th>
+<th>Bits 7-0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0</td>
+<td>0x0</td>
+<td>Device ID</td>
+<td>Vendor ID</td>
+</tr>
+<tr>
+<td>0x1</td>
+<td>0x4</td>
+<td>Status</td>
+<td>Command</td>
+</tr>
+<tr>
+<td>0x2</td>
+<td>0x8</td>
+<td>Class code</td>
+<td>Subclass</td>
+<td>Prog IF</td>
+<td>Revision ID</td>
+</tr>
+<tr>
+<td>0x3</td>
+<td>0xC</td>
+<td>BIST</td>
+<td>Header type</td>
+<td>Latency Timer</td>
+<td>Cache Line Size</td>
+</tr>
+<tr>
+<td>0x4</td>
+<td>0x10</td>
+<td>CardBus Socket/ExCa base address</td>
+</tr>
+<tr>
+<td>0x5</td>
+<td>0x14</td>
+<td>Secondary status</td>
+<td>Reserved</td>
+<td>Offset of capabilities list</td>
+</tr>
+<tr>
+<td>0x6</td>
+<td>0x18</td>
+<td>CardBus latency timer</td>
+<td>Subordinate bus number</td>
+<td>CardBus bus number</td>
+<td>PCI bus number</td>
+</tr>
+<tr>
+<td>0x7</td>
+<td>0x1C</td>
+<td>Memory Base Address 0</td>
+</tr>
+<tr>
+<td>0x8</td>
+<td>0x20</td>
+<td>Memory Limit 0</td>
+</tr>
+<tr>
+<td>0x9</td>
+<td>0x24</td>
+<td>Memory Base Address 1</td>
+</tr>
+<tr>
+<td>0xA</td>
+<td>0x28</td>
+<td>Memory Limit 1</td>
+</tr>
+<tr>
+<td>0xB</td>
+<td>0x2C</td>
+<td>I/O Base Address 0</td>
+</tr>
+<tr>
+<td>0xC</td>
+<td>0x30</td>
+<td>I/O Limit 0</td>
+</tr>
+<tr>
+<td>0xD</td>
+<td>0x34</td>
+<td>I/O Base Address 1</td>
+</tr>
+<tr>
+<td>0xE</td>
+<td>0x38</td>
+<td>I/O Limit 1</td>
+</tr>
+<tr>
+<td>0xF</td>
+<td>0x3C</td>
+<td>Bridge Control</td>
+<td>Interrupt PIN</td>
+<td>Interrupt Line</td>
+</tr>
+<tr>
+<td>0x10</td>
+<td>0x40</td>
+<td>Subsystem Vendor ID</td>
+<td>Subsystem Device ID</td>
+</tr>
+<tr>
+<td>0x11</td>
+<td>0x44</td>
+<td>16-bit PC Card legacy mode base address</td>
+</tr>
+</tbody>
+</table>
+<h2 id="command-register"><a name="command-register" class="anchor-navigation-ex-anchor" href="#command-register"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. Command Register</h2>
+<p>Here is the layout of the Command register:</p>
+<table>
+<thead>
+<tr>
+<th>Bits 11-15</th>
+<th>Bit 10</th>
+<th>Bit 9</th>
+<th>Bit 8</th>
+<th>Bit 7</th>
+<th>Bit 6</th>
+<th>Bit 5</th>
+<th>Bit 4</th>
+<th>Bit 3</th>
+<th>Bit 2</th>
+<th>Bit 1</th>
+<th>Bit 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reserved</td>
+<td>Interrupt Disable</td>
+<td>Fast Back-to-Back Enable</td>
+<td>SERR# Enable</td>
+<td>Reserved</td>
+<td>Parity Error Response</td>
+<td>VGA Palette Snoop</td>
+<td>Memory Write and Invalidate Enable</td>
+<td>Special Cycles</td>
+<td>Bus Master</td>
+<td>Memory Space</td>
+<td>I/O Space</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Interrupt Disable</strong>: If set to 1 the assertion of the devices INTx# signal is disabled; otherwise, assertion of the signal is enabled.</li>
+<li><strong>Fast Back-Back Enable</strong>: If set to 1 indicates a device is allowed to generate fast back-to-back transactions; otherwise, fast back-to-back transactions are only allowed to the same agent.</li>
+<li><strong>SERR# Enable</strong>: If set to 1 the SERR# driver is enabled; otherwise, the driver is disabled.</li>
+<li><strong>Bit 7</strong>: As of revision 3.0 of the PCI local bus specification this bit is hardwired to 0. In earlier versions of the specification this bit was used by devices and may have been hardwired to 0, 1, or implemented as a read/write bit.</li>
+<li><strong>Parity Error Response</strong>: If set to 1 the device will take its normal action when a parity error is detected; otherwise, when an error is detected, the device will set bit 15 of the Status register (Detected Parity Error Status Bit), but will not assert the PERR# (Parity Error) pin and will continue operation as normal.</li>
+<li><strong>VGA Palette Snoop</strong>: If set to 1 the device does not respond to palette register writes and will snoop the data; otherwise, the device will trate palette write accesses like all other accesses.</li>
+<li><strong>Memory Write and Invalidate Enable</strong>: If set to 1 the device can generate the Memory Write and Invalidate command; otherwise, the Memory Write command must be used.</li>
+<li><strong>Special Cycles</strong>: If set to 1 the device can monitor Special Cycle operations; otherwise, the device will ignore them.</li>
+<li><strong>Bus Master</strong>: If set to 1 the device can behave as a bus master; otherwise, the device can not generate PCI accesses.</li>
+<li><strong>Memory Space</strong>: If set to 1 the device can respond to Memory Space accesses; otherwise, the device&apos;s response is disabled.</li>
+<li><strong>I/O Space</strong>: If set to 1 the device can respond to I/O Space accesses; otherwise, the device&apos;s response is disabled.</li>
+</ul>
+<p>If the kernel configures the BARs of the devices, the kernel also have to enable bits 0 and 1 for it to activate.</p>
+<h2 id="status-register"><a name="status-register" class="anchor-navigation-ex-anchor" href="#status-register"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. Status Register</h2>
+<p>Here is the layout of the Status register:</p>
+<table>
+<thead>
+<tr>
+<th>Bit 15</th>
+<th>Bit 14</th>
+<th>Bit 13</th>
+<th>Bit 12</th>
+<th>Bit 11</th>
+<th>Bits 9-10</th>
+<th>Bit 8</th>
+<th>Bit 7</th>
+<th>Bit 6</th>
+<th>Bit 5</th>
+<th>Bit 4</th>
+<th>Bit 3</th>
+<th>Bits 0-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Detected Parity Error</td>
+<td>Signaled System Error</td>
+<td>Received Master Abort</td>
+<td>Received Target Abort</td>
+<td>Signaled Target Abort</td>
+<td>DEVSEL Timing</td>
+<td>Master Data Parity Error</td>
+<td>Fast Back-to-Back Capable</td>
+<td>Reserved</td>
+<td>66 MHz Capable</td>
+<td>Capabilities List</td>
+<td>Interrupt Status</td>
+<td>Reserved</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Detected Parity Error</strong>: This bit will be set to 1 whenever the device detects a parity error, even if parity error handling is disabled.</li>
+<li><strong>Signalled System Error</strong>: This bit will be set to 1 whenever the device asserts SERR#.</li>
+<li><strong>Received Master Abort</strong>: This bit will be set to 1, by a master device, whenever its transaction (except for Special Cycle transactions) is terminated with Master-Abort.</li>
+<li><strong>Received Target Abort</strong>: This bit will be set to 1, by a master device, whenever its transaction is terminated with Target-Abort.</li>
+<li><strong>Signalled Target Abort</strong>: This bit will be set to 1 whenever a target device terminates a transaction with Target-Abort.</li>
+<li><strong>DEVSEL Timing</strong>: Read only bits that represent the slowest time that a device will assert DEVSEL# for any bus command except Configuration Space read and writes. Where a value of <code>0x0</code> represents fast timing, a value of <code>0x1</code> represents medium timing, and a value of <code>0x2</code> represents slow timing.</li>
+<li><strong>Master Data Parity Error</strong>: This bit is only set when the following conditions are met. The bus agent asserted PERR# on a read or observed an assertion of PERR# on a write, the agent setting the bit acted as the bus master for the operation in which the error occurred, and bit 6 of the Command register (Parity Error Response bit) is set to 1.</li>
+<li><strong>Fast Back-to-Back Capable</strong>: If set to 1 the device can accept fast back-to-back transactions that are not from the same agent; otherwise, transactions can only be accepted from the same agent.</li>
+<li><strong>Bit 6</strong>: As of revision 3.0 of the PCI Local Bus specification this bit is reserved. In revision 2.1 of the specification this bit was used to indicate whether or not a device supported User Definable Features.</li>
+<li><strong>66 MHz Capable</strong>: If set to 1 the device is capable of running at 66 MHz; otherwise, the device runs at 33 MHz.</li>
+<li><strong>Capabilities List</strong>: If set to 1 the device implements the pointer for a New Capabilities Linked list at offset <code>0x34</code>; otherwise, the linked list is not available.</li>
+<li><strong>Interrupt Status</strong>: Represents the state of the device&apos;s INTx# signal. If set to 1 and bit 10 of the Command register (Interrupt Disable bit) is set to 0 the signal will be asserted; otherwise, the signal will be ignored.</li>
+</ul>
+<p>Recall that the PCI devices follow <strong>little ENDIAN</strong> ordering. The lower addresses contain the least significant portions of the field. Software to manipulate this structure must take particular care that the endian-ordering follows the PCI devices, not the CPUs.</p>
+<h1 id="kernel&#x4EE3;&#x7801;"><a name="kernel&#x4EE3;&#x7801;" class="anchor-navigation-ex-anchor" href="#kernel&#x4EE3;&#x7801;"><i class="fa fa-link" aria-hidden="true"></i></a>2. kernel&#x4EE3;&#x7801;</h1>
+<h2 id="&#x9A71;&#x52A8;&#x6CE8;&#x518C;"><a name="&#x9A71;&#x52A8;&#x6CE8;&#x518C;" class="anchor-navigation-ex-anchor" href="#&#x9A71;&#x52A8;&#x6CE8;&#x518C;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. &#x9A71;&#x52A8;&#x6CE8;&#x518C;</h2>
+<p>PCI drivers &quot;discover&quot; PCI devices in a system via <code>pci_register_driver()</code>. Actually, it&apos;s the other way around. When the PCI generic code discovers a new device, the driver with a matching &quot;description&quot; will be notified. Details on this below.</p>
+<p><code>pci_register_driver()</code> leaves most of the probing for devices to the PCI layer and supports online insertion/removal of devices [thus supporting hot-pluggable PCI, CardBus, and Express-Card in a single driver]. <code>pci_register_driver()</code> call requires passing in a table of function pointers and thus dictates the high level structure of a driver.</p>
+<p>Once the driver knows about a PCI device and takes ownership, the driver generally needs to perform the following initialization:</p>
+<ul>
+<li>Enable the device</li>
+<li>Request MMIO/IOP resources</li>
+<li>Set the DMA mask size (for both coherent and streaming DMA)</li>
+<li>Allocate and initialize shared control data (<code>pci_allocate_coherent()</code>)</li>
+<li>Access device configuration space (if needed)</li>
+<li>Register IRQ handler (<a href="https://www.kernel.org/doc/html/latest/core-api/genericirq.html#c.request_irq" title="request_irq" target="_blank"><code>request_irq()</code></a>)</li>
+<li>Initialize non-PCI (i.e. LAN/SCSI/etc parts of the chip)</li>
+<li>Enable DMA/processing engines</li>
+</ul>
+<p>When done using the device, and perhaps the module needs to be unloaded, the driver needs to take the follow steps:</p>
+<ul>
+<li>Disable the device from generating IRQs</li>
+<li>Release the IRQ (<a href="https://www.kernel.org/doc/html/latest/core-api/genericirq.html#c.free_irq" title="free_irq" target="_blank"><code>free_irq()</code></a>)</li>
+<li>Stop all DMA activity</li>
+<li>Release DMA buffers (both streaming and coherent)</li>
+<li>Unregister from other subsystems (e.g. scsi or netdev)</li>
+<li>Release MMIO/IOP resources</li>
+<li>Disable the device</li>
+</ul>
+<h2 id="&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x6B65;&#x9AA4;-device-initialization-steps"><a name="&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x6B65;&#x9AA4;-device-initialization-steps" class="anchor-navigation-ex-anchor" href="#&#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x6B65;&#x9AA4;-device-initialization-steps"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. &#x8BBE;&#x5907;&#x521D;&#x59CB;&#x5316;&#x6B65;&#x9AA4; Device Initialization Steps</h2>
+<p>As noted in the introduction, most PCI drivers need the following steps for device initialization:</p>
+<ul>
+<li>Enable the device</li>
+<li>Request MMIO/IOP resources</li>
+<li>Set the DMA mask size (for both coherent and streaming DMA)</li>
+<li>Allocate and initialize shared control data (pci_allocate_coherent())</li>
+<li>Access device configuration space (if needed)</li>
+<li>Register IRQ handler (<a href="https://www.kernel.org/doc/html/latest/core-api/genericirq.html#c.request_irq" title="request_irq" target="_blank"><code>request_irq()</code></a>)</li>
+<li>Initialize non-PCI (i.e. LAN/SCSI/etc parts of the chip)</li>
+<li>Enable DMA/processing engines.</li>
+</ul>
+<p>The driver can access PCI config space registers at any time. (Well, almost. When running BIST, config space can go away&#x2026;but that will just result in a PCI Bus Master Abort and config reads will return garbage).</p>
+<h3 id="&#x4F7F;&#x80FD;pci&#x8BBE;&#x5907;-enable-the-pci-device"><a name="&#x4F7F;&#x80FD;pci&#x8BBE;&#x5907;-enable-the-pci-device" class="anchor-navigation-ex-anchor" href="#&#x4F7F;&#x80FD;pci&#x8BBE;&#x5907;-enable-the-pci-device"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. &#x4F7F;&#x80FD;PCI&#x8BBE;&#x5907; Enable the PCI device</h3>
+<p>Before touching any device registers, the driver needs to enable the PCI device by calling <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_enable_device" title="pci_enable_device" target="_blank"><code>pci_enable_device()</code></a>. This will:</p>
+<ul>
+<li>wake up the device if it was in suspended state,</li>
+<li>allocate I/O and memory regions of the device (if BIOS did not),</li>
+<li>allocate an IRQ (if BIOS did not).</li>
+</ul>
+<p>&#x4F7F;&#x80FD;pci&#x7684;DMA master: &#x5BF9;&#x5E94;pci&#x914D;&#x7F6E;&#x7A7A;&#x95F4;&#x7684;&#x901A;&#x7528;&#x5BC4;&#x5B58;&#x5668;Command Register&#x7684;Bus Master&#x4F4D;.<br><a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_set_master" title="pci_set_master" target="_blank"><code>pci_set_master()</code></a> will enable DMA by setting the bus master bit in the <code>PCI_COMMAND</code> register. It also fixes the latency timer value if it&apos;s set to something bogus by the BIOS. <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_clear_master" title="pci_clear_master" target="_blank"><code>pci_clear_master()</code></a> will disable DMA by clearing the bus master bit.</p>
+<p>If the PCI device can use the PCI Memory-Write-Invalidate transaction, call <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_set_mwi" title="pci_set_mwi" target="_blank"><code>pci_set_mwi()</code></a>. This enables the <code>PCI_COMMAND</code> bit for Mem-Wr-Inval and also ensures that the cache line size register is set correctly. Check the return value of <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_set_mwi" title="pci_set_mwi" target="_blank"><code>pci_set_mwi()</code></a> as not all architectures or chip-sets may support Memory-Write-Invalidate. Alternatively, if Mem-Wr-Inval would be nice to have but is not required, call <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_try_set_mwi" title="pci_try_set_mwi" target="_blank"><code>pci_try_set_mwi()</code></a> to have the system do its best effort at enabling Mem-Wr-Inval.</p>
+<h3 id="request-mmioiop-resources"><a name="request-mmioiop-resources" class="anchor-navigation-ex-anchor" href="#request-mmioiop-resources"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.2. Request MMIO/IOP resources</h3>
+<p>Memory (MMIO), and I/O port addresses should NOT be read directly from the PCI device config space. Use the values in the pci_dev structure as the PCI &quot;bus address&quot; might have been remapped to a &quot;host physical&quot; address by the arch/chip-set specific kernel support.</p>
+<p>See <a href="https://www.kernel.org/doc/html/latest/driver-api/io-mapping.html" target="_blank">The io_mapping functions</a> for how to access device registers or device memory.</p>
+<p>The device driver needs to call <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_request_region" title="pci_request_region" target="_blank"><code>pci_request_region()</code></a> to verify no other device is already using the same address resource. Conversely, drivers should call <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_release_region" title="pci_release_region" target="_blank"><code>pci_release_region()</code></a> AFTER calling <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_disable_device" title="pci_disable_device" target="_blank"><code>pci_disable_device()</code></a>. The idea is to prevent two devices colliding on the same address range.</p>
+<p>Generic flavors of <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_request_region" title="pci_request_region" target="_blank"><code>pci_request_region()</code></a> are <code>request_mem_region()</code> (for MMIO ranges) and <code>request_region()</code> (for IO Port ranges). Use these for address resources that are not described by &quot;normal&quot; PCI BARs.</p>
+<p>Also see <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_request_selected_regions" title="pci_request_selected_regions" target="_blank"><code>pci_request_selected_regions()</code></a> below.</p>
+<h3 id="set-the-dma-mask-size"><a name="set-the-dma-mask-size" class="anchor-navigation-ex-anchor" href="#set-the-dma-mask-size"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.3. Set the DMA mask size</h3>
+<p>While all drivers should explicitly indicate the DMA capability (e.g. 32 or 64 bit) of the PCI bus master, devices with more than 32-bit bus master capability for streaming data need the driver to &quot;register&quot; this capability by calling <code>pci_set_dma_mask()</code> with appropriate parameters. In general this allows more efficient DMA on systems where System RAM exists above 4G <em>physical</em> address.</p>
+<p>Drivers for all PCI-X and PCIe compliant devices must call <code>pci_set_dma_mask()</code> as they are 64-bit DMA devices.</p>
+<p>Similarly, drivers must also &quot;register&quot; this capability if the device can directly address &quot;consistent memory&quot; in System RAM above 4G physical address by calling <code>pci_set_consistent_dma_mask()</code>. Again, this includes drivers for all PCI-X and PCIe compliant devices. Many 64-bit &quot;PCI&quot; devices (before PCI-X) and some PCI-X devices are 64-bit DMA capable for payload (&quot;streaming&quot;) data but not control (&quot;consistent&quot;) data.</p>
+<h3 id="setup-shared-control-data"><a name="setup-shared-control-data" class="anchor-navigation-ex-anchor" href="#setup-shared-control-data"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.4. Setup shared control data</h3>
+<p>Once the DMA masks are set, the driver can allocate &quot;consistent&quot; (a.k.a. shared) memory. See <a href="https://www.kernel.org/doc/html/latest/core-api/dma-api.html" target="_blank">Dynamic DMA mapping using the generic device</a> for a full description of the DMA APIs. This section is just a reminder that it needs to be done before enabling DMA on the device.</p>
+<h3 id="initialize-device-registers"><a name="initialize-device-registers" class="anchor-navigation-ex-anchor" href="#initialize-device-registers"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.5. Initialize device registers</h3>
+<p>Some drivers will need specific &quot;capability&quot; fields programmed or other &quot;vendor specific&quot; register initialized or reset. E.g. clearing pending interrupts.</p>
+<h3 id="register-irq-handler"><a name="register-irq-handler" class="anchor-navigation-ex-anchor" href="#register-irq-handler"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.6. Register IRQ handler</h3>
+<p>While calling <a href="https://www.kernel.org/doc/html/latest/core-api/genericirq.html#c.request_irq" title="request_irq" target="_blank"><code>request_irq()</code></a> is the last step described here, this is often just another intermediate step to initialize a device. This step can often be deferred until the device is opened for use.</p>
+<p>All interrupt handlers for IRQ lines should be registered with <code>IRQF_SHARED</code> and use the devid to map IRQs to devices (remember that all PCI IRQ lines can be shared).</p>
+<p><a href="https://www.kernel.org/doc/html/latest/core-api/genericirq.html#c.request_irq" title="request_irq" target="_blank"><code>request_irq()</code></a> will associate an interrupt handler and device handle with an interrupt number. Historically interrupt numbers represent IRQ lines which run from the PCI device to the Interrupt controller. With MSI and MSI-X (more below) the interrupt number is a CPU &quot;vector&quot;.</p>
+<p><a href="https://www.kernel.org/doc/html/latest/core-api/genericirq.html#c.request_irq" title="request_irq" target="_blank"><code>request_irq()</code></a> also enables the interrupt. Make sure the device is quiesced and does not have any interrupts pending before registering the interrupt handler.</p>
+<p>MSI and MSI-X are PCI capabilities. Both are &quot;Message Signaled Interrupts&quot; which deliver interrupts to the CPU via a DMA write to a Local APIC. The fundamental difference between MSI and MSI-X is how multiple &quot;vectors&quot; get allocated. MSI requires contiguous blocks of vectors while MSI-X can allocate several individual ones.</p>
+<p>MSI capability can be enabled by calling pci_alloc_irq_vectors() with the PCI_IRQ_MSI and/or PCI_IRQ_MSIX flags before calling <a href="https://www.kernel.org/doc/html/latest/core-api/genericirq.html#c.request_irq" title="request_irq" target="_blank"><code>request_irq()</code></a>. This causes the PCI support to program CPU vector data into the PCI device capability registers. Many architectures, chip-sets, or BIOSes do NOT support MSI or MSI-X and a call to pci_alloc_irq_vectors with just the PCI_IRQ_MSI and PCI_IRQ_MSIX flags will fail, so try to always specify PCI_IRQ_LEGACY as well.</p>
+<p>Drivers that have different interrupt handlers for MSI/MSI-X and legacy INTx should chose the right one based on the msi_enabled and msix_enabled flags in the pci_dev structure after calling pci_alloc_irq_vectors.</p>
+<p>There are (at least) two really good reasons for using MSI:</p>
+<ol>
+<li><p>MSI is an exclusive interrupt vector by definition. This means the interrupt handler doesn&apos;t have to verify its device caused the interrupt.</p>
+</li>
+<li><p>MSI avoids DMA/IRQ race conditions. DMA to host memory is guaranteed to be visible to the host CPU(s) when the MSI is delivered. This is important for both data coherency and avoiding stale control data. This guarantee allows the driver to omit MMIO reads to flush the DMA stream.</p>
+</li>
+</ol>
+<p>See drivers/infiniband/hw/mthca/ or drivers/net/tg3.c for examples of MSI/MSI-X usage.</p>
+<h2 id="pci-device-shutdown"><a name="pci-device-shutdown" class="anchor-navigation-ex-anchor" href="#pci-device-shutdown"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. PCI device shutdown</h2>
+<p>When a PCI device driver is being unloaded, most of the following steps need to be performed:</p>
+<ul>
+<li>Disable the device from generating IRQs</li>
+<li>Release the IRQ (<a href="https://www.kernel.org/doc/html/latest/core-api/genericirq.html#c.free_irq" title="free_irq" target="_blank"><code>free_irq()</code></a>)</li>
+<li>Stop all DMA activity</li>
+<li>Release DMA buffers (both streaming and consistent)</li>
+<li>Unregister from other subsystems (e.g. scsi or netdev)</li>
+<li>Disable device from responding to MMIO/IO Port addresses</li>
+<li>Release MMIO/IO Port resource(s)</li>
+</ul>
+<h3 id="stop-irqs-on-the-device"><a name="stop-irqs-on-the-device" class="anchor-navigation-ex-anchor" href="#stop-irqs-on-the-device"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.1. Stop IRQs on the device</h3>
+<p>How to do this is chip/device specific. If it&apos;s not done, it opens the possibility of a &quot;screaming interrupt&quot; if (and only if) the IRQ is shared with another device.</p>
+<p>When the shared IRQ handler is &quot;unhooked&quot;, the remaining devices using the same IRQ line will still need the IRQ enabled. Thus if the &quot;unhooked&quot; device asserts IRQ line, the system will respond assuming it was one of the remaining devices asserted the IRQ line. Since none of the other devices will handle the IRQ, the system will &quot;hang&quot; until it decides the IRQ isn&apos;t going to get handled and masks the IRQ (100,000 iterations later). Once the shared IRQ is masked, the remaining devices will stop functioning properly. Not a nice situation.</p>
+<p>This is another reason to use MSI or MSI-X if it&apos;s available. MSI and MSI-X are defined to be exclusive interrupts and thus are not susceptible to the &quot;screaming interrupt&quot; problem.</p>
+<h3 id="release-the-irq"><a name="release-the-irq" class="anchor-navigation-ex-anchor" href="#release-the-irq"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.2. Release the IRQ</h3>
+<p>Once the device is quiesced (no more IRQs), one can call <a href="https://www.kernel.org/doc/html/latest/core-api/genericirq.html#c.free_irq" title="free_irq" target="_blank"><code>free_irq()</code></a>. This function will return control once any pending IRQs are handled, &quot;unhook&quot; the drivers IRQ handler from that IRQ, and finally release the IRQ if no one else is using it.</p>
+<h3 id="stop-all-dma-activity"><a name="stop-all-dma-activity" class="anchor-navigation-ex-anchor" href="#stop-all-dma-activity"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.3. Stop all DMA activity</h3>
+<p>It&apos;s extremely important to stop all DMA operations BEFORE attempting to deallocate DMA control data. Failure to do so can result in memory corruption, hangs, and on some chip-sets a hard crash.</p>
+<p>Stopping DMA after stopping the IRQs can avoid races where the IRQ handler might restart DMA engines.</p>
+<p>While this step sounds obvious and trivial, several &quot;mature&quot; drivers didn&apos;t get this step right in the past.</p>
+<h3 id="release-dma-buffers"><a name="release-dma-buffers" class="anchor-navigation-ex-anchor" href="#release-dma-buffers"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.4. Release DMA buffers</h3>
+<p>Once DMA is stopped, clean up streaming DMA first. I.e. unmap data buffers and return buffers to &quot;upstream&quot; owners if there is one.</p>
+<p>Then clean up &quot;consistent&quot; buffers which contain the control data.</p>
+<p>See <a href="https://www.kernel.org/doc/html/latest/core-api/dma-api.html" target="_blank">Dynamic DMA mapping using the generic device</a> for details on unmapping interfaces.</p>
+<h3 id="unregister-from-other-subsystems"><a name="unregister-from-other-subsystems" class="anchor-navigation-ex-anchor" href="#unregister-from-other-subsystems"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.5. Unregister from other subsystems</h3>
+<p>Most low level PCI device drivers support some other subsystem like USB, ALSA, SCSI, NetDev, Infiniband, etc. Make sure your driver isn&apos;t losing resources from that other subsystem. If this happens, typically the symptom is an Oops (panic) when the subsystem attempts to call into a driver that has been unloaded.</p>
+<h3 id="disable-device-from-responding-to-mmioio-port-addresses"><a name="disable-device-from-responding-to-mmioio-port-addresses" class="anchor-navigation-ex-anchor" href="#disable-device-from-responding-to-mmioio-port-addresses"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.6. Disable Device from responding to MMIO/IO Port addresses</h3>
+<p><code>io_unmap()</code> MMIO or IO Port resources and then call <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_disable_device" title="pci_disable_device" target="_blank"><code>pci_disable_device()</code></a>. This is the symmetric opposite of <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_enable_device" title="pci_enable_device" target="_blank"><code>pci_enable_device()</code></a>. Do not access device registers after calling <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_disable_device" title="pci_disable_device" target="_blank"><code>pci_disable_device()</code></a>.</p>
+<h3 id="release-mmioio-port-resources"><a name="release-mmioio-port-resources" class="anchor-navigation-ex-anchor" href="#release-mmioio-port-resources"><i class="fa fa-link" aria-hidden="true"></i></a>2.3.7. Release MMIO/IO Port Resource(s)</h3>
+<p>Call <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_release_region" title="pci_release_region" target="_blank"><code>pci_release_region()</code></a> to mark the MMIO or IO Port range as available. Failure to do so usually results in the inability to reload the driver.</p>
+<h2 id="how-to-access-pci-config-space"><a name="how-to-access-pci-config-space" class="anchor-navigation-ex-anchor" href="#how-to-access-pci-config-space"><i class="fa fa-link" aria-hidden="true"></i></a>2.4. How to access PCI config space</h2>
+<p>You can use <code>pci_(read|write)_config_(byte|word|dword)</code> to access the config space of a device represented by <code>struct pci_dev *</code>. All these functions return 0 when successful or an error code (<code>PCIBIOS_&#x2026;</code>) which can be translated to a text string by pcibios_strerror. Most drivers expect that accesses to valid PCI devices don&apos;t fail.</p>
+<p>If you don&apos;t have a struct pci<em>dev available, you can call `pci_bus</em>(read|write)<em>config</em>(byte|word|dword)` to access a given device and function on that bus.</p>
+<p>If you access fields in the standard portion of the config header, please use symbolic names of locations and bits declared in <linux pci.h="">.</linux></p>
+<p>If you need to access Extended PCI Capability registers, just call <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_find_capability" title="pci_find_capability" target="_blank"><code>pci_find_capability()</code></a> for the particular capability and it will find the corresponding register block for you.</p>
+<h2 id="17-other-interesting-functions"><a name="17-other-interesting-functions" class="anchor-navigation-ex-anchor" href="#17-other-interesting-functions"><i class="fa fa-link" aria-hidden="true"></i></a>2.5. 1.7. Other interesting functions</h2>
+<table>
+<thead>
+<tr>
+<th>func</th>
+<th>desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_get_domain_bus_and_slot" title="pci_get_domain_bus_and_slot" target="_blank"><code>pci_get_domain_bus_and_slot()</code></a></td>
+<td>Find pci_dev corresponding to given domain, bus and slot and number. If the device is found, its reference count is increased.</td>
+</tr>
+<tr>
+<td><a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_set_power_state" title="pci_set_power_state" target="_blank"><code>pci_set_power_state()</code></a></td>
+<td>Set PCI Power Management state (0=D0 &#x2026; 3=D3)</td>
+</tr>
+<tr>
+<td><a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_find_capability" title="pci_find_capability" target="_blank"><code>pci_find_capability()</code></a></td>
+<td>Find specified capability in device&apos;s capability list.</td>
+</tr>
+<tr>
+<td><code>pci_resource_start()</code></td>
+<td>Returns bus start address for a given PCI region</td>
+</tr>
+<tr>
+<td><code>pci_resource_end()</code></td>
+<td>Returns bus end address for a given PCI region</td>
+</tr>
+<tr>
+<td><code>pci_resource_len()</code></td>
+<td>Returns the byte length of a PCI region</td>
+</tr>
+<tr>
+<td><code>pci_set_drvdata()</code></td>
+<td>Set private driver data pointer for a pci_dev</td>
+</tr>
+<tr>
+<td><code>pci_get_drvdata()</code></td>
+<td>Return private driver data pointer for a pci_dev</td>
+</tr>
+<tr>
+<td><a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_set_mwi" title="pci_set_mwi" target="_blank"><code>pci_set_mwi()</code></a></td>
+<td>Enable Memory-Write-Invalidate transactions.</td>
+</tr>
+<tr>
+<td><a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_clear_mwi" title="pci_clear_mwi" target="_blank"><code>pci_clear_mwi()</code></a></td>
+<td>Disable Memory-Write-Invalidate transactions.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="miscellaneous-hints"><a name="miscellaneous-hints" class="anchor-navigation-ex-anchor" href="#miscellaneous-hints"><i class="fa fa-link" aria-hidden="true"></i></a>2.6. Miscellaneous hints</h2>
+<p>When displaying PCI device names to the user (for example when a driver wants to tell the user what card has it found), please use pci_name(pci_dev).</p>
+<p>Always refer to the PCI devices by a pointer to the pci_dev structure. All PCI layer functions use this identification and it&apos;s the only reasonable one. Don&apos;t use bus/slot/function numbers except for very special purposes &#x2013; on systems with multiple primary buses their semantics can be pretty complex.</p>
+<p>Don&apos;t try to turn on Fast Back to Back writes in your driver. All devices on the bus need to be capable of doing it, so this is something which needs to be handled by platform and generic code, not individual drivers.</p>
+<h2 id="vendor-and-device-identifications"><a name="vendor-and-device-identifications" class="anchor-navigation-ex-anchor" href="#vendor-and-device-identifications"><i class="fa fa-link" aria-hidden="true"></i></a>2.7. Vendor and device identifications</h2>
+<p>Do not add new device or vendor IDs to include/linux/pci_ids.h unless they are shared across multiple drivers. You can add private definitions in your driver if they&apos;re helpful, or just use plain hex constants.</p>
+<p>The device IDs are arbitrary hex numbers (vendor controlled) and normally used only in a single location, the pci_device_id table.</p>
+<p>Please DO submit new vendor/device IDs to <a href="https://pci-ids.ucw.cz/" target="_blank">https://pci-ids.ucw.cz/</a>. There&apos;s a mirror of the pci.ids file at <a href="https://github.com/pciutils/pciids" target="_blank">https://github.com/pciutils/pciids</a>.</p>
+<h2 id="obsolete-functions"><a name="obsolete-functions" class="anchor-navigation-ex-anchor" href="#obsolete-functions"><i class="fa fa-link" aria-hidden="true"></i></a>2.8. Obsolete functions</h2>
+<p>There are several functions which you might come across when trying to port an old driver to the new PCI interface. They are no longer present in the kernel as they aren&apos;t compatible with hotplug or PCI domains or having sane locking.</p>
+<table>
+<thead>
+<tr>
+<th>func</th>
+<th>desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pci_find_device()</code></td>
+<td>Superseded by <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_get_device" title="pci_get_device" target="_blank"><code>pci_get_device()</code></a></td>
+</tr>
+<tr>
+<td><code>pci_find_subsys()</code></td>
+<td>Superseded by <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_get_subsys" title="pci_get_subsys" target="_blank"><code>pci_get_subsys()</code></a></td>
+</tr>
+<tr>
+<td><code>pci_find_slot()</code></td>
+<td>Superseded by <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_get_domain_bus_and_slot" title="pci_get_domain_bus_and_slot" target="_blank"><code>pci_get_domain_bus_and_slot()</code></a></td>
+</tr>
+<tr>
+<td><a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_get_slot" title="pci_get_slot" target="_blank"><code>pci_get_slot()</code></a></td>
+<td>Superseded by <a href="https://www.kernel.org/doc/html/latest/driver-api/pci/pci.html#c.pci_get_domain_bus_and_slot" title="pci_get_domain_bus_and_slot" target="_blank"><code>pci_get_domain_bus_and_slot()</code></a></td>
+</tr>
+</tbody>
+</table>
+<p>The alternative is the traditional PCI device driver that walks PCI device lists. This is still possible but discouraged.</p>
+<h2 id="mmio-space-and-write-posting"><a name="mmio-space-and-write-posting" class="anchor-navigation-ex-anchor" href="#mmio-space-and-write-posting"><i class="fa fa-link" aria-hidden="true"></i></a>2.9. MMIO Space and &quot;Write Posting&quot;</h2>
+<p>Converting a driver from using I/O Port space to using MMIO space often requires some additional changes. Specifically, &quot;write posting&quot; needs to be handled. Many drivers (e.g. tg3, acenic, sym53c8xx_2) already do this. I/O Port space guarantees write transactions reach the PCI device before the CPU can continue. Writes to MMIO space allow the CPU to continue before the transaction reaches the PCI device. HW weenies call this &quot;Write Posting&quot; because the write completion is &quot;posted&quot; to the CPU before the transaction has reached its destination.</p>
+<p>Thus, timing sensitive code should add readl() where the CPU is expected to wait before doing other work. The classic &quot;bit banging&quot; sequence works fine for I/O Port space:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">;</span> val <span class="token operator">&gt;&gt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">outb</span><span class="token punctuation">(</span>val <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">,</span> ioport_reg<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* write bit */</span>
+        <span class="token function">udelay</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The same sequence for MMIO space should be:</p>
+<pre class="language-"><code class="lang-c"><span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">;</span> val <span class="token operator">&gt;&gt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">writeb</span><span class="token punctuation">(</span>val <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">,</span> mmio_reg<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">/* write bit */</span>
+        <span class="token function">readb</span><span class="token punctuation">(</span>safe_mmio_reg<span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment">/* flush posted write */</span>
+        <span class="token function">udelay</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>It is important that &quot;safe_mmio_reg&quot; not have any side effects that interferes with the correct operation of the device.</p>
+<p>Another case to watch out for is when resetting a PCI device. Use PCI Configuration space reads to flush the <code>writel()</code>. This will gracefully handle the PCI master abort on all platforms if the PCI device is expected to not respond to a <code>readl()</code>. Most x86 platforms will allow MMIO reads to master abort (a.k.a. &quot;Soft Fail&quot;) and return garbage (e.g. ~0). But many RISC platforms will crash (a.k.a.&quot;Hard Fail&quot;).</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="platform_device_driver2.html" class="navigation navigation-prev " aria-label="Previous page: 平台驱动杂记2">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="device_driver_内核中的时间和延迟操作.html" class="navigation navigation-next " aria-label="Next page: 内核中的时间和延迟操作.md">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"pci驱动概述","level":"1.15.4","depth":2,"next":{"title":"内核中的时间和延迟操作.md","level":"1.15.5","depth":2,"path":"notes/device_driver_内核中的时间和延迟操作.md","ref":"notes/device_driver_内核中的时间和延迟操作.md","articles":[]},"previous":{"title":"平台驱动杂记2","level":"1.15.3","depth":2,"path":"notes/platform_device_driver2.md","ref":"notes/platform_device_driver2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/device_driver_pci驱动概述.md","mtime":"2022-10-27T10:36:36.940Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-27T10:37:39.083Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
+
+    </body>
+</html>
+
