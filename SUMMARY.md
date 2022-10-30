@@ -59,6 +59,7 @@
   * [virtio规范阅读笔记.md](notes/virtualization_virtio规范阅读笔记.md)
   * [qemu OVS 虚拟化环境准备](notes/qemu_ovs_虚拟化环境.md)
   * [Qemu使用(old)](notes/qemu使用.md)
+  * [QEMU 指令翻译](notes/qemu_binary_translation.md)
 
 * [计算机网络相关](notes/as_title_networking.md)
   * [networking杂记2](notes/networking_杂记2.md)
@@ -85,6 +86,7 @@
 
 * [ARM server](notes/as_title_arm_server.md)
   * [Arm server 杂记](notes/arm_server_杂记.md)
+  * [server知识点](notes/server_知识点.md)
 
 * [嵌入式系统开发调试](notes/as_title_embedded.md)
   * [嵌入式调试杂记](notes/embedded_debugging.md)
@@ -178,6 +180,9 @@
 * [应用相关](notes/as_title_app.md)
   * [sysbench代码分析](notes/app_sysbench代码分析.md)
 
+* [算法相关](notes/as_title_algorithm.md)
+  * [基数(radix)树(网摘)](notes/algorithm_radix_tree.md)
+
 * [C和Operating System](notes/as_title_cos.md)
   * [libc概览1](notes/system_libc_part1.md)
   * [libc概览2](notes/system_libc_part2.md)
@@ -196,6 +201,7 @@
   * [并发 任务 事件 和锁.md](notes/c_pthread_condition和mutex.md)
   * [kernel space和user space交互(网摘, linux2.6)](notes/kernel_user_space_howto.md)
   * [CentOS 性能优化系统配置](notes/CentOS_系统性能优化配置.md)
+  * [gentoo使用记录](notes/OS_gentoo使用.md)
 
 * [内核 设备和驱动相关](notes/as_title_driver.md)
   * [地址空间类型和DMA](notes/device_driver_地址空间类型和DMA.md)
@@ -205,6 +211,7 @@
   * [内核中的时间和延迟操作.md](notes/device_driver_内核中的时间和延迟操作.md)
   * [驱动调试杂记](notes/device_driver_杂记.md)
   * [CPLD做8bit到16bit转换](notes/device_localbus_16bit读写.md)
+  * [位域和大小端](notes/driver_位域和大小端.md)
   * [nand](notes/as_title_driver1.md)
     * [octeon nand flash驱动](notes/device_driver_octeon_nand.md)
     * [Nand flash概率写失败问题分析](notes/device_driver_nand概率写失败问题分析.md)
@@ -223,6 +230,7 @@
   * [nvme要点介绍](notes/device_nvme要点介绍.md)
 
 * [CPU Arch相关](notes/as_title_cpu.md)
+  * [CPU核互联模型](notes/CPU_interconnection_networks.md)
   * [CPU和cache一致性原理](notes/cache_CPU和cache一致性原理.md)
   * [ARM64](notes/as_title_cpu1.md)
     * [thunder 概览](notes/CPU_ARM64_thunder_overview.md)
