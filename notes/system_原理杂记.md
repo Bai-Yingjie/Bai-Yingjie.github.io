@@ -100,7 +100,11 @@
 - [再议rm](#再议rm)
   - [普通用户可以rm root用户的文件](#普通用户可以rm-root用户的文件)
 - [关于热升级, 正在使用的文件可以被rm](#关于热升级-正在使用的文件可以被rm)
+- [__user有什么用?](#__user有什么用)
 - [用户态通过系统调用陷入到内核态, 内存映射会变吗?](#用户态通过系统调用陷入到内核态-内存映射会变吗)
+- [What happens to the cache contents on a context switch?](#what-happens-to-the-cache-contents-on-a-context-switch)
+- [int的写是原子的吗?](#int的写是原子的吗)
+  - [是, 也不是](#是-也不是)
 - [uboot传mtdpart的时候，名字从哪来的？](#uboot传mtdpart的时候名字从哪来的)
 - [为什么直接考过来的ls不能用？](#为什么直接考过来的ls不能用)
 - [fork与malloc](#fork与malloc)
@@ -1769,36 +1773,83 @@ Linux Mint 19.1 Tessa $ pmap 28919
 * 升级正在运行的可执行文件, 比如vim.gtk, 要制造新的inode, 具体是: 先rm, 再cp成同名文件
 * 升级后的文件, 只有app重新加载的时候才生效.
 
+# __user有什么用?
+内核里面, 用户指针有`__user`前缀, 其定义如下  
+`# define __user __attribute__((noderef, address_space(1)))`
+
+但为什么需要它? kernel不是能访问当前进程的所有内存吗? 为什么有的文章说kernel不能直接访问用户态内存?  
+答: kernel是能访问当前进程所有内存空间, 当然也包括其用户态空间, 所以`__user`并不能阻止kernel访问用户态空间, 但用`__user`往往表示其后面的指针是用户态的, 可能不安全, 或者是无效的, `__user`提示开发者或者系统要多加注意, 同样的, 理论上`memcpy`和`strcpy`也能拷贝东西到用户态空间, 但实际中, 一般用`copy_to_user`保证安全性. 
+
+下面是Linus Torvalds的解释:  
+> This is important to remember: for gcc, the sparse annotations are meaningless. They can still be useful just to tell the programmer that "hey, that pointer you got wasn't a normal pointer" in a fairly readable manner, but in the end, unless you use sparse, they don't actually do anything.  
+HOWEVER. When you do use parse, it is another matter entirely. For "sparse", that "__iomem" has lots of meaning:  
+`# define __iomem __attribute__((noderef, address_space(2)))`  
+ie "iomem" means two separate things: it means that sparse should complain  
+if the pointer is ever dereferenced (it's a "noderef" pointer) directly, and it's in "address space 2" as opposed to the normal address space (0).  
+Now, that means that sparse will complain if such a pointer is ever passed into a function that wants a regular pointer (because it is not a normal pointer, and you obviously shouldn't do things like "strcmp()" etc on it), and sparse will also complain if you try to cast it to another pointer in another address space.
 
 # 用户态通过系统调用陷入到内核态, 内存映射会变吗?
 不会
-```
-You've got the general idea mostly right, but make this adjustment: there's only one "kernelspace" for the whole machine, and all processes share it.
+
+> You've got the general idea mostly right, but make this adjustment: there's only one "kernelspace" for the whole machine, and all processes share it.
  
-When a process is active, it can either be running in "user mode" or "kernel mode".
+> When a process is active, it can either be running in "user mode" or "kernel mode".
  
-In user mode, the instructions being executed by the CPU are in the userspace side of the memory map. The program is running its own code, or code from a userspace library. In user mode, a process has limited abilities. There is a flag in the CPU which tells it not to allow the use of privileged instructions, and kernel memory, although it exists in the process's memory map, is inaccessible. (You wouldn't want let any program just read and write the kernel's memory - all security would be gone.)
+> In user mode, the instructions being executed by the CPU are in the userspace side of the memory map. The program is running its own code, or code from a userspace library. In user mode, a process has limited abilities. There is a flag in the CPU which tells it not to allow the use of privileged instructions, and kernel memory, although it exists in the process's memory map, is inaccessible. (You wouldn't want let any program just read and write the kernel's memory - all security would be gone.)
  
-When a process wants to do something other than move data around in its own (userspace) virtual memory, like open a file for example, it must make a syscall. Each CPU architecture has its own unique quirky method of making syscalls, but they all boil down to this: a magic instruction is executed, the CPU turns on the "privileged mode" flag, and jumps to a special address in kernelspace, the "syscall entry point".
+> When a process wants to do something other than move data around in its own (userspace) virtual memory, like open a file for example, it must make a syscall. Each CPU architecture has its own unique quirky method of making syscalls, but they all boil down to this: a magic instruction is executed, the CPU turns on the "privileged mode" flag, and jumps to a special address in kernelspace, the "syscall entry point".
  
-Now the process is running in kernel mode. Instructions being executed are located in kernel memory, and they can read and write any memory they want to. The kernel examines the request that the process just made and decides what to do with it.
+> Now the process is running in kernel mode. Instructions being executed are located in kernel memory, and they can read and write any memory they want to. The kernel examines the request that the process just made and decides what to do with it.
  
-In the open example, the kernel receives 2 or 3 parameters corresponding to the arguments of int open(const char *filename, int flags[, int mode]). The first argument provides an example of when kernelspace needs access to userspace. You said open("foo", O_RDONLY) so the string "foo" is part of your program in userspace. The syscall mechanism only passed a pointer, not a string, so the kernel must read the string from user memory.
+> In the open example, the kernel receives 2 or 3 parameters corresponding to the arguments of int open(const char *filename, int flags[, int mode]). The first argument provides an example of when kernelspace needs access to userspace. You said open("foo", O_RDONLY) so the string "foo" is part of your program in userspace. The syscall mechanism only passed a pointer, not a string, so the kernel must read the string from user memory.
  
-To find the requested file, the kernel may consult with filesystem drivers (to figure out where the file is) and block device drivers (to load the necessary blocks from disk) or network device drivers and protocols (to load the file from a remote source). All of those things are part of the kernel, i.e. in kernelspace, regardless of whether they are built-in or were loaded as modules.
+> To find the requested file, the kernel may consult with filesystem drivers (to figure out where the file is) and block device drivers (to load the necessary blocks from disk) or network device drivers and protocols (to load the file from a remote source). All of those things are part of the kernel, i.e. in kernelspace, regardless of whether they are built-in or were loaded as modules.
  
-If the request can't be satisfied immediately, the kernel may put the process to sleep. That means the process will be taken off the CPU until a response is received from the disk or network. Another process may get a chance to run now. Later, when the response comes in, your process starts running again (still in kernel mode). Now that it's found the file, the open syscall can finish up (check the permissions, create a file descriptor) and return to userspace.
+> If the request can't be satisfied immediately, the kernel may put the process to sleep. That means the process will be taken off the CPU until a response is received from the disk or network. Another process may get a chance to run now. Later, when the response comes in, your process starts running again (still in kernel mode). Now that it's found the file, the open syscall can finish up (check the permissions, create a file descriptor) and return to userspace.
  
-Returning to userspace is a simple matter of putting the CPU back in non-privileged mode and restoring the registers to what they were before the user->kernel transition, with the instruction pointer pointing at the instruction after the magic syscall instruction.
+> Returning to userspace is a simple matter of putting the CPU back in non-privileged mode and restoring the registers to what they were before the user->kernel transition, with the instruction pointer pointing at the instruction after the magic syscall instruction.
  
-Besides syscalls, there are other things that can cause a transition from user mode to kernel mode, including:
+> Besides syscalls, there are other things that can cause a transition from user mode to kernel mode, including:
  
-page faults - if your process accesses a virtual memory address that doesn't have a physical address assigned to it, the CPU enters kernel mode and jumps to the page fault handler. The kernel then decides whether the virtual address is valid or not, and it either creates a physical page and resumes the process in userspace where it left off, or sends a SIGSEGV.
-interrupts - some hardware (network, disk, serial port, etc.) notifies the CPU that it requires attention. The CPU enters kernel mode and jumps to a handler, the kernel responds to it and then resumes the userspace process that was running before the interrupt.
-Loading a module is done with a syscall that asks the kernel to copy the module's code and data into kernelspace and run its initialization code in kernel mode.
+> page faults - if your process accesses a virtual memory address that doesn't have a physical address assigned to it, the CPU enters kernel mode and jumps to the page fault handler. The kernel then decides whether the virtual address is valid or not, and it either creates a physical page and resumes the process in userspace where it left off, or sends a SIGSEGV.
+
+> interrupts - some hardware (network, disk, serial port, etc.) notifies the CPU that it requires attention. The CPU enters kernel mode and jumps to a handler, the kernel responds to it and then resumes the userspace process that was running before the interrupt.
+
+> Loading a module is done with a syscall that asks the kernel to copy the module's code and data into kernelspace and run its initialization code in kernel mode.
  
-This is pretty long, so I'm stopping. I hope the walk-through focusing on user-kernel transitions has provided enough examples to solidify the idea.
-```
+> This is pretty long, so I'm stopping. I hope the walk-through focusing on user-kernel transitions has provided enough examples to solidify the idea.
+
+# What happens to the cache contents on a context switch?
+> In a multicore processor, what happens to the contents of a core's cache (say L1) when a context switch occurs on that cache?
+
+> Is the behaviour dependent on the architecture or is it a general behaviour followed by all chip manufacturers?
+
+> That depends both on the processor (not just the processor series, it can vary from model to model) and the operating systems, but there are general principles. Whether a processor is multicore has no direct impact on this aspect; the same process could be executing on multiple cores simultaneously (if it's multithreaded), and memory can be shared between processes, so cache synchronization is unavoidable regardless of what happens on a context switch.
+
+> When a processor looks up a memory location in the cache, if there is an MMU, it can use either the physical or the virtual address of that location (sometimes even a combination of both, but that's not really relevant here).
+
+> With physical addresses, it doesn't matter which process is accessing the address, the contents can be shared. So there is no need to invalidate the cache content during a context switch. If the two processes map the same physical page with different attributes, this is handled by the MMU (acting as a MPU (memory protection unit)). The downside of a physically addressed cache is that the MMU has to sit between the processor and the cache, so the cache lookup is slow. L1 caches are almost never physically addresses; higher-level caches may be.
+
+> The same virtual address can denote different memory locations in different processes. Hence, with a virtually addressed cache, the processor and the operating system must cooperate to ensure that a process will find the right memory. There are several common techniques. The context-switching code provided by the operating system can invalidate the whole cache; this is correct but very costly. Some CPU architectures have room in their cache line for an ASID (address space identifier) the hardware version of a process ID, also used by the MMU. This effectively separates cache entries from different processes, and means that two processes that map the same page will have incoherent views of the same physical page (there is usually a special ASID value indicating a shared page, but these need to be flushed if they are not mapped to the same address in all processes where they are mapped). If the operating system takes care that different processes use non-overlapping address spaces (which defeats some of the purpose of using virtual memory, but can be done sometimes), then cache lines remain valid.
+
+> Most processors that have an MMU also have a TLB. The TLB is a cache of mappings from virtual addresses to physical addresses. The TLB is consulted before lookups in physically-addressed caches, to determine the physical address quickly when possible; the processor may start the cache lookup before the TLB lookup is complete, as often candidate cache lines can be identified from the middle bits of the address, between the bits that determine the offset in a cache line and the bits that determine the page. Virtually-addressed caches bypass the TLB if there is a cache hit, although the processor may initiate the TLB lookup while it is querying the cache, in case of a miss.
+
+> The TLB itself must be managed during a context switch. If the TLB entries contain an ASID, they can remain in place; the operating system only needs to flush TLB entries if their ASID has changed meaning (e.g. because a process has exited). If the TLB entries are global, they must be invalidated when switching to a different context.
+
+# int的写是原子的吗?
+比如一个64位CPU, 写一个`i int64`是原子的吗? 我们知道, `i++`并不是原子的, 因为它有读-更改-写三个过程.  
+那单纯的写变量`i`是原子的吗?  
+
+原子的意思是比如  
+Thread A: `i = 0x08`  
+Thread B: `i = 0x80`  
+那么, 最终这个变量的结果要么是0x08, 要么是0x80. 不可能是中间的某个值.
+
+## 是, 也不是
+* 一般是的. 和变量是否cache line对齐有关. 默认的整型变量被编译器安排到自然地址对齐的地方, 在现代CPU上, cache line对齐的变量会落在一个cache line里面.  
+CPU对内存的更改是以cache line为单位的, 这个更新是原子的. 如果同时多个CPU的核心都更新指向同一个地址的cache line, 比如CPU0在其L1 cache里面改了变量A, CPU1也在其cacheline里面更改了相同的变量A, 但最终只能有一个cacheline真正写到L2, 即使两个CPU物理上"同时"发生这个更改操作, 总线也会仲裁.  
+结果就是这个变量A要么是CPU0改的值, 要么是CPU1改的值. 不可能是中间值
+* 如果这个变量, 因为程序的有意操作, 跨了两个cache line. 那么在更新它的时候, 就不是原子的. 两个CPU同时改的时候, 其值有可能不是二选一, 而是两个拼出来的. 但也不可能是其他乱七八糟的值.
 
 # uboot传mtdpart的时候，名字从哪来的？
 比如uboot会传cmdline给内核

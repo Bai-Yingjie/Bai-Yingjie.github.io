@@ -8,6 +8,10 @@
   - [第二版](#第二版)
   - [第三版](#第三版)
   - [封存版](#封存版)
+- [make速查手册](#make速查手册)
+- [make 命令行变量](#make-命令行变量)
+  - [现象](#现象)
+  - [原因](#原因)
 
 # target_lib的makefile
 这个Makefile用来生成动态库
@@ -309,4 +313,58 @@ official: official-1.13.12
 
 $(officialTags): official-%: Dockerfile.gc
     docker build --build-arg GOLANG_VERSION=$* -f $< -t $(img):$@ .
+```
+
+# make速查手册
+https://www.gnu.org/software/make/manual/make.html
+
+# make 命令行变量
+## 现象
+在Makefile里, 即使给JOBS赋值为1, 但最后执行目标all的时候, 总是33
+文件出自`linux/tools/perf/Makefile`
+```makefile
+ifeq ($(JOBS),)
+    JOBS := $(shell (getconf _NPROCESSORS_ONLN || egrep -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
+    ifeq ($(JOBS),0)
+        JOBS := 1
+    endif
+endif
+#这里, 我为了调试一个问题, 想临时关闭并行编译
+JOBS = 1
+all:
+    #但最后结果却是, 这里的$(JOBS)总是33
+    @printf ' BUILD: Doing '\''make \033[33m-j'$(JOBS)'\033[m'\'' parallel build\n'
+    @$(MAKE) -f Makefile.perf --no-print-directory -j$(JOBS) O=$(FULL_O) $(SET_DEBUG) $@
+```
+## 原因
+因为在调用这个makefile的时候, 从命令行传递过来很多变量, 其中就有JOBS=33  
+类似这样
+```sh
+PATH="..." /usr/bin/make -j1 HOSTCC="gcc -O2 -I ... -I ...等选项" ARCH=mips CROSS_COMPILE="..." LD="... -m elf32btsmipn32" NO_LIBNUMA=1 JOBS=33 -C tools/perf/
+```
+根据解释:
+https://stackoverflow.com/questions/2826029/  passing-additional-variables-from-command-line-to-make
+
+make的变量来源有
+* 环境变量, 即在make之前的变量: xxx=xxx make  
+用-e 或--environments-override选项, 可以让环境变量override掉makefile里面的变量;  
+但不推荐, 推荐在makefile里用?来表示如果没定义, 就定义. 比如:  
+`FOO?=default_value_if_not_set_in_environment`
+* 命令行变量: 本文中的case, 即make后面的变量, 类似: make xxx=xxx  
+命令行变量默认会override makefile里的变量, 比如上面的case, makefile中的JOBS变量就被忽略了, 怎么改都不管用.  
+可以使用override关键词来定义变量, 这样就可以改命令行变量了.  
+https://www.gnu.org/software/make/manual/make.html#Override-Directive
+
+```makefile
+override variable = value
+override variable := value
+#这个是在命令变量variable基础上加
+override variable += more text
+```
+* 从父make导入的变量, 即父make export过的变量, 比如
+```
+CFLAGS=-g
+export CFLAGS
+target:
+        $(MAKE) -C target
 ```

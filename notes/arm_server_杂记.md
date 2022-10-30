@@ -102,7 +102,6 @@ destLen,
           strm.next_out = dest;
 ```
 
-
 ##  高精度时钟
 在编译tokudb的代码时, 需要实现一个函数
 ```c
