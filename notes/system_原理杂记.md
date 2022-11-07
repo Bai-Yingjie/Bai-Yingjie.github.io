@@ -96,6 +96,11 @@
   - [signal和系统调用](#signal和系统调用-1)
   - [siglongjmp](#siglongjmp)
 - [futex系统调用](#futex系统调用)
+- [mmap和内核page](#mmap和内核page)
+  - [shared和private](#shared和private)
+  - [shared map](#shared-map)
+  - [private map](#private-map)
+  - [匿名映射](#匿名映射)
 - [libevent主循环处理timer](#libevent主循环处理timer)
 - [再议rm](#再议rm)
   - [普通用户可以rm root用户的文件](#普通用户可以rm-root用户的文件)
@@ -1631,6 +1636,91 @@ futex支持像epoll等系统调用的超时机制.
 当futex_op可以是FUTEX_WAIT也可以是FUTEX_WAKE, 即futex有wait和wakeup两种功能.
 * FUTEX_WAIT时, futex比较这个地址指向的32位值, 如果和val相等则休眠; 不等的话, 马上返回, errorno为EAGAIN.
 * FUTEX_WAKE时, 唤醒val个等待在uaddr上的线程. 通常val为1个随机的线程, 或者所有(INT_MAX)的线程.
+
+# mmap和内核page
+mmap的任务是在一个进程里, map一个文件到一个虚拟地址范围.
+当这个虚拟地址被访问的时候, 没有PTE的时候会产生page fault异常, kernel才分配物理页, 从文件copy实际内容到这个物理页.
+
+* page是有cache的, 使用Least Recently Used (LRU)策略换出不经常使用的page. 当dirty page超过一个ratio, kernel会flush脏页.
+* Read-ahead技术预加载page从而避免缺页异常的产生.
+* madvise系统调用可以告知kernel app对内容范围的期望.
+
+## shared和private
+用mmap来map文件一般都用shared map. 顾名思义, 多个进程都用shared map一个文件, 他们的改动是彼此可见的, 写操作也会真正的写到那个文件里.
+```
+MAP_SHARED
+        Share this mapping.  Updates to the mapping are visible to
+        other processes mapping the same region, and (in the case
+        of file-backed mappings) are carried through to the
+        underlying file.  (To precisely control when updates are
+        carried through to the underlying file requires the use of
+        msync(2).)
+```
+
+private map使用copy on write技术, 写操作实际上是写到新分配的物理页上. 所以写的东西别的进程是看不见的, 而且写的内容不会真正写到文件里.
+```
+MAP_PRIVATE
+        Create a private copy-on-write mapping.  Updates to the
+        mapping are not visible to other processes mapping the
+        same file, and are not carried through to the underlying
+        file.  It is unspecified whether changes made to the file
+        after the mmap() call are visible in the mapped region.
+```
+
+## shared map
+linux的mmap系统调用, 比如:
+```c
+mmap(
+    /* addr = */ 0x400000,
+    /* length = */ 0x1000,
+    PROT_READ | PROT_WRITE,
+    MAP_SHARED,
+    /* fd = */ 3,
+    /* offset = */ 0);
+```
+创建一个从fd `3`到`virtual memory areas` (`VMAs`)的mapping.
+这个mapping从`VA 0x400000`开始, 长度为`0x1000`字节, offset是`0`.  
+假设fd 3对应的文件是`/tmp/foo`,
+内核中这个mapping表示为:
+```
+VMA:     VA:0x400000 -> /tmp/foo:0x0
+```
+创建VMA的时候并没有分配`PA`, 因为这个时候linux还没有准备物理地址来保存`/tmp/foo`的内容. 直到应用读`VA`地址`0x400000`, 产生缺页异常, 才分配物理页, 然后copy文件内容到这个物理页. 比如kernel选择了`PA:0x2fb000`, 此时VMA是这样的:
+```
+VMA:     VA:0x400000 -> /tmp/foo:0x0
+Filemap:                /tmp/foo:0x0 -> PA:0x2fb000
+```
+这里的Filemap对应kernel的`struct address_space`
+
+这个时候kernel使用`page table entry` (`PTE`)来做`VA`到`PA`的转换表.
+```
+VMA:     VA:0x400000 -> /tmp/foo:0x0
+Filemap:                /tmp/foo:0x0 -> PA:0x2fb000
+PTE:     VA:0x400000 -----------------> PA:0x2fb000
+```
+注意, VMA和Filemap是相对独立的东西, 而PTE受二者的影响, 比如:
+* 这个应用调用了munmap系统调用, 这就解除了`VMA:     VA:0x400000 -> /tmp/foo:0x0`的映射, 进而解除了`PTE:     VA:0x400000 -----------------> PA:0x2fb000`. 但是, `Filemap:                /tmp/foo:0x0 -> PA:0x2fb000`不一定就解除了, 因为从文件`/tmp/foo:0x0`到物理地址`PA:0x2fb000`的映射以后还能用得上.
+* 这个应用也可能调用`ftruncate`来invalidate这个文件的内容. 这就解除了`Filemap:                /tmp/foo:0x0 -> PA:0x2fb000`, 进而解除了`PTE:     VA:0x400000 -----------------> PA:0x2fb000`; 而`VMA:     VA:0x400000 -> /tmp/foo:0x0`就不需要改变, 因为PTE解除了, `VA:0x400000`需要另一个缺页异常来分配新的物理页, 所以VA仍然反应了文件内容的改变.
+
+## private map
+对private map来说, 读和写都可能会有缺页异常.
+首次读产生的缺页异常会产生一个只读的物理页:
+```
+VMA:     VA:0x400000 -> /tmp/foo:0x0 (private)
+Filemap:                /tmp/foo:0x0 -> PA:0x2fb000
+PTE:     VA:0x400000 -----------------> PA:0x2fb000 (read-only)
+```
+此时如果是shared map, 写操做也会写到`PA:0x2fb000`. 但private map会产生另外一个缺页异常, kernel另外选择一个物理页(比如0x5ea000), 拷贝之前的物理页内容到这个新分配的物理页, 然后更新map:
+```
+VMA:     VA:0x400000 -> /tmp/foo:0x0 (private)
+Filemap:                /tmp/foo:0x0 -> PA:0x2fb000
+PTE:     VA:0x400000 -----------------> PA:0x5ea000
+```
+
+## 匿名映射
+flag里面如果有`MAP_ANONYMOUS`就使用匿名映射, 就是不需要文件的映射. 匿名也分shared和private.
+* shared模式下面, 会产生一个临时的零字节的文件, 大家都map到这个文件.
+* private模式下面, 就没有这个临时文件了. 而是一开始都用一个固定的readonly的全零的页, 直到copy on write新分配一个可写的物理页.
 
 
 # libevent主循环处理timer

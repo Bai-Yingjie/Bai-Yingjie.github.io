@@ -11,6 +11,7 @@
   - [abi](#abi)
   - [sentry的内存管理](#sentry的内存管理)
     - [传统mm](#传统mm)
+      - [shared和private](#shared和private)
       - [shared map](#shared-map)
       - [private map](#private-map)
       - [匿名映射](#匿名映射)
@@ -243,9 +244,31 @@ mmap的任务是在一个进程里, map一个文件到一个虚拟地址范围.
 * Read-ahead技术预加载page从而避免缺页异常的产生.
 * madvise系统调用可以告知kernel app对内容范围的期望.
 
+#### shared和private
+用mmap来map文件一般都用shared map. 顾名思义, 多个进程都用shared map一个文件, 他们的改动是彼此可见的, 写操作也会真正的写到那个文件里.
+```
+MAP_SHARED
+        Share this mapping.  Updates to the mapping are visible to
+        other processes mapping the same region, and (in the case
+        of file-backed mappings) are carried through to the
+        underlying file.  (To precisely control when updates are
+        carried through to the underlying file requires the use of
+        msync(2).)
+```
+
+private map使用copy on write技术, 写操作实际上是写到新分配的物理页上. 所以写的东西别的进程是看不见的, 而且写的内容不会真正写到文件里.
+```
+MAP_PRIVATE
+        Create a private copy-on-write mapping.  Updates to the
+        mapping are not visible to other processes mapping the
+        same file, and are not carried through to the underlying
+        file.  It is unspecified whether changes made to the file
+        after the mmap() call are visible in the mapped region.
+```
+
 #### shared map
 linux的mmap系统调用, 比如:
-```go
+```c
 mmap(
     /* addr = */ 0x400000,
     /* length = */ 0x1000,
@@ -254,21 +277,21 @@ mmap(
     /* fd = */ 3,
     /* offset = */ 0);
 ```
-创建一个从fd 3到_virtual memory areas_ (VMAs)的mapping.  
-这个mapping从VA 0x400000开始, 长度为0x1000字节, offset是0.  
-假设fd 3对应的文件是`/tmp/foo`  
+创建一个从fd `3`到`virtual memory areas` (`VMAs`)的mapping.
+这个mapping从`VA 0x400000`开始, 长度为`0x1000`字节, offset是`0`.  
+假设fd 3对应的文件是`/tmp/foo`,
 内核中这个mapping表示为:
 ```
 VMA:     VA:0x400000 -> /tmp/foo:0x0
 ```
-创建VMA的时候并没有分配PA, 因为这个时候linux还没有准备物理地址来保存`/tmp/foo`的内容. 直到应用读VA地址`0x400000`, 产生缺页异常, 才分配物理页, 然后copy文件内容到这个物理页. 比如kernel选择了`PA:0x2fb000`, 此时VMA是这样的:
+创建VMA的时候并没有分配`PA`, 因为这个时候linux还没有准备物理地址来保存`/tmp/foo`的内容. 直到应用读`VA`地址`0x400000`, 产生缺页异常, 才分配物理页, 然后copy文件内容到这个物理页. 比如kernel选择了`PA:0x2fb000`, 此时VMA是这样的:
 ```
 VMA:     VA:0x400000 -> /tmp/foo:0x0
 Filemap:                /tmp/foo:0x0 -> PA:0x2fb000
 ```
 这里的Filemap对应kernel的`struct address_space`
 
-这个时候kernel使用_page table entry_ (PTE)来做VA到PA的转换表.
+这个时候kernel使用`page table entry` (`PTE`)来做`VA`到`PA`的转换表.
 ```
 VMA:     VA:0x400000 -> /tmp/foo:0x0
 Filemap:                /tmp/foo:0x0 -> PA:0x2fb000
