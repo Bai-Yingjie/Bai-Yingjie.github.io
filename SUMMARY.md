@@ -126,7 +126,7 @@
     * [Golang 汇编语法和arm64小知识](notes/golang_汇编_arm64.md)
     * [go调用c可以用swig](notes/golang_cgo_swig.md)
   * [Golang 环境和工具链生成](notes/as_title_golang3.md)
-    * [go tools增加ppc32支持.md](notes/golang_toolchain_ppc.md)
+    * [go tools增加ppc32支持](notes/golang_toolchain_ppc.md)
     * [编译gccgo](notes/golang_toolchain_compile_gccgo.md)
     * [go on mips boards(not so updated)](notes/golang_go_on_mips.md)
       * [part 1: cross compile go](notes/golang_go_on_mips_part1.md)
