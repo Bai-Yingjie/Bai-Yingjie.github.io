@@ -44,3 +44,12 @@
 * 冒号是个空命令, 什么也不干, 永远返回0
 * 但冒号命令会展开参数, 最后的效果是给变量赋默认值
 * 加冒号的目的是避免shell把默认值当作命令执行
+
+# export有什么用? 子进程不是继承父进程的环境变量吗?
+回答:
+* export用于把当前的shell变量export给子进程.
+* shell变量并不一定是env变量. 只有export的变量才是环境变量, 没有export的变量压根就不是环境变量, 当然不能被子shell继承.
+
+参考: https://unix.stackexchange.com/questions/130985/if-processes-inherit-the-parents-environment-why-do-we-need-export
+
+
