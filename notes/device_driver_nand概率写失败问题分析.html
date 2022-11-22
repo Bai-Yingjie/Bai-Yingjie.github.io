@@ -2870,7 +2870,7 @@
                 <a href="device_driver_内核中的时间和延迟操作.html">
             
                     
-                    内核中的时间和延迟操作.md
+                    内核中的时间和延迟操作
             
                 </a>
             
@@ -3622,173 +3622,173 @@ ubifs&#x540E;&#x53F0;&#x8FDB;&#x7A0B;ubi_bgt1d&#x662F;&#x666E;&#x901A;&#x8FDB;&#
 <li><p>&#x63D0;&#x9AD8;ubi&#x76F8;&#x5173;&#x8FDB;&#x7A0B;&#x4F18;&#x5148;&#x7EA7;
 &#x63D0;&#x9AD8;&#x5230;&#x5B9E;&#x65F6;&#x4F18;&#x5148;&#x7EA7;, &#x4E0E;&#x5176;&#x4ED6;s6&#x542F;&#x52A8;&#x7684;&#x8FDB;&#x7A0B;&#x540C;&#x7EA7;. &#x7406;&#x8BBA;&#x4E0A;&#x4F1A;&#x964D;&#x4F4E;&#x6982;&#x7387;, &#x4F46;&#x4E0D;&#x80FD;&#x5B8C;&#x5168;&#x907F;&#x514D;.<br>&#x672A;&#x9A8C;&#x8BC1;.</p>
 </li>
-<li><p>&#x5728;<code>BUS_ACQ</code>&#x548C;<code>BUS_REL</code>&#x4E4B;&#x95F4;&#x52A0;&#x9501;.<br>&#x7406;&#x8BBA;&#x4E0A;, &#x80FD;&#x89E3;&#x51B3;<code>PAGEPROG failed with -4</code>&#x95EE;&#x9898;, &#x4F46;&#x4E0D;&#x80FD;&#x4E0E;&#x5176;&#x4ED6;bootbus&#x8BBF;&#x95EE;&#x4E92;&#x65A5;.<br>-- &#x66F4;&#x6B63;: &#x6211;&#x8BA4;&#x4E3A;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x548C;&#x5176;&#x4ED6;bootbus&#x8BBF;&#x95EE;&#x4E92;&#x65A5;, &#x56E0;&#x4E3A;&#x8FD9;&#x662F;&#x786C;&#x4EF6;&#x4FDD;&#x8BC1;&#x7684;, nand&#x63A7;&#x5236;&#x5668;&#x4F1A;&#x53C2;&#x4E0E;bootbus&#x603B;&#x7EBF;&#x4EF2;&#x88C1;.<br>patch&#x5982;&#x4E0B;:<br>```diff
-changeset:   317:32127fd74f84
+<li><p>&#x5728;<code>BUS_ACQ</code>&#x548C;<code>BUS_REL</code>&#x4E4B;&#x95F4;&#x52A0;&#x9501;.<br>&#x7406;&#x8BBA;&#x4E0A;, &#x80FD;&#x89E3;&#x51B3;<code>PAGEPROG failed with -4</code>&#x95EE;&#x9898;, &#x4F46;&#x4E0D;&#x80FD;&#x4E0E;&#x5176;&#x4ED6;bootbus&#x8BBF;&#x95EE;&#x4E92;&#x65A5;.<br>-- &#x66F4;&#x6B63;: &#x6211;&#x8BA4;&#x4E3A;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x548C;&#x5176;&#x4ED6;bootbus&#x8BBF;&#x95EE;&#x4E92;&#x65A5;, &#x56E0;&#x4E3A;&#x8FD9;&#x662F;&#x786C;&#x4EF6;&#x4FDD;&#x8BC1;&#x7684;, nand&#x63A7;&#x5236;&#x5668;&#x4F1A;&#x53C2;&#x4E0E;bootbus&#x603B;&#x7EBF;&#x4EF2;&#x88C1;.<br>patch&#x5982;&#x4E0B;:  </p>
+</li>
+</ol>
+<pre class="language-"><code class="lang-diff">changeset:   317:32127fd74f84
 branch:      linux-4.9-preparation
 user:        Bai Yingjie
 date:        Thu Aug 01 12:12:05 2019 +0800
 files:       arch/mips/cavium-octeon/executive/cvmx-nand.c
 description:
-nand: use mutex to protect the DMA operation and command sequence in NDF_CMD queue</p>
-</li>
-</ol>
-<p>Octeon nand controller uses NDF_CMD queue to receive nand command sequence,
-and then drives the bootbus pins to operate with the Nand flash chip.</p>
-<p>One nand flash operation includes several commands which form the command sequence,
+nand: use mutex to protect the DMA operation and command sequence in NDF_CMD queue
+
+Octeon nand controller uses NDF_CMD queue to receive nand command sequence,
+and then drives the bootbus pins to operate with the Nand flash chip.
+
+One nand flash operation includes several commands which form the command sequence,
 software writes the sequence wrapping with BUS_ACQ and BUS_REL pair and then rings
 the doorbell to inform nand controller which in turn arbitrates for and releases the
-boot-bus pins when it executes the BUS_ACQ/BUS_REL commands, respectively.</p>
-<p>The sequence between BUS_ACQ and BUS_REL pair should in order.
+boot-bus pins when it executes the BUS_ACQ/BUS_REL commands, respectively.
+
+The sequence between BUS_ACQ and BUS_REL pair should in order.
 Without proper lock, the command sequence into NDF_CMD queue may
 become out of order, which results nand flash access failure.
 Typical error message:
-octeon-nand 1070001000000.nand-flash-interface: PAGEPROG failed with -4</p>
-<p>Because of the nand failure, bootbus may occur Data Bus Error when other bootbus
-devices trying to access through bootbus right after the nand failure.</p>
-<p>Previously in kernel 3.10, higher level of software uses a bigger
+octeon-nand 1070001000000.nand-flash-interface: PAGEPROG failed with -4
+
+Because of the nand failure, bootbus may occur Data Bus Error when other bootbus
+devices trying to access through bootbus right after the nand failure.
+
+Previously in kernel 3.10, higher level of software uses a bigger
 lock &quot;octeon_bootbus_sem&quot; to do the job, but in kernel 4.9, the new added
-functions like &quot;octeon_nand_wait&quot; does not acquire the lock.</p>
-<p>We could add &quot;down(&amp;octeon_bootbus_sem)&quot; to such functions, follow the previous
+functions like &quot;octeon_nand_wait&quot; does not acquire the lock.
+
+We could add &quot;down(&amp;octeon_bootbus_sem)&quot; to such functions, follow the previous
 lock implementation. But &quot;octeon_bootbus_sem&quot; is a big lock, other bootbus
-devices like CPLD also acquire the lock.</p>
-<p>This patch provides another option that uses smaller lock granularity that only
-locks NDF_CMD queue and DMA operation.</p>
-<p>This approach passes the reboot test over 100 times.</p>
-<p>diff --git a/arch/mips/cavium-octeon/executive/cvmx-nand.c b/arch/mips/cavium-octeon/executive/cvmx-nand.c
---- a/arch/mips/cavium-octeon/executive/cvmx-nand.c
-+++ b/arch/mips/cavium-octeon/executive/cvmx-nand.c
-@@ -273,6 +273,23 @@ static CVMX_SHARED const char *cvmx_nand</p>
-<p> static void __cvmx_nand_hex_dump(uint64_t buffer_address, int buffer_length);</p>
-<p>+static DEFINE_MUTEX(cmdq_mutex);
-+
-+/**</p>
-<ul>
-<li><ul>
-<li>ensure the comands put into the NDF_CMD queue are ordered</li>
-</ul>
-</li>
-<li><ul>
-<li>this lock protects the sequence between BUS_ACQ and BUS_REL command pair</li>
-</ul>
-</li>
-<li><ul>
-<li>and also protects the DMA operation in conjunction with NDF_CMD queue.</li>
-</ul>
-</li>
-<li>*/
-+void __cvmx_nand_cmdq_lock(void)
-+{</li>
-<li>mutex_lock(&amp;cmdq_mutex);
-+}
-+
-+void __cvmx_nand_cmdq_unlock(void)
-+{</li>
-<li>mutex<em>unlock(&amp;cmdq_mutex);
-+}
-+
-/<em> Compute the CRC for the ONFI parameter page.  Adapted from sample code
-** in the specification.
-</em>/
-@@ -1456,7 +1473,6 @@ static inline cvmx_nand_status_t __cvmx</em><pre class="language-"><code>    if (result)
-            CVMX_NAND_RETURN(result);
-</code></pre>}
--
-CVMX_NAND_RETURN(CVMX_NAND_SUCCESS);
-}</li>
-</ul>
-<p>@@ -1640,6 +1656,8 @@ static inline int <em>_cvmx_nand_low_level</em>
-        if (!buffer_length)
-                CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);</p>
-<ul>
-<li><p><strong>cvmx_nand_cmdq_lock();
-+
-nand_selected = </strong>cvmx_nand_select(1);</p>
-<p>/<em> Build the command and address cycles </em>/
-@@ -1740,10 +1758,12 @@ static inline int <em>_cvmx_nand_low_level</em></p>
-</li>
-</ul>
-<pre class="language-"><code>    __cvmx_nand_select(nand_selected);
-</code></pre><ul>
-<li><p>__cvmx_nand_cmdq_unlock();
-CVMX_NAND_RETURN(bytes);</p>
-<p>error:
-__cvmx_nand_select(nand_selected);</p>
-</li>
-<li>__cvmx_nand_cmdq_unlock();
-CVMX_NAND_RETURN(status);
-}</li>
-</ul>
-<p>@@ -1887,6 +1907,8 @@ cvmx_nand_status_t cvmx_nand_page_write(
-        if (buffer_address &amp; 7)
-                CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);</p>
-<ul>
-<li><p><strong>cvmx_nand_cmdq_lock();
-+
-nand_selected = </strong>cvmx_nand_select(1);</p>
-<p>nand_address = __cvmx_nand_adjust_address(chip, nand_address);
-@@ -1975,6 +1997,7 @@ cvmx_nand_status_t cvmx_nand_page_write(</p>
-<p>done:
-__cvmx_nand_select(nand_selected);</p>
-</li>
-<li><p>__cvmx_nand_cmdq_unlock();
-CVMX_NAND_RETURN(status);
-}
-EXPORT_SYMBOL(cvmx_nand_page_write);
-@@ -2001,6 +2024,8 @@ cvmx_nand_status_t cvmx_nand_block_erase
-if (!cvmx_nand_state[chip].page_size)</p>
-<pre class="language-"><code>    CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
-</code></pre></li>
-<li><p><strong>cvmx_nand_cmdq_lock();
-+
-nand_selected = </strong>cvmx_nand_select(1);
-/<em> Build the command and address cycles </em>/
-status = __cvmx_nand_build_pre_cmd(chip, NAND_COMMAND_ERASE,
-@@ -2030,6 +2055,7 @@ cvmx_nand_status_t cvmx_nand_block_erase</p>
-<p>done:
-__cvmx_nand_select(nand_selected);</p>
-</li>
-<li><p>__cvmx_nand_cmdq_unlock();
-CVMX_NAND_RETURN(status);
-}
-EXPORT_SYMBOL(cvmx_nand_block_erase);
-@@ -2230,6 +2256,8 @@ cvmx_nand_status_t cvmx_nand_set_feature
-if (feature == NULL)</p>
-<pre class="language-"><code>    CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
-</code></pre></li>
-<li><p><strong>cvmx_nand_cmdq_lock();
-+
-nand_selected = </strong>cvmx_nand_select(1);
-status = __cvmx_nand_build_pre_cmd(chip, NAND_COMMAND_SET_FEATURES,</p>
-<pre class="language-"><code>                               1, feat_num, 0);
-</code></pre><p>@@ -2278,6 +2306,7 @@ cvmx_nand_status_t cvmx_nand_set_feature
-}
-done:
-__cvmx_nand_select(nand_selected);</p>
-</li>
-<li><p>__cvmx_nand_cmdq_unlock();
-CVMX_NAND_RETURN(status);
-}
-EXPORT_SYMBOL(cvmx_nand_set_feature);
-@@ -2380,6 +2409,8 @@ cvmx_nand_status_t cvmx_nand_reset(int c
-if (!cvmx_nand_state[chip].page_size)</p>
-<pre class="language-"><code>    CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
-</code></pre></li>
-<li><p><strong>cvmx_nand_cmdq_lock();
-+
-nand_selected = </strong>cvmx_nand_select(1);
-status = __cvmx_nand_build_pre_cmd(chip, NAND_COMMAND_RESET, 0, 0, 0);
-if (status)
-@@ -2396,6 +2427,7 @@ cvmx_nand_status_t cvmx_nand_reset(int c</p>
-<pre class="language-"><code>    goto done;
-</code></pre><p>done:
-__cvmx_nand_select(nand_selected);</p>
-</li>
-<li>__cvmx_nand_cmdq_unlock();
-CVMX_NAND_RETURN(status);
-}
-EXPORT_SYMBOL(cvmx_nand_reset);</li>
-</ul>
-<p>```</p>
+devices like CPLD also acquire the lock.
+
+This patch provides another option that uses smaller lock granularity that only
+locks NDF_CMD queue and DMA operation.
+
+This approach passes the reboot test over 100 times.
+
+diff --git a/arch/mips/cavium-octeon/executive/cvmx-nand.c b/arch/mips/cavium-octeon/executive/cvmx-nand.c
+<span class="token coord">--- a/arch/mips/cavium-octeon/executive/cvmx-nand.c</span>
+<span class="token coord">+++ b/arch/mips/cavium-octeon/executive/cvmx-nand.c</span>
+@@ -273,6 +273,23 @@ static CVMX_SHARED const char *cvmx_nand
+
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">static void __cvmx_nand_hex_dump(uint64_t buffer_address, int buffer_length);
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">static DEFINE_MUTEX(cmdq_mutex);
+</span><span class="token prefix inserted">+</span><span class="token line">
+</span><span class="token prefix inserted">+</span><span class="token line">/**
+</span><span class="token prefix inserted">+</span><span class="token line"> * ensure the comands put into the NDF_CMD queue are ordered
+</span><span class="token prefix inserted">+</span><span class="token line"> * this lock protects the sequence between BUS_ACQ and BUS_REL command pair
+</span><span class="token prefix inserted">+</span><span class="token line"> * and also protects the DMA operation in conjunction with NDF_CMD queue.
+</span><span class="token prefix inserted">+</span><span class="token line"> */
+</span><span class="token prefix inserted">+</span><span class="token line">void __cvmx_nand_cmdq_lock(void)
+</span><span class="token prefix inserted">+</span><span class="token line">{
+</span><span class="token prefix inserted">+</span><span class="token line">       mutex_lock(&amp;cmdq_mutex);
+</span><span class="token prefix inserted">+</span><span class="token line">}
+</span><span class="token prefix inserted">+</span><span class="token line">
+</span><span class="token prefix inserted">+</span><span class="token line">void __cvmx_nand_cmdq_unlock(void)
+</span><span class="token prefix inserted">+</span><span class="token line">{
+</span><span class="token prefix inserted">+</span><span class="token line">       mutex_unlock(&amp;cmdq_mutex);
+</span><span class="token prefix inserted">+</span><span class="token line">}
+</span><span class="token prefix inserted">+</span><span class="token line">
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">/* Compute the CRC for the ONFI parameter page.  Adapted from sample code
+</span><span class="token prefix unchanged"> </span><span class="token line">** in the specification.
+</span><span class="token prefix unchanged"> </span><span class="token line">*/
+</span></span>@@ -1456,7 +1473,6 @@ static inline cvmx_nand_status_t __cvmx_
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">               if (result)
+</span><span class="token prefix unchanged"> </span><span class="token line">                       CVMX_NAND_RETURN(result);
+</span><span class="token prefix unchanged"> </span><span class="token line">       }
+</span></span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line">
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       CVMX_NAND_RETURN(CVMX_NAND_SUCCESS);
+</span><span class="token prefix unchanged"> </span><span class="token line">}
+</span></span>
+@@ -1640,6 +1656,8 @@ static inline int __cvmx_nand_low_level_
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       if (!buffer_length)
+</span><span class="token prefix unchanged"> </span><span class="token line">               CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_lock();
+</span><span class="token prefix inserted">+</span><span class="token line">
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       nand_selected = __cvmx_nand_select(1);
+</span></span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       /* Build the command and address cycles */
+</span></span>@@ -1740,10 +1758,12 @@ static inline int __cvmx_nand_low_level_
+
+
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       __cvmx_nand_select(nand_selected);
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_unlock();
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       CVMX_NAND_RETURN(bytes);
+</span></span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">error:
+</span><span class="token prefix unchanged"> </span><span class="token line">       __cvmx_nand_select(nand_selected);
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_unlock();
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       CVMX_NAND_RETURN(status);
+</span><span class="token prefix unchanged"> </span><span class="token line">}
+</span></span>
+@@ -1887,6 +1907,8 @@ cvmx_nand_status_t cvmx_nand_page_write(
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       if (buffer_address &amp; 7)
+</span><span class="token prefix unchanged"> </span><span class="token line">               CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_lock();
+</span><span class="token prefix inserted">+</span><span class="token line">
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       nand_selected = __cvmx_nand_select(1);
+</span></span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       nand_address = __cvmx_nand_adjust_address(chip, nand_address);
+</span></span>@@ -1975,6 +1997,7 @@ cvmx_nand_status_t cvmx_nand_page_write(
+
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">done:
+</span><span class="token prefix unchanged"> </span><span class="token line">       __cvmx_nand_select(nand_selected);
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_unlock();
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       CVMX_NAND_RETURN(status);
+</span><span class="token prefix unchanged"> </span><span class="token line">}
+</span><span class="token prefix unchanged"> </span><span class="token line">EXPORT_SYMBOL(cvmx_nand_page_write);
+</span></span>@@ -2001,6 +2024,8 @@ cvmx_nand_status_t cvmx_nand_block_erase
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       if (!cvmx_nand_state[chip].page_size)
+</span><span class="token prefix unchanged"> </span><span class="token line">               CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_lock();
+</span><span class="token prefix inserted">+</span><span class="token line">
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       nand_selected = __cvmx_nand_select(1);
+</span><span class="token prefix unchanged"> </span><span class="token line">       /* Build the command and address cycles */
+</span><span class="token prefix unchanged"> </span><span class="token line">       status = __cvmx_nand_build_pre_cmd(chip, NAND_COMMAND_ERASE,
+</span></span>@@ -2030,6 +2055,7 @@ cvmx_nand_status_t cvmx_nand_block_erase
+
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">done:
+</span><span class="token prefix unchanged"> </span><span class="token line">       __cvmx_nand_select(nand_selected);
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_unlock();
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       CVMX_NAND_RETURN(status);
+</span><span class="token prefix unchanged"> </span><span class="token line">}
+</span><span class="token prefix unchanged"> </span><span class="token line">EXPORT_SYMBOL(cvmx_nand_block_erase);
+</span></span>@@ -2230,6 +2256,8 @@ cvmx_nand_status_t cvmx_nand_set_feature
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       if (feature == NULL)
+</span><span class="token prefix unchanged"> </span><span class="token line">               CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_lock();
+</span><span class="token prefix inserted">+</span><span class="token line">
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       nand_selected = __cvmx_nand_select(1);
+</span><span class="token prefix unchanged"> </span><span class="token line">       status = __cvmx_nand_build_pre_cmd(chip, NAND_COMMAND_SET_FEATURES,
+</span><span class="token prefix unchanged"> </span><span class="token line">                                          1, feat_num, 0);
+</span></span>@@ -2278,6 +2306,7 @@ cvmx_nand_status_t cvmx_nand_set_feature
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       }
+</span><span class="token prefix unchanged"> </span><span class="token line">done:
+</span><span class="token prefix unchanged"> </span><span class="token line">       __cvmx_nand_select(nand_selected);
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_unlock();
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       CVMX_NAND_RETURN(status);
+</span><span class="token prefix unchanged"> </span><span class="token line">}
+</span><span class="token prefix unchanged"> </span><span class="token line">EXPORT_SYMBOL(cvmx_nand_set_feature);
+</span></span>@@ -2380,6 +2409,8 @@ cvmx_nand_status_t cvmx_nand_reset(int c
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       if (!cvmx_nand_state[chip].page_size)
+</span><span class="token prefix unchanged"> </span><span class="token line">               CVMX_NAND_RETURN(CVMX_NAND_INVALID_PARAM);
+</span></span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_lock();
+</span><span class="token prefix inserted">+</span><span class="token line">
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       nand_selected = __cvmx_nand_select(1);
+</span><span class="token prefix unchanged"> </span><span class="token line">       status = __cvmx_nand_build_pre_cmd(chip, NAND_COMMAND_RESET, 0, 0, 0);
+</span><span class="token prefix unchanged"> </span><span class="token line">       if (status)
+</span></span>@@ -2396,6 +2427,7 @@ cvmx_nand_status_t cvmx_nand_reset(int c
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">               goto done;
+</span><span class="token prefix unchanged"> </span><span class="token line">done:
+</span><span class="token prefix unchanged"> </span><span class="token line">       __cvmx_nand_select(nand_selected);
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">       __cvmx_nand_cmdq_unlock();
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">       CVMX_NAND_RETURN(status);
+</span><span class="token prefix unchanged"> </span><span class="token line">}
+</span><span class="token prefix unchanged"> </span><span class="token line">EXPORT_SYMBOL(cvmx_nand_reset);
+</span></span></code></pre>
 <h1 id="&#x8865;&#x5145;"><a name="&#x8865;&#x5145;" class="anchor-navigation-ex-anchor" href="#&#x8865;&#x5145;"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x8865;&#x5145;</h1>
 <p><img src="img/device_driver_nand&#x6982;&#x7387;&#x5199;&#x5931;&#x8D25;&#x95EE;&#x9898;&#x5206;&#x6790;_20220920101019.png" alt=""><br><img src="img/device_driver_nand&#x6982;&#x7387;&#x5199;&#x5931;&#x8D25;&#x95EE;&#x9898;&#x5206;&#x6790;_20220920101029.png" alt=""><br><img src="img/device_driver_nand&#x6982;&#x7387;&#x5199;&#x5931;&#x8D25;&#x95EE;&#x9898;&#x5206;&#x6790;_20220920101041.png" alt=""><br><img src="img/device_driver_nand&#x6982;&#x7387;&#x5199;&#x5931;&#x8D25;&#x95EE;&#x9898;&#x5206;&#x6790;_20220920101050.png" alt="">  </p>
 
@@ -3834,7 +3834,7 @@ EXPORT_SYMBOL(cvmx_nand_reset);</li>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Nand flash概率写失败问题分析","level":"1.16.9.2","depth":3,"next":{"title":"octeon remote-pci.c阅读","level":"1.16.10","depth":2,"path":"notes/octeon_remote_pci.md","ref":"notes/octeon_remote_pci.md","articles":[]},"previous":{"title":"octeon nand flash驱动","level":"1.16.9.1","depth":3,"path":"notes/device_driver_octeon_nand.md","ref":"notes/device_driver_octeon_nand.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/device_driver_nand概率写失败问题分析.md","mtime":"2022-11-17T15:34:06.185Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-17T15:35:10.518Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Nand flash概率写失败问题分析","level":"1.16.9.2","depth":3,"next":{"title":"octeon remote-pci.c阅读","level":"1.16.10","depth":2,"path":"notes/octeon_remote_pci.md","ref":"notes/octeon_remote_pci.md","articles":[]},"previous":{"title":"octeon nand flash驱动","level":"1.16.9.1","depth":3,"path":"notes/device_driver_octeon_nand.md","ref":"notes/device_driver_octeon_nand.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/device_driver_nand概率写失败问题分析.md","mtime":"2022-11-22T10:19:29.616Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-22T10:20:39.180Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

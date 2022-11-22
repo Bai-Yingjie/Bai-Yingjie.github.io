@@ -27,6 +27,8 @@
   - [functions.sh](#functionssh)
   - [支持交叉编译](#支持交叉编译)
   - [处理依赖](#处理依赖)
+- [apk使用](#apk使用)
+  - [使用交叉编译的gccgo工具链](#使用交叉编译的gccgo工具链)
 
 # 现代化的工程系统
 alpine linux的全部开发都在  
@@ -279,8 +281,13 @@ cat ~/.abuild/abuild.conf
 ```sh
 docker run -it alpine:edge
 
-export HTTP_PROXY=http://10.158.100.9:8080
-export HTTPS_PROXY=http://10.158.100.9:8080
+# 好像wget只认小写的proxy
+export http_proxy=http://10.158.100.9:8080
+export http_proxy=http://10.158.100.6:8080
+
+export https_proxy=$http_proxy
+export HTTP_PROXY=$http_proxy
+export HTTPS_PROXY=$http_proxy
 
 apk update
 apk upgrade
@@ -298,8 +305,8 @@ addgroup reborn abuild
 su reborn
 cd ~
 abuild-keygen -a -i
-cat /etc/abuild.conf
-cat ~/.abuild/abuild.conf
+# cat /etc/abuild.conf
+# cat ~/.abuild/abuild.conf
 
 git config --global user.name "Bai Yingjie"
 git config --global user.email "yingjie.bai@nokia-sbell.com"
@@ -688,4 +695,51 @@ deps() {
 			|| return 1
 	fi
 }
+```
+
+# apk使用
+前面说过, 在`/etc/apk/repositories`中可以配置apk使用本地包, 比如
+```sh
+cat /etc/apk/repositories
+/home/reborn/packages/main
+/home/reborn/packages/community
+https://dl-cdn.alpinelinux.org/alpine/edge/main
+https://dl-cdn.alpinelinux.org/alpine/edge/community
+```
+这样`apk add`会先去指定的本地目录搜索package
+
+但如果用了`--root`来指定根目录, 就要配置目标root目录下的`etc/apk/repositories`
+
+`--root`会使用目标root下的`etc/apk/repositories`和`etc/apk/arch`
+
+比如
+```sh
+echo /home/reborn/packages/main > /home/reborn/sysroot-ppc/etc/apk/repositories
+
+~ $ cat /home/reborn/sysroot-ppc/etc/apk/repositories
+/home/reborn/packages/main
+~ $ cat /home/reborn/sysroot-ppc/etc/apk/arch
+ppc
+
+#配置好root目录下的repositories, 就可以安装本地包了, 比如
+sudo apk --root /home/reborn/sysroot-ppc/ add libedit
+```
+
+## 使用交叉编译的gccgo工具链
+因为要在x86上使用交叉编译器gccgo, 所以先要在x86上安装
+```sh
+sudo apk add gcc-go-ppc64
+# gcc-go-ppc64和gcc-go-ppc有冲突, 会提示
+(1/1) Installing gcc-go-ppc64 (12.2.1_git20220924-r4)
+ERROR: gcc-go-ppc64-12.2.1_git20220924-r4: trying to overwrite usr/lib/libgo.a owned by gcc-go-ppc-12.2.1_git20220924-r4.
+# usr/lib/libgo.a, usr/lib/libgo.so, usr/lib/libgobegin.a, usr/lib/libgolibbegin.a冲突
+
+
+```
+
+```sh
+echo /home/reborn/packages/main > /home/reborn/sysroot-ppc64/etc/apk/repositories
+
+#会自动安装musl libgcc libucontext libgo
+sudo apk --root /home/reborn/sysroot-ppc64 add libgo
 ```

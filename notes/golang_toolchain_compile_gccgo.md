@@ -2,13 +2,14 @@
 - [使用go tools和gccgo](#使用go-tools和gccgo)
 - [crosstool ng(我最后用的是这个)](#crosstool-ng我最后用的是这个)
 - [编译gcc的理论基础](#编译gcc的理论基础)
-- [# 编译过程for x86_64](#-编译过程for-x86_64)
+- [编译过程for x86_64](#编译过程for-x86_64)
 	- [下载gcc9.2源码, release版本就可以](#下载gcc92源码-release版本就可以)
 	- [安装依赖](#安装依赖)
 	- [解压gcc 编译](#解压gcc-编译)
 	- [编译完成后](#编译完成后)
 	- [会在指定目录下生成](#会在指定目录下生成)
 	- [使用](#使用)
+	- [交叉编译情况下不会编译gotools](#交叉编译情况下不会编译gotools)
 
 # gccgo和go tools
 
@@ -81,7 +82,6 @@ https://solarianprogrammer.com/2018/05/06/building-gcc-cross-compiler-raspberry-
 
 
 # 编译过程for x86_64
-=============================
 
 ## 下载gcc9.2源码, release版本就可以
 ```sh
@@ -102,7 +102,6 @@ mkdir objdir && cd objdir
 ../configure --prefix=/home/byj/repo/gorepo/gcc --enable-languages=go --disable-multilib
 
 # 虽然没有写明要c和c++, 但默认是肯定有的
-
 make -j
 ```
 
@@ -133,8 +132,6 @@ go build hello.go
 
 压缩后5M
 
-
-
 ```sh
 $ ldd hello
 	linux-vdso.so.1 =>  (0x00007ffe35580000)
@@ -144,6 +141,27 @@ $ ldd hello
 	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f5fad723000)
 	/lib64/ld-linux-x86-64.so.2 (0x000055cdd4f10000)
 	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f5fad506000)
+```
+
+## 交叉编译情况下不会编译gotools
+gcc的住Makefile.in文件中, 搜索gotools
+```
+configure-host:
+	...
+	maybe-configure-gotools
+	...
+
+configure-target:
+	没有maybe-configure-gotools
+```
+gotools包括
+
+![](img/golang_toolchain_compile_gccgo_20221118103642.png)  
+
+gcc/gotools/Makefile.am中也写了
+```
+if NATIVE
+
 ```
 
 

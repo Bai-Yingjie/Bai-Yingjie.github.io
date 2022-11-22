@@ -53,6 +53,7 @@
 - [观察82599的中断](#观察82599的中断)
 - [关于中断balance](#关于中断balance)
 - [多个jpg图片转到pdf](#多个jpg图片转到pdf)
+- [合并多个pdf](#合并多个pdf)
 - [ssh X11及VNC](#ssh-x11及vnc)
   - [firefox over ssh x11 forwarding](#firefox-over-ssh-x11-forwarding)
   - [让远程的firefox更快](#让远程的firefox更快)
@@ -863,6 +864,9 @@ done
 
 # 多个jpg图片转到pdf
 `convert *.jpg myeduction.pdf`
+
+# 合并多个pdf
+`pdfunite in-1.pdf in-2.pdf in-n.pdf out.pdf`
 
 # ssh X11及VNC
 ## firefox over ssh x11 forwarding
