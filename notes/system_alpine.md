@@ -29,6 +29,10 @@
   - [处理依赖](#处理依赖)
 - [apk使用](#apk使用)
   - [使用交叉编译的gccgo工具链](#使用交叉编译的gccgo工具链)
+    - [调试过程](#调试过程)
+    - [context相关符号找不到的问题](#context相关符号找不到的问题)
+    - [最终操作](#最终操作)
+    - [gccgo工具链里有什么](#gccgo工具链里有什么)
 
 # 现代化的工程系统
 alpine linux的全部开发都在  
@@ -726,20 +730,113 @@ sudo apk --root /home/reborn/sysroot-ppc/ add libedit
 ```
 
 ## 使用交叉编译的gccgo工具链
+
+### 调试过程
 因为要在x86上使用交叉编译器gccgo, 所以先要在x86上安装
 ```sh
-sudo apk add gcc-go-ppc64
+sudo apk add gcc-ppc64 gcc-go-ppc64
 # gcc-go-ppc64和gcc-go-ppc有冲突, 会提示
 (1/1) Installing gcc-go-ppc64 (12.2.1_git20220924-r4)
 ERROR: gcc-go-ppc64-12.2.1_git20220924-r4: trying to overwrite usr/lib/libgo.a owned by gcc-go-ppc-12.2.1_git20220924-r4.
 # usr/lib/libgo.a, usr/lib/libgo.so, usr/lib/libgobegin.a, usr/lib/libgolibbegin.a冲突
 
-
+# 还需要解压gcc-go-ppc64-12.2.1_git20220924-r4.apk到目标sysroot
+# 现在不需要了
+apk fetch gcc-go-ppc64
+tar xvf gcc-go-ppc64-12.2.1_git20220924-r4.apk -C /home/reborn/sysroot-ppc64 --exclude usr/libexec* --exclude usr/bin*
 ```
+注: 按理说`apk add gcc-go-ppc64`后, gccgo程序应该会使用在x86_64编译机的`/usr/lib/go/12.2.1/powerpc64-alpine-linux-musl`下面的预编译的标准库(*.gox结尾的库文件), 因为不知道为什么, 这些文件存在, 但还是提示找不到. 
 
+解决办法是:
+* 用gcc的`-B`选项(意思是增加搜索目录)指定, 比如`/usr/bin/powerpc-alpine-linux-musl-gccgo -B /usr/lib/go/12.2.1/powerpc-alpine-linux-musl hello.go`
+* 以上`-B`选项用`-L`也行, 效果一样:  
+`powerpc64-alpine-linux-musl-gccgo -L /usr/lib/go/12.2.1/powerpc64-alpine-linux-musl/ -static -Wl,--whole-archive -lucontext -Wl,--no-whole-archive webhello.go`
+* 或者直接解压gcc-go-ppc64-12.2.1_git20220924-r4.apk到目标sysroot
+因为当时编译gccgo工具链的时候, 已经写死了sysroot目录, 一般在`/home/username/sysroot-$target_arch`
+* 我改了`aports/main/gcc/APKBUILD`后, 现在编译不再需要上面的操作:  
+`powerpc64-alpine-linux-musl-gccgo -static -Wl,--whole-archive -lucontext -Wl,--no-whole-archive webhello.go`
+
+再用`--root`安装ppc64的包
 ```sh
 echo /home/reborn/packages/main > /home/reborn/sysroot-ppc64/etc/apk/repositories
 
-#会自动安装musl libgcc libucontext libgo
-sudo apk --root /home/reborn/sysroot-ppc64 add libgo
+#会自动安装musl libgcc libucontext, 因为libgo依赖如上包
+#还需要额外安装libucontext-dev musl-dev
+sudo apk --root /home/reborn/sysroot-ppc64 add libgo libucontext-dev musl-dev
 ```
+
+### context相关符号找不到的问题
+gccgo默认是动态链接, 能够成功编译:  
+```sh
+# 动态链接
+powerpc64-alpine-linux-musl-gccgo webhello.go
+# 生成a.out, 大小100k
+```
+
+但静态链接的时候, 会报错, 提示很多`getcontext`相关的符号找不到:  
+```sh
+# 静态链接
+powerpc64-alpine-linux-musl-gccgo -static webhello.go
+```
+提示错误:
+![](img/system_alpine_20221124233423.png)  
+
+其原因, 我调查下来, 是因为libgo.a里面动态链接了libucontext的符号, 而后者的静态库(libucontext.a)虽然存在, 但还是提示找不到.
+libucontext是gcc编译器自身产生的库.
+
+参考下面文章的解决办法:  
+https://www.mail-archive.com/adelie-users@lists.adelielinux.org/msg00044.html
+
+增加类似这样的给ld的参数`-gccgoflags '-static -Wl,--whole-archive -lucontext -Wl,--no-whole-archive'`
+
+我是这样编译的, 就好了:
+```
+powerpc64-alpine-linux-musl-gccgo -static -Wl,--whole-archive -lucontext -Wl,--no-whole-archive webhello.go
+```
+注意必须这样写:  
+`-Wl,--whole-archive -lucontext -Wl,--no-whole-archive`
+
+### 最终操作
+```sh
+# ppc64
+apk add gcc-ppc64 gcc-go-ppc64
+
+echo /home/reborn/packages/main > /home/reborn/sysroot-ppc64/etc/apk/repositories
+apk --root /home/reborn/sysroot-ppc64 add libgo libucontext-dev musl-dev
+
+# 编译
+powerpc64-alpine-linux-musl-gccgo -static -Wl,--whole-archive -lucontext -Wl,--no-whole-archive webhello.go
+
+# ppc
+apk add gcc-ppc gcc-go-ppc
+
+echo /home/reborn/packages/main > /home/reborn/sysroot-ppc/etc/apk/repositories
+apk --root /home/reborn/sysroot-ppc add libgo libucontext-dev musl-dev
+
+# 编译
+powerpc-alpine-linux-musl-gccgo -static -Wl,--whole-archive -lucontext -Wl,--no-whole-archive webhello.go
+```
+
+### gccgo工具链里有什么
+```sh
+# 交叉go编译器bin
+usr/bin/powerpc64-alpine-linux-musl-gccgo
+
+# go的标准库, 比如
+usr/lib/go/12.2.1/powerpc64-alpine-linux-musl/archive/tar.gox
+usr/lib/go/12.2.1/powerpc64-alpine-linux-musl/fmt.gox
+usr/lib/go/12.2.1/powerpc64-alpine-linux-musl/runtime.gox
+usr/lib/go/12.2.1/powerpc64-alpine-linux-musl/runtime/cgo.gox
+...
+
+# 静态链接和动态链接需要的库
+usr/lib/libgo.a
+usr/lib/libgo.so
+usr/lib/libgobegin.a
+usr/lib/libgolibbegin.a
+
+# 内部可执行文件
+usr/libexec/gcc/powerpc64-alpine-linux-musl/12.2.1/go1
+```
+
+按理说gccgo的安装包不应该把`libgo.a`等静态链接文件安装到
