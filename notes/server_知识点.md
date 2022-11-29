@@ -23,20 +23,20 @@
 * Intel一般用ICC，和GCC比较的时候要把数字打折，一般减去15%到30%
 
 ## 测试项
-|case|lang|descritpion
-|--|--|--
-400.perlbench|	C|	PERL Programming Language
-401.bzip2|	C|	Compression
-403.gcc|	C|	C Compiler
-429.mcf|	C|	Combinatorial Optimization
-445.gobmk|	C|	Artificial Intelligence: go
-456.hmmer|	C|	Search Gene Sequence
-458.sjeng|	C|	Artificial Intelligence: chess
-462.libquantum|	C|	Physics: Quantum Computing
-464.h264ref|	C|	Video Compression
-471.omnetpp|	C++|	Discrete Event Simulation
-473.astar|	C++|	Path-finding Algorithms
-483.xalancbmk|	C++|	XML Processing
+| case           | lang | descritpion                    |
+| -------------- | ---- | ------------------------------ |
+| 400.perlbench  | C    | PERL Programming Language      |
+| 401.bzip2      | C    | Compression                    |
+| 403.gcc        | C    | C Compiler                     |
+| 429.mcf        | C    | Combinatorial Optimization     |
+| 445.gobmk      | C    | Artificial Intelligence: go    |
+| 456.hmmer      | C    | Search Gene Sequence           |
+| 458.sjeng      | C    | Artificial Intelligence: chess |
+| 462.libquantum | C    | Physics: Quantum Computing     |
+| 464.h264ref    | C    | Video Compression              |
+| 471.omnetpp    | C++  | Discrete Event Simulation      |
+| 473.astar      | C++  | Path-finding Algorithms        |
+| 483.xalancbmk  | C++  | XML Processing                 |
 
 # Intel scalable processor
 ## QDT AW vs Intel Skylake

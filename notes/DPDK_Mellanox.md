@@ -135,7 +135,7 @@ uint16_t mlx5_tx_burst_mpw(void *dpdk_txq, struct rte_mbuf **pkts, uint16_t pkts
 ```
 
 ### macswap段错误
-在<调试和分析记录>里面, 已经分析过, macswap段错误的原因是数组越界  
+在<调试和分析记录2>里面, 已经分析过, macswap段错误的原因是数组越界  
 这段程序负责回收mbuf, 根据`txq->wqe_pi`生产者的index, 找到`txq->wqes`里面对应的wqe, 其对应的硬件定义如下:
 ```c
 struct mlx5_wqe_ctrl {
@@ -154,11 +154,10 @@ elts_tail=63836
 ```
 elts_free是上一次的`txq->elts_tail`
 
-591行free数组越界导致段错误:
-
+591行free数组越界导致段错误:  
 ![](img/DPDK_Mellanox_20220930085354.png)  
 
-通常情况下free和tail的增长情况:
+通常情况下free和tail的增长情况:  
 ![](img/DPDK_Mellanox_20220930085444.png)  
 
 通过加打印:950行, 抓到的2次异常情况
@@ -173,7 +172,7 @@ Array index exceeding: elts_free:40737 elts_tail:39488
 下面想知道, 假定`elts_tail`发生了"突变", 那能抓到这次突变吗? 突变的上一次值是多少? 有什么规律?  
 运行`sudo perf record -e probe_testpmd:mlx5_tx_complete_m -a -C 34 -- sleep 30`抓30秒, 时间太长则数据量太大. 看运气, 多抓几次.
 
-抓到了, 最后一行:
+抓到了, 最后一行:  
 ![](img/DPDK_Mellanox_20220930085747.png)  
 
 ## 程序框架, 以IO FWD为例
