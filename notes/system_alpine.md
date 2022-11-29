@@ -28,6 +28,7 @@
   - [支持交叉编译](#支持交叉编译)
   - [处理依赖](#处理依赖)
 - [apk使用](#apk使用)
+  - [bootstrap](#bootstrap)
   - [使用交叉编译的gccgo工具链](#使用交叉编译的gccgo工具链)
     - [调试过程](#调试过程)
     - [context相关符号找不到的问题](#context相关符号找不到的问题)
@@ -284,11 +285,12 @@ cat ~/.abuild/abuild.conf
 ## 命令汇总
 ```sh
 docker run -it alpine:edge
+#使用稳定版本
+docker run -it alpine:3.17
 
 # 好像wget只认小写的proxy
-export http_proxy=http://10.158.100.9:8080
+#export http_proxy=http://10.158.100.9:8080
 export http_proxy=http://10.158.100.6:8080
-
 export https_proxy=$http_proxy
 export HTTP_PROXY=$http_proxy
 export HTTPS_PROXY=$http_proxy
@@ -519,7 +521,7 @@ package() {
 https://gitlab.alpinelinux.org/alpine/abuild/-/blob/master/abuild.in
 
 abuild其实是个ash脚本, 一般流程是:
-```
+```sh
 all()
 build_abuildrepo() {
 	local part _check=check
@@ -727,6 +729,12 @@ ppc
 
 #配置好root目录下的repositories, 就可以安装本地包了, 比如
 sudo apk --root /home/reborn/sysroot-ppc/ add libedit
+```
+
+## bootstrap
+```sh
+aports/scripts/bootstrap.sh ppc64 gccgo,norust,nokernel
+aports/scripts/bootstrap.sh ppc gccgo,norust,nokernel
 ```
 
 ## 使用交叉编译的gccgo工具链
