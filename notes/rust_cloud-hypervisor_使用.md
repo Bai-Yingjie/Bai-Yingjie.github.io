@@ -1,6 +1,7 @@
 - [命令记录](#命令记录)
   - [命令行启动](#命令行启动)
   - [ch-remote启动](#ch-remote启动)
+  - [关于串口](#关于串口)
 - [启动](#启动)
   - [可选参数](#可选参数)
 - [virtiofsd](#virtiofsd)
@@ -55,6 +56,67 @@ socat -,rawer,escape=29 /dev/pts/2
 
 # shutdown
 bin/ch-remote --api-socket clh.sock shutdown
+```
+
+## 关于串口
+串口从属于VmConfig, 在`vmm/src/vm_config.rs`
+```rust
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+pub struct VmConfig {
+    #[serde(default)]
+    pub cpus: CpusConfig,
+    #[serde(default)]
+    pub memory: MemoryConfig,
+    pub payload: Option<PayloadConfig>,
+    pub disks: Option<Vec<DiskConfig>>,
+    pub net: Option<Vec<NetConfig>>,
+    #[serde(default)]
+    pub rng: RngConfig,
+    pub balloon: Option<BalloonConfig>,
+    pub fs: Option<Vec<FsConfig>>,
+    pub pmem: Option<Vec<PmemConfig>>,
+
+    #[serde(default = "default_serial")]
+    pub serial: ConsoleConfig,
+    #[serde(default = "default_console")]
+    pub console: ConsoleConfig,
+
+    pub devices: Option<Vec<DeviceConfig>>,
+    pub user_devices: Option<Vec<UserDeviceConfig>>,
+    pub vdpa: Option<Vec<VdpaConfig>>,
+    pub vsock: Option<VsockConfig>,
+    #[serde(default)]
+    pub iommu: bool,
+    #[cfg(target_arch = "x86_64")]
+    pub sgx_epc: Option<Vec<SgxEpcConfig>>,
+    pub numa: Option<Vec<NumaConfig>>,
+    #[serde(default)]
+    pub watchdog: bool,
+    #[cfg(feature = "guest_debug")]
+    pub gdb: bool,
+    pub platform: Option<PlatformConfig>,
+    pub tpm: Option<TpmConfig>,
+}
+```
+serial和console都用的是`ConsoleConfig`
+```rust
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+pub enum ConsoleOutputMode {
+    Off,
+    Pty,
+    Tty,
+    File,
+    Null,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+pub struct ConsoleConfig {
+    #[serde(default = "default_consoleconfig_file")]
+    pub file: Option<PathBuf>,
+    pub mode: ConsoleOutputMode,
+    #[serde(default)]
+    pub iommu: bool,
+}
 ```
 
 # 启动

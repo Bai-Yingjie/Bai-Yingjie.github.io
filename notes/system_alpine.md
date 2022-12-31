@@ -26,6 +26,7 @@
   - [abuild.in](#abuildin)
   - [functions.sh](#functionssh)
   - [支持交叉编译](#支持交叉编译)
+  - [交叉编译实例](#交叉编译实例)
   - [处理依赖](#处理依赖)
 - [apk使用](#apk使用)
   - [bootstrap](#bootstrap)
@@ -34,6 +35,7 @@
     - [context相关符号找不到的问题](#context相关符号找不到的问题)
     - [最终操作](#最终操作)
     - [gccgo工具链里有什么](#gccgo工具链里有什么)
+  - [编译gcgo前端](#编译gcgo前端)
 
 # 现代化的工程系统
 alpine linux的全部开发都在  
@@ -645,6 +647,14 @@ functions.sh中, 直接支持交叉编译:
 * 如果`CBUILD`和`CHOST`不同, 说明正在用交叉编译器编译目标板的package.  
 默认的`--sysroot`是`${CBUILDROOT}`, 被加到`CFLAGS`等变量中.
 
+## 交叉编译实例
+用我自己做的docker image, 交叉编译很简单:
+```sh
+# 用EXTRADEPENDS_TARGET增加依赖, 空格做列表
+EXTRADEPENDS_TARGET="ncurses-dev" CHOST=ppc64 abuild -r
+EXTRADEPENDS_TARGET="ncurses-dev" CHOST=ppc abuild -r
+```
+
 ## 处理依赖
 native编译时, `build-base`是必选的依赖.  
 交叉编译时, `build-base-$CTARGET_ARCH`是必选的依赖.
@@ -786,7 +796,7 @@ powerpc64-alpine-linux-musl-gccgo webhello.go
 # 静态链接
 powerpc64-alpine-linux-musl-gccgo -static webhello.go
 ```
-提示错误:
+提示错误:  
 ![](img/system_alpine_20221124233423.png)  
 
 其原因, 我调查下来, 是因为libgo.a里面动态链接了libucontext的符号, 而后者的静态库(libucontext.a)虽然存在, 但还是提示找不到.
@@ -847,4 +857,14 @@ usr/lib/libgolibbegin.a
 usr/libexec/gcc/powerpc64-alpine-linux-musl/12.2.1/go1
 ```
 
-按理说gccgo的安装包不应该把`libgo.a`等静态链接文件安装到
+按理说交叉工具链的gccgo的安装包不应该把`libgo.a`等静态链接文件安装到`/usr/lib`下面. 我在自己的开发分钟修复了这个问题.
+
+## 编译gcgo前端
+```
+apk add bash
+git clone https://gitlabe1.ext.net.nokia.com/godevsig/golang-go.git -b godevsig --depth 10
+
+cd golang-go/src
+GOOS=linux GOARCH=amd64 ./bootstrap.bash
+
+```

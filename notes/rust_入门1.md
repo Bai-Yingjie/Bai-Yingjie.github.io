@@ -661,7 +661,7 @@ fn main() {
     println!("{}", substr);
 }
 ```
-`&greeting[2..]`去掉&就编译不过
+`&greeting[2..]`去掉&就编译不过, 我觉得加上个小括号更容易理解: `&(greeting[2..])`, 借用的不是greeting, 而是对`"Hello"`"切片"后的`"llo"`的借用.
 
 我们没办法扩大greeting所引用的范围，在它后面增加内容。但是String类型可以:
 ```rust
@@ -1782,7 +1782,12 @@ trait Double {
 }
 impl Double for i32 {
     fn double(&self) -> i32 { *self * 2 }
+    //相当于下面
+    //fn double(self: &Self) -> i32 { *self * 2 }
+    //self实际上是个指针, 但不加*, 好像能自动解引用
+    //fn double(self: &Self) -> i32 { self * 2 }
 }
+
 fn main() {
     // 可以像成员方法一样调用
     let x : i32 = 10.double();
