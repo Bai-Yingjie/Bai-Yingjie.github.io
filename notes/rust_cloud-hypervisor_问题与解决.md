@@ -107,3 +107,7 @@ virtiofsd的官方repo就可以编译出完全静态的二进制, 它是如何�
 apk add libcap-ng-static libseccomp-static musl-dev
 RUSTFLAGS='-C target-feature=+crt-static -C link-self-contained=yes' LIBSECCOMP_LINK_TYPE=static LIBSECCOMP_LIB_PATH=/usr/lib LIBCAPNG_LINK_TYPE=static LIBCAPNG_LIB_PATH=/usr/lib cargo build --release --target x86_64-unknown-linux-musl
 ```
+
+[这篇文章](https://msfjarvis.dev/posts/building-static-rust-binaries-for-linux/)说, rust的静态链接必须要显式指定`--target xxxx`, 这是个bug.
+经过我的试验, 至少rustc 1.66.0, 还是必须要加`--target x86_64-unknown-linux-musl`, 否则出现错误
+`error: cannot produce proc-macro for `futures-macro v0.3.21` as the target x86_64-unknown-linux-musl does not support these crate types`, 即使我这里默认的tuple就是`x86_64-unknown-linux-musl`
