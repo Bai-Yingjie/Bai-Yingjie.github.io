@@ -27,7 +27,8 @@
   - [引用和借用](#引用和借用)
   - [copy和clone](#copy和clone)
   - [析构函数](#析构函数)
-    - [mut和&mut](#mut和mut)
+    - [Drop用法示例](#drop用法示例)
+    - [mut和\&mut](#mut和mut)
     - [借用指针](#借用指针)
   - [为什么rust是内存安全的?](#为什么rust是内存安全的)
 - [解引用](#解引用)
@@ -862,6 +863,57 @@ pub fn drop<T>(_x: T) { }
 因为这个drop函数的关键在于使用move语义把参数传进来，使得变量的所有权从调用方移动到drop函数体内，参数类型一定要是T，而不是&T或者其他引用类型。函数体本身其实根本不重要，重要的是把变量的所有权move进入这个函数体中，函数调用结束的时候该变量的生命周期结束，变量的析构函数会自动调用，管理的内存空间也会自然释放。这个过程完全符合前面讲的生命周期、move语义，无须编译器做特殊处理。事实上，我们完全可以自己写一个类似的函数来实现同样的效果，只要保证参数传递是move语义即可。
 
 因此, 有`copy()`语义的变量, 对其`drop()`是没有作用的, 因为这些变量是复制不是move.
+
+### Drop用法示例
+```rust
+// This trivial implementation of `drop` adds a print to console.
+impl Drop for Droppable {
+    fn drop(&mut self) {
+        println!("> Dropping {}", self.name);
+    }
+}
+
+fn main() {
+    let _a = Droppable { name: "a" };
+
+    // block A
+    {
+        let _b = Droppable { name: "b" };
+
+        // block B
+        {
+            let _c = Droppable { name: "c" };
+            let _d = Droppable { name: "d" };
+
+            println!("Exiting block B");
+        }
+        println!("Just exited block B");
+
+        println!("Exiting block A");
+    }
+    println!("Just exited block A");
+
+    // Variable can be manually dropped using the `drop` function
+    drop(_a);
+    // TODO ^ Try commenting this line
+
+    println!("end of the main function");
+
+    // `_a` *won't* be `drop`ed again here, because it already has been
+    // (manually) `drop`ed
+}
+
+//输出
+Exiting block B
+> Dropping d
+> Dropping c
+Just exited block B
+Exiting block A
+> Dropping b
+Just exited block A
+> Dropping a
+end of the main function
+```
 
 ### mut和&mut
 mut可以出现在绑定(=)的左右两侧

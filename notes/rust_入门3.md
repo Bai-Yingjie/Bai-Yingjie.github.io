@@ -41,7 +41,7 @@
   - [创建线程](#创建线程)
   - [更多线程参数](#更多线程参数)
   - [rust怎么保证线程安全](#rust怎么保证线程安全)
-  - [Send & Sync](#send--sync)
+  - [Send \& Sync](#send--sync)
   - [什么是Send类型](#什么是send类型)
   - [什么是Sync类型](#什么是sync类型)
   - [保证线程安全的类型](#保证线程安全的类型)
@@ -1246,7 +1246,8 @@ fn main() {
     println!("final value: {:?}", global);
 }
 ```
-而MutexGuard类型则是一个“智能指针”类型，它实现了`DerefMut`和`Deref`这两个trait，所以它可以被当作指向内部数据的普通指针使用。 `MutexGuard`实现了一个析构函数，通过RAII手法，在析构函数中调用了`unlock()`方法解锁。因此，用户是不需要手动调用方法解锁的
+而MutexGuard类型则是一个“智能指针”类型，它实现了`DerefMut`和`Deref`这两个trait，所以它可以被当作指向内部数据的普通指针使用。 `MutexGuard`实现了一个析构函数，通过RAII手法，在析构函数中调用了`unlock()`方法解锁。因此，用户是不需要手动调用方法解锁的  
+> An RAII implementation of a "scoped lock" of a mutex. When this structure is dropped (falls out of scope), the lock will be unlocked.
 
 ### RwLock
 ```rust

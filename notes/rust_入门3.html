@@ -864,6 +864,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.2.7" data-path="rust_virtiofsd_代码.html">
+            
+                <a href="rust_virtiofsd_代码.html">
+            
+                    
+                    virtiofsd代码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -3630,7 +3643,7 @@
 <li><a href="#&#x521B;&#x5EFA;&#x7EBF;&#x7A0B;">&#x521B;&#x5EFA;&#x7EBF;&#x7A0B;</a></li>
 <li><a href="#&#x66F4;&#x591A;&#x7EBF;&#x7A0B;&#x53C2;&#x6570;">&#x66F4;&#x591A;&#x7EBF;&#x7A0B;&#x53C2;&#x6570;</a></li>
 <li><a href="#rust&#x600E;&#x4E48;&#x4FDD;&#x8BC1;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;">rust&#x600E;&#x4E48;&#x4FDD;&#x8BC1;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;</a></li>
-<li><a href="#send--sync">Send &amp; Sync</a></li>
+<li><a href="#send--sync">Send \&amp; Sync</a></li>
 <li><a href="#&#x4EC0;&#x4E48;&#x662F;send&#x7C7B;&#x578B;">&#x4EC0;&#x4E48;&#x662F;Send&#x7C7B;&#x578B;</a></li>
 <li><a href="#&#x4EC0;&#x4E48;&#x662F;sync&#x7C7B;&#x578B;">&#x4EC0;&#x4E48;&#x662F;Sync&#x7C7B;&#x578B;</a></li>
 <li><a href="#&#x4FDD;&#x8BC1;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#x7C7B;&#x578B;">&#x4FDD;&#x8BC1;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#x7C7B;&#x578B;</a><ul>
@@ -4735,7 +4748,10 @@ This trait is automatically implemented when the compiler determines it&apos;s a
     <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;final value: {:?}&quot;</span><span class="token punctuation">,</span> global<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>&#x800C;MutexGuard&#x7C7B;&#x578B;&#x5219;&#x662F;&#x4E00;&#x4E2A;&#x201C;&#x667A;&#x80FD;&#x6307;&#x9488;&#x201D;&#x7C7B;&#x578B;&#xFF0C;&#x5B83;&#x5B9E;&#x73B0;&#x4E86;<code>DerefMut</code>&#x548C;<code>Deref</code>&#x8FD9;&#x4E24;&#x4E2A;trait&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x53EF;&#x4EE5;&#x88AB;&#x5F53;&#x4F5C;&#x6307;&#x5411;&#x5185;&#x90E8;&#x6570;&#x636E;&#x7684;&#x666E;&#x901A;&#x6307;&#x9488;&#x4F7F;&#x7528;&#x3002; <code>MutexGuard</code>&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x6790;&#x6784;&#x51FD;&#x6570;&#xFF0C;&#x901A;&#x8FC7;RAII&#x624B;&#x6CD5;&#xFF0C;&#x5728;&#x6790;&#x6784;&#x51FD;&#x6570;&#x4E2D;&#x8C03;&#x7528;&#x4E86;<code>unlock()</code>&#x65B9;&#x6CD5;&#x89E3;&#x9501;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x7528;&#x6237;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x624B;&#x52A8;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x89E3;&#x9501;&#x7684;</p>
+<p>&#x800C;MutexGuard&#x7C7B;&#x578B;&#x5219;&#x662F;&#x4E00;&#x4E2A;&#x201C;&#x667A;&#x80FD;&#x6307;&#x9488;&#x201D;&#x7C7B;&#x578B;&#xFF0C;&#x5B83;&#x5B9E;&#x73B0;&#x4E86;<code>DerefMut</code>&#x548C;<code>Deref</code>&#x8FD9;&#x4E24;&#x4E2A;trait&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x53EF;&#x4EE5;&#x88AB;&#x5F53;&#x4F5C;&#x6307;&#x5411;&#x5185;&#x90E8;&#x6570;&#x636E;&#x7684;&#x666E;&#x901A;&#x6307;&#x9488;&#x4F7F;&#x7528;&#x3002; <code>MutexGuard</code>&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x6790;&#x6784;&#x51FD;&#x6570;&#xFF0C;&#x901A;&#x8FC7;RAII&#x624B;&#x6CD5;&#xFF0C;&#x5728;&#x6790;&#x6784;&#x51FD;&#x6570;&#x4E2D;&#x8C03;&#x7528;&#x4E86;<code>unlock()</code>&#x65B9;&#x6CD5;&#x89E3;&#x9501;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x7528;&#x6237;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x624B;&#x52A8;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x89E3;&#x9501;&#x7684;  </p>
+<blockquote>
+<p>An RAII implementation of a &quot;scoped lock&quot; of a mutex. When this structure is dropped (falls out of scope), the lock will be unlocked.</p>
+</blockquote>
 <h3 id="rwlock"><a name="rwlock" class="anchor-navigation-ex-anchor" href="#rwlock"><i class="fa fa-link" aria-hidden="true"></i></a>8.7.3. RwLock</h3>
 <pre class="language-"><code class="lang-rust"><span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span>sync<span class="token punctuation">::</span></span><span class="token class-name">Arc</span><span class="token punctuation">;</span>
 <span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span>sync<span class="token punctuation">::</span></span><span class="token class-name">RwLock</span><span class="token punctuation">;</span>
@@ -4963,7 +4979,7 @@ Rayon&#x662F;Rust&#x6838;&#x5FC3;&#x7EC4;&#x6210;&#x5458;Nicholas Matsakis&#x5F0
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Rust 闭包 容器 迭代器 生成器 线程","level":"1.11.1.4","depth":3,"next":{"title":"Rust 工程构建","level":"1.11.1.5","depth":3,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]},"previous":{"title":"Rust 泛型和内存所有权","level":"1.11.1.3","depth":3,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_入门3.md","mtime":"2023-01-04T09:09:30.813Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-01-04T09:10:33.047Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Rust 闭包 容器 迭代器 生成器 线程","level":"1.11.1.4","depth":3,"next":{"title":"Rust 工程构建","level":"1.11.1.5","depth":3,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]},"previous":{"title":"Rust 泛型和内存所有权","level":"1.11.1.3","depth":3,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_入门3.md","mtime":"2023-01-31T09:25:58.730Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-01-31T09:27:04.258Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
