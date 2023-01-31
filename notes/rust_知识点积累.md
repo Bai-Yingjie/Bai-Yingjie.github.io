@@ -1,3 +1,11 @@
+- [论Mutex的unlock](#论mutex的unlock)
+  - [提前unlock](#提前unlock)
+  - [结论](#结论)
+- [impl块](#impl块)
+  - [内部函数](#内部函数)
+  - [receiver](#receiver)
+- [调用libc函数](#调用libc函数)
+- [和C兼容data layout](#和c兼容data-layout)
 - [生命周期标记](#生命周期标记)
 - [线程](#线程)
 - [宏](#宏)
@@ -10,26 +18,31 @@
 - [ownership](#ownership)
 - [方法和瀑布式设计](#方法和瀑布式设计)
 - [小知识点](#小知识点)
-  - [std库的catch_unwind](#std库的catch_unwind)
-    - [catch_unwind和FnOnce](#catch_unwind和fnonce)
+  - [Default值](#default值)
+  - [Result必须处理, 否则有编译警告](#result必须处理-否则有编译警告)
+  - [if else赋值](#if-else赋值)
+  - [std库的catch\_unwind](#std库的catch_unwind)
+    - [catch\_unwind和FnOnce](#catch_unwind和fnonce)
       - [什么是FnOnce](#什么是fnonce)
-      - [catch_unwind](#catch_unwind)
+      - [catch\_unwind](#catch_unwind)
       - [代码解释](#代码解释)
   - [std库的同步功能](#std库的同步功能)
-  - [u32可以调用checked_add做溢出检查](#u32可以调用checked_add做溢出检查)
+  - [u32可以调用checked\_add做溢出检查](#u32可以调用checked_add做溢出检查)
   - [tuple返回值](#tuple返回值)
   - [宏调用使用()或{}都行?](#宏调用使用或都行)
   - [该传值的时候传借用也行?](#该传值的时候传借用也行)
   - [方法impl块里面的Self](#方法impl块里面的self)
   - [条件编译](#条件编译)
   - [static变量](#static变量)
-- [trait object](#trait-object)
+- [trait](#trait)
+  - [关联类型, 关联类型可以是trait?](#关联类型-关联类型可以是trait)
+  - [trait object](#trait-object)
 - [可以在函数定义里干任何事?](#可以在函数定义里干任何事)
 - [结构体定义和C对比](#结构体定义和c对比)
 - [crate和mod](#crate和mod)
   - [bin文件的例子](#bin文件的例子)
   - [lib的例子](#lib的例子)
-- [firecracker/src/utils/src/arg_parser.rs代码走读](#firecrackersrcutilssrcarg_parserrs代码走读)
+- [firecracker/src/utils/src/arg\_parser.rs代码走读](#firecrackersrcutilssrcarg_parserrs代码走读)
   - [use 使用了BTreeMap](#use-使用了btreemap)
   - [重定义了Result](#重定义了result)
   - [ArgParser对象](#argparser对象)
@@ -46,6 +59,207 @@
 - [BTreeMap](#btreemap)
   - [iter()](#iter)
   - [keys()和values()](#keys和values)
+
+
+# 论Mutex的unlock
+rust里面, mutex不需要手动unlock. 比如下面的代码:
+```rust
+use std::sync::Mutex;
+
+fn main() {
+    let my_mutex = Mutex::new(5); // A new Mutex<i32>. We don't need to say mut
+    let mut mutex_changer = my_mutex.lock().unwrap(); // mutex_changer is a MutexGuard
+                                                     // It has to be mut because we will change it
+                                                     // Now it has access to the Mutex
+                                                     // Let's print my_mutex to see:
+
+    println!("{:?}", my_mutex); // This prints "Mutex { data: <locked> }"
+                                // So we can't access the data with my_mutex now,
+                                // only with mutex_changer
+
+    println!("{:?}", mutex_changer); // This prints 5. Let's change it to 6.
+
+    *mutex_changer = 6; // mutex_changer is a MutexGuard<i32> so we use * to change the i32
+
+    println!("{:?}", mutex_changer); // Now it says 6
+}
+```
+
+但我这里要讨论的是, `my_mutex.lock().unwrap()`这句返回的是`MutexGuard`, 它实现了`Drop` trait, 在out of scope后(即脱离变量作用域)被自动调用.
+
+上面的代码, `mutex_changer`就是那个返回的`MutexGuard`, 它会存活到`main`函数的最后, 就是说到最后这个lock才会被解锁.
+
+那怎么提前解锁呢?
+
+把上面的代码改一下:
+```rust
+use std::sync::Mutex;
+
+#[derive(Debug)]
+struct MyType  {
+    n: i32
+}
+
+fn main() {
+    let my_mutex = Mutex::new(MyType{n: 5});
+    let mut mutex_changer = my_mutex.lock().unwrap();
+    println!("{:?}", my_mutex);
+    println!("{:?}", mutex_changer);
+    mutex_changer.n = 6; 
+    println!("{:?}", mutex_changer);
+    println!("{:?}", my_mutex);
+}
+
+//输出
+Mutex { data: <locked>, poisoned: false, .. }
+MyType { n: 5 }
+MyType { n: 6 }
+Mutex { data: <locked>, poisoned: false, .. }
+```
+可以看到直到最后, my_mutex的锁还是保持的, 直到main结束, my_mutex退出作用域
+
+## 提前unlock
+下面的代码中, `my_mutex.lock().unwrap().n`这句, `lock().unwrap()`得到的`MutexGuard`对象, 是在一句内的临时对象, 在取出`n`后就消亡了, 导致它的`unlock()`函数被调用.  
+所以最后输出里面, 显示`my_mutex`的状态不是`data: <locked>`, 而是显示data的值: `data: MyType { n: 5 }`
+```rust
+use std::sync::Mutex;
+
+#[derive(Debug)]
+struct MyType  {
+    n: i32
+}
+
+fn main() {
+    let my_mutex = Mutex::new(MyType{n: 5});
+    let mutex_changer = my_mutex.lock().unwrap().n;
+    println!("{:?}", my_mutex);
+    println!("{:?}", mutex_changer);
+}
+
+//输出
+Mutex { data: MyType { n: 5 }, poisoned: false, .. }
+5
+```
+
+## 结论
+* 如果持有`MutexGuard`对象, 比如`let var = someLock.lock().unwrap()`那么这个lock会一直hold到变量生命周期结束
+* 如果在`unwrap()`后还取了数据对象的field, 比如`let var = someLock.lock().unwrap().someField`, 那么锁在这一行就会`unlock()`, 可以理解为`MutexGuard`对象是临时对象, 已经消亡.
+* 这个就是所谓的RAII(Resource Acquisition Is Initialization)
+> An RAII implementation of a "scoped lock" of a mutex. When this structure is dropped (falls out of scope), the lock will be unlocked.
+
+# impl块
+## 内部函数
+impl块中不全是带self参数的方法, 比如典型的new函数, 和一些内部函数.  
+比如virtiofsd中的结构体VhostUserFsThread, 有个函数`return_descriptor()`, 第一个入参就不是`&self`, 这个函数只在本impl块做为内部函数使用.
+```rust
+impl<F: FileSystem + Send + Sync + 'static> VhostUserFsThread<F> {
+    fn new(fs: F, thread_pool_size: usize) -> Result<Self>
+    fn return_descriptor(vring_state: &mut VringState, head_index: u16, event_idx: bool, len: usize,)
+}
+```
+
+## receiver
+不知道rust里面叫什么， 但类似go的receiver概念， 在同一个impl块中, receiver可以是多个形态, 可以是`&self`, 也可以是`&mut self`等.
+
+
+# 调用libc函数
+virtiofsd新建线程的时候, 会调用`unshare()`
+```rust
+impl<F: FileSystem + Send + Sync + 'static> VhostUserFsThread<F> {
+    let ret = unsafe { libc::unshare(libc::CLONE_FS) };
+    if ret == -1 {
+        return Err(Error::UnshareCloneFs(std::io::Error::last_os_error()));
+    }
+}
+```
+这里调用了`libc::unshare()`函数
+* [libc](https://crates.io/crates/libc)是github上的一个crate, 提供了很多c的基础库函数. Rust能直接调用c库这点应该说是rust的一个优点
+  * 这个crate提供多个平台的libc接口, 比如
+    * unix
+    * vxworks
+    * windows
+    * fuchsia
+    * [HermitCore](https://hermitcore.org/): 应该是基于KVM的unikernel, for HPC和云环境. A Unikernel for Extreme-Scale Computing
+    * solid
+* 调用c库要用unsafe包起来?
+* 这个c库函数原型是`pub fn unshare(flags: ::c_int) -> ::c_int;`注意返回值是`c_int`, 这个`c_int`的类型是`pub type c_int = i32;`
+
+这个unshare本质上是个系统调用, 由libc代为提供. `int unshare(int flags);`的作用是让当前进程丢弃部分的和其他进程共享的运行上下文. 比如  
+* CLONE_FILES: 去除共享的fd. 即调用`unshare(CLONE_FILES)`后, 调用进程和其他进程都不共享fd
+* CLONE_FS: 不再共享root目录, 当前目录, mask属性等. 和自己调用`chroot()`, `chdir()`, `umask()`效果差不多?
+* CLONE_NEWIPC: 和clone加`CLONE_NEWIPC`效果一样. 不再共享IPC名字空间
+* CLONE_NEWNET: 和clone加`CLONE_NEWNET`效果一样. 不再共享网络名字空间
+* CLONE_NEWNS: 同上, 不再共享mount名字空间
+* CLONE_NEWUTS: 同上, 不再共享UTS IPC namespace
+* CLONE_SYSVSEM: 同上, 不再共享System V semaphore
+
+有个`unshare`shell命令, 可以方便的用新的名字空间来启动一个新进程.  
+* 在新的pid空间运行程序, 显示pid是1
+```shell
+//Establish a PID namespace, ensure we're PID 1 in it against newly mounted procfs instance.
+# unshare --fork --pid --mount-proc readlink /proc/self
+1
+```
+* 在新的user空间使用root用户. 注意当前是普通用户
+```shell
+//Establish a user namespace as an unprivileged user with a root user within it.
+$ unshare --map-root-user --user sh -c whoami
+root
+```
+
+# 和C兼容data layout
+virtiofsd的源码里, 经常会出现类似下面的代码:`
+```rust
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct SecctxHeader {
+    pub size: u32,
+    pub nr_secctx: u32,
+}
+
+unsafe impl ByteValued for SecctxHeader {}
+```
+rust调用C的时候, 需要跨越FFI(Foreign Function Interface)
+
+一般的, 如果只是在rust里调用C函数, 可以这样
+```rust
+use libc::size_t;
+
+#[link(name = "snappy")]
+extern {
+    fn snappy_max_compressed_length(source_length: size_t) -> size_t;
+}
+
+fn main() {
+    let x = unsafe { snappy_max_compressed_length(100) };
+    println!("max compressed length of a 100 byte buffer: {}", x);
+}
+```
+
+但如果是要使用C的结构体, 就要使用`#[repr(C)]`来声明一个和C一模一样的结构体. `#[repr(C)]`就是控制编译器如何生成data layout的.  
+这点rust做的比较好, 复合数据类型的data layout默认是`repr(Rust)`, 用`#[repr(C)]`可以声明和C一模一样的数据布局.
+
+`server.rs`里面, 就使用了前面的`SecctxHeader`的定义:
+```rust
+fn parse_security_context(data: &[u8]) -> Result<Option<SecContext>> {
+    if data.len() < size_of::<SecctxHeader>() {
+        return Err(Error::DecodeMessage(einval()));
+    }
+    let (header, data) = data.split_at(size_of::<SecctxHeader>());
+    let secctx_header: SecctxHeader =
+        unsafe { std::ptr::read_unaligned(header.as_ptr() as *const SecctxHeader) };
+
+    if secctx_header.nr_secctx > 1 {
+        return Err(Error::DecodeMessage(einval()));
+    } else if secctx_header.nr_secctx == 0 {
+        // No security context sent. May be no LSM supports it.
+        return Ok(None);
+    }
+    ...
+}
+```
+上面的代码把输入的`data: &[u8]`按`size_of::<SecctxHeader>()`截取两段, 第一段是header, 第二段是data.  
+然后把header强转成SecctxHeader: `let secctx_header: SecctxHeader = unsafe { std::ptr::read_unaligned(header.as_ptr() as *const SecctxHeader) };`
 
 # 生命周期标记
 只有引用才有生命周期标记的说法, 其他都没有:
@@ -283,6 +497,122 @@ https://www.cs.brandeis.edu/~cs146a/rust/doc-02-21-2015/book/ownership.html
 https://www.cs.brandeis.edu/~cs146a/rust/doc-02-21-2015/book/method-syntax.html
 
 # 小知识点
+
+## Default值
+有人问下面的代码怎么弄的更好点?
+```rust
+struct cParams {
+    iInsertMax: i64,
+    iUpdateMax: i64,
+    iDeleteMax: i64,
+    iInstanceMax: i64,
+    tFirstInstance: bool,
+    tCreateTables: bool,
+    tContinue: bool,
+}
+
+impl cParams {
+    fn new() -> cParams {
+        cParams {
+            iInsertMax: -1,
+            iUpdateMax: -1,
+            iDeleteMax: -1,
+            iInstanceMax: -1,
+            tFirstInstance: false,
+            tCreateTables: false,
+            tContinue: false,
+        }
+    }
+}
+```
+回答是实现Default trait, 然后在初始化的时候调用`..Default::default()`:  
+```rust
+impl Default for cParams {
+    fn default() -> cParams {
+        cParams {
+            iInsertMax: -1,
+            iUpdateMax: -1,
+            iDeleteMax: -1,
+            iInstanceMax: -1,
+            tFirstInstance: false,
+            tCreateTables: false,
+            tContinue: false,
+        }
+    }
+}
+
+let p = cParams { iInsertMax: 10, ..Default::default() };
+```
+注: rust里`..`表示范围, 在range和初始化的时候用的多.  
+比如
+```rust
+let r = 1..10; // r是一个Range<i32>,中间是两个点,代表[1,10)这个区间
+let r = (1i32..11).rev().map(|i| i * 10);
+
+let greeting: &str = "Hello";
+let substr: &str = &greeting[2..];
+
+let origin = Point3d { x: 5, ..default()};
+```
+
+
+## Result必须处理, 否则有编译警告
+rust要求调用函数时, 必须处理返回的Result, 比如这样的函数`pub fn signal_used_queue(&self) -> io::Result<()>`
+如果像下面这样调用是不行的:
+```rust
+vring_state.signal_used_queue();
+```
+会有编译警告`unused std::result::Result that must be used`
+
+`signal_used_queue()`这个函数返回值Result本身就是个空值或Err, 如果实在不像麻烦的处理返回这, 可以这样:
+```rust
+vring_state.signal_used_queue().unwrap();
+```
+`unwrap()`如果碰到Err会panic.
+
+## if else赋值
+比如下面的代码:
+```rust
+    let mut vl = None;
+    println!("{:?}", vl);
+    if 5 > 1 {
+        vl = Some(100)
+    }
+    println!("{:?}", vl);
+    
+    let vl2 = if 5 > 1 {
+        Some(100) //这里写成Some(100,), 即多个逗号, 效果一样.
+    } else {
+        None
+    };
+    println!("{:?}", vl2);
+
+//输出
+None
+Some(100)
+Some(100)
+```
+* `vl`是普通的赋值: 先赋默认值, 再根据条件更改. 这要求变量**必须是mut的**
+* `vl2`是if else 赋值: 用rust的不带分号的`值`做为if else块的值来赋值给`vl2`, `vl2`不需要是mut, 但要注意else最后的括号后面要有分号.
+
+实例:
+```rust
+        let pool = if thread_pool_size > 0 {
+            Some(
+                ThreadPoolBuilder::new()
+                    .after_start(|_| {
+                        // unshare FS for xattr operation
+                        let ret = unsafe { libc::unshare(libc::CLONE_FS) };
+                        assert_eq!(ret, 0); // Should not fail
+                    })
+                    .pool_size(thread_pool_size)
+                    .create()
+                    .map_err(Error::CreateThreadPool)?,
+            )
+        } else {
+            None
+        };
+```
 
 ## std库的catch_unwind
 `panic::catch_unwind`可以捕获rust运行时的panic
@@ -526,7 +856,100 @@ lazy_static! {
 ```
 大义是自动实现了Deref trait, 在第一次deref的时候, 执行后面的EXPR, 后面再解引用的时候, 就直接返回第一次的值的引用.
 
-# trait object
+# trait
+## 关联类型, 关联类型可以是trait?
+有些trait里面定义了一个type, 这个就是关联类型. 关联类型在具体struct实现的时候是要在impl块里指定的.
+```rust
+pub trait Deref {
+    /// The resulting type after dereferencing.
+    type Target: ?Sized;
+
+    /// Dereferences the value.
+    fn deref(&self) -> &Self::Target;
+}
+```
+DerefMut继承自Deref, 或者说Deref是DerefMut的supertrait. subtrait也拥有supertrait的关联类型.
+```rust
+pub trait DerefMut: Deref {
+    /// Mutably dereferences the value.
+    fn deref_mut(&mut self) -> &mut Self::Target;
+}
+```
+
+virtiofsd里面, 定义了一个trait:
+```rust
+pub trait VringStateMutGuard<'a, M: GuestAddressSpace> {
+    /// Type for guard returned by `VringT::get_mut()`.
+    type G: DerefMut<Target = VringState<M>>;
+}
+```
+这个trait里, 关联类型G要满足约束: `DerefMut<Target = VringState<M>>`看起来是一种特殊的"实例化"trait DerefMut的语法, 指定了其关联类型是`Target = VringState<M>`.
+
+`VringMutex`结构体实现了上面的trait, 具体做法就是用实例化了的`MutexGuard`类型做为`VringStateMutGuard`的关联类型`G`;  
+```rust
+/// A `VringState` object protected by Mutex for multi-threading context.
+#[derive(Clone)]
+pub struct VringMutex<M: GuestAddressSpace = GuestMemoryAtomic<GuestMemoryMmap>> {
+    state: Arc<Mutex<VringState<M>>>,
+}
+
+impl<'a, M: 'a + GuestAddressSpace> VringStateMutGuard<'a, M> for VringMutex<M> {
+    type G = MutexGuard<'a, VringState<M>>;
+}
+
+//MutexGuard是个结构体, 是在标准库里定义的
+pub struct MutexGuard<'a, T: ?Sized + 'a> {
+    lock: &'a Mutex<T>,
+    poison: poison::Guard,
+}
+```
+`MutexGuard<'a, VringState<M>>;`能当作`G`, 那它就必须满足`type G: DerefMut<Target = VringState<M>>;`约束, 查一下代码, 确实满足:
+```rust
+#[stable(feature = "rust1", since = "1.0.0")]
+impl<T: ?Sized> Deref for MutexGuard<'_, T> {
+    type Target = T;
+
+    fn deref(&self) -> &T {
+        unsafe { &*self.lock.data.get() }
+    }
+}
+
+#[stable(feature = "rust1", since = "1.0.0")]
+impl<T: ?Sized> DerefMut for MutexGuard<'_, T> {
+    fn deref_mut(&mut self) -> &mut T {
+        unsafe { &mut *self.lock.data.get() }
+    }
+}
+```
+
+这个`VringStateMutGuard`是下面的trait的supertrait(可以理解成父trait?)之一:
+```rust
+pub trait VringT<M: GuestAddressSpace>:
+    for<'a> VringStateGuard<'a, M> + for<'a> VringStateMutGuard<'a, M>
+{
+    //这个trait定义了一个函数, 把Self当作VringStateMutGuard<M>, 并返回后者的关联类型
+    /// Get a mutable reference to the kick event fd.
+    fn get_mut(&self) -> <Self as VringStateMutGuard<M>>::G;
+}
+```
+注:
+* `for<'a> VringStateGuard<'a, M>`中的`for<'a>`是[Higher-ranked trait bounds(HRTB)](https://doc.rust-lang.org/nightly/reference/trait-bounds.html#higher-ranked-trait-bounds), 另外参考[hrtb](https://doc.rust-lang.org/nomicon/hrtb.html)., 意思是
+  > for<'a> can be read as "for all choices of 'a", and basically produces an infinite list of trait bounds.
+* `<Self as VringStateMutGuard<M>>::G`这样的语法好像不常见. 意思是把Self当作`VringStateMutGuard<M>`, 然后取其关联类型G
+
+做了前面这么多, 就是为了实现`VringT<M>`trait:
+```rust
+pub trait VringT<M: GuestAddressSpace>:
+    for<'a> VringStateGuard<'a, M> + for<'a> VringStateMutGuard<'a, M>
+{
+    fn new(mem: M, max_queue_size: u16) -> Result<Self, VirtQueError>
+    fn get_mut(&self) -> <Self as VringStateMutGuard<M>>::G;
+    ...
+}
+```
+而`VringMutex<M>`和`VringRwLock<M>`都实现了这个trait.
+
+## trait object
 比如下面的代码中, 返回值`Arc<dyn Hypervisor>`是个trait object, 和golang的iface差不多的意思.
 编译时选择虚拟化平台, 比如选了kvm, kvm的那个new函数返回具体的结构体.
 ```rust

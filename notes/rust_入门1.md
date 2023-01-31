@@ -36,6 +36,7 @@
     - [enum](#enum)
       - [enum和match](#enum和match)
       - [经常出现的Option就是一种enum](#经常出现的option就是一种enum)
+      - [经常出现的Result也是enum](#经常出现的result也是enum)
       - [if let代替match](#if-let代替match)
   - [表达式](#表达式)
     - [if else](#if-else)
@@ -44,7 +45,7 @@
   - [函数](#函数)
     - [发散函数Diverging functions](#发散函数diverging-functions)
     - [main函数](#main函数)
-    - [const_fn](#const_fn)
+    - [const\_fn](#const_fn)
   - [trait](#trait)
     - [默认trait](#默认trait)
     - [trait做参数](#trait做参数)
@@ -1339,6 +1340,21 @@ fn main() {
 * 不要轻易使用unwrap方法。这个方法可能会导致程序发生 panic。对于小工具来说无所谓，在正式项目中，最好是使用lint工具强制禁止调用这个方法
 * 相对于裸指针，使用Option包装的指针类型的执行效率不会降低，这是“零开销抽象”
 * 不必担心这样的设计会导致大量的match语句，使得程序可读性变差。因为`Option<T>`类型有许多方便的成员函数，再配合上闭包功能，实际上在表达能力和可读性上要更胜一筹
+
+#### 经常出现的Result也是enum
+```rust
+pub enum Result<T, E> {
+    /// Contains the success value
+    #[lang = "Ok"]
+    #[stable(feature = "rust1", since = "1.0.0")]
+    Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+
+    /// Contains the error value
+    #[lang = "Err"]
+    #[stable(feature = "rust1", since = "1.0.0")]
+    Err(#[stable(feature = "rust1", since = "1.0.0")] E),
+}
+```
 
 #### if let代替match
 match需要强制做全匹配, 否则会编译报错. 用下划线可以解决编译错误, 但有点笨.

@@ -1,8 +1,8 @@
 firecracker是最终的可执行文件:  
 ![](img/rust_firecracker_代码_20220825223907.png)  
 
-- [run_without_api流程](#run_without_api流程)
-  - [build_microvm_from_json](#build_microvm_from_json)
+- [run\_without\_api流程](#run_without_api流程)
+  - [build\_microvm\_from\_json](#build_microvm_from_json)
 - [event manager](#event-manager)
 - [aarch64 物理内存layout](#aarch64-物理内存layout)
 - [devices::Bus](#devicesbus)
@@ -16,17 +16,17 @@ firecracker是最终的可执行文件:
 - [SerialWrapper](#serialwrapper)
   - [从stdin读输入发给guest流程](#从stdin读输入发给guest流程)
   - [实现了BusDevice的按地址读写的trait](#实现了busdevice的按地址读写的trait)
-- [attach_virtio_device](#attach_virtio_device)
-  - [vm.register_ioevent(queue_evt, &io_addr, i  as  u32)](#vmregister_ioeventqueue_evt-io_addr-i--as--u32)
-  - [vm.register_irqfd](#vmregister_irqfd)
+- [attach\_virtio\_device](#attach_virtio_device)
+  - [vm.register\_ioevent(queue\_evt, \&io\_addr, i  as  u32)](#vmregister_ioeventqueue_evt-io_addr-i--as--u32)
+  - [vm.register\_irqfd](#vmregister_irqfd)
   - [kvm的irq相关API](#kvm的irq相关api)
-    - [KVM_CREATE_IRQCHIP](#kvm_create_irqchip)
-    - [KVM_SET_GSI_ROUTING](#kvm_set_gsi_routing)
-    - [KVM_IRQFD](#kvm_irqfd)
-    - [KVM_CREATE_DEVICE](#kvm_create_device)
+    - [KVM\_CREATE\_IRQCHIP](#kvm_create_irqchip)
+    - [KVM\_SET\_GSI\_ROUTING](#kvm_set_gsi_routing)
+    - [KVM\_IRQFD](#kvm_irqfd)
+    - [KVM\_CREATE\_DEVICE](#kvm_create_device)
       - [都有哪些可以被create](#都有哪些可以被create)
     - [ARM gic v3](#arm-gic-v3)
-      - [KVM_DEV_ARM_VGIC_GRP_ADDR](#kvm_dev_arm_vgic_grp_addr)
+      - [KVM\_DEV\_ARM\_VGIC\_GRP\_ADDR](#kvm_dev_arm_vgic_grp_addr)
   - [MmioTransport](#mmiotransport)
     - [impl MmioTransport](#impl-mmiotransport)
     - [实现BusDevice](#实现busdevice)
@@ -1170,9 +1170,10 @@ pub struct MmioTransport {
 impl MmioTransport {
     /// Constructs a new MMIO transport for the given virtio device.
     pub fn new(mem: GuestMemoryMmap, device: Arc<Mutex<dyn VirtioDevice>>) -> MmioTransport {
-        //这里小知识点: device.lock()返回的是mutextGuard, 它会在生命周期结束后自动调用unlock. 
-        //不用担心一直会lock, 因为device.lock()的声明周期只有下面一行
+        //这里小知识点: device.lock()返回的是mutexGuard, 它会在生命周期结束后自动调用unlock. 
+        //不用担心一直会lock, 因为device.lock()的生命周期只有下面一行
         //这行结束了其实就已经unlock了.
+        //-- 确认, 不要怀疑. 根本原因是做为临时变量的mutexGuard在本行就已经消亡, 编译器自动插入了unlock()
         let interrupt_status = device.lock().expect("Poisoned lock").interrupt_status();
 
         //new这个结构体

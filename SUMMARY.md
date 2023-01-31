@@ -56,6 +56,7 @@
     * [cloud hypervisor代码](notes/rust_cloud-hypervisor_代码.md)
     * [cloud hypervisor使用](notes/rust_cloud-hypervisor_使用.md)
     * [cloud hypervisor问题与解决](notes/rust_cloud-hypervisor_问题与解决.md)
+    * [virtiofsd代码阅读](notes/rust_virtiofsd_代码.md)
   * [virtio规范阅读笔记.md](notes/virtualization_virtio规范阅读笔记.md)
   * [qemu OVS 虚拟化环境准备](notes/qemu_ovs_虚拟化环境.md)
   * [Qemu使用(old)](notes/qemu使用.md)
