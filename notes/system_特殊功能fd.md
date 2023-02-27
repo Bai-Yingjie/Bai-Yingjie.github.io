@@ -5,10 +5,11 @@
   - [timerfd API](#timerfd-api)
   - [注epoll使用简介](#注epoll使用简介)
     - [边沿触发和电平触发](#边沿触发和电平触发)
-    - [epoll_wait](#epoll_wait)
+    - [epoll\_wait](#epoll_wait)
 - [eventfd概念](#eventfd概念)
   - [用法](#用法)
 - [进程间共享文件描述符](#进程间共享文件描述符)
+  - [2023.02更新](#202302更新)
 
 各种fd是系统调用
 用perf看所有带fd的系统调用
@@ -344,3 +345,52 @@ statout(char *f, struct stat *s)
     fflush(stdout);
 }
 ```
+
+## 2023.02更新
+使用unix socket传递fd, 底层调用的是:
+```c
+#include <sys/types.h>
+#include <sys/socket.h>
+
+ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);
+
+struct iovec {                    /* Scatter/gather array items */
+    void  *iov_base;              /* Starting address */
+    size_t iov_len;               /* Number of bytes to transfer */
+};
+
+struct msghdr {
+    void         *msg_name;       /* optional address */
+    socklen_t     msg_namelen;    /* size of address */
+    struct iovec *msg_iov;        /* scatter/gather array */
+    size_t        msg_iovlen;     /* # elements in msg_iov */
+    void         *msg_control;    /* ancillary data, see below */
+    size_t        msg_controllen; /* ancillary data buffer len */
+    int           msg_flags;      /* flags on received message */
+};
+```
+使用msghdr结构体中的`msg_control`指针, 可以接收cmsg(control message).  
+cmsg的发送和接收是成对的, 我理解要在发送端有cmsg, 才能在接收端收到cmsg.  
+
+cmsg的格式如下:
+```c
+#include <sys/socket.h>
+
+struct cmsghdr *CMSG_FIRSTHDR(struct msghdr *msgh);
+struct cmsghdr *CMSG_NXTHDR(struct msghdr *msgh, struct cmsghdr *cmsg);
+size_t CMSG_ALIGN(size_t length);
+size_t CMSG_SPACE(size_t length);
+size_t CMSG_LEN(size_t length);
+unsigned char *CMSG_DATA(struct cmsghdr *cmsg);
+
+struct cmsghdr {
+    size_t cmsg_len;    /* Data byte count, including header
+                            (type is socklen_t in POSIX) */
+    int    cmsg_level;  /* Originating protocol */
+    int    cmsg_type;   /* Protocol-specific type */
+    /* followed by unsigned char cmsg_data[]; */
+};
+```
+
+`man cmsg`可以看到cmsg结构体的定义和使用示例.
+

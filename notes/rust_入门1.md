@@ -3,6 +3,7 @@
   - [rustup](#rustup)
 - [hello world](#hello-world)
 - [基础语法](#基础语法)
+  - [命名惯例](#命名惯例)
   - [格式化输出](#格式化输出)
   - [语法糖](#语法糖)
   - [变量](#变量)
@@ -234,6 +235,27 @@ fn Foo( input1 : i32, input2 : u32) -> i32 {
     * mod: 类似namespace概念
     * std: 标准库. 编译器会为用户写的每个crate自动插入一句话 `use std::prelude::*;`
 * 函数可以在使用的位置后面声明
+
+## 命名惯例
+rust混合了驼峰式和下划线式的名字惯例, 但用于不同的场景:
+Item|	Convention
+--|--
+Crates|	unclear
+Modules|	snake_case
+Types|	UpperCamelCase
+Traits|	UpperCamelCase
+Enum variants|	UpperCamelCase
+Functions|	snake_case
+Methods|	snake_case
+General constructors|	new or with_more_details
+Conversion constructors|	from_some_other_type
+Macros|	snake_case!
+Local variables|	snake_case
+Statics|	SCREAMING_SNAKE_CASE
+Constants|	SCREAMING_SNAKE_CASE
+Type parameters|	concise UpperCamelCase, usually single uppercase letter: T
+Lifetimes|	short lowercase, usually a single letter: 'a, 'de, 'src
+Features|	unclear but see C-FEATURE
 
 ## 格式化输出
 ```rust
@@ -685,6 +707,11 @@ fn main() {
 }
 ```
 在这个例子中，capitalize函数调用的时候，形式参数要求是`&mut str`类型，而实际参数是`&mut String`类型，这里编译器给我们做了自动类型转换。在capitalize函数内部，它有权修改`&mut str`所指向的内容，但是无权给这个字符串扩容或者释放内存。
+
+和go的字符串一样, String 内部表达包括三部分:
+* 一个指向buffer的指针
+* 长度
+* 最大容量
 
 ## 复合数据类型
 ### tuple 元组

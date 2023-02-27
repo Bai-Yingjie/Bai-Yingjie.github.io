@@ -1,3 +1,4 @@
+- [C调用rust慢吗?](#c调用rust慢吗)
 - [论Mutex的unlock](#论mutex的unlock)
   - [提前unlock](#提前unlock)
   - [结论](#结论)
@@ -9,6 +10,7 @@
 - [生命周期标记](#生命周期标记)
 - [线程](#线程)
 - [宏](#宏)
+  - [宏可以用小括号, 中括号, 大括号](#宏可以用小括号-中括号-大括号)
   - [简单例子](#简单例子)
   - [例子1](#例子1)
   - [例子2](#例子2)
@@ -59,6 +61,15 @@
 - [BTreeMap](#btreemap)
   - [iter()](#iter)
   - [keys()和values()](#keys和values)
+
+
+# C调用rust慢吗?
+不慢. 重点词: FFI `#[repr(C)]`
+> Let me expand on this a bit: The reason why FFI is slow in many languages (Java, C#, Go, etc) is that incoming data has to be registered to the runtime, maybe even copied into GC memory space, and then unregistered or again copied into the other direction.
+
+> Rust doesn't have a runtime, and it can handle C data structures directly (with #[repr(C)]). There is no conversion needed at all.
+
+> That said, sometimes you do want to conversions, like using Vec instead of a C array (although std::slice::from_raw_parts solves most of the use cases without a copy), but that's on you to implement, so you can see the costs directly.
 
 
 # 论Mutex的unlock
@@ -357,6 +368,32 @@ macro_rules! vec {
 ```
 `( $( $x:expr ),* ) => {...}`里, `$x:expr`是类似match的语法, `$(...),*`是类似正则的语法, 表示match expr 0次或多次; `$x`是个临时变量.
 `=>`右边的`$()*`表示重复每个匹配
+
+## 宏可以用小括号, 中括号, 大括号
+比如`Vec!`宏, 下面几个形式都可以:
+```rust
+fn main() {
+    // vector creation with vec! macro
+    let v = vec!(1, 2, 3);
+    println!("v2= {:?}", v);
+}
+
+fn main() {
+    // vector creation with vec! macro
+    let v = vec![1, 2, 3];
+    println!("v2= {:?}", v);
+}
+
+fn main() {
+    // vector creation with vec! macro
+    let v = vec!{1, 2, 3};
+    println!("v2= {:?}", v);
+}
+
+```
+但用尖括号会报错.  
+通常Vec大家喜欢用中括号.  
+
 
 ## 简单例子
 ```rust
