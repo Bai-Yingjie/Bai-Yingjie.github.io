@@ -1,6 +1,6 @@
 - [structopt](#structopt)
 - [log](#log)
-  - [env_logger](#env_logger)
+  - [env\_logger](#env_logger)
 - [常用宏1](#常用宏1)
 - [常用宏2](#常用宏2)
   - [由编译器实现的builtin宏](#由编译器实现的builtin宏)
@@ -12,8 +12,8 @@
 - [Vec](#vec)
 - [Option](#option)
 - [Result](#result)
-  - [Result<T, E>的方法:](#resultt-e的方法)
-  - [Result<&T, E>的方法](#resultt-e的方法-1)
+  - [Result\<T, E\>的方法:](#resultt-e的方法)
+  - [Result\<\&T, E\>的方法](#resultt-e的方法-1)
   - [其他Result](#其他result)
   - [Result实现了如下的trait](#result实现了如下的trait)
 - [env](#env)
@@ -32,7 +32,7 @@
   - [实现Read trait](#实现read-trait)
   - [实现Write trait](#实现write-trait)
   - [实现Seek trait](#实现seek-trait)
-  - [Read Write Seek for &File又来一遍!!!!!](#read-write-seek-for-file又来一遍)
+  - [Read Write Seek for \&File又来一遍!!!!!](#read-write-seek-for-file又来一遍)
   - [open最后调用](#open最后调用)
 - [IO](#io)
   - [常用函数](#常用函数-1)
@@ -60,6 +60,15 @@ struct Opt {
     #[structopt(long = "socket-path", required_unless_one = &["fd", "socket", "print-capabilities"])]
     socket_path: Option<String>,
     ...
+}
+```
+* 三斜线的注释会变成`--help`里面的option的说明, 输出格式还挺整齐的. `-h`的显示会更简洁一些, 只包括注释的第一行.
+* 变量下划线会变成中横线, 比如`shared_dir`会在`--help`下显示`--shared-dir <shared-dir>                    Shared directory path`
+
+使用的时候, 比如在main里面:
+```rust
+fn main() {
+    let opt = Opt::from_args()
 }
 ```
 

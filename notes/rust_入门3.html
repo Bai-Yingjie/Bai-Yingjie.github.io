@@ -877,6 +877,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.2.8" data-path="rust_virtio_vhost_libs.html">
+            
+                <a href="rust_virtio_vhost_libs.html">
+            
+                    
+                    vhost virtio相关的rust库
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -2265,7 +2278,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_by_example_misc.html">
+            
+                <a href="rust_by_example_misc.html">
+            
+                    
+                    Rust by example杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_序列化.html">
             
                 <a href="rust_序列化.html">
             
@@ -2278,7 +2304,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_知识点积累.html">
             
                 <a href="rust_知识点积累.html">
             
@@ -2291,7 +2317,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_adaptiveservice.html">
             
                 <a href="rust_adaptiveservice.html">
             
@@ -2304,7 +2330,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_常用设施.html">
             
                 <a href="rust_常用设施.html">
             
@@ -2317,7 +2343,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+        <li class="chapter " data-level="1.11.2.6" data-path="rust_代码小段.html">
             
                 <a href="rust_代码小段.html">
             
@@ -3778,6 +3804,23 @@ swan swan
 <blockquote>
 <p>A trait object points to both an instance of a type implementing our specified trait as well as a table used to look up trait methods on that type at runtime. We create a trait object by specifying some sort of pointer, such as a <code>&amp;</code> reference or a <code>Box<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span></code> smart pointer, then the <code>dyn</code> keyword, and then specifying the relevant trait.</p>
 </blockquote>
+<p>trait object&#x6709;&#x4E2A;safety&#x7684;&#x8BF4;&#x6CD5;, &#x5E76;&#x4E0D;&#x662F;&#x6240;&#x6709;trait&#x90FD;&#x80FD;&#x6210;&#x4E3A;trait object, &#x53EA;&#x6709;object safe&#x7684;trait&#x53EF;&#x4EE5;&#x505A;&#x4E3A;trait object, &#x8FD9;&#x5C31;&#x8981;&#x6C42;&#x67D0;&#x4E2A;trait:</p>
+<ul>
+<li>&#x8FD4;&#x56DE;&#x7684;&#x7C7B;&#x578B;&#x4E0D;&#x80FD;&#x662F;Self. &#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x5177;&#x4F53;&#x7C7B;&#x578B;, &#x4F46;&#x4E0D;&#x80FD;&#x662F;Self&#x6307;&#x4EE3;.</li>
+<li>&#x6CDB;&#x578B;&#x7EA6;&#x675F;&#x5E94;&#x8BE5;&#x6709;Sized</li>
+</ul>
+<p>&#x6BD4;&#x5982;</p>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">trait</span> <span class="token type-definition class-name">MyTrait</span> <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">object_safe</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> i<span class="token punctuation">:</span> <span class="token keyword">i32</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">not_object_safe</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> t<span class="token punctuation">:</span> <span class="token class-name">T</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5199;&#x6210;&#x8FD9;&#x6837;&#x5C31;safe&#x4E86;:</p>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">trait</span> <span class="token type-definition class-name">MyTrait</span> <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">object_safe</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> i<span class="token punctuation">:</span> <span class="token keyword">i32</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">not_object_safe</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> t<span class="token punctuation">:</span> <span class="token class-name">T</span><span class="token punctuation">)</span> <span class="token keyword">where</span> <span class="token keyword">Self</span><span class="token punctuation">:</span> <span class="token class-name">Sized</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <h2 id="impl-trait"><a name="impl-trait" class="anchor-navigation-ex-anchor" href="#impl-trait"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. impl trait</h2>
 <p>&#x8FD8;&#x6709;&#x4E2A;impl trait&#x8BED;&#x6CD5;, &#x6BD4;&#x5982;:</p>
 <pre class="language-"><code class="lang-rust"><span class="token keyword">fn</span> <span class="token function-definition function">foo</span><span class="token punctuation">(</span>n<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">impl</span> <span class="token class-name">Iterator</span><span class="token operator">&lt;</span><span class="token class-name">Item</span><span class="token operator">=</span><span class="token keyword">u32</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
@@ -3984,6 +4027,7 @@ swan swan
     <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;{:?}&quot;</span><span class="token punctuation">,</span> slice<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<p>Vec&#x7684;&#x5E95;&#x5C42;&#x662F;<code>(pointer, capacity, length)</code>, &#x800C;&#x4E14;&#x8FD9;&#x4E2A;pointer&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x662F;null. &#x5E94;&#x8BE5;&#x662F;&#x7C7B;&#x4F3C;go&#x7684;slice&#x7684;&#x80D6;&#x6307;&#x9488;.<br>&#x8BE6;&#x89C1; <a href="https://web.mit.edu/rust-lang_v1.26.0/arch/amd64_ubuntu1404/share/doc/rust/html/std/vec/struct.Vec.html" target="_blank">https://web.mit.edu/rust-lang_v1.26.0/arch/amd64_ubuntu1404/share/doc/rust/html/std/vec/struct.Vec.html</a> </p>
 <h2 id="vecdeque"><a name="vecdeque" class="anchor-navigation-ex-anchor" href="#vecdeque"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. VecDeque</h2>
 <blockquote>
 <p>A double-ended queue implemented with a growable ring buffer</p>
@@ -4979,7 +5023,7 @@ Rayon&#x662F;Rust&#x6838;&#x5FC3;&#x7EC4;&#x6210;&#x5458;Nicholas Matsakis&#x5F0
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Rust 闭包 容器 迭代器 生成器 线程","level":"1.11.1.4","depth":3,"next":{"title":"Rust 工程构建","level":"1.11.1.5","depth":3,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]},"previous":{"title":"Rust 泛型和内存所有权","level":"1.11.1.3","depth":3,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_入门3.md","mtime":"2023-01-31T09:25:58.730Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-01-31T09:27:04.258Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Rust 闭包 容器 迭代器 生成器 线程","level":"1.11.1.4","depth":3,"next":{"title":"Rust 工程构建","level":"1.11.1.5","depth":3,"path":"notes/rust_工程构建.md","ref":"notes/rust_工程构建.md","articles":[]},"previous":{"title":"Rust 泛型和内存所有权","level":"1.11.1.3","depth":3,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_入门3.md","mtime":"2023-02-27T10:21:21.783Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-27T10:22:35.461Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

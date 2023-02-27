@@ -182,6 +182,25 @@ pub fn notify<T: Summary>(item: &T) {
 
 > A trait object points to both an instance of a type implementing our specified trait as well as a table used to look up trait methods on that type at runtime. We create a trait object by specifying some sort of pointer, such as a `&` reference or a `Box<T>` smart pointer, then the `dyn` keyword, and then specifying the relevant trait.
 
+trait object有个safety的说法, 并不是所有trait都能成为trait object, 只有object safe的trait可以做为trait object, 这就要求某个trait:
+* 返回的类型不能是Self. 可以返回具体类型, 但不能是Self指代.
+* 泛型约束应该有Sized
+
+比如
+```rust
+trait MyTrait {
+    fn object_safe(&self, i: i32);
+    fn not_object_safe<T>(&self, t: T);
+}
+```
+写成这样就safe了:
+```rust
+trait MyTrait {
+    fn object_safe(&self, i: i32);
+    fn not_object_safe<T>(&self, t: T) where Self: Sized;
+}
+```
+
 
 ## impl trait
 还有个impl trait语法, 比如:
@@ -378,6 +397,10 @@ fn main() {
     println!("{:?}", slice);
 }
 ```
+
+Vec的底层是`(pointer, capacity, length)`, 而且这个pointer永远不会是null. 应该是类似go的slice的胖指针.  
+详见 https://web.mit.edu/rust-lang_v1.26.0/arch/amd64_ubuntu1404/share/doc/rust/html/std/vec/struct.Vec.html 
+
 
 ## VecDeque
 > A double-ended queue implemented with a growable ring buffer

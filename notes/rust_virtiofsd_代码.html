@@ -93,7 +93,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="virtualization_virtio规范阅读笔记.html" />
+    <link rel="next" href="rust_virtio_vhost_libs.html" />
     
     
     <link rel="prev" href="rust_cloud-hypervisor_问题与解决.html" />
@@ -870,6 +870,19 @@
             
                     
                     virtiofsd代码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.8" data-path="rust_virtio_vhost_libs.html">
+            
+                <a href="rust_virtio_vhost_libs.html">
+            
+                    
+                    vhost virtio相关的rust库
             
                 </a>
             
@@ -2265,7 +2278,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_by_example_misc.html">
+            
+                <a href="rust_by_example_misc.html">
+            
+                    
+                    Rust by example杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_序列化.html">
             
                 <a href="rust_序列化.html">
             
@@ -2278,7 +2304,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_知识点积累.html">
             
                 <a href="rust_知识点积累.html">
             
@@ -2291,7 +2317,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_adaptiveservice.html">
             
                 <a href="rust_adaptiveservice.html">
             
@@ -2304,7 +2330,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.4" data-path="rust_常用设施.html">
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_常用设施.html">
             
                 <a href="rust_常用设施.html">
             
@@ -2317,7 +2343,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+        <li class="chapter " data-level="1.11.2.6" data-path="rust_代码小段.html">
             
                 <a href="rust_代码小段.html">
             
@@ -3581,7 +3607,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;&#x573A;&#x666F;"><b>1. </b>&#x4F7F;&#x7528;&#x573A;&#x666F;</a></li><li><span class="title-icon "></span><a href="#cargotoml&#x548C;cargolock"><b>2. </b>Cargo.toml&#x548C;Cargo.lock</a></li><li><span class="title-icon "></span><a href="#librs"><b>3. </b>lib.rs</a></li><li><span class="title-icon "></span><a href="#mainrs"><b>4. </b>main.rs</a></li><ul><li><span class="title-icon "></span><a href="#vhostuserfsthread&#x7ED3;&#x6784;&#x4F53;"><b>4.1. </b>VhostUserFsThread&#x7ED3;&#x6784;&#x4F53;</a></li><ul><li><span class="title-icon "></span><a href="#&#x591A;&#x7EBF;&#x7A0B;&#x5904;&#x7406;vring"><b>4.1.1. </b>&#x591A;&#x7EBF;&#x7A0B;&#x5904;&#x7406;vring</a></li></ul><li><span class="title-icon "></span><a href="#vhostuserbackend"><b>4.2. </b>VhostUserBackend</a></li></ul></ul></div><a href="#&#x4F7F;&#x7528;&#x573A;&#x666F;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><p>virtiofsd&#x662F;&#x6709;c&#x7248;&#x672C;&#x548C;rust&#x7248;&#x672C;, &#x8FD9;&#x91CC;&#x8BA8;&#x8BBA;&#x7684;&#x662F;rust&#x7248;&#x672C;.</p>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x4F7F;&#x7528;&#x573A;&#x666F;"><b>1. </b>&#x4F7F;&#x7528;&#x573A;&#x666F;</a></li><li><span class="title-icon "></span><a href="#cargotoml&#x548C;cargolock"><b>2. </b>Cargo.toml&#x548C;Cargo.lock</a></li><li><span class="title-icon "></span><a href="#librs"><b>3. </b>lib.rs</a></li><li><span class="title-icon "></span><a href="#mainrs"><b>4. </b>main.rs</a></li><ul><li><span class="title-icon "></span><a href="#vhostuserfsthread&#x7ED3;&#x6784;&#x4F53;"><b>4.1. </b>VhostUserFsThread&#x7ED3;&#x6784;&#x4F53;</a></li><ul><li><span class="title-icon "></span><a href="#&#x591A;&#x7EBF;&#x7A0B;&#x5904;&#x7406;vring"><b>4.1.1. </b>&#x591A;&#x7EBF;&#x7A0B;&#x5904;&#x7406;vring</a></li></ul><li><span class="title-icon "></span><a href="#vhostuserbackend"><b>4.2. </b>VhostUserBackend</a></li><li><span class="title-icon "></span><a href="#&#x5904;&#x7406;signal"><b>4.3. </b>&#x5904;&#x7406;signal</a></li><li><span class="title-icon "></span><a href="#main-&#x6D41;&#x7A0B;"><b>4.4. </b>main &#x6D41;&#x7A0B;</a></li><li><span class="title-icon "></span><a href="#&#x5982;&#x4F55;handle-vhost-user&#x6D88;&#x606F;"><b>4.5. </b>&#x5982;&#x4F55;handle vhost-user&#x6D88;&#x606F;</a></li><ul><li><span class="title-icon "></span><a href="#master&#x7684;req&#x7C7B;&#x578B;"><b>4.5.1. </b>master&#x7684;req&#x7C7B;&#x578B;</a></li><li><span class="title-icon "></span><a href="#handle&#x4E3B;&#x8981;&#x6D41;&#x7A0B;"><b>4.5.2. </b>handle&#x4E3B;&#x8981;&#x6D41;&#x7A0B;</a></li><li><span class="title-icon "></span><a href="#&#x5982;&#x4F55;map&#x5730;&#x5740;"><b>4.5.3. </b>&#x5982;&#x4F55;map&#x5730;&#x5740;</a></li><li><span class="title-icon "></span><a href="#selfbackend&#x5230;&#x5E95;&#x662F;&#x4EC0;&#x4E48;"><b>4.5.4. </b>self.backend&#x5230;&#x5E95;&#x662F;&#x4EC0;&#x4E48;?</a></li></ul></ul></ul></div><a href="#&#x4F7F;&#x7528;&#x573A;&#x666F;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><p>virtiofsd&#x662F;&#x6709;c&#x7248;&#x672C;&#x548C;rust&#x7248;&#x672C;, &#x8FD9;&#x91CC;&#x8BA8;&#x8BBA;&#x7684;&#x662F;rust&#x7248;&#x672C;.</p>
 <p>virtiofsd&#x662F;vhost-user&#x7684;daemon&#x7A0B;&#x5E8F;, &#x8FD0;&#x884C;&#x5728;host&#x4E0A;, &#x901A;&#x8FC7;virtiofs&#x534F;&#x8BAE;&#x5BF9;&#x63A5;Cloud-hypervisor&#x7684;vhost&#x540E;&#x7AEF;, &#x4F5C;&#x7528;&#x662F;&#x628A;host&#x4E0A;&#x7684;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x5171;&#x4EAB;&#x7ED9;guest.</p>
 <ul>
 <li><a href="#&#x4F7F;&#x7528;&#x573A;&#x666F;">&#x4F7F;&#x7528;&#x573A;&#x666F;</a></li>
@@ -3593,6 +3619,20 @@
 </ul>
 </li>
 <li><a href="#vhostuserbackend">VhostUserBackend</a></li>
+<li><a href="#&#x5904;&#x7406;signal">&#x5904;&#x7406;signal</a></li>
+<li><a href="#main-&#x6D41;&#x7A0B;">main &#x6D41;&#x7A0B;</a></li>
+<li><a href="#&#x5982;&#x4F55;handle-vhost-user&#x6D88;&#x606F;">&#x5982;&#x4F55;handle vhost-user&#x6D88;&#x606F;</a><ul>
+<li><a href="#master&#x7684;req&#x7C7B;&#x578B;">master&#x7684;req&#x7C7B;&#x578B;</a></li>
+<li><a href="#handle&#x4E3B;&#x8981;&#x6D41;&#x7A0B;">handle&#x4E3B;&#x8981;&#x6D41;&#x7A0B;</a></li>
+<li><a href="#&#x5982;&#x4F55;map&#x5730;&#x5740;">&#x5982;&#x4F55;map&#x5730;&#x5740;</a></li>
+<li><a href="#selfbackend&#x5230;&#x5E95;&#x662F;&#x4EC0;&#x4E48;">self.backend&#x5230;&#x5E95;&#x662F;&#x4EC0;&#x4E48;?</a><ul>
+<li><a href="#vhostuserhandler&#x7ED3;&#x6784;&#x4F53;&#x548C;new&#x51FD;&#x6570;"><code>VhostUserHandler</code>&#x7ED3;&#x6784;&#x4F53;&#x548C;new&#x51FD;&#x6570;</a></li>
+<li><a href="#&#x4ECE;vmm&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x5230;guest&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;gpa">&#x4ECE;VMM&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x5230;Guest&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;(GPA)</a></li>
+<li><a href="#vhostuserhandler&#x5B9E;&#x73B0;&#x4E86;vhostuserslavereqhandler"><code>VhostUserHandler</code>&#x5B9E;&#x73B0;&#x4E86;<code>VhostUserSlaveReqHandler</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -3773,13 +3813,552 @@
     thread<span class="token punctuation">:</span> <span class="token class-name">RwLock</span><span class="token operator">&lt;</span><span class="token class-name">VhostUserFsThread</span><span class="token operator">&lt;</span><span class="token class-name">F</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<p>&#x5B83;&#x7684;new&#x65B9;&#x6CD5;:</p>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">impl</span><span class="token operator">&lt;</span><span class="token class-name">F</span><span class="token punctuation">:</span> <span class="token class-name">FileSystem</span> <span class="token operator">+</span> <span class="token class-name">Send</span> <span class="token operator">+</span> <span class="token class-name">Sync</span> <span class="token operator">+</span> <span class="token lifetime-annotation symbol">&apos;static</span><span class="token operator">&gt;</span> <span class="token class-name">VhostUserFsBackend</span><span class="token operator">&lt;</span><span class="token class-name">F</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">new</span><span class="token punctuation">(</span>fs<span class="token punctuation">:</span> <span class="token class-name">F</span><span class="token punctuation">,</span> thread_pool_size<span class="token punctuation">:</span> <span class="token keyword">usize</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> thread <span class="token operator">=</span> <span class="token class-name">RwLock</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token class-name">VhostUserFsThread</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>fs<span class="token punctuation">,</span> thread_pool_size<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">VhostUserFsBackend</span> <span class="token punctuation">{</span> thread <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <p>&#x5B83;&#x5B9E;&#x73B0;&#x4E86;<code>VhostUserBackend</code>&#x534F;&#x8BAE;trait</p>
 <pre class="language-"><code class="lang-rust"><span class="token keyword">impl</span><span class="token operator">&lt;</span><span class="token class-name">F</span><span class="token punctuation">:</span> <span class="token class-name">FileSystem</span> <span class="token operator">+</span> <span class="token class-name">Send</span> <span class="token operator">+</span> <span class="token class-name">Sync</span> <span class="token operator">+</span> <span class="token lifetime-annotation symbol">&apos;static</span><span class="token operator">&gt;</span> <span class="token class-name">VhostUserBackend</span><span class="token operator">&lt;</span><span class="token class-name">VringMutex</span><span class="token operator">&gt;</span> <span class="token keyword">for</span> <span class="token class-name">VhostUserFsBackend</span><span class="token operator">&lt;</span><span class="token class-name">F</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
   <span class="token keyword">fn</span> <span class="token function-definition function">num_queues</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">usize</span> <span class="token comment">//&#x8FD4;&#x56DE;&#x9884;&#x8BBE;&#x7684;2</span>
   <span class="token keyword">fn</span> <span class="token function-definition function">max_queue_size</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">usize</span> <span class="token comment">//&#x8FD4;&#x56DE;&#x9884;&#x8BBE;&#x7684;1024</span>
   <span class="token keyword">fn</span> <span class="token function-definition function">features</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">u64</span> <span class="token comment">//&#x8FD4;&#x56DE;&#x9884;&#x8BBE;&#x7684;flag</span>
   <span class="token keyword">fn</span> <span class="token function-definition function">handle_event</span><span class="token punctuation">(</span><span class="token punctuation">...</span><span class="token punctuation">)</span> <span class="token comment">//&#x4E3B;&#x5904;&#x7406;&#x5165;&#x53E3;</span>
-  &#x7B49;&#x7B49;
+  <span class="token keyword">fn</span> <span class="token function-definition function">set_event_idx</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> enabled<span class="token punctuation">:</span> <span class="token keyword">bool</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//write()&#x51FD;&#x6570;&#x662F;&#x8BFB;&#x5199;&#x9501;&#x7684;&#x83B7;&#x53D6;&#x5199;&#x9501;</span>
+    <span class="token keyword">self</span><span class="token punctuation">.</span>thread<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>event_idx <span class="token operator">=</span> enabled<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">fn</span> <span class="token function-definition function">update_memory</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> mem<span class="token punctuation">:</span> <span class="token class-name">GuestMemoryAtomic</span><span class="token operator">&lt;</span><span class="token class-name">GuestMemoryMmap</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">VhostUserBackendResult</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">self</span><span class="token punctuation">.</span>thread<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>mem <span class="token operator">=</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>mem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">fn</span> <span class="token function-definition function">handle_event</span><span class="token punctuation">(</span>
+    <span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span>
+    device_event<span class="token punctuation">:</span> <span class="token keyword">u16</span><span class="token punctuation">,</span>
+    evset<span class="token punctuation">:</span> <span class="token class-name">EventSet</span><span class="token punctuation">,</span>
+    vrings<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token class-name">VringMutex</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    _thread_id<span class="token punctuation">:</span> <span class="token keyword">usize</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">VhostUserBackendResult</span><span class="token operator">&lt;</span><span class="token keyword">bool</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> evset <span class="token operator">!=</span> <span class="token class-name">EventSet</span><span class="token punctuation">::</span><span class="token constant">IN</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token class-name">Err</span><span class="token punctuation">(</span><span class="token class-name">Error</span><span class="token punctuation">::</span><span class="token class-name">HandleEventNotEpollIn</span><span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">let</span> thread <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>thread<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&#x6301;&#x6709;&#x8BFB;&#x9501;&#x76F4;&#x5230;thread&#x6D88;&#x4EA1;</span>
+
+    <span class="token keyword">if</span> thread<span class="token punctuation">.</span>pool<span class="token punctuation">.</span><span class="token function">is_some</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        thread<span class="token punctuation">.</span><span class="token function">handle_event_pool</span><span class="token punctuation">(</span>device_event<span class="token punctuation">,</span> vrings<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        thread<span class="token punctuation">.</span><span class="token function">handle_event_serial</span><span class="token punctuation">(</span>device_event<span class="token punctuation">,</span> vrings<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">fn</span> <span class="token function-definition function">exit_event</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> _thread_index<span class="token punctuation">:</span> <span class="token keyword">usize</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">EventFd</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token class-name">Some</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">.</span>thread<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>kill_evt<span class="token punctuation">.</span><span class="token function">try_clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">fn</span> <span class="token function-definition function">set_slave_req_fd</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> vu_req<span class="token punctuation">:</span> <span class="token class-name">SlaveFsCacheReq</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">self</span><span class="token punctuation">.</span>thread<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>vu_req <span class="token operator">=</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>vu_req<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x5904;&#x7406;signal"><a name="&#x5904;&#x7406;signal" class="anchor-navigation-ex-anchor" href="#&#x5904;&#x7406;signal"><i class="fa fa-link" aria-hidden="true"></i></a>4.3. &#x5904;&#x7406;signal</h2>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">fn</span> <span class="token function-definition function">set_signal_handlers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">use</span> <span class="token namespace">vmm_sys_util<span class="token punctuation">::</span></span>signal<span class="token punctuation">;</span>
+
+    <span class="token keyword">extern</span> <span class="token string">&quot;C&quot;</span> <span class="token keyword">fn</span> <span class="token function-definition function">handle_signal</span><span class="token punctuation">(</span>_<span class="token punctuation">:</span> <span class="token namespace">libc<span class="token punctuation">::</span></span>c_int<span class="token punctuation">,</span> _<span class="token punctuation">:</span> <span class="token operator">*</span><span class="token keyword">mut</span> <span class="token namespace">libc<span class="token punctuation">::</span></span>siginfo_t<span class="token punctuation">,</span> _<span class="token punctuation">:</span> <span class="token operator">*</span><span class="token keyword">mut</span> <span class="token namespace">libc<span class="token punctuation">::</span></span>c_void<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">unsafe</span> <span class="token punctuation">{</span> <span class="token namespace">libc<span class="token punctuation">::</span></span><span class="token function">_exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">let</span> signals <span class="token operator">=</span> <span class="token macro property">vec!</span><span class="token punctuation">[</span><span class="token namespace">libc<span class="token punctuation">::</span></span><span class="token constant">SIGHUP</span><span class="token punctuation">,</span> <span class="token namespace">libc<span class="token punctuation">::</span></span><span class="token constant">SIGTERM</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> s <span class="token keyword">in</span> signals <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Err</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token namespace">signal<span class="token punctuation">::</span></span><span class="token function">register_signal_handler</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> handle_signal<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token macro property">error!</span><span class="token punctuation">(</span><span class="token string">&quot;Setting signal handlers: {}&quot;</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token namespace">process<span class="token punctuation">::</span></span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="main-&#x6D41;&#x7A0B;"><a name="main-&#x6D41;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#main-&#x6D41;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>4.4. main &#x6D41;&#x7A0B;</h2>
+<ol>
+<li>&#x5148;&#x89E3;&#x6790;&#x547D;&#x4EE4;&#x884C;&#x53C2;&#x6570;<code>Opt::from_args()</code></li>
+<li>&#x521D;&#x59CB;&#x5316;log&#x7CFB;&#x7EDF;, &#x5C1D;&#x8BD5;&#x6309;&#x4E0B;&#x9762;&#x65B9;&#x5F0F;&#x8FDE;&#x63A5;syslog<ul>
+<li>Unix sockets /dev/log and /var/run/syslog</li>
+<li>Tcp connection to 127.0.0.1:601</li>
+<li>Udp connection to 127.0.0.1:514</li>
+</ul>
+</li>
+<li>&#x5B89;&#x88C5;sighandler for SIGHUP SIGTERM</li>
+<li>&#x589E;&#x52A0;rlimit&#x7684;open file&#x6570;&#x91CF;&#x5230;&#x6700;&#x5927;</li>
+<li>&#x521B;&#x5EFA;sandbox
+&#x8FD9;&#x91CC;&#x9762;&#x8C03;&#x7528;&#x4E86;&#x5F88;&#x591A;libc&#x7684;&#x51FD;&#x6570;. fork&#x8FDB;&#x7A0B;, &#x5728;&#x7236;&#x8FDB;&#x7A0B;&#x4E2D;&#x7B49;&#x5F85;, &#x5728;&#x5B50;&#x8FDB;&#x7A0B;&#x4E2D;:<ul>
+<li>&#x7528;unshare&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x8FDB;&#x5165;&#x540D;&#x5B57;&#x7A7A;&#x95F4;</li>
+<li>&#x5728;&#x540D;&#x5B57;&#x7A7A;&#x95F4;&#x4E2D;mount <code>/proc</code>&#x548C;<code>shared_dir</code></li>
+<li>&#x8C03;&#x7528;pivot_root&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x6765;chroot</li>
+<li>&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x7528;chroot&#x7CFB;&#x7EDF;&#x8C03;&#x7528;, &#x7B80;&#x5355;&#x70B9;, &#x4F46;chroot&#x4E0D;&#x662F;&#x5F88;&#x5B89;&#x5168;. pivot_root+mount&#x53EF;&#x80FD;&#x9EBB;&#x70E6;&#x70B9;, <a href="https://news.ycombinator.com/item?id=23167383" target="_blank">&#x4F46;&#x5B89;&#x5168;</a>.</li>
+</ul>
+</li>
+<li>&#x5982;&#x679C;uid&#x662F;0(root), &#x4E22;&#x5F03;&#x4E0D;&#x9700;&#x8981;&#x7684;&#x6743;&#x9650;</li>
+<li>&#x521B;&#x5EFA;&#x5185;&#x90E8;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x8868;&#x8FBE;, &#x628A;&#x6536;&#x5230;&#x7684;&#x8BF7;&#x6C42;&#x900F;&#x4F20;&#x5230;&#x5E95;&#x5C42;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</li>
+<li>&#x521B;&#x5EFA;VhostUserFsBackend&#x7EBF;&#x7A0B;</li>
+<li>&#x521B;&#x5EFA;VhostUserDaemon daemon, &#x5C31;&#x662F;new&#x4E00;&#x4E2A;VhostUserDaemon&#x7ED3;&#x6784;&#x4F53;</li>
+<li>&#x5F00;&#x59CB;&#x670D;&#x52A1;. daemon.start <ul>
+<li>vhost&#x7684;&#x540E;&#x7AEF;(virtiofsd)&#x548C;&#x524D;&#x7AEF;(could-hypervisor)&#x901A;&#x8FC7;unix socket&#x6765;&#x4EA4;&#x6362;vqueue&#x7684;&#x4FE1;&#x606F;, &#x5206;&#x4EAB;vqueue&#x7684;&#x524D;&#x7AEF;&#x662F;master, &#x4F7F;&#x7528;vqueue&#x7684;&#x540E;&#x7AEF;&#x662F;slave. &#x6240;&#x4EE5;virtiofsd&#x662F;socket&#x7684;server&#x7AEF;, &#x4F46;&#x662F;vqueue&#x7684;slave&#x7AEF;. &#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x5148;new&#x4E00;&#x4E2A;<code>SlaveListener</code></li>
+<li>&#x7136;&#x540E;&#x7528;&#x8FD9;&#x4E2A;SlaveListener accept&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;. &#x8FD9;&#x91CC;&#x5C31;&#x662F;rust&#x4E0D;&#x592A;&#x65B9;&#x4FBF;&#x7684;&#x5730;&#x65B9;, &#x8981;&#x652F;&#x6301;&#x591A;&#x4E2A;&#x8FDE;&#x63A5;, &#x8FD8;&#x8981;&#x641E;pool+async&#x7B49;.</li>
+<li>&#x7136;&#x540E;handle&#x8FD9;&#x4E2A;&#x8FDE;&#x63A5;, &#x5904;&#x7406;vhost-user&#x6D88;&#x606F;</li>
+</ul>
+</li>
+<li>&#x7B49;&#x5F85;&#x5B50;&#x8FDB;&#x7A0B;&#x7ED3;&#x675F;(join), &#x8868;&#x793A;client disconnect, &#x53D1;&#x9001;kill event&#x5230;worker&#x7EBF;&#x7A0B;&#x7ED3;&#x675F;.</li>
+</ol>
+<h2 id="&#x5982;&#x4F55;handle-vhost-user&#x6D88;&#x606F;"><a name="&#x5982;&#x4F55;handle-vhost-user&#x6D88;&#x606F;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;handle-vhost-user&#x6D88;&#x606F;"><i class="fa fa-link" aria-hidden="true"></i></a>4.5. &#x5982;&#x4F55;handle vhost-user&#x6D88;&#x606F;</h2>
+<p>&#x5728;main&#x6D41;&#x7A0B;&#x7684;&#x7B2C;10&#x6B65;, vmm&#x505A;&#x4E3A;client&#x8FDE;&#x63A5;&#x5230;virtiofsd&#x7684;&#x65F6;&#x5019;, &#x4E24;&#x8005;&#x901A;&#x8FC7;unix socket&#x4EA4;&#x6362;vhost-user&#x6D88;&#x606F;.</p>
+<ul>
+<li>&#x4ECE;unix socket&#x6765;&#x8BF4;, virtiofsd&#x662F;server, vmm&#x662F;client</li>
+<li>&#x4ECE;vqueue&#x6765;&#x8BF4;, virtiofsd&#x662F;slave, vmm&#x662F;master.</li>
+</ul>
+<p>vhost crate&#x7684;vhost-user&#x63D0;&#x4F9B;&#x4E86;<code>SlaveListener</code>&#x6765;&#x5904;&#x7406;&#x8FDE;&#x63A5;&#x548C;&#x6D88;&#x606F;:</p>
+<pre class="language-"><code class="lang-rust"><span class="token comment">/// Sets up a listener for incoming master connections, and handles construction</span>
+<span class="token comment">/// of a Slave on success.</span>
+<span class="token keyword">impl</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token punctuation">:</span> <span class="token class-name">VhostUserSlaveReqHandler</span><span class="token operator">&gt;</span> <span class="token class-name">SlaveListener</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">/// Create a unix domain socket for incoming master connections.</span>
+    <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">new</span><span class="token punctuation">(</span>listener<span class="token punctuation">:</span> <span class="token class-name">Listener</span><span class="token punctuation">,</span> backend<span class="token punctuation">:</span> <span class="token class-name">Arc</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">SlaveListener</span> <span class="token punctuation">{</span>
+            listener<span class="token punctuation">,</span>
+            backend<span class="token punctuation">:</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>backend<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/// Accept an incoming connection from the master, returning Some(Slave) on</span>
+    <span class="token comment">/// success, or None if the socket is nonblocking and no incoming connection</span>
+    <span class="token comment">/// was detected</span>
+    <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">accept</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">SlaveReqHandler</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>listener<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">?</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">Some</span><span class="token punctuation">(</span><span class="token class-name">SlaveReqHandler</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>
+                <span class="token class-name">Endpoint</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">MasterReq</span><span class="token operator">&gt;</span><span class="token punctuation">::</span><span class="token function">from_stream</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">self</span><span class="token punctuation">.</span>backend<span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">None</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/// Change blocking status on the listener.</span>
+    <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">set_nonblocking</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> block<span class="token punctuation">:</span> <span class="token keyword">bool</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span>listener<span class="token punctuation">.</span><span class="token function">set_nonblocking</span><span class="token punctuation">(</span>block<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x9762;&#x7684;backend&#x5C31;&#x662F;<code>Arc<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>VhostUserSlaveReqHandler</span><span class="token punctuation">&gt;</span></span></code>, &#x8FD9;&#x4E2A;<code>VhostUserSlaveReqHandler</code>&#x5E94;&#x8BE5;&#x5C31;&#x4F1A;&#x5904;&#x7406;vhost-user&#x6D88;&#x606F;. &#x8FD9;&#x4E2A;trait&#x5B9A;&#x4E49;&#x5728;<code>vhost/f87156b/src/vhost_user/slave_req_handler.rs</code></p>
+<p>vhost-user&#x7684;&#x6D88;&#x606F;&#x5934;:</p>
+<pre class="language-"><code class="lang-rust"><span class="token comment">/// Common message header for vhost-user requests and replies.</span>
+<span class="token comment">/// A vhost-user message consists of 3 header fields and an optional payload. All numbers are in the</span>
+<span class="token comment">/// machine native byte order.</span>
+<span class="token attribute attr-name">#[repr(packed)]</span> <span class="token comment">//repr(packed)&#x662F;&#x8BF4;&#x8BA9;&#x7F16;&#x8BD1;&#x5668;&#x53BB;&#x6389;padding, &#x5B57;&#x8282;&#x5BF9;&#x9F50;</span>
+<span class="token attribute attr-name">#[derive(Copy)]</span>
+<span class="token keyword">pub</span><span class="token punctuation">(</span><span class="token keyword">super</span><span class="token punctuation">)</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">VhostUserMsgHeader</span><span class="token operator">&lt;</span><span class="token class-name">R</span><span class="token punctuation">:</span> <span class="token class-name">Req</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    request<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    flags<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    size<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+    _r<span class="token punctuation">:</span> <span class="token class-name">PhantomData</span><span class="token operator">&lt;</span><span class="token class-name">R</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token comment">//PhantomData&lt;T&gt;&#x5B9E;&#x9645;&#x4E0A;&#x662F;0&#x5B57;&#x8282;, &#x610F;&#x601D;&#x662F;&quot;&#x5047;&#x88C5;&quot;&#x62E5;&#x6709;T</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="master&#x7684;req&#x7C7B;&#x578B;"><a name="master&#x7684;req&#x7C7B;&#x578B;" class="anchor-navigation-ex-anchor" href="#master&#x7684;req&#x7C7B;&#x578B;"><i class="fa fa-link" aria-hidden="true"></i></a>4.5.1. master&#x7684;req&#x7C7B;&#x578B;</h3>
+<pre class="language-"><code class="lang-rust"><span class="token comment">/// Type of requests sending from masters to slaves.</span>
+<span class="token attribute attr-name">#[repr(u32)]</span>
+<span class="token attribute attr-name">#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]</span>
+<span class="token keyword">pub</span> <span class="token keyword">enum</span> <span class="token type-definition class-name">MasterReq</span> <span class="token punctuation">{</span>
+    <span class="token comment">/// Null operation.</span>
+    <span class="token constant">NOOP</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Get from the underlying vhost implementation the features bit mask.</span>
+    <span class="token constant">GET_FEATURES</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Enable features in the underlying vhost implementation using a bit mask.</span>
+    <span class="token constant">SET_FEATURES</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the current Master as an owner of the session.</span>
+    <span class="token constant">SET_OWNER</span> <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token comment">/// No longer used.</span>
+    <span class="token constant">RESET_OWNER</span> <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the memory map regions on the slave so it can translate the vring addresses.</span>
+    <span class="token constant">SET_MEM_TABLE</span> <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set logging shared memory space.</span>
+    <span class="token constant">SET_LOG_BASE</span> <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the logging file descriptor, which is passed as ancillary data.</span>
+    <span class="token constant">SET_LOG_FD</span> <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the size of the queue.</span>
+    <span class="token constant">SET_VRING_NUM</span> <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the addresses of the different aspects of the vring.</span>
+    <span class="token constant">SET_VRING_ADDR</span> <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the base offset in the available vring.</span>
+    <span class="token constant">SET_VRING_BASE</span> <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Get the available vring base offset.</span>
+    <span class="token constant">GET_VRING_BASE</span> <span class="token operator">=</span> <span class="token number">11</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the event file descriptor for adding buffers to the vring.</span>
+    <span class="token constant">SET_VRING_KICK</span> <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the event file descriptor to signal when buffers are used.</span>
+    <span class="token constant">SET_VRING_CALL</span> <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the event file descriptor to signal when error occurs.</span>
+    <span class="token constant">SET_VRING_ERR</span> <span class="token operator">=</span> <span class="token number">14</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Get the protocol feature bit mask from the underlying vhost implementation.</span>
+    <span class="token constant">GET_PROTOCOL_FEATURES</span> <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Enable protocol features in the underlying vhost implementation.</span>
+    <span class="token constant">SET_PROTOCOL_FEATURES</span> <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Query how many queues the backend supports.</span>
+    <span class="token constant">GET_QUEUE_NUM</span> <span class="token operator">=</span> <span class="token number">17</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Signal slave to enable or disable corresponding vring.</span>
+    <span class="token constant">SET_VRING_ENABLE</span> <span class="token operator">=</span> <span class="token number">18</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Ask vhost user backend to broadcast a fake RARP to notify the migration is terminated</span>
+    <span class="token comment">/// for guest that does not support GUEST_ANNOUNCE.</span>
+    <span class="token constant">SEND_RARP</span> <span class="token operator">=</span> <span class="token number">19</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set host MTU value exposed to the guest.</span>
+    <span class="token constant">NET_SET_MTU</span> <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the socket file descriptor for slave initiated requests.</span>
+    <span class="token constant">SET_SLAVE_REQ_FD</span> <span class="token operator">=</span> <span class="token number">21</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Send IOTLB messages with struct vhost_iotlb_msg as payload.</span>
+    <span class="token constant">IOTLB_MSG</span> <span class="token operator">=</span> <span class="token number">22</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Set the endianness of a VQ for legacy devices.</span>
+    <span class="token constant">SET_VRING_ENDIAN</span> <span class="token operator">=</span> <span class="token number">23</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Fetch the contents of the virtio device configuration space.</span>
+    <span class="token constant">GET_CONFIG</span> <span class="token operator">=</span> <span class="token number">24</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Change the contents of the virtio device configuration space.</span>
+    <span class="token constant">SET_CONFIG</span> <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Create a session for crypto operation.</span>
+    <span class="token constant">CREATE_CRYPTO_SESSION</span> <span class="token operator">=</span> <span class="token number">26</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Close a session for crypto operation.</span>
+    <span class="token constant">CLOSE_CRYPTO_SESSION</span> <span class="token operator">=</span> <span class="token number">27</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Advise slave that a migration with postcopy enabled is underway.</span>
+    <span class="token constant">POSTCOPY_ADVISE</span> <span class="token operator">=</span> <span class="token number">28</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Advise slave that a transition to postcopy mode has happened.</span>
+    <span class="token constant">POSTCOPY_LISTEN</span> <span class="token operator">=</span> <span class="token number">29</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Advise that postcopy migration has now completed.</span>
+    <span class="token constant">POSTCOPY_END</span> <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Get a shared buffer from slave.</span>
+    <span class="token constant">GET_INFLIGHT_FD</span> <span class="token operator">=</span> <span class="token number">31</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Send the shared inflight buffer back to slave.</span>
+    <span class="token constant">SET_INFLIGHT_FD</span> <span class="token operator">=</span> <span class="token number">32</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Sets the GPU protocol socket file descriptor.</span>
+    <span class="token constant">GPU_SET_SOCKET</span> <span class="token operator">=</span> <span class="token number">33</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Ask the vhost user backend to disable all rings and reset all internal</span>
+    <span class="token comment">/// device state to the initial state.</span>
+    <span class="token constant">RESET_DEVICE</span> <span class="token operator">=</span> <span class="token number">34</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Indicate that a buffer was added to the vring instead of signalling it</span>
+    <span class="token comment">/// using the vring&#x2019;s kick file descriptor.</span>
+    <span class="token constant">VRING_KICK</span> <span class="token operator">=</span> <span class="token number">35</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Return a u64 payload containing the maximum number of memory slots.</span>
+    <span class="token constant">GET_MAX_MEM_SLOTS</span> <span class="token operator">=</span> <span class="token number">36</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Update the memory tables by adding the region described.</span>
+    <span class="token constant">ADD_MEM_REG</span> <span class="token operator">=</span> <span class="token number">37</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Update the memory tables by removing the region described.</span>
+    <span class="token constant">REM_MEM_REG</span> <span class="token operator">=</span> <span class="token number">38</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Notify the backend with updated device status as defined in the VIRTIO</span>
+    <span class="token comment">/// specification.</span>
+    <span class="token constant">SET_STATUS</span> <span class="token operator">=</span> <span class="token number">39</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Query the backend for its device status as defined in the VIRTIO</span>
+    <span class="token comment">/// specification.</span>
+    <span class="token constant">GET_STATUS</span> <span class="token operator">=</span> <span class="token number">40</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Upper bound of valid commands.</span>
+    <span class="token constant">MAX_CMD</span> <span class="token operator">=</span> <span class="token number">41</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="handle&#x4E3B;&#x8981;&#x6D41;&#x7A0B;"><a name="handle&#x4E3B;&#x8981;&#x6D41;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#handle&#x4E3B;&#x8981;&#x6D41;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>4.5.2. handle&#x4E3B;&#x8981;&#x6D41;&#x7A0B;</h3>
+<p>master&#x8FC7;&#x6765;&#x7684;req, &#x7531;<code>SlaveReqHandler</code>&#x6765;&#x5904;&#x7406;. <code>SlaveReqHandler</code>&#x6709;&#x4E2A;<code>VhostUserSlaveReqHandler</code>&#x7684;backend</p>
+<pre class="language-"><code class="lang-rust"><span class="token comment">/// Server to handle service requests from masters from the master communication channel.</span>
+<span class="token comment">///</span>
+<span class="token comment">/// The [SlaveReqHandler] acts as a server on the slave side, to handle service requests from</span>
+<span class="token comment">/// masters on the master communication channel. It&apos;s actually a proxy invoking the registered</span>
+<span class="token comment">/// handler implementing [VhostUserSlaveReqHandler] to do the real work.</span>
+<span class="token comment">///</span>
+<span class="token comment">/// The lifetime of the SlaveReqHandler object should be the same as the underline Unix Domain</span>
+<span class="token comment">/// Socket, so it gets simpler to recover from disconnect.</span>
+<span class="token comment">///</span>
+<span class="token comment">/// [VhostUserSlaveReqHandler]: trait.VhostUserSlaveReqHandler.html</span>
+<span class="token comment">/// [SlaveReqHandler]: struct.SlaveReqHandler.html</span>
+<span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">SlaveReqHandler</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token punctuation">:</span> <span class="token class-name">VhostUserSlaveReqHandler</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// underlying Unix domain socket for communication</span>
+    main_sock<span class="token punctuation">:</span> <span class="token class-name">Endpoint</span><span class="token operator">&lt;</span><span class="token class-name">MasterReq</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    <span class="token comment">// the vhost-user backend device object</span>
+    backend<span class="token punctuation">:</span> <span class="token class-name">Arc</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+
+    virtio_features<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+    acked_virtio_features<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+    protocol_features<span class="token punctuation">:</span> <span class="token class-name">VhostUserProtocolFeatures</span><span class="token punctuation">,</span>
+    acked_protocol_features<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+
+    <span class="token comment">// sending ack for messages without payload</span>
+    reply_ack_enabled<span class="token punctuation">:</span> <span class="token keyword">bool</span><span class="token punctuation">,</span>
+    <span class="token comment">// whether the endpoint has encountered any failure</span>
+    error<span class="token punctuation">:</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token keyword">i32</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4ECE;socket&#x91CC;&#x9762;&#x5148;&#x8BFB;&#x6D88;&#x606F;&#x5934;, &#x91CC;&#x9762;&#x6709;payload size. &#x518D;&#x8BFB;&#x8FD9;&#x4E2A;size, &#x5F97;&#x5230;&#x5177;&#x4F53;&#x7684;&#x6D88;&#x606F;.</p>
+<pre class="language-"><code class="lang-rust"><span class="token comment">//&#x6BCF;&#x6B21;&#x5904;&#x7406;&#x4E00;&#x4E2A;master&#x53D1;&#x8FC7;&#x6765;&#x7684;req</span>
+<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">handle_request</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">//&#x5148;&#x68C0;&#x67E5;&#x72B6;&#x6001;</span>
+  <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">check_state</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+  <span class="token comment">//&#x8BFB;&#x6D88;&#x606F;&#x5934;, &#x548C;&#x4F20;&#x9012;&#x8FC7;&#x6765;&#x7684;fd&#x8868;(files), &#x540E;&#x8005;&#x662F;&#x7528;cmsg&#x643A;&#x5E26;&#x7684;</span>
+  <span class="token keyword">let</span> <span class="token punctuation">(</span>hdr<span class="token punctuation">,</span> files<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>main_sock<span class="token punctuation">.</span><span class="token function">recv_header</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+    <span class="token comment">//&#x521B;&#x5EFA;header&#x7A7A;&#x95F4;</span>
+    <span class="token comment">//&#x7EC4;&#x5EFA;iovec</span>
+    <span class="token comment">//&#x5E95;&#x5C42;&#x4F7F;&#x7528;&#x4E86;unix socket&#x7684;&#x4F20;&#x9012;fd&#x7684;&#x529F;&#x80FD;(SCM_RIGHTS). &#x6700;&#x591A;&#x6BCF;&#x6B21;&#x6536;32&#x4E2A;fd</span>
+    <span class="token comment">//SCM_RIGHTS&#x53C8;&#x662F;&#x57FA;&#x4E8E;socket&#x7684;control message(man 3 cmsg)&#x7684;. </span>
+
+  <span class="token comment">//&#x6839;&#x636E;&#x6D88;&#x606F;&#x5934;&#x91CC;&#x7684;size&#x8BFB;payload</span>
+  <span class="token keyword">let</span> <span class="token punctuation">(</span>size<span class="token punctuation">,</span> buf<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">match</span> hdr<span class="token punctuation">.</span><span class="token function">get_size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token number">0</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token macro property">vec!</span><span class="token punctuation">[</span><span class="token number">0u8</span><span class="token punctuation">;</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      len <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token comment">//</span>
+          <span class="token keyword">let</span> <span class="token punctuation">(</span>size2<span class="token punctuation">,</span> rbuf<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>main_sock<span class="token punctuation">.</span><span class="token function">recv_data</span><span class="token punctuation">(</span>len <span class="token keyword">as</span> <span class="token keyword">usize</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+          <span class="token keyword">if</span> size2 <span class="token operator">!=</span> len <span class="token keyword">as</span> <span class="token keyword">usize</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> <span class="token class-name">Err</span><span class="token punctuation">(</span><span class="token class-name">Error</span><span class="token punctuation">::</span><span class="token class-name">InvalidMessage</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+          <span class="token punctuation">(</span>size2<span class="token punctuation">,</span> rbuf<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token comment">//&#x6839;&#x636E;hdr&#x7684;&#x6D88;&#x606F;&#x7801;&#x505A;&#x5BF9;&#x5E94;&#x7684;&#x52A8;&#x4F5C;</span>
+  <span class="token keyword">match</span> hdr<span class="token punctuation">.</span><span class="token function">get_code</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">MasterReq</span><span class="token punctuation">::</span><span class="token constant">SET_OWNER</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">check_request_size</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+        <span class="token comment">//&#x8C03;&#x7528;&#x540E;&#x7AEF;&#x6267;&#x884C;&#x52A8;&#x4F5C;</span>
+        <span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>backend<span class="token punctuation">.</span><span class="token function">set_owner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">send_ack_message</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">//&#x5730;&#x5740;mapping</span>
+    <span class="token class-name">MasterReq</span><span class="token punctuation">::</span><span class="token constant">SET_MEM_TABLE</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">set_mem_table</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">,</span> files<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">send_ack_message</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token class-name">MasterReq</span><span class="token punctuation">::</span><span class="token constant">SET_VRING_ADDR</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> msg <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">extract_request_body</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">VhostUserVringAddr</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> flags <span class="token operator">=</span> <span class="token keyword">match</span> <span class="token class-name">VhostUserVringAddrFlags</span><span class="token punctuation">::</span><span class="token function">from_bits</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>flags<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">Some</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> val<span class="token punctuation">,</span>
+            <span class="token class-name">None</span> <span class="token operator">=&gt;</span> <span class="token keyword">return</span> <span class="token class-name">Err</span><span class="token punctuation">(</span><span class="token class-name">Error</span><span class="token punctuation">::</span><span class="token class-name">InvalidMessage</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>backend<span class="token punctuation">.</span><span class="token function">set_vring_addr</span><span class="token punctuation">(</span>
+            msg<span class="token punctuation">.</span>index<span class="token punctuation">,</span>
+            flags<span class="token punctuation">,</span>
+            msg<span class="token punctuation">.</span>descriptor<span class="token punctuation">,</span>
+            msg<span class="token punctuation">.</span>used<span class="token punctuation">,</span>
+            msg<span class="token punctuation">.</span>available<span class="token punctuation">,</span>
+            msg<span class="token punctuation">.</span>log<span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">send_ack_message</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token class-name">MasterReq</span><span class="token punctuation">::</span><span class="token constant">SET_VRING_BASE</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> msg <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">extract_request_body</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">VhostUserVringState</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+      <span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>backend<span class="token punctuation">.</span><span class="token function">set_vring_base</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>index<span class="token punctuation">,</span> msg<span class="token punctuation">.</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">send_ack_message</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//&#x901A;&#x77E5;</span>
+    <span class="token class-name">MasterReq</span><span class="token punctuation">::</span><span class="token constant">SET_VRING_CALL</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">check_request_size</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token namespace">mem<span class="token punctuation">::</span></span><span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">VhostUserU64</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> <span class="token punctuation">(</span>index<span class="token punctuation">,</span> file<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">handle_vring_fd_request</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>buf<span class="token punctuation">,</span> files<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>backend<span class="token punctuation">.</span><span class="token function">set_vring_call</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> file<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">send_ack_message</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token class-name">MasterReq</span><span class="token punctuation">::</span><span class="token constant">SET_VRING_KICK</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">check_request_size</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> size<span class="token punctuation">,</span> <span class="token namespace">mem<span class="token punctuation">::</span></span><span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">VhostUserU64</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> <span class="token punctuation">(</span>index<span class="token punctuation">,</span> file<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">handle_vring_fd_request</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>buf<span class="token punctuation">,</span> files<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>backend<span class="token punctuation">.</span><span class="token function">set_vring_kick</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> file<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">send_ack_message</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>hdr<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="&#x5982;&#x4F55;map&#x5730;&#x5740;"><a name="&#x5982;&#x4F55;map&#x5730;&#x5740;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;map&#x5730;&#x5740;"><i class="fa fa-link" aria-hidden="true"></i></a>4.5.3. &#x5982;&#x4F55;map&#x5730;&#x5740;</h3>
+<p><code>MasterReq::SET_MEM_TABLE</code>&#x7684;payload&#x662F;&#x4E0B;&#x9762;&#x7684;&#x7ED3;&#x6784;&#x4F53;&#x7684;slice</p>
+<pre class="language-"><code class="lang-rust"><span class="token comment">/// Memory region descriptors as payload for the SET_MEM_TABLE request.</span>
+<span class="token attribute attr-name">#[repr(packed)]</span>
+<span class="token attribute attr-name">#[derive(Default, Clone, Copy)]</span>
+<span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">VhostUserMemoryRegion</span> <span class="token punctuation">{</span>
+    <span class="token comment">/// Guest physical address of the memory region.</span>
+    <span class="token keyword">pub</span> guest_phys_addr<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Size of the memory region.</span>
+    <span class="token keyword">pub</span> memory_size<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Virtual address in the current process.</span>
+    <span class="token keyword">pub</span> user_addr<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+    <span class="token comment">/// Offset where region starts in the mapped memory.</span>
+    <span class="token keyword">pub</span> mmap_offset<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5728;<code>self.set_mem_table(&amp;hdr, size, &amp;buf, files)</code>&#x4E2D;, &#x628A;payload&#x91CD;&#x7EC4;&#x6210;memory region&#x7684;slice:</p>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">let</span> regions <span class="token operator">=</span> <span class="token keyword">unsafe</span> <span class="token punctuation">{</span>
+    <span class="token namespace">slice<span class="token punctuation">::</span></span><span class="token function">from_raw_parts</span><span class="token punctuation">(</span>
+        buf<span class="token punctuation">.</span><span class="token function">as_ptr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>hdrsize<span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token operator">*</span><span class="token keyword">const</span> <span class="token class-name">VhostUserMemoryRegion</span><span class="token punctuation">,</span>
+        msg<span class="token punctuation">.</span>num_regions <span class="token keyword">as</span> <span class="token keyword">usize</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x7136;&#x540E;&#x8C03;&#x7528;&#x540E;&#x7AEF;&#x7684;<code>set_mem_table</code></p>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">self</span><span class="token punctuation">.</span>backend<span class="token punctuation">.</span><span class="token function">set_mem_table</span><span class="token punctuation">(</span>regions<span class="token punctuation">,</span> files<span class="token punctuation">)</span>
+</code></pre>
+<h3 id="selfbackend&#x5230;&#x5E95;&#x662F;&#x4EC0;&#x4E48;"><a name="selfbackend&#x5230;&#x5E95;&#x662F;&#x4EC0;&#x4E48;" class="anchor-navigation-ex-anchor" href="#selfbackend&#x5230;&#x5E95;&#x662F;&#x4EC0;&#x4E48;"><i class="fa fa-link" aria-hidden="true"></i></a>4.5.4. self.backend&#x5230;&#x5E95;&#x662F;&#x4EC0;&#x4E48;?</h3>
+<p><code>SlaveReqHandler</code>&#x6536;&#x5230;master&#x6D88;&#x606F;, &#x89E3;&#x6790;&#x6D88;&#x606F;, &#x6700;&#x540E;&#x505A;&#x52A8;&#x4F5C;&#x7684;&#x65F6;&#x5019;, &#x5B9E;&#x9645;&#x8C03;&#x7528;&#x7684;&#x662F;<code>self.backend.set_mem_table(regions, files)</code>. &#x8FD9;&#x91CC;&#x7684;backend&#x5C31;&#x662F;<code>VhostUserSlaveReqHandler</code>, &#x8FD9;&#x662F;&#x4E2A;trait, &#x5B83;&#x89C4;&#x5B9A;&#x4E86;<code>set_mem_table</code>&#x7684;&#x539F;&#x578B;:</p>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">fn</span> <span class="token function-definition function">set_mem_table</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> ctx<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token class-name">VhostUserMemoryRegion</span><span class="token punctuation">]</span><span class="token punctuation">,</span> files<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">File</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x5728;main&#x91CC;&#x9762;&#x6BD4;&#x8F83;&#x65E9;&#x7684;&#x65F6;&#x5019;, &#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;, &#x521D;&#x59CB;&#x5316;&#x4E86;fs_cfg</p>
+<pre class="language-"><code class="lang-rust">    <span class="token keyword">let</span> fs_cfg <span class="token operator">=</span> <span class="token namespace">passthrough<span class="token punctuation">::</span></span><span class="token class-name">Config</span> <span class="token punctuation">{</span>
+        cache_policy<span class="token punctuation">:</span> opt<span class="token punctuation">.</span>cache<span class="token punctuation">,</span>
+        root_dir<span class="token punctuation">:</span> sandbox<span class="token punctuation">.</span><span class="token function">get_root_dir</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        mountinfo_prefix<span class="token punctuation">:</span> sandbox<span class="token punctuation">.</span><span class="token function">get_mountinfo_prefix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        xattr<span class="token punctuation">,</span>
+        xattrmap<span class="token punctuation">,</span>
+        proc_sfd_rawfd<span class="token punctuation">:</span> sandbox<span class="token punctuation">.</span><span class="token function">get_proc_self_fd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        proc_mountinfo_rawfd<span class="token punctuation">:</span> sandbox<span class="token punctuation">.</span><span class="token function">get_mountinfo_fd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        announce_submounts<span class="token punctuation">:</span> opt<span class="token punctuation">.</span>announce_submounts<span class="token punctuation">,</span>
+        inode_file_handles<span class="token punctuation">:</span> opt<span class="token punctuation">.</span>inode_file_handles<span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        readdirplus<span class="token punctuation">,</span>
+        writeback<span class="token punctuation">:</span> opt<span class="token punctuation">.</span>writeback<span class="token punctuation">,</span>
+        allow_direct_io<span class="token punctuation">:</span> opt<span class="token punctuation">.</span>allow_direct_io<span class="token punctuation">,</span>
+        killpriv_v2<span class="token punctuation">,</span>
+        security_label<span class="token punctuation">:</span> opt<span class="token punctuation">.</span>security_label<span class="token punctuation">,</span>
+        posix_acl<span class="token punctuation">:</span> opt<span class="token punctuation">.</span>posix_acl<span class="token punctuation">,</span>
+        <span class="token punctuation">..</span><span class="token class-name">Default</span><span class="token punctuation">::</span><span class="token function">default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//PassthroughFs&#x5DE5;&#x4F5C;&#x5728;VhostUserFsBackend&#x4E0A;&#x9762;</span>
+    <span class="token keyword">let</span> fs <span class="token operator">=</span> <span class="token class-name">PassthroughFs</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>fs_cfg<span class="token punctuation">)</span>
+    <span class="token keyword">let</span> fs_backend <span class="token operator">=</span> <span class="token class-name">Arc</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token class-name">VhostUserFsBackend</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>fs<span class="token punctuation">,</span> thread_pool_size<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment">//VhostUserDaemon&#x7528;&#x4E0A;&#x9762;&#x7684;fs_backend&#x521D;&#x59CB;&#x5316;&#x4E86;VhostUserHandler</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> daemon <span class="token operator">=</span> <span class="token class-name">VhostUserDaemon</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>
+        <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">&quot;virtiofsd-backend&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        fs_backend<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">GuestMemoryAtomic</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token class-name">GuestMemoryMmap</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x4EE3;&#x7801;&#x5728;<code>vhost-user-backend/src/handler.rs</code>  </p>
+<p>&#x8FD9;&#x91CC;&#x7684;&#x5173;&#x952E;&#x70B9;&#x5728;&#x4E8E;<code>VhostUserHandler</code>, &#x5B83;&#x5305;&#x542B;&#x4E86;&#x4E24;&#x90E8;&#x5206;, &#x4E00;&#x4E2A;&#x662F;vhost user&#x540E;&#x7AEF;, &#x4E00;&#x4E2A;&#x662F;guest&#x5185;&#x5B58;<br><code>VhostUserDaemon.VhostUserHandler</code> = <code>VhostUserFsBackend as VhostUserBackend</code> + <code>GuestMemoryAtomic(GuestMemoryMmap)</code>  </p>
+<h4 id="vhostuserhandler&#x7ED3;&#x6784;&#x4F53;&#x548C;new&#x51FD;&#x6570;"><a name="vhostuserhandler&#x7ED3;&#x6784;&#x4F53;&#x548C;new&#x51FD;&#x6570;" class="anchor-navigation-ex-anchor" href="#vhostuserhandler&#x7ED3;&#x6784;&#x4F53;&#x548C;new&#x51FD;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a><code>VhostUserHandler</code>&#x7ED3;&#x6784;&#x4F53;&#x548C;new&#x51FD;&#x6570;</h4>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">VhostUserHandler</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token punctuation">,</span> <span class="token class-name">V</span><span class="token punctuation">,</span> <span class="token class-name">B</span><span class="token punctuation">:</span> <span class="token class-name">Bitmap</span> <span class="token operator">+</span> <span class="token lifetime-annotation symbol">&apos;static</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    backend<span class="token punctuation">:</span> <span class="token class-name">S</span><span class="token punctuation">,</span>
+    handlers<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">Arc</span><span class="token operator">&lt;</span><span class="token class-name">VringEpollHandler</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token punctuation">,</span> <span class="token class-name">V</span><span class="token punctuation">,</span> <span class="token class-name">B</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    owned<span class="token punctuation">:</span> <span class="token keyword">bool</span><span class="token punctuation">,</span>
+    features_acked<span class="token punctuation">:</span> <span class="token keyword">bool</span><span class="token punctuation">,</span>
+    acked_features<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+    acked_protocol_features<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+    num_queues<span class="token punctuation">:</span> <span class="token keyword">usize</span><span class="token punctuation">,</span>
+    max_queue_size<span class="token punctuation">:</span> <span class="token keyword">usize</span><span class="token punctuation">,</span>
+    queues_per_thread<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token keyword">u64</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    mappings<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">AddrMapping</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    atomic_mem<span class="token punctuation">:</span> <span class="token constant">GM</span><span class="token operator">&lt;</span><span class="token class-name">B</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    vrings<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">V</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    worker_threads<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token namespace">thread<span class="token punctuation">::</span></span><span class="token class-name">JoinHandle</span><span class="token operator">&lt;</span><span class="token class-name">VringEpollResult</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Ensure VhostUserHandler: Clone + Send + Sync + &apos;static.</span>
+<span class="token keyword">impl</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token punctuation">,</span> <span class="token class-name">V</span><span class="token punctuation">,</span> <span class="token class-name">B</span><span class="token operator">&gt;</span> <span class="token class-name">VhostUserHandler</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token punctuation">,</span> <span class="token class-name">V</span><span class="token punctuation">,</span> <span class="token class-name">B</span><span class="token operator">&gt;</span>
+<span class="token keyword">where</span>
+    <span class="token class-name">S</span><span class="token punctuation">:</span> <span class="token class-name">VhostUserBackend</span><span class="token operator">&lt;</span><span class="token class-name">V</span><span class="token punctuation">,</span> <span class="token class-name">B</span><span class="token operator">&gt;</span> <span class="token operator">+</span> <span class="token class-name">Clone</span> <span class="token operator">+</span> <span class="token lifetime-annotation symbol">&apos;static</span><span class="token punctuation">,</span>
+    <span class="token class-name">V</span><span class="token punctuation">:</span> <span class="token class-name">VringT</span><span class="token operator">&lt;</span><span class="token constant">GM</span><span class="token operator">&lt;</span><span class="token class-name">B</span><span class="token operator">&gt;&gt;</span> <span class="token operator">+</span> <span class="token class-name">Clone</span> <span class="token operator">+</span> <span class="token class-name">Send</span> <span class="token operator">+</span> <span class="token class-name">Sync</span> <span class="token operator">+</span> <span class="token lifetime-annotation symbol">&apos;static</span><span class="token punctuation">,</span>
+    <span class="token class-name">B</span><span class="token punctuation">:</span> <span class="token class-name">Bitmap</span> <span class="token operator">+</span> <span class="token class-name">Clone</span> <span class="token operator">+</span> <span class="token class-name">Send</span> <span class="token operator">+</span> <span class="token class-name">Sync</span> <span class="token operator">+</span> <span class="token lifetime-annotation symbol">&apos;static</span><span class="token punctuation">,</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">pub</span><span class="token punctuation">(</span><span class="token keyword">crate</span><span class="token punctuation">)</span> <span class="token keyword">fn</span> <span class="token function-definition function">new</span><span class="token punctuation">(</span>backend<span class="token punctuation">:</span> <span class="token class-name">S</span><span class="token punctuation">,</span> atomic_mem<span class="token punctuation">:</span> <span class="token constant">GM</span><span class="token operator">&lt;</span><span class="token class-name">B</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">VhostUserHandlerResult</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> num_queues <span class="token operator">=</span> backend<span class="token punctuation">.</span><span class="token function">num_queues</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> max_queue_size <span class="token operator">=</span> backend<span class="token punctuation">.</span><span class="token function">max_queue_size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> queues_per_thread <span class="token operator">=</span> backend<span class="token punctuation">.</span><span class="token function">queues_per_thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">let</span> <span class="token keyword">mut</span> vrings <span class="token operator">=</span> <span class="token class-name">Vec</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token number">0</span><span class="token punctuation">..</span>num_queues <span class="token punctuation">{</span>
+            <span class="token keyword">let</span> vring <span class="token operator">=</span> <span class="token class-name">V</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>atomic_mem<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> max_queue_size <span class="token keyword">as</span> <span class="token keyword">u16</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map_err</span><span class="token punctuation">(</span><span class="token class-name">VhostUserHandlerError</span><span class="token punctuation">::</span><span class="token class-name">CreateVring</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+            vrings<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>vring<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">let</span> <span class="token keyword">mut</span> handlers <span class="token operator">=</span> <span class="token class-name">Vec</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> <span class="token keyword">mut</span> worker_threads <span class="token operator">=</span> <span class="token class-name">Vec</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>thread_id<span class="token punctuation">,</span> queues_mask<span class="token punctuation">)</span> <span class="token keyword">in</span> queues_per_thread<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">enumerate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">let</span> <span class="token keyword">mut</span> thread_vrings <span class="token operator">=</span> <span class="token class-name">Vec</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span>index<span class="token punctuation">,</span> vring<span class="token punctuation">)</span> <span class="token keyword">in</span> vrings<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">enumerate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>queues_mask <span class="token operator">&gt;&gt;</span> index<span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">1u64</span> <span class="token operator">==</span> <span class="token number">1u64</span> <span class="token punctuation">{</span>
+                    thread_vrings<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>vring<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">let</span> handler <span class="token operator">=</span> <span class="token class-name">Arc</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>
+                <span class="token class-name">VringEpollHandler</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>backend<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> thread_vrings<span class="token punctuation">,</span> thread_id<span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">map_err</span><span class="token punctuation">(</span><span class="token class-name">VhostUserHandlerError</span><span class="token punctuation">::</span><span class="token class-name">CreateEpollHandler</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">let</span> handler2 <span class="token operator">=</span> handler<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">let</span> worker_thread <span class="token operator">=</span> <span class="token namespace">thread<span class="token punctuation">::</span></span><span class="token class-name">Builder</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token string">&quot;vring_worker&quot;</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">spawn</span><span class="token punctuation">(</span><span class="token keyword">move</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span><span class="token closure-punctuation punctuation">|</span></span> handler2<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map_err</span><span class="token punctuation">(</span><span class="token class-name">VhostUserHandlerError</span><span class="token punctuation">::</span><span class="token class-name">SpawnVringWorker</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+
+            handlers<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            worker_threads<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>worker_thread<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">VhostUserHandler</span> <span class="token punctuation">{</span>
+            backend<span class="token punctuation">,</span>
+            handlers<span class="token punctuation">,</span>
+            owned<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+            features_acked<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+            acked_features<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+            acked_protocol_features<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+            num_queues<span class="token punctuation">,</span>
+            max_queue_size<span class="token punctuation">,</span>
+            queues_per_thread<span class="token punctuation">,</span>
+            mappings<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            atomic_mem<span class="token punctuation">,</span>
+            vrings<span class="token punctuation">,</span>
+            worker_threads<span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="&#x4ECE;vmm&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x5230;guest&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;gpa"><a name="&#x4ECE;vmm&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x5230;guest&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;gpa" class="anchor-navigation-ex-anchor" href="#&#x4ECE;vmm&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x5230;guest&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;gpa"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4ECE;VMM&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;&#x5230;Guest&#x7684;&#x7269;&#x7406;&#x5730;&#x5740;(GPA)</h4>
+<p>&#x4ECE;<code>VhostUserHandler</code>&#x7684;mappings&#x7684;vec&#x91CC;&#x9762;, &#x9010;&#x4E2A;&#x5339;&#x914D;&#x5730;&#x5740;&#x533A;&#x95F4;</p>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">impl</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token punctuation">,</span> <span class="token class-name">V</span><span class="token punctuation">,</span> <span class="token class-name">B</span><span class="token punctuation">:</span> <span class="token class-name">Bitmap</span><span class="token operator">&gt;</span> <span class="token class-name">VhostUserHandler</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token punctuation">,</span> <span class="token class-name">V</span><span class="token punctuation">,</span> <span class="token class-name">B</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">pub</span><span class="token punctuation">(</span><span class="token keyword">crate</span><span class="token punctuation">)</span> <span class="token keyword">fn</span> <span class="token function-definition function">send_exit_event</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> handler <span class="token keyword">in</span> <span class="token keyword">self</span><span class="token punctuation">.</span>handlers<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            handler<span class="token punctuation">.</span><span class="token function">send_exit_event</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">fn</span> <span class="token function-definition function">vmm_va_to_gpa</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> vmm_va<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">VhostUserHandlerResult</span><span class="token operator">&lt;</span><span class="token keyword">u64</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> mapping <span class="token keyword">in</span> <span class="token keyword">self</span><span class="token punctuation">.</span>mappings<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> vmm_va <span class="token operator">&gt;=</span> mapping<span class="token punctuation">.</span>vmm_addr <span class="token operator">&amp;&amp;</span> vmm_va <span class="token operator">&lt;</span> mapping<span class="token punctuation">.</span>vmm_addr <span class="token operator">+</span> mapping<span class="token punctuation">.</span>size <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token class-name">Ok</span><span class="token punctuation">(</span>vmm_va <span class="token operator">-</span> mapping<span class="token punctuation">.</span>vmm_addr <span class="token operator">+</span> mapping<span class="token punctuation">.</span>gpa_base<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token class-name">Err</span><span class="token punctuation">(</span><span class="token class-name">VhostUserHandlerError</span><span class="token punctuation">::</span><span class="token class-name">MissingMemoryMapping</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="vhostuserhandler&#x5B9E;&#x73B0;&#x4E86;vhostuserslavereqhandler"><a name="vhostuserhandler&#x5B9E;&#x73B0;&#x4E86;vhostuserslavereqhandler" class="anchor-navigation-ex-anchor" href="#vhostuserhandler&#x5B9E;&#x73B0;&#x4E86;vhostuserslavereqhandler"><i class="fa fa-link" aria-hidden="true"></i></a><code>VhostUserHandler</code>&#x5B9E;&#x73B0;&#x4E86;<code>VhostUserSlaveReqHandler</code></h4>
+<p>virtiofsd&#x4ECE;unix socket&#x63A5;&#x6536;&#x5230;vhost-user&#x6D88;&#x606F;&#x540E;, &#x8C03;&#x7528;&#x540E;&#x8005;&#x505A;&#x4E3A;backend&#x6765;&#x771F;&#x6B63;&#x6267;&#x884C;&#x5EFA;&#x7ACB;&#x548C;&#x7EF4;&#x62A4;vring&#x7684;&#x52A8;&#x4F5C;.<br>&#x6BD4;&#x5982;cloud hypervisor VMM&#x505A;&#x4E3A;vring&#x7684;master, &#x53D1;&#x6765;&#x7684;SET_MEM_TABLE&#x8BF7;&#x6C42;, &#x88AB;vritiofsd&#x7684;<code>SlaveReqHandler</code>&#x6765;&#x5904;&#x7406;. <code>SlaveReqHandler</code>&#x6709;&#x4E2A;<code>VhostUserSlaveReqHandler</code>&#x7684;backend. &#x8FD9;&#x4E2A;backend&#x5C31;&#x662F;&#x8FD9;&#x91CC;&#x7684;<code>VhostUserHandler</code>.</p>
+<p>&#x90A3;&#x4E48;<code>VhostUserHandler</code>&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x5462;?</p>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">impl</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token punctuation">,</span> <span class="token class-name">V</span><span class="token punctuation">,</span> <span class="token class-name">B</span><span class="token operator">&gt;</span> <span class="token class-name">VhostUserSlaveReqHandlerMut</span> <span class="token keyword">for</span> <span class="token class-name">VhostUserHandler</span><span class="token operator">&lt;</span><span class="token class-name">S</span><span class="token punctuation">,</span> <span class="token class-name">V</span><span class="token punctuation">,</span> <span class="token class-name">B</span><span class="token operator">&gt;</span>
+<span class="token keyword">where</span>
+    <span class="token class-name">S</span><span class="token punctuation">:</span> <span class="token class-name">VhostUserBackend</span><span class="token operator">&lt;</span><span class="token class-name">V</span><span class="token punctuation">,</span> <span class="token class-name">B</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    <span class="token class-name">V</span><span class="token punctuation">:</span> <span class="token class-name">VringT</span><span class="token operator">&lt;</span><span class="token constant">GM</span><span class="token operator">&lt;</span><span class="token class-name">B</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">,</span>
+    <span class="token class-name">B</span><span class="token punctuation">:</span> <span class="token class-name">NewBitmap</span> <span class="token operator">+</span> <span class="token class-name">Clone</span><span class="token punctuation">,</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">/// Memory region descriptors as payload for the SET_MEM_TABLE request.</span>
+    <span class="token attribute attr-name">#[repr(packed)]</span>
+    <span class="token attribute attr-name">#[derive(Default, Clone, Copy)]</span>
+    <span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">VhostUserMemoryRegion</span> <span class="token punctuation">{</span>
+        <span class="token comment">/// Guest physical address of the memory region.</span>
+        <span class="token keyword">pub</span> guest_phys_addr<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+        <span class="token comment">/// Size of the memory region.</span>
+        <span class="token keyword">pub</span> memory_size<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+        <span class="token comment">/// Virtual address in the current process.</span>
+        <span class="token keyword">pub</span> user_addr<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+        <span class="token comment">/// Offset where region starts in the mapped memory.</span>
+        <span class="token keyword">pub</span> mmap_offset<span class="token punctuation">:</span> <span class="token keyword">u64</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">//&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x9700;&#x8981;&#x4F20;&#x5165;VhostUserMemoryRegion, &#x8FD9;&#x4E2A;region&#x662F;master&#x4F20;&#x8FC7;&#x6765;&#x7684;, &#x58F0;&#x660E;&#x4E86;&#x8FD9;&#x4E2A;region&#x5728;master&#x7AEF;&#x7684;&#x5730;&#x5740;&#x4FE1;&#x606F;</span>
+    <span class="token comment">//    guest_phys_addr: u64, &#x7269;&#x7406;&#x5730;&#x5740;</span>
+    <span class="token comment">//    memory_size: u64, &#x5927;&#x5C0F;</span>
+    <span class="token comment">//    user_addr: u64, &#x5728;master&#x8FDB;&#x7A0B;&#x5185;&#x7684;&#x865A;&#x62DF;&#x5730;&#x5740;</span>
+    <span class="token comment">//    mmap_offset: u64, master&#x4F1A;&#x7ED9;&#x6BCF;&#x4E2A;region&#x90FD;&#x4F20;&#x9012;&#x8FC7;&#x6765;&#x4E00;&#x4E2A;fd, &#x7528;&#x6765;&#x5171;&#x4EAB;&#x8FD9;&#x5757;&#x5185;&#x5B58;. mmap_offset&#x662F;&#x5728;fd&#x5185;&#x7684;&#x504F;&#x79FB;&#x91CF;.</span>
+    <span class="token comment">// &#x8BE6;&#x7EC6;&#x7ED3;&#x6784;&#x4F53;&#x5B9A;&#x4E49;&#x5728;&#x4E0A;&#x9762;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">set_mem_table</span><span class="token punctuation">(</span>
+        <span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span>
+        ctx<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token class-name">VhostUserMemoryRegion</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        files<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">File</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">VhostUserResult</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token comment">//GuestAddress&#x662F;&#x4E2A;&#x5305;&#x7740;u64&#x7684;tuple struct</span>
+        <span class="token keyword">let</span> <span class="token keyword">mut</span> regions<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token class-name">GuestAddress</span><span class="token punctuation">,</span> <span class="token keyword">usize</span><span class="token punctuation">,</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">FileOffset</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token class-name">Vec</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 
@@ -3814,7 +4393,7 @@
                 </a>
                 
                 
-                <a href="virtualization_virtio规范阅读笔记.html" class="navigation navigation-next " aria-label="Next page: virtio规范阅读笔记.md">
+                <a href="rust_virtio_vhost_libs.html" class="navigation navigation-next " aria-label="Next page: vhost virtio相关的rust库">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -3825,7 +4404,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"virtiofsd代码阅读","level":"1.5.2.7","depth":3,"next":{"title":"virtio规范阅读笔记.md","level":"1.5.3","depth":2,"path":"notes/virtualization_virtio规范阅读笔记.md","ref":"notes/virtualization_virtio规范阅读笔记.md","articles":[]},"previous":{"title":"cloud hypervisor问题与解决","level":"1.5.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_virtiofsd_代码.md","mtime":"2023-01-31T09:25:58.730Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-01-31T09:27:04.258Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"virtiofsd代码阅读","level":"1.5.2.7","depth":3,"next":{"title":"vhost virtio相关的rust库","level":"1.5.2.8","depth":3,"path":"notes/rust_virtio_vhost_libs.md","ref":"notes/rust_virtio_vhost_libs.md","articles":[]},"previous":{"title":"cloud hypervisor问题与解决","level":"1.5.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_virtiofsd_代码.md","mtime":"2023-02-27T10:21:21.779Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-27T10:22:35.461Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -877,6 +877,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.2.8" data-path="rust_virtio_vhost_libs.html">
+            
+                <a href="rust_virtio_vhost_libs.html">
+            
+                    
+                    vhost virtio相关的rust库
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -2265,7 +2278,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.11.2.1" data-path="rust_序列化.html">
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_by_example_misc.html">
+            
+                <a href="rust_by_example_misc.html">
+            
+                    
+                    Rust by example杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_序列化.html">
             
                 <a href="rust_序列化.html">
             
@@ -2278,7 +2304,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.2" data-path="rust_知识点积累.html">
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_知识点积累.html">
             
                 <a href="rust_知识点积累.html">
             
@@ -2291,7 +2317,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.3" data-path="rust_adaptiveservice.html">
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_adaptiveservice.html">
             
                 <a href="rust_adaptiveservice.html">
             
@@ -2304,7 +2330,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.11.2.4" data-path="rust_常用设施.html">
+        <li class="chapter active" data-level="1.11.2.5" data-path="rust_常用设施.html">
             
                 <a href="rust_常用设施.html">
             
@@ -2317,7 +2343,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11.2.5" data-path="rust_代码小段.html">
+        <li class="chapter " data-level="1.11.2.6" data-path="rust_代码小段.html">
             
                 <a href="rust_代码小段.html">
             
@@ -3602,8 +3628,8 @@
 <li><a href="#vec">Vec</a></li>
 <li><a href="#option">Option</a></li>
 <li><a href="#result">Result</a><ul>
-<li><a href="#resultt-e&#x7684;&#x65B9;&#x6CD5;">Result<t, e="">&#x7684;&#x65B9;&#x6CD5;:</t,></a></li>
-<li><a href="#resultt-e&#x7684;&#x65B9;&#x6CD5;-1">Result&lt;&amp;T, E&gt;&#x7684;&#x65B9;&#x6CD5;</a></li>
+<li><a href="#resultt-e&#x7684;&#x65B9;&#x6CD5;">Result\<t, e\="">&#x7684;&#x65B9;&#x6CD5;:</t,></a></li>
+<li><a href="#resultt-e&#x7684;&#x65B9;&#x6CD5;-1">Result\&lt;\&amp;T, E&gt;&#x7684;&#x65B9;&#x6CD5;</a></li>
 <li><a href="#&#x5176;&#x4ED6;result">&#x5176;&#x4ED6;Result</a></li>
 <li><a href="#result&#x5B9E;&#x73B0;&#x4E86;&#x5982;&#x4E0B;&#x7684;trait">Result&#x5B9E;&#x73B0;&#x4E86;&#x5982;&#x4E0B;&#x7684;trait</a></li>
 </ul>
@@ -3626,7 +3652,7 @@
 <li><a href="#&#x5B9E;&#x73B0;read-trait">&#x5B9E;&#x73B0;Read trait</a></li>
 <li><a href="#&#x5B9E;&#x73B0;write-trait">&#x5B9E;&#x73B0;Write trait</a></li>
 <li><a href="#&#x5B9E;&#x73B0;seek-trait">&#x5B9E;&#x73B0;Seek trait</a></li>
-<li><a href="#read-write-seek-for-file&#x53C8;&#x6765;&#x4E00;&#x904D;">Read Write Seek for &amp;File&#x53C8;&#x6765;&#x4E00;&#x904D;!!!!!</a></li>
+<li><a href="#read-write-seek-for-file&#x53C8;&#x6765;&#x4E00;&#x904D;">Read Write Seek for \&amp;File&#x53C8;&#x6765;&#x4E00;&#x904D;!!!!!</a></li>
 <li><a href="#open&#x6700;&#x540E;&#x8C03;&#x7528;">open&#x6700;&#x540E;&#x8C03;&#x7528;</a></li>
 </ul>
 </li>
@@ -3657,6 +3683,15 @@
     #<span class="token punctuation">[</span><span class="token function">structopt</span><span class="token punctuation">(</span>long <span class="token operator">=</span> <span class="token string">&quot;socket-path&quot;</span><span class="token punctuation">,</span> required_unless_one <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token string">&quot;fd&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;socket&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;print-capabilities&quot;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
     socket_path<span class="token punctuation">:</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
     <span class="token punctuation">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li>&#x4E09;&#x659C;&#x7EBF;&#x7684;&#x6CE8;&#x91CA;&#x4F1A;&#x53D8;&#x6210;<code>--help</code>&#x91CC;&#x9762;&#x7684;option&#x7684;&#x8BF4;&#x660E;, &#x8F93;&#x51FA;&#x683C;&#x5F0F;&#x8FD8;&#x633A;&#x6574;&#x9F50;&#x7684;. <code>-h</code>&#x7684;&#x663E;&#x793A;&#x4F1A;&#x66F4;&#x7B80;&#x6D01;&#x4E00;&#x4E9B;, &#x53EA;&#x5305;&#x62EC;&#x6CE8;&#x91CA;&#x7684;&#x7B2C;&#x4E00;&#x884C;.</li>
+<li>&#x53D8;&#x91CF;&#x4E0B;&#x5212;&#x7EBF;&#x4F1A;&#x53D8;&#x6210;&#x4E2D;&#x6A2A;&#x7EBF;, &#x6BD4;&#x5982;<code>shared_dir</code>&#x4F1A;&#x5728;<code>--help</code>&#x4E0B;&#x663E;&#x793A;<code>--shared-dir <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>shared-dir</span><span class="token punctuation">&gt;</span></span>                    Shared directory path</code></li>
+</ul>
+<p>&#x4F7F;&#x7528;&#x7684;&#x65F6;&#x5019;, &#x6BD4;&#x5982;&#x5728;main&#x91CC;&#x9762;:</p>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> opt <span class="token operator">=</span> <span class="token class-name">Opt</span><span class="token punctuation">::</span><span class="token function">from_args</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>&#x6CE8;: structopt&#x5DF2;&#x7ECF;&#x505C;&#x6B62;&#x5F00;&#x53D1;, &#x5EFA;&#x8BAE;&#x4F7F;&#x7528;clap: <strong>Command Line Argument Parser for Rust</strong></p>
@@ -5109,7 +5144,7 @@ file will not change.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Rust 常用设施","level":"1.11.2.4","depth":3,"next":{"title":"Rust 代码小段","level":"1.11.2.5","depth":3,"path":"notes/rust_代码小段.md","ref":"notes/rust_代码小段.md","articles":[]},"previous":{"title":"rust版本的adaptiveservice探索","level":"1.11.2.3","depth":3,"path":"notes/rust_adaptiveservice.md","ref":"notes/rust_adaptiveservice.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_常用设施.md","mtime":"2023-01-31T09:25:58.730Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-01-31T09:27:04.258Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Rust 常用设施","level":"1.11.2.5","depth":3,"next":{"title":"Rust 代码小段","level":"1.11.2.6","depth":3,"path":"notes/rust_代码小段.md","ref":"notes/rust_代码小段.md","articles":[]},"previous":{"title":"rust版本的adaptiveservice探索","level":"1.11.2.4","depth":3,"path":"notes/rust_adaptiveservice.md","ref":"notes/rust_adaptiveservice.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_常用设施.md","mtime":"2023-02-27T10:21:21.783Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-27T10:22:35.461Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
