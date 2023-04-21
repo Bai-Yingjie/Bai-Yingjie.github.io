@@ -1,3 +1,5 @@
+- [不能在for range里删除slice元素](#不能在for-range里删除slice元素)
+- [什么时候用buffer为1的channel](#什么时候用buffer为1的channel)
 - [go按位取反(bitwise not)](#go按位取反bitwise-not)
 - [go的相等性(==)](#go的相等性)
   - [普通类型的比较](#普通类型的比较)
@@ -7,7 +9,7 @@
   - [结构体的相等性](#结构体的相等性)
   - [Array的相等性](#array的相等性)
   - [string](#string)
-  - [[]byte用bytes.Equal比较](#byte用bytesequal比较)
+  - [\[\]byte用bytes.Equal比较](#byte用bytesequal比较)
   - [reflect.DeepEqual万能比较](#reflectdeepequal万能比较)
   - [cmp包](#cmp包)
 - [通过unix socket发送fd](#通过unix-socket发送fd)
@@ -16,7 +18,7 @@
   - [发送2](#发送2)
   - [接收2](#接收2)
 - [创建临时文件并mmap成结构体](#创建临时文件并mmap成结构体)
-  - [memfd_create()系统调用](#memfd_create系统调用)
+  - [memfd\_create()系统调用](#memfd_create系统调用)
   - [gvisor中的使用场景](#gvisor中的使用场景)
 - [用正则表达式 遍历`/proc/self/maps`](#用正则表达式-遍历procselfmaps)
 - [递归缩进打印error](#递归缩进打印error)
@@ -28,10 +30,108 @@
     - [cli子命令](#cli子命令)
     - [client接口](#client接口)
 - [pattern match](#pattern-match)
-- [读fs_linux.go](#读fs_linuxgo)
+- [读fs\_linux.go](#读fs_linuxgo)
 - [善用字符串库函数--strings.Join](#善用字符串库函数--stringsjoin)
 - [切片的插入](#切片的插入)
 - [匿名函数执行](#匿名函数执行)
+
+# 不能在for range里删除slice元素
+我问chatgpt如何在for range里删除slice元素, chatgpt给出的代码:
+```golang
+package main
+
+import "fmt"
+
+func main() {
+	// Create a slice of integers
+	nums := []int{1, 2, 3, 4, 5}
+
+	// Iterate over the slice using range
+	for i, num := range nums { // for range在一开始就定好了要interate多少次
+		fmt.Println(i, num, len(nums)) // 而且不受index越界限制
+		//fmt.Println(i, num, nums[i], len(nums)) // 我加的这行会panic
+		// Check if the element should be deleted
+		if num == 3 || num == 4 {
+			// Delete the element from the slice using append
+			nums = append(nums[:i], nums[i+1:]...)
+		}
+	}
+
+	// Print the updated slice
+	fmt.Println(nums)
+}
+
+//结果
+0 1 5
+1 2 5
+2 3 5
+3 5 4
+4 5 4 //注意看这行, 实际上新的nums已经没有index 4了, for range里面的i和num还是能在这一轮取到值
+[1 2 4 5]
+```
+
+如果告诉chatgpt答案是错的, 它会修正代码:
+```
+ME: the output is [1 2 4 5], which is not correct
+
+CHATGPT: You are correct, I apologize for the mistake in my previous answer. When you delete elements from a slice while iterating over it with range, you need to adjust the index variable to account for the removed elements.
+```
+再给出的答案是对的:
+```golang
+package main
+
+import "fmt"
+
+func main() {
+	// Create a slice of integers
+	nums := []int{1, 2, 3, 4, 5}
+
+	// Iterate over the slice using range
+	for i := 0; i < len(nums); i++ {
+		num := nums[i]
+		// Check if the element should be deleted
+		if num == 3 || num == 4 {
+			// Delete the element from the slice
+			nums = append(nums[:i], nums[i+1:]...)
+			// Adjust the index variable to account for the removed element
+			i--
+		}
+	}
+
+	// Print the updated slice
+	fmt.Println(nums)
+}
+```
+
+# 什么时候用buffer为1的channel
+比如下面的代码:
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+	"time"
+)
+
+func main() {
+	errorChan := make(chan error, 1)
+	fmt.Println("start")
+	time.AfterFunc(time.Second*5, func() { errorChan <- nil; fmt.Println("time out") })
+
+	go func() {
+		time.Sleep(time.Second * 3) // 实际场景可以是cmd.Wait()
+		errorChan <- errors.New("new error")
+		fmt.Println("error happened")
+	}()
+
+	fmt.Println(<-errorChan)
+
+	time.Sleep(time.Second * 10)
+	fmt.Println("done")
+}
+```
+
 
 # go按位取反(bitwise not)
 go没有专用的取反操作符, 但用异或可以取反:

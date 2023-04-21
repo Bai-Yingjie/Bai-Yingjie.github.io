@@ -109,7 +109,7 @@
 - [具体error判断](#具体error判断)
 - [函数赋值给变量](#函数赋值给变量)
 - [gob encode和网络io的结合](#gob-encode和网络io的结合)
-  - [单步decoder.Decode(&msg)](#单步decoderdecodemsg)
+  - [单步decoder.Decode(\&msg)](#单步decoderdecodemsg)
 - [protobuf里面oneof转成go结构体](#protobuf里面oneof转成go结构体)
   - [proto定义](#proto定义)
   - [转成的结构体](#转成的结构体)
@@ -618,6 +618,9 @@ in go? -- YES
 测试环境 go1.16, go mod模式
 ## go get
 * `go get -u`: 升级所有依赖, 递归包括依赖的依赖
+  * 如果只是想更新go.mod, 可以用`go get -u -d`
+  * 用`go get ./...`可以通配所有子目录
+  * 连起来用就是`go get -u -d ./...`
 * `go get -u all`: 首先`all`会被扩展成main的所有依赖, 然后升级所有依赖. `all`是关键词, 详见`go help packages`
 
 ## go list
