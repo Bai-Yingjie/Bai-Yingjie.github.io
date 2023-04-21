@@ -29,6 +29,7 @@
     * [Comparing SystemTap and bpftrace(网摘)](notes/profiling_Comparing_SystemTap_and_bpftrace.md)
     * [bcc和ebpf(starting)](notes/system_analysis_bcc和ebpf.md)
   * [profiling和debugging实例](notes/as_title_os_perf.md)
+    * [gshell socket leak调查](notes/debugging_gshellos_socket_leak.md)
     * [调查ftrace显示调用栈全0问题](notes/profiling_调查ftrace显示调用栈全0问题.md)
     * [eoe_filter写tap设备失败问题](notes/profiling_eoe_filter写tap设备失败问题.md)
     * [OVS进程调查](notes/performance_ovs进程调查.md)

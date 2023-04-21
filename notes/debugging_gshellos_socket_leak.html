@@ -1,0 +1,3936 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>gshell socket leak调查 · My Notes</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Bai Yingjie">
+        
+        
+    
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-wide-page/wide.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hide-navigation-buttons/index.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="profiling_调查ftrace显示调用栈全0问题.html" />
+    
+    
+    <link rel="prev" href="as_title_os_perf.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="as_title_kaiyuan.html">
+            
+                <a href="as_title_kaiyuan.html">
+            
+                    
+                    开源
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="my_opensource.html">
+            
+                <a href="my_opensource.html">
+            
+                    
+                    我的开源项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="my_upstream.html">
+            
+                <a href="my_upstream.html">
+            
+                    
+                    我的upstream commit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="as_title_system.html">
+            
+                <a href="as_title_system.html">
+            
+                    
+                    系统分析和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="as_title_perf_misc.html">
+            
+                <a href="as_title_perf_misc.html">
+            
+                    
+                    调试和分析记录系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="profiling_调试和分析记录5.html">
+            
+                <a href="profiling_调试和分析记录5.html">
+            
+                    
+                    调试和分析记录5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="profiling_调试和分析记录4.html">
+            
+                <a href="profiling_调试和分析记录4.html">
+            
+                    
+                    调试和分析记录4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="profiling_调试和分析记录3.html">
+            
+                <a href="profiling_调试和分析记录3.html">
+            
+                    
+                    调试和分析记录3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="profiling_调试和分析记录2.html">
+            
+                <a href="profiling_调试和分析记录2.html">
+            
+                    
+                    调试和分析记录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="profiling_调试和分析记录1.html">
+            
+                <a href="profiling_调试和分析记录1.html">
+            
+                    
+                    调试和分析记录1
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="调试和分析工具概览.html">
+            
+                <a href="调试和分析工具概览.html">
+            
+                    
+                    profiling和debugging工具相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="profiling_Linux内核调试的方式以及工具集锦.html">
+            
+                <a href="profiling_Linux内核调试的方式以及工具集锦.html">
+            
+                    
+                    Linux内核调试的方式以及工具集锦(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="profiling_user_space_Ptrace_Utrace_Uprobes.html">
+            
+                <a href="profiling_user_space_Ptrace_Utrace_Uprobes.html">
+            
+                    
+                    Ptrace, Utrace, Uprobes: Lightweight, Dynamic Tracing of User Apps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="debugging_gdb备忘录.html">
+            
+                <a href="debugging_gdb备忘录.html">
+            
+                    
+                    gdb备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="profiling_perf命令备忘录.html">
+            
+                <a href="profiling_perf命令备忘录.html">
+            
+                    
+                    perf命令备忘录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="profiling_perf命令备忘录2.html">
+            
+                <a href="profiling_perf命令备忘录2.html">
+            
+                    
+                    perf命令备忘录2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="profiling_perf学习笔记之实战篇.html">
+            
+                <a href="profiling_perf学习笔记之实战篇.html">
+            
+                    
+                    perf学习笔记之实战篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="profiling_perf学习笔记之入门篇.html">
+            
+                <a href="profiling_perf学习笔记之入门篇.html">
+            
+                    
+                    perf学习笔记之入门篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.8" data-path="profiling_用kprobe和perf_记录函数参数.html">
+            
+                <a href="profiling_用kprobe和perf_记录函数参数.html">
+            
+                    
+                    使用kprobe和perf结合记录函数参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.9" data-path="profiling_ftrace和trace-cmd记录.html">
+            
+                <a href="profiling_ftrace和trace-cmd记录.html">
+            
+                    
+                    ftrace和trace-cmd记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.10" data-path="profiling_ftrace使用实例.html">
+            
+                <a href="profiling_ftrace使用实例.html">
+            
+                    
+                    ftrace使用实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.11" data-path="profiling_systemtap实例.html">
+            
+                <a href="profiling_systemtap实例.html">
+            
+                    
+                    systemtap实例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.12" data-path="profiling_systemtap基础.html">
+            
+                <a href="profiling_systemtap基础.html">
+            
+                    
+                    systemtap基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.13" data-path="profiling_perf-tools_example.html">
+            
+                <a href="profiling_perf-tools_example.html">
+            
+                    
+                    perf-tools 系统tracing工具集
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.14" data-path="profiling_Comparing_SystemTap_and_bpftrace.html">
+            
+                <a href="profiling_Comparing_SystemTap_and_bpftrace.html">
+            
+                    
+                    Comparing SystemTap and bpftrace(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.15" data-path="system_analysis_bcc和ebpf.html">
+            
+                <a href="system_analysis_bcc和ebpf.html">
+            
+                    
+                    bcc和ebpf(starting)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="as_title_os_perf.html">
+            
+                <a href="as_title_os_perf.html">
+            
+                    
+                    profiling和debugging实例
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.3.1" data-path="debugging_gshellos_socket_leak.html">
+            
+                <a href="debugging_gshellos_socket_leak.html">
+            
+                    
+                    gshell socket leak调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="profiling_调查ftrace显示调用栈全0问题.html">
+            
+                <a href="profiling_调查ftrace显示调用栈全0问题.html">
+            
+                    
+                    调查ftrace显示调用栈全0问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="profiling_eoe_filter写tap设备失败问题.html">
+            
+                <a href="profiling_eoe_filter写tap设备失败问题.html">
+            
+                    
+                    eoe_filter写tap设备失败问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="performance_ovs进程调查.html">
+            
+                <a href="performance_ovs进程调查.html">
+            
+                    
+                    OVS进程调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="performance_ping流程和函数调用解析.html">
+            
+                <a href="performance_ping流程和函数调用解析.html">
+            
+                    
+                    ping流程和函数调用解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.6" data-path="profiling_VM互相ping场景下的延迟分析.html">
+            
+                <a href="profiling_VM互相ping场景下的延迟分析.html">
+            
+                    
+                    VM互相ping场景下的延迟分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.7" data-path="debugging_ftrace_谁创建了bond0设备.html">
+            
+                <a href="debugging_ftrace_谁创建了bond0设备.html">
+            
+                    
+                    谁创建了bond0设备: ftrace kprobe uprobe perf综合使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.8" data-path="profiling_unixbench之filecopy分析.html">
+            
+                <a href="profiling_unixbench之filecopy分析.html">
+            
+                    
+                    unixbench之file copy分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.9" data-path="profiling_lmbench之lat_tcp分析.html">
+            
+                <a href="profiling_lmbench之lat_tcp分析.html">
+            
+                    
+                    lmbench之lat_tcp分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="as_title_arch_perf.html">
+            
+                <a href="as_title_arch_perf.html">
+            
+                    
+                    CPU ARCH相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="performance_CPU_microarchiteture_pmu.html">
+            
+                <a href="performance_CPU_microarchiteture_pmu.html">
+            
+                    
+                    Top-down Microarchitecture Analysis Method(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="as_title_cloud.html">
+            
+                <a href="as_title_cloud.html">
+            
+                    
+                    Cloud和容器相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+            
+                <a href="cloud_杂记.html">
+            
+                    
+                    云杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+            
+                <a href="container_当代容器读书笔记.html">
+            
+                    
+                    当代容器读书笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="as_title_vdevice.html">
+            
+                <a href="as_title_vdevice.html">
+            
+                    
+                    CPU和device虚拟化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="as_title_gvisor.html">
+            
+                <a href="as_title_gvisor.html">
+            
+                    
+                    gvisor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="golang_gvisor代码_KVM.html">
+            
+                <a href="golang_gvisor代码_KVM.html">
+            
+                    
+                    gvisor KVM模式代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="golang_gvisor调试.html">
+            
+                <a href="golang_gvisor调试.html">
+            
+                    
+                    gvisor调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="golang_gvisor_ptrace.html">
+            
+                <a href="golang_gvisor_ptrace.html">
+            
+                    
+                    gvisor ptrace模式介绍(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="rust_vmm_brief.html">
+            
+                <a href="rust_vmm_brief.html">
+            
+                    
+                    rust VMM(virtual machine monitor)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="rust_vmm_简介.html">
+            
+                <a href="rust_vmm_简介.html">
+            
+                    
+                    rust-vmm简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="rust_firecracker_代码.html">
+            
+                <a href="rust_firecracker_代码.html">
+            
+                    
+                    firecracker代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="rust_firecracker_使用.html">
+            
+                <a href="rust_firecracker_使用.html">
+            
+                    
+                    firecracker使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="rust_cloud-hypervisor_代码.html">
+            
+                <a href="rust_cloud-hypervisor_代码.html">
+            
+                    
+                    cloud hypervisor代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="rust_cloud-hypervisor_使用.html">
+            
+                <a href="rust_cloud-hypervisor_使用.html">
+            
+                    
+                    cloud hypervisor使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="rust_cloud-hypervisor_问题与解决.html">
+            
+                <a href="rust_cloud-hypervisor_问题与解决.html">
+            
+                    
+                    cloud hypervisor问题与解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.7" data-path="rust_virtiofsd_代码.html">
+            
+                <a href="rust_virtiofsd_代码.html">
+            
+                    
+                    virtiofsd代码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.8" data-path="rust_virtio_vhost_libs.html">
+            
+                <a href="rust_virtio_vhost_libs.html">
+            
+                    
+                    vhost virtio相关的rust库
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="virtualization_virtio规范阅读笔记.html">
+            
+                <a href="virtualization_virtio规范阅读笔记.html">
+            
+                    
+                    virtio规范阅读笔记.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="qemu_ovs_虚拟化环境.html">
+            
+                <a href="qemu_ovs_虚拟化环境.html">
+            
+                    
+                    qemu OVS 虚拟化环境准备
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="qemu使用.html">
+            
+                <a href="qemu使用.html">
+            
+                    
+                    Qemu使用(old)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="qemu_binary_translation.html">
+            
+                <a href="qemu_binary_translation.html">
+            
+                    
+                    QEMU 指令翻译
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="as_title_networking.html">
+            
+                <a href="as_title_networking.html">
+            
+                    
+                    计算机网络相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="networking_杂记2.html">
+            
+                <a href="networking_杂记2.html">
+            
+                    
+                    networking杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="networking_杂记1.html">
+            
+                <a href="networking_杂记1.html">
+            
+                    
+                    networking杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="networking_优化linux网络栈_接收路径.html">
+            
+                <a href="networking_优化linux网络栈_接收路径.html">
+            
+                    
+                    优化linux网络栈: 接收路径(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="networking_优化linux网络栈_发送路径.html">
+            
+                <a href="networking_优化linux网络栈_发送路径.html">
+            
+                    
+                    优化linux网络栈: 发送路径(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="networking_Potential_Performance_Bottleneck_in_Linux_TCP.html">
+            
+                <a href="networking_Potential_Performance_Bottleneck_in_Linux_TCP.html">
+            
+                    
+                    Potential Performance Bottleneck in Linux TCP(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="networking_xdp入门.html">
+            
+                <a href="networking_xdp入门.html">
+            
+                    
+                    Get started with XDP(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="networking_linux收包路径图解.html">
+            
+                <a href="networking_linux收包路径图解.html">
+            
+                    
+                    linux收包路径图解(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="as_title_qemu_ovs.html">
+            
+                <a href="as_title_qemu_ovs.html">
+            
+                    
+                    Qemu OVS和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.8.1" data-path="OVS_DPDK_编译运行.html">
+            
+                <a href="OVS_DPDK_编译运行.html">
+            
+                    
+                    OVS-DPDK编译运行
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.2" data-path="OVS_架构和代码.html">
+            
+                <a href="OVS_架构和代码.html">
+            
+                    
+                    OVS架构和代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.3" data-path="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                <a href="OVS_DPDK_performance_HXT_ARM_server.html">
+            
+                    
+                    OVS-DPDK for ARM server 性能测试环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.4" data-path="DPDK_Mellanox.html">
+            
+                <a href="DPDK_Mellanox.html">
+            
+                    
+                    DPDK Mellanox
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.5" data-path="OVS_phy-vm-phy.html">
+            
+                <a href="OVS_phy-vm-phy.html">
+            
+                    
+                    OVS PHY-VM-PHY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.6" data-path="networking_网络虚拟化用例记录.html">
+            
+                <a href="networking_网络虚拟化用例记录.html">
+            
+                    
+                    网络虚拟化用例记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8.7" data-path="networking_网络虚拟化操作记录.html">
+            
+                <a href="networking_网络虚拟化操作记录.html">
+            
+                    
+                    网络虚拟化操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="as_title_virtnet.html">
+            
+                <a href="as_title_virtnet.html">
+            
+                    
+                    虚拟化网络
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.9.1" data-path="networking_tc_filter_连接veth和tap.html">
+            
+                <a href="networking_tc_filter_连接veth和tap.html">
+            
+                    
+                    Connecting a veth device to tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.2" data-path="networking_multicast_vxlan_flannel.html">
+            
+                <a href="networking_multicast_vxlan_flannel.html">
+            
+                    
+                    multicast vxlan和flannel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.3" data-path="networking_virtio网络介绍.html">
+            
+                <a href="networking_virtio网络介绍.html">
+            
+                    
+                    virtio网络介绍(网摘): vhost-net virtio-net vhost-user SRIOV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.4" data-path="networking_virtualization_杂记.html">
+            
+                <a href="networking_virtualization_杂记.html">
+            
+                    
+                    虚拟化网络杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9.5" data-path="networking_linux虚拟网络接口.html">
+            
+                <a href="networking_linux虚拟网络接口.html">
+            
+                    
+                    linux虚拟网络接口(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="as_title_arm_server.html">
+            
+                <a href="as_title_arm_server.html">
+            
+                    
+                    ARM server
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="arm_server_杂记.html">
+            
+                <a href="arm_server_杂记.html">
+            
+                    
+                    Arm server 杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="server_知识点.html">
+            
+                <a href="server_知识点.html">
+            
+                    
+                    server知识点
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="as_title_embedded.html">
+            
+                <a href="as_title_embedded.html">
+            
+                    
+                    嵌入式系统开发调试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="embedded_debugging.html">
+            
+                <a href="embedded_debugging.html">
+            
+                    
+                    嵌入式调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="uboot_杂记.html">
+            
+                <a href="uboot_杂记.html">
+            
+                    
+                    uboot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="buildroot_杂记.html">
+            
+                <a href="buildroot_杂记.html">
+            
+                    
+                    buildroot杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="toolchain_升级gcc问题解决.html">
+            
+                <a href="toolchain_升级gcc问题解决.html">
+            
+                    
+                    升级GCC7.3问题解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="kernel_异常打印分析实例.html">
+            
+                <a href="kernel_异常打印分析实例.html">
+            
+                    
+                    kernel bug异常打印分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="as_title_linuxdaily.html">
+            
+                <a href="as_title_linuxdaily.html">
+            
+                    
+                    Linux工程实践
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="linux_日常使用.html">
+            
+                <a href="linux_日常使用.html">
+            
+                    
+                    日常linux使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="git_日常使用.html">
+            
+                <a href="git_日常使用.html">
+            
+                    
+                    日常git使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="向kernel提交补丁.html">
+            
+                <a href="向kernel提交补丁.html">
+            
+                    
+                    向kernel提交补丁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="linux_ssh_relay.html">
+            
+                <a href="linux_ssh_relay.html">
+            
+                    
+                    ssh relay
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="gitlab_ci.html">
+            
+                <a href="gitlab_ci.html">
+            
+                    
+                    gitlab CI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="docker_操作记录.html">
+            
+                <a href="docker_操作记录.html">
+            
+                    
+                    docker操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="centos_操作记录.html">
+            
+                <a href="centos_操作记录.html">
+            
+                    
+                    centos操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="as_title_golang.html">
+            
+                <a href="as_title_golang.html">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="as_title_golang1.html">
+            
+                <a href="as_title_golang1.html">
+            
+                    
+                    入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="golang_语法基础.html">
+            
+                <a href="golang_语法基础.html">
+            
+                    
+                    Golang 语法基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="golang_json性能.html">
+            
+                <a href="golang_json性能.html">
+            
+                    
+                    Golang json性能比较
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="golang_原理.html">
+            
+                <a href="golang_原理.html">
+            
+                    
+                    Golang 原理相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="golang_interface原理.html">
+            
+                <a href="golang_interface原理.html">
+            
+                    
+                    Golang interface原理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2.2" data-path="golang_内存分配.html">
+            
+                <a href="golang_内存分配.html">
+            
+                    
+                    Golang 内存分配(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="golang_标准库.html">
+            
+                <a href="golang_标准库.html">
+            
+                    
+                    Golang 标准库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="golang_泛型.html">
+            
+                <a href="golang_泛型.html">
+            
+                    
+                    Golang 泛型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="golang_我的反射代码.html">
+            
+                <a href="golang_我的反射代码.html">
+            
+                    
+                    Golang 我的反射代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.6" data-path="golang_问答.html">
+            
+                <a href="golang_问答.html">
+            
+                    
+                    Golang 问答
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.7" data-path="golang_高效go.html">
+            
+                <a href="golang_高效go.html">
+            
+                    
+                    Golang 高效go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.8" data-path="golang_进阶.html">
+            
+                <a href="golang_进阶.html">
+            
+                    
+                    Golang 进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9" data-path="as_title_golang2.html">
+            
+                <a href="as_title_golang2.html">
+            
+                    
+                    Golang 杂记
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.9.1" data-path="golang_杂记1.html">
+            
+                <a href="golang_杂记1.html">
+            
+                    
+                    Golang 杂记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.2" data-path="golang_杂记2.html">
+            
+                <a href="golang_杂记2.html">
+            
+                    
+                    Golang 杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.3" data-path="golang_杂记3.html">
+            
+                <a href="golang_杂记3.html">
+            
+                    
+                    Golang 杂记3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.4" data-path="golang_lib选型.html">
+            
+                <a href="golang_lib选型.html">
+            
+                    
+                    Golang lib选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.5" data-path="golang_mod_proxy.html">
+            
+                <a href="golang_mod_proxy.html">
+            
+                    
+                    go mod和go proxy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.6" data-path="golang_汇编_arm64.html">
+            
+                <a href="golang_汇编_arm64.html">
+            
+                    
+                    Golang 汇编语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.9.7" data-path="golang_cgo_swig.html">
+            
+                <a href="golang_cgo_swig.html">
+            
+                    
+                    go调用c可以用swig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10" data-path="as_title_golang3.html">
+            
+                <a href="as_title_golang3.html">
+            
+                    
+                    Golang 环境和工具链生成
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.1" data-path="golang_toolchain_ppc.html">
+            
+                <a href="golang_toolchain_ppc.html">
+            
+                    
+                    go tools增加ppc32支持
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.2" data-path="golang_toolchain_compile_gccgo.html">
+            
+                <a href="golang_toolchain_compile_gccgo.html">
+            
+                    
+                    编译gccgo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.3" data-path="golang_go_on_mips.html">
+            
+                <a href="golang_go_on_mips.html">
+            
+                    
+                    go on mips boards(not so updated)
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.10.3.1" data-path="golang_go_on_mips_part1.html">
+            
+                <a href="golang_go_on_mips_part1.html">
+            
+                    
+                    part 1: cross compile go
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.3.2" data-path="golang_go_on_mips_part2.html">
+            
+                <a href="golang_go_on_mips_part2.html">
+            
+                    
+                    part 2: build native go compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.3.3" data-path="golang_go_on_mips_part3.html">
+            
+                <a href="golang_go_on_mips_part3.html">
+            
+                    
+                    part 3: gccgo experiments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.3.4" data-path="golang_go_on_mips_part4.html">
+            
+                <a href="golang_go_on_mips_part4.html">
+            
+                    
+                    part 4: Golang json performance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.10.3.5" data-path="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                <a href="golang_gentoo_on_mips_board_and_build_go.html">
+            
+                    
+                    Gentoo on mips board and build go
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11" data-path="as_title_golang4.html">
+            
+                <a href="as_title_golang4.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.11.1" data-path="golang_micro.html">
+            
+                <a href="golang_micro.html">
+            
+                    
+                    go-micro和micro
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.11.2" data-path="golang_微服务概念.html">
+            
+                <a href="golang_微服务概念.html">
+            
+                    
+                    微服务概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12" data-path="as_title_golang5.html">
+            
+                <a href="as_title_golang5.html">
+            
+                    
+                    解释器和编解码
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.12.1" data-path="golang_yeagi.html">
+            
+                <a href="golang_yeagi.html">
+            
+                    
+                    解释器yeagi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.2" data-path="golang_tengo.html">
+            
+                <a href="golang_tengo.html">
+            
+                    
+                    解释器tengo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.3" data-path="golang_govaluate.html">
+            
+                <a href="golang_govaluate.html">
+            
+                    
+                    解释器govaluate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.4" data-path="golang_encoding_gotiny.html">
+            
+                <a href="golang_encoding_gotiny.html">
+            
+                    
+                    gotiny编解码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.12.5" data-path="golang_abs.html">
+            
+                <a href="golang_abs.html">
+            
+                    
+                    解释器abs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13" data-path="as_title_golang6.html">
+            
+                <a href="as_title_golang6.html">
+            
+                    
+                    调试和性能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.13.1" data-path="golang_调试记录.html">
+            
+                <a href="golang_调试记录.html">
+            
+                    
+                    Golang 调试记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.2" data-path="golang_topid性能优化.html">
+            
+                <a href="golang_topid性能优化.html">
+            
+                    
+                    Golang topid性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.13.3" data-path="golang_gshell性能调试.html">
+            
+                <a href="golang_gshell性能调试.html">
+            
+                    
+                    Golang gshell性能调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.14" data-path="as_title_golang7.html">
+            
+                <a href="as_title_golang7.html">
+            
+                    
+                    网络和消息中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.14.1" data-path="golang_zmq.html">
+            
+                <a href="golang_zmq.html">
+            
+                    
+                    消息中间件基本概念和zero mq
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.14.2" data-path="golang_mango.html">
+            
+                <a href="golang_mango.html">
+            
+                    
+                    消息中间件mango
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.14.3" data-path="golang_libp2p.html">
+            
+                <a href="golang_libp2p.html">
+            
+                    
+                    Golang p2p网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="as_title_rust.html">
+            
+                <a href="as_title_rust.html">
+            
+                    
+                    Rust
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="rust_入门_brief.html">
+            
+                <a href="rust_入门_brief.html">
+            
+                    
+                    Rust 入门系列
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="rust_books.html">
+            
+                <a href="rust_books.html">
+            
+                    
+                    Rust reference books
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="rust_入门1.html">
+            
+                <a href="rust_入门1.html">
+            
+                    
+                    Rust 安装和基础语法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="rust_入门2.html">
+            
+                <a href="rust_入门2.html">
+            
+                    
+                    Rust 泛型和内存所有权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.4" data-path="rust_入门3.html">
+            
+                <a href="rust_入门3.html">
+            
+                    
+                    Rust 闭包 容器 迭代器 生成器 线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.5" data-path="rust_工程构建.html">
+            
+                <a href="rust_工程构建.html">
+            
+                    
+                    Rust 工程构建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="rust_coding_brief.html">
+            
+                <a href="rust_coding_brief.html">
+            
+                    
+                    Rust 代码积累
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="rust_by_example_misc.html">
+            
+                <a href="rust_by_example_misc.html">
+            
+                    
+                    Rust by example杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="rust_序列化.html">
+            
+                <a href="rust_序列化.html">
+            
+                    
+                    Rust 序列化原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="rust_知识点积累.html">
+            
+                <a href="rust_知识点积累.html">
+            
+                    
+                    Rust 知识点更新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.4" data-path="rust_adaptiveservice.html">
+            
+                <a href="rust_adaptiveservice.html">
+            
+                    
+                    rust版本的adaptiveservice探索
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.5" data-path="rust_常用设施.html">
+            
+                <a href="rust_常用设施.html">
+            
+                    
+                    Rust 常用设施
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.6" data-path="rust_代码小段.html">
+            
+                <a href="rust_代码小段.html">
+            
+                    
+                    Rust 代码小段
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="others.html">
+            
+                <a href="others.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="rust_mdbook_使用.html">
+            
+                <a href="rust_mdbook_使用.html">
+            
+                    
+                    Rust 使用mdbook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="as_title_scripts.html">
+            
+                <a href="as_title_scripts.html">
+            
+                    
+                    脚本
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="shell_变量.html">
+            
+                <a href="shell_变量.html">
+            
+                    
+                    shell变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="shell_基础篇.html">
+            
+                <a href="shell_基础篇.html">
+            
+                    
+                    shell命令和脚本记录-基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="shell_高级篇.html">
+            
+                <a href="shell_高级篇.html">
+            
+                    
+                    shell命令和脚本记录-高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="shell_脚本片段.html">
+            
+                <a href="shell_脚本片段.html">
+            
+                    
+                    shell脚本片段
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="python_记录.html">
+            
+                <a href="python_记录.html">
+            
+                    
+                    python记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.6" data-path="lua_记录.html">
+            
+                <a href="lua_记录.html">
+            
+                    
+                    lua记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.7" data-path="shell_rds脚本阅读.html">
+            
+                <a href="shell_rds脚本阅读.html">
+            
+                    
+                    RDS脚本阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.8" data-path="Project_Euler.html">
+            
+                <a href="Project_Euler.html">
+            
+                    
+                    Project Euler
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="as_title_app.html">
+            
+                <a href="as_title_app.html">
+            
+                    
+                    应用相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="app_sysbench代码分析.html">
+            
+                <a href="app_sysbench代码分析.html">
+            
+                    
+                    sysbench代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="as_title_algorithm.html">
+            
+                <a href="as_title_algorithm.html">
+            
+                    
+                    算法相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="algorithm_radix_tree.html">
+            
+                <a href="algorithm_radix_tree.html">
+            
+                    
+                    基数(radix)树(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="as_title_cos.html">
+            
+                <a href="as_title_cos.html">
+            
+                    
+                    C和Operating System
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="system_libc_part1.html">
+            
+                <a href="system_libc_part1.html">
+            
+                    
+                    libc概览1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="system_libc_part2.html">
+            
+                <a href="system_libc_part2.html">
+            
+                    
+                    libc概览2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="system_libc_part3.html">
+            
+                <a href="system_libc_part3.html">
+            
+                    
+                    libc概览3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="system_原理杂记.html">
+            
+                <a href="system_原理杂记.html">
+            
+                    
+                    系统原理杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="system_alpine.html">
+            
+                <a href="system_alpine.html">
+            
+                    
+                    Alpine Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="system_进程间通信.html">
+            
+                <a href="system_进程间通信.html">
+            
+                    
+                    进程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.7" data-path="system_特殊功能fd.html">
+            
+                <a href="system_特殊功能fd.html">
+            
+                    
+                    eventfd timerfd signalfd和fd共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.8" data-path="c_automake_autoconf.html">
+            
+                <a href="c_automake_autoconf.html">
+            
+                    
+                    automake autoconf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.9" data-path="makefile_原理和实践.html">
+            
+                <a href="makefile_原理和实践.html">
+            
+                    
+                    makefile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.10" data-path="c_编程杂记高级篇.html">
+            
+                <a href="c_编程杂记高级篇.html">
+            
+                    
+                    C编程杂记高级篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.11" data-path="c_编程杂记基础篇.html">
+            
+                <a href="c_编程杂记基础篇.html">
+            
+                    
+                    C编程杂记基础篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.12" data-path="c_networking_socket高阶用法.html">
+            
+                <a href="c_networking_socket高阶用法.html">
+            
+                    
+                    网络编程: Advanced Socket Topics(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.13" data-path="c_protobuf介绍.html">
+            
+                <a href="c_protobuf介绍.html">
+            
+                    
+                    序列化: protobuf介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.14" data-path="c_进程间通信_共享文件和共享内存.html">
+            
+                <a href="c_进程间通信_共享文件和共享内存.html">
+            
+                    
+                    进程间通信: 共享文件和共享内存(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.15" data-path="c_pthread_condition和mutex.html">
+            
+                <a href="c_pthread_condition和mutex.html">
+            
+                    
+                    并发 任务 事件 和锁.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.16" data-path="kernel_user_space_howto.html">
+            
+                <a href="kernel_user_space_howto.html">
+            
+                    
+                    kernel space和user space交互(网摘, linux2.6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.17" data-path="CentOS_系统性能优化配置.html">
+            
+                <a href="CentOS_系统性能优化配置.html">
+            
+                    
+                    CentOS 性能优化系统配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.18" data-path="OS_gentoo使用.html">
+            
+                <a href="OS_gentoo使用.html">
+            
+                    
+                    gentoo使用记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="as_title_driver.html">
+            
+                <a href="as_title_driver.html">
+            
+                    
+                    内核 设备和驱动相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="device_driver_地址空间类型和DMA.html">
+            
+                <a href="device_driver_地址空间类型和DMA.html">
+            
+                    
+                    地址空间类型和DMA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="platform_device_driver.html">
+            
+                <a href="platform_device_driver.html">
+            
+                    
+                    平台驱动杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="platform_device_driver2.html">
+            
+                <a href="platform_device_driver2.html">
+            
+                    
+                    平台驱动杂记2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="device_driver_pci驱动概述.html">
+            
+                <a href="device_driver_pci驱动概述.html">
+            
+                    
+                    pci驱动概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.5" data-path="device_driver_内核中的时间和延迟操作.html">
+            
+                <a href="device_driver_内核中的时间和延迟操作.html">
+            
+                    
+                    内核中的时间和延迟操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.6" data-path="device_driver_杂记.html">
+            
+                <a href="device_driver_杂记.html">
+            
+                    
+                    驱动调试杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.7" data-path="device_localbus_16bit读写.html">
+            
+                <a href="device_localbus_16bit读写.html">
+            
+                    
+                    CPLD做8bit到16bit转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.8" data-path="driver_位域和大小端.html">
+            
+                <a href="driver_位域和大小端.html">
+            
+                    
+                    位域和大小端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.9" data-path="as_title_driver1.html">
+            
+                <a href="as_title_driver1.html">
+            
+                    
+                    nand
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.9.1" data-path="device_driver_octeon_nand.html">
+            
+                <a href="device_driver_octeon_nand.html">
+            
+                    
+                    octeon nand flash驱动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.9.2" data-path="device_driver_nand概率写失败问题分析.html">
+            
+                <a href="device_driver_nand概率写失败问题分析.html">
+            
+                    
+                    Nand flash概率写失败问题分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.10" data-path="octeon_remote_pci.html">
+            
+                <a href="octeon_remote_pci.html">
+            
+                    
+                    octeon remote-pci.c阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.11" data-path="Device_VFIO_notes.html">
+            
+                <a href="Device_VFIO_notes.html">
+            
+                    
+                    VFIO简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12" data-path="as_title_driver2.html">
+            
+                <a href="as_title_driver2.html">
+            
+                    
+                    智能网卡和DPDK
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.12.1" data-path="smartNIC_智能网卡对比.html">
+            
+                <a href="smartNIC_智能网卡对比.html">
+            
+                    
+                    智能网卡对比
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12.2" data-path="octeon_pci_NIC.html">
+            
+                <a href="octeon_pci_NIC.html">
+            
+                    
+                    octeon PCI NIC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12.3" data-path="as_title_driver3.html">
+            
+                <a href="as_title_driver3.html">
+            
+                    
+                    octeon liquidIO
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.12.3.1" data-path="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读app篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --app篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12.3.2" data-path="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读api篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --api篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12.3.3" data-path="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇之结构体.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇之结构体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12.3.4" data-path="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读driver篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --driver篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12.3.5" data-path="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                <a href="smartNIC_liquidIO_代码阅读真NIC篇.html">
+            
+                    
+                    PCI-NIC 代码阅读 --真NIC篇
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12.4" data-path="networking_dpdk使用_2014.html">
+            
+                <a href="networking_dpdk使用_2014.html">
+            
+                    
+                    DPDK使用(2014)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.13" data-path="device_nvme要点介绍.html">
+            
+                <a href="device_nvme要点介绍.html">
+            
+                    
+                    nvme要点介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="as_title_cpu.html">
+            
+                <a href="as_title_cpu.html">
+            
+                    
+                    CPU Arch相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="CPU_interconnection_networks.html">
+            
+                <a href="CPU_interconnection_networks.html">
+            
+                    
+                    CPU核互联模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="cache_CPU和cache一致性原理.html">
+            
+                <a href="cache_CPU和cache一致性原理.html">
+            
+                    
+                    CPU和cache一致性原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3" data-path="as_title_cpu1.html">
+            
+                <a href="as_title_cpu1.html">
+            
+                    
+                    ARM64
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.3.1" data-path="CPU_ARM64_知识杂记.html">
+            
+                <a href="CPU_ARM64_知识杂记.html">
+            
+                    
+                    aarch64架构知识杂记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3.2" data-path="CPU_ARM64_thunder_overview.html">
+            
+                <a href="CPU_ARM64_thunder_overview.html">
+            
+                    
+                    thunder 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3.3" data-path="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                <a href="CPU_ARM64_thunder_开发板操作记录.html">
+            
+                    
+                    thunder 开发板操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3.4" data-path="CPU_ARM64_thunder_bdk.html">
+            
+                <a href="CPU_ARM64_thunder_bdk.html">
+            
+                    
+                    thunder BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3.5" data-path="CPU_ARM64_thunder_efi_rtc.html">
+            
+                <a href="CPU_ARM64_thunder_efi_rtc.html">
+            
+                    
+                    thunder RTC时间和efi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3.6" data-path="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                <a href="CPU_ARM64_thunder_uefi_fdt.html">
+            
+                    
+                    thunder uefi和fdt
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3.7" data-path="CPU_ARM64_thunder_atf.html">
+            
+                <a href="CPU_ARM64_thunder_atf.html">
+            
+                    
+                    thunder atf
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3.8" data-path="CPU_ARM64_thunder_kernel_boot.html">
+            
+                <a href="CPU_ARM64_thunder_kernel_boot.html">
+            
+                    
+                    thunder kernel启动打印流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.4" data-path="as_title_cpu2.html">
+            
+                <a href="as_title_cpu2.html">
+            
+                    
+                    PPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.4.1" data-path="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                <a href="CPU_PPC启动多核Linux_流程和内存映射.html">
+            
+                    
+                    PPC启动多核linux: 流程和内存映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.4.2" data-path="CPU_PPC_kernel升级记录.html">
+            
+                <a href="CPU_PPC_kernel升级记录.html">
+            
+                    
+                    PPC kernel升级记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5" data-path="as_title_cpu3.html">
+            
+                <a href="as_title_cpu3.html">
+            
+                    
+                    MIPS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.5.1" data-path="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                <a href="CPU_MIPS_octeon地址空间和寄存器访问.html">
+            
+                    
+                    octeon 地址空间和寄存器访问
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5.2" data-path="CPU_MIPS_octeon操作记录.html">
+            
+                <a href="CPU_MIPS_octeon操作记录.html">
+            
+                    
+                    octeon 操作记录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5.3" data-path="CPU_MIPS_octeon_包处理性能.html">
+            
+                <a href="CPU_MIPS_octeon_包处理性能.html">
+            
+                    
+                    octeon 系列处理器包处理性能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5.4" data-path="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                <a href="CPU_MIPS_octeon_ddr调试记录.html">
+            
+                    
+                    octeon DDR调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5.5" data-path="CPU_MIPS_octeon_BDK.html">
+            
+                <a href="CPU_MIPS_octeon_BDK.html">
+            
+                    
+                    octeon CN78xx BDK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5.6" data-path="kernel_增加ECC中断.html">
+            
+                <a href="kernel_增加ECC中断.html">
+            
+                    
+                    octeon 增加ECC中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5.7" data-path="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                <a href="CPU_MIPS_octeon_hw-ddr2代码走读.html">
+            
+                    
+                    octeon hw-ddr2代码走读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5.8" data-path="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                <a href="CPU_MIPS_octeon_reboot调试和ddr中断.html">
+            
+                    
+                    octeon reboot调试和DDR中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5.9" data-path="CPU_MIPS_octeon中断.html">
+            
+                <a href="CPU_MIPS_octeon中断.html">
+            
+                    
+                    octeon 中断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5.10" data-path="CPU_MIPS_octeon原子操作.html">
+            
+                <a href="CPU_MIPS_octeon原子操作.html">
+            
+                    
+                    octeon 原子操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5.11" data-path="CPU_MIPS_octeon网口代码分析.html">
+            
+                <a href="CPU_MIPS_octeon网口代码分析.html">
+            
+                    
+                    octeon 网口代码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >gshell socket leak调查</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#&#x80CC;&#x666F;"><b>1. </b>&#x80CC;&#x666F;</a></li><li><span class="title-icon "></span><a href="#&#x95EE;&#x9898;&#x73B0;&#x8C61;"><b>2. </b>&#x95EE;&#x9898;&#x73B0;&#x8C61;</a></li><li><span class="title-icon "></span><a href="#&#x5206;&#x6790;&#x8C03;&#x67E5;"><b>3. </b>&#x5206;&#x6790;&#x8C03;&#x67E5;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4EE3;&#x7801;&#x5206;&#x6790;"><b>3.1. </b>&#x4EE3;&#x7801;&#x5206;&#x6790;</a></li><li><span class="title-icon "></span><a href="#&#x7528;lsof&#x548C;netstat&#x8C03;&#x67E5;"><b>3.2. </b>&#x7528;lsof&#x548C;netstat&#x8C03;&#x67E5;</a></li><li><span class="title-icon "></span><a href="#&#x53EF;&#x80FD;&#x5C31;&#x662F;socket&#x6CC4;&#x6F0F;"><b>3.3. </b>&#x53EF;&#x80FD;&#x5C31;&#x662F;socket&#x6CC4;&#x6F0F;</a></li><li><span class="title-icon "></span><a href="#pprof"><b>3.4. </b>pprof</a></li><ul><li><span class="title-icon "></span><a href="#reverse-proxy&#x9020;&#x6210;&#x4E86;goroutine&#x6CC4;&#x6F0F;"><b>3.4.1. </b>reverse proxy&#x9020;&#x6210;&#x4E86;goroutine&#x6CC4;&#x6F0F;</a></li></ul></ul><li><span class="title-icon "></span><a href="#&#x89E3;&#x51B3;"><b>4. </b>&#x89E3;&#x51B3;</a></li><li><span class="title-icon "></span><a href="#&#x603B;&#x7ED3;"><b>5. </b>&#x603B;&#x7ED3;</a></li><li><span class="title-icon "></span><a href="#&#x77E5;&#x8BC6;&#x70B9;"><b>6. </b>&#x77E5;&#x8BC6;&#x70B9;</a></li><ul><li><span class="title-icon "></span><a href="#timewait&#x72B6;&#x6001;&#x7684;&#x8FDE;&#x63A5;"><b>6.1. </b>TIME_WAIT&#x72B6;&#x6001;&#x7684;&#x8FDE;&#x63A5;</a></li><li><span class="title-icon "></span><a href="#close&#x72B6;&#x6001;&#x7684;&#x8FC1;&#x79FB;"><b>6.2. </b>close&#x72B6;&#x6001;&#x7684;&#x8FC1;&#x79FB;</a></li></ul></ul></div><a href="#&#x80CC;&#x666F;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><p>&#x8BB0;&#x5F55;&#x4E00;&#x6B21;socket&#x6CC4;&#x6F0F;&#x7684;&#x8C03;&#x67E5;&#x8FC7;&#x7A0B;.</p>
+<ul>
+<li><a href="#&#x80CC;&#x666F;">&#x80CC;&#x666F;</a></li>
+<li><a href="#&#x95EE;&#x9898;&#x73B0;&#x8C61;">&#x95EE;&#x9898;&#x73B0;&#x8C61;</a></li>
+<li><a href="#&#x5206;&#x6790;&#x8C03;&#x67E5;">&#x5206;&#x6790;&#x8C03;&#x67E5;</a><ul>
+<li><a href="#&#x4EE3;&#x7801;&#x5206;&#x6790;">&#x4EE3;&#x7801;&#x5206;&#x6790;</a></li>
+<li><a href="#&#x7528;lsof&#x548C;netstat&#x8C03;&#x67E5;">&#x7528;<code>lsof</code>&#x548C;<code>netstat</code>&#x8C03;&#x67E5;</a></li>
+<li><a href="#&#x53EF;&#x80FD;&#x5C31;&#x662F;socket&#x6CC4;&#x6F0F;">&#x53EF;&#x80FD;&#x5C31;&#x662F;socket&#x6CC4;&#x6F0F;</a></li>
+<li><a href="#pprof">pprof</a><ul>
+<li><a href="#reverse-proxy&#x9020;&#x6210;&#x4E86;goroutine&#x6CC4;&#x6F0F;">reverse proxy&#x9020;&#x6210;&#x4E86;goroutine&#x6CC4;&#x6F0F;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#&#x89E3;&#x51B3;">&#x89E3;&#x51B3;</a></li>
+<li><a href="#&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</a></li>
+<li><a href="#&#x77E5;&#x8BC6;&#x70B9;">&#x77E5;&#x8BC6;&#x70B9;</a><ul>
+<li><a href="#time_wait&#x72B6;&#x6001;&#x7684;&#x8FDE;&#x63A5;">TIME_WAIT&#x72B6;&#x6001;&#x7684;&#x8FDE;&#x63A5;</a></li>
+<li><a href="#close&#x72B6;&#x6001;&#x7684;&#x8FC1;&#x79FB;">close&#x72B6;&#x6001;&#x7684;&#x8FC1;&#x79FB;</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="&#x80CC;&#x666F;"><a name="&#x80CC;&#x666F;" class="anchor-navigation-ex-anchor" href="#&#x80CC;&#x666F;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x80CC;&#x666F;</h1>
+<p><a href="https://github.com/godevsig/gshellos" target="_blank">gshell</a>&#x662F;golang&#x5199;&#x7684;&#x5FAE;&#x670D;&#x52A1;&#x6846;&#x67B6;, &#x6709;&#x4E2A;&#x7C7B;&#x4F3C;dockerd&#x7684;daemon&#x8D1F;&#x8D23;&#x670D;&#x52A1;&#x8C03;&#x5EA6;&#x548C;&#x53D1;&#x73B0;, &#x5B83;&#x7528;&#x5230;&#x4E86;<code>adaptiveservice</code>&#x5E93;, &#x4EE3;&#x7801;&#x6211;&#x653E;&#x5728;&#x4E86;<a href="https://github.com/godevsig/adaptiveservice" target="_blank">github godevsig/adaptiveservice</a>.  </p>
+<p>gshell&#x6B63;&#x5E38;&#x7528;&#x8D77;&#x6765;&#x5E94;&#x8BE5;&#x662F;&#x8FD9;&#x6837;, &#x98CE;&#x683C;&#x7C7B;&#x4F3C;docker:<br><img src="img/debugging_gshellos_socket_leak_20230328091707.png" alt=""></p>
+<p>gshell daemon&#x53EF;&#x4EE5;&#x611F;&#x77E5;&#x6240;&#x6709;gshell node(&#x79F0;&#x4F5C;provider)&#x63D0;&#x4F9B;&#x7684;&#x670D;&#x52A1;:<br><img src="img/debugging_gshellos_socket_leak_20230328092022.png" alt=""></p>
+<h1 id="&#x95EE;&#x9898;&#x73B0;&#x8C61;"><a name="&#x95EE;&#x9898;&#x73B0;&#x8C61;" class="anchor-navigation-ex-anchor" href="#&#x95EE;&#x9898;&#x73B0;&#x8C61;"><i class="fa fa-link" aria-hidden="true"></i></a>2. &#x95EE;&#x9898;&#x73B0;&#x8C61;</h1>
+<p>gshell daemon&#x7ECF;&#x8FC7;&#x5927;&#x6982;&#x51E0;&#x4E2A;&#x6708;&#x7684;&#x8FD0;&#x884C;, log&#x91CC;&#x9762;&#x663E;&#x793A;&#x5927;&#x91CF;&#x7684;<code>too many open files</code></p>
+<pre class="language-"><code class="lang-shell"><span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727067<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727073<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727078<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727083<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727098<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727110<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727117<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727122<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727128<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727133<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727138<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727143<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727149<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727154<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727159<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727165<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+<span class="token punctuation">[</span><span class="token number">2022</span>/11/29 <span class="token number">10</span>:32:50.727170<span class="token punctuation">]</span><span class="token punctuation">[</span>daemon<span class="token punctuation">]</span><span class="token punctuation">[</span>WARN<span class="token punctuation">]</span> stream transport listener: accept tcp <span class="token punctuation">[</span>::<span class="token punctuation">]</span>:11985: accept4: too many <span class="token function">open</span> files
+</code></pre>
+<p>&#x4F7F;&#x7528;<code>prlimit</code>&#x67E5;&#x770B;&#x8FDB;&#x7A0B;&#x7684;limits, &#x53D1;&#x73B0;&#x6B64;&#x8FDB;&#x7A0B;&#x6253;&#x5F00;&#x6587;&#x4EF6;&#x7684;&#x4E0A;&#x9650;&#x662F;1024:<br><img src="img/debugging_gshellos_socket_leak_20230328092256.png" alt="">  </p>
+<p>1024&#x8FD9;&#x4E2A;&#x503C;&#x5BF9;&#x4E00;&#x4E2A;daemon&#x6765;&#x8BF4;&#x662F;&#x592A;&#x5C0F;&#x4E86;, &#x4F7F;&#x7528;<code>prlimit -n10240 -p 3597864</code>&#x53EF;&#x4EE5;&#x4E34;&#x65F6;&#x4FEE;&#x6539;&#x6700;&#x5927;&#x6587;&#x4EF6;&#x6570;, &#x4F46;&#x80FD;&#x4E0D;&#x80FD;&#x771F;&#x6B63;&#x89E3;&#x51B3;&#x95EE;&#x9898;? &#x8FD8;&#x662F;&#x53EA;&#x80FD;&#x8BA9;daemon&#x53EF;&#x4EE5;&#x8DD1;&#x66F4;&#x4E45;&#x4E00;&#x70B9;, &#x4F46;&#x6700;&#x540E;&#x8FD8;&#x662F;&#x4F1A;&#x5D29;?</p>
+<p>&#x6211;&#x4EEC;&#x8981;&#x8BA8;&#x8BBA;&#x7684;&#x95EE;&#x9898;&#x662F;</p>
+<ol>
+<li>&#x662F;&#x5426;&#x6709;fd&#x6CC4;&#x6F0F;</li>
+<li>&#x5982;&#x679C;&#x6709;&#x7684;&#x8BDD;, fd&#x6CC4;&#x6F0F;&#x53D1;&#x751F;&#x5728;&#x54EA;&#x91CC;</li>
+</ol>
+<h1 id="&#x5206;&#x6790;&#x8C03;&#x67E5;"><a name="&#x5206;&#x6790;&#x8C03;&#x67E5;" class="anchor-navigation-ex-anchor" href="#&#x5206;&#x6790;&#x8C03;&#x67E5;"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x5206;&#x6790;&#x8C03;&#x67E5;</h1>
+<h2 id="&#x4EE3;&#x7801;&#x5206;&#x6790;"><a name="&#x4EE3;&#x7801;&#x5206;&#x6790;" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;&#x5206;&#x6790;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x4EE3;&#x7801;&#x5206;&#x6790;</h2>
+<p>&#x4E0A;&#x8FF0;&#x9519;&#x8BEF;&#x6253;&#x5370;&#x5BF9;&#x5E94;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;, &#x5728;&#x4E00;&#x4E2A;goroutine&#x91CC;&#x7684;&#x5FAA;&#x73AF;&#x91CC;&#x4E0D;&#x65AD;&#x7684;<code>Accept</code>&#x8FDE;&#x63A5;, &#x5E76;&#x628A;&#x65B0;&#x5EFA;&#x597D;&#x7684;<code>netconn</code>&#x653E;&#x5230;&#x8FD9;&#x4E2A;streamTransport&#x7684;<code>chanNetConn</code> &#x91CC;&#x9762;.<br><img src="img/debugging_gshellos_socket_leak_20230328094001.png" alt=""><br>&#x6CE8;: &#x8FD9;&#x91CC;&#x6211;&#x628A;log&#x6253;&#x5370;&#x6539;&#x4E3A;&#x4E86;<code>Debugf</code>, &#x5426;&#x5219;&#x5C31;&#x4F1A;&#x4EA7;&#x751F;&#x5927;&#x91CF;&#x7684;<code>too many open files</code>&#x6253;&#x5370;, &#x6700;&#x7EC8;log&#x6587;&#x4EF6;&#x4F1A;&#x628A;&#x78C1;&#x76D8;&#x586B;&#x6EE1;.</p>
+<p>&#x6BCF;&#x4E2A;&#x65B0;&#x5EFA;&#x7684;<code>netconn</code>&#x90FD;&#x4F1A;&#x5728;&#x5355;&#x72EC;&#x7684;goroutine&#x91CC;&#x9762;&#x5904;&#x7406;:  </p>
+<pre class="language-"><code class="lang-golang">    defer func() {
+        for netconn := range st.chanNetConn {
+            netconn.Close()
+        }
+    }()
+
+    closed := st.closed
+    for {
+        select {
+        case &lt;-closed:
+            return
+        case netconn := &lt;-st.chanNetConn:
+            go handleConn(netconn)
+        }
+    }
+</code></pre>
+<p>&#x5904;&#x7406;&#x8FC7;&#x7A0B;&#x6BD4;&#x8F83;&#x590D;&#x6742;, &#x57FA;&#x672C;&#x4E0A;&#x6700;&#x540E;&#x4E5F;&#x4F1A;&#x5728;<code>defer</code>&#x91CC;&#x9762;&#x8C03;&#x7528;<code>netconn.Close()</code><br><img src="img/debugging_gshellos_socket_leak_20230328100845.png" alt="">  </p>
+<p>&#x9664;&#x4E86;&#x4E00;&#x4E2A;&#x4F8B;&#x5916;:<br>&#x5982;&#x679C;<code>fnOnConnect</code>&#x5B58;&#x5728;&#x7684;&#x8BDD;, &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x5C31;&#x662F;&#x88AB;&#x8BBE;&#x8BA1;&#x6210;&#x63A5;&#x7BA1;&#x6A21;&#x5F0F;</p>
+<pre class="language-"><code class="lang-golang">// OnConnectFunc sets a function which is called when new
+// incoming connection is established.
+// Further message dispaching on this connection will stop
+// if fn returns true, leaving the connection NOT closed, fn
+// should then take over this Netconn and close it when finished.
+func OnConnectFunc(fn func(Netconn) (takeOver bool)) ServiceOption {
+    return func(svc *service) {
+        svc.fnOnConnect = fn
+    }
+}
+</code></pre>
+<p>&#x8FD9;&#x4E48;&#x770B;&#x4EE3;&#x7801;&#x6D41;&#x7A0B;&#x4E0A;&#x4F3C;&#x4E4E;OK. &#x90A3;&#x4E48;&#x95EE;&#x9898;&#x5C31;&#x662F;&#x7B80;&#x5355;&#x7684;1024&#x4E2A;client&#x540C;&#x65F6;&#x8FDE;&#x63A5;&#x5BFC;&#x81F4;&#x7684;fd&#x4E0D;&#x8DB3;&#x5417;?</p>
+<h2 id="&#x7528;lsof&#x548C;netstat&#x8C03;&#x67E5;"><a name="&#x7528;lsof&#x548C;netstat&#x8C03;&#x67E5;" class="anchor-navigation-ex-anchor" href="#&#x7528;lsof&#x548C;netstat&#x8C03;&#x67E5;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x7528;lsof&#x548C;netstat&#x8C03;&#x67E5;</h2>
+<p>&#x901A;&#x8FC7;&#x51E0;&#x5929;&#x7684;<code>/proc/pid/fd</code>&#x89C2;&#x5BDF;, &#x53D1;&#x73B0;fd&#x4E2A;&#x6570;&#x786E;&#x5B9E;&#x5728;&#x7F13;&#x6162;&#x589E;&#x957F;, &#x5927;&#x90E8;&#x5206;&#x662F;socket:<br><img src="img/debugging_gshellos_socket_leak_20230328110301.png" alt=""></p>
+<p><code>lsof -np 3597864</code>&#x663E;&#x793A;&#x66F4;&#x8BE6;&#x7EC6;&#x7684;&#x4FE1;&#x606F;:<br><img src="img/debugging_gshellos_socket_leak_20230328111601.png" alt=""></p>
+<p>&#x5BF9;socket&#x6765;&#x8BF4;, &#x80FD;&#x663E;&#x793A;&#x72B6;&#x6001;&#x7684;FD, &#x6BD4;&#x5982;<code>LISTEN</code>, <code>ESTABLISHED</code>, &#x662F;&#x6BD4;&#x8F83;&#x6B63;&#x5E38;&#x7684;.<br>&#x800C;&#x540E;&#x9762;&#x6570;&#x91CF;&#x6BD4;&#x8F83;&#x591A;&#x7684;<code>sock</code>:</p>
+<pre class="language-"><code class="lang-shell">gshell  <span class="token number">3597864</span> nobody   42u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3126838341</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   43u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3126844553</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   44u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3138644284</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   45u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3124033098</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   46u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3124035739</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   47u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3126847184</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   48u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3140046172</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   49u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3126845992</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   50u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3126836885</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   51u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3138652549</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   52u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3126843789</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   53u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3137310543</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   54u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3137313903</span> protocol: TCPv6
+gshell  <span class="token number">3597864</span> nobody   55u     sock                <span class="token number">0,9</span>      0t0 <span class="token number">3137306228</span> protocol: TCPv6
+</code></pre>
+<p>&#x8FD9;&#x4E2A;patten&#x66F4;&#x50CF;&#x662F;socket leak, &#x89C1;&#x4E0B;&#x9762;&#x7684;&#x8BA8;&#x8BBA;</p>
+<ul>
+<li><a href="https://serverfault.com/questions/153983/sockets-found-by-lsof-but-not-by-netstat" target="_blank">Sockets found by lsof but not by netstat</a></li>
+<li><a href="https://serverfault.com/questions/1000338/in-lsof-output-what-are-those-sock-lines" target="_blank">In lsof output what are those &apos;sock&apos; lines?</a></li>
+<li><a href="https://github.com/spring-projects/spring-framework/issues/25348" target="_blank">Zombie socket file descriptors issue</a></li>
+</ul>
+<p><code>lsof</code>&#x548C;<code>/proc/3597864/fd</code>&#x7684;socket fd&#x6570;&#x91CF;&#x662F;&#x4E00;&#x81F4;&#x7684;:</p>
+<pre class="language-"><code class="lang-shell">root@micro-server:/home/yingjieb<span class="token comment"># lsof -np 3597864 | egrep &quot;IP|sock|unix&quot; | wc -l</span>
+<span class="token number">59</span>
+root@micro-server:/proc/3597864<span class="token comment"># ls -l fd | grep socket | wc -l</span>
+<span class="token number">59</span>
+</code></pre>
+<p>&#x8FD9;59&#x4E2A;socket fd&#x4E2D;, &#x6709;40&#x4E2A;&#x662F;&#x7591;&#x4F3C;&#x6CC4;&#x6F0F;&#x7684;fd:</p>
+<pre class="language-"><code class="lang-shell">root@micro-server:/home/yingjieb<span class="token comment"># lsof -np 3597864 | egrep &quot;sock                0,9&quot; | wc -l</span>
+<span class="token number">40</span>
+</code></pre>
+<p>&#x7528;<code>lsof</code>&#x548C;<code>netstat</code>&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x6B63;&#x5E38;&#x72B6;&#x6001;&#x7684;socket:</p>
+<pre class="language-"><code class="lang-shell">root@micro-server:/home/yingjieb<span class="token comment"># lsof -np 3597864 | egrep &quot;IP|sock|unix&quot; | egrep -v &quot;sock                0,9&quot;</span>
+gshell  <span class="token number">3597864</span> nobody    7u     IPv4         <span class="token number">3112600867</span>      0t0        UDP *:9923
+gshell  <span class="token number">3597864</span> nobody    8u     unix 0xffff8af63fcf5c00      0t0 <span class="token number">3112600870</span> @adaptiveservice/builtin_LANRegistry.sock <span class="token assign-left variable">type</span><span class="token operator">=</span>STREAM
+gshell  <span class="token number">3597864</span> nobody    9u     unix 0xffff8af63fcf5400      0t0 <span class="token number">3112600873</span> @adaptiveservice/builtin_registryInfo.sock <span class="token assign-left variable">type</span><span class="token operator">=</span>STREAM
+gshell  <span class="token number">3597864</span> nobody   10u     unix 0xffff8af63fcf5800      0t0 <span class="token number">3112600875</span> @adaptiveservice/builtin_providerInfo.sock <span class="token assign-left variable">type</span><span class="token operator">=</span>STREAM
+gshell  <span class="token number">3597864</span> nobody   11u     IPv6         <span class="token number">3112600879</span>      0t0        TCP *:11985 <span class="token punctuation">(</span>LISTEN<span class="token punctuation">)</span>
+gshell  <span class="token number">3597864</span> nobody   12u     IPv6         <span class="token number">3112600880</span>      0t0        TCP *:40811 <span class="token punctuation">(</span>LISTEN<span class="token punctuation">)</span>
+gshell  <span class="token number">3597864</span> nobody   13u     unix 0xffff8af61f3d7800      0t0 <span class="token number">3112598912</span> @adaptiveservice/builtin_serviceLister.sock <span class="token assign-left variable">type</span><span class="token operator">=</span>STREAM
+gshell  <span class="token number">3597864</span> nobody   14u     unix 0xffff8af61f3d2800      0t0 <span class="token number">3112598913</span> @adaptiveservice/builtin_IPObserver.sock <span class="token assign-left variable">type</span><span class="token operator">=</span>STREAM
+gshell  <span class="token number">3597864</span> nobody   15u     IPv6         <span class="token number">3112598914</span>      0t0        TCP *:35803 <span class="token punctuation">(</span>LISTEN<span class="token punctuation">)</span>
+gshell  <span class="token number">3597864</span> nobody   16u     unix 0xffff8af55a29bc00      0t0 <span class="token number">3112599907</span> @adaptiveservice/godevsig_codeRepo.sock <span class="token assign-left variable">type</span><span class="token operator">=</span>STREAM
+gshell  <span class="token number">3597864</span> nobody   17u     IPv6         <span class="token number">3112599908</span>      0t0        TCP *:42963 <span class="token punctuation">(</span>LISTEN<span class="token punctuation">)</span>
+gshell  <span class="token number">3597864</span> nobody   18u     unix 0xffff8af63fcf6800      0t0 <span class="token number">3112600888</span> @adaptiveservice/godevsig_updater.sock <span class="token assign-left variable">type</span><span class="token operator">=</span>STREAM
+gshell  <span class="token number">3597864</span> nobody   19u     IPv6         <span class="token number">3112600889</span>      0t0        TCP *:37605 <span class="token punctuation">(</span>LISTEN<span class="token punctuation">)</span>
+gshell  <span class="token number">3597864</span> nobody   20u     unix 0xffff8af1102ca400      0t0 <span class="token number">3112603785</span> @adaptiveservice/godevsig_gshellDaemon.sock <span class="token assign-left variable">type</span><span class="token operator">=</span>STREAM
+gshell  <span class="token number">3597864</span> nobody   21u     IPv6         <span class="token number">3112603786</span>      0t0        TCP *:35851 <span class="token punctuation">(</span>LISTEN<span class="token punctuation">)</span>
+gshell  <span class="token number">3597864</span> nobody   22u     IPv6         <span class="token number">3112603788</span>      0t0        TCP *:42063 <span class="token punctuation">(</span>LISTEN<span class="token punctuation">)</span>
+gshell  <span class="token number">3597864</span> nobody   23u     IPv6         <span class="token number">3112650095</span>      0t0        TCP <span class="token number">192.168</span>.0.18:40811-<span class="token operator">&gt;</span><span class="token number">10.182</span>.101.165:43154 <span class="token punctuation">(</span>ESTABLISHED<span class="token punctuation">)</span>
+gshell  <span class="token number">3597864</span> nobody   24u     IPv6         <span class="token number">3112650097</span>      0t0        TCP *:41375 <span class="token punctuation">(</span>LISTEN<span class="token punctuation">)</span>
+gshell  <span class="token number">3597864</span> nobody   25u     IPv6         <span class="token number">3112650098</span>      0t0        TCP *:33655 <span class="token punctuation">(</span>LISTEN<span class="token punctuation">)</span>
+</code></pre>
+<pre class="language-"><code class="lang-shell">root@micro-server:/home/yingjieb<span class="token comment"># netstat -apn | grep 3597864</span>
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::42063                :::*                    LISTEN      <span class="token number">3597864</span>/bin/gshell
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::11985                :::*                    LISTEN      <span class="token number">3597864</span>/bin/gshell
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::42963                :::*                    LISTEN      <span class="token number">3597864</span>/bin/gshell
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::33655                :::*                    LISTEN      <span class="token number">3597864</span>/bin/gshell
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::35803                :::*                    LISTEN      <span class="token number">3597864</span>/bin/gshell
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::41375                :::*                    LISTEN      <span class="token number">3597864</span>/bin/gshell
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::37605                :::*                    LISTEN      <span class="token number">3597864</span>/bin/gshell
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::35851                :::*                    LISTEN      <span class="token number">3597864</span>/bin/gshell
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> :::40811                :::*                    LISTEN      <span class="token number">3597864</span>/bin/gshell
+tcp6       <span class="token number">0</span>      <span class="token number">0</span> <span class="token number">192.168</span>.0.18:40811      <span class="token number">10.182</span>.101.165:43154    ESTABLISHED <span class="token number">3597864</span>/bin/gshell
+udp        <span class="token number">0</span>      <span class="token number">0</span> <span class="token number">0.0</span>.0.0:9923            <span class="token number">0.0</span>.0.0:*                           <span class="token number">3597864</span>/bin/gshell
+unix  <span class="token number">2</span>      <span class="token punctuation">[</span> ACC <span class="token punctuation">]</span>     STREAM     LISTENING     <span class="token number">3112600875</span> <span class="token number">3597864</span>/bin/gshell   @adaptiveservice/builtin_providerInfo.sock
+unix  <span class="token number">2</span>      <span class="token punctuation">[</span> ACC <span class="token punctuation">]</span>     STREAM     LISTENING     <span class="token number">3112598913</span> <span class="token number">3597864</span>/bin/gshell   @adaptiveservice/builtin_IPObserver.sock
+unix  <span class="token number">2</span>      <span class="token punctuation">[</span> ACC <span class="token punctuation">]</span>     STREAM     LISTENING     <span class="token number">3112600870</span> <span class="token number">3597864</span>/bin/gshell   @adaptiveservice/builtin_LANRegistry.sock
+unix  <span class="token number">2</span>      <span class="token punctuation">[</span> ACC <span class="token punctuation">]</span>     STREAM     LISTENING     <span class="token number">3112600873</span> <span class="token number">3597864</span>/bin/gshell   @adaptiveservice/builtin_registryInfo.sock
+unix  <span class="token number">2</span>      <span class="token punctuation">[</span> ACC <span class="token punctuation">]</span>     STREAM     LISTENING     <span class="token number">3112599907</span> <span class="token number">3597864</span>/bin/gshell   @adaptiveservice/godevsig_codeRepo.sock
+unix  <span class="token number">2</span>      <span class="token punctuation">[</span> ACC <span class="token punctuation">]</span>     STREAM     LISTENING     <span class="token number">3112598912</span> <span class="token number">3597864</span>/bin/gshell   @adaptiveservice/builtin_serviceLister.sock
+unix  <span class="token number">2</span>      <span class="token punctuation">[</span> ACC <span class="token punctuation">]</span>     STREAM     LISTENING     <span class="token number">3112603785</span> <span class="token number">3597864</span>/bin/gshell   @adaptiveservice/godevsig_gshellDaemon.sock
+unix  <span class="token number">2</span>      <span class="token punctuation">[</span> ACC <span class="token punctuation">]</span>     STREAM     LISTENING     <span class="token number">3112600888</span> <span class="token number">3597864</span>/bin/gshell   @adaptiveservice/godevsig_updater.sock
+</code></pre>
+<p>&#x6B63;&#x5E38;&#x72B6;&#x6001;&#x7684;socket, &#x65E0;&#x8BBA;&#x7528;<code>lsof</code>&#x8FD8;&#x662F;<code>netstat</code>&#x5F97;&#x5230;&#x7684;&#x6570;&#x91CF;&#x7EDF;&#x8BA1;&#x662F;&#x4E00;&#x81F4;&#x7684;:</p>
+<pre class="language-"><code>root@micro-server:/home/yingjieb# lsof -np 3597864 | egrep &quot;IP|sock|unix&quot; | egrep -v &quot;sock                0,9&quot; | wc -l
+19
+root@micro-server:/home/yingjieb# netstat -apn | grep 3597864 | wc -l
+19
+</code></pre><p>&#x800C;&quot;&#x5F02;&#x5E38;&quot;&#x7684;sock&#x5728;<code>netstat</code>&#x6216;&#x662F;<code>ss</code>&#x547D;&#x4EE4;&#x4E2D;&#x90FD;&#x96BE;&#x5BFB;&#x8E2A;&#x8FF9;, &#x662F;socket&#x6CC4;&#x6F0F;&#x5417;?</p>
+<h2 id="&#x53EF;&#x80FD;&#x5C31;&#x662F;socket&#x6CC4;&#x6F0F;"><a name="&#x53EF;&#x80FD;&#x5C31;&#x662F;socket&#x6CC4;&#x6F0F;" class="anchor-navigation-ex-anchor" href="#&#x53EF;&#x80FD;&#x5C31;&#x662F;socket&#x6CC4;&#x6F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. &#x53EF;&#x80FD;&#x5C31;&#x662F;socket&#x6CC4;&#x6F0F;</h2>
+<p>&#x7F51;&#x4E0A;&#x7684;&#x8BF4;&#x6CD5;&#x5927;&#x90E8;&#x5206;&#x90FD;&#x6307;&#x5411;&#x4E86;&#x4EE3;&#x7801;bug, &#x5373;socket fd&#x5E76;&#x6CA1;&#x6709;&#x88AB;close&#x5BFC;&#x81F4;&#x7684;fd&#x6CC4;&#x6F0F;. &#x6839;&#x636E;<a href="https://idea.popcount.org/2012-12-09-lsof-cant-identify-protocol/" target="_blank">&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;</a>, &#x8FD9;&#x4E9B;socket&#x5728;<code>/proc/net/*</code>&#x7684;&#x4FE1;&#x606F;&#x88AB;kernel&#x79FB;&#x9664;&#x4E86;, &#x6240;&#x4EE5;<code>lsof</code>&#x67E5;&#x8BE2;&#x4E0D;&#x5230;&#x8FD9;&#x4E9B;socket&#x4FE1;&#x606F;.</p>
+<p>&#x4ECE;&#x8FD9;&#x91CC;&#x5F00;&#x59CB;, &#x5C31;&#x8981;&#x770B;&#x4EE3;&#x7801;&#x4E86;.</p>
+<h2 id="pprof"><a name="pprof" class="anchor-navigation-ex-anchor" href="#pprof"><i class="fa fa-link" aria-hidden="true"></i></a>3.4. pprof</h2>
+<p>&#x56E0;&#x4E3A;&#x662F;golang&#x5199;&#x7684;, &#x6211;&#x5DF2;&#x7ECF;&#x52A0;&#x4E86;pprof&#x652F;&#x6301;, &#x901A;&#x8FC7;log&#x627E;&#x5230;debug&#x7AEF;&#x53E3;:
+<code>debugging at: [::]:42063</code></p>
+<p>&#x9996;&#x5148;&#x8981;&#x770B;&#x4E00;&#x4E0B;goroutine&#x662F;&#x5426;&#x6709;&#x6CC4;&#x6F0F;:<br><code>curl http://localhost:42063/debug/pprof/goroutine?debug=1</code></p>
+<p>&#x4E00;&#x5171;106&#x4E2A;goroutine, &#x8981;&#x4E00;&#x4E2A;&#x4E00;&#x4E2A;&#x770B;:<br><code>goroutine profile: total 106</code></p>
+<h3 id="reverse-proxy&#x9020;&#x6210;&#x4E86;goroutine&#x6CC4;&#x6F0F;"><a name="reverse-proxy&#x9020;&#x6210;&#x4E86;goroutine&#x6CC4;&#x6F0F;" class="anchor-navigation-ex-anchor" href="#reverse-proxy&#x9020;&#x6210;&#x4E86;goroutine&#x6CC4;&#x6F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>3.4.1. reverse proxy&#x9020;&#x6210;&#x4E86;goroutine&#x6CC4;&#x6F0F;</h3>
+<p>&#x4E0B;&#x9762;&#x7684;goroutine&#x6570;&#x91CF;&#x6B63;&#x597D;40&#x4E2A;:</p>
+<pre class="language-"><code class="lang-golang">40 @ 0x43fb25 0x406a0f 0x40664b 0x63ac85 0x641c65 0x4791a1
+#       0x63ac84        github.com/godevsig/adaptiveservice.(*proxyRegServiceInWAN).Handle.func3+0x2c4  /go/pkg/mod/github.com/godevsig/adaptiveservice@v0.9.24-0.20220927055808-74b42ce93f20/builtinservices.go:199
+#       0x641c64        github.com/godevsig/adaptiveservice.(*streamTransport).receiver.func2+0x1444    /go/pkg/mod/github.com/godevsig/adaptiveservice@v0.9.24-0.20220927055808-74b42ce93f20/streamtransport.go:320
+</code></pre>
+<p>&#x5BF9;&#x5E94;&#x4EE3;&#x7801;&#x5982;&#x4E0B;, &#x5728;199&#x884C;&#x6709;&#x53EF;&#x80FD;&#x6C38;&#x8FDC;&#x963B;&#x585E;:<br><img src="img/debugging_gshellos_socket_leak_20230329162022.png" alt=""></p>
+<p>&#x8FD9;&#x4E2A;reverse proxy&#x6D89;&#x53CA;3&#x65B9;, &#x5206;&#x522B;&#x662F;:</p>
+<ul>
+<li>&#x5185;&#x7F51;&#x670D;&#x52A1;&#x65B9;S </li>
+<li>&#x5916;&#x7F51;&#x7528;&#x6237;&#x65B9;C</li>
+<li>&#x4EE3;&#x7406;&#x65B9;P</li>
+</ul>
+<p>&#x4EE3;&#x7406;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;:</p>
+<ol>
+<li>S&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x6CE8;&#x518C;public&#x670D;&#x52A1;, &#x5B83;&#x53D1;&#x73B0;&#x5185;&#x7F51;&#x80FD;&#x63D0;&#x4F9B;reverse proxy&#x670D;&#x52A1;&#x7684;P  </li>
+<li>S&#x8FDE;&#x63A5;P, &#x5F97;&#x5230;&#x957F;&#x8FDE;&#x63A5;ConnCmd, P&#x4EE3;&#x66FF;S&#x5B8C;&#x6210;&#x6CE8;&#x518C;public&#x670D;&#x52A1;, &#x8BE5;&#x670D;&#x52A1;&#x7684;public&#x7AEF;&#x53E3;&#x4E3A;SrvPort</li>
+<li>P listen&#x4E00;&#x4E2A;&#x5BF9;S&#x4E13;&#x7528;&#x7684;&#x7AEF;&#x53E3;ReversePort</li>
+<li>&#x6BCF;&#x5F53;&#x6709;C&#x53BB;&#x8FDE;&#x63A5;P&#x7684;SrvPort&#x65F6;, &#x4F1A;&#x5F97;&#x5230;&#x4E00;&#x4E2A;socket(ClientSocket)</li>
+<li>P&#x901A;&#x8FC7;ConnCmd&#x7ED9;S&#x53D1;&#x9001;&#x901A;&#x77E5;msg</li>
+<li>S&#x63A5;&#x6536;msg&#x540E;&#x4E3B;&#x52A8;&#x53BB;&#x8FDE;&#x63A5;P&#x7684;ReversePort</li>
+<li>P&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x65B0;socket(ServerSocket)</li>
+<li>P&#x8D1F;&#x8D23;&#x5728;ClientSocket&#x548C;ServerSocket&#x4E4B;&#x95F4;&#x6309;&#x5B57;&#x8282;&#x8F6C;&#x53D1;(<code>io.Copy</code>)</li>
+<li>&#x4EFB;&#x610F;&#x4E00;&#x65B9;&#x65AD;&#x5F00;&#x65F6;, &#x8C03;&#x7528;&#x5BF9;&#x65B9;&#x8FDE;&#x63A5;&#x7684;<code>Close()</code></li>
+</ol>
+<p>199&#x884C;&#x51FA;&#x95EE;&#x9898;&#x65F6;, &#x6216;&#x8BB8;&#x662F;&#x56E0;&#x4E3A;S&#x88AB;kill&#x4E86;, S&#x548C;P&#x7684;&#x957F;&#x8FDE;&#x63A5;&#x5DF2;&#x7ECF;&#x65AD;&#x5F00;, &#x5BFC;&#x81F4;S&#x65E0;&#x6CD5;&#x6267;&#x884C;&#x7B2C;6&#x6B65;, &#x800C;P&#x5219;&#x5361;&#x5728;&#x7B2C;7&#x6B65;, &#x5C31;&#x662F;&#x7B2C;199&#x884C;.</p>
+<h1 id="&#x89E3;&#x51B3;"><a name="&#x89E3;&#x51B3;" class="anchor-navigation-ex-anchor" href="#&#x89E3;&#x51B3;"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x89E3;&#x51B3;</h1>
+<p>&#x5F53;S&#x548C;P&#x7684;&#x957F;&#x8FDE;&#x63A5;ConnCmd&#x51FA;&#x73B0;&#x95EE;&#x9898;&#x65F6;, close&#x6389;channel chanServerConn, &#x8FD9;&#x6837;&#x5C31;&#x4E0D;&#x4F1A;&#x5728;199&#x884C;&#x963B;&#x585E;. &#x4FEE;&#x6539;&#x89C1;&#x4E0B;&#x9762;&#x7B2C;183&#x884C;&#x548C;201&#x884C;<br><img src="img/debugging_gshellos_socket_leak_20230329180949.png" alt=""></p>
+<p>&#x4FEE;&#x6539;&#x540E;&#x7684;&#x7248;&#x672C;<code>lsof</code>&#x7684;&#x6B63;&#x5E38;&#x663E;&#x793A;:<br><img src="img/debugging_gshellos_socket_leak_20230330102414.png" alt=""></p>
+<h1 id="&#x603B;&#x7ED3;"><a name="&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x603B;&#x7ED3;</h1>
+<ul>
+<li>lsof&#x91CC;&#x9762;&quot;&#x4E0D;&#x6B63;&#x5E38;&quot;&#x7684;sock&#x5C31;&#x662F;fd&#x6CC4;&#x6F0F;, &#x4EE3;&#x7801;&#x91CC;&#x6CA1;&#x6709;&#x628A;socket close</li>
+<li>&#x8FD9;&#x4E9B;socket&#x5728;netstat&#x91CC;&#x9762;&#x6CA1;&#x6709;&#x663E;&#x793A;</li>
+</ul>
+<h1 id="&#x77E5;&#x8BC6;&#x70B9;"><a name="&#x77E5;&#x8BC6;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x77E5;&#x8BC6;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>6. &#x77E5;&#x8BC6;&#x70B9;</h1>
+<h2 id="timewait&#x72B6;&#x6001;&#x7684;&#x8FDE;&#x63A5;"><a name="timewait&#x72B6;&#x6001;&#x7684;&#x8FDE;&#x63A5;" class="anchor-navigation-ex-anchor" href="#timewait&#x72B6;&#x6001;&#x7684;&#x8FDE;&#x63A5;"><i class="fa fa-link" aria-hidden="true"></i></a>6.1. TIME_WAIT&#x72B6;&#x6001;&#x7684;&#x8FDE;&#x63A5;</h2>
+<p>&#x5728;&#x672C;&#x7AEF;close&#x6389;connection&#x540E;, socket&#x4E0D;&#x4F1A;&#x9A6C;&#x4E0A;&#x5173;&#x95ED;, &#x8981;&#x5927;&#x6982;&#x81F3;&#x5C11;50&#x79D2;&#x540E;&#x624D;&#x4F1A;&#x5728;<code>netstat</code>&#x91CC;&#x9762;&#x6D88;&#x5931;.</p>
+<p>&#x4E0B;&#x9762;&#x56FE;&#x91CC;, <code>192.168.0.18:41375</code>&#x662F;server&#x7AEF;, &#x548C;&#x591A;&#x4E2A;client<code>10.182.101.165:xxxxx</code>&#x8FDE;&#x63A5;.<br><img src="img/debugging_gshellos_socket_leak_20230329105417.png" alt=""></p>
+<h2 id="close&#x72B6;&#x6001;&#x7684;&#x8FC1;&#x79FB;"><a name="close&#x72B6;&#x6001;&#x7684;&#x8FC1;&#x79FB;" class="anchor-navigation-ex-anchor" href="#close&#x72B6;&#x6001;&#x7684;&#x8FC1;&#x79FB;"><i class="fa fa-link" aria-hidden="true"></i></a>6.2. close&#x72B6;&#x6001;&#x7684;&#x8FC1;&#x79FB;</h2>
+<p><img src="img/debugging_gshellos_socket_leak_20230331153532.png" alt=""></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="as_title_os_perf.html" class="navigation navigation-prev " aria-label="Previous page: profiling和debugging实例">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="profiling_调查ftrace显示调用栈全0问题.html" class="navigation navigation-next " aria-label="Next page: 调查ftrace显示调用栈全0问题">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"gshell socket leak调查","level":"1.3.3.1","depth":3,"next":{"title":"调查ftrace显示调用栈全0问题","level":"1.3.3.2","depth":3,"path":"notes/profiling_调查ftrace显示调用栈全0问题.md","ref":"notes/profiling_调查ftrace显示调用栈全0问题.md","articles":[]},"previous":{"title":"profiling和debugging实例","level":"1.3.3","depth":2,"path":"notes/as_title_os_perf.md","ref":"notes/as_title_os_perf.md","articles":[{"title":"gshell socket leak调查","level":"1.3.3.1","depth":3,"path":"notes/debugging_gshellos_socket_leak.md","ref":"notes/debugging_gshellos_socket_leak.md","articles":[]},{"title":"调查ftrace显示调用栈全0问题","level":"1.3.3.2","depth":3,"path":"notes/profiling_调查ftrace显示调用栈全0问题.md","ref":"notes/profiling_调查ftrace显示调用栈全0问题.md","articles":[]},{"title":"eoe_filter写tap设备失败问题","level":"1.3.3.3","depth":3,"path":"notes/profiling_eoe_filter写tap设备失败问题.md","ref":"notes/profiling_eoe_filter写tap设备失败问题.md","articles":[]},{"title":"OVS进程调查","level":"1.3.3.4","depth":3,"path":"notes/performance_ovs进程调查.md","ref":"notes/performance_ovs进程调查.md","articles":[]},{"title":"ping流程和函数调用解析","level":"1.3.3.5","depth":3,"path":"notes/performance_ping流程和函数调用解析.md","ref":"notes/performance_ping流程和函数调用解析.md","articles":[]},{"title":"VM互相ping场景下的延迟分析","level":"1.3.3.6","depth":3,"path":"notes/profiling_VM互相ping场景下的延迟分析.md","ref":"notes/profiling_VM互相ping场景下的延迟分析.md","articles":[]},{"title":"谁创建了bond0设备: ftrace kprobe uprobe perf综合使用","level":"1.3.3.7","depth":3,"path":"notes/debugging_ftrace_谁创建了bond0设备.md","ref":"notes/debugging_ftrace_谁创建了bond0设备.md","articles":[]},{"title":"unixbench之file copy分析","level":"1.3.3.8","depth":3,"path":"notes/profiling_unixbench之filecopy分析.md","ref":"notes/profiling_unixbench之filecopy分析.md","articles":[]},{"title":"lmbench之lat_tcp分析","level":"1.3.3.9","depth":3,"path":"notes/profiling_lmbench之lat_tcp分析.md","ref":"notes/profiling_lmbench之lat_tcp分析.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/debugging_gshellos_socket_leak.md","mtime":"2023-04-21T00:59:07.417Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-04-21T01:00:29.540Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-gb3/book/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    <script src="../gitbook/gitbook-plugin-mermaid-gb3/mermaid/mermaid.min.js"></script>
+
+    </body>
+</html>
+

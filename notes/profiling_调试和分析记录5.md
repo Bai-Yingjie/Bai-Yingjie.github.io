@@ -1,3 +1,5 @@
+- [查看kernel的oom记录](#查看kernel的oom记录)
+  - [oom的典型过程](#oom的典型过程)
 - [ftrace调查ENOSYS问题](#ftrace调查enosys问题)
   - [背景](#背景)
   - [问题现象](#问题现象)
@@ -13,6 +15,32 @@
   - [补充知识](#补充知识)
     - [vdso](#vdso)
     - [系统调用流程](#系统调用流程)
+
+# 查看kernel的oom记录
+用下面的命令看log
+```shell
+dmesg -Hk
+```
+但这个命令只能看最后的log, 因为kernel的log buffer是有限制的.
+
+而在`/var/log/kern.log`, `/var/log/kern.log.{1,2,3,4,5}.gz`里面有所有kernel的记录, 同样的, `/var/log/syslog`是系统log的记录.
+
+用下面的命令可以看全kernel log
+```shell
+journalctl -k
+```
+
+## oom的典型过程
+通常是一个进程在申请内存时失败:  
+![](img/profiling_调试和分析记录5_20230402191729.png)
+
+kernel打印调用栈, 可以看到`out_of_memory`调用了`oom_kill_process`, 后者会打印一些内存信息, 并打印所有进程的内存  
+![](img/profiling_调试和分析记录5_20230402192318.png)  
+
+最后选中一个oom_score分最高的kill掉  
+![](img/profiling_调试和分析记录5_20230402193201.png)
+
+如果不想被oom kill掉, 可以修改`/proc/pid/oom_score_adj`, 该值默认为0, 普通用户可以改大, 只有root才能改小.
 
 # ftrace调查ENOSYS问题
 ## 背景

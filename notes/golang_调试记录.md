@@ -11,7 +11,7 @@
 - [记录tengo debug](#记录tengo-debug)
 - [go-prompt 性能问题调查](#go-prompt-性能问题调查)
 - [内存还给OS](#内存还给os)
-  - [MADV_FREE和MADV_DONTNEED](#madv_free和madv_dontneed)
+  - [MADV\_FREE和MADV\_DONTNEED](#madv_free和madv_dontneed)
   - [GOGC比例](#gogc比例)
 - [topid申请内存错误](#topid申请内存错误)
   - [背景](#背景)
@@ -24,8 +24,8 @@
     - [和版本相关?](#和版本相关)
 - [gshell server内存调试](#gshell-server内存调试)
   - [问题场景](#问题场景)
-    - [操做1: 首次运行50个govm_test](#操做1-首次运行50个govm_test)
-    - [操做2: 50个govm_test同时restart](#操做2-50个govm_test同时restart)
+    - [操做1: 首次运行50个govm\_test](#操做1-首次运行50个govm_test)
+    - [操做2: 50个govm\_test同时restart](#操做2-50个govm_test同时restart)
   - [第一次内存优化](#第一次内存优化)
     - [操做1 加上第90行的效果](#操做1-加上第90行的效果)
     - [操做2 加上第90行的效果](#操做2-加上第90行的效果)
@@ -87,7 +87,7 @@
   - [对照代码片段分析:sysmon](#对照代码片段分析sysmon)
   - [结论](#结论-1)
 - [打印调用栈](#打印调用栈)
-  - [以json_load为例](#以json_load为例)
+  - [以json\_load为例](#以json_load为例)
   - [pstack打印不了go的调用栈](#pstack打印不了go的调用栈)
   - [用-SIGQUIT](#用-sigquit)
   - [注册信号handler](#注册信号handler)
@@ -1594,11 +1594,14 @@ func main() {
 Web网页`http://ip:port/debug/pprof/`能提供很多有用的信息:
 * /debug/pprof/profile：访问这个链接会自动进行 CPU profiling，持续 30s，并生成一个文件供下载; 用`go tool pprof 这个文件`可以进行后续分析
 * /debug/pprof/block：Goroutine阻塞事件的记录，默认每发生一次阻塞事件时取样一次。
-* /debug/pprof/goroutines：活跃Goroutine的信息的记录，仅在获取时取样一次。
+* /debug/pprof/goroutine：活跃Goroutine的信息的记录，仅在获取时取样一次。
 * /debug/pprof/heap： 堆内存分配情况的记录，默认每分配512K字节时取样一次。
 * /debug/pprof/mutex: 查看争用互斥锁的持有者。
 * /debug/pprof/threadcreate: 系统线程创建情况的记录，仅在获取时取样一次。
 * /debug/pprof/trace: 和profile使用方式类似, 产生当前程序的执行trace文件. 用`go tool trace`可以分析这个trace
+
+url后加`?debug=1`能产生文本格式的输出, 这样用curl就能查看, 比如:  
+`curl http://localhost:43561/debug/pprof/goroutine?debug=1`
 
 这个网页的基本逻辑是点一次, 产生一次数据. 结合`go tool pprof`可以做更多的事
 

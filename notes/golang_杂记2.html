@@ -509,7 +509,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.3.1" data-path="profiling_调查ftrace显示调用栈全0问题.html">
+        <li class="chapter " data-level="1.3.3.1" data-path="debugging_gshellos_socket_leak.html">
+            
+                <a href="debugging_gshellos_socket_leak.html">
+            
+                    
+                    gshell socket leak调查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="profiling_调查ftrace显示调用栈全0问题.html">
             
                 <a href="profiling_调查ftrace显示调用栈全0问题.html">
             
@@ -522,7 +535,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3.2" data-path="profiling_eoe_filter写tap设备失败问题.html">
+        <li class="chapter " data-level="1.3.3.3" data-path="profiling_eoe_filter写tap设备失败问题.html">
             
                 <a href="profiling_eoe_filter写tap设备失败问题.html">
             
@@ -535,7 +548,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3.3" data-path="performance_ovs进程调查.html">
+        <li class="chapter " data-level="1.3.3.4" data-path="performance_ovs进程调查.html">
             
                 <a href="performance_ovs进程调查.html">
             
@@ -548,7 +561,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3.4" data-path="performance_ping流程和函数调用解析.html">
+        <li class="chapter " data-level="1.3.3.5" data-path="performance_ping流程和函数调用解析.html">
             
                 <a href="performance_ping流程和函数调用解析.html">
             
@@ -561,7 +574,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3.5" data-path="profiling_VM互相ping场景下的延迟分析.html">
+        <li class="chapter " data-level="1.3.3.6" data-path="profiling_VM互相ping场景下的延迟分析.html">
             
                 <a href="profiling_VM互相ping场景下的延迟分析.html">
             
@@ -574,7 +587,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3.6" data-path="debugging_ftrace_谁创建了bond0设备.html">
+        <li class="chapter " data-level="1.3.3.7" data-path="debugging_ftrace_谁创建了bond0设备.html">
             
                 <a href="debugging_ftrace_谁创建了bond0设备.html">
             
@@ -587,7 +600,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3.7" data-path="profiling_unixbench之filecopy分析.html">
+        <li class="chapter " data-level="1.3.3.8" data-path="profiling_unixbench之filecopy分析.html">
             
                 <a href="profiling_unixbench之filecopy分析.html">
             
@@ -600,7 +613,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3.8" data-path="profiling_lmbench之lat_tcp分析.html">
+        <li class="chapter " data-level="1.3.3.9" data-path="profiling_lmbench之lat_tcp分析.html">
             
                 <a href="profiling_lmbench之lat_tcp分析.html">
             
@@ -3775,7 +3788,7 @@
 <li><a href="#&#x5177;&#x4F53;error&#x5224;&#x65AD;">&#x5177;&#x4F53;error&#x5224;&#x65AD;</a></li>
 <li><a href="#&#x51FD;&#x6570;&#x8D4B;&#x503C;&#x7ED9;&#x53D8;&#x91CF;">&#x51FD;&#x6570;&#x8D4B;&#x503C;&#x7ED9;&#x53D8;&#x91CF;</a></li>
 <li><a href="#gob-encode&#x548C;&#x7F51;&#x7EDC;io&#x7684;&#x7ED3;&#x5408;">gob encode&#x548C;&#x7F51;&#x7EDC;io&#x7684;&#x7ED3;&#x5408;</a><ul>
-<li><a href="#&#x5355;&#x6B65;decoderdecodemsg">&#x5355;&#x6B65;decoder.Decode(&amp;msg)</a></li>
+<li><a href="#&#x5355;&#x6B65;decoderdecodemsg">&#x5355;&#x6B65;decoder.Decode(\&amp;msg)</a></li>
 </ul>
 </li>
 <li><a href="#protobuf&#x91CC;&#x9762;oneof&#x8F6C;&#x6210;go&#x7ED3;&#x6784;&#x4F53;">protobuf&#x91CC;&#x9762;oneof&#x8F6C;&#x6210;go&#x7ED3;&#x6784;&#x4F53;</a><ul>
@@ -4321,7 +4334,12 @@ in go? -- YES
 <p>&#x6D4B;&#x8BD5;&#x73AF;&#x5883; go1.16, go mod&#x6A21;&#x5F0F;</p>
 <h2 id="go-get"><a name="go-get" class="anchor-navigation-ex-anchor" href="#go-get"><i class="fa fa-link" aria-hidden="true"></i></a>12.1. go get</h2>
 <ul>
-<li><code>go get -u</code>: &#x5347;&#x7EA7;&#x6240;&#x6709;&#x4F9D;&#x8D56;, &#x9012;&#x5F52;&#x5305;&#x62EC;&#x4F9D;&#x8D56;&#x7684;&#x4F9D;&#x8D56;</li>
+<li><code>go get -u</code>: &#x5347;&#x7EA7;&#x6240;&#x6709;&#x4F9D;&#x8D56;, &#x9012;&#x5F52;&#x5305;&#x62EC;&#x4F9D;&#x8D56;&#x7684;&#x4F9D;&#x8D56;<ul>
+<li>&#x5982;&#x679C;&#x53EA;&#x662F;&#x60F3;&#x66F4;&#x65B0;go.mod, &#x53EF;&#x4EE5;&#x7528;<code>go get -u -d</code></li>
+<li>&#x7528;<code>go get ./...</code>&#x53EF;&#x4EE5;&#x901A;&#x914D;&#x6240;&#x6709;&#x5B50;&#x76EE;&#x5F55;</li>
+<li>&#x8FDE;&#x8D77;&#x6765;&#x7528;&#x5C31;&#x662F;<code>go get -u -d ./...</code></li>
+</ul>
+</li>
 <li><code>go get -u all</code>: &#x9996;&#x5148;<code>all</code>&#x4F1A;&#x88AB;&#x6269;&#x5C55;&#x6210;main&#x7684;&#x6240;&#x6709;&#x4F9D;&#x8D56;, &#x7136;&#x540E;&#x5347;&#x7EA7;&#x6240;&#x6709;&#x4F9D;&#x8D56;. <code>all</code>&#x662F;&#x5173;&#x952E;&#x8BCD;, &#x8BE6;&#x89C1;<code>go help packages</code></li>
 </ul>
 <h2 id="go-list"><a name="go-list" class="anchor-navigation-ex-anchor" href="#go-list"><i class="fa fa-link" aria-hidden="true"></i></a>12.2. go list</h2>
@@ -6013,7 +6031,7 @@ message GPONBIPWrapper
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Golang 杂记2","level":"1.10.9.2","depth":3,"next":{"title":"Golang 杂记3","level":"1.10.9.3","depth":3,"path":"notes/golang_杂记3.md","ref":"notes/golang_杂记3.md","articles":[]},"previous":{"title":"Golang 杂记1","level":"1.10.9.1","depth":3,"path":"notes/golang_杂记1.md","ref":"notes/golang_杂记1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_杂记2.md","mtime":"2023-02-27T10:21:21.079Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-02-27T10:22:35.461Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Golang 杂记2","level":"1.10.9.2","depth":3,"next":{"title":"Golang 杂记3","level":"1.10.9.3","depth":3,"path":"notes/golang_杂记3.md","ref":"notes/golang_杂记3.md","articles":[]},"previous":{"title":"Golang 杂记1","level":"1.10.9.1","depth":3,"path":"notes/golang_杂记1.md","ref":"notes/golang_杂记1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_杂记2.md","mtime":"2023-04-21T00:59:07.425Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-04-21T01:00:29.540Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
