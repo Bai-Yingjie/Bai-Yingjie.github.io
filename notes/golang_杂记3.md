@@ -1,3 +1,5 @@
+- [如何正确静态链接](#如何正确静态链接)
+  - [结论](#结论)
 - [不能在for range里删除slice元素](#不能在for-range里删除slice元素)
 - [什么时候用buffer为1的channel](#什么时候用buffer为1的channel)
 - [go按位取反(bitwise not)](#go按位取反bitwise-not)
@@ -34,6 +36,24 @@
 - [善用字符串库函数--strings.Join](#善用字符串库函数--stringsjoin)
 - [切片的插入](#切片的插入)
 - [匿名函数执行](#匿名函数执行)
+
+# 如何正确静态链接
+参考: 
+* https://mt165.co.uk/blog/static-link-go/
+* https://www.arp242.net/static-go.html
+
+## 结论
+||Dynamically-linked binary | Statically-linked binary |
+| --- |  --- |  --- |
+| **Libc functions** | `go build` | `go build -ldflags "-linkmode 'external' -extldflags '-static'"` |
+| **Golang functions** | n/a | `CGO_ENABLED=0 go build` |
+
+I.e.
+
+* To get a static binary, under most circumstances: `CGO_ENABLED=0 go build`
+* To use the libc functions for `net` and `os/user`, and still get a static binary (for containers): `go build -ldflags "-linkmode 'external' -extldflags '-static'"`
+
+
 
 # 不能在for range里删除slice元素
 我问chatgpt如何在for range里删除slice元素, chatgpt给出的代码:

@@ -1,9 +1,13 @@
 - [警告](#警告)
-  - [gotiny会直接用传入的buf](#gotiny会直接用传入的buf)
+  - [gotiny不支持向前兼容](#gotiny不支持向前兼容)
+    - [背景](#背景)
+    - [现象](#现象)
     - [原因](#原因)
+  - [gotiny会直接用传入的buf](#gotiny会直接用传入的buf)
+    - [原因](#原因-1)
     - [解决](#解决)
 - [问答](#问答)
-- [gotiny_test](#gotiny_test)
+- [gotiny\_test](#gotiny_test)
   - [baseTyp](#basetyp)
   - [带方法的类型](#带方法的类型)
   - [interface变量](#interface变量)
@@ -39,6 +43,72 @@
 - [encoder和decoder总结](#encoder和decoder总结)
 
 # 警告
+## gotiny不支持向前兼容
+### 背景
+gshellos修改了joblist功能, 原来的结构体定义如下:
+```go
+// JobInfo is the job in grgCmdRun
+type JobInfo struct {
+	Args           []string
+	AutoRemove     bool   `yaml:"auto-remove,omitempty"`
+	AutoRestartMax uint   `yaml:"auto-restart-max,omitempty"` // user defined max auto restart count
+	ByteCode       []byte `yaml:"bytecode,omitempty"`
+	ByteCodeBase64 string `yaml:"bytecode-base64,omitempty"`
+}
+```
+
+改成了
+```go
+// JobCmd is the job in grgCmdRun
+type JobCmd struct {
+	Args           []string `yaml:",omitempty"`
+	AutoRemove     bool     `yaml:"auto-remove,omitempty"`
+	AutoRestartMax uint     `yaml:"auto-restart-max,omitempty"` // user defined max auto restart count
+	ByteCode       []byte   `yaml:"bytecode,omitempty"`
+}
+
+// JobInfo is the job in joblist
+type JobInfo struct {
+	Cmd            string
+	JobCmd         `yaml:",inline"`
+	ByteCodeBase64 string `yaml:"bytecode-base64,omitempty"`
+}
+```
+gshellos里面, 结构体都是按照interface来注册到gotiny的, 而gotiny是按照interface的名字来解析结构体的.
+
+并不像protobuf等序列化协议支持前向兼容, gotiny每次都在每次编译时都严格还原结构体的layout, 多一个field少一个field都不行.
+
+### 现象
+反序列化的时候显示slice越界
+```
+[2023/05/04 02:53:18.112823][daemon][ERROR] unknown message: runtime error: slice bounds out of range [:1491] with capacity 1444
+[2023/05/04 02:53:18.112908][daemon][WARN] cmdJoblistSave: send recv error: unknown message: runtime error: slice bounds out of range [:1491] with capacity 1444
+[2023/05/04 02:53:18.113186][daemon][ERROR] unknown message: runtime error: slice bounds out of range [:1166] with capacity 1084
+[2023/05/04 02:53:18.113224][daemon][WARN] cmdJoblistSave: send recv error: unknown message: runtime error: slice bounds out of range [:1166] with capacity 1084
+[2023/05/04 02:53:18.113480][daemon][ERROR] unknown message: runtime error: slice bounds out of range [:1719] with capacity 1652
+[2023/05/04 02:53:18.113533][daemon][WARN] cmdJoblistSave: send recv error: unknown message: runtime error: slice bounds out of range [:1719] with capacity 1652
+```
+### 原因
+老版本软件返回了老的`JobInfo`, 而新的软件想反序列化到新版本的`JobInfo`, 此时会发生slice越界
+
+在[`adaptiveservice`](https://github.com/godevsig/adaptiveservice/blob/master/streamtransport.go#:~:text=decErr%20%3D%20fmt.Errorf(%22unknown%20message%3A%20%25v%22%2C%20e))里面, 我捕捉了这个panic:
+```go
+    var decErr error
+    var tm streamTransportMsg
+    func() {
+        defer func() {
+            if e := recover(); e != nil {
+                decErr = fmt.Errorf("unknown message: %v", e)
+                lg.Errorf("%v", decErr)
+                tm.msg = decErr
+            }
+        }()
+        dec.Decode(bufMsg, &tm)
+    }()
+    lg.Debugf("stream server receiver: tm: %#v", &tm)
+```
+
+
 ## gotiny会直接用传入的buf
 遇到一个问题, 用在循环里用gotiny解码, 传入了相同的buf:
 ```go
