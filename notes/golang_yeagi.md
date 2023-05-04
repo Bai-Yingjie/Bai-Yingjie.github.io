@@ -1,3 +1,11 @@
+- [处理import, 解决unable to find source related to: xxxxxx](#处理import-解决unable-to-find-source-related-to-xxxxxx)
+  - [现象](#现象)
+  - [解决](#解决)
+  - [我的操作](#我的操作)
+    - [下载`go-figure`](#下载go-figure)
+    - [拷贝第三方库到`$GOPATH/src`](#拷贝第三方库到gopathsrc)
+  - [总结](#总结)
+  - [参考](#参考)
 - [yeagi执行流程和损耗](#yeagi执行流程和损耗)
   - [先说数据](#先说数据)
   - [perf采样](#perf采样)
@@ -6,8 +14,9 @@
   - [优化](#优化)
 - [interface wrapper](#interface-wrapper)
   - [空指针引用panic](#空指针引用panic)
-  - [解决](#解决)
+  - [解决](#解决-1)
   - [reflect出现assignable错误](#reflect出现assignable错误)
+- [bin不能调用解释器里对象的方法, 但解释器里可以调用对象的方法](#bin不能调用解释器里对象的方法-但解释器里可以调用对象的方法)
 - [Methods can not be called by bin](#methods-can-not-be-called-by-bin)
 - [go embed和yaegi](#go-embed和yaegi)
   - [嵌入scriptlib.go](#嵌入scriptlibgo)
@@ -80,11 +89,91 @@
     - [frame类型](#frame类型)
     - [run函数](#run函数)
     - [exec举例](#exec举例)
-  - [总结](#总结)
+  - [总结](#总结-1)
   - [代码生成](#代码生成)
   - [REPL循环](#repl循环)
     - [EvalWithContext](#evalwithcontext)
-    - [总结](#总结-1)
+    - [总结](#总结-2)
+
+# 处理import, 解决unable to find source related to: xxxxxx
+## 现象
+使用原版yaegi
+```go
+cat cmd/yaegi/test/figure.go
+
+package main
+
+import("github.com/common-nighthawk/go-figure")
+
+func main() {
+    myFigure := figure.NewFigure("Hello World", "", true)
+    myFigure.Print()
+}
+```
+运行时报错:
+```shell
+$ cmd/yaegi/yaegi run cmd/yaegi/test/figure.go
+run: cmd/yaegi/test/figure.go:3:8: import "github.com/common-nighthawk/go-figure" error: unable to find source related to: "github.com/common-nighthawk/go-figure"
+```
+## 解决
+从yaegi的问题讨论来看, 似乎go mod方式支持import还不支持?  
+有人总结import第三方库的步骤如下:
+1.  go mod init xxx
+2.  go get .
+3.  go mod vendor
+4.  copy package folder (under vendor folder) to $GOPATH/src
+5.  yaegi run ./main.go
+
+## 我的操作
+### 下载`go-figure`
+我首先下载了`go-figure`这个库
+```shell
+go get github.com/common-nighthawk/go-figure
+```
+这个命令会下载package的源码到`GOPATH`, 我的`GOPATH`是`/repo/yingjieb/go`
+```
+$ ls /repo/yingjieb/go/pkg/mod/github.com/common-nighthawk/
+go-figure@v0.0.0-20210622060536-734e95fb86be
+```
+
+同时修改工程的`go.mod`, 增加一行
+```
+require github.com/common-nighthawk/go-figure v0.0.0-20210622060536-734e95fb86be // indirect
+```
+这步完成后重新运行`cmd/yaegi/yaegi run cmd/yaegi/test/figure.go`还是报一样的错误, 说明yaegi不支持go mod方式.
+
+### 拷贝第三方库到`$GOPATH/src`
+注意直接拷贝`go-figure@v0.0.0-20210622060536-734e95fb86be`是不行的, 我按照上面的步骤先`go mod vendor`在当前工程下面生成了依赖包. 我这个简单的`figure.go`只依赖一个包:
+```
+$ ls vendor/github.com/common-nighthawk/
+go-figure
+```
+拷贝这个包到`$GOPATH/src`
+```
+$ ls /repo/yingjieb/go/src/github.com/common-nighthawk/
+go-figure
+```
+
+最后运行正常
+```
+$ cmd/yaegi/yaegi run cmd/yaegi/test/figure.go
+ _   _          _   _            __        __                 _       _
+| | | |   ___  | | | |   ___     \ \      / /   ___    _ __  | |   __| |
+| |_| |  / _ \ | | | |  / _ \     \ \ /\ / /   / _ \  | '__| | |  / _` |
+|  _  | |  __/ | | | | | (_) |     \ V  V /   | (_) | | |    | | | (_| |
+|_| |_|  \___| |_| |_|  \___/       \_/\_/     \___/  |_|    |_|  \__,_|
+```
+
+## 总结
+* yaegi支持第三方库的解释, 但只认`$GOPATH/src`, 不认`$GOPATH/pkg/mod`
+* `$GOPATH/src`下面的package不带版本号, 而`$GOPATH/pkg/mod`下面的package带版本号
+* `go mod vendor`的作用是把所有的依赖的包都放到工程的vendor目录下, 保证main module能编译.
+
+## 参考
+* https://github.com/traefik/yaegi/pull/1265
+* https://github.com/traefik/yaegi/issues/1517
+* 源码`interp/src.go`, 函数`func (interp *Interpreter) pkgDir(goPath string, root, importPath string) (string, string, error)`
+* 可以在new interpreter的时候传入GOPATH: `I := interp.New(interp.Options{GoPath: build.Default.GOPATH}) `
 
 # yeagi执行流程和损耗
 同样的go代码topid, 解释执行和编译执行的性能分析和对比如下.  
@@ -292,6 +381,67 @@ type valueInterface struct {
 看字面意思: interface{}的值不能赋值给`interp.valueInterface`
 我理解应该是interp规定的interface在bin里可能是不认的.
 
+# bin不能调用解释器里对象的方法, 但解释器里可以调用对象的方法
+下面的代码在yaegi里运行正常, 和编译运行结果一样
+```go
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+type geometry interface {
+    area() float64
+    perim() float64
+}
+
+type rect struct {
+    width, height float64
+}
+type circle struct {
+    radius float64
+}
+
+func (r rect) area() float64 {
+    return r.width * r.height
+}
+func (r rect) perim() float64 {
+    return 2*r.width + 2*r.height
+}
+
+func (c circle) area() float64 {
+    return math.Pi * c.radius * c.radius
+}
+func (c circle) perim() float64 {
+    return 2 * math.Pi * c.radius
+}
+
+func measure(g geometry) {
+    fmt.Println(g)
+    fmt.Println(g.area())
+    fmt.Println(g.perim())
+}
+
+func main() {
+    r := rect{width: 3, height: 4}
+    c := circle{radius: 5}
+
+    measure(r)
+    measure(c)
+}
+```
+
+结果:
+```
+{3 4}
+12
+14
+{5}
+78.53981633974483
+31.41592653589793
+```
+
 # Methods can not be called by bin
 
 If a struct has `String() string` method, `fmt.Printf` will call this method in compiled go:
@@ -326,6 +476,10 @@ Hello, world!
 {1 nihao}
 ```
 说明在解释器模式下, fmt.Printf()是看不到`test`类型的任何方法的. 实际上, `type`定义的结构体其实是没有名字的, 这是reflect的限制, 用reflect只能产生匿名的结构体.
+
+相关讨论:
+* https://github.com/golang/go/issues/16522
+* https://github.com/traefik/yaegi/issues/1535
 
 # go embed和yaegi
 

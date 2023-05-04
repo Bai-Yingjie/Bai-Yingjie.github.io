@@ -3,39 +3,50 @@
 - [组织清爽, 源代码干净](#组织清爽-源代码干净)
 - [发布周期](#发布周期)
 - [aports](#aports)
-  - [交叉编译](#交叉编译)
-    - [交叉编译概念](#交叉编译概念)
-    - [alpine中的不同arch](#alpine中的不同arch)
-    - [结论](#结论)
-  - [CHOST在alpine中的应用](#chost在alpine中的应用)
+	- [交叉编译](#交叉编译)
+		- [交叉编译概念](#交叉编译概念)
+		- [alpine中的不同arch](#alpine中的不同arch)
+		- [结论](#结论)
+	- [CHOST在alpine中的应用](#chost在alpine中的应用)
 - [openrc](#openrc)
 - [musl libc](#musl-libc)
 - [编译htop实例](#编译htop实例)
-  - [准备alpine编译环境](#准备alpine编译环境)
-    - [安装alpine-sdk](#安装alpine-sdk)
-    - [准备普通用户](#准备普通用户)
-  - [命令汇总](#命令汇总)
-  - [开始编译htop](#开始编译htop)
-    - [`abuild checksum`](#abuild-checksum)
-    - [`abuild -r`](#abuild--r)
-    - [测试本地编译的apk](#测试本地编译的apk)
-    - [编译选项由`/etc/abuild.conf`指定](#编译选项由etcabuildconf指定)
+	- [准备alpine编译环境](#准备alpine编译环境)
+		- [安装alpine-sdk](#安装alpine-sdk)
+		- [准备普通用户](#准备普通用户)
+	- [命令汇总](#命令汇总)
+	- [开始编译htop](#开始编译htop)
+		- [`abuild checksum`](#abuild-checksum)
+		- [`abuild -r`](#abuild--r)
+		- [测试本地编译的apk](#测试本地编译的apk)
+		- [编译选项由`/etc/abuild.conf`指定](#编译选项由etcabuildconf指定)
 - [packages](#packages)
-  - [build-base](#build-base)
+	- [build-base](#build-base)
 - [abuild](#abuild)
-  - [abuild.in](#abuildin)
-  - [functions.sh](#functionssh)
-  - [支持交叉编译](#支持交叉编译)
-  - [交叉编译实例](#交叉编译实例)
-  - [处理依赖](#处理依赖)
+	- [abuild.in](#abuildin)
+	- [functions.sh](#functionssh)
+	- [支持交叉编译](#支持交叉编译)
+	- [交叉编译实例](#交叉编译实例)
+	- [处理依赖](#处理依赖)
 - [apk使用](#apk使用)
-  - [bootstrap](#bootstrap)
-  - [使用交叉编译的gccgo工具链](#使用交叉编译的gccgo工具链)
-    - [调试过程](#调试过程)
-    - [context相关符号找不到的问题](#context相关符号找不到的问题)
-    - [最终操作](#最终操作)
-    - [gccgo工具链里有什么](#gccgo工具链里有什么)
-  - [编译gcgo前端](#编译gcgo前端)
+	- [bootstrap](#bootstrap)
+	- [编译gccgo for ppc](#编译gccgo-for-ppc)
+	- [使用交叉编译的gccgo工具链](#使用交叉编译的gccgo工具链)
+		- [调试过程](#调试过程)
+		- [context相关符号找不到的问题](#context相关符号找不到的问题)
+		- [最终操作](#最终操作)
+		- [gccgo工具链里有什么](#gccgo工具链里有什么)
+	- [编译gcgo前端](#编译gcgo前端)
+- [repository 维护](#repository-维护)
+	- [apk index文件](#apk-index文件)
+	- [上传编译好的apk](#上传编译好的apk)
+	- [更新`APKINDEX.tar.gz`文件](#更新apkindextargz文件)
+		- [解决签名问题](#解决签名问题)
+	- [更新apk index命令完整版](#更新apk-index命令完整版)
+	- [下载并重建index](#下载并重建index)
+	- [下载并重建index](#下载并重建index-1)
+	- [上传](#上传)
+	- [删除main](#删除main)
 
 # 现代化的工程系统
 alpine linux的全部开发都在  
@@ -747,6 +758,15 @@ aports/scripts/bootstrap.sh ppc64 gccgo,norust,nokernel
 aports/scripts/bootstrap.sh ppc gccgo,norust,nokernel
 ```
 
+## 编译gccgo for ppc
+```sh
+#需要卸载冲突包
+# apk del gcc-ppc gcc-go-ppc gcc-ppc64 gcc-go-ppc64 gcc-mips64 gcc-aarch64
+# rm -rf /home/reborn/sysroot*
+APKBUILD=aports/main/gcc/APKBUILD EXTRADEPENDS_TARGET="linux-headers musl musl-dev libucontext libucontext-dev" CTARGET=ppc abuild -r
+APKBUILD=aports/main/gcc/APKBUILD EXTRADEPENDS_TARGET="linux-headers musl musl-dev libucontext libucontext-dev" CTARGET=ppc64 abuild -r
+```
+
 ## 使用交叉编译的gccgo工具链
 
 ### 调试过程
@@ -860,11 +880,191 @@ usr/libexec/gcc/powerpc64-alpine-linux-musl/12.2.1/go1
 按理说交叉工具链的gccgo的安装包不应该把`libgo.a`等静态链接文件安装到`/usr/lib`下面. 我在自己的开发分钟修复了这个问题.
 
 ## 编译gcgo前端
-```
+```sh
 apk add bash
 git clone https://gitlabe1.ext.net.nokia.com/godevsig/golang-go.git -b godevsig --depth 10
 
 cd golang-go/src
 GOOS=linux GOARCH=amd64 ./bootstrap.bash
 
+#上传
+curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -X PUT "https://artifactory-blr1.int.net.nokia.com/artifactory/rebornlinux-generic-local/alpine/v3.17/golang-go/`git branch --show-current`-`git rev-parse --short HEAD`/"  -T ../../go-linux-amd64-bootstrap.tbz
+```
+
+# repository 维护
+
+## apk index文件
+APK的repository下面都有个`APKINDEX.tar.gz`文件, 有这个文件才是一个repository, 里面包括3个文件
+```
+.SIGN.RSA.reborn-638089aa.rsa.pub
+DESCRIPTION
+APKINDEX
+```
+* 第一个是build key
+* 第二个里面的内容通常是main, 或者community
+* 第三个是重点, 里面是所有的packge的信息
+
+我原本编译了一个base的系统, 所有package都放到了  
+![](img/system_alpine_20230423171830.png)
+
+后来我又重新编译了gcc, 并升级了小版本号:  
+![](img/system_alpine_20230423172006.png)
+
+现在我想把新编的gcc r5版本也放到`rebornlinux-generic-local/alpine/v3.17/main/x86_64/`里面去.
+
+## 上传编译好的apk
+放apk好放:
+```
+curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -X PUT "https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/alpine/v3.17/main/x86_64/" -T "{$(echo *.apk | tr ' ' ',')}"
+```
+注意crul不支持通配符, 这里用shell的echo和tr构造出`{file1.apk,file2.apk}`的形式
+
+## 更新`APKINDEX.tar.gz`文件
+现在问题是如何更新`APKINDEX.tar.gz`文件, 思路是把两个tar.gz文件里的APKINDEX合并:
+```
+wget -Y off https://artifactory-blr1.int.net.nokia.com/artifactory/rebornlinux-generic-local/alpine/v3.17/main/x86_64/APKINDEX.tar.gz -O origin_APKINDEX.tar.gz
+mkdir origin && tar xvf origin_APKINDEX.tar.gz -C origin
+
+(cat origin/APKINDEX; tar xf APKINDEX.tar.gz APKINDEX -O) > origin/APKINDEX.both
+mv -f origin/APKINDEX.both origin/APKINDEX
+
+cd origin && tar zcvf ../both_APKINDEX.tar.gz .SIGN.* DESCRIPTION APKINDEX && cd ..
+```
+
+这样concatenate后, `apk update`显示
+```
+# apk update
+fetch https://artifactory-blr1.int.net.nokia.com/artifactory/godevsig-generic-local/alpine/v3.17/main/x86_64/APKINDEX.tar.gz
+ERROR: https://artifactory-blr1.int.net.nokia.com/artifactory/godevsig-generic-local/alpine/v3.17/main: BAD signature
+```
+用`apk update --allow-untrusted`能过:
+```
+# apk update --allow-untrusted
+fetch https://artifactory-blr1.int.net.nokia.com/artifactory/godevsig-generic-local/alpine/v3.17/main/x86_64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.17/main/x86_64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.17/community/x86_64/APKINDEX.tar.gz
+main  [https://artifactory-blr1.int.net.nokia.com/artifactory/godevsig-generic-local/alpine/v3.17/main]
+v3.17.3-120-g60944b2cca6 [https://dl-cdn.alpinelinux.org/alpine/v3.17/main]
+v3.17.3-125-g510ba6022c3 [https://dl-cdn.alpinelinux.org/alpine/v3.17/community]
+OK: 17879 distinct packages available
+```
+看起来我们整合的`APKINDEX.tar.gz`签名不对, 强行使用需要加`--allow-untrusted`, 比如
+```
+apk update --allow-untrusted
+apk search gcc-go --allow-untrusted
+```
+
+### 解决签名问题
+用下面的命令就好了:
+```
+abuild-sign APKINDEX.tar.gz
+```
+
+## 更新apk index命令完整版
+```sh
+su reborn
+
+update_apk_index() {
+	local arch=$1
+	cd ~/packages/main/$arch
+	# apk index *.apk -o APKINDEX.tar.gz --description "main "
+
+	mkdir index && tar xvf APKINDEX.tar.gz -C index
+	pushd index
+	wget -Y off https://artifactory-blr1.int.net.nokia.com/artifactory/rebornlinux-generic-local/alpine/v3.17/main/$arch/APKINDEX.tar.gz -O APKINDEX.tar.gz
+	(tar xf APKINDEX.tar.gz APKINDEX -O;cat APKINDEX) > APKINDEX.both
+	mv -f APKINDEX.both APKINDEX
+	rm -f APKINDEX.tar.gz
+	tar zcvf ../APKINDEX.tar.gz *
+	popd && rm -rf index
+	abuild-sign APKINDEX.tar.gz
+
+	curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -X PUT "https://artifactory-blr1.int.net.nokia.com:443/artifactory/rebornlinux-generic-local/alpine/v3.17/main/$arch/" -T "{$(echo *.apk | tr ' ' ',')}"
+
+	curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -X PUT "https://artifactory-blr1.int.net.nokia.com:443/artifactory/rebornlinux-generic-local/alpine/v3.17/main/$arch/" -T "APKINDEX.tar.gz"
+}
+
+cd ~/packages/main
+for arch in *; do echo $arch; done
+```
+
+## 下载并重建index
+```
+su reborn
+export http_proxy=
+export https_proxy=$http_proxy
+export HTTP_PROXY=$http_proxy
+export HTTPS_PROXY=$http_proxy
+
+mkdir -p ~/packages/main && cd ~/packages/main
+curl "https://artifactory-blr1.int.net.nokia.com/artifactory/api/archive/download/rebornlinux-generic-local/alpine/v3.17/main?archiveType=tar" -o main.tar
+
+tar xvf main.tar
+#编译packages...
+
+update_apk_index() {
+	local arch=$1
+	pushd ~/packages/main/$arch
+	apk index *.apk -o APKINDEX.tar.gz --description "main "
+	abuild-sign APKINDEX.tar.gz
+	popd
+}
+
+for arch in *; do update_apk_index $arch; done
+cd ~/packages
+tar cvf main.tar main
+
+curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -H "X-Explode-Archive:true" -X PUT "https://artifactory-blr1.int.net.nokia.com:443/artifactory/rebornlinux-generic-local/alpine/v3.17/" -T main.tar
+```
+
+## 下载并重建index
+```
+su reborn
+export http_proxy=
+export https_proxy=$http_proxy
+export HTTP_PROXY=$http_proxy
+export HTTPS_PROXY=$http_proxy
+
+mkdir -p ~/packages/main && cd ~/packages/main
+curl "https://artifactory-blr1.int.net.nokia.com/artifactory/api/archive/download/rebornlinux-generic-local/alpine/v3.17/main?archiveType=tar" -o main.tar
+
+tar xvf main.tar
+#编译packages...
+
+update_apk_index() {
+	local arch=$1
+	pushd ~/packages/main/$arch
+	apk index *.apk -o APKINDEX.tar.gz --description "main "
+	abuild-sign APKINDEX.tar.gz
+	popd
+}
+
+for arch in *; do update_apk_index $arch; done
+cd ~/packages
+tar cvf main.tar main
+
+curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -H "X-Explode-Archive:true" -X PUT "https://artifactory-blr1.int.net.nokia.com:443/artifactory/rebornlinux-generic-local/alpine/v3.17/" -T main.tar
+```
+
+## 上传
+```
+su reborn
+export http_proxy=
+export https_proxy=$http_proxy
+export HTTP_PROXY=$http_proxy
+export HTTPS_PROXY=$http_proxy
+
+upload() {
+	local arch=$1
+	pushd ~/packages/main/$arch
+	curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -X PUT "https://artifactory-blr1.int.net.nokia.com/artifactory/rebornlinux-generic-local/alpine/v3.17/main/$arch/" -T "{$(echo * | tr ' ' ',')}"
+	popd
+}
+
+for arch in *; do upload $arch; done
+```
+
+## 删除main
+```
+curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -X DELETE "https://artifactory-blr1.int.net.nokia.com/artifactory/rebornlinux-generic-local/alpine/v3.17/main"
 ```
