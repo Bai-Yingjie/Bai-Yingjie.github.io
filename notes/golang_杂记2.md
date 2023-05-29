@@ -8,12 +8,15 @@
   - [验证](#验证)
   - [结论](#结论)
 - [setuid](#setuid)
-- [调用小写函数](#调用小写函数)
+- [用linkname调用小写函数](#用linkname调用小写函数)
+  - [go1.18更新](#go118更新)
+  - [如何调用package的小写函数 go1.18版本](#如何调用package的小写函数-go118版本)
+    - [解决](#解决)
 - [使用了nohup命令启动gshelld, 还是收到signal退出](#使用了nohup命令启动gshelld-还是收到signal退出)
   - [SIGHUP](#sighup)
     - [Types of signals ¶](#types-of-signals-)
   - [推测](#推测)
-  - [解决](#解决)
+  - [解决](#解决-1)
 - [gshell的内存使用](#gshell的内存使用)
 - [recover不能捕获SIGSEGV类型的panic](#recover不能捕获sigsegv类型的panic)
 - [sigint会发给所有前台进程组](#sigint会发给所有前台进程组)
@@ -34,7 +37,7 @@
 - [go clean 清理编译cache](#go-clean-清理编译cache)
 - [又犯了经典的goroutine引用闭包变量错误!!!!!](#又犯了经典的goroutine引用闭包变量错误)
   - [原因](#原因)
-  - [解决](#解决-1)
+  - [解决](#解决-2)
   - [理论解释](#理论解释)
   - [总结](#总结-1)
 - [if else if 共享一个变量scope](#if-else-if-共享一个变量scope)
@@ -56,7 +59,7 @@
 - [An interface holding nil value is not nil](#an-interface-holding-nil-value-is-not-nil)
 - [net/http导致包变大](#nethttp导致包变大)
   - [现象](#现象-1)
-  - [解决](#解决-2)
+  - [解决](#解决-3)
   - [原因](#原因-1)
   - [结论](#结论-2)
 - [Options初始化](#options初始化)
@@ -80,7 +83,7 @@
 - [golang的SIGABRT](#golang的sigabrt)
 - [关于syscall](#关于syscall)
   - [标准syscall库的问题](#标准syscall库的问题)
-  - [解决](#解决-3)
+  - [解决](#解决-4)
   - [更好的syscall库](#更好的syscall库)
     - [使用](#使用)
     - [ioctl](#ioctl)
@@ -351,7 +354,7 @@ chmod g+s myfile2
 
 一般都是谁执行myfile, 这个进程算谁的. 但如果由setuid属性的文件, 执行算这个文件的owner的. 比如这个文件的owner是root, 那普通用户执行这个带`s`属性的文件, 也有root权限.
 
-# 调用小写函数
+# 用linkname调用小写函数
 一般的, package的小写函数是没法直接调用的, 但有个办法可以绕过这个限制.
 用`go:linkname`
 比如标准库里
@@ -364,6 +367,51 @@ func call(argtype *rtype, fn, arg unsafe.Pointer, n uint32, retoffset uint32)
 
 reflect的call被link成了`runtime.reflectcall`, 也就是说, 调用`reflect.call`就是调用小写的`runtime.reflectcall`.
 
+另见: [补充-go-linkname用法](https://bai-yingjie.github.io/notes/golang_gvisor%E4%BB%A3%E7%A0%81_KVM.html#%E8%A1%A5%E5%85%85-go-linkname%E7%94%A8%E6%B3%95)
+
+## go1.18更新
+上面的方法从go1.17开始失效了. 见下面的讨论:
+* https://github.com/golang/go/issues/46777
+* https://groups.google.com/g/golang-nuts/c/S9Yo8v2XYn4
+* https://github.com/golang/proposal/blob/master/design/27539-internal-abi.md#compatibility
+
+这个hack的方式从来都没有被官方支持过, 不推荐用.
+
+如果非要使用, 往下看
+
+## 如何调用package的小写函数 go1.18版本
+我想在`gshellos/shell.go`里面调用yaegi的`importSrc`函数. 这是个小写函数, 直接调用是不行的.  
+![](img/golang_杂记2_20230522113525.png)
+
+按照上面的老方法调用:
+```golang
+//go:linkname importSrc interp.(*Interpreter).importSrc
+func importSrc(interp *interp.Interpreter, rPath, importPath string, skipTest bool) (string, error)
+```
+会报错:  
+![](img/golang_杂记2_20230522113333.png)
+
+为什么会报错呢? `interp.(*Interpreter).importSrc`没有定义?  
+网上查了一圈, 说法就是编译器不再支持这种hack的方式了...
+
+注意, 这里有个小知识
+* golang的方法本质上就是函数, 只是编译器会把receiver做为第一个参数传给方法. 比如这里, 我定义了本地的函数`importSrc`, 指向了`interp`的`importSrc`方法, 其receiver `interp *interp`我写在了本地函数`importSrc`的第一个参数. 这样这两个形式就是匹配的.
+* `interp.(*Interpreter).importSrc`的格式是`package.(receiver).method`, 和dlv的方法断点格式相同.
+
+### 解决
+那么就没有办法了吗? 出错提示符号未定义, 那么先看看是否真的没有.  
+对之前能编译过的版本查符号:  
+![](img/golang_杂记2_20230522114823.png)
+
+这个符号是有的, 全名是`github.com/traefik/yaegi/interp.(*Interpreter).importSrc`
+
+能不能写完整这个全名?  
+可以的
+```golang
+//go:linkname importSrc github.com/traefik/yaegi/interp.(*Interpreter).importSrc
+func importSrc(interp *interp.Interpreter, rPath, importPath string, skipTest bool) (string, error)
+```
+能编过, 功能也正常^^
 
 # 使用了nohup命令启动gshelld, 还是收到signal退出
 ```
