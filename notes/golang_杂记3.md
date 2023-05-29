@@ -1,3 +1,7 @@
+- [fmt打印颜色](#fmt打印颜色)
+- [升级go1.18遇到的问题](#升级go118遇到的问题)
+  - [mips64运行时崩溃](#mips64运行时崩溃)
+    - [解决](#解决)
 - [如何正确静态链接](#如何正确静态链接)
   - [结论](#结论)
 - [不能在for range里删除slice元素](#不能在for-range里删除slice元素)
@@ -6,6 +10,7 @@
 - [go的相等性(==)](#go的相等性)
   - [普通类型的比较](#普通类型的比较)
   - [指针的相等性](#指针的相等性)
+    - [`errors.New("EOF")`**不等于**`io.EOF`](#errorsneweof不等于ioeof)
   - [channel的相等性](#channel的相等性)
   - [interface的相等性](#interface的相等性)
   - [结构体的相等性](#结构体的相等性)
@@ -36,6 +41,82 @@
 - [善用字符串库函数--strings.Join](#善用字符串库函数--stringsjoin)
 - [切片的插入](#切片的插入)
 - [匿名函数执行](#匿名函数执行)
+
+# fmt打印颜色
+```go
+func main() {
+	// Print colored text
+	fmt.Println("\x1b[31mRed Text\x1b[0m")
+	fmt.Println("\x1b[32mGreen Text\x1b[0m")
+	fmt.Println("\x1b[33mYellow Text\x1b[0m")
+	fmt.Println("\x1b[34mBlue Text\x1b[0m")
+	fmt.Println("\x1b[35mMagenta Text\x1b[0m")
+	fmt.Println("\x1b[36mCyan Text\x1b[0m")
+}
+```
+
+# 升级go1.18遇到的问题
+## mips64运行时崩溃
+运行环境: octeon3 CPU(mips64)  
+我把gshell的toolchain从1.16升级到了1.18, 小的程序运行没问题.  
+但gshell daemon运行出错:
+```shell
+~/gshell # bin_latest/gshell -loglevel info daemon -registry 10.182.105.179:11985 -bcast 9923
+trap:5111, a123456=[0,0,0,0,0,0]
+results: got {r1=0,r2=5111,errno=0}, want {r1=0,r2=0,errno=0
+fatal error: AllThreadsSyscall6 results differ between threads; runtime corrupted
+trap:5111, a123456=[0,0,0,0,0,0]
+results: got {r1=0,r2=5111,errno=0}, want {r1=0,r2=0,errno=0
+fatal error: AllThreadsSyscall6 results differ between threads; runtime corrupted
+
+
+goroutine 0 [idle]:
+runtime: unexpected return pc for runtime.sigtramp called from 0xffeccc3580
+stack: frame={sp:0xc00004fc88, fp:0xc00004fcd0} stack=[0xc000048000,0xc000050000)
+//省略栈打印
+runtime.throw({0x649b1f, 0x44})
+        /usr/local/go/src/runtime/panic.go:992 +0x6c
+runtime.runPerThreadSyscall()
+        /usr/local/go/src/runtime/os_linux.go:874 +0x410
+runtime.sighandler(0x21, 0xc00004fce8, 0xc00004fd68, 0xc0000029c0)
+        /usr/local/go/src/runtime/signal_unix.go:631 +0x770
+runtime.sigtrampgo(0x21, 0xc00004fce8, 0xc00004fd68)
+        /usr/local/go/src/runtime/signal_unix.go:477 +0x228
+runtime: unexpected return pc for runtime.sigtramp called from 0xffeccc3580
+stack: frame={sp:0xc00004fc88, fp:0xc00004fcd0} stack=[0xc000048000,0xc000050000)
+//省略栈打印
+runtime.sigtramp()
+        /usr/local/go/src/runtime/sys_linux_mips64x.s:435 +0x54
+
+goroutine 1 [running]:
+        goroutine running on other thread; stack unavailable
+trap:5111, a123456=[0,0,0,0,0,0]
+
+goroutine 0 [idle]:
+runtime: unexpected return pc for runtime.sigtramp called from 0xffeccc3580
+stack: frame={sp:0xc00003fc88, fp:0xc00003fcd0} stack=[0xc000038000,0xc000040000)
+
+runtime.throw({0x649b1f, 0x44})
+        /usr/local/go/src/runtime/panic.go:992 +0x6c
+runtime.runPerThreadSyscall()
+        /usr/local/go/src/runtime/os_linux.go:874 +0x410
+runtime.sighandler(0x21, 0xc00003fce8, 0xc00003fd68, 0xc0000024e0)
+        /usr/local/go/src/runtime/signal_unix.go:631 +0x770
+runtime.sigtrampgo(0x21, 0xc00003fce8, 0xc00003fd68)
+        /usr/local/go/src/runtime/signal_unix.go:477 +0x228
+runtime: unexpected return pc for runtime.sigtramp called from 0xffeccc3580
+stack: frame={sp:0xc00003fc88, fp:0xc00003fcd0} stack=[0xc000038000,0xc000040000)
+runtime.sigtramp()
+        /usr/local/go/src/runtime/sys_linux_mips64x.s:435 +0x54
+
+```
+这个error message意思是说r2寄存器应该是0, 但实际却是5111
+
+### 解决
+
+根据https://github.com/golang/go/issues/56426, 这是go1.18引入的bug, 1.20+才fix. 看来要backporting [这个patch](https://github.com/golang/go/commit/2c7c98c3ad719aa9d6d2594827a6894ff9950042)了.
+
+> All mips variant perform syscalls similarly. R2 (v0) holds r1 and R3 (v1) holds r2 of a syscall. The latter is only used by 2-ret syscalls. A 1-ret syscall would not touch R3 but keeps it as is, making r2 be a random value. Always reset it to 0 before SYSCALL to fix the issue.
 
 # 如何正确静态链接
 参考: 
@@ -242,6 +323,59 @@ func main() {
 }
 ```
 如果结构体非空, `S struct {f int}`, `p1`和`p2`就不相等了.
+
+### `errors.New("EOF")`**不等于**`io.EOF`
+`io.EOF`在io包里定义为
+```go
+var EOF = errors.New("EOF")
+```
+New出来的对象是个指针
+```go
+package errors
+
+// New returns an error that formats as the given text.
+// Each call to New returns a distinct error value even if the text is identical.
+func New(text string) error {
+	return &errorString{text}
+}
+
+// errorString is a trivial implementation of error.
+type errorString struct {
+	s string
+}
+
+func (e *errorString) Error() string {
+	return e.s
+}
+```
+
+根据指针的相等性, 其指向的地址相等才算相等.  
+下面的代码显示虽然myErr和io.EOF都是同样的内容, 但二者**并不相等**.
+```
+package main
+
+import (
+	"errors"
+	"fmt"
+	"io"
+)
+
+func main() {
+	myErr := errors.New("EOF")
+	fmt.Printf("%#v\n", myErr)
+	fmt.Printf("%#v\n", io.EOF)
+	if myErr == io.EOF {
+		fmt.Println("equal")
+	} else {
+		fmt.Println("not equal")
+	}
+}
+
+//输出
+&errors.errorString{s:"EOF"}
+&errors.errorString{s:"EOF"}
+not equal
+```
 
 ## channel的相等性
 满足下面条件之一
