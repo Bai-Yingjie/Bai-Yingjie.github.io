@@ -2,16 +2,16 @@
 - [背景](#背景)
 - [问题现象](#问题现象)
 - [分析调查](#分析调查)
-  - [代码分析](#代码分析)
-  - [用`lsof`和`netstat`调查](#用lsof和netstat调查)
-  - [可能就是socket泄漏](#可能就是socket泄漏)
-  - [pprof](#pprof)
-    - [reverse proxy造成了goroutine泄漏](#reverse-proxy造成了goroutine泄漏)
+	- [代码分析](#代码分析)
+	- [用`lsof`和`netstat`调查](#用lsof和netstat调查)
+	- [可能就是socket泄漏](#可能就是socket泄漏)
+	- [pprof](#pprof)
+		- [reverse proxy造成了goroutine泄漏](#reverse-proxy造成了goroutine泄漏)
 - [解决](#解决)
 - [总结](#总结)
 - [知识点](#知识点)
-  - [TIME\_WAIT状态的连接](#time_wait状态的连接)
-  - [close状态的迁移](#close状态的迁移)
+	- [TIME\_WAIT状态的连接](#time_wait状态的连接)
+	- [close状态的迁移](#close状态的迁移)
 
 # 背景
 [gshell](https://github.com/godevsig/gshellos)是golang写的微服务框架, 有个类似dockerd的daemon负责服务调度和发现, 它用到了`adaptiveservice`库, 代码我放在了[github godevsig/adaptiveservice](https://github.com/godevsig/adaptiveservice).  
@@ -60,7 +60,7 @@ gshell daemon经过大概几个月的运行, log里面显示大量的`too many o
 注: 这里我把log打印改为了`Debugf`, 否则就会产生大量的`too many open files`打印, 最终log文件会把磁盘填满.
 
 每个新建的`netconn`都会在单独的goroutine里面处理:  
-```golang
+```go
 	defer func() {
 		for netconn := range st.chanNetConn {
 			netconn.Close()
@@ -83,7 +83,7 @@ gshell daemon经过大概几个月的运行, log里面显示大量的`too many o
 
 除了一个例外:  
 如果`fnOnConnect`存在的话, 这个函数就是被设计成接管模式
-```golang
+```go
 // OnConnectFunc sets a function which is called when new
 // incoming connection is established.
 // Further message dispaching on this connection will stop
@@ -213,7 +213,7 @@ root@micro-server:/home/yingjieb# netstat -apn | grep 3597864 | wc -l
 
 ### reverse proxy造成了goroutine泄漏
 下面的goroutine数量正好40个:
-```golang
+```go
 40 @ 0x43fb25 0x406a0f 0x40664b 0x63ac85 0x641c65 0x4791a1
 #       0x63ac84        github.com/godevsig/adaptiveservice.(*proxyRegServiceInWAN).Handle.func3+0x2c4  /go/pkg/mod/github.com/godevsig/adaptiveservice@v0.9.24-0.20220927055808-74b42ce93f20/builtinservices.go:199
 #       0x641c64        github.com/godevsig/adaptiveservice.(*streamTransport).receiver.func2+0x1444    /go/pkg/mod/github.com/godevsig/adaptiveservice@v0.9.24-0.20220927055808-74b42ce93f20/streamtransport.go:320

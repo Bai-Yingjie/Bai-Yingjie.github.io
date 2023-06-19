@@ -138,7 +138,7 @@ I.e.
 
 # 不能在for range里删除slice元素
 我问chatgpt如何在for range里删除slice元素, chatgpt给出的代码:
-```golang
+```go
 package main
 
 import "fmt"
@@ -178,7 +178,7 @@ ME: the output is [1 2 4 5], which is not correct
 CHATGPT: You are correct, I apologize for the mistake in my previous answer. When you delete elements from a slice while iterating over it with range, you need to adjust the index variable to account for the removed elements.
 ```
 再给出的答案是对的:
-```golang
+```go
 package main
 
 import "fmt"

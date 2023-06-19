@@ -1,8 +1,9 @@
 - [adaptiveservice](#adaptiveservice)
-  - [hello例子](#hello例子)
-    - [client端](#client端)
-    - [server端](#server端)
+	- [hello例子](#hello例子)
+		- [client端](#client端)
+		- [server端](#server端)
 - [gshell](#gshell)
+	- [gshell原始设计](#gshell原始设计)
 - [topid](#topid)
 
 # adaptiveservice
@@ -140,6 +141,9 @@ func main() {
 
 文档:
 * [README](https://github.com/godevsig/gshellos/blob/master/README.md)
+
+## gshell原始设计
+![](img/gshellos.svg)
 
 # topid
 topid是基于gshell的一个app, 代码位于[grepo](https://github.com/godevsig/grepo), 可以采集linux的进程信息, 并配合topid chart服务, 可以在web上实时显示CPU和MEM的占用.
