@@ -384,7 +384,7 @@ reflect的call被link成了`runtime.reflectcall`, 也就是说, 调用`reflect.c
 ![](img/golang_杂记2_20230522113525.png)
 
 按照上面的老方法调用:
-```golang
+```go
 //go:linkname importSrc interp.(*Interpreter).importSrc
 func importSrc(interp *interp.Interpreter, rPath, importPath string, skipTest bool) (string, error)
 ```
@@ -407,7 +407,7 @@ func importSrc(interp *interp.Interpreter, rPath, importPath string, skipTest bo
 
 能不能写完整这个全名?  
 可以的
-```golang
+```go
 //go:linkname importSrc github.com/traefik/yaegi/interp.(*Interpreter).importSrc
 func importSrc(interp *interp.Interpreter, rPath, importPath string, skipTest bool) (string, error)
 ```

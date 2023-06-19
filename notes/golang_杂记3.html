@@ -3788,65 +3788,65 @@ runtime.sigtramp<span class="token punctuation">(</span><span class="token punct
 </ul>
 <h1 id="&#x4E0D;&#x80FD;&#x5728;for-range&#x91CC;&#x5220;&#x9664;slice&#x5143;&#x7D20;"><a name="&#x4E0D;&#x80FD;&#x5728;for-range&#x91CC;&#x5220;&#x9664;slice&#x5143;&#x7D20;" class="anchor-navigation-ex-anchor" href="#&#x4E0D;&#x80FD;&#x5728;for-range&#x91CC;&#x5220;&#x9664;slice&#x5143;&#x7D20;"><i class="fa fa-link" aria-hidden="true"></i></a>4. &#x4E0D;&#x80FD;&#x5728;for range&#x91CC;&#x5220;&#x9664;slice&#x5143;&#x7D20;</h1>
 <p>&#x6211;&#x95EE;chatgpt&#x5982;&#x4F55;&#x5728;for range&#x91CC;&#x5220;&#x9664;slice&#x5143;&#x7D20;, chatgpt&#x7ED9;&#x51FA;&#x7684;&#x4EE3;&#x7801;:</p>
-<pre class="language-"><code class="lang-golang">package main
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
 
-import &quot;fmt&quot;
+<span class="token keyword">import</span> <span class="token string">&quot;fmt&quot;</span>
 
-func main() {
-    // Create a slice of integers
-    nums := []int{1, 2, 3, 4, 5}
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Create a slice of integers</span>
+    nums <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span>
 
-    // Iterate over the slice using range
-    for i, num := range nums { // for range&#x5728;&#x4E00;&#x5F00;&#x59CB;&#x5C31;&#x5B9A;&#x597D;&#x4E86;&#x8981;interate&#x591A;&#x5C11;&#x6B21;
-        fmt.Println(i, num, len(nums)) // &#x800C;&#x4E14;&#x4E0D;&#x53D7;index&#x8D8A;&#x754C;&#x9650;&#x5236;
-        //fmt.Println(i, num, nums[i], len(nums)) // &#x6211;&#x52A0;&#x7684;&#x8FD9;&#x884C;&#x4F1A;panic
-        // Check if the element should be deleted
-        if num == 3 || num == 4 {
-            // Delete the element from the slice using append
-            nums = append(nums[:i], nums[i+1:]...)
-        }
-    }
+    <span class="token comment">// Iterate over the slice using range</span>
+    <span class="token keyword">for</span> i<span class="token punctuation">,</span> num <span class="token operator">:=</span> <span class="token keyword">range</span> nums <span class="token punctuation">{</span> <span class="token comment">// for range&#x5728;&#x4E00;&#x5F00;&#x59CB;&#x5C31;&#x5B9A;&#x597D;&#x4E86;&#x8981;interate&#x591A;&#x5C11;&#x6B21;</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> num<span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// &#x800C;&#x4E14;&#x4E0D;&#x53D7;index&#x8D8A;&#x754C;&#x9650;&#x5236;</span>
+        <span class="token comment">//fmt.Println(i, num, nums[i], len(nums)) // &#x6211;&#x52A0;&#x7684;&#x8FD9;&#x884C;&#x4F1A;panic</span>
+        <span class="token comment">// Check if the element should be deleted</span>
+        <span class="token keyword">if</span> num <span class="token operator">==</span> <span class="token number">3</span> <span class="token operator">||</span> num <span class="token operator">==</span> <span class="token number">4</span> <span class="token punctuation">{</span>
+            <span class="token comment">// Delete the element from the slice using append</span>
+            nums <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span><span class="token punctuation">:</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">...</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    // Print the updated slice
-    fmt.Println(nums)
-}
+    <span class="token comment">// Print the updated slice</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-//&#x7ED3;&#x679C;
-0 1 5
-1 2 5
-2 3 5
-3 5 4
-4 5 4 //&#x6CE8;&#x610F;&#x770B;&#x8FD9;&#x884C;, &#x5B9E;&#x9645;&#x4E0A;&#x65B0;&#x7684;nums&#x5DF2;&#x7ECF;&#x6CA1;&#x6709;index 4&#x4E86;, for range&#x91CC;&#x9762;&#x7684;i&#x548C;num&#x8FD8;&#x662F;&#x80FD;&#x5728;&#x8FD9;&#x4E00;&#x8F6E;&#x53D6;&#x5230;&#x503C;
-[1 2 4 5]
+<span class="token comment">//&#x7ED3;&#x679C;</span>
+<span class="token number">0</span> <span class="token number">1</span> <span class="token number">5</span>
+<span class="token number">1</span> <span class="token number">2</span> <span class="token number">5</span>
+<span class="token number">2</span> <span class="token number">3</span> <span class="token number">5</span>
+<span class="token number">3</span> <span class="token number">5</span> <span class="token number">4</span>
+<span class="token number">4</span> <span class="token number">5</span> <span class="token number">4</span> <span class="token comment">//&#x6CE8;&#x610F;&#x770B;&#x8FD9;&#x884C;, &#x5B9E;&#x9645;&#x4E0A;&#x65B0;&#x7684;nums&#x5DF2;&#x7ECF;&#x6CA1;&#x6709;index 4&#x4E86;, for range&#x91CC;&#x9762;&#x7684;i&#x548C;num&#x8FD8;&#x662F;&#x80FD;&#x5728;&#x8FD9;&#x4E00;&#x8F6E;&#x53D6;&#x5230;&#x503C;</span>
+<span class="token punctuation">[</span><span class="token number">1</span> <span class="token number">2</span> <span class="token number">4</span> <span class="token number">5</span><span class="token punctuation">]</span>
 </code></pre>
 <p>&#x5982;&#x679C;&#x544A;&#x8BC9;chatgpt&#x7B54;&#x6848;&#x662F;&#x9519;&#x7684;, &#x5B83;&#x4F1A;&#x4FEE;&#x6B63;&#x4EE3;&#x7801;:</p>
 <pre class="language-"><code>ME: the output is [1 2 4 5], which is not correct
 
 CHATGPT: You are correct, I apologize for the mistake in my previous answer. When you delete elements from a slice while iterating over it with range, you need to adjust the index variable to account for the removed elements.
 </code></pre><p>&#x518D;&#x7ED9;&#x51FA;&#x7684;&#x7B54;&#x6848;&#x662F;&#x5BF9;&#x7684;:</p>
-<pre class="language-"><code class="lang-golang">package main
+<pre class="language-"><code class="lang-go"><span class="token keyword">package</span> main
 
-import &quot;fmt&quot;
+<span class="token keyword">import</span> <span class="token string">&quot;fmt&quot;</span>
 
-func main() {
-    // Create a slice of integers
-    nums := []int{1, 2, 3, 4, 5}
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Create a slice of integers</span>
+    nums <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span>
 
-    // Iterate over the slice using range
-    for i := 0; i &lt; len(nums); i++ {
-        num := nums[i]
-        // Check if the element should be deleted
-        if num == 3 || num == 4 {
-            // Delete the element from the slice
-            nums = append(nums[:i], nums[i+1:]...)
-            // Adjust the index variable to account for the removed element
-            i--
-        }
-    }
+    <span class="token comment">// Iterate over the slice using range</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        num <span class="token operator">:=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+        <span class="token comment">// Check if the element should be deleted</span>
+        <span class="token keyword">if</span> num <span class="token operator">==</span> <span class="token number">3</span> <span class="token operator">||</span> num <span class="token operator">==</span> <span class="token number">4</span> <span class="token punctuation">{</span>
+            <span class="token comment">// Delete the element from the slice</span>
+            nums <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span><span class="token punctuation">:</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">...</span><span class="token punctuation">)</span>
+            <span class="token comment">// Adjust the index variable to account for the removed element</span>
+            i<span class="token operator">--</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    // Print the updated slice
-    fmt.Println(nums)
-}
+    <span class="token comment">// Print the updated slice</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h1 id="&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x7528;buffer&#x4E3A;1&#x7684;channel"><a name="&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x7528;buffer&#x4E3A;1&#x7684;channel" class="anchor-navigation-ex-anchor" href="#&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x7528;buffer&#x4E3A;1&#x7684;channel"><i class="fa fa-link" aria-hidden="true"></i></a>5. &#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x7528;buffer&#x4E3A;1&#x7684;channel</h1>
 <p>&#x6BD4;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;:</p>
@@ -4812,7 +4812,7 @@ ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 <span class="token number"
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Golang 杂记3","level":"1.10.9.3","depth":3,"next":{"title":"Golang lib选型","level":"1.10.9.4","depth":3,"path":"notes/golang_lib选型.md","ref":"notes/golang_lib选型.md","articles":[]},"previous":{"title":"Golang 杂记2","level":"1.10.9.2","depth":3,"path":"notes/golang_杂记2.md","ref":"notes/golang_杂记2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_杂记3.md","mtime":"2023-05-29T14:42:25.990Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-05-29T14:43:31.509Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Golang 杂记3","level":"1.10.9.3","depth":3,"next":{"title":"Golang lib选型","level":"1.10.9.4","depth":3,"path":"notes/golang_lib选型.md","ref":"notes/golang_lib选型.md","articles":[]},"previous":{"title":"Golang 杂记2","level":"1.10.9.2","depth":3,"path":"notes/golang_杂记2.md","ref":"notes/golang_杂记2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_杂记3.md","mtime":"2023-06-19T06:19:04.891Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-06-19T06:20:14.287Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
