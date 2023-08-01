@@ -42,11 +42,14 @@
 	- [上传编译好的apk](#上传编译好的apk)
 	- [更新`APKINDEX.tar.gz`文件](#更新apkindextargz文件)
 		- [解决签名问题](#解决签名问题)
-	- [更新apk index命令完整版](#更新apk-index命令完整版)
-	- [下载并重建index](#下载并重建index)
-	- [下载并重建index](#下载并重建index-1)
+	- [更新apk index命令完整版(增量方式)](#更新apk-index命令完整版增量方式)
+	- [下载并重建index(重打包方式)](#下载并重建index重打包方式)
 	- [上传](#上传)
 	- [删除main](#删除main)
+- [APKBUILD 文件](#apkbuild-文件)
+	- [depends](#depends)
+	- [depends\_dev](#depends_dev)
+	- [子package依赖](#子package依赖)
 
 # 现代化的工程系统
 alpine linux的全部开发都在  
@@ -917,7 +920,7 @@ APKINDEX
 ```
 curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -X PUT "https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/alpine/v3.17/main/x86_64/" -T "{$(echo *.apk | tr ' ' ',')}"
 ```
-注意crul不支持通配符, 这里用shell的echo和tr构造出`{file1.apk,file2.apk}`的形式
+注意curl不支持通配符, 这里用shell的echo和tr构造出`{file1.apk,file2.apk}`的形式
 
 ## 更新`APKINDEX.tar.gz`文件
 现在问题是如何更新`APKINDEX.tar.gz`文件, 思路是把两个tar.gz文件里的APKINDEX合并:
@@ -960,7 +963,8 @@ apk search gcc-go --allow-untrusted
 abuild-sign APKINDEX.tar.gz
 ```
 
-## 更新apk index命令完整版
+## 更新apk index命令完整版(增量方式)
+思路是下载`APKINDEX.tar.gz`, 并增量更新
 ```sh
 su reborn
 
@@ -988,36 +992,8 @@ cd ~/packages/main
 for arch in *; do echo $arch; done
 ```
 
-## 下载并重建index
-```
-su reborn
-export http_proxy=
-export https_proxy=$http_proxy
-export HTTP_PROXY=$http_proxy
-export HTTPS_PROXY=$http_proxy
-
-mkdir -p ~/packages/main && cd ~/packages/main
-curl "https://artifactory-blr1.int.net.nokia.com/artifactory/api/archive/download/rebornlinux-generic-local/alpine/v3.17/main?archiveType=tar" -o main.tar
-
-tar xvf main.tar
-#编译packages...
-
-update_apk_index() {
-	local arch=$1
-	pushd ~/packages/main/$arch
-	apk index *.apk -o APKINDEX.tar.gz --description "main "
-	abuild-sign APKINDEX.tar.gz
-	popd
-}
-
-for arch in *; do update_apk_index $arch; done
-cd ~/packages
-tar cvf main.tar main
-
-curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -H "X-Explode-Archive:true" -X PUT "https://artifactory-blr1.int.net.nokia.com:443/artifactory/rebornlinux-generic-local/alpine/v3.17/" -T main.tar
-```
-
-## 下载并重建index
+## 下载并重建index(重打包方式)
+思路是把原来的apk都先从artifactory下载下来, 解压到packages目录; 本地新编的package就放到这个目录下, 然后重新一起打包`apk index *.apk -o APKINDEX.tar.gz --description "main "`; 最后上传整个main.tar
 ```
 su reborn
 export http_proxy=
@@ -1068,3 +1044,18 @@ for arch in *; do upload $arch; done
 ```
 curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -X DELETE "https://artifactory-blr1.int.net.nokia.com/artifactory/rebornlinux-generic-local/alpine/v3.17/main"
 ```
+
+# APKBUILD 文件
+## depends
+运行时的非so依赖. 动态链接库(so)的依赖是自动监测的, 不要写在这里. 用`!`前缀可以指定冲突的依赖.
+
+## depends_dev
+子package `$pkgname-dev`的运行时依赖
+
+## 子package依赖
+以下关键字是给对应的子package用的
+* depends_doc
+* depends_openrc
+* depends_libs
+* depends_static
+
