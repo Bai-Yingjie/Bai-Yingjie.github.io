@@ -72,6 +72,7 @@
   * [Potential Performance Bottleneck in Linux TCP(网摘)](notes/networking_Potential_Performance_Bottleneck_in_Linux_TCP.md)
   * [Get started with XDP(网摘)](notes/networking_xdp入门.md)
   * [linux收包路径图解(网摘)](notes/networking_linux收包路径图解.md)
+  * [alpine编译vpp](notes/vpp_compiling_on_alpine.md)
   * [Qemu OVS和DPDK](notes/as_title_qemu_ovs.md)
     * [OVS-DPDK编译运行](notes/OVS_DPDK_编译运行.md)
     * [OVS架构和代码](notes/OVS_架构和代码.md)
