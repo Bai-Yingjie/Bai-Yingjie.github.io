@@ -1,5 +1,6 @@
 # Summary
 * [简介](README.md)
+  * [recent topics](notes/recent_topics.md)
 
 * [开源](notes/as_title_kaiyuan.md)
   * [我的开源项目](notes/my_opensource.md)
@@ -28,6 +29,7 @@
     * [perf-tools 系统tracing工具集](notes/profiling_perf-tools_example.md)
     * [Comparing SystemTap and bpftrace(网摘)](notes/profiling_Comparing_SystemTap_and_bpftrace.md)
     * [bcc和ebpf(starting)](notes/system_analysis_bcc和ebpf.md)
+    * [体验valgrind](notes/profiling_valgrind体验.md)
   * [profiling和debugging实例](notes/as_title_os_perf.md)
     * [gshell socket leak调查](notes/debugging_gshellos_socket_leak.md)
     * [调查ftrace显示调用栈全0问题](notes/profiling_调查ftrace显示调用栈全0问题.md)

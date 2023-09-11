@@ -666,7 +666,7 @@ functions.sh中, 直接支持交叉编译:
 ```sh
 # 用EXTRADEPENDS_TARGET增加依赖, 空格做列表
 EXTRADEPENDS_TARGET="ncurses-dev" CHOST=ppc64 abuild -r
-EXTRADEPENDS_TARGET="ncurses-dev" CHOST=ppc abuild -r
+EXTRADEPENDS_TARGET="linux-headers musl musl-dev libucontext libucontext-dev" CTARGET=ppc64 abuild -r
 ```
 
 ## 处理依赖

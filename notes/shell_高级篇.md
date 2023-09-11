@@ -1,3 +1,4 @@
+- [用ip monitor命令监测网口变化](#用ip-monitor命令监测网口变化)
 - [用socat连接pty](#用socat连接pty)
   - [什么是tty pty](#什么是tty-pty)
   - [读写pts](#读写pts)
@@ -53,7 +54,7 @@
 - [动态变量名及其引用: eval的使用](#动态变量名及其引用-eval的使用)
   - [用eval生成动态变量名](#用eval生成动态变量名)
   - [间接引用变量](#间接引用变量)
-  - [举例: 读出*.conf文件内容到动态文件名变量](#举例-读出conf文件内容到动态文件名变量)
+  - [举例: 读出\*.conf文件内容到动态文件名变量](#举例-读出conf文件内容到动态文件名变量)
   - [uaes进程管理, 关系数组方式实现](#uaes进程管理-关系数组方式实现)
 - [判断字串是否包含字串](#判断字串是否包含字串)
 - [exec重定向](#exec重定向)
@@ -78,7 +79,7 @@
   - [sed定址替换](#sed定址替换)
   - [sed删除](#sed删除)
   - [sed替换引用](#sed替换引用)
-  - [sed的分组匹配, 用\(\)分组, 用\1引用](#sed的分组匹配-用分组-用1引用)
+  - [sed的分组匹配, 用()分组, 用\\1引用](#sed的分组匹配-用分组-用1引用)
 - [awk](#awk)
   - [shell变量传给awk](#shell变量传给awk)
   - [再说patten](#再说patten)
@@ -114,6 +115,15 @@
 - [local system monitor](#local-system-monitor)
 - [system monitor for pangu](#system-monitor-for-pangu)
 - [增加fedora分区的脚本](#增加fedora分区的脚本)
+
+# 用ip monitor命令监测网口变化
+```shell
+ip -o monitor link | while read -r index interface status remaining; do
+    iface=$(printf '%s\n' "$interface" | sed -E 's/(@.*)?:$//')
+    operstate=$(printf '%s\n' "$remaining" | grep -Eo ' state [^ ]+' | sed 's/^ state //')
+    printf '%s %s\n' "$iface" "$operstate"
+done
+```
 
 # 用socat连接pty
 ## 什么是tty pty

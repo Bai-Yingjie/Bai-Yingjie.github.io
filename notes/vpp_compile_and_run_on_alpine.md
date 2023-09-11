@@ -17,6 +17,7 @@
   - [Start vpp daemon](#start-vpp-daemon)
   - [The block diagram](#the-block-diagram)
   - [Use vppctl client](#use-vppctl-client)
+- [vpp接口类型](#vpp接口类型)
 - [参考](#参考)
 
 
@@ -576,6 +577,13 @@ PING 10.10.1.2 (10.10.1.2): 56 data bytes
 4 packets transmitted, 4 packets received, 0% packet loss
 round-trip min/avg/max = 0.833/4.084/7.910 ms
 ```
+
+# vpp接口类型
+* tap: 对接kernel tap 设备
+* memif: 对接另外一个vpp, 用户态
+* AVF: x710的VF
+* vhost-user: 用户态后端, 和VM对接
+* netmap: Free BSD 用户态接口
 
 # 参考
 [vpp开发入门系列](https://pantheon.tech/vpp-guide/)
