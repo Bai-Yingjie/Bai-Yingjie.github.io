@@ -1,3 +1,8 @@
+- [交叉编译指定cc](#交叉编译指定cc)
+- [go mod tidy总是pull老版本](#go-mod-tidy总是pull老版本)
+- [update所有依赖的版本](#update所有依赖的版本)
+  - [手动更新指定package的非tag版本](#手动更新指定package的非tag版本)
+  - [go mod的版本选择算法 Minimal version selection (MVS)](#go-mod的版本选择算法-minimal-version-selection-mvs)
 - [fmt打印颜色](#fmt打印颜色)
 - [升级go1.18遇到的问题](#升级go118遇到的问题)
   - [mips64运行时崩溃](#mips64运行时崩溃)
@@ -41,6 +46,54 @@
 - [善用字符串库函数--strings.Join](#善用字符串库函数--stringsjoin)
 - [切片的插入](#切片的插入)
 - [匿名函数执行](#匿名函数执行)
+
+# 交叉编译指定cc
+```
+CGO_ENABLED=1 GOARCH=arm64 CC=aarch64-alpine-linux-musl-gcc go build -buildmode=plugin -ldflags="-extld=aarch64-alpine-linux-musl-ld"
+```
+
+# go mod tidy总是pull老版本
+原因是go工具链使用了proxy, 有cache.  
+用`GOPRIVATE`指定`github`不走proxy可以解决:
+```
+GOPRIVATE=github.com go get github.com/godevsig/grepo@master
+```
+
+# update所有依赖的版本
+```shell
+GOPRIVATE=github.com go get -u ./...
+GOPRIVATE=github.com go mod tidy
+```
+
+## 手动更新指定package的非tag版本
+用`go get -u`只能更新package到tag版本, 如果需要更新的版本, 需要手动修改`go.mod`文件, 比如修改指定package为master分支:
+```shell
+github.com/godevsig/glib master
+```
+再用`go mod tidy`就可以更新到最新版本. 比如这里运行后, `go.mod`被自动修改为:
+```shell
+github.com/godevsig/glib v0.1.2-0.20230826061212-649e5e40e117
+```
+
+## go mod的版本选择算法 Minimal version selection (MVS)
+基本假设就是package满足向前兼容性原则, 新版本总是比老版本好.
+
+所以MVS虽然名字里有minimal字样, 但实际上它倾向于选择新版本, 比如下图:  
+
+> MVS produces the build list as output, the list of module versions used for a build.
+>
+> MVS starts at the main modules (special vertices in the graph that have no version) and traverses the graph, tracking the highest required version of each module. At the end of the traversal, the highest required versions comprise the build list: they are the minimum versions that satisfy all requirements.
+>
+> MVS visits and loads the go.mod file for each of the module versions highlighted in blue. At the end of the graph traversal, MVS returns a build list containing the bolded versions: A 1.2, B 1.2, C 1.4, and D 1.2. Note that higher versions of B and D are available but MVS does not select them, since nothing requires them.
+
+![go mod 选择算法](img/golang_mvs.png)
+
+**用`go list -m all`可以查看这个build list.**
+> The build list may be inspected with the command go list -m all. Unlike other dependency management systems, the build list is not saved in a “lock” file. MVS is deterministic, and the build list doesn’t change when new versions of dependencies are released, so MVS is used to compute it at the beginning of every module-aware command.
+
+详见:
+* https://go.dev/ref/mod#minimal-version-selection
+* https://research.swtch.com/vgo-mvs
 
 # fmt打印颜色
 ```go
