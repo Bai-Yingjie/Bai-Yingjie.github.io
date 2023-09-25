@@ -1,3 +1,7 @@
+- [select随机选择ready的case](#select随机选择ready的case)
+  - [问题背景](#问题背景)
+  - [server端的处理逻辑](#server端的处理逻辑)
+  - [如何修改](#如何修改)
 - [交叉编译指定cc](#交叉编译指定cc)
 - [go mod tidy总是pull老版本](#go-mod-tidy总是pull老版本)
 - [update所有依赖的版本](#update所有依赖的版本)
@@ -46,6 +50,56 @@
 - [善用字符串库函数--strings.Join](#善用字符串库函数--stringsjoin)
 - [切片的插入](#切片的插入)
 - [匿名函数执行](#匿名函数执行)
+
+# select随机选择ready的case
+adaptiveservice的chan transport实现里, 出现来的一个bug. 现象是丢消息. 最后调查下来和select的随机选择case有关.
+## 问题背景
+client和server通过adaptiveservice的channel transport通信. client主动发起建立连接, 并在结束后关闭连接.
+
+client代码逻辑简化如下:
+```go
+//发现并连接server
+c := NewClient().SetDiscoverTimeout(0)
+conn := <-c.Discover(BuiltinPublisher, SrvMessageTracing)
+
+//发送
+tracedMsg := tracedMessageRecord{...}
+conn.Send(&tracedMsg)
+conn.Close()
+```
+
+bug现象是client发送的`tracedMsg`并没有被server处理.
+
+## server端的处理逻辑
+server端遇到client发过来的握手请求, 会新建goroutine处理:
+```go
+go func() {
+    for {
+        select {
+            //监测是否client主动关闭了通道.
+            //connClose由client持有
+            case <-connClose:
+                //关闭连接
+                return
+            //recvChan是server端给这个client新建的接收队列
+            case tm := <-recvChan:
+                //处理消息
+        }
+    }
+}()
+```
+
+问题出在`case <-connClose`后的那个`return`上.  
+client几乎是发了消息马上关闭连接, 那么server端的`select`背后的`epoll`很可能会看到两个case几乎同时ready.
+根据go的[spec](https://go.dev/ref/spec#Select_statements)
+> If one or more of the communications can proceed, a single one that can proceed is chosen via a uniform pseudo-random selection. Otherwise, if there is a default case, that case is chosen. If there is no default case, the "select" statement blocks until at least one of the communications can proceed.
+
+case的选择是随机的. 那么如果选择了`case <-connClose`, 走return流程, 那么`recvChan`里面还没来得及处理的消息都会丢失.
+
+## 如何修改
+![Alt text](img/golang_select_bugfix.png)
+
+在这个修改中, `case <-connClose`只是关闭`recvChan`; 而`recvChan`里面读空才return.
 
 # 交叉编译指定cc
 ```

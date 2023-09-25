@@ -374,6 +374,7 @@ type g struct {
 `timandy/routine`解决了这个难题. 下面是原理.
 
 1. 定义了"精简版"的`g`, 这里只关心`goid`, `gopc`等极少field
+
 ```go
 type g struct {
 	goid         int64
@@ -383,6 +384,7 @@ type g struct {
 }
 ```
 2. 在初始化的时候, 寻找`runtime.g`对应的类型, 利用反射得到`goid`这个域的offset
+
 ```go
 var (
 	offsetGoid         uintptr

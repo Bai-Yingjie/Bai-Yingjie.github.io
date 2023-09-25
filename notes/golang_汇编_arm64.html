@@ -4022,69 +4022,73 @@ TEXT &#xB7;<span class="token function">getgp</span><span class="token punctuati
 </ul>
 <p><code>timandy/routine</code>&#x89E3;&#x51B3;&#x4E86;&#x8FD9;&#x4E2A;&#x96BE;&#x9898;. &#x4E0B;&#x9762;&#x662F;&#x539F;&#x7406;.</p>
 <ol>
-<li>&#x5B9A;&#x4E49;&#x4E86;&quot;&#x7CBE;&#x7B80;&#x7248;&quot;&#x7684;<code>g</code>, &#x8FD9;&#x91CC;&#x53EA;&#x5173;&#x5FC3;<code>goid</code>, <code>gopc</code>&#x7B49;&#x6781;&#x5C11;field<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> g <span class="token keyword">struct</span> <span class="token punctuation">{</span>
- goid         <span class="token builtin">int64</span>
- paniconfault <span class="token operator">*</span><span class="token builtin">bool</span>
- gopc         <span class="token operator">*</span><span class="token builtin">uintptr</span>
- labels       <span class="token operator">*</span>unsafe<span class="token punctuation">.</span>Pointer
+<li>&#x5B9A;&#x4E49;&#x4E86;&quot;&#x7CBE;&#x7B80;&#x7248;&quot;&#x7684;<code>g</code>, &#x8FD9;&#x91CC;&#x53EA;&#x5173;&#x5FC3;<code>goid</code>, <code>gopc</code>&#x7B49;&#x6781;&#x5C11;field</li>
+</ol>
+<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> g <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    goid         <span class="token builtin">int64</span>
+    paniconfault <span class="token operator">*</span><span class="token builtin">bool</span>
+    gopc         <span class="token operator">*</span><span class="token builtin">uintptr</span>
+    labels       <span class="token operator">*</span>unsafe<span class="token punctuation">.</span>Pointer
 <span class="token punctuation">}</span>
 </code></pre>
-</li>
-<li>&#x5728;&#x521D;&#x59CB;&#x5316;&#x7684;&#x65F6;&#x5019;, &#x5BFB;&#x627E;<code>runtime.g</code>&#x5BF9;&#x5E94;&#x7684;&#x7C7B;&#x578B;, &#x5229;&#x7528;&#x53CD;&#x5C04;&#x5F97;&#x5230;<code>goid</code>&#x8FD9;&#x4E2A;&#x57DF;&#x7684;offset
-```go
-var (
- offsetGoid         uintptr
- offsetPaniconfault uintptr
- offsetGopc         uintptr
- offsetLabels       uintptr
-)</li>
+<ol>
+<li>&#x5728;&#x521D;&#x59CB;&#x5316;&#x7684;&#x65F6;&#x5019;, &#x5BFB;&#x627E;<code>runtime.g</code>&#x5BF9;&#x5E94;&#x7684;&#x7C7B;&#x578B;, &#x5229;&#x7528;&#x53CD;&#x5C04;&#x5F97;&#x5230;<code>goid</code>&#x8FD9;&#x4E2A;&#x57DF;&#x7684;offset</li>
 </ol>
-<p>func init() {
-    gt := getgt()
-    offsetGoid = offset(gt, &quot;goid&quot;)
-    offsetPaniconfault = offset(gt, &quot;paniconfault&quot;)
-    offsetGopc = offset(gt, &quot;gopc&quot;)
-    offsetLabels = offset(gt, &quot;labels&quot;)
-}</p>
-<p>// getgt returns the type of runtime.g.
-//
-//go:nosplit
-func getgt() reflect.Type {
-    return typeByString(&quot;runtime.g&quot;)
-}</p>
-<p>// offset returns the offset of the specified field.
-func offset(t reflect.Type, f string) uintptr {
-    field, found := t.FieldByName(f)
-    if found {
-        return field.Offset
-    }
-    panic(fmt.Sprintf(&quot;No such field &apos;%v&apos; of struct &apos;%v.%v&apos;.&quot;, f, t.PkgPath(), t.Name()))
-}</p>
-<pre class="language-"><code>
-`getgt()`&#x4F7F;&#x7528;&#x4E86;&#x9ED1;&#x79D1;&#x6280;:
-```go
-// eface The empty interface struct.
-type eface struct {
-    _type unsafe.Pointer //&quot;&#x6807;&#x51C6;&quot;&#x7684;eface&#x8FD9;&#x91CC;&#x662F; _type *_type
-    data  unsafe.Pointer
-}
+<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
+    offsetGoid         <span class="token builtin">uintptr</span>
+    offsetPaniconfault <span class="token builtin">uintptr</span>
+    offsetGopc         <span class="token builtin">uintptr</span>
+    offsetLabels       <span class="token builtin">uintptr</span>
+<span class="token punctuation">)</span>
 
-// iface The interface struct.
-type iface struct {
-    tab  unsafe.Pointer //&quot;&#x6807;&#x51C6;&quot;&#x7684;iface&#x8FD9;&#x91CC;&#x662F; tab *itab
-    data unsafe.Pointer
-}
+<span class="token keyword">func</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    gt <span class="token operator">:=</span> <span class="token function">getgt</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    offsetGoid <span class="token operator">=</span> <span class="token function">offset</span><span class="token punctuation">(</span>gt<span class="token punctuation">,</span> <span class="token string">&quot;goid&quot;</span><span class="token punctuation">)</span>
+    offsetPaniconfault <span class="token operator">=</span> <span class="token function">offset</span><span class="token punctuation">(</span>gt<span class="token punctuation">,</span> <span class="token string">&quot;paniconfault&quot;</span><span class="token punctuation">)</span>
+    offsetGopc <span class="token operator">=</span> <span class="token function">offset</span><span class="token punctuation">(</span>gt<span class="token punctuation">,</span> <span class="token string">&quot;gopc&quot;</span><span class="token punctuation">)</span>
+    offsetLabels <span class="token operator">=</span> <span class="token function">offset</span><span class="token punctuation">(</span>gt<span class="token punctuation">,</span> <span class="token string">&quot;labels&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-// typelinks returns a slice of the sections in each module, and a slice of *rtype offsets in each module. The types in each module are sorted by string.
-//
-//go:linkname typelinks reflect.typelinks
-func typelinks() (sections []unsafe.Pointer, offset [][]int32)
+<span class="token comment">// getgt returns the type of runtime.g.</span>
+<span class="token comment">//</span>
+<span class="token comment">//go:nosplit</span>
+<span class="token keyword">func</span> <span class="token function">getgt</span><span class="token punctuation">(</span><span class="token punctuation">)</span> reflect<span class="token punctuation">.</span>Type <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">typeByString</span><span class="token punctuation">(</span><span class="token string">&quot;runtime.g&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-// resolveTypeOff resolves an *rtype offset from a base type.
-//
-//go:linkname resolveTypeOff reflect.resolveTypeOff
-func resolveTypeOff(rtype unsafe.Pointer, off int32) unsafe.Pointer
-</code></pre><p>&#x89E3;&#x91CA;:</p>
+<span class="token comment">// offset returns the offset of the specified field.</span>
+<span class="token keyword">func</span> <span class="token function">offset</span><span class="token punctuation">(</span>t reflect<span class="token punctuation">.</span>Type<span class="token punctuation">,</span> f <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">uintptr</span> <span class="token punctuation">{</span>
+    field<span class="token punctuation">,</span> found <span class="token operator">:=</span> t<span class="token punctuation">.</span><span class="token function">FieldByName</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> found <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> field<span class="token punctuation">.</span>Offset
+    <span class="token punctuation">}</span>
+    <span class="token function">panic</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;No such field &apos;%v&apos; of struct &apos;%v.%v&apos;.&quot;</span><span class="token punctuation">,</span> f<span class="token punctuation">,</span> t<span class="token punctuation">.</span><span class="token function">PkgPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>getgt()</code>&#x4F7F;&#x7528;&#x4E86;&#x9ED1;&#x79D1;&#x6280;:</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// eface The empty interface struct.</span>
+<span class="token keyword">type</span> eface <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    _type unsafe<span class="token punctuation">.</span>Pointer <span class="token comment">//&quot;&#x6807;&#x51C6;&quot;&#x7684;eface&#x8FD9;&#x91CC;&#x662F; _type *_type</span>
+    data  unsafe<span class="token punctuation">.</span>Pointer
+<span class="token punctuation">}</span>
+
+<span class="token comment">// iface The interface struct.</span>
+<span class="token keyword">type</span> iface <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    tab  unsafe<span class="token punctuation">.</span>Pointer <span class="token comment">//&quot;&#x6807;&#x51C6;&quot;&#x7684;iface&#x8FD9;&#x91CC;&#x662F; tab *itab</span>
+    data unsafe<span class="token punctuation">.</span>Pointer
+<span class="token punctuation">}</span>
+
+<span class="token comment">// typelinks returns a slice of the sections in each module, and a slice of *rtype offsets in each module. The types in each module are sorted by string.</span>
+<span class="token comment">//</span>
+<span class="token comment">//go:linkname typelinks reflect.typelinks</span>
+<span class="token keyword">func</span> <span class="token function">typelinks</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>sections <span class="token punctuation">[</span><span class="token punctuation">]</span>unsafe<span class="token punctuation">.</span>Pointer<span class="token punctuation">,</span> offset <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int32</span><span class="token punctuation">)</span>
+
+<span class="token comment">// resolveTypeOff resolves an *rtype offset from a base type.</span>
+<span class="token comment">//</span>
+<span class="token comment">//go:linkname resolveTypeOff reflect.resolveTypeOff</span>
+<span class="token keyword">func</span> <span class="token function">resolveTypeOff</span><span class="token punctuation">(</span>rtype unsafe<span class="token punctuation">.</span>Pointer<span class="token punctuation">,</span> off <span class="token builtin">int32</span><span class="token punctuation">)</span> unsafe<span class="token punctuation">.</span>Pointer
+</code></pre>
+<p>&#x89E3;&#x91CA;:</p>
 <ul>
 <li>&#x7528;&#x4E86;<code>go:linkname</code>&#x9ED1;&#x79D1;&#x6280;, &#x7ED5;&#x8FC7;golang&#x7684;&#x5C0F;&#x5199;&#x9650;&#x5236;, &#x8BBF;&#x95EE;<code>reflect.typelinks()</code>&#x51FD;&#x6570;, &#x5B83;&#x8FD4;&#x56DE;&#x6240;&#x6709;module&#x7684;section&#x4FE1;&#x606F;.</li>
 <li><code>typeByString()</code>&#x51FD;&#x6570;&#x904D;&#x5386;&#x4E0A;&#x9762;&#x7684;<code>typelinks()</code>, &#x5339;&#x914D;&#x6BCF;&#x4E2A;&#x7C7B;&#x578B;&#x7684;<code>string()</code>&#x5C5E;&#x6027;, &#x548C;<code>runtime.g</code>&#x4E00;&#x81F4;&#x5C31;&#x8FD4;&#x56DE;&#x5176;&#x53CD;&#x5C04;&#x7C7B;&#x578B;<code>reflect.Type</code></li>
@@ -4223,7 +4227,7 @@ func resolveTypeOff(rtype unsafe.Pointer, off int32) unsafe.Pointer
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Golang 汇编语法","level":"1.10.9.6","depth":3,"next":{"title":"go调用c可以用swig","level":"1.10.9.7","depth":3,"path":"notes/golang_cgo_swig.md","ref":"notes/golang_cgo_swig.md","articles":[]},"previous":{"title":"go mod和go proxy","level":"1.10.9.5","depth":3,"path":"notes/golang_mod_proxy.md","ref":"notes/golang_mod_proxy.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_汇编_arm64.md","mtime":"2023-09-11T01:54:11.215Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-09-11T01:55:16.281Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Golang 汇编语法","level":"1.10.9.6","depth":3,"next":{"title":"go调用c可以用swig","level":"1.10.9.7","depth":3,"path":"notes/golang_cgo_swig.md","ref":"notes/golang_cgo_swig.md","articles":[]},"previous":{"title":"go mod和go proxy","level":"1.10.9.5","depth":3,"path":"notes/golang_mod_proxy.md","ref":"notes/golang_mod_proxy.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/golang_汇编_arm64.md","mtime":"2023-09-25T03:51:30.109Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-09-25T03:52:49.202Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
