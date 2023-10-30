@@ -1,5 +1,6 @@
-- [target_lib的makefile](#target_lib的makefile)
+- [target\_lib的makefile](#target_lib的makefile)
 - [Makefile进阶](#makefile进阶)
+  - [用`eval`在配方(recipe)里定义变量并传递给后面的命令](#用eval在配方recipe里定义变量并传递给后面的命令)
   - [根据target改变变量](#根据target改变变量)
   - [传入变量到Makefile](#传入变量到makefile)
   - [Makefile配方传递变量](#makefile配方传递变量)
@@ -49,6 +50,45 @@ clean:
 ```
 
 # Makefile进阶
+## 用`eval`在配方(recipe)里定义变量并传递给后面的命令
+Makefile里面执行配方(recipe)的多行shell命令, 每一行都是独立的, 不能共享变量.  
+但`eval`可以打破这个限制. 详见[Makefile Spec的eval function小节](https://www.gnu.org/software/make/manual/make.html#Eval-Function)
+
+下面的例子中用了`eval`来定义"临时变量", 可跨多行shell命令使用.
+```makefile
+proxy := http://0.0.0.0:8080
+repo_head := $(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
+site := artifactory.com
+artifactory := rebornlinux-docker-local.$(site)
+
+define docker_push #from,to
+	@echo Are you sure to push $(1) to $(2) ?
+	@read -p "if not press Ctrl+C - enter to continue" tmp
+	docker tag $(1) $(2)
+	docker push $(2)
+endef
+
+default: devkit
+
+base: docker_build.base
+devkit: docker_build.devkit
+
+docker_build.%:
+	$(eval DOCKERFILE := $(@:docker_build.%=Dockerfile.%))
+	$(eval IMG := $(@:docker_build.%=rebornlinux/%))
+	docker build -f $(DOCKERFILE) -t $(IMG):$(repo_head) \
+		--build-arg HTTP_PROXY=$(proxy) --build-arg HTTPS_PROXY=$(proxy) \
+		--build-arg http_proxy=$(proxy) --build-arg https_proxy=$(proxy) \
+		.
+	docker tag $(IMG):$(repo_head) $(IMG):latest
+	$(call docker_push,$(IMG):$(repo_head),$(artifactory)/$(IMG):$(repo_head))
+	$(call docker_push,$(IMG):latest,$(artifactory)/$(IMG):latest)
+
+```
+解释:
+* `$(@:docker_build.%=Dockerfile.%)`是内置函数`$(patsubst pattern,replacement,text)`的简化版, 详见[Makefile patsubst函数](https://www.gnu.org/software/make/manual/make.html#index-patsubst-1)
+* `DOCKERFILE`被`eval`了以后, 就可以被后面的命令使用了.
+
 ## 根据target改变变量
 ```makefile
 BLDTAGS := stdlib,adaptiveservice
