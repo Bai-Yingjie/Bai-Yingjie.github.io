@@ -1,3 +1,4 @@
+- [在loop里后台执行](#在loop里后台执行)
 - [shell脚本块注释](#shell脚本块注释)
 - [带超时的重试命令](#带超时的重试命令)
 - [Here Document的用法: 一行输入](#here-document的用法-一行输入)
@@ -129,6 +130,13 @@
 - [usb串口 --lsusb --minicom](#usb串口---lsusb---minicom)
 - [locate--linux下面的everything](#locate--linux下面的everything)
 - [rsync拷贝目录，去除hg](#rsync拷贝目录去除hg)
+
+# 在loop里后台执行
+```shell
+for i in {1..10};do (echo $i; sleep 3; echo done) & done
+```
+* 把要后台执行的代码段用`()`括起来
+* `&`后面不要加分号`;` 因为`&`本身就是分隔符
 
 # shell脚本块注释
 ```
