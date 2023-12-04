@@ -238,24 +238,25 @@ fn Foo( input1 : i32, input2 : u32) -> i32 {
 
 ## 命名惯例
 rust混合了驼峰式和下划线式的名字惯例, 但用于不同的场景:
-Item|	Convention
+
+Item| Convention
 --|--
-Crates|	unclear
-Modules|	snake_case
-Types|	UpperCamelCase
-Traits|	UpperCamelCase
-Enum variants|	UpperCamelCase
-Functions|	snake_case
-Methods|	snake_case
-General constructors|	new or with_more_details
-Conversion constructors|	from_some_other_type
-Macros|	snake_case!
-Local variables|	snake_case
-Statics|	SCREAMING_SNAKE_CASE
-Constants|	SCREAMING_SNAKE_CASE
-Type parameters|	concise UpperCamelCase, usually single uppercase letter: T
-Lifetimes|	short lowercase, usually a single letter: 'a, 'de, 'src
-Features|	unclear but see C-FEATURE
+Crates| unclear
+Modules| snake_case
+Types| UpperCamelCase
+Traits| UpperCamelCase
+Enum variants| UpperCamelCase
+Functions| snake_case
+Methods| snake_case
+General constructors| new or with_more_details
+Conversion constructors| from_some_other_type
+Macros| snake_case!
+Local variables| snake_case
+Statics| SCREAMING_SNAKE_CASE
+Constants| SCREAMING_SNAKE_CASE
+Type parameters| concise UpperCamelCase, usually single uppercase letter: T
+Lifetimes| short lowercase, usually a single letter: 'a, 'de, 'src
+Features| unclear but see C-FEATURE
 
 ## 格式化输出
 ```rust
@@ -501,7 +502,7 @@ let c1 = '\n';          // 换行符
 let c2 = '\x7f';        // 8 bit 字符变量
 let c3 = '\u{7FFF}';    // unicode字符
 ```
-因为char类型的设计目的是描述任意一个unicode字符，因此它占据的内存空间不是1个字节，而是4个字节
+因为char类型的设计目的是描述任意一个unicode字符，因此它占据的内存空间不是1个字节，而是4个字节  
 用u8或者前面加b前缀来表示1个字节的ASCII字符
 ```rust
 let x :u8 = 1;
@@ -541,7 +542,9 @@ let var6 = 123usize;        // i6变量是usize类型
 let var7 = 0x_ff_u8;        // i7变量是u8类型
 let var8 = 32;              // 不写类型,默认为 i32 类型
 ```
-rust可以在整型溢出时panic, 但需要"debug"版本编译, 比如`rustc test.rs`, 而`rustc -O test.rs`产生的"release"版本则不会panic, 而是自动截断. 通过开关`rustc -C overflow-checks=no test.rs`可以控制这个行为.
+rust可以在整型溢出时panic, 但需要"debug"版本编译, 比如`rustc test.rs`.  
+而`rustc -O test.rs`产生的"release"版本则不会panic, 而是自动截断.  
+通过开关`rustc -C overflow-checks=no test.rs`可以控制这个行为.
 * 浮点
 ```rust
 let f1 = 123.0f64;      // type f64
@@ -702,6 +705,8 @@ fn capitalize(substr: &mut str) {
 }
 fn main() {
     let mut s = String::from("Hello World");
+    //这里s本身是mut, 其前面的&mut是修饰引用的
+    //可以理解成&mut mut T, 即一个可以修改的类型T的实例的可以修改的引用
     capitalize(&mut s);
     println!("{}", s);
 }
@@ -988,7 +993,6 @@ let point = Point3d { z: 1, x: 2, ..origin };
 调试中，完整地显示出一个结构体实例是非常有用的。但如果我们手动的书写一个格式会非常的不方便。所以 Rust 提供了一个方便地输出一整个结构体的方法：
 ```rust
 #[derive(Debug)]
-
 struct Rectangle {
     width: u32,
     height: u32,
@@ -1195,7 +1199,6 @@ impl<T> Default for Vec<T> {
 枚举类在 Rust 中并不像其他编程语言中的概念那样简单，但依然可以十分简单的使用：
 ```rust
 #[derive(Debug)]
-
 enum Book {
     Papery, Electronic
 }

@@ -49,9 +49,11 @@ crate和mod有一个重要区别是：crate之间不能出现循环引用；而m
 
 ## cargo
 Cargo是官方的项目管理工具
-* 新建一个hello world工程  
+* 新建一个hello world工程, 新建`src/main.rs`  
 `cargo new hello_world --bin`
-* 新建一个hello world库  
+* 如果是已经存在的目录  
+`cargo init --bin`
+* 新建一个hello world库, 新建`src/lib.rs`  
 `cargo new hello_world --lib`
 * 编译  
 `cargo build --release`
