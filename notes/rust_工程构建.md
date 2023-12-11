@@ -3,6 +3,7 @@
 - [项目和模块](#项目和模块)
   - [cargo](#cargo)
     - [cargo.toml](#cargotoml)
+    - [toml语法](#toml语法)
   - [错误处理](#错误处理)
   - [问号运算符](#问号运算符)
   - [和C的ABI兼容](#和c的abi兼容)
@@ -83,6 +84,7 @@ serde_json = ">=1.0.9"
 
 utils = { path = "../utils" }
 ```
+
 The `Cargo.toml` file for each package is called its _manifest_. It is written in the [TOML](https://toml.io/) format. Every manifest file consists of the following sections:  
 参考: https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -132,6 +134,36 @@ The `Cargo.toml` file for each package is called its _manifest_. It is written i
 *   [`[replace]`](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html#the-replace-section) — Override dependencies (deprecated).
 *   [`[profile]`](https://doc.rust-lang.org/cargo/reference/profiles.html) — Compiler settings and optimizations.
 *   [`[workspace]`](https://doc.rust-lang.org/cargo/reference/workspaces.html) — The workspace definition.
+
+### toml语法
+`cargo.toml`是toml语法:
+* `[package]`是toml table的语法, 是hash map类型
+  * inline table的语法是`name = { first = "Tom", last = "Preston-Werner" }`
+* 还有双方括号的用法, 比如
+
+```toml
+[[products]]
+name = "Hammer"
+sku = 738594937
+
+[[products]]  # empty table within the array
+
+[[products]]
+name = "Nail"
+sku = 284758393
+
+color = "gray"
+```
+相当于`json`的
+```json
+{
+  "products": [
+    { "name": "Hammer", "sku": 738594937 },
+    { },
+    { "name": "Nail", "sku": 284758393, "color": "gray" }
+  ]
+}
+```
 
 ## 错误处理
 比如使用Option表示some和none两种可能, 返回Result既有值又有错误

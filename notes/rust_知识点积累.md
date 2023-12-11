@@ -219,7 +219,7 @@ root
 ```
 
 # 和C兼容data layout
-virtiofsd的源码里, 经常会出现类似下面的代码:`
+virtiofsd的源码里, 经常会出现类似下面的代码:
 ```rust
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
