@@ -6,6 +6,7 @@
 rust默认是只在mod可见, 可以用pub关键词修改
 * mod可以嵌套
 * pub有多种形式, 比如`pub(crate)`, `pub(in crate::my_mod)`
+
 ```rust
 // A module named `my_mod`
 mod my_mod {

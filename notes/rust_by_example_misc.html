@@ -714,7 +714,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+        <li class="chapter " data-level="1.4.1" data-path="container_linux_namespaces.html">
+            
+                <a href="container_linux_namespaces.html">
+            
+                    
+                    linux名字空间
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="cloud_杂记.html">
             
                 <a href="cloud_杂记.html">
             
@@ -727,7 +740,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+        <li class="chapter " data-level="1.4.3" data-path="container_当代容器读书笔记.html">
             
                 <a href="container_当代容器读书笔记.html">
             
@@ -3665,7 +3678,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#mod&#x548C;&#x53EF;&#x89C1;&#x6027;"><b>1. </b>mod&#x548C;&#x53EF;&#x89C1;&#x6027;</a></li></ul></div><a href="#mod&#x548C;&#x53EF;&#x89C1;&#x6027;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#mod&#x548C;&#x53EF;&#x89C1;&#x6027;"><b>1. </b>mod&#x548C;&#x53EF;&#x89C1;&#x6027;</a></li><li><span class="title-icon "></span><a href="#struct&#x548C;&#x53EF;&#x89C1;&#x6027;"><b>2. </b>struct&#x548C;&#x53EF;&#x89C1;&#x6027;</a></li></ul></div><a href="#mod&#x548C;&#x53EF;&#x89C1;&#x6027;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><ul>
 <li><a href="#mod&#x548C;&#x53EF;&#x89C1;&#x6027;">mod&#x548C;&#x53EF;&#x89C1;&#x6027;</a></li>
 <li><a href="#struct&#x548C;&#x53EF;&#x89C1;&#x6027;">struct&#x548C;&#x53EF;&#x89C1;&#x6027;</a></li>
 </ul>
@@ -3673,167 +3686,174 @@
 <p>rust&#x9ED8;&#x8BA4;&#x662F;&#x53EA;&#x5728;mod&#x53EF;&#x89C1;, &#x53EF;&#x4EE5;&#x7528;pub&#x5173;&#x952E;&#x8BCD;&#x4FEE;&#x6539;</p>
 <ul>
 <li>mod&#x53EF;&#x4EE5;&#x5D4C;&#x5957;</li>
-<li><p>pub&#x6709;&#x591A;&#x79CD;&#x5F62;&#x5F0F;, &#x6BD4;&#x5982;<code>pub(crate)</code>, <code>pub(in crate::my_mod)</code>
-<code>``rust
-// A module named</code>my_mod`
-mod my_mod {
-  // Items in modules default to private visibility.
-  fn private_function() {</p>
-<pre class="language-"><code>  println!(&quot;called `my_mod::private_function()`&quot;);
-</code></pre><p>  }</p>
-<p>  // Use the <code>pub</code> modifier to override default visibility.
-  pub fn function() {</p>
-<pre class="language-"><code>  println!(&quot;called `my_mod::function()`&quot;);
-</code></pre><p>  }</p>
-<p>  // Items can access other items in the same module,
-  // even when private.
-  pub fn indirect_access() {</p>
-<pre class="language-"><code>  print!(&quot;called `my_mod::indirect_access()`, that\n&gt; &quot;);
-  private_function();
-</code></pre><p>  }</p>
-<p>  // Modules can also be nested
-  pub mod nested {</p>
-<pre class="language-"><code>  pub fn function() {
-      println!(&quot;called `my_mod::nested::function()`&quot;);
-  }
-
-  #[allow(dead_code)]
-  fn private_function() {
-      println!(&quot;called `my_mod::nested::private_function()`&quot;);
-  }
-
-  // Functions declared using `pub(in path)` syntax are only visible
-  // within the given path. `path` must be a parent or ancestor module
-  pub(in crate::my_mod) fn public_function_in_my_mod() {
-      print!(&quot;called `my_mod::nested::public_function_in_my_mod()`, that\n&gt; &quot;);
-      public_function_in_nested();
-  }
-
-  // Functions declared using `pub(self)` syntax are only visible within
-  // the current module, which is the same as leaving them private
-  pub(self) fn public_function_in_nested() {
-      println!(&quot;called `my_mod::nested::public_function_in_nested()`&quot;);
-  }
-
-  // Functions declared using `pub(super)` syntax are only visible within
-  // the parent module
-  pub(super) fn public_function_in_super_mod() {
-      println!(&quot;called `my_mod::nested::public_function_in_super_mod()`&quot;);
-  }
-</code></pre><p>  }</p>
-<p>  pub fn call_public_function_in_my_mod() {</p>
-<pre class="language-"><code>  print!(&quot;called `my_mod::call_public_function_in_my_mod()`, that\n&gt; &quot;);
-  nested::public_function_in_my_mod();
-  print!(&quot;&gt; &quot;);
-  nested::public_function_in_super_mod();
-</code></pre><p>  }</p>
-<p>  // pub(crate) makes functions visible only within the current crate
-  pub(crate) fn public_function_in_crate() {</p>
-<pre class="language-"><code>  println!(&quot;called `my_mod::public_function_in_crate()`&quot;);
-</code></pre><p>  }</p>
-<p>  // Nested modules follow the same rules for visibility
-  mod private_nested {</p>
-<pre class="language-"><code>  #[allow(dead_code)]
-  pub fn function() {
-      println!(&quot;called `my_mod::private_nested::function()`&quot;);
-  }
-
-  // Private parent items will still restrict the visibility of a child item,
-  // even if it is declared as visible within a bigger scope.
-  #[allow(dead_code)]
-  pub(crate) fn restricted_function() {
-      println!(&quot;called `my_mod::private_nested::restricted_function()`&quot;);
-  }
-</code></pre><p>  }
-}</p>
-</li>
+<li>pub&#x6709;&#x591A;&#x79CD;&#x5F62;&#x5F0F;, &#x6BD4;&#x5982;<code>pub(crate)</code>, <code>pub(in crate::my_mod)</code></li>
 </ul>
-<p>fn function() {
-    println!(&quot;called <code>function()</code>&quot;);
-}</p>
-<p>fn main() {
-    // Modules allow disambiguation between items that have the same name.
-    function();
-    my_mod::function();</p>
-<pre class="language-"><code>// Public items, including those inside nested modules, can be
-// accessed from outside the parent module.
-my_mod::indirect_access();
-my_mod::nested::function();
-my_mod::call_public_function_in_my_mod();
+<pre class="language-"><code class="lang-rust"><span class="token comment">// A module named `my_mod`</span>
+<span class="token keyword">mod</span> <span class="token module-declaration namespace">my_mod</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Items in modules default to private visibility.</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">private_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::private_function()`&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-// pub(crate) items can be called from anywhere in the same crate
-my_mod::public_function_in_crate();
+    <span class="token comment">// Use the `pub` modifier to override default visibility.</span>
+    <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::function()`&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-// pub(in path) items can only be called from within the module specified
-// Error! function `public_function_in_my_mod` is private
-//my_mod::nested::public_function_in_my_mod();
-// TODO ^ Try uncommenting this line
+    <span class="token comment">// Items can access other items in the same module,</span>
+    <span class="token comment">// even when private.</span>
+    <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">indirect_access</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token macro property">print!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::indirect_access()`, that\n&gt; &quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">private_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-// Private items of a module cannot be directly accessed, even if
-// nested in a public module:
+    <span class="token comment">// Modules can also be nested</span>
+    <span class="token keyword">pub</span> <span class="token keyword">mod</span> <span class="token module-declaration namespace">nested</span> <span class="token punctuation">{</span>
+        <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::nested::function()`&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-// Error! `private_function` is private
-//my_mod::private_function();
-// TODO ^ Try uncommenting this line
+        <span class="token attribute attr-name">#[allow(dead_code)]</span>
+        <span class="token keyword">fn</span> <span class="token function-definition function">private_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::nested::private_function()`&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-// Error! `private_function` is private
-//my_mod::nested::private_function();
-// TODO ^ Try uncommenting this line
+        <span class="token comment">// Functions declared using `pub(in path)` syntax are only visible</span>
+        <span class="token comment">// within the given path. `path` must be a parent or ancestor module</span>
+        <span class="token keyword">pub</span><span class="token punctuation">(</span><span class="token keyword">in</span> <span class="token keyword">crate</span><span class="token module-declaration namespace"><span class="token punctuation">::</span>my_mod</span><span class="token punctuation">)</span> <span class="token keyword">fn</span> <span class="token function-definition function">public_function_in_my_mod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token macro property">print!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::nested::public_function_in_my_mod()`, that\n&gt; &quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">public_function_in_nested</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-// Error! `private_nested` is a private module
-//my_mod::private_nested::function();
-// TODO ^ Try uncommenting this line
+        <span class="token comment">// Functions declared using `pub(self)` syntax are only visible within</span>
+        <span class="token comment">// the current module, which is the same as leaving them private</span>
+        <span class="token keyword">pub</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token keyword">fn</span> <span class="token function-definition function">public_function_in_nested</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::nested::public_function_in_nested()`&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-// Error! `private_nested` is a private module
-//my_mod::private_nested::restricted_function();
-// TODO ^ Try uncommenting this line
-</code></pre><p>}</p>
-<pre class="language-"><code>
-# struct&#x548C;&#x53EF;&#x89C1;&#x6027;
-```rust
-mod my {
-    // A public struct with a public field of generic type `T`
-    pub struct OpenBox<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span> {
-        pub contents: T,
-    }
+        <span class="token comment">// Functions declared using `pub(super)` syntax are only visible within</span>
+        <span class="token comment">// the parent module</span>
+        <span class="token keyword">pub</span><span class="token punctuation">(</span><span class="token keyword">super</span><span class="token punctuation">)</span> <span class="token keyword">fn</span> <span class="token function-definition function">public_function_in_super_mod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::nested::public_function_in_super_mod()`&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    // A public struct with a private field of generic type `T`
-    pub struct ClosedBox<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span> {
-        contents: T,
-    }
+    <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">call_public_function_in_my_mod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token macro property">print!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::call_public_function_in_my_mod()`, that\n&gt; &quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token namespace">nested<span class="token punctuation">::</span></span><span class="token function">public_function_in_my_mod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token macro property">print!</span><span class="token punctuation">(</span><span class="token string">&quot;&gt; &quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token namespace">nested<span class="token punctuation">::</span></span><span class="token function">public_function_in_super_mod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    impl<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span> ClosedBox<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span> {
-        // A public constructor method
-        pub fn new(contents: T) -&gt; ClosedBox<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span> {
-            ClosedBox {
-                contents: contents,
-            }
-        }
-    }
-}
+    <span class="token comment">// pub(crate) makes functions visible only within the current crate</span>
+    <span class="token keyword">pub</span><span class="token punctuation">(</span><span class="token keyword">crate</span><span class="token punctuation">)</span> <span class="token keyword">fn</span> <span class="token function-definition function">public_function_in_crate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::public_function_in_crate()`&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-fn main() {
-    // Public structs with public fields can be constructed as usual
-    let open_box = my::OpenBox { contents: &quot;public information&quot; };
+    <span class="token comment">// Nested modules follow the same rules for visibility</span>
+    <span class="token keyword">mod</span> <span class="token module-declaration namespace">private_nested</span> <span class="token punctuation">{</span>
+        <span class="token attribute attr-name">#[allow(dead_code)]</span>
+        <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::private_nested::function()`&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-    // and their fields can be normally accessed.
-    println!(&quot;The open box contains: {}&quot;, open_box.contents);
+        <span class="token comment">// Private parent items will still restrict the visibility of a child item,</span>
+        <span class="token comment">// even if it is declared as visible within a bigger scope.</span>
+        <span class="token attribute attr-name">#[allow(dead_code)]</span>
+        <span class="token keyword">pub</span><span class="token punctuation">(</span><span class="token keyword">crate</span><span class="token punctuation">)</span> <span class="token keyword">fn</span> <span class="token function-definition function">restricted_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;called `my_mod::private_nested::restricted_function()`&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-    // Public structs with private fields cannot be constructed using field names.
-    // Error! `ClosedBox` has private fields
-    //let closed_box = my::ClosedBox { contents: &quot;classified information&quot; };
-    // TODO ^ Try uncommenting this line
+<span class="token keyword">fn</span> <span class="token function-definition function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;called `function()`&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-    // However, structs with private fields can be created using
-    // public constructors
-    let _closed_box = my::ClosedBox::new(&quot;classified information&quot;);
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Modules allow disambiguation between items that have the same name.</span>
+    <span class="token function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token namespace">my_mod<span class="token punctuation">::</span></span><span class="token function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    // and the private fields of a public struct cannot be accessed.
-    // Error! The `contents` field is private
-    //println!(&quot;The closed box contains: {}&quot;, _closed_box.contents);
-    // TODO ^ Try uncommenting this line
-}
+    <span class="token comment">// Public items, including those inside nested modules, can be</span>
+    <span class="token comment">// accessed from outside the parent module.</span>
+    <span class="token namespace">my_mod<span class="token punctuation">::</span></span><span class="token function">indirect_access</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token namespace">my_mod<span class="token punctuation">::</span>nested<span class="token punctuation">::</span></span><span class="token function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token namespace">my_mod<span class="token punctuation">::</span></span><span class="token function">call_public_function_in_my_mod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// pub(crate) items can be called from anywhere in the same crate</span>
+    <span class="token namespace">my_mod<span class="token punctuation">::</span></span><span class="token function">public_function_in_crate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// pub(in path) items can only be called from within the module specified</span>
+    <span class="token comment">// Error! function `public_function_in_my_mod` is private</span>
+    <span class="token comment">//my_mod::nested::public_function_in_my_mod();</span>
+    <span class="token comment">// TODO ^ Try uncommenting this line</span>
+
+    <span class="token comment">// Private items of a module cannot be directly accessed, even if</span>
+    <span class="token comment">// nested in a public module:</span>
+
+    <span class="token comment">// Error! `private_function` is private</span>
+    <span class="token comment">//my_mod::private_function();</span>
+    <span class="token comment">// TODO ^ Try uncommenting this line</span>
+
+    <span class="token comment">// Error! `private_function` is private</span>
+    <span class="token comment">//my_mod::nested::private_function();</span>
+    <span class="token comment">// TODO ^ Try uncommenting this line</span>
+
+    <span class="token comment">// Error! `private_nested` is a private module</span>
+    <span class="token comment">//my_mod::private_nested::function();</span>
+    <span class="token comment">// TODO ^ Try uncommenting this line</span>
+
+    <span class="token comment">// Error! `private_nested` is a private module</span>
+    <span class="token comment">//my_mod::private_nested::restricted_function();</span>
+    <span class="token comment">// TODO ^ Try uncommenting this line</span>
+<span class="token punctuation">}</span>
 </code></pre>
+<h1 id="struct&#x548C;&#x53EF;&#x89C1;&#x6027;"><a name="struct&#x548C;&#x53EF;&#x89C1;&#x6027;" class="anchor-navigation-ex-anchor" href="#struct&#x548C;&#x53EF;&#x89C1;&#x6027;"><i class="fa fa-link" aria-hidden="true"></i></a>2. struct&#x548C;&#x53EF;&#x89C1;&#x6027;</h1>
+<pre class="language-"><code class="lang-rust"><span class="token keyword">mod</span> <span class="token module-declaration namespace">my</span> <span class="token punctuation">{</span>
+    <span class="token comment">// A public struct with a public field of generic type `T`</span>
+    <span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">OpenBox</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">pub</span> contents<span class="token punctuation">:</span> <span class="token class-name">T</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// A public struct with a private field of generic type `T`</span>
+    <span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">ClosedBox</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        contents<span class="token punctuation">:</span> <span class="token class-name">T</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">impl</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token operator">&gt;</span> <span class="token class-name">ClosedBox</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token comment">// A public constructor method</span>
+        <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">new</span><span class="token punctuation">(</span>contents<span class="token punctuation">:</span> <span class="token class-name">T</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">ClosedBox</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+            <span class="token class-name">ClosedBox</span> <span class="token punctuation">{</span>
+                contents<span class="token punctuation">:</span> contents<span class="token punctuation">,</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Public structs with public fields can be constructed as usual</span>
+    <span class="token keyword">let</span> open_box <span class="token operator">=</span> <span class="token namespace">my<span class="token punctuation">::</span></span><span class="token class-name">OpenBox</span> <span class="token punctuation">{</span> contents<span class="token punctuation">:</span> <span class="token string">&quot;public information&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// and their fields can be normally accessed.</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;The open box contains: {}&quot;</span><span class="token punctuation">,</span> open_box<span class="token punctuation">.</span>contents<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Public structs with private fields cannot be constructed using field names.</span>
+    <span class="token comment">// Error! `ClosedBox` has private fields</span>
+    <span class="token comment">//let closed_box = my::ClosedBox { contents: &quot;classified information&quot; };</span>
+    <span class="token comment">// TODO ^ Try uncommenting this line</span>
+
+    <span class="token comment">// However, structs with private fields can be created using</span>
+    <span class="token comment">// public constructors</span>
+    <span class="token keyword">let</span> _closed_box <span class="token operator">=</span> <span class="token namespace">my<span class="token punctuation">::</span></span><span class="token class-name">ClosedBox</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token string">&quot;classified information&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// and the private fields of a public struct cannot be accessed.</span>
+    <span class="token comment">// Error! The `contents` field is private</span>
+    <span class="token comment">//println!(&quot;The closed box contains: {}&quot;, _closed_box.contents);</span>
+    <span class="token comment">// TODO ^ Try uncommenting this line</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
                                 
                                 </section>
                             
@@ -3876,7 +3896,7 @@ fn main() {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Rust by example杂记","level":"1.11.2.1","depth":3,"next":{"title":"Rust 序列化原理","level":"1.11.2.2","depth":3,"path":"notes/rust_序列化.md","ref":"notes/rust_序列化.md","articles":[]},"previous":{"title":"Rust 代码积累","level":"1.11.2","depth":2,"path":"notes/rust_coding_brief.md","ref":"notes/rust_coding_brief.md","articles":[{"title":"Rust by example杂记","level":"1.11.2.1","depth":3,"path":"notes/rust_by_example_misc.md","ref":"notes/rust_by_example_misc.md","articles":[]},{"title":"Rust 序列化原理","level":"1.11.2.2","depth":3,"path":"notes/rust_序列化.md","ref":"notes/rust_序列化.md","articles":[]},{"title":"Rust 知识点更新","level":"1.11.2.3","depth":3,"path":"notes/rust_知识点积累.md","ref":"notes/rust_知识点积累.md","articles":[]},{"title":"rust版本的adaptiveservice探索","level":"1.11.2.4","depth":3,"path":"notes/rust_adaptiveservice.md","ref":"notes/rust_adaptiveservice.md","articles":[]},{"title":"Rust 常用设施","level":"1.11.2.5","depth":3,"path":"notes/rust_常用设施.md","ref":"notes/rust_常用设施.md","articles":[]},{"title":"Rust 代码小段","level":"1.11.2.6","depth":3,"path":"notes/rust_代码小段.md","ref":"notes/rust_代码小段.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_by_example_misc.md","mtime":"2023-10-30T08:09:56.575Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-10-30T08:11:01.137Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Rust by example杂记","level":"1.11.2.1","depth":3,"next":{"title":"Rust 序列化原理","level":"1.11.2.2","depth":3,"path":"notes/rust_序列化.md","ref":"notes/rust_序列化.md","articles":[]},"previous":{"title":"Rust 代码积累","level":"1.11.2","depth":2,"path":"notes/rust_coding_brief.md","ref":"notes/rust_coding_brief.md","articles":[{"title":"Rust by example杂记","level":"1.11.2.1","depth":3,"path":"notes/rust_by_example_misc.md","ref":"notes/rust_by_example_misc.md","articles":[]},{"title":"Rust 序列化原理","level":"1.11.2.2","depth":3,"path":"notes/rust_序列化.md","ref":"notes/rust_序列化.md","articles":[]},{"title":"Rust 知识点更新","level":"1.11.2.3","depth":3,"path":"notes/rust_知识点积累.md","ref":"notes/rust_知识点积累.md","articles":[]},{"title":"rust版本的adaptiveservice探索","level":"1.11.2.4","depth":3,"path":"notes/rust_adaptiveservice.md","ref":"notes/rust_adaptiveservice.md","articles":[]},{"title":"Rust 常用设施","level":"1.11.2.5","depth":3,"path":"notes/rust_常用设施.md","ref":"notes/rust_常用设施.md","articles":[]},{"title":"Rust 代码小段","level":"1.11.2.6","depth":3,"path":"notes/rust_代码小段.md","ref":"notes/rust_代码小段.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_by_example_misc.md","mtime":"2023-12-11T01:03:29.796Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-12-11T01:04:31.275Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

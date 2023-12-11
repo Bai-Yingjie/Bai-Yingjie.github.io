@@ -714,7 +714,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="cloud_杂记.html">
+        <li class="chapter " data-level="1.4.1" data-path="container_linux_namespaces.html">
+            
+                <a href="container_linux_namespaces.html">
+            
+                    
+                    linux名字空间
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="cloud_杂记.html">
             
                 <a href="cloud_杂记.html">
             
@@ -727,7 +740,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="container_当代容器读书笔记.html">
+        <li class="chapter " data-level="1.4.3" data-path="container_当代容器读书笔记.html">
             
                 <a href="container_当代容器读书笔记.html">
             
@@ -3918,25 +3931,81 @@ Total                <span class="token number">3512131</span>
 <li>&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x5728;&#x4F7F;&#x7528;&#x7684;&#x4F4D;&#x7F6E;&#x540E;&#x9762;&#x58F0;&#x660E;</li>
 </ul>
 <h2 id="&#x547D;&#x540D;&#x60EF;&#x4F8B;"><a name="&#x547D;&#x540D;&#x60EF;&#x4F8B;" class="anchor-navigation-ex-anchor" href="#&#x547D;&#x540D;&#x60EF;&#x4F8B;"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x547D;&#x540D;&#x60EF;&#x4F8B;</h2>
-<p>rust&#x6DF7;&#x5408;&#x4E86;&#x9A7C;&#x5CF0;&#x5F0F;&#x548C;&#x4E0B;&#x5212;&#x7EBF;&#x5F0F;&#x7684;&#x540D;&#x5B57;&#x60EF;&#x4F8B;, &#x4F46;&#x7528;&#x4E8E;&#x4E0D;&#x540C;&#x7684;&#x573A;&#x666F;:
-Item|    Convention
---|--
-Crates|    unclear
-Modules|    snake_case
-Types|    UpperCamelCase
-Traits|    UpperCamelCase
-Enum variants|    UpperCamelCase
-Functions|    snake_case
-Methods|    snake_case
-General constructors|    new or with_more_details
-Conversion constructors|    from_some_other_type
-Macros|    snake_case!
-Local variables|    snake_case
-Statics|    SCREAMING_SNAKE_CASE
-Constants|    SCREAMING_SNAKE_CASE
-Type parameters|    concise UpperCamelCase, usually single uppercase letter: T
-Lifetimes|    short lowercase, usually a single letter: &apos;a, &apos;de, &apos;src
-Features|    unclear but see C-FEATURE</p>
+<p>rust&#x6DF7;&#x5408;&#x4E86;&#x9A7C;&#x5CF0;&#x5F0F;&#x548C;&#x4E0B;&#x5212;&#x7EBF;&#x5F0F;&#x7684;&#x540D;&#x5B57;&#x60EF;&#x4F8B;, &#x4F46;&#x7528;&#x4E8E;&#x4E0D;&#x540C;&#x7684;&#x573A;&#x666F;:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Convention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Crates</td>
+<td>unclear</td>
+</tr>
+<tr>
+<td>Modules</td>
+<td>snake_case</td>
+</tr>
+<tr>
+<td>Types</td>
+<td>UpperCamelCase</td>
+</tr>
+<tr>
+<td>Traits</td>
+<td>UpperCamelCase</td>
+</tr>
+<tr>
+<td>Enum variants</td>
+<td>UpperCamelCase</td>
+</tr>
+<tr>
+<td>Functions</td>
+<td>snake_case</td>
+</tr>
+<tr>
+<td>Methods</td>
+<td>snake_case</td>
+</tr>
+<tr>
+<td>General constructors</td>
+<td>new or with_more_details</td>
+</tr>
+<tr>
+<td>Conversion constructors</td>
+<td>from_some_other_type</td>
+</tr>
+<tr>
+<td>Macros</td>
+<td>snake_case!</td>
+</tr>
+<tr>
+<td>Local variables</td>
+<td>snake_case</td>
+</tr>
+<tr>
+<td>Statics</td>
+<td>SCREAMING_SNAKE_CASE</td>
+</tr>
+<tr>
+<td>Constants</td>
+<td>SCREAMING_SNAKE_CASE</td>
+</tr>
+<tr>
+<td>Type parameters</td>
+<td>concise UpperCamelCase, usually single uppercase letter: T</td>
+</tr>
+<tr>
+<td>Lifetimes</td>
+<td>short lowercase, usually a single letter: &apos;a, &apos;de, &apos;src</td>
+</tr>
+<tr>
+<td>Features</td>
+<td>unclear but see C-FEATURE</td>
+</tr>
+</tbody>
+</table>
 <h2 id="&#x683C;&#x5F0F;&#x5316;&#x8F93;&#x51FA;"><a name="&#x683C;&#x5F0F;&#x5316;&#x8F93;&#x51FA;" class="anchor-navigation-ex-anchor" href="#&#x683C;&#x5F0F;&#x5316;&#x8F93;&#x51FA;"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. &#x683C;&#x5F0F;&#x5316;&#x8F93;&#x51FA;</h2>
 <pre class="language-"><code class="lang-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;{}&quot;</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>              <span class="token comment">// &#x6253;&#x5370;&#x53D8;&#x91CF;&#x7684;&#x9ED8;&#x8BA4;&#x683C;&#x5F0F;</span>
@@ -4153,8 +4222,7 @@ x <span class="token operator">=</span> <span class="token number">10</span><spa
 <span class="token keyword">let</span> c2 <span class="token operator">=</span> <span class="token char">&apos;\x7f&apos;</span><span class="token punctuation">;</span>        <span class="token comment">// 8 bit &#x5B57;&#x7B26;&#x53D8;&#x91CF;</span>
 <span class="token keyword">let</span> c3 <span class="token operator">=</span> <span class="token char">&apos;\u{7FFF}&apos;</span><span class="token punctuation">;</span>    <span class="token comment">// unicode&#x5B57;&#x7B26;</span>
 </code></pre>
-&#x56E0;&#x4E3A;char&#x7C7B;&#x578B;&#x7684;&#x8BBE;&#x8BA1;&#x76EE;&#x7684;&#x662F;&#x63CF;&#x8FF0;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;unicode&#x5B57;&#x7B26;&#xFF0C;&#x56E0;&#x6B64;&#x5B83;&#x5360;&#x636E;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x4E0D;&#x662F;1&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x800C;&#x662F;4&#x4E2A;&#x5B57;&#x8282;
-&#x7528;u8&#x6216;&#x8005;&#x524D;&#x9762;&#x52A0;b&#x524D;&#x7F00;&#x6765;&#x8868;&#x793A;1&#x4E2A;&#x5B57;&#x8282;&#x7684;ASCII&#x5B57;&#x7B26;<pre class="language-"><code class="lang-rust"><span class="token keyword">let</span> x <span class="token punctuation">:</span><span class="token keyword">u8</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+&#x56E0;&#x4E3A;char&#x7C7B;&#x578B;&#x7684;&#x8BBE;&#x8BA1;&#x76EE;&#x7684;&#x662F;&#x63CF;&#x8FF0;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;unicode&#x5B57;&#x7B26;&#xFF0C;&#x56E0;&#x6B64;&#x5B83;&#x5360;&#x636E;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x4E0D;&#x662F;1&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x800C;&#x662F;4&#x4E2A;&#x5B57;&#x8282;<br>&#x7528;u8&#x6216;&#x8005;&#x524D;&#x9762;&#x52A0;b&#x524D;&#x7F00;&#x6765;&#x8868;&#x793A;1&#x4E2A;&#x5B57;&#x8282;&#x7684;ASCII&#x5B57;&#x7B26;<pre class="language-"><code class="lang-rust"><span class="token keyword">let</span> x <span class="token punctuation">:</span><span class="token keyword">u8</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> y <span class="token punctuation">:</span><span class="token keyword">u8</span> <span class="token operator">=</span> <span class="token char">b&apos;A&apos;</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> s <span class="token punctuation">:</span><span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token keyword">u8</span><span class="token punctuation">;</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">b&quot;hello&quot;</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> r <span class="token punctuation">:</span><span class="token operator">&amp;</span><span class="token punctuation">[</span><span class="token keyword">u8</span><span class="token punctuation">;</span><span class="token number">14</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">br#&quot;hello \n world&quot;#</span><span class="token punctuation">;</span> <span class="token comment">//&#x8FD9;&#x91CC;&#x8868;&#x793A;byte&#x7684;raw string, &#x597D;&#x50CF;&#x53BB;&#x6389;&#x524D;&#x540E;&#x7684;#&#x4E5F;&#x884C;</span>
@@ -4188,7 +4256,7 @@ x <span class="token operator">=</span> <span class="token number">10</span><spa
 <span class="token keyword">let</span> var7 <span class="token operator">=</span> 0x_ff_u8<span class="token punctuation">;</span>        <span class="token comment">// i7&#x53D8;&#x91CF;&#x662F;u8&#x7C7B;&#x578B;</span>
 <span class="token keyword">let</span> var8 <span class="token operator">=</span> <span class="token number">32</span><span class="token punctuation">;</span>              <span class="token comment">// &#x4E0D;&#x5199;&#x7C7B;&#x578B;,&#x9ED8;&#x8BA4;&#x4E3A; i32 &#x7C7B;&#x578B;</span>
 </code></pre>
-rust&#x53EF;&#x4EE5;&#x5728;&#x6574;&#x578B;&#x6EA2;&#x51FA;&#x65F6;panic, &#x4F46;&#x9700;&#x8981;&quot;debug&quot;&#x7248;&#x672C;&#x7F16;&#x8BD1;, &#x6BD4;&#x5982;<code>rustc test.rs</code>, &#x800C;<code>rustc -O test.rs</code>&#x4EA7;&#x751F;&#x7684;&quot;release&quot;&#x7248;&#x672C;&#x5219;&#x4E0D;&#x4F1A;panic, &#x800C;&#x662F;&#x81EA;&#x52A8;&#x622A;&#x65AD;. &#x901A;&#x8FC7;&#x5F00;&#x5173;<code>rustc -C overflow-checks=no test.rs</code>&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x8FD9;&#x4E2A;&#x884C;&#x4E3A;.</li>
+rust&#x53EF;&#x4EE5;&#x5728;&#x6574;&#x578B;&#x6EA2;&#x51FA;&#x65F6;panic, &#x4F46;&#x9700;&#x8981;&quot;debug&quot;&#x7248;&#x672C;&#x7F16;&#x8BD1;, &#x6BD4;&#x5982;<code>rustc test.rs</code>.<br>&#x800C;<code>rustc -O test.rs</code>&#x4EA7;&#x751F;&#x7684;&quot;release&quot;&#x7248;&#x672C;&#x5219;&#x4E0D;&#x4F1A;panic, &#x800C;&#x662F;&#x81EA;&#x52A8;&#x622A;&#x65AD;.<br>&#x901A;&#x8FC7;&#x5F00;&#x5173;<code>rustc -C overflow-checks=no test.rs</code>&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x8FD9;&#x4E2A;&#x884C;&#x4E3A;.</li>
 <li>&#x6D6E;&#x70B9;<pre class="language-"><code class="lang-rust"><span class="token keyword">let</span> f1 <span class="token operator">=</span> <span class="token number">123.0f64</span><span class="token punctuation">;</span>      <span class="token comment">// type f64</span>
 <span class="token keyword">let</span> f2 <span class="token operator">=</span> <span class="token number">0.1f64</span><span class="token punctuation">;</span>        <span class="token comment">// type f64</span>
 <span class="token keyword">let</span> f3 <span class="token operator">=</span> <span class="token number">0.1f32</span><span class="token punctuation">;</span>        <span class="token comment">// type f32</span>
@@ -4365,6 +4433,8 @@ rust&#x53EF;&#x4EE5;&#x5728;&#x6574;&#x578B;&#x6EA2;&#x51FA;&#x65F6;panic, &#x4F
 <span class="token punctuation">}</span>
 <span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">let</span> <span class="token keyword">mut</span> s <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">&quot;Hello World&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//&#x8FD9;&#x91CC;s&#x672C;&#x8EAB;&#x662F;mut, &#x5176;&#x524D;&#x9762;&#x7684;&amp;mut&#x662F;&#x4FEE;&#x9970;&#x5F15;&#x7528;&#x7684;</span>
+    <span class="token comment">//&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x6210;&amp;mut mut T, &#x5373;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x4FEE;&#x6539;&#x7684;&#x7C7B;&#x578B;T&#x7684;&#x5B9E;&#x4F8B;&#x7684;&#x53EF;&#x4EE5;&#x4FEE;&#x6539;&#x7684;&#x5F15;&#x7528;</span>
     <span class="token function">capitalize</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;{}&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -4608,7 +4678,6 @@ old array <span class="token punctuation">[</span><span class="token number">6</
 <h4 id="&#x8F93;&#x51FA;&#x7ED3;&#x6784;&#x4F53;"><a name="&#x8F93;&#x51FA;&#x7ED3;&#x6784;&#x4F53;" class="anchor-navigation-ex-anchor" href="#&#x8F93;&#x51FA;&#x7ED3;&#x6784;&#x4F53;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8F93;&#x51FA;&#x7ED3;&#x6784;&#x4F53;</h4>
 <p>&#x8C03;&#x8BD5;&#x4E2D;&#xFF0C;&#x5B8C;&#x6574;&#x5730;&#x663E;&#x793A;&#x51FA;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x5B9E;&#x4F8B;&#x662F;&#x975E;&#x5E38;&#x6709;&#x7528;&#x7684;&#x3002;&#x4F46;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x624B;&#x52A8;&#x7684;&#x4E66;&#x5199;&#x4E00;&#x4E2A;&#x683C;&#x5F0F;&#x4F1A;&#x975E;&#x5E38;&#x7684;&#x4E0D;&#x65B9;&#x4FBF;&#x3002;&#x6240;&#x4EE5; Rust &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x65B9;&#x4FBF;&#x5730;&#x8F93;&#x51FA;&#x4E00;&#x6574;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token attribute attr-name">#[derive(Debug)]</span>
-
 <span class="token keyword">struct</span> <span class="token type-definition class-name">Rectangle</span> <span class="token punctuation">{</span>
     width<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
     height<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
@@ -4784,7 +4853,6 @@ old array <span class="token punctuation">[</span><span class="token number">6</
 <h3 id="enum"><a name="enum" class="anchor-navigation-ex-anchor" href="#enum"><i class="fa fa-link" aria-hidden="true"></i></a>3.6.12. enum</h3>
 <p>&#x679A;&#x4E3E;&#x7C7B;&#x5728; Rust &#x4E2D;&#x5E76;&#x4E0D;&#x50CF;&#x5176;&#x4ED6;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x4E2D;&#x7684;&#x6982;&#x5FF5;&#x90A3;&#x6837;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x4F9D;&#x7136;&#x53EF;&#x4EE5;&#x5341;&#x5206;&#x7B80;&#x5355;&#x7684;&#x4F7F;&#x7528;&#xFF1A;</p>
 <pre class="language-"><code class="lang-rust"><span class="token attribute attr-name">#[derive(Debug)]</span>
-
 <span class="token keyword">enum</span> <span class="token type-definition class-name">Book</span> <span class="token punctuation">{</span>
     <span class="token class-name">Papery</span><span class="token punctuation">,</span> <span class="token class-name">Electronic</span>
 <span class="token punctuation">}</span>
@@ -5765,7 +5833,7 @@ mut: &#x501F;&#x7528;</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Rust 安装和基础语法","level":"1.11.1.2","depth":3,"next":{"title":"Rust 泛型和内存所有权","level":"1.11.1.3","depth":3,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},"previous":{"title":"Rust reference books","level":"1.11.1.1","depth":3,"path":"notes/rust_books.md","ref":"notes/rust_books.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_入门1.md","mtime":"2023-10-30T08:09:56.575Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-10-30T08:11:01.137Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Rust 安装和基础语法","level":"1.11.1.2","depth":3,"next":{"title":"Rust 泛型和内存所有权","level":"1.11.1.3","depth":3,"path":"notes/rust_入门2.md","ref":"notes/rust_入门2.md","articles":[]},"previous":{"title":"Rust reference books","level":"1.11.1.1","depth":3,"path":"notes/rust_books.md","ref":"notes/rust_books.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_入门1.md","mtime":"2023-12-11T01:03:29.796Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-12-11T01:04:31.275Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

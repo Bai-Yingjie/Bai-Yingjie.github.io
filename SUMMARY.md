@@ -44,6 +44,7 @@
     * [Top-down Microarchitecture Analysis Method(网摘)](notes/performance_CPU_microarchiteture_pmu.md)
 
 * [Cloud和容器相关](notes/as_title_cloud.md)
+  * [linux名字空间](notes/container_linux_namespaces.md)
   * [云杂记](notes/cloud_杂记.md)
   * [当代容器读书笔记](notes/container_当代容器读书笔记.md)
 
