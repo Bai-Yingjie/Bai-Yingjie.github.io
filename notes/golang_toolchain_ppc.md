@@ -20,6 +20,7 @@
     - [crosstool-ng编译gccgo](#crosstool-ng编译gccgo)
     - [使用crosstool-ng的gccgo](#使用crosstool-ng的gccgo)
   - [修改go源码支持ppc32](#修改go源码支持ppc32)
+    - [powerpc64 abi](#powerpc64-abi)
     - [power ISA背景知识](#power-isa背景知识)
       - [Power ISA v.2.06](#power-isa-v206)
       - [Power ISA v.2.07](#power-isa-v207)
@@ -40,7 +41,7 @@
   - [减小libgo.a的体积](#减小libgoa的体积)
     - [使能lto](#使能lto)
   - [改动提交到crosstool-ng](#改动提交到crosstool-ng)
-  - [go_export小节](#go_export小节)
+  - [go\_export小节](#go_export小节)
   - [static和static-libgo](#static和static-libgo)
 - [让gcgo支持ppc32](#让gcgo支持ppc32)
 - [下一步](#下一步)
@@ -101,7 +102,6 @@ git checkout godev
 ```sh
 # install dependencies
 apt install flex help2man texinfo libtool-bin libncurses-dev gawk bison rsync
-
 # build
 ./bootstrap
 ./configure --enable-local
@@ -412,6 +412,38 @@ PATH=$PATH:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc
 ```
 
 ## 修改go源码支持ppc32
+### powerpc64 abi
+* -mabi=elfv1
+* -mabi=elfv2
+
+musl libc默认使用ELFv2, 只有big endian使用ELFv1.
+```rust
+// rust/src/librustc_target/abi/call/powerpc64.rs
+ let abi = if cx.target_spec().target_env == "musl" { 
+     ELFv2 
+ } else { 
+     match cx.data_layout().endian { 
+         Endian::Big => ELFv1, 
+         Endian::Little => ELFv2 
+     } 
+ }; 
+```
+
+> -mabi=elfv1
+Change the current ABI to use the ELFv1 ABI. This is the default ABI for big-endian PowerPC 64-bit Linux. Overriding the default ABI requires special system support and is likely to fail in spectacular ways.
+
+> -mabi=elfv2
+Change the current ABI to use the ELFv2 ABI. This is the default ABI for little-endian PowerPC 64-bit Linux. Overriding the default ABI requires special system support and is likely to fail in spectacular ways.
+
+llvm有个`-target-abi`选项, 默认也是上面的逻辑:
+```c
+  switch (TT.getArch()) {
+  case Triple::ppc64le:
+    return PPCTargetMachine::PPC_ABI_ELFv2;
+  case Triple::ppc64:
+    return PPCTargetMachine::PPC_ABI_ELFv1;
+```
+
 ### power ISA背景知识
 [power ISA](https://en.wikipedia.org/wiki/Power_ISA)
 

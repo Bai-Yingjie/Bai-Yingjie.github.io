@@ -216,6 +216,8 @@ arch_to_hostspec() {
 * CHOST默认为CBUILD, 除非环境变量指定
 * CTARGET默认为CHOST, 除非环境变量指定
 * CARCH从CHOST而来
+* 因为arch和hostspec可以通过函数`arch_to_hostspec`/`hostspec_to_arch`互相转换, 而且二者虽然形式不同但意义相同且唯一, 所以`CHOST` `CTARGET`也可以传入arch名.
+  比如命令行传入`CHOST=ppc`, abuild会在内部把`CHOST`转换成`powerpc-alpine-linux-musl`
 
 ```sh
 [ -z "$CBUILD" ] && CBUILD="$(${APK:-apk} --print-arch 2>/dev/null || :)"

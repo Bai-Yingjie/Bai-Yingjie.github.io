@@ -2,6 +2,15 @@
   - [组件](#组件)
   - [rustup](#rustup)
 - [hello world](#hello-world)
+- [交叉编译](#交叉编译)
+  - [安装target](#安装target)
+  - [交叉编译aarch64](#交叉编译aarch64)
+  - [解决linking错误](#解决linking错误)
+    - [link过程](#link过程)
+    - [使用交叉链接器](#使用交叉链接器)
+  - [使用lld](#使用lld)
+  - [AArch64 Bare-Metal program in Rust](#aarch64-bare-metal-program-in-rust)
+  - [生成powerpc64-unknown-linux-musl](#生成powerpc64-unknown-linux-musl)
 - [基础语法](#基础语法)
   - [命名惯例](#命名惯例)
   - [格式化输出](#格式化输出)
@@ -218,6 +227,132 @@ section                 size      addr
 Total                3512131
 ```
 实际上是debug信息占了绝大部分size.
+
+# 交叉编译
+## 安装target
+```shell
+#不要装toolchain, 这个toolchain的意思是在powerpc机器上执行cargo rustc等命令
+rustup toolchain install stable-powerpc-unknown-linux-gnu
+#target才是要装的, 预编译的库会安装在/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-musl/lib/rustlib/powerpc-unknown-linux-gnu/lib/
+rustup target add powerpc-unknown-linux-gnu
+CARGO_TARGET_POWERPC_UNKNOWN_LINUX_GNU_LINKER=powerpc-alpine-linux-musl-gcc cargo build --target=powerpc-unknown-linux-gnu --release
+```
+注:
+* 不需要安装target的toolchain
+* target库是安装在当前默认toolchain(stable-x86_64-unknown-linux-musl)下面的, 是预编译的库.  
+这些库有:
+![](img/rust_入门1_20231211145934.png)
+![](img/rust_入门1_20231211150107.png)
+
+文件类型:
+```
+/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-musl/lib/rustlib/aarch64-unknown-linux-musl/lib/libstd-8356436998b8fb19.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dynamically linked, with debug_info, not stripped
+
+/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-musl/lib/rustlib/powerpc-unknown-linux-gnu/lib/libstd-38c25bec1238b203.so: ELF 32-bit MSB shared object, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, with debug_info, not stripped
+
+/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-musl/lib/rustlib/powerpc64-unknown-linux-gnu/lib/libstd-308a9bf6778e6fb5.so: ELF 64-bit MSB shared object, 64-bit PowerPC or cisco 7500, Power ELF V1 ABI, version 1 (SYSV), dynamically linked, with debug_info, not stripped
+```
+
+## 交叉编译aarch64
+首先装target库
+```shell
+rustup target add aarch64-unknown-linux-musl
+```
+如果直接编译的话, 会报错:
+```shell
+yingjieb@RebornLinux:yingjieb_rust:61393 /repo/yingjieb/rebornlinux/rlchroot
+$ cargo build --target=aarch64-unknown-linux-musl --release
+   Compiling rlchroot v0.1.0 (/repo/yingjieb/rebornlinux/rlchroot)
+error: linking with `cc` failed: exit status: 1
+```
+## 解决linking错误
+### link过程
+调用`"cc"`指定的链接器, 链接如下object(只列出部分):
+* toolchain目录下的lib/rustlib/aarch64-unknown-linux-musl/lib/self-contained/  
+crt1.o, crti.o, crtbegin.o
+* toolchain目录下的lib/rustlib/aarch64-unknown-linux-musl/lib/  
+libstd-8356436998b8fb19.rlib, libpanic_unwind-4b74bad5e98daa28.rlib等等很多rlib文件. rlib是静态object的ar
+* "/tmp/rustctd8DUW/symbols.o"
+* 当前工程下的target/aarch64-unknown-linux-musl/release/deps/rlchroot-3fceb4a8f0fb202d.rlchroot.3b28e89fbd851a9d-cgu.0.rcgu.o
+
+最后打印`note: /usr/lib/gcc/x86_64-alpine-linux-musl/12.2.1/../../../../x86_64-alpine-linux-musl/bin/ld: /usr/local/rustup/toolchains/stable-x86_64-unknown-linux-musl/lib/rustlib/aarch64-unknown-linux-musl/lib/self-contained/crt1.o: Relocations in generic ELF (EM: 183)`
+
+很明显, 这里用的是default toolchain(x86_64-alpine-linux-musl)的链接程序在链接aarch64的object, 报错也不奇怪.
+
+### 使用交叉链接器
+我这个alpine的系统里, 装了交叉工具链, 用下面的命令可以成功编译
+```shell
+CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=aarch64-alpine-linux-musl-gcc cargo build --target=aarch64-unknown-linux-musl --release
+```
+最后得到静态链接的bin
+```shell
+target/aarch64-unknown-linux-musl/release/rlchroot: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, with debug_info, not stripped
+```
+但是上面的bin是带debug符号的, 4.5M大小.  
+用下面的命令可以strip
+```shell
+RUSTFLAGS='-C target-feature=+crt-static -C link-arg=-s' CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=aarch64-alpine-linux-musl-gcc cargo build --target=aarch64-unknown-linux-musl --release
+```
+
+## 使用lld
+和gcc工具链的交叉编译不同, llvm用一套工具链就可以生成多arch的目标对象. 而lld是llvm的通用链接器.
+
+在alpine上安装lld:
+```shell
+apk add lld
+//默认安装依赖
+libxml2 (2.10.4-r0)
+llvm15-libs (15.0.7-r0)
+lld-libs (15.0.7-r0)
+lld (15.0.7-r0)
+```
+
+使用下面的命令编译:
+```shell
+$ RUSTFLAGS='-C target-feature=+crt-static -C link-arg=-s' cargo build --release --all --verbose --target=powerpc64-unknown-linux-gnu
+
+          /usr/lib/gcc/x86_64-alpine-linux-musl/12.2.1/../../../../x86_64-alpine-linux-musl/bin/ld: /repo/yingjieb/rebornlinux/rlchroot/target/powerpc64-unknown-linux-gnu/release/deps/rlchroot-1d89b5eefcc75348.rlchroot.92176aee158f4c66-cgu.0.rcgu.o: Relocations in generic ELF (EM: 21)
+          /usr/lib/gcc/x86_64-alpine-linux-musl/12.2.1/../../../../x86_64-alpine-linux-musl/bin/ld: /repo/yingjieb/rebornlinux/rlchroot/target/powerpc64-unknown-linux-gnu/release/deps/rlchroot-1d89b5eefcc75348.rlchroot.92176aee158f4c66-cgu.0.rcgu.o: error adding symbols: file in wrong format
+          collect2: error: ld returned 1 exit status
+
+
+error: could not compile `rlchroot` (bin "rlchroot") due to previous error
+
+Caused by:
+  process didn't exit successfully: `/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-musl/bin/rustc --crate-name rlchroot --edition=2021 src/main.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --diagnostic-width=189 --crate-type bin --emit=dep-info,link -C opt-level=3 -C embed-bitcode=no -C metadata=1d89b5eefcc75348 -C extra-filename=-1d89b5eefcc75348 --out-dir /repo/yingjieb/rebornlinux/rlchroot/target/powerpc64-unknown-linux-gnu/release/deps --target powerpc64-unknown-linux-gnu -L dependency=/repo/yingjieb/rebornlinux/rlchroot/target/powerpc64-unknown-linux-gnu/release/deps -L dependency=/repo/yingjieb/rebornlinux/rlchroot/target/release/deps -C target-feature=+crt-static -C link-arg=-s` (exit status: 1)
+```
+
+对应的, 使用lld来链接:
+```shell
+$ RUSTFLAGS='-C target-feature=+crt-static -C link-arg=-s -C link-arg=-fuse-ld=lld' cargo build --release --all --verbose --target=powerpc64-unknown-linux-gnu
+
+          ld.lld: error: /usr/local/rustup/toolchains/stable-x86_64-unknown-linux-musl/lib/rustlib/powerpc64-unknown-linux-gnu/lib/libhashbrown-96658be476caa43d.rlib(lib.rmeta) is incompatible with elf_x86_64
+          ld.lld: error: too many errors emitted, stopping now (use --error-limit=0 to see all errors)
+          collect2: error: ld returned 1 exit status
+
+# ...省略错误信息
+error: could not compile `rlchroot` (bin "rlchroot") due to previous error
+
+Caused by:
+  process didn't exit successfully: `/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-musl/bin/rustc --crate-name rlchroot --edition=2021 src/main.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --diagnostic-width=189 --crate-type bin --emit=dep-info,link -C opt-level=3 -C embed-bitcode=no -C metadata=1d89b5eefcc75348 -C extra-filename=-1d89b5eefcc75348 --out-dir /repo/yingjieb/rebornlinux/rlchroot/target/powerpc64-unknown-linux-gnu/release/deps --target powerpc64-unknown-linux-gnu -L dependency=/repo/yingjieb/rebornlinux/rlchroot/target/powerpc64-unknown-linux-gnu/release/deps -L dependency=/repo/yingjieb/rebornlinux/rlchroot/target/release/deps -C target-feature=+crt-static -C link-arg=-s -C link-arg=-fuse-ld=lld` (exit status: 1)
+
+```
+可以明显看到:
+默认链接器使用的是系统默认ld;
+而加了`-C link-arg=-fuse-ld=lld`到`RUSTFLAGS`, 则使用`ld.lld`
+
+## AArch64 Bare-Metal program in Rust
+下面的文章详细的写了如何魔改rust 链接文件来编译没有std的bare metal aarch64代码.
+https://lowenware.com/blog/aarch64-bare-metal-program-in-rust/
+
+## 生成powerpc64-unknown-linux-musl
+cargo的nightly build支持`-Z build-std`选项, 可以从rust-src中直接编译目标的std库. 比如  
+`cargo build -Z build-std --target=powerpc-unknown-linux-musl --release`
+
+std其实都编译成功了, 但最后链接错误:  
+![](img/rust_入门1_20231212112335.png)
+
+还是因为默认的`cc`是x86_64的gcc.
 
 # 基础语法
 * 用`//`或`/**/`来注释

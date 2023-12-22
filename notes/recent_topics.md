@@ -32,6 +32,9 @@
 * [containerd runtime v2](https://github.com/containerd/containerd/tree/main/runtime/v2)
 
 # rust相关
+* [rust os对比](https://github.com/flosse/rust-os-comparison)
+  * [RedOS](https://www.redox-os.org/)
+  * [从零开始用rust写OS?](https://os.phil-opp.com/)
 * [rust for linux 简单代码样例](https://github.com/Rust-for-Linux/linux/tree/rust/samples/rust)
 * [rust命令行app入门手册](https://rust-cli.github.io/book/index.html)
 * [The Rust Programming Language](https://doc.rust-lang.org/book/ch00-00-introduction.html)
