@@ -56,7 +56,8 @@
   - [间接引用变量](#间接引用变量)
   - [举例: 读出\*.conf文件内容到动态文件名变量](#举例-读出conf文件内容到动态文件名变量)
   - [uaes进程管理, 关系数组方式实现](#uaes进程管理-关系数组方式实现)
-- [判断字串是否包含字串](#判断字串是否包含字串)
+- [判断字串是否包含子串](#判断字串是否包含子串)
+  - [也可以用case in](#也可以用case-in)
 - [exec重定向](#exec重定向)
   - [在shell里直接重定向stdin](#在shell里直接重定向stdin)
   - [重定向整个shell的stdout](#重定向整个shell的stdout)
@@ -1269,11 +1270,27 @@ while true; do
 done
 ```
 
-# 判断字串是否包含字串
+# 判断字串是否包含子串
 判断一个字符串是否包含一个字串
 注意, **不带通配符的必须在判断的左边**; 否则永远为false
 ```sh
 if [[ "$str" == *"$substr"* ]]; then
+```
+
+## 也可以用case in
+比如
+```sh
+local mode=debug
+if [[ "$args" == *"release"* || "$args" == *" -r"* || "$args" == *"-r "* ]]; then
+    mode=release
+fi
+```
+也可以写成
+```sh
+local mode=debug
+case "$args" in
+    *"release"*|*" -r"*|*"-r "*) mode=release ;;
+esac
 ```
 
 # exec重定向

@@ -1,3 +1,4 @@
+- [打印全部shell变量](#打印全部shell变量)
 - [在loop里后台执行](#在loop里后台执行)
 - [shell脚本块注释](#shell脚本块注释)
 - [带超时的重试命令](#带超时的重试命令)
@@ -130,6 +131,11 @@
 - [usb串口 --lsusb --minicom](#usb串口---lsusb---minicom)
 - [locate--linux下面的everything](#locate--linux下面的everything)
 - [rsync拷贝目录，去除hg](#rsync拷贝目录去除hg)
+
+# 打印全部shell变量
+shell的变量默认是全局的, 所以有时调试某个脚本的时候, 不知道变量的值, 也不知道有多少个变量.  
+* 如果用的是`sh`, 那么内置命令`set`可以把全部变量名和值都打印出来.
+* 如果用的是`bash`, 可以用`compgen -v`
 
 # 在loop里后台执行
 ```shell

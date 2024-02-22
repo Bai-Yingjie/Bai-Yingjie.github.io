@@ -97,6 +97,8 @@ main.rs引用了lib.rs, 后者声明了自己的mod, 每个mod对应一个rs文�
 这个设计奇怪的地方在于要在别人(lib.rs)的代码里声明自己(比如fuse.rs)是个mod(`pub mod fuse;`)...  
 我认为最好应该是自己声明自己是个mod...
 
+update@2024.1.25: lib.rs是个惯例文件, 在里面声明其他file对应的mod是惯常做法, 可能rust对这个文件有特殊的处理. 因为通常声明一个mod需要用`{}`包起来, 但lib.rs是声明"文件" mod.
+
 # main.rs
 main.rs就是virtiofsd这个命令行程序的入口.
 
@@ -284,10 +286,12 @@ fn set_signal_handlers() {
    * Unix sockets /dev/log and /var/run/syslog
    * Tcp connection to 127.0.0.1:601
    * Udp connection to 127.0.0.1:514
+   * 以上失败则使用env logger
 3. 安装sighandler for SIGHUP SIGTERM
+   * 使用`extern "C" fn handle_signal(...){...}`在rust里定义了一个C函数, 并传给`signal::register_signal_handler`
 4. 增加rlimit的open file数量到最大
 5. 创建sandbox
-   这里面调用了很多libc的函数. fork进程, 在父进程中等待, 在子进程中:
+   * 这里面调用了很多libc的函数. fork进程, 在父进程中等待, 在子进程中:
    * 用unshare系统调用进入名字空间
    * 在名字空间中mount `/proc`和`shared_dir`
    * 调用pivot_root系统调用来chroot
@@ -295,7 +299,7 @@ fn set_signal_handlers() {
 6. 如果uid是0(root), 丢弃不需要的权限
 7. 创建内部文件系统表达, 把收到的请求透传到底层的文件系统
 8. 创建VhostUserFsBackend线程
-9. 创建VhostUserDaemon daemon, 就是new一个VhostUserDaemon结构体
+9.  创建VhostUserDaemon daemon, 就是new一个VhostUserDaemon结构体
 10. 开始服务. daemon.start 
     * vhost的后端(virtiofsd)和前端(could-hypervisor)通过unix socket来交换vqueue的信息, 分享vqueue的前端是master, 使用vqueue的后端是slave. 所以virtiofsd是socket的server端, 但是vqueue的slave端. 所以这里先new一个`SlaveListener`
     * 然后用这个SlaveListener accept一个连接. 这里就是rust不太方便的地方, 要支持多个连接, 还要搞pool+async等.

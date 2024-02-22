@@ -2427,6 +2427,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.11.2.7" data-path="rust_错误处理.html">
+            
+                <a href="rust_错误处理.html">
+            
+                    
+                    Rust 错误处理(网摘)
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -3783,6 +3796,7 @@
 </ul>
 <h1 id="librs"><a name="librs" class="anchor-navigation-ex-anchor" href="#librs"><i class="fa fa-link" aria-hidden="true"></i></a>3. lib.rs</h1>
 <p>main.rs&#x5F15;&#x7528;&#x4E86;lib.rs, &#x540E;&#x8005;&#x58F0;&#x660E;&#x4E86;&#x81EA;&#x5DF1;&#x7684;mod, &#x6BCF;&#x4E2A;mod&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;rs&#x6587;&#x4EF6;.<br><img src="img/rust_virtiofsd_&#x4EE3;&#x7801;_20230109101423.png" alt=""><br>&#x8FD9;&#x4E2A;&#x8BBE;&#x8BA1;&#x5947;&#x602A;&#x7684;&#x5730;&#x65B9;&#x5728;&#x4E8E;&#x8981;&#x5728;&#x522B;&#x4EBA;(lib.rs)&#x7684;&#x4EE3;&#x7801;&#x91CC;&#x58F0;&#x660E;&#x81EA;&#x5DF1;(&#x6BD4;&#x5982;fuse.rs)&#x662F;&#x4E2A;mod(<code>pub mod fuse;</code>)...<br>&#x6211;&#x8BA4;&#x4E3A;&#x6700;&#x597D;&#x5E94;&#x8BE5;&#x662F;&#x81EA;&#x5DF1;&#x58F0;&#x660E;&#x81EA;&#x5DF1;&#x662F;&#x4E2A;mod...</p>
+<p>update@2024.1.25: lib.rs&#x662F;&#x4E2A;&#x60EF;&#x4F8B;&#x6587;&#x4EF6;, &#x5728;&#x91CC;&#x9762;&#x58F0;&#x660E;&#x5176;&#x4ED6;file&#x5BF9;&#x5E94;&#x7684;mod&#x662F;&#x60EF;&#x5E38;&#x505A;&#x6CD5;, &#x53EF;&#x80FD;rust&#x5BF9;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x6709;&#x7279;&#x6B8A;&#x7684;&#x5904;&#x7406;. &#x56E0;&#x4E3A;&#x901A;&#x5E38;&#x58F0;&#x660E;&#x4E00;&#x4E2A;mod&#x9700;&#x8981;&#x7528;<code>{}</code>&#x5305;&#x8D77;&#x6765;, &#x4F46;lib.rs&#x662F;&#x58F0;&#x660E;&quot;&#x6587;&#x4EF6;&quot; mod.</p>
 <h1 id="mainrs"><a name="mainrs" class="anchor-navigation-ex-anchor" href="#mainrs"><i class="fa fa-link" aria-hidden="true"></i></a>4. main.rs</h1>
 <p>main.rs&#x5C31;&#x662F;virtiofsd&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x884C;&#x7A0B;&#x5E8F;&#x7684;&#x5165;&#x53E3;.</p>
 <h2 id="vhostuserfsthread&#x7ED3;&#x6784;&#x4F53;"><a name="vhostuserfsthread&#x7ED3;&#x6784;&#x4F53;" class="anchor-navigation-ex-anchor" href="#vhostuserfsthread&#x7ED3;&#x6784;&#x4F53;"><i class="fa fa-link" aria-hidden="true"></i></a>4.1. VhostUserFsThread&#x7ED3;&#x6784;&#x4F53;</h2>
@@ -3956,12 +3970,16 @@
 <li>Unix sockets /dev/log and /var/run/syslog</li>
 <li>Tcp connection to 127.0.0.1:601</li>
 <li>Udp connection to 127.0.0.1:514</li>
+<li>&#x4EE5;&#x4E0A;&#x5931;&#x8D25;&#x5219;&#x4F7F;&#x7528;env logger</li>
 </ul>
 </li>
-<li>&#x5B89;&#x88C5;sighandler for SIGHUP SIGTERM</li>
+<li>&#x5B89;&#x88C5;sighandler for SIGHUP SIGTERM<ul>
+<li>&#x4F7F;&#x7528;<code>extern &quot;C&quot; fn handle_signal(...){...}</code>&#x5728;rust&#x91CC;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A;C&#x51FD;&#x6570;, &#x5E76;&#x4F20;&#x7ED9;<code>signal::register_signal_handler</code></li>
+</ul>
+</li>
 <li>&#x589E;&#x52A0;rlimit&#x7684;open file&#x6570;&#x91CF;&#x5230;&#x6700;&#x5927;</li>
-<li>&#x521B;&#x5EFA;sandbox
-&#x8FD9;&#x91CC;&#x9762;&#x8C03;&#x7528;&#x4E86;&#x5F88;&#x591A;libc&#x7684;&#x51FD;&#x6570;. fork&#x8FDB;&#x7A0B;, &#x5728;&#x7236;&#x8FDB;&#x7A0B;&#x4E2D;&#x7B49;&#x5F85;, &#x5728;&#x5B50;&#x8FDB;&#x7A0B;&#x4E2D;:<ul>
+<li>&#x521B;&#x5EFA;sandbox<ul>
+<li>&#x8FD9;&#x91CC;&#x9762;&#x8C03;&#x7528;&#x4E86;&#x5F88;&#x591A;libc&#x7684;&#x51FD;&#x6570;. fork&#x8FDB;&#x7A0B;, &#x5728;&#x7236;&#x8FDB;&#x7A0B;&#x4E2D;&#x7B49;&#x5F85;, &#x5728;&#x5B50;&#x8FDB;&#x7A0B;&#x4E2D;:</li>
 <li>&#x7528;unshare&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x8FDB;&#x5165;&#x540D;&#x5B57;&#x7A7A;&#x95F4;</li>
 <li>&#x5728;&#x540D;&#x5B57;&#x7A7A;&#x95F4;&#x4E2D;mount <code>/proc</code>&#x548C;<code>shared_dir</code></li>
 <li>&#x8C03;&#x7528;pivot_root&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x6765;chroot</li>
@@ -4475,7 +4493,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"virtiofsd代码阅读","level":"1.5.2.7","depth":3,"next":{"title":"vhost virtio相关的rust库","level":"1.5.2.8","depth":3,"path":"notes/rust_virtio_vhost_libs.md","ref":"notes/rust_virtio_vhost_libs.md","articles":[]},"previous":{"title":"cloud hypervisor问题与解决","level":"1.5.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_virtiofsd_代码.md","mtime":"2023-12-22T07:32:06.849Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-12-22T07:33:05.436Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"virtiofsd代码阅读","level":"1.5.2.7","depth":3,"next":{"title":"vhost virtio相关的rust库","level":"1.5.2.8","depth":3,"path":"notes/rust_virtio_vhost_libs.md","ref":"notes/rust_virtio_vhost_libs.md","articles":[]},"previous":{"title":"cloud hypervisor问题与解决","level":"1.5.2.6","depth":3,"path":"notes/rust_cloud-hypervisor_问题与解决.md","ref":"notes/rust_cloud-hypervisor_问题与解决.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/rust_virtiofsd_代码.md","mtime":"2024-02-22T02:39:23.699Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-02-22T02:40:19.142Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
