@@ -784,6 +784,8 @@ pub trait Borrow<Borrowed: ?Sized> {
 }
 ```
 
+Borrow和AsRef很像, [这个文章](https://web.mit.edu/rust-lang_v1.25/arch/amd64_ubuntu1404/share/doc/rust/html/book/first-edition/borrow-and-asref.html)介绍了区别.
+
 ### From/Into
 AsRef/Borrow做的类型转换都是从一种引用`&T`到另一种引用`&U`的转换。而From/Into做的则是从任意类型`T`到`U`的类型转换: 
 ```rust

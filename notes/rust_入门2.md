@@ -28,6 +28,7 @@
   - [copy和clone](#copy和clone)
   - [析构函数](#析构函数)
     - [Drop用法示例](#drop用法示例)
+      - [变量在离开作用域的时候drop会被调用](#变量在离开作用域的时候drop会被调用)
     - [mut和\&mut](#mut和mut)
     - [借用指针](#借用指针)
   - [为什么rust是内存安全的?](#为什么rust是内存安全的)
@@ -913,6 +914,84 @@ Exiting block A
 Just exited block A
 > Dropping a
 end of the main function
+```
+
+#### 变量在离开作用域的时候drop会被调用
+> When an initialized variable or temporary goes out of scope, its destructor is run, or it is dropped. Assignment also runs the destructor of its left-hand operand, if it's initialized. If a variable has been partially initialized, only its initialized fields are dropped.
+
+参考: https://doc.rust-lang.org/reference/destructors.html
+
+比如
+```rust
+fn main() {
+    struct PrintOnDrop(&'static str);
+
+    impl Drop for PrintOnDrop {
+        fn drop(&mut self) {
+            println!("{}", self.0);
+        }
+    }
+
+    let mut overwritten = PrintOnDrop("drops when overwritten");
+    // overwritten被重新赋值, 那么原值就没有用了. 会立刻drop原值
+    overwritten = PrintOnDrop("drops when scope ends");
+
+    let tuple = (PrintOnDrop("Tuple first"), PrintOnDrop("Tuple second"));
+
+    let moved;
+    // No destructor run on assignment.
+    moved = PrintOnDrop("Drops when moved");
+    // Drops now, but is then uninitialized.
+    // 这个表达式很怪, 但其实就是moved这个变量被使用了的意思.使用完就drop
+    moved;
+
+    // Uninitialized does not drop.
+    let uninitialized: PrintOnDrop;
+
+    // After a partial move, only the remaining fields are dropped.
+    let mut partial_move = (PrintOnDrop("first"), PrintOnDrop("forgotten"));
+    // Perform a partial move, leaving only `partial_move.0` initialized.
+    core::mem::forget(partial_move.1);
+    // When partial_move's scope ends, only the first field is dropped.
+}
+
+// output:
+drops when overwritten
+Drops when moved
+first
+Tuple first
+Tuple second
+drops when scope ends
+```
+
+总的感觉是rust认为变量的生命周期都应该尽可能的短暂, 有时临时变量的生命周期只有短短的的表达式内有效, 比如
+```rust
+let local_var = PrintOnDrop("local var");
+
+// Dropped once the condition has been evaluated
+if PrintOnDrop("If condition").0 == "If condition" {
+    // Dropped at the end of the block
+    PrintOnDrop("If body").0
+} else {
+    unreachable!()
+};
+
+// Dropped at the end of the statement
+(PrintOnDrop("first operand").0 == ""
+// Dropped at the )
+|| PrintOnDrop("second operand").0 == "")
+// Dropped at the end of the expression
+|| PrintOnDrop("third operand").0 == "";
+
+// Dropped at the end of the function, after local variables.
+// Changing this to a statement containing a return expression would make the
+// temporary be dropped before the local variables. Binding to a variable
+// which is then returned would also make the temporary be dropped first.
+match PrintOnDrop("Matched value in final expression") {
+    // Dropped once the condition has been evaluated
+    _ if PrintOnDrop("guard condition").0 == "" => (),
+    _ => (),
+}
 ```
 
 ### mut和&mut

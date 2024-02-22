@@ -1,3 +1,4 @@
+- [rust std依赖libc crate](#rust-std依赖libc-crate)
 - [structopt](#structopt)
 - [log](#log)
   - [env\_logger](#env_logger)
@@ -40,6 +41,45 @@
   - [Write trait](#write-trait)
   - [Seek trait](#seek-trait)
   - [BufRead是Read的派生trait](#bufread是read的派生trait)
+
+# rust std依赖libc crate
+比如io的read方法, fs的最底层的实现是
+```rust
+impl FileDesc {
+    pub fn read(&self, buf: &mut [u8]) -> io::Result<usize> {
+        let ret = cvt(unsafe {
+            libc::read(
+                self.as_raw_fd(),
+                buf.as_mut_ptr() as *mut libc::c_void,
+                cmp::min(buf.len(), READ_LIMIT),
+            )
+        })?;
+        Ok(ret as usize)
+    }
+}
+```
+这里面的libc是个"外部"crate, 但其实也是rust team维护的: https://github.com/rust-lang/libc
+
+在rust std库的cargo.toml里面有依赖libc的声明:
+```toml
+[dependencies]
+alloc = { path = "../alloc" }
+cfg-if = { version = "1.0", features = ['rustc-dep-of-std'] }
+panic_unwind = { path = "../panic_unwind", optional = true }
+panic_abort = { path = "../panic_abort" }
+core = { path = "../core" }
+libc = { version = "0.2.143", default-features = false, features = ['rustc-dep-of-std'] }
+compiler_builtins = { version = "0.1.92" }
+profiler_builtins = { path = "../profiler_builtins", optional = true }
+unwind = { path = "../unwind" }
+hashbrown = { version = "0.13", default-features = false, features = ['rustc-dep-of-std'] }
+std_detect = { path = "../stdarch/crates/std_detect", default-features = false, features = ['rustc-dep-of-std'] }
+
+# Dependencies of the `backtrace` crate
+addr2line = { version = "0.18.0", optional = true, default-features = false }
+rustc-demangle = { version = "0.1.21", features = ['rustc-dep-of-std'] }
+miniz_oxide = { version = "0.6.0", optional = true, default-features = false }
+```
 
 # [structopt](https://docs.rs/structopt/0.3.26/structopt/#)
 structopt用来把命令行参数转成结构体

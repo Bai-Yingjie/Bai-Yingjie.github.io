@@ -80,6 +80,11 @@
     - [方案三: 不需要nightly版本](#方案三-不需要nightly版本)
   - [问号操作符](#问号操作符)
     - [问号操作背后](#问号操作背后)
+    - [Result实现了Try](#result实现了try)
+    - [Error可以转换为`Box<Error>`](#error可以转换为boxerror)
+      - [问号操作符会自动转换`Error`到`Box<Error>`](#问号操作符会自动转换error到boxerror)
+    - [From trait很有用](#from-trait很有用)
+      - [From trait用在错误处理](#from-trait用在错误处理)
 
 # 安装
 使用rustup安装:
@@ -231,8 +236,9 @@ Total                3512131
 # 交叉编译
 ## 安装target
 ```shell
-#不要装toolchain, 这个toolchain的意思是在powerpc机器上执行cargo rustc等命令
-rustup toolchain install stable-powerpc-unknown-linux-gnu
+#不要装toolchain, 这个toolchain的意思是在powerpc机器上执行cargo rustc等命令, 所以下面的命令不需要
+#rustup toolchain install stable-powerpc-unknown-linux-gnu
+
 #target才是要装的, 预编译的库会安装在/usr/local/rustup/toolchains/stable-x86_64-unknown-linux-musl/lib/rustlib/powerpc-unknown-linux-gnu/lib/
 rustup target add powerpc-unknown-linux-gnu
 CARGO_TARGET_POWERPC_UNKNOWN_LINUX_GNU_LINKER=powerpc-alpine-linux-musl-gcc cargo build --target=powerpc-unknown-linux-gnu --release
@@ -240,9 +246,9 @@ CARGO_TARGET_POWERPC_UNKNOWN_LINUX_GNU_LINKER=powerpc-alpine-linux-musl-gcc carg
 注:
 * 不需要安装target的toolchain
 * target库是安装在当前默认toolchain(stable-x86_64-unknown-linux-musl)下面的, 是预编译的库.  
-这些库有:
-![](img/rust_入门1_20231211145934.png)
-![](img/rust_入门1_20231211150107.png)
+这些库有:  
+![](img/rust_入门1_20231211145934.png)  
+![](img/rust_入门1_20231211150107.png)  
 
 文件类型:
 ```
@@ -374,24 +380,24 @@ fn Foo( input1 : i32, input2 : u32) -> i32 {
 ## 命名惯例
 rust混合了驼峰式和下划线式的名字惯例, 但用于不同的场景:
 
-Item| Convention
---|--
-Crates| unclear
-Modules| snake_case
-Types| UpperCamelCase
-Traits| UpperCamelCase
-Enum variants| UpperCamelCase
-Functions| snake_case
-Methods| snake_case
-General constructors| new or with_more_details
-Conversion constructors| from_some_other_type
-Macros| snake_case!
-Local variables| snake_case
-Statics| SCREAMING_SNAKE_CASE
-Constants| SCREAMING_SNAKE_CASE
-Type parameters| concise UpperCamelCase, usually single uppercase letter: T
-Lifetimes| short lowercase, usually a single letter: 'a, 'de, 'src
-Features| unclear but see C-FEATURE
+| Item                    | Convention                                                 |
+| ----------------------- | ---------------------------------------------------------- |
+| Crates                  | unclear                                                    |
+| Modules                 | snake_case                                                 |
+| Types                   | UpperCamelCase                                             |
+| Traits                  | UpperCamelCase                                             |
+| Enum variants           | UpperCamelCase                                             |
+| Functions               | snake_case                                                 |
+| Methods                 | snake_case                                                 |
+| General constructors    | new or with_more_details                                   |
+| Conversion constructors | from_some_other_type                                       |
+| Macros                  | snake_case!                                                |
+| Local variables         | snake_case                                                 |
+| Statics                 | SCREAMING_SNAKE_CASE                                       |
+| Constants               | SCREAMING_SNAKE_CASE                                       |
+| Type parameters         | concise UpperCamelCase, usually single uppercase letter: T |
+| Lifetimes               | short lowercase, usually a single letter: 'a, 'de, 'src    |
+| Features                | unclear but see C-FEATURE                                  |
 
 ## 格式化输出
 ```rust
@@ -690,23 +696,23 @@ let f5 : f64 = 2.;      // type f64
 ```
 
 ### 指针
-|类型名|简介
-|--|--
-|`Box<T>`|指向类型T的, 具有所有权的指针, 有权释放内存; T在堆中分配
-|`&T`|指向类型T的借用指针, 也称为引用, 无权释放内存, 无权写数据
-|`&mut T`|指向类型T的mut借用指针, 无权释放内存, 有权写数据
-|`*const T`|指向类型T的只读指针, 没有生命周期信息, 无权写数据
-|`*mut T`|指向类型T的读写指针, 没有生命周期信息, 有权写数据
+| 类型名     | 简介                                                      |
+| ---------- | --------------------------------------------------------- |
+| `Box<T>`   | 指向类型T的, 具有所有权的指针, 有权释放内存; T在堆中分配  |
+| `&T`       | 指向类型T的借用指针, 也称为引用, 无权释放内存, 无权写数据 |
+| `&mut T`   | 指向类型T的mut借用指针, 无权释放内存, 有权写数据          |
+| `*const T` | 指向类型T的只读指针, 没有生命周期信息, 无权写数据         |
+| `*mut T`   | 指向类型T的读写指针, 没有生命周期信息, 有权写数据         |
 
 注: `&T`是借用指针, 而`*T`实际上也存在的, 叫raw pointer. 但是必须以`*mut T`或`*const T`存在. 一般raw pointer不常用.
 
 除此之外，在标准库中还有一种封装起来的可以当作指针使用的类型，叫“智能指针”（smart pointer）
 
-|类型名|简介
-|--|--
-|`Rc<T>`|指向类型T的引用计数指针, 共享所有权, 线程不安全
-|`Arc<T>`|指向类型T的原子引用计数指针, 共享所有权, 线程安全
-|`Cow<'a,T>`|clone on write, 写时复制指针. 可能是借用指针, 也可能是具有所有权的指针
+| 类型名      | 简介                                                                   |
+| ----------- | ---------------------------------------------------------------------- |
+| `Rc<T>`     | 指向类型T的引用计数指针, 共享所有权, 线程不安全                        |
+| `Arc<T>`    | 指向类型T的原子引用计数指针, 共享所有权, 线程安全                      |
+| `Cow<'a,T>` | clone on write, 写时复制指针. 可能是借用指针, 也可能是具有所有权的指针 |
 
 ### 什么是Box
 `Box<T>`是指向堆中类型为T的变量的**指针**. 这个T可以是unsized的.
@@ -2413,3 +2419,193 @@ pub trait Try: FromResidual {
     fn branch(self) -> ControlFlow<Self::Residual, Self::Output>;
 }
 ```
+
+### Result实现了Try
+在`src/core/result.rs`里
+```rust
+impl<T, E> ops::Try for Result<T, E> {
+    type Output = T;
+    type Residual = Result<convert::Infallible, E>;
+
+    #[inline]
+    fn from_output(output: Self::Output) -> Self {
+        Ok(output)
+    }
+
+    #[inline]
+    fn branch(self) -> ControlFlow<Self::Residual, Self::Output> {
+        match self {
+            Ok(v) => ControlFlow::Continue(v),
+            Err(e) => ControlFlow::Break(Err(e)),
+        }
+    }
+}
+```
+### Error可以转换为`Box<Error>`
+`std::error::Error`都实现了`std::convert::From for Box<Error>` trait, 能转换成`Box<Error>`  
+因为有个通用实现:
+```rust
+impl<'a, E: Error + 'a> From<E> for Box<Error + 'a>
+```
+
+#### 问号操作符会自动转换`Error`到`Box<Error>`
+`?`会调用`std::convert::From::from`做这个转换, 类似这样:
+```rust
+match ::std::ops::Try::into_result(x) {
+    Ok(v) => v,
+    Err(e) => return ::std::ops::Try::from_error(From::from(e)),
+}
+```
+
+### From trait很有用
+From Trait `std::convert::From`用于把一个类型的值转换为另一个类型的值.
+```rust
+pub trait From<T>: Sized {
+    // Required method
+    fn from(value: T) -> Self;
+}
+```
+> Used to do value-to-value conversions while consuming the input value.
+
+From可以在不同类型的字符串之间转换:
+```rust
+let string: String = From::from("foo");
+let bytes: Vec<u8> = From::from("foo");
+let cow: ::std::borrow::Cow<str> = From::from("foo");
+```
+
+#### From trait用在错误处理
+有了From trait, `?`可以调用`From::from`来把`io::Error`或者`num::ParseIntError`转换成统一的返回值类型`Result<i32, CliError>`
+```rust
+use std::fs;
+use std::io;
+use std::num;
+
+enum CliError {
+    IoError(io::Error),
+    ParseError(num::ParseIntError),
+}
+
+impl From<io::Error> for CliError {
+    fn from(error: io::Error) -> Self {
+        CliError::IoError(error)
+    }
+}
+
+impl From<num::ParseIntError> for CliError {
+    fn from(error: num::ParseIntError) -> Self {
+        CliError::ParseError(error)
+    }
+}
+
+fn open_and_parse_file(file_name: &str) -> Result<i32, CliError> {
+    let mut contents = fs::read_to_string(&file_name)?;
+    let num: i32 = contents.trim().parse()?;
+    Ok(num)
+}
+```
+上面的例子是用From转换成专有Error `CliError`, 这样可以用统一的Error类型返回.
+
+下面的代码更进一步, 各个mod定义的不同的Error类型可以转换为更统一的Error类型:`Box<Error>`
+```rust
+use std::error::Error;
+use std::fs;
+use std::io;
+use std::num;
+
+// We have to jump through some hoops to actually get error values.
+let io_err: io::Error = io::Error::last_os_error();
+let parse_err: num::ParseIntError = "not a number".parse::<i32>().unwrap_err();
+
+// OK, here are the conversions.
+let err1: Box<Error> = From::from(io_err);
+let err2: Box<Error> = From::from(parse_err);
+```
+
+我的例子:
+```rust
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    if unsafe { libc::unshare(libc::CLONE_NEWNS | libc::CLONE_NEWUSER) } != 0 {
+        return Err(From::from(format!(
+            "unshare failed with: {}",
+            std::io::Error::last_os_error()
+        )));
+    }
+}
+```
+`From::from()`和`().into()`效果一样, 所以可以改成
+```rust
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    if unsafe { libc::unshare(libc::CLONE_NEWNS | libc::CLONE_NEWUSER) } != 0 {
+        return Err(format!("unshare failed with: {}", std::io::Error::last_os_error()).into());
+    }
+}
+```
+
+真正把String转换为`Box<dyn Error>`的代码在`/usr/lib/rustlib/src/rust/library/alloc/src/boxed.rs`
+```rust
+impl From<String> for Box<dyn Error + Send + Sync> {
+    /// Converts a [`String`] into a box of dyn [`Error`] + [`Send`] + [`Sync`].
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use std::error::Error;
+    /// use std::mem;
+    ///
+    /// let a_string_error = "a string error".to_string();
+    /// let a_boxed_error = Box::<dyn Error + Send + Sync>::from(a_string_error);
+    /// assert!(
+    ///     mem::size_of::<Box<dyn Error + Send + Sync>>() == mem::size_of_val(&a_boxed_error))
+    /// ```
+    #[inline]
+    fn from(err: String) -> Box<dyn Error + Send + Sync> {
+        struct StringError(String);
+
+        impl Error for StringError {
+            #[allow(deprecated)]
+            fn description(&self) -> &str {
+                &self.0
+            }
+        }
+
+        impl fmt::Display for StringError {
+            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+                fmt::Display::fmt(&self.0, f)
+            }
+        }
+
+        // Purposefully skip printing "StringError(..)"
+        impl fmt::Debug for StringError {
+            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+                fmt::Debug::fmt(&self.0, f)
+            }
+        }
+
+        Box::new(StringError(err))
+    }
+}
+
+impl From<String> for Box<dyn Error> {
+    /// Converts a [`String`] into a box of dyn [`Error`].
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use std::error::Error;
+    /// use std::mem;
+    ///
+    /// let a_string_error = "a string error".to_string();
+    /// let a_boxed_error = Box::<dyn Error>::from(a_string_error);
+    /// assert!(mem::size_of::<Box<dyn Error>>() == mem::size_of_val(&a_boxed_error))
+    /// ```
+    fn from(str_err: String) -> Box<dyn Error> {
+        let err1: Box<dyn Error + Send + Sync> = From::from(str_err);
+        let err2: Box<dyn Error> = err1;
+        err2
+    }
+}
+```
+
+首先在`impl From<String> for Box<dyn Error + Send + Sync>`的实现函数内部, 为新定义的`struct StringError(String)`实现了`Error` trait需要的Display和Debug trait, 并返回`Box::new(StringError(err))`  
+然后又实现了`impl From<String> for Box<dyn Error>`, 而这个实现是调用上面的函数.

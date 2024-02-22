@@ -1,3 +1,12 @@
+- [lazy evaluation 延迟表达式求值](#lazy-evaluation-延迟表达式求值)
+- [std 的backtrace返回unknown问题调查](#std-的backtrace返回unknown问题调查)
+  - [原因](#原因)
+- [为别人的类型实现我的trait](#为别人的类型实现我的trait)
+  - [在自己的库里定义自己的trait](#在自己的库里定义自己的trait)
+  - [为别人实现自己的trait](#为别人实现自己的trait)
+- [在lib crate中使用build.rs](#在lib-crate中使用buildrs)
+  - [anyhow使用build.rs的例子](#anyhow使用buildrs的例子)
+- [rust会做越界检查](#rust会做越界检查)
 - [C调用rust慢吗?](#c调用rust慢吗)
 - [论Mutex的unlock](#论mutex的unlock)
   - [提前unlock](#提前unlock)
@@ -62,6 +71,314 @@
   - [iter()](#iter)
   - [keys()和values()](#keys和values)
 
+
+# lazy evaluation 延迟表达式求值
+anyhow提供了两个函数:
+* context()
+* with_context()
+
+声明在`Context` trait中:
+```rust
+pub trait Context<T, E>: context::private::Sealed {
+    /// Wrap the error value with additional context.
+    fn context<C>(self, context: C) -> Result<T, Error>
+    where
+        C: Display + Send + Sync + 'static;
+
+    /// Wrap the error value with additional context that is evaluated lazily
+    /// only once an error does occur.
+    fn with_context<C, F>(self, f: F) -> Result<T, Error>
+    where
+        C: Display + Send + Sync + 'static,
+        F: FnOnce() -> C;
+}
+```
+
+在使用上是一样的, 比如:
+```rust
+    let root = ...
+    std::fs::create_dir_all(&root)
+            .with_context(|| format!("Failed to create dir {}", root.display()))?;
+```
+去掉表示闭包函数的`||`, 改成context调用, 效果是一样的.
+```rust
+    let root = ...
+    std::fs::create_dir_all(&root)
+            .context(format!("Failed to create dir {}", root.display()))?;
+```
+
+那么`with_context`有什么用?  
+答: 因为`with_context`的入参是个闭包函数, 这个函数只有在`create_dir_all`确实出现错误的时候才调用, 这个叫lazy evaluation. 当传入`context`的入参比较复杂, 计算它比较"昂贵"的时候, 用`with_context`. 不过在本例子中, `context`和`with_context`差不多, 一个是立即format字符串, 一个是把format字符串的闭包做为参数直接传入, 而关键是这个format字符串并不昂贵.
+
+# std 的backtrace返回unknown问题调查
+遇到一个奇怪的问题, `std::backtrace::Backtrace::capture()`在`chroot`后, 不能正常显示调用栈:
+```shell
+yingjieb@RebornLinux:yingjieb_rust:61393 /repo/yingjieb/rebornlinux/chreborn
+$ RUST_BACKTRACE=1 target/debug/chreborn -- ls
+Error: Failed to set groups
+
+Caused by:
+    EPERM: Operation not permitted
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+```
+
+如果在`chroot`之前使用`std::backtrace::Backtrace::capture()`是可以显示调用栈的:
+```shell
+yingjieb@RebornLinux:yingjieb_rust:61393 /repo/yingjieb/rebornlinux/chreborn
+$ RUST_BACKTRACE=1 target/debug/chreborn -- ls
+Error: Failed to set groups
+
+Caused by:
+    EPERM: Operation not permitted
+
+Stack backtrace:
+   0: <E as anyhow::context::ext::StdError>::ext_context
+             at /home/yingjieb/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anyhow-1.0.79/src/context.rs:27:29
+   1: anyhow::context::<impl anyhow::Context<T,E> for core::result::Result<T,E>>::context
+             at /home/yingjieb/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anyhow-1.0.79/src/context.rs:54:31
+   2: chreborn::main
+             at ./src/main.rs:51:5
+   3: core::ops::function::FnOnce::call_once
+             at /home/reborn/aports/community/rust/src/rustc-1.71.1-src/library/core/src/ops/function.rs:250:5
+   4: std::sys_common::backtrace::__rust_begin_short_backtrace
+             at /home/reborn/aports/community/rust/src/rustc-1.71.1-src/library/std/src/sys_common/backtrace.rs:135:18
+   5: std::rt::lang_start::{{closure}}
+             at /home/reborn/aports/community/rust/src/rustc-1.71.1-src/library/std/src/rt.rs:166:18
+   6: std::rt::lang_start_internal
+   7: std::rt::lang_start
+             at /home/reborn/aports/community/rust/src/rustc-1.71.1-src/library/std/src/rt.rs:165:17
+   8: main
+   9: libc_start_main_stage2
+             at /home/buildozer/aports/main/musl/src/1.2.4/src/env/__libc_start_main.c:95:2
+```
+
+而奇怪的是, 如果在`chroot`之前已经调用过一次`std::backtrace::Backtrace::capture()`, 那么再次调用也能正常显示调用栈.
+
+## 原因
+`std::backtrace::Backtrace::capture()`会检查环境变量`RUST_BACKTRACE`. 我自己写的`chroot`在`exec`的时候会清空环境变量, 导致在这之后的`std::backtrace::Backtrace::capture()`调用就找不到`RUST_BACKTRACE`导致实际并没有解析调用栈. 而在`chroot`之前调用`std::backtrace::Backtrace::capture()`则不受影响.
+
+# 为别人的类型实现我的trait
+`anyhow`能为普通的Error类型添加成员函数`context()`, 这样可以给`?`添加详细的debug信息, 比如:
+```rust
+use anyhow::{Context, Result};
+
+fn main() -> Result<()> {
+    ...
+    std::fs::create_dir_all(&root)
+            .with_context(|| format!("Failed to create dir {}", root.display()))?;
+    // Unshare to create a new user namespace
+    unshare(CloneFlags::CLONE_NEWUSER | CloneFlags::CLONE_NEWNS).context("Failed to unshare")?;
+
+    // Change the root directory
+    chroot(&root).with_context(|| format!("Failed to chroot to dir {}", root.display()))?;
+
+    // Change the working directory to the new root
+    chdir("/").context("Failed to chdir to /")?;
+
+    ...
+    return Ok(());
+}
+```
+
+这段代码中的`std::fs::create_dir_all`的返回类型是`std::io::Result<()>`, 本来没有`.with_context()`这个函数. 但用了`anyhow`就有了, 为什么?
+
+## 在自己的库里定义自己的trait
+代码在`src/lib.rs`
+```rust
+pub trait Context<T, E>: context::private::Sealed {
+    /// Wrap the error value with additional context.
+    fn context<C>(self, context: C) -> Result<T, Error>
+    where
+        C: Display + Send + Sync + 'static;
+
+    /// Wrap the error value with additional context that is evaluated lazily
+    /// only once an error does occur.
+    fn with_context<C, F>(self, f: F) -> Result<T, Error>
+    where
+        C: Display + Send + Sync + 'static,
+        F: FnOnce() -> C;
+}
+```
+定义了trait `Context`.
+
+## 为别人实现自己的trait
+代码在`src/context.rs`
+```rust
+impl<T, E> Context<T, E> for Result<T, E>
+where
+    E: ext::StdError + Send + Sync + 'static,
+{
+    fn context<C>(self, context: C) -> Result<T, Error>
+    where
+        C: Display + Send + Sync + 'static,
+    {
+        // Not using map_err to save 2 useless frames off the captured backtrace
+        // in ext_context.
+        match self {
+            Ok(ok) => Ok(ok),
+            Err(error) => Err(error.ext_context(context)),
+        }
+    }
+
+    fn with_context<C, F>(self, context: F) -> Result<T, Error>
+    where
+        C: Display + Send + Sync + 'static,
+        F: FnOnce() -> C,
+    {
+        match self {
+            Ok(ok) => Ok(ok),
+            Err(error) => Err(error.ext_context(context())),
+        }
+    }
+}
+```
+`E: ext::StdError + Send + Sync + 'static`是说只要`E`实现了`ext::StdError`, 就可以返回`Err(error.ext_context(context))`.
+
+下面这段同样在`src/context.rs`, 只是被包在`mod ext {  ... }`中. 这段代码定义了自己的trait `StdError`, 并为通用的`std::error::Error`实现了这个trait, 返回`anyhow`定义的`Error`, 后者满足`std::error::Error`, 并提供了很多有用的方法.
+```rust
+mod ext {
+    use super::*;
+
+    pub trait StdError {
+        fn ext_context<C>(self, context: C) -> Error
+        where
+            C: Display + Send + Sync + 'static;
+    }
+
+    #[cfg(feature = "std")]
+    impl<E> StdError for E
+    where
+        E: std::error::Error + Send + Sync + 'static,
+    {
+        fn ext_context<C>(self, context: C) -> Error
+        where
+            C: Display + Send + Sync + 'static,
+        {
+            let backtrace = backtrace_if_absent!(&self);
+            Error::from_context(context, self, backtrace)
+        }
+    }
+
+    impl StdError for Error {
+        fn ext_context<C>(self, context: C) -> Error
+        where
+            C: Display + Send + Sync + 'static,
+        {
+            self.context(context)
+        }
+    }
+}
+```
+
+# 在lib crate中使用build.rs
+`build.rs`是个特殊的编译脚本, 在编译本crate之前被rustc调用, 用来控制编译过程, 比如做版本检查, 根据条件配置编译选项等.
+
+`build.rs`需要和`Cargo.toml`在同一级目录.
+
+## anyhow使用build.rs的例子
+anyhow是个lib crate, 提供了通用的error hanling机制. 挺好用的.
+
+它的`Cargo.toml`里面写了default feature是std:
+```toml
+[features]
+default = ["std"]
+std = []
+```
+在它的`build.rs`里, 判断rustc版本来做不同的处理.
+```rust
+fn main() {
+    let mut error_generic_member_access = false;
+    //用sfg宏判断是否feature是std, 是std才编译后面的语句块
+    if cfg!(feature = "std") {
+        println!("cargo:rerun-if-changed=build/probe.rs");
+
+    ...
+
+    let rustc = match rustc_minor_version() {
+        Some(rustc) => rustc,
+        None => return,
+    };
+
+    if rustc < 51 {
+        // core::ptr::addr_of
+        // https://blog.rust-lang.org/2021/03/25/Rust-1.51.0.html#stabilized-apis
+        println!("cargo:rustc-cfg=anyhow_no_ptr_addr_of");
+    }
+
+    ...
+
+    if !error_generic_member_access && cfg!(feature = "std") && rustc >= 65 {
+        // std::backtrace::Backtrace
+        // https://blog.rust-lang.org/2022/11/03/Rust-1.65.0.html#stabilized-apis
+        println!("cargo:rustc-cfg=std_backtrace");
+    }
+}
+```
+
+这段代码里面我们关注`println!("cargo:rustc-cfg=std_backtrace");`这句.  
+
+在其他的代码里面, 用cfg属性判断`std_backtrace`来做条件编译.
+```rust
+#[cfg(std_backtrace)]
+pub(crate) use std::backtrace::{Backtrace, BacktraceStatus};
+
+#[cfg(all(not(std_backtrace), feature = "backtrace"))]
+pub(crate) use self::capture::{Backtrace, BacktraceStatus};
+
+#[cfg(not(any(std_backtrace, feature = "backtrace")))]
+pub(crate) enum Backtrace {}
+
+#[cfg(std_backtrace)]
+macro_rules! impl_backtrace {
+    () => {
+        std::backtrace::Backtrace
+    };
+}
+
+#[cfg(all(not(std_backtrace), feature = "backtrace"))]
+macro_rules! impl_backtrace {
+    () => {
+        impl core::fmt::Debug + core::fmt::Display
+    };
+}
+```
+
+# rust会做越界检查
+比如下面的代码中, `cli.root是个String`, 这个String支持index操作.  
+rust会对这个index操作做越界检查并panic.
+```rust
+    let root = if cli.root.starts_with("~/") {
+        //应该是dirs::home_dir().unwrap().join(&cli.root[2..])
+        //我故意改成&cli.root[1002..]
+        dirs::home_dir().unwrap().join(&cli.root[1002..])
+    } else {
+        cli.root.into()
+    };
+```
+运行上面的程序会报错:
+```
+$ target/debug/chreborn
+thread 'main' panicked at 'byte index 1002 is out of bounds of `~/rebornlinux`', src/main.rs:20:41
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+```
+
+加`RUST_BACKTRACE=full`得到下面的调用栈
+![](img/rust_知识点积累_20240202153513.png)
+
+* String的底层类型是str, str实现了index操作: `impl core::ops::index::Index<I> for str`
+* Rust的调用链不短. 用户main函数之前还有好几层.
+* 默认panic不打印调用栈, 但提示信息已经很友好了
 
 # C调用rust慢吗?
 不慢. 重点词: FFI `#[repr(C)]`
@@ -516,15 +833,15 @@ fn main() {
 ```
 
 # rust指针cheatsheet
-| Type | Name | Summary |
-| --- | --- | --- |
-| `&T` | Reference | Allows one or more references to read `T` |
-| `&mut T` | Mutable Reference | Allows a single reference to read and write `T` |
-| `Box<T>` | Box | Heap allocated `T` with a single owner that may read and write `T`. |
-| `Rc<T>` | "arr cee" pointer | Heap allocated `T` with many readers |
-| `Arc<T>` | Arc pointer | Same as above, but safe sharing across threads |
-| `*const T` | Raw pointer | Unsafe read access to `T` |
-| `*mut T` | Mutable raw pointer | Unsafe read and write access to `T` |
+| Type       | Name                | Summary                                                             |
+| ---------- | ------------------- | ------------------------------------------------------------------- |
+| `&T`       | Reference           | Allows one or more references to read `T`                           |
+| `&mut T`   | Mutable Reference   | Allows a single reference to read and write `T`                     |
+| `Box<T>`   | Box                 | Heap allocated `T` with a single owner that may read and write `T`. |
+| `Rc<T>`    | "arr cee" pointer   | Heap allocated `T` with many readers                                |
+| `Arc<T>`   | Arc pointer         | Same as above, but safe sharing across threads                      |
+| `*const T` | Raw pointer         | Unsafe read access to `T`                                           |
+| `*mut T`   | Mutable raw pointer | Unsafe read and write access to `T`                                 |
 
 # ownership
 说的很细
@@ -1426,17 +1743,17 @@ Rust's collections can be grouped into four major categories:
 
 ## Sequences性能
 
-||get(i) | insert(i) | remove(i) | append | split_off(i) |
-| --- | --- | --- | --- | --- | --- |
-|Vec|    O(1)|    O(n-i)|    O(n-i)|    O(m)|    O(n-i)|
-|VecDeque|    O(1)|    O(min(i, n-i))|    O(min(i, n-i))|    O(m)|    O(min(i, n-i))|
-|LinkedList|    O(min(i, n-i))|    O(min(i, n-i))|    O(min(i, n-i))|    O(1)|    O(min(i, n-i))|
+|            | get(i)         | insert(i)      | remove(i)      | append | split_off(i)   |
+| ---------- | -------------- | -------------- | -------------- | ------ | -------------- |
+| Vec        | O(1)           | O(n-i)         | O(n-i)         | O(m)   | O(n-i)         |
+| VecDeque   | O(1)           | O(min(i, n-i)) | O(min(i, n-i)) | O(m)   | O(min(i, n-i)) |
+| LinkedList | O(min(i, n-i)) | O(min(i, n-i)) | O(min(i, n-i)) | O(1)   | O(min(i, n-i)) |
 
 ## Maps性能
-| |get| insert| remove| range| append|
-| -- | -- | -- | -- | -- | -- |
-|HashMap|    O(1)~|    O(1)~|    O(1)~|    N/A|    N/A
-|BTreeMap|    O(log(n))|    O(log(n))|    O(log(n))|    O(log(n))|    O(n+m)|
+|          | get       | insert    | remove    | range     | append |
+| -------- | --------- | --------- | --------- | --------- | ------ |
+| HashMap  | O(1)~     | O(1)~     | O(1)~     | N/A       | N/A    |
+| BTreeMap | O(log(n)) | O(log(n)) | O(log(n)) | O(log(n)) | O(n+m) |
 
 # BTreeMap
 ## iter()
