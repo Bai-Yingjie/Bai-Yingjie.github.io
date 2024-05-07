@@ -1,3 +1,12 @@
+- [使能cgo的同时也生成static build](#使能cgo的同时也生成static-build)
+- [setns系统调用和`runtime.LockOSThread()`](#setns系统调用和runtimelockosthread)
+  - [setns](#setns)
+    - [函数原型](#函数原型)
+    - [七种名字空间类型](#七种名字空间类型)
+    - [PID 名字空间](#pid-名字空间)
+    - [权限](#权限)
+  - [其他](#其他)
+  - [mount名字空间的问题以及golang的解决方案](#mount名字空间的问题以及golang的解决方案)
 - [select随机选择ready的case](#select随机选择ready的case)
   - [问题背景](#问题背景)
   - [server端的处理逻辑](#server端的处理逻辑)
@@ -50,6 +59,302 @@
 - [善用字符串库函数--strings.Join](#善用字符串库函数--stringsjoin)
 - [切片的插入](#切片的插入)
 - [匿名函数执行](#匿名函数执行)
+
+# 使能cgo的同时也生成static build
+```
+LDFLAGS += -linkmode=external -extldflags=-static
+CGO_ENABLED=1 go build -ldflags="$(LDFLAGS)"
+```
+
+要点:
+* gcc要是musl based, 比如
+  * 直接使用alpine linux
+  * 在ubuntu上安装musl: 
+```
+sudo apt-get install -y --no-install-recommends musl-dev musl-tools
+LDFLAGS += -linkmode=external -extldflags=-static
+CC=musl-gcc CGO_ENABLED=1 go build -ldflags="$(LDFLAGS)"
+```
+
+# setns系统调用和`runtime.LockOSThread()`
+## setns
+### 函数原型
+```c
+#define _GNU_SOURCE             /* See feature_test_macros(7) */
+#include <sched.h>
+
+int setns(int fd, int nstype);
+```
+
+### 七种名字空间类型
+`setns`系统调用重新绑定caller**线程**到目标名字空间. 目标名字空间由`fd`指定, 这个`fd`是目标pid下面的`/proc/[pid]/ns/`的7种名字空间之一.
+```
+Namespace   Constant          Isolates
+Cgroup      CLONE_NEWCGROUP   Cgroup root directory
+IPC         CLONE_NEWIPC      System V IPC, POSIX message queues
+Network     CLONE_NEWNET      Network devices, stacks, ports, etc.
+Mount       CLONE_NEWNS       Mount points
+PID         CLONE_NEWPID      Process IDs
+User        CLONE_NEWUSER     User and group IDs
+UTS         CLONE_NEWUTS      Hostname and NIS domain name
+```
+`clone`, `setns`, `unshare`系统调用能处理`CLONE_NEW*` flag.
+```
+$ ls /proc/1770/ns -lh
+total 0
+lrwxrwxrwx 1 yingjieb platform 0 Apr  2 01:02 cgroup -> 'cgroup:[4026531835]'
+lrwxrwxrwx 1 yingjieb platform 0 Apr  2 01:02 ipc -> 'ipc:[4026531839]'
+lrwxrwxrwx 1 yingjieb platform 0 Apr  2 01:02 mnt -> 'mnt:[4026531840]'
+lrwxrwxrwx 1 yingjieb platform 0 Apr  2 01:02 net -> 'net:[4026531993]'
+lrwxrwxrwx 1 yingjieb platform 0 Apr  2 01:02 pid -> 'pid:[4026531836]'
+lrwxrwxrwx 1 yingjieb platform 0 Apr  2 01:02 pid_for_children -> 'pid:[4026531836]'
+lrwxrwxrwx 1 yingjieb platform 0 Apr  2 01:02 user -> 'user:[4026531837]'
+lrwxrwxrwx 1 yingjieb platform 0 Apr  2 01:02 uts -> 'uts:[4026531838]'
+```
+
+可以看到, linux的名字空间都是和pid绑定的, 但7个名字空间是独立的. 但是, 即使该名字空间里面的所有进程都退出了, 这个名字空间还可能继续存在:
+* 如果`/proc/pid/ns`下面的文件被bind mount
+* 如果`/proc/pid/ns`下面的文件还在被其他进程open
+
+名字空间的个数有限制, 比如
+```
+$ ls /proc/sys/user
+max_cgroup_namespaces  max_ipc_namespaces  max_pid_namespaces
+max_inotify_instances  max_mnt_namespaces  max_user_namespaces
+max_inotify_watches    max_net_namespaces  max_uts_namespaces
+
+$ cat /proc/sys/user/max_mnt_namespaces
+289679
+```
+
+### PID 名字空间
+PID名字空间有点特殊, setns不会把calling线程put到目标PID空间, 而是把calling线程的接下来的子进程放到目标PID空间.
+
+### 权限
+调用线程需要有`CAP_SYS_ADMIN`权限
+
+
+## 其他
+查看所有名字空间
+```
+lsns
+```
+
+## mount名字空间的问题以及golang的解决方案
+多线程的程序可能不能`setns`到mount名字空间. 另外, 除了`CAP_SYS_ADMIN`, mount名字空间还需要`CAP_SYS_CHROOT`权限.
+
+golang里面, 因为goroutine可以在不同线程间被调度, 而`setns`需要以线程为基础, 所以`setns`到mount名字空间会返回`invalid argument`
+
+```c
+#include <errno.h>
+#include <sched.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+
+main(int argc, char* argv[]) {
+    int i;
+    char nspath[1024];
+    char *namespaces[] = { "ipc", "uts", "net", "pid", "mnt" };
+
+    if (geteuid()) { fprintf(stderr, "%s\n", "abort: you want to run this as root"); exit(1); }
+
+    if (argc != 2) { fprintf(stderr, "%s\n", "abort: you must provide a PID as the sole argument"); exit(2); }
+
+    for (i=0; i<5; i++) {
+        sprintf(nspath, "/proc/%s/ns/%s", argv[1], namespaces[i]);
+        int fd = open(nspath, O_RDONLY);
+
+        if (setns(fd, 0) == -1) { 
+            fprintf(stderr, "setns on %s namespace failed: %s\n", namespaces[i], strerror(errno));
+        } else {
+            fprintf(stdout, "setns on %s namespace succeeded\n", namespaces[i]);
+        }
+
+        close(fd);
+    }
+}
+
+//sudo ./checkns <PID>
+//output:
+setns on ipc namespace succeeded
+setns on uts namespace succeeded
+setns on net namespace succeeded
+setns on pid namespace succeeded
+setns on mnt namespace succeeded
+```
+
+对应的go代码会出现错误
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+    "path/filepath"
+    "syscall"
+)
+
+func main() {
+    if syscall.Geteuid() != 0 {
+        fmt.Println("abort: you want to run this as root")
+        os.Exit(1)
+    }
+
+    if len(os.Args) != 2 {
+        fmt.Println("abort: you must provide a PID as the sole argument")
+        os.Exit(2)
+    }
+
+    namespaces := []string{"ipc", "uts", "net", "pid", "mnt"}
+
+    for i := range namespaces {
+        fd, _ := syscall.Open(filepath.Join("/proc", os.Args[1], "ns", namespaces[i]), syscall.O_RDONLY, 0644)
+        err, _, msg := syscall.RawSyscall(308, uintptr(fd), 0, 0) // 308 == setns
+
+        if err != 0 {
+            fmt.Println("setns on", namespaces[i], "namespace failed:", msg)
+        } else {
+            fmt.Println("setns on", namespaces[i], "namespace succeeded")
+        }
+
+    }
+}
+
+//sudo go run main.go <PID>
+//output:
+setns on ipc namespace succeeded
+setns on uts namespace succeeded
+setns on net namespace succeeded
+setns on pid namespace succeeded
+setns on mnt namespace failed: invalid argument
+```
+[stackoverflow的讨论](https://stackoverflow.com/questions/25704661/calling-setns-from-go-returns-einval-for-mnt-namespace)
+
+在`runc`的源代码中, 
+`https://github.com/opencontainers/runc/blob/main/libcontainer/process_linux.go`  
+函数`func (p *initProcess) goCreateMountSources(ctx context.Context) (mountSourceRequestFn, context.CancelFunc, error)`中似乎解决了这个问题:
+```go
+// goCreateMountSources spawns a goroutine which creates open_tree(2)-style
+// mountfds based on the requested configs.Mount configuration. The returned
+// requestFn and cancelFn are used to interact with the goroutine.
+//
+// The caller of the returned mountSourceRequestFn is responsible for closing
+// the returned file.
+func (p *initProcess) goCreateMountSources(ctx context.Context) (mountSourceRequestFn, context.CancelFunc, error) {
+	type response struct {
+		src *mountSource
+		err error
+	}
+
+	errCh := make(chan error, 1)
+	requestCh := make(chan *configs.Mount)
+	responseCh := make(chan response)
+
+	ctx, cancelFn := context.WithTimeout(ctx, 1*time.Minute)
+	go func() {
+		// We lock this thread because we need to setns(2) here. There is no
+		// UnlockOSThread() here, to ensure that the Go runtime will kill this
+		// thread once this goroutine returns (ensuring no other goroutines run
+		// in this context).
+		runtime.LockOSThread()
+
+		// Detach from the shared fs of the rest of the Go process in order to
+		// be able to CLONE_NEWNS.
+		if err := unix.Unshare(unix.CLONE_FS); err != nil {
+			err = os.NewSyscallError("unshare(CLONE_FS)", err)
+			errCh <- fmt.Errorf("mount source thread: %w", err)
+			return
+		}
+
+		// Attach to the container's mount namespace.
+		nsFd, err := os.Open(fmt.Sprintf("/proc/%d/ns/mnt", p.pid()))
+		if err != nil {
+			errCh <- fmt.Errorf("mount source thread: open container mntns: %w", err)
+			return
+		}
+		defer nsFd.Close()
+		if err := unix.Setns(int(nsFd.Fd()), unix.CLONE_NEWNS); err != nil {
+			err = os.NewSyscallError("setns", err)
+			errCh <- fmt.Errorf("mount source thread: join container mntns: %w", err)
+			return
+		}
+
+		// No errors during setup!
+		close(errCh)
+		logrus.Debugf("mount source thread: successfully running in container mntns")
+
+		nsHandles := new(userns.Handles)
+		defer nsHandles.Release()
+	loop:
+		for {
+			select {
+			case m, ok := <-requestCh:
+				if !ok {
+					break loop
+				}
+				src, err := mountFd(nsHandles, m)
+				logrus.Debugf("mount source thread: handling request for %q: %v %v", m.Source, src, err)
+				responseCh <- response{
+					src: src,
+					err: err,
+				}
+			case <-ctx.Done():
+				break loop
+			}
+		}
+		logrus.Debugf("mount source thread: closing thread: %v", ctx.Err())
+		close(responseCh)
+	}()
+
+	// Check for setup errors.
+	err := <-errCh
+	if err != nil {
+		cancelFn()
+		return nil, nil, err
+	}
+
+	// TODO: Switch to context.AfterFunc when we switch to Go 1.21.
+	var requestChCloseOnce sync.Once
+	requestFn := func(m *configs.Mount) (*mountSource, error) {
+		var err error
+		select {
+		case requestCh <- m:
+			select {
+			case resp, ok := <-responseCh:
+				if ok {
+					return resp.src, resp.err
+				}
+			case <-ctx.Done():
+				err = fmt.Errorf("receive mount source context cancelled: %w", ctx.Err())
+			}
+		case <-ctx.Done():
+			err = fmt.Errorf("send mount request cancelled: %w", ctx.Err())
+		}
+		requestChCloseOnce.Do(func() { close(requestCh) })
+		return nil, err
+	}
+	return requestFn, cancelFn, nil
+}
+```
+
+关键在go出去的routine里, 首先调用`runtime.LockOSThread()`
+这里的注释
+```
+// We lock this thread because we need to setns(2) here. There is no
+// UnlockOSThread() here, to ensure that the Go runtime will kill this
+// thread once this goroutine returns (ensuring no other goroutines run
+// in this context).
+```
+以及`https://github.com/opencontainers/runc/tree/main/libcontainer/nsenter`的readme:
+> The nsenter package registers a special init constructor that is called before the Go runtime has a chance to boot. This provides us the ability to setns on existing namespaces and avoid the issues that the Go runtime has with multiple threads. This constructor will be called if this package is registered, imported, in your go application.
+> 
+> The nsenter package will import "C" and it uses cgo package. In cgo, if the import of "C" is immediately preceded by a comment, that comment, called the preamble, is used as a header when compiling the C parts of the package. So every time we import package nsenter, the C code function nsexec() would be called. And package nsenter is only imported in init.go, so every time the runc init command is invoked, that C code is run.
+> 
+> Because nsexec() must be run before the Go runtime in order to use the Linux kernel namespace, you must import this library into a package if you plan to use libcontainer directly. Otherwise Go will not execute the nsexec() constructor, which means that the re-exec will not cause the namespaces to be joined. You can import it like this:
+> 
+> `import _ "github.com/opencontainers/runc/libcontainer/nsenter"`
 
 # select随机选择ready的case
 adaptiveservice的chan transport实现里, 出现来的一个bug. 现象是丢消息. 最后调查下来和select的随机选择case有关.
@@ -231,10 +536,10 @@ runtime.sigtramp()
 * https://www.arp242.net/static-go.html
 
 ## 结论
-||Dynamically-linked binary | Statically-linked binary |
-| --- |  --- |  --- |
-| **Libc functions** | `go build` | `go build -ldflags "-linkmode 'external' -extldflags '-static'"` |
-| **Golang functions** | n/a | `CGO_ENABLED=0 go build` |
+|                      | Dynamically-linked binary | Statically-linked binary                                         |
+| -------------------- | ------------------------- | ---------------------------------------------------------------- |
+| **Libc functions**   | `go build`                | `go build -ldflags "-linkmode 'external' -extldflags '-static'"` |
+| **Golang functions** | n/a                       | `CGO_ENABLED=0 go build`                                         |
 
 I.e.
 

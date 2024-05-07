@@ -47,6 +47,7 @@
   * [linux名字空间](notes/container_linux_namespaces.md)
   * [云杂记](notes/cloud_杂记.md)
   * [当代容器读书笔记](notes/container_当代容器读书笔记.md)
+  * [multi-arch docker 和 binfmt_misc](notes/multi-arch_docker_binfmt_misc.md)
 
 * [CPU和device虚拟化](notes/as_title_vdevice.md)
   * [gvisor](notes/as_title_gvisor.md)

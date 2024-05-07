@@ -1,6 +1,7 @@
 - [docker加proxy](#docker加proxy)
 - [docker限制CPU和内存](#docker限制cpu和内存)
 - [使用nsenter进入容器](#使用nsenter进入容器)
+- [全部清除](#全部清除)
 - [清除不用的image](#清除不用的image)
 - [清除不用的container](#清除不用的container)
 - [重载entrypoint启动](#重载entrypoint启动)
@@ -62,6 +63,11 @@ $ docker run -it --cpu-period=100000 --cpu-quota=50000 ubuntu /bin/bash
 > 原理大概就是clone子进程的时候加各种new标记, 比如CLONE_NEWNS, CLONE_NEWIPC, CLONE_NEWPID等等.
 默认是进入一个新的name space, 并执行命令. 后面执行的命令对host的空间没影响.
 用`-t`选项可以理解为attach到target pid的name space.
+
+# 全部清除
+```sh
+docker system prune -a --volumes --force
+```
 
 # 清除不用的image
 The `docker image prune` command allows you to clean up unused images. By default, `docker image prune` only cleans up _dangling_ images. A dangling image is one that is not tagged and is not referenced by any container. To remove dangling images:
