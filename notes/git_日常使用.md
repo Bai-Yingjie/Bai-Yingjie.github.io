@@ -160,6 +160,10 @@ git rebase -i 82350e5
 git commit --amend --author "Bai Yingjie <byj.tea@gmail.com>"
 git rebase --continue
 ```
+用`--exec`选项可以让这个过程更丝滑一些:
+```
+git rebase 82350e5 --exec 'git commit --amend --author="Bai Yingjie <byj.tea@gmail.com>"'
+```
 
 ## 修改commit时间
 ```sh

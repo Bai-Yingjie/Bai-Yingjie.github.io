@@ -7,6 +7,7 @@
     - [注册runner](#注册runner)
 - [runner使用和`.gitlab-ci.yml`](#runner使用和gitlab-ciyml)
   - [runner管理](#runner管理)
+  - [命令参考汇总](#命令参考汇总)
   - [image和services](#image和services)
   - [docker runner和shell runner](#docker-runner和shell-runner)
   - [job和script](#job和script)
@@ -80,6 +81,26 @@ sudo gitlab-runner register \
   --tag-list "docker-generic" \
   --docker-image alpine:latest
 ```
+New:
+```sh
+sudo gitlab-runner register \
+  --url "https://gitlabe1.ext.net.nokia.com/" \
+  --description "docker-rebornlinux" \
+  --registration-token "GR1348941GUgbYxRVVanUsxWc_hSb" \
+  --executor "docker" \
+  --tag-list "docker-generic" \
+  --docker-image alpine:latest \
+  --run-untagged
+
+sudo gitlab-runner register \
+  --url "https://gitlabe1.ext.net.nokia.com/" \
+  --description "shell-rebornlinux" \
+  --registration-token "GR1348941GUgbYxRVVanUsxWc_hSb" \
+  --executor "shell" \
+  --tag-list "shell-generic" \
+  --run-untagged
+```
+
 在ubuntu上, 看runner服务的状态
 ```sh
 yingjieb@cloud-server-1:~$ systemctl status gitlab-runner
@@ -109,6 +130,85 @@ unregister
 install
 uninstall
 等等
+```
+
+## 命令参考汇总
+以root用户运行
+```shell
+# 安装docker
+apt update
+apt install docker.io
+echo '{ "mtu":1450 }' > /etc/docker/daemon.json
+systemctl restart docker
+
+# 安装gitlab runner
+curl -L --output /usr/local/bin/gitlab-runner "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/v15.4.2/binaries/gitlab-runner-linux-amd64"
+chmod +x /usr/local/bin/gitlab-runner
+useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
+gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+sed -i 's/concurrent = 1/concurrent = 10/' /etc/gitlab-runner/config.toml
+usermod -aG docker gitlab-runner
+systemctl start gitlab-runner
+
+# 注册runner
+gitlab-runner register \
+  --url "https://gitlabe1.ext.net.nokia.com/" \
+  --description "docker-aports" \
+  --registration-token "GR1348941X4RqAaWzxPoe6YDPZKyk" \
+  --executor "docker" \
+  --tag-list "docker-aports" \
+  --limit 1 \
+  --docker-image alpine:latest
+
+
+gitlab-runner register \
+  --url "https://gitlabe1.ext.net.nokia.com/" \
+  --description "docker-rebornlinux" \
+  --registration-token "GR1348941X4RqAaWzxPoe6YDPZKyk" \
+  --executor "docker" \
+  --tag-list "docker-generic" \
+  --docker-image alpine:latest \
+  --run-untagged
+  
+
+gitlab-runner register \
+  --url "https://gitlabe1.ext.net.nokia.com/" \
+  --description "shell-rebornlinux" \
+  --registration-token "GR1348941X4RqAaWzxPoe6YDPZKyk" \
+  --executor "shell" \
+  --tag-list "shell-generic"
+
+# runner配置
+cat /etc/gitlab-runner/config.toml
+concurrent = 10
+check_interval = 0
+
+[session_server]
+  session_timeout = 1800
+[[runners]]
+  name = "docker-aports"
+  limit = 1
+  url = "https://gitlabe1.ext.net.nokia.com/"
+  id = 175571
+  token = "TH7uqYiEYLAMwSz8BPZB"
+  token_obtained_at = 2024-05-03T14:46:12Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "docker"
+  [runners.custom_build_dir]
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+    [runners.cache.azure]
+  [runners.docker]
+    tls_verify = false
+    image = "alpine:latest"
+    privileged = false
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    disable_cache = false
+    volumes = ["/cache", "/repo/distfiles:/var/cache/distfiles:rw"]
+    shm_size = 0
+
 ```
 
 ## image和services
@@ -194,12 +294,12 @@ workflow有[官方模板](https://docs.gitlab.com/ee/ci/yaml/README.html#workflo
 ## include其他yml
 有4种include类型
 
-| Method | Description |
-| --- | --- |
-| [`local`](https://docs.gitlab.com/ee/ci/yaml/README.html#includelocal) | Include a file from the local project repository. |
-| [`file`](https://docs.gitlab.com/ee/ci/yaml/README.html#includefile) | Include a file from a different project repository. |
-| [`remote`](https://docs.gitlab.com/ee/ci/yaml/README.html#includeremote) | Include a file from a remote URL. Must be publicly accessible. |
-| [`template`](https://docs.gitlab.com/ee/ci/yaml/README.html#includetemplate) | Include templates that are provided by GitLab. |
+| Method                                                                       | Description                                                    |
+| ---------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| [`local`](https://docs.gitlab.com/ee/ci/yaml/README.html#includelocal)       | Include a file from the local project repository.              |
+| [`file`](https://docs.gitlab.com/ee/ci/yaml/README.html#includefile)         | Include a file from a different project repository.            |
+| [`remote`](https://docs.gitlab.com/ee/ci/yaml/README.html#includeremote)     | Include a file from a remote URL. Must be publicly accessible. |
+| [`template`](https://docs.gitlab.com/ee/ci/yaml/README.html#includetemplate) | Include templates that are provided by GitLab.                 |
 
 ## 可配参数参考
 [Parameter details](https://docs.gitlab.com/ee/ci/yaml/README.html#parameter-details)
@@ -217,12 +317,12 @@ CI_COMMIT_BRANCH
 
 其中几个在if条件里挺有用:
 
-| Example rules | Details |
-| --- | --- |
-| `if: '$CI_PIPELINE_SOURCE == "merge_request_event"'` | Control when merge request pipelines run. |
-| `if: '$CI_PIPELINE_SOURCE == "push"'` | Control when both branch pipelines and tag pipelines run. |
-| `if: $CI_COMMIT_TAG` | Control when tag pipelines run. |
-| `if: $CI_COMMIT_BRANCH` | Control when branch pipelines run. |
+| Example rules                                        | Details                                                   |
+| ---------------------------------------------------- | --------------------------------------------------------- |
+| `if: '$CI_PIPELINE_SOURCE == "merge_request_event"'` | Control when merge request pipelines run.                 |
+| `if: '$CI_PIPELINE_SOURCE == "push"'`                | Control when both branch pipelines and tag pipelines run. |
+| `if: $CI_COMMIT_TAG`                                 | Control when tag pipelines run.                           |
+| `if: $CI_COMMIT_BRANCH`                              | Control when branch pipelines run.                        |
 
 # How to do continuous integration like a boss
 参考[gitlab本身的ci配置](https://gitlab.com/gitlab-org/gitlab/blob/master/.gitlab-ci.yml)

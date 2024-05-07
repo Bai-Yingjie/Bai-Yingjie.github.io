@@ -97,7 +97,7 @@ get_tls(CX)
 MOVL	g(CX), AX     // Move g into AX.
 MOVL	g_m(AX), BX   // Move g.m into BX.
 ```
-原理是使用一个不用的MMU寄存器来保存`g``, 把这个寄存器赋值给用户传入的寄存器`CX`, 这样`CX`就是`g`的指针.
+原理是使用一个不用的MMU寄存器来保存`g`, 把这个寄存器赋值给用户传入的寄存器`CX`, 这样`CX`就是`g`的指针.
 
 `timandy/routine`的`386`实现如下
 ```go
