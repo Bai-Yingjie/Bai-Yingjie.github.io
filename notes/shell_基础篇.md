@@ -16,6 +16,7 @@
 - [跳过前几行](#跳过前几行)
 - [重定向前面不能有空格](#重定向前面不能有空格)
 - [shell单引号和双引号的重要区别](#shell单引号和双引号的重要区别)
+- [直接引用变量会删掉多余空格, 而双引号保留空格](#直接引用变量会删掉多余空格-而双引号保留空格)
 - [保存多行输出到shell变量](#保存多行输出到shell变量)
 - [pstree pgrep and ps](#pstree-pgrep-and-ps)
 - [rsync 实例](#rsync-实例)
@@ -405,6 +406,20 @@ bai@CentOS-43 ~/repo/save
 #结论: 双引号有展开属性, 这里在赋值的时候就把date算好了
 #赋给cmd时date值已经固定了, 所以双引号无变化
 #单引号不会展开
+```
+
+# 直接引用变量会删掉多余空格, 而双引号保留空格
+比如
+```shell
+$ string="musl        musl-dbg:v123 musl-dev"
+
+# 去掉多余空格
+$ echo $string
+musl musl-dbg:v123 musl-dev
+
+# 原汁原味保留所有空格
+$ echo "$string"
+musl        musl-dbg:v123 musl-dev
 ```
 
 # 保存多行输出到shell变量

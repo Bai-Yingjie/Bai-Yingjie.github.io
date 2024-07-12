@@ -6,6 +6,12 @@
   - [ppc](#ppc)
   - [ppc64](#ppc64)
   - [aarch64](#aarch64)
+- [解决"not installed setuid"问题](#解决not-installed-setuid问题)
+  - [背景](#背景)
+  - [解决](#解决)
+- [在ubuntu host上使用qemu-user](#在ubuntu-host上使用qemu-user)
+- [abuild rootbld命令和bwrap](#abuild-rootbld命令和bwrap)
+  - [bwrap](#bwrap)
 
 Linux Kernel提供了binfmt_misc机制来[执行任意类型的文件](profiling_调试和分析记录3.md#linux执行文件的过程).
 
@@ -104,6 +110,8 @@ a.out: ELF 64-bit LSB pie executable, ARM aarch64, version 1 (SYSV), dynamically
 
 注: 
 * 所有container, 包括host, 共享binfmt_misc的配置, 操作会互相影响. 因为只有一个binfmt_misc驱动.
+* binfmt_misc的`F`标记的含义, 即使是在container里面注册的`/usr/bin/qemu-aarch64`, container退出后, 还可以继续使用, 因为该文件在kernel已经被open了, 不关闭.
+> The usual behaviour of binfmt_misc is to spawn the binary lazily when the misc format file is invoked. However, this doesn’t work very well in the face of mount namespaces and changeroots, so the F mode opens the binary as soon as the emulation is installed and uses the opened image to spawn the emulator, meaning it is always available once installed, regardless of how the environment changes.
 
 参考:
 * [qemu binfmt的magic查表](https://github.com/qemu/qemu/blob/master/scripts/qemu-binfmt-conf.sh)
@@ -160,6 +168,7 @@ Usage: /lib/ld-musl-aarch64.so.1 [options] [--] pathname
 参考:
 * https://docs.docker.com/build/guide/multi-platform/
 * https://docs.docker.com/build/building/multi-platform/
+* https://github.com/multiarch/qemu-user-static
 
 # 其他arch参考
 使用root用户执行
@@ -260,3 +269,153 @@ Usage: /lib/ld-musl-aarch64.so.1 [options] [--] pathname
 ```shell
 apk add -p $ARCH --initdb -U --arch $ARCH --allow-untrusted ca-certificates
 ```
+
+# 解决"not installed setuid"问题
+## 背景
+当准备好sysroot-aarch64目录后, 我们可以chroot到该目录. 因为之前注册过qemu-aarch64的binfmt_misc handler, 所以我们可以直接在x86_64机器上运行aarch64的最小系统
+```
+# 在x86_64 host上
+doas unshare -mpf --setgroups allow chroot sysroot-aarch64 /bin/sh
+
+# 已经进入到chroot环境, 里面是aarch64的系统
+# 默认是root用户, 切换到reborn用户.
+su reborn
+
+# 但在reborn用户下, 运行doas命令会返回错误
+doas ls
+doas: not installed setuid
+```
+
+这个错误和setuid bit有关.
+```
+ls -l `which doas`
+-rwsr-xr-x    1 root     root         67280 Sep 24  2023 /usr/bin/doas
+```
+上面`/usr/bin/doas`这个bin有个`s`权限, 这个权限就是setuid标记, 有了这个bit, `/usr/bin/doas`就可以以root身份来运行.
+
+现在的问题是, `/usr/bin/doas`已经有了`s`权限, 但为什么会报错`not installed setuid`?
+
+问题出现在我们是用`qemu-aarch64`来运行的`doas`, 而`qemu-aarch64`不带`s`标记, 理论上`qemu-aarch64`不能以root运行, 那么以它来调用`qemu-aarch64 doas ls`就不能以root运行, 报错是合理的.
+
+## 解决
+根据[binfmt-misc](https://www.kernel.org/doc/Documentation/admin-guide/binfmt-misc.rst)的说明, 增加`C`标记可以解决:
+
+```
+sh -c 'echo ":qemu-aarch64:M::\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-aarch64:CF" > /proc/sys/fs/binfmt_misc/register'
+```
+我在注册binfmt-misc的qemu-aarch64 handler时, 最后加了`CF`标记.
+
+最后在chroot到sysroot-aarch64后, 用reborn用户可以正常执行`doas`命令.
+
+总结: 在用qemu-aarch64来执行带`s`标记的binary时, 如果出现`not installed setuid`错误, 要在注册binfmt_misc handler时, 加上`C`标记.
+
+即:
+```
+cat /proc/sys/fs/binfmt_misc/qemu-aarch64
+enabled
+interpreter /usr/bin/qemu-aarch64
+flags: F
+offset 0
+magic 7f454c460201010000000000000000000200b700
+mask ffffffffffffff00fffffffffffffffffeffffff
+```
+要变成
+```
+cat /proc/sys/fs/binfmt_misc/qemu-aarch64
+enabled
+interpreter /usr/bin/qemu-aarch64
+flags: CF
+offset 0
+magic 7f454c460201010000000000000000000200b700
+mask ffffffffffffff00fffffffffffffffffeffffff
+```
+
+实际上, 通常最终的标记是:
+```
+cat /proc/sys/fs/binfmt_misc/qemu-aarch64
+enabled
+interpreter /usr/libexec/qemu-binfmt/aarch64-binfmt-P
+flags: POCF
+offset 0
+magic 7f454c460201010000000000000000000200b700
+mask ffffffffffffff00fffffffffffffffffeffffff
+```
+
+`POCF`标记的含义:
+> P - preserve-argv[0]
+Legacy behavior of binfmt_misc is to overwrite the original argv[0] with the full path to the binary. When this flag is included, binfmt_misc will add an argument to the argument vector for this purpose, thus preserving the original argv[0]. e.g. If your interp is set to /bin/foo and you run blah (which is in /usr/local/bin), then the kernel will execute /bin/foo with argv[] set to ["/bin/foo", "/usr/local/bin/blah", "blah"]. The interp has to be aware of this so it can execute /usr/local/bin/blah with argv[] set to ["blah"].
+
+> O - open-binary
+Legacy behavior of binfmt_misc is to pass the full path of the binary to the interpreter as an argument. When this flag is included, binfmt_misc will open the file for reading and pass its descriptor as an argument, instead of the full path, thus allowing the interpreter to execute non-readable binaries. This feature should be used with care - the interpreter has to be trusted not to emit the contents of the non-readable binary.
+
+> C - credentials
+Currently, the behavior of binfmt_misc is to calculate the credentials and security token of the new process according to the interpreter. When this flag is included, these attributes are calculated according to the binary. It also implies the O flag. This feature should be used with care as the interpreter will run with root permissions when a setuid binary owned by root is run with binfmt_misc.
+
+> F - fix binary
+The usual behaviour of binfmt_misc is to spawn the binary lazily when the misc format file is invoked. However, this doesn’t work very well in the face of mount namespaces and changeroots, so the F mode opens the binary as soon as the emulation is installed and uses the opened image to spawn the emulator, meaning it is always available once installed, regardless of how the environment changes.
+
+
+参考:
+* https://stackoverflow.com/questions/75954301/using-sudo-in-podman-with-qemu-architecture-emulation-leads-to-sudo-effective-u?noredirect=1&lq=1
+
+# 在ubuntu host上使用qemu-user
+```shell
+# 安装qemu-user-static, 会自动注册binfmt_misc handler
+apt install qemu-user-static
+# 可以查看注册的handler详细信息
+update-binfmts --display
+```
+安装后, 多个binfmt_misc handler被自动注册好了: 
+![](img/multi-arch_docker_binfmt_misc_20240507105552.png)
+
+随后用
+```shell
+docker run --platform linux/arm64 -it alpine sh
+```
+就可以直接执行aarch64的docker image了
+
+但是alpine并没有提供mips64, ppc, ppc64的image: 
+![](img/multi-arch_docker_binfmt_misc_20240507110011.png)
+
+参考:
+* https://wiki.debian.org/QemuUserEmulation
+
+# abuild rootbld命令和bwrap
+abuild提供了rootbld命令, 可以在`bwrap`创建的类chroot环境里运行`abuild build`.
+其具体的实现是`/usr/bin/abuild`的`rootbld`函数:
+* 首先要求CBUILD=$CHOST
+* 其次要求qemu的handler已经注册, 即存在文件`"/proc/sys/fs/binfmt_misc/qemu-$(rootbld_qemu_arch)"`
+* 创建临时目录`BUILD_ROOT=$(mktemp -d /var/tmp/abuild.XXXXXXXXXX)`
+* 其他准备工作
+* 调用bwrap
+```shell
+    bwrap --new-session --unshare-ipc --unshare-uts $bwrap_opts \
+        --ro-bind "$BUILD_ROOT" / \
+        --proc /proc \
+        --dev-bind /dev /dev \
+        --bind "$BUILD_ROOT/$HOME" "$HOME" \
+        --ro-bind "$ABUILD_USERDIR" "$ABUILD_USERDIR" \
+        --ro-bind "$aportsgit" "$aportsgit" \
+        ${USE_CCACHE:+ --bind "$HOME/.ccache" "$HOME/.ccache"} \
+        --bind "$SRCDEST" "$SRCDEST" \
+        --bind "$BUILD_ROOT/tmp" /tmp \
+        --bind "$BUILD_ROOT/tmp/src" "$srcdir" \
+        --bind "$BUILD_ROOT/tmp/pkg" "$pkgbasedir" \
+        --bind "$REPODEST" "$REPODEST" \
+        --hostname "build-$buildhost-$CARCH" \
+        --chdir "$startdir" \
+        --clearenv \
+        --setenv HOME "$HOME" \
+        --setenv REPODEST "$REPODEST" \
+        ${ABUILD_BOOTSTRAP:+--setenv ABUILD_BOOTSTRAP "$ABUILD_BOOTSTRAP"} \
+        --setenv SOURCE_DATE_EPOCH "$SOURCE_DATE_EPOCH" \
+        --setenv ABUILD_LAST_COMMIT "$ABUILD_LAST_COMMIT" \
+        --setenv PATH ${USE_CCACHE:+/usr/lib/ccache/bin:}/bin:/usr/bin:/sbin:/usr/sbin \
+        --setenv FAKEROOTDONTTRYCHOWN 1 \
+        --unsetenv CBUILD \
+        /usr/bin/abuild $force rootbld_actions
+```
+* update_abuildrepo_index
+
+## bwrap
+[Bubblewrap](https://github.com/containers/bubblewrap)致力于给非特权用户提供一个sandbox环境. 可以认为bwrap是一个非特权用户的chroot, 最早起源于[linux-user-chroot](https://gitlab.gnome.org/Archive/linux-user-chroot)

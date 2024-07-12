@@ -28,6 +28,7 @@
 	- [支持交叉编译](#支持交叉编译)
 	- [交叉编译实例](#交叉编译实例)
 	- [处理依赖](#处理依赖)
+	- [distfiles缓存](#distfiles缓存)
 - [apk使用](#apk使用)
 	- [bootstrap](#bootstrap)
 	- [编译gccgo for ppc](#编译gccgo-for-ppc)
@@ -50,6 +51,17 @@
 	- [depends](#depends)
 	- [depends\_dev](#depends_dev)
 	- [子package依赖](#子package依赖)
+- [针对CPU优化](#针对cpu优化)
+	- [普通abuild编译](#普通abuild编译)
+	- [交叉编译的bootstrap](#交叉编译的bootstrap)
+	- [为什么mips64默认是软浮点?](#为什么mips64默认是软浮点)
+		- [musl](#musl)
+		- [gcc](#gcc)
+			- [octeon3](#octeon3)
+			- [e500-mc](#e500-mc)
+			- [e6500](#e6500)
+			- [powerpc](#powerpc)
+	- [引入新CPU架构参考](#引入新cpu架构参考)
 
 # 现代化的工程系统
 alpine linux的全部开发都在  
@@ -729,6 +741,26 @@ deps() {
 }
 ```
 
+## distfiles缓存
+由于某些原因, 在abuild fetch源代码阶段会失败, 通常是上游删除了对应版本的源码, 即上游的download url不再有效. 这个情况下, 可以使用alpine官方的distfiles:
+`https://distfiles.alpinelinux.org/distfiles/v3.18/`
+
+手动下载需要的源码版本, 并使用docker bind mount到`/var/cache/distfiles`就可以了.
+比如
+```shell
+wget https://freeradius.org/ftp/pub/freeradius/freeradius-server-3.0.26.tar.gz
+chown 4000:4000 freeradius-server-3.0.26.tar.gz
+
+wget https://distfiles.alpinelinux.org/distfiles/v3.18/lpty-1.2.2-1.tar.gz
+chown 4000:4000 lpty-1.2.2-1.tar.gz
+
+wget https://distfiles.alpinelinux.org/distfiles/v3.18/rp-pppoe-4.0.tar.gz
+chown 4000:4000 rp-pppoe-4.0.tar.gz
+
+wget https://distfiles.alpinelinux.org/distfiles/v3.18/acpica-unix-20221020.tar.gz
+chown 4000:4000 acpica-unix-20221020.tar.gz
+```
+
 # apk使用
 前面说过, 在`/etc/apk/repositories`中可以配置apk使用本地包, 比如
 ```sh
@@ -1049,7 +1081,7 @@ curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5
 
 # APKBUILD 文件
 ## depends
-运行时的非so依赖. 动态链接库(so)的依赖是自动监测的, 不要写在这里. 用`!`前缀可以指定冲突的依赖.
+运行时的非so依赖. 动态链接库(so)的依赖是自动检测的, 不要写在这里. 用`!`前缀可以指定冲突的依赖.
 
 ## depends_dev
 子package `$pkgname-dev`的运行时依赖
@@ -1061,3 +1093,308 @@ curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5
 * depends_libs
 * depends_static
 
+# 针对CPU优化
+使用场景是我想针对某个CPU, 比如octeon3, 做编译优化.
+
+比如[gentoo的编译优化](https://wiki.gentoo.org/wiki/GCC_optimization)在`/etc/portage/make.conf`中:
+```
+CFLAGS="-march=skylake -O2 -pipe"
+CXXFLAGS="${CFLAGS}"
+```
+还有其他的优化选项:
+* `-march`: This tells the compiler what code it should produce for the system's processor architecture (or arch); it tells GCC that it should produce code for a certain kind of CPU.
+* `-mtune`, `-mcpu`: Also available are the -mtune and -mcpu flags. These flags are normally only used when there is no available -march option; certain processor architectures may require -mtune or even -mcpu. Unfortunately, GCC's behavior isn't very consistent with how each flag behaves from one architecture to the next.
+* `-O N`: 优化级别
+* `-pipe`: This flag has no effect on the generated code, but it makes the compilation process faster. It tells the compiler to use pipes instead of temporary files during the different stages of compilation, which uses more memory. On systems with low memory, GCC might get killed. In those cases do not use this flag.
+
+## 普通abuild编译
+当使用`abuild -r`来编译package时, 一般地, 是没有优化选项的.
+比如htop:
+```
+gcc -DHAVE_CONFIG_H -I.  -DNDEBUG -Os -Wformat -Werror=format-security -Wall -Wcast-align -Wcast-qual -Wextra -Wfloat-equal -Wformat=2 -Winit-self -Wmissing-format-attribute -Wmissing-noreturn -Wmissing-prototypes -Wpointer-arith -Wshadow -Wstrict-prototypes -Wundef -Wunused -Wwrite-strings -Wnull-dereference -pedantic -std=c99 -D_XOPEN_SOURCE_EXTENDED -DSYSCONFDIR="\"/etc\"" -I"./linux" -DNCURSES_WIDECHAR -Os -Wformat -Werror=format-security -MT MemorySwapMeter.o -MD -MP -MF $depbase.Tpo -c -o MemorySwapMeter.o MemorySwapMeter.c
+```
+
+再比如musl:
+```
+gcc -std=c99 -nostdinc -ffreestanding -fexcess-precision=standard -frounding-math -fno-strict-aliasing -Wa,--noexecstack -D_XOPEN_SOURCE=700 -I./arch/aarch64 -I./arch/generic -Iobj/src/internal -I./src/include -I./src/internal -Iobj/include -I./include -Os -Wformat -Werror=format-security -g -pipe -fno-unwind-tables -fno-asynchronous-unwind-tables -ffunction-sections -fdata-sections -Wno-pointer-to-int-cast -Werror=implicit-function-declaration -Werror=implicit-int -Werror=pointer-sign -Werror=pointer-arith -Werror=int-conversion -Werror=incompatible-pointer-types -Werror=discarded-qualifiers -Werror=discarded-array-qualifiers -Waddress -Warray-bounds -Wchar-subscripts -Wduplicate-decl-specifier -Winit-self -Wreturn-type -Wsequence-point -Wstrict-aliasing -Wunused-function -Wunused-label -Wunused-variable -Os -Wformat -Werror=format-security -g -fno-tree-loop-distribute-patterns -fno-stack-protector -fPIC -c -o obj/src/string/aarch64/memset.lo src/string/aarch64/memset.S
+```
+
+## 交叉编译的bootstrap
+`scripts/bootstrap.sh`可以用交叉编译的方式, 从零开始构建一个基础系统.
+
+* 首先创建sysroot, 一般都在`~/sysroot-$ARCH`, 比如`~/sysroot-aarch64`, 这个sysroot目录叫`CBUILDROOT`
+* 在sysroot里新建一个apk的db: `abuild-apk add --quiet --initdb --arch $TARGET_ARCH --root $CBUILDROOT`
+* abuild在交叉编译时, 会给gcc传入`--sysroot=`, 比如交叉编译musl:
+```shell
+aarch64-alpine-linux-musl-gcc -std=c99 -nostdinc -ffreestanding -fexcess-precision=standard -frounding-math -fno-strict-aliasing -Wa,--noexecstack -D_XOPEN_SOURCE=700 -I./arch/aarch64 -I./arch/generic -Iobj/src/internal -I./src/include -I./src/internal -Iobj/include -I./include --sysroot=/home/reborn/sysroot-aarch64/ -Os -Wformat -Werror=format-security -g -pipe -fno-unwind-tables -fno-asynchronous-unwind-tables -ffunction-sections -fdata-sections -Wno-pointer-to-int-cast -Werror=implicit-function-declaration -Werror=implicit-int -Werror=pointer-sign -Werror=pointer-arith -Werror=int-conversion -Werror=incompatible-pointer-types -Werror=discarded-qualifiers -Werror=discarded-array-qualifiers -Waddress -Warray-bounds -Wchar-subscripts -Wduplicate-decl-specifier -Winit-self -Wreturn-type -Wsequence-point -Wstrict-aliasing -Wunused-function -Wunused-label -Wunused-variable --sysroot=/home/reborn/sysroot-aarch64/ -Os -Wformat -Werror=format-security -g -fPIC -c -o obj/src/stdio/gets.lo src/stdio/gets.c
+```
+* 接下来编译cross版本的binutils: `CTARGET=$TARGET_ARCH BOOTSTRAP=nobase APKBUILD=$(apkbuildname binutils) abuild -r`
+* 然后编译musl的头文件: `CHOST=$TARGET_ARCH BOOTSTRAP=nocc APKBUILD=$(apkbuildname musl) abuild -r`
+* 然后编译交叉的gcc: `CTARGET=$TARGET_ARCH BOOTSTRAP=nolibc APKBUILD=$(apkbuildname gcc) abuild -r`
+* 再编一次musl: `CHOST=$TARGET_ARCH BOOTSTRAP=nolibc APKBUILD=$(apkbuildname musl) abuild -r`
+* 再编一次full cross gcc: `CTARGET=$TARGET_ARCH BOOTSTRAP=nobase APKBUILD=$(apkbuildname gcc) abuild -r`
+* 编译build-base: `CTARGET=$TARGET_ARCH BOOTSTRAP=nobase APKBUILD=$(apkbuildname build-base) abuild -r`
+* 依次编译基础包, 但限定`BOOTSTRAP=bootimage`: `fortify-headers linux-headers musl libc-dev pkgconf zlib openssl ca-certificates libmd gmp mpfr4 mpc1 isl26 libucontext zstd binutils gcc libbsd libretls mdev-conf busybox make apk-tools file libcap openrc alpine-conf alpine-baselayout alpine-keys alpine-base patch build-base attr acl fakeroot tar lzip abuild ncurses libedit openssh libcap-ng util-linux libaio lvm2 popt xz json-c argon2 cryptsetup kmod lddtree mkinitfs libffi brotli libev c-ares cunit nghttp2 libidn2 curl pcre libssh2 libxml2 pax-utils doas`
+
+## 为什么mips64默认是软浮点?
+用bootstrap编译mips64的基础包之后, 用qemu-user模式chroot到mips64的sysroot:
+
+准备mips64 sysroot:
+```shell
+cd /repo/yingjieb/rebornlinux/aports
+APORTSDIR=`pwd`
+. ci/functions.sh
+
+prepare_sysroot() {
+	cat << EOF
+	mkdir -p sysroot-$TARGET_ARCH/etc/apk
+	echo "$REBORNLINUX_ARTIFACTORY/$ARTIFACTORY_DIR/$MAJOR_RELEASE_VER/main" \
+		>> sysroot-$TARGET_ARCH/etc/apk/repositories
+	echo "$REBORNLINUX_ARTIFACTORY/$ARTIFACTORY_DIR/$MAJOR_RELEASE_VER/comunity" \
+		>> sysroot-$TARGET_ARCH/etc/apk/repositories
+	echo "$REBORNLINUX_ARTIFACTORY/$ARTIFACTORY_DIR/$MAJOR_RELEASE_VER/nokia" \
+		>> sysroot-$TARGET_ARCH/etc/apk/repositories
+
+	apk add -p sysroot-$TARGET_ARCH \
+		--initdb -U --arch $TARGET_ARCH \
+		--allow-untrusted \
+		alpine-base ca-certificates ca-certificates-bundle abuild build-base doas
+	cp $PACKAGER_PRIVKEY sysroot-$TARGET_ARCH/$PACKAGER_PRIVKEY
+	cp /etc/resolv.conf sysroot-$TARGET_ARCH/etc/resolv.conf
+
+	unshare -mpf --setgroups allow chroot sysroot-$TARGET_ARCH /bin/sh -c \
+		"ln -s /usr/bin/doas /usr/bin/sudo && \
+		adduser reborn -u 4000 -D && \
+		echo 'reborn:platform' | chpasswd && \
+		addgroup reborn wheel && \
+		addgroup reborn abuild && \
+		echo 'permit keepenv nopass :wheel as root' > /etc/doas.d/doas.conf && \
+		chmod 0600 /etc/doas.d/doas.conf"
+
+	sed -i '/^want_check()/a return 1' sysroot-$TARGET_ARCH/usr/bin/abuild
+
+	mkdir -p sysroot-$TARGET_ARCH/$APORTSDIR
+	mount --bind $APORTSDIR sysroot-$TARGET_ARCH/$APORTSDIR
+	mkdir -p sysroot-$TARGET_ARCH/$REPODEST
+	mount --bind $REPODEST sysroot-$TARGET_ARCH/$REPODEST
+	mount --bind /var/cache/distfiles sysroot-$TARGET_ARCH/var/cache/distfiles
+EOF
+}
+
+TARGET_ARCH=mips64
+doas sh -c "$(prepare_sysroot)"
+```
+
+进入mips64 chroot环境
+```shell
+doas unshare -mpf --setgroups allow chroot sysroot-$TARGET_ARCH /bin/sh
+
+	mount -t devtmpfs none /dev
+	mount -t devpts none /dev/pts
+	mount -t proc none /proc
+	mount -t sysfs none /sys
+	su reborn
+```
+里面ldd显示
+```
+$ ldd
+musl libc (mips64-sf)
+Version 1.2.4
+Dynamic Program Loader
+Usage: /lib/ld-musl-mips64-sf.so.1 [options] [--] pathname
+```
+文件`/lib/ld-musl-mips64-sf.so.1`是`musl-1.2.4-r2.apk`包里的.
+
+### musl
+musl源码中, configure代码里有这么一段:
+```shell
+trycppif () {
+printf "checking preprocessor condition %s... " "$1"
+echo "typedef int x;" > "$tmpc"
+echo "#if $1" >> "$tmpc"
+echo "#error yes" >> "$tmpc"
+echo "#endif" >> "$tmpc"
+if $CC $2 -c -o /dev/null "$tmpc" >/dev/null 2>&1 ; then
+printf "false\n"
+return 1
+else
+printf "true\n"
+return 0
+fi
+}
+
+if test "$ARCH" = "mips64" ; then
+trycppif "_MIPS_SIM != _ABI64" "$t" && ARCH=mipsn32
+trycppif "__mips_isa_rev >= 6" "$t" && SUBARCH=${SUBARCH}r6
+trycppif "_MIPSEL || __MIPSEL || __MIPSEL__" "$t" && SUBARCH=${SUBARCH}el
+trycppif __mips_soft_float "$t" && SUBARCH=${SUBARCH}-sf
+fi
+```
+编译记录里, 有这样的打印:
+```
+using compiler runtime libraries: -lgcc -lgcc_eh
+checking preprocessor condition _MIPS_SIM != _ABI64... false
+checking preprocessor condition __mips_isa_rev >= 6... false
+checking preprocessor condition _MIPSEL || __MIPSEL || __MIPSEL__... false
+checking preprocessor condition __mips_soft_float... true
+configured for mips64 variant: mips64-sf
+```
+这说明在编译musl的早期configure阶段, 就检测到`__mips_soft_float`已经被define了.
+
+是gcc默认填的吗?
+
+### gcc
+在gcc的编译log里, 有:
+```shell
+>>> gcc-pass2-mips64: Building the following:
+
+  CBUILD=x86_64-alpine-linux-musl
+  CHOST=x86_64-alpine-linux-musl
+  CTARGET=mips64-alpine-linux-musl
+  CTARGET_ARCH=mips64
+  CTARGET_LIBC=musl
+  languages=c
+  arch_configure=--with-arch=mips3 --with-tune=mips64 --with-mips-plt --with-float=soft --with-abi=64 --disable-libquadmath
+  libc_configure=--disable-libssp --disable-libsanitizer
+  cross_configure=--disable-bootstrap --with-sysroot=/home/reborn/sysroot-mips64/
+  bootstrap_configure=--with-newlib --disable-shared --enable-threads=no --disable-libgomp --disable-libatomic --disable-libitm
+  hash_style_configure=--with-linker-hash-style=sysv
+
+>>> gcc-mips64: Building the following:
+
+  CBUILD=x86_64-alpine-linux-musl
+  CHOST=x86_64-alpine-linux-musl
+  CTARGET=mips64-alpine-linux-musl
+  CTARGET_ARCH=mips64
+  CTARGET_LIBC=musl
+  languages=c,c++,ada
+  arch_configure=--with-arch=mips3 --with-tune=mips64 --with-mips-plt --with-float=soft --with-abi=64 --disable-libquadmath
+  libc_configure=--disable-libssp --disable-libsanitizer
+  cross_configure=--disable-bootstrap --with-sysroot=/home/reborn/sysroot-mips64/
+  bootstrap_configure=--enable-shared --enable-threads --enable-tls --disable-libgomp --disable-libitm
+  hash_style_configure=--with-linker-hash-style=sysv
+
+>>> gcc: Building the following:
+
+  CBUILD=x86_64-alpine-linux-musl
+  CHOST=mips64-alpine-linux-musl
+  CTARGET=mips64-alpine-linux-musl
+  CTARGET_ARCH=mips64
+  CTARGET_LIBC=musl
+  languages=c,c++,ada
+  arch_configure=--with-arch=mips3 --with-tune=mips64 --with-mips-plt --with-float=soft --with-abi=64 --disable-libquadmath
+  libc_configure=--disable-libssp --disable-libsanitizer
+  cross_configure=--disable-bootstrap
+  bootstrap_configure=--enable-shared --enable-threads --enable-tls --disable-libitm
+  hash_style_configure=--with-linker-hash-style=sysv
+```
+注意这里的`--with-float=soft`, 应该就是它引入了`__mips_soft_float`
+
+在`main/gcc/APKBUILD`中, 有这样的设置:
+```shell
+	case "$CTARGET" in
+	aarch64-*-*-*)		_arch_configure="--with-arch=armv8-a --with-abi=lp64";;
+	armv5-*-*-*eabi)	_arch_configure="--with-arch=armv5te --with-tune=arm926ej-s --with-float=soft --with-abi=aapcs-linux";;
+	armv6-*-*-*eabihf)	_arch_configure="--with-arch=armv6zk --with-tune=arm1176jzf-s --with-fpu=vfp --with-float=hard --with-abi=aapcs-linux";;
+	armv7-*-*-*eabihf)	_arch_configure="--with-arch=armv7-a --with-tune=generic-armv7-a --with-fpu=vfpv3-d16 --with-float=hard --with-abi=aapcs-linux --with-mode=thumb";;
+	mips-*-*-*)		_arch_configure="--with-arch=mips32 --with-mips-plt --with-float=soft --with-abi=32";;
+	mips64-*-*-*)		_arch_configure="--with-arch=mips3 --with-tune=mips64 --with-mips-plt --with-float=soft --with-abi=64";;
+	mips64el-*-*-*)		_arch_configure="--with-arch=mips3 --with-tune=mips64 --with-mips-plt --with-float=soft --with-abi=64";;
+	mipsel-*-*-*)		_arch_configure="--with-arch=mips32 --with-mips-plt --with-float=soft --with-abi=32";;
+	powerpc-*-*-*)		_arch_configure="--enable-secureplt --enable-decimal-float=no";;
+	powerpc64*-*-*-*)	_arch_configure="--with-abi=elfv2 --enable-secureplt --enable-decimal-float=no --enable-targets=powerpcle-linux";;
+	i486-*-*-*)		_arch_configure="--with-arch=i486 --with-tune=generic --enable-cld";;
+	i586-*-*-*)		_arch_configure="--with-arch=i586 --with-tune=generic --enable-cld";;
+	s390x-*-*-*)		_arch_configure="--with-arch=z196 --with-tune=zEC12 --with-zarch --with-long-double-128 --enable-decimal-float";;
+	riscv64-*-*-*)		_arch_configure="--with-arch=rv64gc --with-abi=lp64d --enable-autolink-libatomic";;
+	esac
+```
+其中`mips64-*-*-*`确实配置了`--with-arch=mips3 --with-tune=mips64 --with-mips-plt --with-float=soft --with-abi=64`
+
+最后这些config在gcc的configure阶段实现:
+```shell
+	local version="Alpine $pkgver-r$pkgrel"
+	local gccconfiguration="
+		--prefix=/usr
+		--mandir=/usr/share/man
+		--infodir=/usr/share/info
+		--build=$CBUILD
+		--host=$CHOST
+		--target=$CTARGET
+		--enable-checking=release
+		--disable-fixed-point
+		--disable-libstdcxx-pch
+		--disable-multilib
+		--disable-nls
+		--disable-werror
+		$_symvers
+		--enable-__cxa_atexit
+		--enable-default-pie
+		--enable-default-ssp
+		--enable-languages=$_languages
+		$_arch_configure
+		$_libc_configure
+		$_cross_configure
+		$_bootstrap_configure
+		--with-bugurl=https://gitlab.alpinelinux.org/alpine/aports/-/issues
+		--with-system-zlib
+		$_hash_style_configure
+		"
+	mkdir -p "$_builddir"
+	cd "$_builddir"
+	"$_gccdir"/configure $gccconfiguration \
+		--with-pkgversion="$version"
+
+	msg "building gcc"
+	make
+```
+
+`--with-xxx`的意思是设置gcc默认值, 比如`--with-abi=elfv2`设置生成的gcc的默认ABI是`elfv2`, 但并不是说其他的ABI就不支持了, 如果用户指定`-mabi=elfv1`应该也是可以的.
+
+#### octeon3
+我们的一部分CPU用的是mips64 octeon3, 是带硬浮点(FPU)的.
+在`crosstool-ng`里, 我曾经配过`CT_ARCH_ARCH="octeon3"`
+
+根据ChatGPT的说法, `--with-arch=mips3 --with-tune=mips64 --with-mips-plt --with-float=soft --with-abi=64`解释如下:
+* `--with-arch=mips3`: mips3是比较老的64-bit的架构, 在1990s引入的. 对octeon3来说, 可以用`--with-arch=mips64r2`
+* `--with-tune=mips64`: 可以尝试用`--with-tune=octeon3`
+* `--with-float=soft`: 可以尝试用`--with-float=hard`
+* `--with-mips-plt`: PLT (Procedure Linkage Table): PLT is a mechanism used in shared libraries to facilitate dynamic linking. It contains trampoline code that redirects function calls to the appropriate shared library functions.
+
+对octeon3的优化, 可以优先考虑`--with-arch=mips64r2 --with-tune=octeon3 --with-float=hard`
+
+#### e500-mc
+* 在`crosstool-ng`里, 我曾经配过`CT_ARCH_TUNE="e500mc"`
+* alpine里的配置参考:`--enable-secureplt --enable-decimal-float=no`
+* ChatGPT推荐:
+	* `--target=powerpc-e500mc-linux-gnu`: Specifies the target platform as e500mc.
+	* `--with-arch=ppc476`: Specifies the PowerPC 476 architecture for e500mc.
+	* `--with-tune=ppc476`: Tunes the compiler specifically for e500mc processors.
+	* `--with-abi=elfv1`: Use ELFv1 ABI, typical for e500mc cores.
+	* `--enable-secureplt`: Enables secure PLT for position-independent code.
+	* `--enable-decimal-float=no`: Disables decimal float support.
+
+我估计我会用`--with-tune=e500mc --with-abi=elfv1 --enable-secureplt --enable-decimal-float=no`
+
+#### e6500
+* 在`crosstool-ng`里, 我曾经配过`CT_ARCH_TUNE="e6500"`
+* alpine里的配置参考:`--with-abi=elfv2 --enable-secureplt --enable-decimal-float=no --enable-targets=powerpcle-linux`
+* ChatGPT推荐:
+	* `--target=powerpc64-linux-gnu`: Specifies the target platform as e6500.
+	* `--with-arch=powerpc64`: Specifies the PowerPC 64-bit architecture for e6500.
+	* `--with-tune=e6500`: Tunes the compiler specifically for e6500 processors.
+	* `--with-abi=elfv2`: Use ELFv2 ABI, typical for e6500 cores.
+	* `--enable-secureplt`: Enables secure PLT for position-independent code.
+	* `--enable-decimal-float=no`: Disables decimal float support.
+
+我估计我会用`--with-arch=powerpc64 --with-tune=e6500 --with-abi=elfv2 --enable-secureplt --enable-decimal-float=no`
+
+#### powerpc
+Summary:
+* e500mc: Use --with-arch=ppc476 and --with-tune=ppc476 with ELFv1 ABI.
+* e6500: Use --with-arch=powerpc64 and --with-tune=e6500 with ELFv2 ABI.
+
+## 引入新CPU架构参考
+https://gitlab.alpinelinux.org/alpine/tsc/-/issues/72
+https://gitlab.alpinelinux.org/huajingyun01/abuild/-/commits/master/?ref_type=HEADS
+https://gitlab.alpinelinux.org/huajingyun01/abuild/-/blob/master/config.guess?ref_type=heads

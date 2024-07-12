@@ -1,3 +1,5 @@
+- [在ubuntu上安装gitlab runner](#在ubuntu上安装gitlab-runner)
+  - [命令参考汇总](#命令参考汇总)
 - [安装和注册gitlab runner](#安装和注册gitlab-runner)
   - [runner介绍](#runner介绍)
   - [Group runner](#group-runner)
@@ -7,7 +9,6 @@
     - [注册runner](#注册runner)
 - [runner使用和`.gitlab-ci.yml`](#runner使用和gitlab-ciyml)
   - [runner管理](#runner管理)
-  - [命令参考汇总](#命令参考汇总)
   - [image和services](#image和services)
   - [docker runner和shell runner](#docker-runner和shell-runner)
   - [job和script](#job和script)
@@ -26,7 +27,90 @@ gitlab支持pipeline, [官方详细参考, 很全, 很细节](https://docs.gitla
 
 [快速入门](https://docs.gitlab.com/ee/ci/quick_start/README.html)
 
+# 在ubuntu上安装gitlab runner
+## 命令参考汇总
+以root用户运行
+```shell
+# 安装docker
+apt update
+apt install docker.io
+# openstack默认mtu 1450, 而docker默认1500. 修改docker的mtu为1450
+echo '{ "mtu":1450 }' > /etc/docker/daemon.json
+systemctl restart docker
+
+# 安装gitlab runner
+# 指定版本15.4.2
+curl -L --output /usr/local/bin/gitlab-runner "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/v15.4.2/binaries/gitlab-runner-linux-amd64"
+chmod +x /usr/local/bin/gitlab-runner
+useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
+gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+#修改concurrent为10, 即所有runner最大一共可以执行10个job
+sed -i 's/concurrent = 1/concurrent = 10/' /etc/gitlab-runner/config.toml
+usermod -aG docker gitlab-runner
+systemctl start gitlab-runner
+
+# 注册通用shell runner
+gitlab-runner register \
+  --url "https://gitlabe1.ext.net.nokia.com/" \
+  --description "shell-rebornlinux" \
+  --registration-token "GR1348941X4RqAaWzxPoe6YDPZKyk" \
+  --executor "shell" \
+  --tag-list "shell-generic"
+
+# 注册通用docker runner
+gitlab-runner register \
+  --url "https://gitlabe1.ext.net.nokia.com/" \
+  --description "docker-rebornlinux" \
+  --registration-token "GR1348941X4RqAaWzxPoe6YDPZKyk" \
+  --executor "docker" \
+  --tag-list "docker-generic" \
+  --docker-image alpine:latest \
+  --run-untagged
+
+# 注册专用runner
+gitlab-runner register \
+  --url "https://gitlabe1.ext.net.nokia.com/" \
+  --description "docker-aports" \
+  --registration-token "GR1348941X4RqAaWzxPoe6YDPZKyk" \
+  --executor "docker" \
+  --tag-list "docker-aports" \
+  --limit 1 \
+  --docker-image alpine:latest
+
+# runner配置
+cat /etc/gitlab-runner/config.toml
+concurrent = 10
+check_interval = 0
+
+[session_server]
+  session_timeout = 1800
+[[runners]]
+  name = "docker-aports"
+  limit = 1
+  url = "https://gitlabe1.ext.net.nokia.com/"
+  id = 175571
+  token = "TH7uqYiEYLAMwSz8BPZB"
+  token_obtained_at = 2024-05-03T14:46:12Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "docker"
+  [runners.custom_build_dir]
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+    [runners.cache.azure]
+  [runners.docker]
+    tls_verify = false
+    image = "alpine:latest"
+    privileged = false
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    disable_cache = false
+    volumes = ["/cache", "/repo/distfiles:/var/cache/distfiles:rw"]
+    shm_size = 0
+```
+
 # 安装和注册gitlab runner
+
 ## runner介绍
 gitlab runner[简介](https://docs.gitlab.com/ee/ci/runners/README.html)是用来执行工程根目录下的`.gitlab-ci.yml`.
 有三种类型的runner
@@ -130,85 +214,6 @@ unregister
 install
 uninstall
 等等
-```
-
-## 命令参考汇总
-以root用户运行
-```shell
-# 安装docker
-apt update
-apt install docker.io
-echo '{ "mtu":1450 }' > /etc/docker/daemon.json
-systemctl restart docker
-
-# 安装gitlab runner
-curl -L --output /usr/local/bin/gitlab-runner "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/v15.4.2/binaries/gitlab-runner-linux-amd64"
-chmod +x /usr/local/bin/gitlab-runner
-useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
-gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
-sed -i 's/concurrent = 1/concurrent = 10/' /etc/gitlab-runner/config.toml
-usermod -aG docker gitlab-runner
-systemctl start gitlab-runner
-
-# 注册runner
-gitlab-runner register \
-  --url "https://gitlabe1.ext.net.nokia.com/" \
-  --description "docker-aports" \
-  --registration-token "GR1348941X4RqAaWzxPoe6YDPZKyk" \
-  --executor "docker" \
-  --tag-list "docker-aports" \
-  --limit 1 \
-  --docker-image alpine:latest
-
-
-gitlab-runner register \
-  --url "https://gitlabe1.ext.net.nokia.com/" \
-  --description "docker-rebornlinux" \
-  --registration-token "GR1348941X4RqAaWzxPoe6YDPZKyk" \
-  --executor "docker" \
-  --tag-list "docker-generic" \
-  --docker-image alpine:latest \
-  --run-untagged
-  
-
-gitlab-runner register \
-  --url "https://gitlabe1.ext.net.nokia.com/" \
-  --description "shell-rebornlinux" \
-  --registration-token "GR1348941X4RqAaWzxPoe6YDPZKyk" \
-  --executor "shell" \
-  --tag-list "shell-generic"
-
-# runner配置
-cat /etc/gitlab-runner/config.toml
-concurrent = 10
-check_interval = 0
-
-[session_server]
-  session_timeout = 1800
-[[runners]]
-  name = "docker-aports"
-  limit = 1
-  url = "https://gitlabe1.ext.net.nokia.com/"
-  id = 175571
-  token = "TH7uqYiEYLAMwSz8BPZB"
-  token_obtained_at = 2024-05-03T14:46:12Z
-  token_expires_at = 0001-01-01T00:00:00Z
-  executor = "docker"
-  [runners.custom_build_dir]
-  [runners.cache]
-    [runners.cache.s3]
-    [runners.cache.gcs]
-    [runners.cache.azure]
-  [runners.docker]
-    tls_verify = false
-    image = "alpine:latest"
-    privileged = false
-    disable_entrypoint_overwrite = false
-    oom_kill_disable = false
-    disable_cache = false
-    volumes = ["/cache", "/repo/distfiles:/var/cache/distfiles:rw"]
-    shm_size = 0
-
 ```
 
 ## image和services
