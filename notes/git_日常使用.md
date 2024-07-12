@@ -1,3 +1,4 @@
+- [git commit rang](#git-commit-rang)
 - [git分支操作](#git分支操作)
   - [查看分支](#查看分支)
     - [查看本地分支](#查看本地分支)
@@ -63,6 +64,12 @@
   - [git clean, 删除所有未跟踪的文件](#git-clean-删除所有未跟踪的文件)
   - [git查看clone地址](#git查看clone地址)
 
+# git commit rang
+```shell
+# 从720936d888c到f2779584678的所有commit, 包括720936d888c
+git cherry-pick 720936d888c^..f2779584678
+```
+
 # git分支操作
 ```
 git clone https://github.com/siskinc/siskinc.github.io
@@ -70,54 +77,54 @@ git clone https://github.com/siskinc/siskinc.github.io
 
 ## 查看分支
 ### 查看本地分支
-```sh
+```shell
 $ git branch
 * master
 ```
 ### 查看远程分支
-```sh
+```shell
 git branch -r
 ```
 ### 查看所有分支
-```sh
+```shell
 git branch -a
 ```
 
 ## 本地创建新的分支
-```sh
+```shell
 git branch [branch name]
 ```
 
 ## 切换到新的分支
-```sh
+```shell
 git checkout [branch name]
 ```
 
 ## 创建+切换分支
-```sh
+```shell
 git checkout -b [branch name]
 ```
 相当于
-```sh
+```shell
 git branch [branch name]
 git checkout [branch name]
 ```
 ## 将新分支推送到github
-```sh
+```shell
 git push origin [branch name]
 ```
 ## 删除本地分支
-```sh
+```shell
 git branch -d [branch name]
 ```
 ## 删除github远程分支
-```sh
+```shell
 git push origin :[branch name]
 ```
 
 # github Readme模板
 https://github.com/golangci/golangci-lint
-```sh
+```markdown
 <p align="center">
   <img alt="golangci-lint logo" src="assets/go.png" height="150" />
   <h3 align="center">golangci-lint</h3>
@@ -155,7 +162,7 @@ This project exists thanks to all the people who contribute. [How to contribute]
 
 ## 修改作者和邮箱
 https://stackoverflow.com/questions/750172/how-to-change-the-author-and-committer-name-and-e-mail-of-multiple-commits-in-gi
-```sh
+```shell
 git rebase -i 82350e5
 git commit --amend --author "Bai Yingjie <byj.tea@gmail.com>"
 git rebase --continue
@@ -166,7 +173,7 @@ git rebase 82350e5 --exec 'git commit --amend --author="Bai Yingjie <byj.tea@gma
 ```
 
 ## 修改commit时间
-```sh
+```shell
 git commit --amend --date="Tue 20 Dec 2021 14:14:22 AM UTC" --no-edit
 ```
 
@@ -178,7 +185,7 @@ git commit --amend --date="Tue 20 Dec 2021 14:14:22 AM UTC" --no-edit
 现在我想同步上游repo的更改
 ### 复杂步骤
 
-```sh
+```shell
 # 直接拉上游更改
 git checkout master
 git pull https://github.com/crosstool-ng/crosstool-ng
@@ -192,7 +199,7 @@ git pull origin master
 ```
 
 ### 简单步骤
-```sh
+```shell
 # 直接拉上游更改
 git checkout master
 git pull https://github.com/crosstool-ng/crosstool-ng
@@ -211,7 +218,7 @@ git commit --author="Bai Yingjie <byj.tea@gmail.com>"
 ```
 
 ## 同步remote已删除的分支
-```sh
+```shell
 # 查看
 $ git remote show origin
 # 删除本地多余分支, 但已经checkout的分支还在
@@ -222,7 +229,7 @@ git branch -d [branch_name]
 ```
 
 ## 找到当前branch最近的tag
-```sh
+```shell
 yingjieb@9102a93a554e /repo/yingjieb/godevsig/golang-go
 $ git describe --tags --abbrev=0
 go1.13.15
@@ -234,7 +241,7 @@ go1.13.15
 e164f53422  2020-10-22  Bai Yingjie     godevsig: add support to use gccgo for ppc
 ```
 现在我想把它拿到release-branch.go1.13分支
-```sh
+```shell
 # 先更新本地working tree
 git checkout release-branch.go1.13
 
@@ -248,7 +255,7 @@ git cherry-pick e164f53422
 ## diff和patch
 比如A和B都是一个repo的两个拷贝.
 某种原因, 我想把A里面还没有commit的改动, 拿到B里面来
-```sh
+```shell
 #在A中:
 git diff > ppc.patch
 #在B中:
@@ -258,13 +265,13 @@ git apply /path/to/A/ppc.patch
 ## 从其他git repo导入到新git库
 
 ### Git global setup
-```sh
+```shell
 git config --global user.name "Bai Yingjie"
 git config --global user.email "yingjie.bai@nokia-sbell.com"
 ```
 
 ### Create a new repository
-```sh
+```shell
 git clone git@bhgitlab.int.net.nokia.com:godev/golang-go.git
 cd golang-go
 touch README.md
@@ -274,7 +281,7 @@ git push -u origin master
 ```
 
 ### Push an existing folder
-```sh
+```shell
 cd existing_folder
 git init
 git remote add origin git@bhgitlab.int.net.nokia.com:godev/golang-go.git
@@ -284,7 +291,7 @@ git push -u origin master
 ```
 
 ### Push an existing Git repository
-```sh
+```shell
 cd existing_repo
 git remote rename origin old-origin
 git remote add origin git@bhgitlab.int.net.nokia.com:godev/golang-go.git
@@ -302,7 +309,7 @@ git push -u origin crosstool-ng-1.24.0
 ```
 
 其他方法
-```sh
+```shell
 #直接改origin
 git remote set-url origin git@bhgitlab.int.net.nokia.com:godev/golang-go.git
 
@@ -314,7 +321,7 @@ git push gitlab master
 
 ## git新建远程分支
 比如现在在master分支上
-```sh
+```shell
 # 创建本地分支, 并切换到这个新建的分支
 git checkout -b test
 # 做修改
@@ -324,7 +331,7 @@ git push origin test:test
 ```
 
 删除分支
-```sh
+```shell
 git push origin :test //将一个空分支推送到远程即为删除
 //或者
 git push origin --delete test
@@ -335,7 +342,7 @@ git push origin --delete test
 `git shortlog -s`不输出具体的commit, 只给出数目统计
 
 比如:
-```sh
+```shell
 $ git shortlog -s
      1  Author A
     42  Author B
@@ -358,7 +365,7 @@ $ git shortlog -s
 git的命令很多时候支持传入commit set,
 用`man gitrevisions`可以查到详细的语法格式  
 比如:
-```sh
+```shell
 #生成从A到B的所有commit的patch, 不包括A, 但包括B
 git format-patch A..B
 ```
@@ -366,7 +373,7 @@ git format-patch A..B
 ## git 修改commit
 在本地还没提交的commit, 可以用`git rebase -i`来修改, 过程和`hg histedit`一样  
 比如我要修改552476b75408 这个commit
-```sh
+```shell
 77d3efca122b 2019-12-28 Bai Yingjie powerpc/io: use phys_addr_t in virt_to_phys/phys_to_virt
 552476b75408 2019-11-25 Bai Yingjie powerpc/mpc85xx: also write addr_h to spin table for 64bit boot entry
 d5c2c21e7a74 2019-12-28 Bai Yingjie powerpc32/booke: consistently return phys_addr_t in __pa()
@@ -386,7 +393,7 @@ d5c2c21e7a74 2019-12-28 Bai Yingjie powerpc32/booke: consistently return phys_ad
 
 ## git undo reset
 `git reset`会把commit丢弃掉, 比如
-```sh
+```shell
 Linux Mint 19.1 Tessa $ git ls
 77d3efca122b 2019-12-28 Bai Yingjie powerpc/io: use phys_addr_t in virt_to_phys/phys_to_virt
 552476b75408 2019-11-25 Bai Yingjie powerpc/mpc85xx: also write addr_h to spin table for 64bit boot entry
@@ -394,11 +401,11 @@ d5c2c21e7a74 2019-12-28 Bai Yingjie powerpc32/booke: consistently return phys_ad
 46cf053efec6 2019-12-22 Linus Torvalds Linux 5.5-rc3
 ```
 我执行了
-```sh
+```shell
 git reset 552476b75408
 ```
 最上面的commit就没了. 如果想把它找回来, 这时候就要用`git reflog`找到对应的操作历史
-```sh
+```shell
 Linux Mint 19.1 Tessa $ git reflog
 552476b75408 (HEAD -> master) HEAD@{0}: reset: moving to 552476b75408
 77d3efca122b HEAD@{1}: rebase -i (finish): returning to refs/heads/master
@@ -408,7 +415,7 @@ d5c2c21e7a74 HEAD@{4}: rebase -i (pick): powerpc32/booke: consistently return ph
 46cf053efec6 (tag: v5.5-rc3, origin/master, origin/HEAD) HEAD@{5}: rebase -i (start): checkout 46cf053efec6
 ```
 结果如下:
-```sh
+```shell
 yingjieb@yingjieb-VirtualBox ~/repo/linux
 Linux Mint 19.1 Tessa $ git reset 'HEAD@{1}'
 yingjieb@yingjieb-VirtualBox ~/repo/linux
@@ -421,21 +428,21 @@ d5c2c21e7a74 2019-12-28 Bai Yingjie powerpc32/booke: consistently return phys_ad
 
 ## git调整commit顺序
 调整前, 我想把3d5ecc00a315 和ca81e2ba497d 顺序调换一下
-```sh
+```shell
 b0389050a303 2019-12-28 Bai Yingjie powerpc/io: use phys_addr_t in virt_to_phys/phys_to_virt
 3d5ecc00a315 2019-12-28 Bai Yingjie powerpc32/booke: consistently return phys_addr_t in __pa()
 ca81e2ba497d 2019-11-25 Bai Yingjie powerpc/mpc85xx: also write addr_h to spin table for 64bit boot entry
 46cf053efec6 2019-12-22 Linus Torvalds Linux 5.5-rc3
 ```
 用这个命令:
-```sh
+```shell
 #-i表示--interactive, 46cf053efec6是他们公共的父节点
 git rebase -i 46cf053efec6
 ```
 这个命令会跳出编辑框来, 只要把要调整的两行顺序调换一下就好了. 和`hg histedit`过程差不多
 
 调整后:
-```sh
+```shell
 77d3efca122b 2019-12-28 Bai Yingjie powerpc/io: use phys_addr_t in virt_to_phys/phys_to_virt
 552476b75408 2019-11-25 Bai Yingjie powerpc/mpc85xx: also write addr_h to spin table for 64bit boot entry
 d5c2c21e7a74 2019-12-28 Bai Yingjie powerpc32/booke: consistently return phys_addr_t in __pa()
@@ -446,14 +453,14 @@ d5c2c21e7a74 2019-12-28 Bai Yingjie powerpc32/booke: consistently return phys_ad
 比如, `drivers/i2c/busses/i2c-ocores.c`里面, 3.10的时候还有`of_i2c_register_devices`, 但4.9就没有了.
 
 我想找到哪个commit删除了这个函数的使用, 它又用了什么新方法?
-```sh
+```shell
 git log drivers/i2c/busses/i2c-ocores.c -S of_i2c_register_devices
 # 新修改: -S不能在最后
 git log -S __noreturn arch/powerpc/include/asm/machdep.h
 ```
 
 ## linux kernel: 找到一个commit对应的kernel release版本
-```sh
+```shell
 Linux Mint 19.1 Tessa $ git show 687b81d083c08
 yingjieb@yingjieb-VirtualBox ~/repo/linux
 Linux Mint 19.1 Tessa $ git describe --contains 687b81d083c08
@@ -461,7 +468,7 @@ v3.12-rc1~140^2~14
 ```
 
 ## 保存现场 两个现场切换 git stash
-```sh
+```shell
 # 保存现场, --all包括所有untracked和iggnored文件
 Linux Mint 19 Tara $ git stash push --all
 Saved working directory and index state WIP on hxt-dev-v17.08: 7030d3888 Extand RXD TXD size to 2048
@@ -492,12 +499,12 @@ git tag -ln
 ```
 
 ## git查看某个版本的文件, 不checkout
-```sh
+```shell
 git show remotes/origin/releases:drivers/net/mlx5/mlx5_rxtx.h
 ```
 
 ## git设置允许push到非bare的库, 在remote端运行
-```sh
+```shell
 git config receive.denyCurrentBranch ignore
 ```
 ## git取消commit
@@ -506,11 +513,11 @@ git config receive.denyCurrentBranch ignore
 此时工作区的内容还是保留的
 
 ## git大文件支持
-```sh
+```shell
 wget https://github.com/git-lfs/git-lfs/releases/download/v2.0.0/git-lfs-linux-amd64-2.0.0.tar.gz
 ```
 https://github.com/git-lfs/git-lfs/wiki/Tutorial
-```sh
+```shell
 git lfs track "*.tar.*"
 git add .gitattributes
 git add *
@@ -520,7 +527,7 @@ git lfs ls-files
 注: 好像不好用
 
 ## git打包
-```sh
+```shell
 yingjieb@yingjieb-gv /local/mnt/workspace/common/ls/kernel
 $ git archive remotes/qserver/qserver-4.9 -o ../../archives/kernel.tar.gz
 git archive HEAD -o ../dpdk-intel-only-cacheline64.tar.gz
@@ -528,7 +535,7 @@ git archive HEAD -o ../dpdk-intel-only-cacheline64.tar.gz
 ## push到远程repo
 我想把本地的linux的repo push到云服务器上.  
 现在云服务器上创建个空的repo库, 没有这个空的库, 在本地push的时候会说没有远程的库
-```sh
+```shell
 baiyingjie@caviumtech /home/share/src/alikernel/caviumkernel
 $ git init
 Initialized empty Git repository in /home/share/src/alikernel/caviumkernel/.git/
@@ -536,7 +543,7 @@ Initialized empty Git repository in /home/share/src/alikernel/caviumkernel/.git/
 然后在本地, 先要add一个remote, 网上都是图省事add origin, 但我这里是不行的, 因为origin是我的上游库, 我还要拿来更新
 
 注意这里的ssh库的格式
-```sh
+```shell
 byj@mint ~/repo/git/cavium/thunder/sdk/sdk-master/linux/kernel/linux-aarch64
 $ git remote add caviumtech ssh://baiyingjie@caviumtech.cn/home/share/src/alikernel/caviumkernel
 $ git remote -v
@@ -548,7 +555,7 @@ origin    git://cagit1.caveonetworks.com/thunder/sdk/linux-aarch64.git (push)
 然后就可以push了, 这里面的-u据说是:
 > 由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。**但我怀疑这里有个副作用, 就是把本地的分支指向了这个远程分支, 而我需要保留这个指向到origin**
 
-```sh
+```shell
 byj@mint ~/repo/git/cavium/thunder/sdk/sdk-master/linux/kernel/linux-aarch64
 $ git push caviumtech alibaba-4.2
 ```
@@ -558,7 +565,7 @@ $ git push caviumtech alibaba-4.2
 
 ## git下载远程分支
 git默认会把remote上的更新都fetch下来的, 但我这里想下的一个分支为什么没有呢?
-```sh
+```shell
 $ git branch -avv
 * thunder-master                efe9731 [origin/thunder-master] i2c: thunderx: update to v8
   remotes/origin/thunder-master efe9731 i2c: thunderx: update to v8
@@ -571,7 +578,7 @@ git fetch origin alibaba-4.2
 以上这句会更新.git/FETCH_HEAD, 不推荐用
 
 关键是这里
-```sh
+```shell
 $ cat .git/config 
 [core]
 repositoryformatversion = 0
@@ -590,7 +597,7 @@ merge = refs/heads/thunder-master
 * 这里面origin是个默认的名字, 来指代原始url
 
 以后git branch -avv 就能看到两个
-```sh
+```shell
 $ git branch -avv
 * thunder-master                efe9731 [origin/thunder-master] i2c: thunderx: update to v8
   remotes/origin/alibaba-4.2    0e253af Compiler bug workaround!!!
@@ -600,7 +607,7 @@ $ git branch -avv
 `$ git checkout alibaba-4.2`
 
 ## 创建本地分支来跟踪远程分支
-```sh
+```shell
 root@CVMX55 ~/src/git/LuaJIT
 # git branch -avv
 * master                3d4c9f9 [origin/master] FFI: Fix SPLIT pass for CONV i64.u64.
@@ -617,7 +624,7 @@ or
 
 ## git merge本地改动
 先暂存本地改动
-```sh
+```shell
 git stash
 git merge origin/master
 ```
@@ -625,7 +632,7 @@ pop出来的时候, 已经merge好了?
 `git stash pop`
 
 ## git比较某次commit的改动
-```sh
+```shell
 git difftool a450650dd9cbfff454a1f5cd443b8a2a3ed3206f^!
 git diff 15dc8^..15dc8
 git show a450650dd9cbfff454a1f5cd443b8a2a3ed3206f
@@ -651,7 +658,7 @@ git add以后就不能直接diff本地修改了, 需要加cached选项
 所以fae从stable merge也就从来没有新东西.
 
 解决办法是想办法把所有mint的本地分支都更新. 比如checkout后pull或者rebase(感觉rebase更靠谱点)
-```sh
+```shell
 yingjie@cavium /cavium/repo/git/thunder/linux-aarch64
 $ git branch -a
 * fae
@@ -727,7 +734,7 @@ git log --stat
 `$ git difftool bc6c72ff37dd9deb7c83d9bf77e713b747976140 bc6c72ff37dd9deb7c83d9bf77e713b747976140~1 -d`
 
 ## git更改remote
-```sh
+```shell
 git remote set-url origin ssh://byj@192.168.1.217/home/byj/repo/git/thunder/ma/sdk/linux/kernel/linux-aarch64/
 git remote -v
 ```

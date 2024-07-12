@@ -1,3 +1,10 @@
+- [wrap cross gcc](#wrap-cross-gcc)
+- [子进程会读父进程的stdin](#子进程会读父进程的stdin)
+  - [背景](#背景)
+  - [问题现象](#问题现象)
+  - [过程梳理](#过程梳理)
+  - [子进程会消费父进程的stdin](#子进程会消费父进程的stdin)
+  - [解决](#解决)
 - [用ip monitor命令监测网口变化](#用ip-monitor命令监测网口变化)
 - [用socat连接pty](#用socat连接pty)
   - [什么是tty pty](#什么是tty-pty)
@@ -20,7 +27,7 @@
   - [例子](#例子)
 - [脚本命令行解析之declare -f](#脚本命令行解析之declare--f)
 - [shell变量扩展和引号保留](#shell变量扩展和引号保留)
-  - [背景:](#背景)
+  - [背景:](#背景-1)
   - [简单wrapper](#简单wrapper)
   - [参数重载](#参数重载)
   - [变量赋值导致字符串多变一](#变量赋值导致字符串多变一)
@@ -82,7 +89,12 @@
   - [sed替换引用](#sed替换引用)
   - [sed的分组匹配, 用()分组, 用\\1引用](#sed的分组匹配-用分组-用1引用)
 - [awk](#awk)
-  - [shell变量传给awk](#shell变量传给awk)
+  - [多pattern匹配](#多pattern匹配)
+  - [pattern区间](#pattern区间)
+  - [shell变量传给awk -- 推荐直接用双引号](#shell变量传给awk----推荐直接用双引号)
+    - [用`-v`选项](#用-v选项)
+    - [先在shell里面展开变量](#先在shell里面展开变量)
+    - [直接用双引号](#直接用双引号)
   - [再说patten](#再说patten)
   - [awk在if里匹配](#awk在if里匹配)
   - [awk支持浮点](#awk支持浮点)
@@ -116,6 +128,179 @@
 - [local system monitor](#local-system-monitor)
 - [system monitor for pangu](#system-monitor-for-pangu)
 - [增加fedora分区的脚本](#增加fedora分区的脚本)
+
+# wrap cross gcc
+下面的代码的`wrap_gcc`部分, 利用一个wrapper删除入参中的`-flto=auto`, 再调用`$gcc_tuple-gcc`.
+
+`cross_gcc`部分, 把`$gcc_tuple-*`做软连接, 去掉tuple部分, 用来"欺骗"编译系统, 让"native"的`gcc`实际指向`$gcc_tuple-gcc`
+```shell
+if test -n "$CHOST"; then
+    _ARCH=${CHOST%%-*}
+    case $_ARCH in
+        aarch64) gcc_tuple=aarch64-alpine-linux-musl ;;
+        mips64) gcc_tuple=mips64-alpine-linux-musl ;;
+        ppc|powerpc) gcc_tuple=powerpc-alpine-linux-musl ;;
+        ppc64|powerpc64) gcc_tuple=powerpc64-alpine-linux-musl ;;
+    esac
+fi
+
+wrap_gcc() {
+    local temp_dir=$(mktemp -d)
+    local file=$temp_dir/$gcc_tuple-gcc
+    local exe=$(cat << 'EOF'
+#!/bin/bash
+
+cmd=$(basename $0)
+args=${*@Q}
+args="${args//\'-flto=auto\'/}"
+
+eval exec /usr/bin/$cmd $args
+EOF
+)
+    cat <<< $exe > $file
+    chmod +x $file
+    echo $temp_dir
+}
+
+temp_dir=$(wrap_gcc)
+PATH="$temp_dir:$PATH" eval /usr/bin/abuild $args
+exitcode=$?
+rm -rf $temp_dir
+[ $exitcode -eq 0 ] && exit 0
+
+cross_gcc() {
+    local temp_dir=$(mktemp -d)
+    for f in /usr/bin/$gcc_tuple*; do
+        bin=$(basename $f)
+        ln -sf $f $temp_dir/${bin#$gcc_tuple-}
+    done
+    ln -sf /usr/bin/$gcc_tuple-gcc $temp_dir/cc
+    echo $temp_dir
+}
+
+# try again with cross gcc for cross compiling
+temp_dir=$(cross_gcc)
+PATH="$temp_dir:$PATH" eval /usr/bin/abuild $args
+exitcode=$?
+rm -rf $temp_dir
+exit $exitcode
+```
+
+# 子进程会读父进程的stdin
+
+## 背景
+在做aports ci的时候, 用了这样的shell结构来分批编译package:
+```shell
+sorted_pkgs=$(buildrepo -a ${APORTSDIR} -n "$repo" | grep "[0-9]*/[0-9]*" | cut -d ' ' -f3)
+msg "build sequence: $(echo $sorted_pkgs | tr " " "\n")"
+echo $sorted_pkgs | xargs -n 10 | while read line; do
+  for pkg_path in $line; do
+    cd $APORTSDIR/$pkg_path
+    #执行一些列编译工作, 此处省略
+  done
+done
+```
+
+## 问题现象
+提示`ci/buildrepos.sh: cd: line 125: can't cd to /builds/rebornlinux/aports/ain/cppunit: No such file or directory`
+
+实际上的目录应该是`main/cppunit`, 而出错的目录是`ain/cppunit`, 就少了一个字母`m`.
+
+已知build sequence打印出了完整的package列表:`main/cppunit main/perl-convert-binhex main/libnetfilter_cttimeout main/liblockfile main/mailxmain/iw main/freeswitch-sounds-ru-RU-elena-32000 main/perl-file-next main/yx main/hiredis`
+
+`main/cppunit`是这个列表的第一个.
+
+## 过程梳理
+```shell
+echo $sorted_pkgs | xargs -n 10 | while read line; do
+  for pkg_path in $line; do
+    cd $APORTSDIR/$pkg_path
+    #执行一些列编译工作, 此处省略
+  done
+done
+```
+`while read line`从stdin读取line, 每次只读一行, 然后执行do后面的内容;  
+直到一轮do结束, read命令会再从stdin读一行, 再执行, 如此循环.
+
+那为什么少了一个字母呢?
+
+## 子进程会消费父进程的stdin
+`read`是shell内置的function, 作用是从stdin的buffer里面读内容.
+
+如果有人同样从stdin读取内容, 消费了buffer, 那么就会导致下一次的`read line`缺少字符.
+
+验证如下:
+```shell
+$ some_list="item1 item2 item3 item4 item5 item6 item7 item8 item9 item10 item11 item12"
+
+# 直接read line, 结果完整
+$ echo $some_list | xargs -n 10 | while read line; do echo $line; done
+item1 item2 item3 item4 item5 item6 item7 item8 item9 item10
+item11 item12
+
+# 但是如果在循环内部再次read -n 2读取2个字符
+# 因为消耗了同一个stdin buffer, 就会导致下一次的readline少2个字符
+# 到这里依然很合理, 因为read还是本次shell进程的function, 和while readline应该是同一个进程, 同一个进程使用一个stdin, 没毛病
+$ echo $some_list | xargs -n 10 | while read line; do read -n 2; echo $line; done
+item1 item2 item3 item4 item5 item6 item7 item8 item9 item10
+em11 item12
+```
+以上的例子说明, 在同一个进程中, 循环体的`read`会消费掉stdin的内容, 导致`while read line`缺字符.
+
+但是, 原始例子中, 循环体内都是命令, shell会创建子进程来执行编译命令:
+```shell
+echo $sorted_pkgs | xargs -n 10 | while read line; do
+  for pkg_path in $line; do
+    cd $APORTSDIR/$pkg_path
+    #执行一些列编译工作, 此处省略
+  done
+done
+```
+
+难道子进程也会消耗父进程的stdin? -- 是的
+```shell
+$ some_list="item1 item2 item3 item4 item5 item6 item7 item8 item9 item10 item11 item12"
+
+# 用()创建子进程, 结果依然少了两个字符
+$ echo $some_list | xargs -n 10 | while read line; do (read -n 2); echo $line; done
+item1 item2 item3 item4 item5 item6 item7 item8 item9 item10
+em11 item12
+
+# 如果不放心(read -n 2)是否真的创建了子进程, 可以这样
+# 依然少了两个字符
+$ echo $some_list | xargs -n 10 | while read line; do $(sh -c "read -n 2"); echo $line; done
+item1 item2 item3 item4 item5 item6 item7 item8 item9 item10
+em11 item12
+```
+上面两个例子中, 即使创建了子进程, 结果都少了两个字符. 说明**子进程会消耗父进程的stdin**
+
+## 解决
+在调用子进程的时候, reset掉stdin, 以下三种方式都可以
+```shell
+$ echo $some_list | xargs -n 10 | while read line; do (sh -c "read -n 3" )</dev/null; echo $line; done
+item1 item2 item3 item4 item5 item6 item7 item8 item9 item10
+item11 item12
+
+$ echo $some_list | xargs -n 10 | while read line; do (read -n 3)</dev/null; echo $line; done
+item1 item2 item3 item4 item5 item6 item7 item8 item9 item10
+item11 item12
+
+$ echo $some_list | xargs -n 10 | while read line; do read -n 3 </dev/null; echo $line; done
+item1 item2 item3 item4 item5 item6 item7 item8 item9 item10
+item11 item12
+```
+
+所以, 对原始问题我准备这样修改:
+```
+echo $sorted_pkgs | xargs -n 10 | while read line; do
+  (
+    for pkg_path in $line; do
+      cd $APORTSDIR/$pkg_path
+      #执行一些列编译工作, 此处省略, 可能这些命令中, 某个命令消耗了stdin
+    done
+  ) < /dev/null
+done
+```
 
 # 用ip monitor命令监测网口变化
 ```shell
@@ -1744,8 +1929,138 @@ echo /repo/yingjieb/fdt063/sw/vobs/dsl/sw/flat/fpxt-b_OFLT_MAIN/src/bcm_commands
 
 # awk
 
-## shell变量传给awk
+## 多pattern匹配
+比如要匹配下面的行的任意一行:
+```
+P:musl
+P:musl-dev
+P:musl-dbg
+```
+可以写多次`/pattern1/{action} /pattern2/{action} /pattern3/{action}`:
+```shell
+zcat APKINDEX.tar.gz | awk "/^P:musl$/ {print} /^P:musl-dbg$/ {print} /^P:musl-dev$/ {print}
+```
+但比较啰嗦. 可以用一个regex的pattern, 并省略掉action, 默认action应该是print
+```shell
+zcat APKINDEX.tar.gz | awk '/^P:(musl|musl-dbg|musl-dev)$/'
+```
+
+
+
+## pattern区间
+awk同样支持sed的多行区间, 用`/pattern 1/,/pattern 2/{actions}`可以按行匹配输入, 在`pattern 1`和`pattern 2`之间的行做actions.
+
+比如这样的input, 取自APKINDEX文件:
+```
+C:Q1LGcFWDWDuum9Mlpc4XpRYfx6dIo=
+P:byobu
+V:5.133-r3
+A:mips64
+S:81594
+I:655360
+T:An enhancement of the GNU Screen
+U:https://byobu.org
+L:GPL-3.0-or-later
+o:byobu
+m:Francesco Colista <fcolista@alpinelinux.org>
+t:1695883737
+c:c78192d5e420344d36762363765a67b8baff61bc
+D:python3 tmux
+p:cmd:byobu-config=5.133-r3 cmd:byobu-ctrl-a=5.133-r3 cmd:byobu-disable-prompt=5.133-r3 cmd:byobu-disable=5.133-r3 cmd:byobu-enable-prompt=5.133-r3 cmd:byobu-enable=5.133-r3 cmd:byobu-export=5.133-r3 cmd:byobu-janitor=5.133-r3 cmd:byobu-keybindings=5.133-r3 cmd:byobu-launch=5.133-r3 cmd:byobu-launcher-install=5.133-r3 cmd:byobu-launcher-uninstall=5.133-r3 cmd:byobu-launcher=5.133-r3 cmd:byobu-layout=5.133-r3 cmd:byobu-prompt=5.133-r3 cmd:byobu-quiet=5.133-r3 cmd:byobu-reconnect-sockets=5.133-r3 cmd:byobu-screen=5.133-r3 cmd:byobu-select-backend=5.133-r3 cmd:byobu-select-profile=5.133-r3 cmd:byobu-select-session=5.133-r3 cmd:byobu-shell=5.133-r3 cmd:byobu-silent=5.133-r3 cmd:byobu-status-detail=5.133-r3 cmd:byobu-status=5.133-r3 cmd:byobu-tmux=5.133-r3 cmd:byobu-ugraph=5.133-r3 cmd:byobu-ulevel=5.133-r3 cmd:byobu=5.133-r3 cmd:col1=5.133-r3 cmd:ctail=5.133-r3 cmd:manifest=5.133-r3 cmd:purge-old-kernels=5.133-r3 cmd:vigpg=5.133-r3 cmd:wifi-status=5.133-r3
+
+C:Q18k2zDffMQh1X4maGvY6tc6YQlJI=
+P:byobu-doc
+V:5.133-r3
+A:mips64
+S:34154
+I:184320
+T:An enhancement of the GNU Screen (documentation)
+U:https://byobu.org
+L:GPL-3.0-or-later
+o:byobu
+m:Francesco Colista <fcolista@alpinelinux.org>
+t:1695883737
+c:c78192d5e420344d36762363765a67b8baff61bc
+i:docs byobu=5.133-r3
+
+C:Q1JDzTlTgVoPfGgNU7IFaZaRp2qCg=
+P:bzip2
+V:1.0.8-r5
+A:mips64
+S:169286
+I:528384
+T:A high-quality data compression program
+U:https://sourceware.org/bzip2/
+L:bzip2-1.0.6
+o:bzip2
+m:Natanael Copa <ncopa@alpinelinux.org>
+t:1695883737
+c:c78192d5e420344d36762363765a67b8baff61bc
+D:so:libc.musl-mips64.so.1
+p:cmd:bunzip2=1.0.8-r5 cmd:bzcat=1.0.8-r5 cmd:bzcmp=1.0.8-r5 cmd:bzdiff=1.0.8-r5 cmd:bzegrep=1.0.8-r5 cmd:bzfgrep=1.0.8-r5 cmd:bzgrep=1.0.8-r5 cmd:bzip2=1.0.8-r5 cmd:bzip2recover=1.0.8-r5 cmd:bzless=1.0.8-r5 cmd:bzmore=1.0.8-r5
+
+C:Q1Y40XcNmlXk8rATGCUxudndyaFQ8=
+P:bzip2-dev
+V:1.0.8-r5
+A:mips64
+S:3631
+I:32768
+T:A high-quality data compression program (development files)
+U:https://sourceware.org/bzip2/
+L:bzip2-1.0.6
+o:bzip2
+m:Natanael Copa <ncopa@alpinelinux.org>
+t:1695883737
+c:c78192d5e420344d36762363765a67b8baff61bc
+D:libbz2=1.0.8-r5 pkgconfig
+p:pc:bzip2=1.0.8
+```
+
+我想找到`bzip2`对应的commit `c:c78192d5e420344d36762363765a67b8baff61bc`, 可以这样:
+```shell
+zcat APKINDEX.tar.gz | awk '/^P:bzip2$/,/^$/{if(/^c:/) print}'
+```
+解释:
+* `/^P:bzip2$/,/^$/`: 从`P:bzip2`到空行`^$`的范围
+* `if(/^c:/)`: 如果以`c:`开头
+* print: 满足条件则print
+
+## shell变量传给awk -- 推荐直接用双引号
+
+### 用`-v`选项
 向awk传入变量, 用-v, shell变量用双引号括起来:`-v td="$TimeDiff"`
+比如
+```shell
+awk -F'=' -v td="$TimeDiff" '{a[$1]=$2-a[$1]} END {for(k in a) printf "%s %d pps\n",k,a[k]*1000000/td}'
+```
+
+### 先在shell里面展开变量
+先用shell变量展开:
+```shell
+pkgname=zlib
+awk_arg='/^P:'$pkgname'$/,/^$/{if(/^c:/) print substr($0, 3)}'
+commit=$(zcat APKINDEX.tar.gz | awk "$awk_arg")
+```
+注意在给`awk_arg`赋值的时候, 我用了`'单引号'`, 是为了不展开里面的`$0`; 但我还想展开`$pkgname`, 所以在其外面又加了`'单引号'`, 目的不是把`$pkgname`括起来, 而是分别和前后的单引号配对. 类似这样`abcd='abc'$variable'ddd'`
+
+完整版:
+```shell
+apk_is_up2date() {
+    set_source_date
+    local index_gz="$1"
+    local pkgname=$(. $APKBUILD; echo $pkgname)
+    local awk_arg='/^P:'$pkgname'$/,/^$/{if(/^c:/) print substr($0, 3)}'
+    local commit=$(zcat $index_gz | awk "$awk_arg")
+    [ "$ABUILD_LAST_COMMIT" = "$commit" ]
+}
+```
+
+### 直接用双引号
+还是上面的例子, 不用单引号, 用双引号:
+```shell
+zcat $index_gz | awk "/^P:$pkgname$/,/^$/{if(/^c:/) print substr(\$0, 3)}"
+```
+shell会展开双引号里面的变量, 再传给awk. 为了避免`$0`被展开, 要转义一下`\$0`
 
 ## 再说patten
 一般的pattern是这样的:

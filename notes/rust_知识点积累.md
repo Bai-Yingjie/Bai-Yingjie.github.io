@@ -1158,7 +1158,7 @@ impl  VmResources {
 它们都在一个impl块里.
 
 ## 条件编译
-比如只有再cfg的target_arch是aarch64时才编译:
+比如只有在cfg的target_arch是aarch64时才编译:
 ```rust
 #[cfg(target_arch = "aarch64")]
 enable_ssbd_mitigation();

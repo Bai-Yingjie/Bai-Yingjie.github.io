@@ -35,6 +35,7 @@
 - [修改grub2默认启动项](#修改grub2默认启动项)
 - [解决中文乱码](#解决中文乱码)
 - [使用tmux](#使用tmux)
+- [向多个pane同时发送命令](#向多个pane同时发送命令)
 - [vim支持系统clipboard](#vim支持系统clipboard)
 - [ubuntu查看系统中已安装的包](#ubuntu查看系统中已安装的包)
 - [locate每天更新数据库](#locate每天更新数据库)
@@ -702,6 +703,15 @@ tmux kill-server 终止tmux server, 会杀掉所有tmux client
     Alt+o   #逆时针旋转当前窗口的面板  
     Ctrl+o  #顺时针旋转当前窗口的面板  
 ```
+# 向多个pane同时发送命令
+```shell
+Ctrl-B :
+
+setw synchronize-panes on
+
+clear history
+```
+
 # vim支持系统clipboard
 ```sh
 $apt install vim-gtk
