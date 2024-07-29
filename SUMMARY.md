@@ -123,6 +123,7 @@
   * [Golang 泛型](notes/golang_泛型.md)
   * [Golang 我的反射代码](notes/golang_我的反射代码.md)
   * [Golang 问答](notes/golang_问答.md)
+  * [Golang plugin](notes/golang_plugin.md)
   * [Golang 高效go](notes/golang_高效go.md)
   * [Golang 进阶](notes/golang_进阶.md)
   * [Golang 杂记](notes/as_title_golang2.md)
