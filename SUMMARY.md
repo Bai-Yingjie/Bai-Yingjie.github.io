@@ -77,6 +77,7 @@
   * [Get started with XDP(网摘)](notes/networking_xdp入门.md)
   * [linux收包路径图解(网摘)](notes/networking_linux收包路径图解.md)
   * [alpine编译vpp](notes/vpp_compiling_on_alpine.md)
+    * [vpp的host-interface](notes/vpp_host_interace.md)
   * [Qemu OVS和DPDK](notes/as_title_qemu_ovs.md)
     * [OVS-DPDK编译运行](notes/OVS_DPDK_编译运行.md)
     * [OVS架构和代码](notes/OVS_架构和代码.md)
