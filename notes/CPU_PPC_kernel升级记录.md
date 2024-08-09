@@ -275,7 +275,7 @@ ppcP3041[0,B] % md 0x00000000
 #此时的tlb还是uboot配的.
 ```
 OK, 现在开始单步调试kernel.
-```sh
+```shell
 #断点设在uboot的虚拟地址0, 这是kernel的第一条指令
 bs x 0x00000000
 #让target继续运行

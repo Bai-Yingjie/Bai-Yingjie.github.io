@@ -81,7 +81,7 @@ tc命令是iproute2里面的用户态流量控制工具, tc是traffic control的
 
 ## tc命令实践
 ### 不同的interface有不同的默认qdisc配置
-```sh
+```shell
 # eth0是VM的主网口, 配了默认的pfifo_fast
 $ tc qdisc show dev eth0
 qdisc pfifo_fast 0: root refcnt 2 bands 3 priomap  1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1
@@ -98,7 +98,7 @@ tc class show dev eth0
 ### 查看filter
 命令格式`tc filter show [ dev STRING ] [ root | ingress | egress | parent CLASSID ]`
 
-```sh
+```shell
 # 这样没输出
 tc filter show dev eth-mgnt
 
@@ -116,7 +116,7 @@ filter parent ffff: protocol all pref 49152 u32 chain 0 fh 800::800 order 2048 k
 
 ### 删除filter
 上面创建的ingress的filter好像没办法删, 但可以删除整个ingress qdisc
-```sh
+```shell
 /work # tc qdisc show dev eth-mgnt
 qdisc noqueue 0: root refcnt 2
 qdisc ingress ffff: parent ffff:fff1 ----------------
@@ -134,7 +134,7 @@ qdisc ingress ffff: parent ffff:fff1 ----------------
 * `eth-mgnt`是docker的一个interface, 类型是veth
 * `vmtap0`是个tap, 用来连接VM
 
-```sh
+```shell
 tc qdisc add dev eth-mgnt ingress
 tc filter add dev eth-mgnt parent ffff: protocol all u32 match u8 0 0 action mirred egress redirect dev vmtap0
 tc qdisc add dev vmtap0 ingress
@@ -157,7 +157,7 @@ tc filter add dev vmtap0 parent ffff: protocol all u32 match u8 0 0 action mirre
 后面的命令还是出错, `tc filter add dev eth-mgnt parent ffff: protocol all u32 match u8 0 0 action mirred egress redirect dev vmtap0`, 同样显示`RTNETLINK answers: No such file or directory`
 
 sch_ingress已经加载, 但还是出错. 那么应该还是有module没加载. 这次来个暴力的:
-```sh
+```shell
 # 把/kernel/net/sched的所有ko都加载
 for f in /lib/modules/`uname -r`/kernel/net/sched/*;do modprobe $(echo $(basename $f) | cut -d '.' -f1); done
 ```
@@ -165,12 +165,12 @@ for f in /lib/modules/`uname -r`/kernel/net/sched/*;do modprobe $(echo $(basenam
 
 但总不能把有的没的module都加载放在那吧? 有没有办法只加载需要的ko呢?  
 有, 如下:
-```sh
+```shell
 # 把/kernel/net/sched的所有ko都卸载, 那些卸载不掉的就是需要的.
 for f in /lib/modules/`uname -r`/kernel/net/sched/*;do modprobe -r $(echo $(basename $f) | cut -d '.' -f1); done
 ```
 上面命令输出:
-```sh
+```shell
 modprobe: FATAL: Module act_ife is in use.
 modprobe: FATAL: Module act_mirred is in use.
 modprobe: FATAL: Module cls_u32 is in use.
@@ -179,7 +179,7 @@ modprobe: FATAL: Module sch_ingress is in use.
 我们看到`sch_ingress cls_u32 act_mirred act_ife`正在被使用, 除了ife, 其他都是命令里的关键字.
 
 补充:内核选项:
-```sh
+```shell
 #
 # QoS and/or fair queueing
 #
@@ -316,7 +316,7 @@ qdisc可以有class, 也可以没有. 没有class的qdisc有如下类型:
 * tbf: Token Bucket Filter. 控制rate的.
 
 无类型的qdisc只能被添加到设备的root. 语法是
-```sh
+```shell
 tc qdisc add dev DEV root QDISC QDISC-PARAMETERS
 tc qdisc del dev DEV root
 ```
@@ -466,7 +466,7 @@ P：服务提供商的路由器，对应LSR。
 ## ethtool -S
 ## /sys/class/net/eth0/statistics/
 注意到`/sys/class/net`下面有很多详细的接口信息
-```sh
+```shell
 ~ # cat /sys/class/net/eth0/statistics/rx_packets
 23671787
 ~ # cat /sys/class/net/eth0/statistics/rx_dropped
@@ -475,7 +475,7 @@ P：服务提供商的路由器，对应LSR。
 
 ## man netstat
 提到说如下proc文件系统下的文件:
-```sh
+```shell
        /proc/net/dev -- device information
        /proc/net/raw -- raw socket information
        /proc/net/tcp -- TCP socket information
@@ -498,7 +498,7 @@ P：服务提供商的路由器，对应LSR。
        /proc/net/snmp -- statistics
 ```
 比如:
-```sh
+```shell
 ~ # cat /proc/net/snmp
 Ip: Forwarding DefaultTTL InReceives InHdrErrors InAddrErrors ForwDatagrams InUnknownProtos InDiscards InDelivers OutRequests OutDiscards OutNoRoutes ReasmTimeout ReasmReqds ReasmOKs ReasmFails FragOKs FragFails FragCreates
 Ip: 1 64 27939461 0 3 0 0 0 27939458 27949181 1 4 0 0 0 0 0 0 0
@@ -517,7 +517,7 @@ UdpLite: 0 0 0 0 0 0 0 0
 # 如何找到socket端口号对应的进程2 -- 使用ss命令
 `ss -ap`命令可以打印所有socket的信息, `-p`表示打印进程名
 
-```sh
+```shell
 ~ # ss -h
 Usage: ss [ OPTIONS ]
        ss [ OPTIONS ] [ FILTER ]
@@ -577,7 +577,7 @@ Usage: ss [ OPTIONS ]
 ## 现象
 docker内下载失败, git clone失败  
 命令:
-```sh
+```shell
 http_proxy="" curl -s http://10.182.105.179:8088/godevtools/godevtool
 #或者
 git clone https://gitlabe1.ext.net.nokia.com/godevsig/compatible.git/
@@ -601,7 +601,7 @@ docker里面基本网络正常, 和目标能连接. 但不知道什么原因, �
 
 ### 抓包
 用这个命令抓包:
-```sh
+```shell
 sudo tcpdump -n '(host 10.182.105.179) or (host 10.158.100.6)'
 ```
 `10.182.105.179`就是`curl -s`的目标ip, `10.158.100.6`是个代理ip, 在这里没有使用, 可以忽略
@@ -685,7 +685,7 @@ tcpdump看到的报文, 是网卡硬件已经重组后的报文, 超出了mtu也
 
 ## 解决
 修改host MTU
-```sh
+```shell
 man ip link
 ip link set dev eth0 mtu 1500
 ```
@@ -697,7 +697,7 @@ ip link set dev eth0 mtu 1500
 
 修改方法如下:  
 增加docker的配置文件, 指定mtu
-```sh
+```shell
 yingjieb@cloud-server-1:~$ cat /etc/docker/daemon.json
 {
   "mtu": 1400
@@ -707,7 +707,7 @@ yingjieb@cloud-server-1:~$ cat /etc/docker/daemon.json
 `sudo systemctl restart docker`
 
 实际上, 这个mtu是配在docker0网桥上的
-```sh
+```shell
 yingjieb@cloud-server-2:~$ ip link show
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -729,7 +729,7 @@ yingjieb@cloud-server-2:~$ ip link show
 板子上用dhclient获取的IP地址, ip和PC机同网段.
 
 使用时, 板子能够ping通服务器, 但wget, ssh等都不通.
-```sh
+```shell
 ~ # wget http://10.182.105.138:8088/release/latest/mips/topid
 Connecting to 10.182.105.138:8088 (10.182.105.138:8088)
 wget: can't connect to remote host (10.182.105.138): Connection refused
@@ -747,7 +747,7 @@ tcpdump -nevvxx host 10.242.29.181
 ```
 在服务器上, 能够抓到包, 说明报文能够到达, 这和ping的结果是一致的.  
 但TCP建立连接的3次握手不正常. 服务器认为对端最后发了RESET, 终止连接.
-```sh
+```shell
 #对端发的握手请求: Flags  [S]
 07:18:58.264471 fa:16:3e:36:da:c0 > fa:16:3e:cf:b4:34, ethertype IPv4 (0x0800), length 74: (tos 0x48, ttl 50, id 1104, offset 0, flags [DF], proto TCP (6), length 60)
     10.242.29.181.39672 > 192.168.0.14.8088: Flags [S], cksum 0xbcab (correct), seq 2058190441, win 29200, options [mss 1460,sackOK,TS val 33978937 ecr 0,nop,wscale 7], length 0
@@ -763,7 +763,7 @@ tcpdump -nevvxx host 10.242.29.181
 ```
 
 那板子是否发了RESET消息? 下面是板子的抓包
-```sh
+```shell
 #板子发SYN, 握手请求
 12:58:08.892054 c8:f8:6d:b7:0e:24 > 00:00:5e:00:01:02, ethertype IPv4 (0x0800), length 74: (tos 0x0, ttl 64, id 1104, offset 0, flags [DF], proto TCP (6), length 60)
     10.242.29.181.39672 > 10.182.105.138.8088: Flags [S], cksum 0x9d15 (incorrect -> 0x0922), seq 2058190441, win 29200, options [mss 1460,sackOK,TS val 33978937 ecr 0,nop,wscale 7], length 0
@@ -802,7 +802,7 @@ tcpdump -nevvxx host 10.242.29.181
 
 ## 解决方案
 因为`Flags [R.]`是中间防火墙/路由器发的, 是"多出来"的报文. 那可以设置iptables规则把这些报文过滤掉:
-```sh
+```shell
 #对默认的filter表, 增加规则到INPUT链(-A), 对tcp协议, 有RST标记的报文, jump到target DROP(-j)
 iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP
 ```
@@ -821,7 +821,7 @@ iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP
 
 ## 后续
 但中间路由/防火墙发过来的RESET报文还是很多, 抓包能抓到大量的发到板子的`Flags [R.]`报文. 这些报文根据规则都被丢弃了.
-```sh
+```shell
 12:45:15.602124 2c:fa:a2:3a:88:75 > c8:f8:6d:b7:0e:24, ethertype IPv4 (0x0800), length 60: (tos 0x0, ttl 123, id 63223, offset 0, flags [none], proto TCP (6), length 40)
     10.182.105.138.8088 > 10.242.29.181.39658: Flags [R.], cksum 0x02b2 (correct), seq 3873418, ack 108, win 0, length 0
     
@@ -1024,7 +1024,7 @@ local_address下面的0016就是端口号, 0x16就是22号端口.
 
 ### 脚本
 这个脚本能够自动找到端口号和pid的关系.
-```sh
+```shell
 #!/bin/bash
 
 for protocol in tcp udp ; 

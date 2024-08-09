@@ -26,12 +26,12 @@
 # 命令记录
 
 ## 命令行启动
-```sh
+```shell
 bin/cloud-hypervisor --seccomp false --api-socket clh.sock --cpus boot=2 --memory size=2048M,shared=on --kernel kernel/vmlinux.bin --initramfs rootfs/boot/rootfs.cpio.gz --cmdline "console=hvc0 config_overlay=linux_shell_only=1 init=/init"
 ```
 
 ## ch-remote启动
-```sh
+```shell
 # 先启动主程序, 主程序等待命令
 bin/cloud-hypervisor --seccomp false --api-socket clh.sock
 
@@ -120,7 +120,7 @@ pub struct ConsoleConfig {
 ```
 
 # 启动
-```sh
+```shell
 # virt-customize需要这个
 apt install libguestfs-tools
 # 默认ubuntu的cloud image是没有默认用户的, 也没有root密码
@@ -135,7 +135,7 @@ wget https://github.com/cloud-hypervisor/rust-hypervisor-firmware/releases/downl
 ```
 
 启动示例:
-```sh
+```shell
 $ sudo setcap cap_net_admin+ep ./cloud-hypervisor/target/release/cloud-hypervisor
 
 # 如果有权限问题, 把/dev/kvm的other设为读写
@@ -151,7 +151,7 @@ $ ./cloud-hypervisor/target/release/cloud-hypervisor \
 ```
 
 ## 可选参数
-```sh
+```shell
 cloud-hypervisor -h
     --api-socket /path/to/uds
     --kernel
@@ -192,13 +192,13 @@ mount rootextra /rootextra -t virtiofs -o noatime
 
 # rest API
 ## ping
-```sh
+```shell
 curl --unix-socket /tmp/clh.sock -i -X GET 'http://localhost/api/v1/vmm.ping'
 ```
 
 ## dump vm info
 假设使用`--api-socket /tmp/clh.sock`启动clh
-```sh
+```shell
 curl --unix-socket /tmp/clh.sock -i -X GET 'http://localhost/api/v1/vm.info' -H 'Accept: application/json' | tail -1 | jq .
 ```
 
@@ -423,7 +423,7 @@ curl --unix-socket /tmp/clh.sock -i -X GET 'http://localhost/api/v1/vm.info' -H 
 ```
 
 ## reboot shutdown
-```sh
+```shell
 curl --unix-socket /tmp/cloud-hypervisor.sock -i -X PUT 'http://localhost/api/v1/vm.reboot'
 curl --unix-socket /tmp/cloud-hypervisor.sock -i -X PUT 'http://localhost/api/v1/vm.shutdown'
 ```
@@ -431,7 +431,7 @@ curl --unix-socket /tmp/cloud-hypervisor.sock -i -X PUT 'http://localhost/api/v1
 ## 其他
 比如暂停, 恢复, add net, add disk, remove device, dump counters等等都支持.
 例如:
-```sh
+```shell
 curl --unix-socket /tmp/clh.sock -i -X GET 'http://localhost/api/v1/vm.counters'
 ```
 
@@ -507,7 +507,7 @@ systemd开始工作
 
 # gdb调试
 用上面的命令启动hypervisor后, 用gdb调试:
-```sh
+```shell
 gdb cloud-hypervisor -p 18294
 Reading symbols from cloud-hypervisor...done
 (gdb) b mmio_read
@@ -530,7 +530,7 @@ Breakpoint 4 at 0x7f766f2759d7: file hypervisor/src/kvm/mod.rs, line 1145.
 参考https://bitshifter.github.io/rr+rust/index.html#1
 
 需要在root用户下安装rust. 我从普通用户拷贝`~/.cargo`和`~/.rustp`好像也能用.
-```sh
+```shell
 # su root
 ~/.cargo/bin/rust-gdb -p 19507
 b kvm_ioctls::ioctls::vcpu::VcpuFd::run
@@ -538,7 +538,7 @@ b kvm_ioctls::ioctls::vcpu::VcpuFd::run
 
 # 测试场景: vm内virtio-net网口ping对应的tap口
 启动hypervisor后, VM内有virtio-net网口:
-```sh
+```shell
 root@ubuntu:~# ethtool -i ens3
 driver: virtio_net
 version: 1.0.0
@@ -546,7 +546,7 @@ bus-info: 0000:00:03.0
 ```
 查看pci拓扑:
 注: lspci执行过程中, 会频繁的触发vm exit, 断点表面是VM在做`VcpuExit::IoOut`
-```sh
+```shell
 root@ubuntu:~# lspci
 00:00.0 Host bridge: Intel Corporation Device 0d57
 00:01.0 Unassigned class [ffff]: Red Hat, Inc. Virtio console (rev 01)
@@ -558,18 +558,18 @@ root@ubuntu:~# lspci
 同时, hypervisor会在host上创建一个网口`vmtap0`, 并配置IP`192.168.249.1/24`
 
 默认vm的ens3是down的, 下面配置其为up, ip为192.168.249.2
-```sh
+```shell
 ip link set up dev ens3
 ip addr add 192.168.249.2/24 dev ens3
 ```
 此时可以ping通`vmtap0`:
-```sh
+```shell
 ping 192.168.249.1
 ```
 
 ## gdb观察
 设断点:
-```sh
+```shell
 # su root
 ~/.cargo/bin/rust-gdb -p 19507
 b kvm_ioctls::ioctls::vcpu::VcpuFd::run
@@ -633,7 +633,7 @@ b <virtio_devices::transport::pci_device::VirtioPciDevice as pci::device::PciDev
 再次确认, `pci::device::PciDevice::read_bar/write_bar`并没有在virtio-net报文交换的过程中被调用.
 
 ### 写文件是否会触发VM exit -- 否
-```sh
+```shell
 echo abc > abc.txt
 sync
 //执行的很快

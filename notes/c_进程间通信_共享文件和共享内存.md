@@ -174,7 +174,7 @@ If the file is not currently locked, then the _consumer_ tries to gain a shared 
 
 Here is the output from the two programs launched from the same terminal with **%** as the command line prompt:
 
-```sh
+```shell
 % ./producer
 Process 29255 has written to data file...
 

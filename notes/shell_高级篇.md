@@ -326,7 +326,7 @@ linux终端(Terminals)有三种:
 比如cloud-hypervisor使用pty文件`/dev/pts/2`做为VM的控制台, `cat /dev/pts/2`能够在host上查看VM的输出, `echo xxxx > /dev/pts/2`可以向VM输入. 
 但怎么同时输入输出? 就像进入VM的控制台一样?
 先给出结果, 用socat:
-```sh
+```shell
 socat -,rawer,escape=29 /dev/pts/2
 ```
 这个命令的意思是, 建立从raw模式的`stdio`到`/dev/pts/2`的双向stream连接
@@ -496,7 +496,7 @@ sighup, sigint, sigquit
 ```
 
 ## 例子
-```sh
+```shell
 #把stdio转到tcp
 socat - TCP4:www.domain.org:80
 #和上面差不多, 但支持line edit
@@ -511,7 +511,7 @@ socat -,escape=0x0f /dev/ttyS0,rawer,crnl
 
 # 脚本命令行解析之declare -f
 下面的代码中, 脚本main里面解析命令行, 只看了通用的--help等, 而其他的命令都通过`declare -f "cmd_$1"  > /dev/null`先"声明"函数, 再调用:`$cmd "$@"`
-```sh
+```shell
 main() {
 
     if [ $# = 0 ];  then
@@ -553,7 +553,7 @@ main "$@"
 
 比如想实现`$0 build_rootfs`命令, 用上面的方法, 只需要增加`cmd_build_rootfs()`函数:
 但需要每个"子命令"函数都自己实现命令解析
-```sh
+```shell
 # `./devtool build_rootfs -s 500MB`
 # Build a rootfs of custom size.
 #
@@ -590,7 +590,7 @@ cmd_build_rootfs() {
 
 ## 背景:
 这里的测试命令是:
-```sh
+```shell
 go list -f "{{context.GOARCH}} {{context.Compiler}}" -- unsafe
 
 #正常的结果是
@@ -602,7 +602,7 @@ amd64 gc
 
 ## 简单wrapper
 这样是可以的
-```sh
+```shell
 #!/bin/bash
 
 exec _go "$@"
@@ -619,7 +619,7 @@ exec _go "$@"
 
 ## 参数重载
 但我的需求是更改参数, 有如下尝试:
-```sh
+```shell
 #!/bin/bash
 
 cmd=$1
@@ -631,7 +631,7 @@ exec _go $cmd "$@"
 
 ## 变量赋值导致字符串多变一
 但下面的代码不正常工作:
-```sh
+```shell
 #!/bin/bash
 
 cmd=$1
@@ -650,7 +650,7 @@ exec _go $cmd $args
 
 ## shell变量扩展方式
 下面的都不行
-```sh
+```shell
 #!/bin/bash
 
 cmd=$1
@@ -665,7 +665,7 @@ exec _go $cmd "${*@Q}"
 can't load package: package '-f' '{{context.GOARCH}} {{context.Compiler}}' '--' 'unsafe': malformed module path "'-f' '{{context.GOARCH}} {{context.Compiler}}' '--' 'unsafe'": invalid char '\''
 ```
 这里用到了shell的[变量扩展](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html):
-```sh
+```shell
 ${parameter@operator}
 The expansion is either a transformation of the value of parameter or information about parameter itself, depending on the value of operator. Each operator is a single letter:
 Q
@@ -680,14 +680,14 @@ If parameter is ‘@’ or ‘*’, the operation is applied to each positional 
 
 ## printf
 printf也支持
-```sh
+```shell
 printf: printf [-v var] format [arguments]
  %b        expand backslash escape sequences in the corresponding argument
  %q        quote the argument in a way that can be reused as shell input
 The format is re-used as necessary to consume all of the arguments. 
 ```
 比如
-```sh
+```shell
 #!/bin/bash
 
 args="$@"
@@ -707,7 +707,7 @@ printf "====%s\n" ${args@Q}
 `${args@Q}`中, `${args}`被当作一个整体, 加上了引号. 这个整体传入printf的时候, printf按空白符分割, 被当作6个argument, 并分别用`"====%s\n"`来格式化.
 
 ## 最终版, 用eval
-```sh
+```shell
 #!/bin/bash
 
 cmd=$1
@@ -738,7 +738,7 @@ eval _go $cmd $args
 * 子串扩展: `${parameter:offset} ${parameter:offset:length}`
 支持负数
 
-```sh
+```shell
 $ string=01234567890abcdefgh
 $ echo ${string:7}
 7890abcdefgh
@@ -792,7 +792,7 @@ $ echo ${array[0]: -7:-2}
 bcdef
 ```
 支持list模式(array模式).
-```sh
+```shell
 $ array=(0 1 2 3 4 5 6 7 8 9 0 a b c d e f g h)
 $ echo ${array[@]:7}
 7 8 9 0 a b c d e f g h
@@ -814,7 +814,7 @@ curl不仅可以传输http, 还支持几乎所有的传输协议:比如tftp teln
 curl有非常多的选项
 
 ## 使用举例1
-```sh
+```shell
 # https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API#ArtifactoryRESTAPI-WorkingwithArtifactoryCloud
 curl -X PUT $ARTIFACTORY_URL/$RELEASE_BASE/$versiondir/$subdir/$arch/$remote_package_name -T $package
 
@@ -826,7 +826,7 @@ curl -s -X GET $ARTIFACTORY_URL/$RELEASE_BASE/$versiondir/$subdir/$arch/$package
 ```
 
 说明:
-```sh
+```shell
        -X, --request <command>
               (HTTP) Specifies a custom request method to use when communicating with the HTTP server.  The specified request method will be used instead of the method otherwise used
               (which defaults to GET). Read the HTTP 1.1 specification for details and explanations. Common additional HTTP requests include PUT and DELETE, but related  technologies
@@ -862,12 +862,12 @@ curl -s -X GET $ARTIFACTORY_URL/$RELEASE_BASE/$versiondir/$subdir/$arch/$package
 ```
 
 ## 使用举例2
-```sh
+```shell
 #For example, the following cURL and build-info-permission.json define a new permission target called “java-developers”, for a build called “test-maven”:
 curl -uadmin:password -XPUT "http://localhost:8081/artifactory/api/v2/security/permissions/java-developers"  -H "Content-type: application/json"  -T build-info-permission.json
 ```
 说明:
-```sh
+```shell
        -u, --user <user:password>
               Specify the user name and password to use for server authentication. Overrides -n, --netrc and --netrc-optional.
 
@@ -896,7 +896,7 @@ curl -uadmin:password -XPUT "http://localhost:8081/artifactory/api/v2/security/p
 
 ## 使用举例3
 下载vscode server
-```sh
+```shell
 curl -#fL -o ~/.cache/code-server/code-server-3.6.0-linux-amd64.tar.gz.incomplete -C - https://github.com/cdr/code-server/releases/download/v3.6.0/code-server-3.6.0-linux-amd64.tar.gz
 ```
 * `-#` 使用简化的进度条
@@ -906,7 +906,7 @@ curl -#fL -o ~/.cache/code-server/code-server-3.6.0-linux-amd64.tar.gz.incomplet
 
 ## URL格式
 curl支持多个url地址, 比如
-```sh
+```shell
 http://site.{one,two,three}.com
 ftp://ftp.example.com/file[1-100].txt
 ftp://ftp.example.com/file[a-z].txt
@@ -923,23 +923,23 @@ http://example.com/file[a-z:2].txt
 ## 简介
 gitlab API的根目录是`https://gitlab.example.com/api/v4`
 比如
-```sh
+```shell
 # 获取gitlabe1.ext.net.nokia.com下所有的projects, 返回值是json格式的
 curl "https://gitlabe1.ext.net.nokia.com/api/v4/projects"
 ```
 
 POST是新建, PUT是更新: 使用curl的`-X, --request`选项指定. 默认是GET
 
-| Methods | Description |
-| --- | --- |
+| Methods                                         | Description                                           |
+| ----------------------------------------------- | ----------------------------------------------------- |
 | `--header "PRIVATE-TOKEN: <your_access_token>"` | Use this method as is, whenever authentication needed |
-| `--request POST` | Use this method when creating new objects |
-| `--request PUT` | Use this method when updating existing objects |
-| `--request DELETE` | Use this method when removing existing objects |
+| `--request POST`                                | Use this method when creating new objects             |
+| `--request PUT`                                 | Use this method when updating existing objects        |
+| `--request DELETE`                              | Use this method when removing existing objects        |
 
 有些API是需要权限的, 没有权限可能返回public data或者直接返回错误.
 有几种方式提供权限, 比如
-```sh
+```shell
 # 在参数里
 curl https://gitlab.example.com/api/v4/projects?private_token=<your_access_token>
 
@@ -948,29 +948,29 @@ curl --header  "Private-Token: <your_access_token>" https://gitlab.example.com/a
 ```
 
 比如获取group信息
-```sh
+```shell
 curl --header  "PRIVATE-TOKEN: <your_access_token>"  "https://gitlab.example.com/api/v4/groups/gitlab-org"
 ```
 
 ## 举例
 ### 创建新project
 使用POST
-```sh
+```shell
 curl --request POST --header  "PRIVATE-TOKEN: <your_access_token>"  "https://gitlab.example.com/api/v4/projects?name=foo"
 ```
 也可以使用curl的--data
-```sh
+```shell
 curl --data  "name=foo"  --header  "PRIVATE-TOKEN: <your_access_token>"  "https://gitlab.example.com/api/v4/projects"
 ```
 
 再举个创建新group的例子: 这个例子使用json格式的数据做为输入
-```sh
+```shell
 curl --request POST --header  "PRIVATE-TOKEN: <your_access_token>"  --header  "Content-Type: application/json"  --data  '{"path": "my-group", "name": "My group"}'  "https://gitlab.example.com/api/v4/groups"
 ```
 
 ### 获取gitignore模板
 对每个语言, gitlab都有gitignore模板, 对应`GET /templates/gitignores`请求
-```sh
+```shell
 # 获取所有模板, 返回json格式的列表
 curl https://gitlab.example.com/api/v4/templates/gitignores
 # 实例返回结果
@@ -1004,7 +1004,7 @@ curl https://gitlab.example.com/api/v4/templates/gitignores
 ```
 
 比如看Ruby的gitignore模板, 需要用这样的语法:`GET /templates/gitignores/:key`
-```sh
+```shell
 curl https://gitlab.example.com/api/v4/templates/gitignores/Ruby
 #结果
 {
@@ -1019,7 +1019,7 @@ curl https://gitlab.example.com/api/v4/templates/gitignores/Ruby
 或者
 `GET /projects/:id/repository/branches/:branch`
 比如:
-```sh
+```shell
 curl https://gitlabe1.ext.net.nokia.com/api/v4/projects/57103/repository/branches
 curl https://gitlabe1.ext.net.nokia.com/api/v4/projects/57103/repository/branches/master
 ```
@@ -1028,14 +1028,14 @@ curl https://gitlabe1.ext.net.nokia.com/api/v4/projects/57103/repository/branche
 `POST /projects/:id/repository/branches`
 需要下面的参数:
 
-| Attribute | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | integer | yes | ID or [URL-encoded path of the project](https://docs.gitlab.com/12.10/ee/api/README.html#namespaced-path-encoding) owned by the authenticated user. |
-| `branch` | string | yes | Name of the branch. |
-| `ref` | string | yes | Branch name or commit SHA to create branch from. |
+| Attribute | Type    | Required | Description                                                                                                                                         |
+| --------- | ------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`      | integer | yes      | ID or [URL-encoded path of the project](https://docs.gitlab.com/12.10/ee/api/README.html#namespaced-path-encoding) owned by the authenticated user. |
+| `branch`  | string  | yes      | Name of the branch.                                                                                                                                 |
+| `ref`     | string  | yes      | Branch name or commit SHA to create branch from.                                                                                                    |
 
 举例:
-```sh
+```shell
 curl --request POST --header  "PRIVATE-TOKEN: <your_access_token>" https://gitlab.example.com/api/v4/projects/5/repository/branches?branch=newbranch&ref=master
 
 # 返回
@@ -1044,14 +1044,14 @@ curl --request POST --header  "PRIVATE-TOKEN: <your_access_token>" https://gitla
 
 删除分支:`DELETE /projects/:id/repository/branches/:branch`
 举例:
-```sh
+```shell
 curl --request DELETE --header  "PRIVATE-TOKEN: <your_access_token>" https://gitlab.example.com/api/v4/projects/5/repository/branches/newbranch
 ```
 
 # sed解析log
 要在一个很大的log里面提取OMCI的消息:
 格式1
-```sh
+```shell
 [trace] 08:36:48.888471 Dir: Tx --> Onu: ont1-fwlt-b Retry: 0 
 00000000  1c ee 49 0a 00 02 00 00  80 00 00 00 00 00 00 00  |..I.............|
 00000010  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
@@ -1059,7 +1059,7 @@ curl --request DELETE --header  "PRIVATE-TOKEN: <your_access_token>" https://git
 ```
 
 格式2
-```sh
+```shell
 [2018/04/28 07:54:20.393226][omci][INFO]Dir: Rx <-- Onu: ont1-fwlt-b 
 00000000  1c ee 29 0a 00 02 00 00  00 80 00 3d 00 00 00 00  |..)........=....|
 00000010  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
@@ -1069,12 +1069,12 @@ curl --request DELETE --header  "PRIVATE-TOKEN: <your_access_token>" https://git
 格式1和格式2就是打印的header不一样
 
 用下面的sed命令提取
-```sh
+```shell
 sed -rn -e '/.*Dir: .*--.*/,+4{s/.* (..:..:..\.......).*(Dir.*)/\1 \2/g;p}' stdout_824128194_ok.log
 ```
 
 其中
-```sh
+```shell
 -r 使用扩展正则
 -n 不自动打印pattern空间. 不加-n会打印所有原始行和修改行
 -e 后面跟定址 /.*Dir: .*--.*/,+4 意思是所有匹配到Dir: Tx --> Onu和Dir: Rx <-- Onu的行,以及接下来的4行
@@ -1089,7 +1089,7 @@ s/.* (..:..:..\.......).*(Dir.*)/\1 \2/g是第一个命令: 去掉除了时间�
 
 注意用整个`while`块使用小括号括起来的, 小括号会产生子进程, 目的是让块内的`exit`退出这个子进程.
 不用小括号的话, 这个代码块是在当前shell进程执行, 那`exit`会退出当前shell.
-```sh
+```shell
 ./topid -p `pidof onumgnt_hypervisor_app` -p `pidof onu_engine` > pid.log &
 
 (
@@ -1109,19 +1109,19 @@ done
 # top的记录导入到excel
 ## 比较粗糙的版本
 ### CPU
-```sh
+```shell
 (echo time switch_hwa_app vonu xpon_hwa_app xponhwadp && cat top.log | awk '/GMT/{printf "\n"$4} /run\/switch_hwa_app/{printf(" switch_hwa_app>%s",$8)} /run\/xpon_hwa_app/{printf(" xpon_hwa_app>%s",$8)} /run\/xponhwadp/{printf(" xponhwadp>%s",$8)} /vONU-PoC-1 -skipav yes/{printf(" vonu>%s",$8)}' | while read line; do echo $line | xargs -n1 | sort | xargs; done | tr ">" " " | awk '{printf("%s %s %s %s %s\n", $1, $3, $5, $7, $9)}' ) > ~/sf_work/tmp/$(basename `pwd`).csv
 ```
 
 ### mem
-```sh
+```shell
 #这里实际上是统计的VSS, 是虚拟内存占用
 cat top.log | awk '/GMT/{printf "\n"$4"\t"} /vONU-PoC-1 -skipav yes/ {if($5 ~ /.*m/) printf $5; else printf $5/1024}' | tr -d 'm' > ~/sf_work/tmp/$(basename `pwd`).csv
 ```
 
 ## 同时导出CPU利用率和mem
 这个top.log是用如下命令记录的, 每秒一次.
-```sh
+```shell
 #grep -E记录的是RSS, 物理内存.
 while true; do
     date
@@ -1132,7 +1132,7 @@ done >> log/top.log
 ```
 
 原始的log如下:
-```sh
+```shell
 Tue Jan  6 13:05:29 GMT 1970
 Mem: 884920K used, 1072956K free, 152152K shrd, 42636K buff, 356908K cached
 CPU:  54% usr  16% sys   0% nic  29% idle   0% io   0% irq   0% sirq
@@ -1163,14 +1163,14 @@ CPU:  54% usr  16% sys   0% nic  29% idle   0% io   0% irq   0% sirq
 ```
 
 用下面的脚本解析
-```sh
+```shell
 cat top.log | grep -v -E "s6-supervise|grep|COMMAND|confd -B| tar| cat" | awk '/GMT/{printf "\ntime="$4} /Mem:/{sub("K","",$4);printf " free=" $4/1024} /CPU:/{printf(" usr=%s sys=%s idle=%s sirq=%s",$2,$4,$8,$14)} $1 ~ /[0-9]+/{sub(".*/","",$9);printf(" %s",$9);if($8 ~ /.*%/) printf ":cpu="$8;else {printf ":rss=";if($4 ~ /.*m/) {sub("m","",$4);printf $4} else printf $4/1024}}' | while read line; do echo $line | xargs -n1 | sort | xargs; done
 ```
 * awk的行匹配支持表达式, 这里的`$1 ~ /[0-9]+/`就是, 意思是第一个field匹配一个number
 * sub是原地替换, 不返回字符串
 
 输出如下:
-```sh
+```shell
 confd:cpu=0% confd:rss=37.5234 dmsp_app:cpu=0% dmsp_app:rss=22.1211 free=1047.81 idle=29% sirq=0% switch_hwa_app:cpu=0% switch_hwa_app:rss=123 sys=16% time=13:05:29 usr=54% vONU-PoC-1:cpu=50% vONU-PoC-1:rss=10.7617 xpon_hwa_app:cpu=0% xpon_hwa_app:rss=13.875 xponhwadp:cpu=0% xponhwadp:rss=20.2734
 confd:cpu=0% confd:rss=37.5234 dmsp_app:cpu=0% dmsp_app:rss=22.1211 free=1047.55 idle=75% sirq=0% switch_hwa_app:cpu=4% switch_hwa_app:rss=123 sys=16% time=13:05:30 usr=8% vONU-PoC-1:cpu=0% vONU-PoC-1:rss=10.7617 xpon_hwa_app:cpu=0% xpon_hwa_app:rss=13.875 xponhwadp:cpu=0% xponhwadp:rss=20.2734
 confd:cpu=0% confd:rss=37.5234 dmsp_app:cpu=0% dmsp_app:rss=22.1211 free=1047.42 idle=83% sirq=4% switch_hwa_app:cpu=4% switch_hwa_app:rss=123 sys=4% time=13:05:32 usr=8% vONU-PoC-1:cpu=0% vONU-PoC-1:rss=10.7617 xpon_hwa_app:cpu=0% xpon_hwa_app:rss=13.875 xponhwadp:cpu=0% xponhwadp:rss=20.2734
@@ -1180,7 +1180,7 @@ confd:cpu=0% confd:rss=37.5234 dmsp_app:cpu=0% dmsp_app:rss=22.1211 free=1047.22
 最后用`tr "=" " "`休整一下.
 
 最终版:
-```sh
+```shell
 1         2  3         4       5            6  7            8       9    10      11   12  13   14 15                 16 17                 18  19  20  21   22       23  24
 confd:cpu 0% confd:rss 37.5234 dmsp_app:cpu 0% dmsp_app:rss 22.1211 free 1047.81 idle 29% sirq 0% switch_hwa_app:cpu 0% switch_hwa_app:rss 123 sys 16% time 13:05:29 usr 54% 
 25             26  27             28      29               30 31               32     33            34 35            36
@@ -1198,7 +1198,7 @@ top的输出, 每秒记录一次, 这里的patten是`xponhwadp switch_hwa_app xp
 
 怎么把这个输出, 导入到excel里面, 然后对每个app做cpu占用的图呢?
 要用到awk, xargs, sort
-```sh
+```shell
 cat top.log | awk '/GMT/{printf "\n"$4} /run\/switch_hwa_app/{printf(" switch_hwa_app:%s",$8)} /run\/xpon_hwa_app/{printf(" xpon_hwa_app:%s",$8)} /run\/xponhwadp/{printf(" xponhwadp:%s",$8)} /vONU-PoC-1 -skipav yes/{printf(" vonu:%s",$8)}' | while read line; do echo $line | xargs -n1 | sort | xargs; done
 ```
 * awk负责过滤关键词, 用/patten/{action}的形式
@@ -1213,7 +1213,7 @@ cat top.log | awk '/GMT/{printf "\n"$4} /run\/switch_hwa_app/{printf(" switch_hw
 ![](img/shell_高级篇_20220915234300.png)  
 
 ### 改进版
-```sh
+```shell
 (echo time switch_hwa_app vonu xpon_hwa_app xponhwadp && cat top.log | awk '/GMT/{printf "\n"$4} /run\/switch_hwa_app/{printf(" switch_hwa_app>%s",$8)} /run\/xpon_hwa_app/{printf(" xpon_hwa_app>%s",$8)} /run\/xponhwadp/{printf(" xponhwadp>%s",$8)} /vONU-PoC-1 -skipav yes/{printf(" vonu>%s",$8)}' | while read line; do echo $line | xargs -n1 | sort | xargs; done | tr ">" " " | awk '{printf("%s %s %s %s %s\n", $1, $3, $5, $7, $9)}' ) > top.csv
 ```
 * 用()括起来echo和后面的处理, 否则echo不会重定向到top.csv
@@ -1223,7 +1223,7 @@ cat top.log | awk '/GMT/{printf "\n"$4} /run\/switch_hwa_app/{printf(" switch_hw
 原始文件是带^M字符的, 它实际上是windows的`\r`
 > `(to get ^M type CTRL+V followed by CTRL+M i.e. don’t just type the carat symbol and a capital M. It will not work)`
 
-```sh
+```shell
 #重点是tr -d, 把两边的方括号删掉, 把\r删掉
 cat onustatus.log | tr -d '[]\r' | awk '/onustatus/{printf $6 " "} /ONUs done/{print $3}'
 ```
@@ -1235,7 +1235,7 @@ cat onustatus.log | tr -d '[]\r' | awk '/onustatus/{printf $6 " "} /ONUs done/{p
 注意, 我用了'bash -c'命令, 意思是新起一个bash进程来执行`-c`后面的命令, 目的是观察bash怎么处理重定向的.
 不加'bash -c'是看不到这个过程的.
 
-```sh
+```shell
 #本bash执行另外一个bash, 从这里到结束都没有再次exec bash
 execve("/bin/bash", ["bash", "-c", "echo 5555 > testpipe"]
 #省略动态库加载过程, 省略brk 和mmap过程, 省略挂载sighandler过程
@@ -1267,7 +1267,7 @@ close(10)                               = 0
 把上面例子的命令修改一下, 把echo改成外部程序cat, 用strace的-f选项跟踪全部进程.
 `strace -f -o s.log bash -c "cat testpipe > testpipe2"`
 过程简析如下:
-```sh
+```shell
 #8123进程执行bash
 8123  execve("/bin/bash", ["bash", "-c", "cat testpipe > testpipe2"]
 #省略动态库加载过程, 省略brk 和mmap过程, 省略挂载sighandler过程
@@ -1312,7 +1312,7 @@ close(10)                               = 0
 用eval可以做到
 
 ## 用eval生成动态变量名
-```sh
+```shell
 #option的值可以从任何地方, 比如取自文件名
 option=vendor_name
 #这个值被eval后, 成为了新的变量名. 在当前shell就有效.
@@ -1324,13 +1324,13 @@ my_vendor
 注意:
 * 不加eval是不行的:
 
-```sh
+```shell
 $ $option=my_vendor
 vendor_name=my_vendor: command not found
 ```
 * eval后面有空格不行, 除非加两层引号, 先单后双
 
-```sh
+```shell
 $ eval $option=my vendor
 vendor: command not found
 
@@ -1346,7 +1346,7 @@ my vendor
 ## 间接引用变量
 变量是动态生成的时候, 我们在写脚本的当下, 是不知道具体的变量名的, 就没办法直接引用.
 要间接引用, 用`${!var}`的格式
-```sh
+```shell
 dvar=hello
 var=dvar
 echo ${!var}
@@ -1361,12 +1361,12 @@ bash: ${$var}: bad substitution
 ```
 
 ## 举例: 读出*.conf文件内容到动态文件名变量
-```sh
+```shell
 for f in *.conf;do eval ${f%.conf}='`cat $f`';done
 ```
 
 ## uaes进程管理, 关系数组方式实现
-```sh
+```shell
 #! /bin/bash
 StartProcess() {
     echo Starting process [$1] ...Done
@@ -1458,20 +1458,20 @@ done
 # 判断字串是否包含子串
 判断一个字符串是否包含一个字串
 注意, **不带通配符的必须在判断的左边**; 否则永远为false
-```sh
+```shell
 if [[ "$str" == *"$substr"* ]]; then
 ```
 
 ## 也可以用case in
 比如
-```sh
+```shell
 local mode=debug
 if [[ "$args" == *"release"* || "$args" == *" -r"* || "$args" == *"-r "* ]]; then
     mode=release
 fi
 ```
 也可以写成
-```sh
+```shell
 local mode=debug
 case "$args" in
     *"release"*|*" -r"*|*"-r "*) mode=release ;;
@@ -1485,7 +1485,7 @@ esac
 
 那这里说的是对整个脚本重定向. 要用到shell的内置命令`exec`
 ## 在shell里直接重定向stdin
-```sh
+```shell
 #新建fd6(或重新打开), 复制fd0给fd6, 箭头表示fd是只读的
 #也可以理解成Link file descriptor #6 with stdin
 #这里的意思是, 把fd0保存到新建的fd6中. 单独用这个没什么意思
@@ -1504,7 +1504,7 @@ exec 0<&6 6<&-的意思是把空fd赋值给fd6, 即关闭fd6
 ```
 
 完整例子
-```sh
+```shell
 #!/bin/bash
 # Redirecting stdin using 'exec'.
 
@@ -1543,7 +1543,7 @@ exit 0
 ```
 
 ## 重定向整个shell的stdout
-```sh
+```shell
 #新建fd6(或重新打开), 复制fd1给fd6, 箭头表示fd是只写. 并不是把6赋值给1
 #这里的意思是保存fd1到fd6, 即保存原始的stdout
 exec 6>&1
@@ -1560,7 +1560,7 @@ exec 1>&6 6>&-
 ```
 
 完整例子
-```sh
+```shell
 #!/bin/bash
 # reassign-stdout.sh
 
@@ -1602,7 +1602,7 @@ exit 0
 ```
 
 ## 输入和输出的例子
-```sh
+```shell
 #!/bin/bash
 # upperconv.sh
 # Converts a specified input file to uppercase.
@@ -1651,7 +1651,7 @@ exit 0
 ```
 
 ## crosstool ng的例子
-```sh
+```shell
 # Log policy:
 #  - first of all, save stdout so we can see the live logs: fd #6
 #    (also save stdin and stderr for use by CT_DEBUG_INTERACTIVE)
@@ -1693,7 +1693,7 @@ test -t FD
 `nc -l 1985`
 
 在另外一个窗口里
-```sh
+```shell
 #用socket做文件fd 3
 exec 3<>/dev/tcp/localhost/1985
 #读
@@ -1720,7 +1720,7 @@ cat <&3
 还有有名管道, shell的mkfifo命令就能创建个有名管道
 `mkfifo pipe2`
 会在当前目录下创建一个管道文件
-```sh
+```shell
 Linux Mint 19.1 Tessa $ ll pipe2
 #管道文件以p开头
 prw-rw-r-- 1 yingjieb yingjieb 0 Oct 12 14:31 pipe2
@@ -1758,7 +1758,7 @@ prw-rw-r-- 1 yingjieb yingjieb 0 Oct 12 14:31 pipe2
 
 # shell检查一个脚本是否已经被include了
 用type命令
-```sh
+```shell
 $ type echo
 echo is a shell builtin
 $ type find
@@ -1771,7 +1771,7 @@ $ type -t echo
 builtin
 ```
 那么可以用type命令来看, 比如一个shell函数在另外一个文件里定义, 想看看是否它已经被包含了.
-```sh
+```shell
 type -t source_once >/dev/null || . /isam/scripts/prepare_script_env.sh
 ```
 
@@ -1780,7 +1780,7 @@ sed的逻辑和awk一样, 也是按行处理的, 被处理的那一行叫做patt
 基本的命令格式是:
 `sed -r -n -e '行定址/{命令1;命令2}' file`
 其中:
-```sh
+```shell
 -E, -r, --regexp-extended 使用扩展正则
 -n, --quiet, --silent 不自动打印pattern空间. 默认每行都打印, 即使不匹配的行也打印; 区别是匹配到的行, 执行了命令才打印.
 ```
@@ -1789,13 +1789,13 @@ sed的逻辑和awk一样, 也是按行处理的, 被处理的那一行叫做patt
 
 ## 向sed传递变量
 用双括号就行:
-```sh
+```shell
 instacne=yingjieb_devtool_vscode
 sed -e "/$instacne /d" test
 ```
 
 ## sed使用记录
-```sh
+```shell
 # 使用grep先正则匹配, 然后用sed删除匹配到的字符串(即用空串替换)
 bzcat build.log.bz2 | grep -E '\[DEBUG\][[:space:]]*(# )?CT_' | sed s'/\[DEBUG\]    //'
 ```
@@ -1804,13 +1804,13 @@ bzcat build.log.bz2 | grep -E '\[DEBUG\][[:space:]]*(# )?CT_' | sed s'/\[DEBUG\]
 sed命令的对象是当前的pattern空间, 大部分情况是正在处理的那行.
 sed命令如果没有指定address, 就会对所有行操作.
 如果有指定address区间, 对区间内的所有行操作.
-```sh
+```shell
        Sed commands can be given with no addresses, in which case the command will be executed for all input lines; with one address, in which case the command will only be  executed
        for input lines which match that address; or with two addresses, in which case the command will be executed for all input lines which match the inclusive range of lines start‐
        ing from the first address and continuing to the second address.
 ```
 
-```sh
+```shell
 0地址命令
 : label 用于后续的跳转label命令, 比如b或t命令
 
@@ -1850,23 +1850,23 @@ some.log里面, 保留abc和efg之间的行, 删掉其他行
 ## 提取文件特定行
 grep方式
 
-```sh
+```shell
 cat ddr_test.log | egrep "Evaluating Read-Leveling Scoreboard|Initializing cgroup subsys|EDAC MC.:.. [UC]E DIMM" > ddr_test.log.analysis
 ```
 
 但是有个缺陷, 不能提取连续的多行信息. 可能grep是按行处理的.
 sed方式
-```sh
+```shell
 $ sed -rn -e '/Evaluating Read-Leveling Scoreboard/,/Rlevel Rank/p' -e '/Initializing cgroup subsys/p' -e '/EDAC MC.:.. [UC]E DIMM/p' ddr_test.log | sed -r -e '/Evaluating Read-Leveling Scoreboard/i ==============' | sed 's/^M//' > ddr_test.log.analysis
 ```
 
-```sh
+```shell
 $ sed -rn -e '/Cavium Inc. OCTEON SDK version/,/DRAM: 2 GiB/p' -e '/Initializing cgroup subsys/p' -e '/EDAC MC.:.. [UC]E DIMM/p' ddr_test.log | cut -d' ' -f 4- | sed -r -e '/Cavium Inc. OCTEON SDK version/i \\n==============' | sed 's/^M//' > ddr_test.log.analysis
 ```
 
 sed的定址可以达到此目的
 解释如下:
-```sh
+```shell
 -r 使用扩展正则
 -n 不打印pattern空间
 -e 多重操作. 注意, sed会把匹配到的行全部进行-e后面的command, 所以多个-e的操作应该是互不影响的
@@ -1880,14 +1880,14 @@ sed 's/^M//' 是删除^M, 输入^M的方法是先ctrl+v, 在ctrl+m
 注意: sed -r 选项直接可以使用扩展正则
 默认使用basic regexp, 但也能解释`\|', `\+', `\?',`\`', `\'', `\<', `\>', `\b', `\B', `\w', and `\W'
 比如
-```sh
+```shell
 `x\+' matches one or more occurrences of `x'.  
 `abc\|def' matches either `abc' or `def'.
 ```
 在/regexp/后面加I可以大小写不敏感, 比如
 `/regexp/Ip`, 打印匹配regexp的行, 大小写不敏感
 比如查找所有源文件,
-```sh
+```shell
 $ find -type f | sed -n '/\.\([chs]\)\1\{0,1\}\(pp\)\?$/Ip'
 ./test.c
 ./test.h
@@ -1915,7 +1915,7 @@ sed 中的操作符比如s或者d, 都可以指定范围, 即定址. 不定址�
 * `addr1,+N addr1` 所在行以及下面连续N行
 
 ## sed删除
-```sh
+```shell
 sed -i -n -e '/^#OUTPUT-MARKER-BEGIN/,/^#OUTPUT-MARKER-END/d; p' $targetdir/etc/init.d/rcS
 ```
 
@@ -1923,7 +1923,7 @@ sed -i -n -e '/^#OUTPUT-MARKER-BEGIN/,/^#OUTPUT-MARKER-END/d; p' $targetdir/etc/
 `sed -i -e "s%#!/bin/sh%&${output_redirection}%" $targetdir/etc/init.d/rcS`
 
 ## sed的分组匹配, 用\(\)分组, 用\1引用
-```sh
+```shell
 echo /repo/yingjieb/fdt063/sw/vobs/dsl/sw/flat/fpxt-b_OFLT_MAIN/src/bcm_commands.c | sed 's!\(.*/flat/[^/]*\).*!\1!g'
 ```
 
@@ -2064,32 +2064,32 @@ shell会展开双引号里面的变量, 再传给awk. 为了避免`$0`被展开,
 
 ## 再说patten
 一般的pattern是这样的:
-```sh
+```shell
 awk '/search regex pattern1/ {Actions}        
      /search regex pattern2/ {Actions}' file
 ```
 * //中间的是regex
 * pattern 也可以不用//, 其实{}前面的都是pattern
 * 比较表达式也可以做pattern
-```sh
+```shell
 #最后一个字段不是A则执行
 awk '$NF != "A" { print $0 }'
 ```
 * BEGIN核END也是特殊的pattern
-```sh
+```shell
 awk 'BEGIN { n=5 } NR==n { print $0 } END { print $0 }'
 ```
 * pattern可以是个范围, pattern1, pattern2: pattern1匹配到则开闸放水, pattern2匹配到则关闸. 在开关闸之间做action
 
 ## awk在if里匹配
-```sh
+```shell
 cat log/top.log | awk '{printf NR" "; {if($5 ~ /.*m/) printf $5; else printf $5/1024} printf " " $8 "\n"}' | tr -d 'm'
 ```
 这里的`if($5 ~ /.*m/)`就是正则匹配, 用`~`和`/patten/`的形式
 
 ## awk支持浮点 
 bash只支持整数运算, 而awk支持浮点
-```sh
+```shell
 #比如ping.log最后一行
 64 bytes from 5.5.5.12: icmp_seq=11 ttl=64 time=0.187 ms
 #我想比较time是否大于某个值, 因为time是个浮点, 用bash直接比较会出错
@@ -2100,7 +2100,7 @@ $ tail ping.log -n 1 | awk -F" *|=" '{if ($10>0.2) print $10}'
 ```
 ## awk逻辑与
 这样写比下文的`ss -ant |awk '{if(NR>1)++s[$1]} END {for(k in s) print k,s[k]}'`更简洁一些
-```sh
+```shell
 #打印五到十行，并在前面加上行号
 awk -F: 'NR>=5 && NR<=10 {print NR,$0}' /etc/passwd
 #打印奇数行 (删除偶数行）
@@ -2111,7 +2111,7 @@ awk -F: 'NR%2==0 {print NR,$0}' /etc/passwd
 
 ## awk多行解析
 比如nmap的输出如下, 想解析ip和mac的对应关系
-```sh
+```shell
 Nmap scan report for 10.239.120.208
 Host is up (0.00049s latency).
 MAC Address: EC:B1:D7:2F:90:67 (Unknown)
@@ -2129,7 +2129,7 @@ MAC Address: 8C:FD:F0:06:8B:A1 (Qualcomm Incorporated)
 `sudo nmap -n -sP 10.239.120.1/24 | awk '/Nmap scan report for/{printf $5;}/MAC Address:/{print " => "$3;}' | sort`
 
 ## awk分组提取
-```sh
+```shell
 CentOS 7.3 $ cat log/test_report.csv | grep ^[0-9]
 1,127.0.0.1,50,500000,10,1,1,set, 81024
 1,127.0.0.1,50,500000,10,1,1,get, 89078
@@ -2157,7 +2157,7 @@ awk -F, '{tmp[$1]=tmp[$1]","$9}; END{ for(i in tmp) {print i tmp[i]}}' | sort -h
 ```
 
 ## awk变量
-```sh
+```shell
 CentOS 7.3 $ awk '{s+=$1} END {print s}' log/*.csv
 1.18365e+07
 CentOS 7.3 $ awk '{s+=$1} END {printf("%d\n", s)}' log/*.csv
@@ -2167,20 +2167,20 @@ CentOS 7.3 $ awk '{s+=$1} END {printf("%d\n", s)}' log/*.csv
 * print默认用科学计数法
 
 ## awk数组
-```sh
+```shell
 $ ss -ant |awk '{if(NR>1)++s[$1]} END {for(k in s) print k,s[k]}'
 LISTEN 15
 ESTAB 10
 ```
 注: 数组的下标可以是数字也可以是字符串, ++s[$1]是统计个数
 ## awk字符串替换
-```sh
+```shell
 for f in log.fio*; do echo -n "$f "; awk '/IOPS/ {sub(",","",$2);match($4,"[0-9]*MB/s",arr);printf "BW=%s %s ",arr[0],$2} /95.00th/ {print $2 $3, $8 $9}' $f; done | column -t
 ```
 解释:
 * awk 后面斜杠中间的部分是匹配字符串, 匹配到的行才做后面的事情
 * match函数可以传入arr, arr[0]表示匹配到的字符串, 如果正则里面有分组标记(), 则arr[1], arr[2]依次是子分组
-```sh
+```shell
 awk '/search pattern1/ {Actions}        
      /search pattern2/ {Actions}' file
 ```
@@ -2193,23 +2193,23 @@ awk '/search pattern1/ {Actions}
 * printf不换行, 而print换行
 
 ## awk的条件判断和数字运算
-```sh
+```shell
 cat iperf3_client_x710.log | awk '{if($8=="Mbits/sec") printf $7" ";if ($8=="Gbits/sec") printf $7*1024" "}'
 ```
 
 ## awk执行其他程序
-```sh
+```shell
 $ awk '{system("echo "$1 " and "$2)}' ../linklist
 ```
 
 ## awk替换命令
-```sh
+```shell
 $ echo $var | awk '{sub(" ", "_", $0); printf("%s\n", $0);}'
 $ echo $var | awk '{gsub(" ", "_", $0); printf("%s\n", $0);}'
 ```
 
 # shell管道和循环
-```sh
+```shell
 for f in `find -name *.so`; do echo $f; readelf -h $f | grep Flag | grep fp64; done > so.log
 ```
 
@@ -2218,7 +2218,7 @@ for f in `find -name *.so`; do echo $f; readelf -h $f | grep Flag | grep fp64; d
 
 # 看一个interface是否存在
 ## 用/proc/net/dev
-```sh
+```shell
 ~ # cat /proc/net/dev
 Inter-| Receive | Transmit
  face |bytes packets errs drop fifo frame compressed multicast|bytes packets errs drop fifo colls carrier compressed
@@ -2238,7 +2238,7 @@ dummy0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
   eth1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ```
 ## 用ifconfig intf返回值
-```sh
+```shell
 ~ # ifconfig itefwd
 ifconfig: itefwd: error fetching interface information: Device not found
 ~ # echo $?
@@ -2256,7 +2256,7 @@ eth0 Link encap:Ethernet HWaddr 00:BA:0B:AB:00:0A
 ```
 
 # awk计算时间差
-```sh
+```shell
 # sudo perf script | grep -n1 netdev_send
 207567- pmd8 6965 [013] 111673.977146: probe_ovs:netdev_rxq_recv: (698e80)
 207568: pmd8 6965 [013] 111673.977193: probe_ovs:netdev_send: (698fd8 <- 6764cc)
@@ -2274,7 +2274,7 @@ eth0 Link encap:Ethernet HWaddr 00:BA:0B:AB:00:0A
 504603: pmd8 6965 [013] 111674.978908: probe_ovs:netdev_send: (698fd8 <- 6764cc)
 504604- pmd8 6965 [013] 111674.978911: probe_ovs:netdev_rxq_recv: (698e80)
 ```
-```sh
+```shell
 #第一个awk得出时间字段, 比如111673.977146: 第二awk用分隔符集合.或:在NR除4余2的时候, 打印$2-t; 而t每行都保存
 sudo perf script | grep -n1 netdev_send | awk '{print $5}' | awk -F"[.:]" 'NR%4==2 {print $2-t} {t=$2}'
 # 结果
@@ -2288,12 +2288,12 @@ sudo perf script | grep -n1 netdev_send | awk '{print $5}' | awk -F"[.:]" 'NR%4=
 ```
 
 # ping延迟大于0.5ms触发动作
-```sh
+```shell
 ping 5.5.5.11 | tee ping.log
 tail ping.log -n 1 | awk -F" *|=" '{if ($10>0.5) {printf "ping latency %s ms\n", $10; system("sudo perf sched record -a")}}'
 ```
 注: awk也支持-F"[.:]"的方式来指定分隔符, 这里指用.和:分割.
-```sh
+```shell
 while true
 do
     #用[[ $(command) ]]来判断command是否有输出
@@ -2305,7 +2305,7 @@ do
 done
 ```
 # 计算cpu掩码, mask
-```sh
+```shell
 bitmask() { #eg. 0,5,8-11 17,26-30 return 7c020f21
     local bm=0
     for arg in $(echo $* | tr ',' ' ');do
@@ -2338,14 +2338,14 @@ bitumask() { #input hex: 7c020f21 or 0x7c020f21
 `echo $$`显示当前进程号
 这两个不是一回事, `echo`是shell内建命令, 不会起子进程; 而`ls`是外部命令, shell会folk子进程来跑外部命令;
 所以这俩的进程号不一样, 比如下面一个是41427, 一个是4141
-```sh
+```shell
 [root@rep2-130 debug]# echo $$
 41427
 [root@rep2-130 debug]# ls -l /proc/self
 lrwxrwxrwx 1 root root 0 Jan 1 1970 /proc/self -> 4141
 ```
 其次, `&&`逻辑与的操作, 也不影响shell创建新进程的逻辑. 目前我的理解是, 外部命令会创建新进程. 
-```sh
+```shell
 [root@rep2-130 debug]# ls -l /proc/self && ls -l /proc/self && ls -l /proc/self
 lrwxrwxrwx 1 root root 0 Jan 1 1970 /proc/self -> 3926
 lrwxrwxrwx 1 root root 0 Jan 1 1970 /proc/self -> 3927
@@ -2355,7 +2355,7 @@ lrwxrwxrwx 1 root root 0 Jan 1 1970 /proc/self -> 3928
 `eval`执行命令的效果和shell直接执行一样, 只是多了`输入解析`这一步.
 
 # 粘贴多行文本管道后再用后续命令处理
-```sh
+```shell
 # 这里<< EOF是here document
 # awk -F表示用"->"和"空格*"来分割, strtonum把16进制转成10进制计算, awk不认16进制计算
 cat << EOF | awk -F"->| *" '{printf "%s %s %dK\n",$2,$3,(strtonum($3)-strtonum($2))/1024}'
@@ -2377,7 +2377,7 @@ EOF
 # 关系数组 sed 和 awk
 ## 改进版 awk多维数组
 要解析的文本样式:
-```sh
+```shell
 $ sudo ovs-appctl dpctl/show --statistics
 netdev@ovs-netdev:
   lookups: hit:0 missed:0 lost:0
@@ -2409,7 +2409,7 @@ netdev@ovs-netdev:
     RX bytes:0 TX bytes:0
 ```
 换了命令, 重新改了思路; 这次不用shell关系数组, 但会用到awk多维数组
-```sh
+```shell
 ovs-appctl dpctl/show > /dev/null
 if [ $? -ne 0 ]; then
  printf "execution failed, you may need sudo?\n"
@@ -2460,7 +2460,7 @@ echo -e "\n\n"
 
 ```
 ## 原始版
-```sh
+```shell
 ovs-vsctl list interface > /dev/null
 if [ $? -ne 0 ]; then
  printf "ovs-vsctl execution failed, you may need sudo?\n"
@@ -2519,7 +2519,7 @@ done
 # shell关系数组 -- 或者说是list
 参考: https://www.artificialworlds.net/blog/2012/10/17/bash-associative-array-examples/
 需要bash版本高于4
-```sh
+```shell
 declare -A map
 $ map[foo]=bar
 $ echo ${map[foo]}
@@ -2532,7 +2532,7 @@ $ echo ${map[$K]}
 quux
 ```
 遍历
-```sh
+```shell
 $ declare -A MYMAP=( [foo a]=bar [baz b]=quux )
 $ echo "${!MYMAP[@]}" # Print all keys - quoted, but quotes removed by echo
 foo a baz b
@@ -2547,7 +2547,7 @@ quux
 ```
 
 # shell数组
-```sh
+```shell
 #括号括起来定义数组
 my_array=(A B "C" D)
 #或者
@@ -2570,7 +2570,7 @@ do
 done  
 ```
 又比如:
-```sh
+```shell
 #这里ETHTOOL是个数组, 而T_PKT也是数组, 由入参index来控制
 update_stats () { # $name $index
     TS_LAST[$2]=${TS[$2]}
@@ -2602,7 +2602,7 @@ done
 # shell脚本解析文件, 输出可以导入到excel的文本
 测了大约500次的stream, 想在excel上绘图.
 原始数据格式
-```sh
+```shell
 STREAM2 fill latency: 0.92 nanoseconds
 STREAM2 fill bandwidth: 121083.29 MB/sec
 STREAM2 copy latency: 2.12 nanoseconds
@@ -2621,7 +2621,7 @@ STREAM2 sum latency: 1.57 nanoseconds
 STREAM2 sum bandwidth: 71506.36 MB/sec
 ```
 用下面的脚本可以输出一个excel认识的文本
-```sh
+```shell
 for i in "fill latency" "copy latency" "daxpy latency" "sum latency" "fill bandwidth" "copy bandwidth" "daxpy bandwidth" "sum bandwidth"; do (printf "$i \t" &&  cat stream*.log | awk "/$i/"'{printf $4 "\t"}' && echo) >> test.txt; done
 ```
 * for后面的东西用空格分割
@@ -2631,7 +2631,7 @@ for i in "fill latency" "copy latency" "daxpy latency" "sum latency" "fill bandw
 * shell的小括号可以一起重定向
 
 脚本输出数据示例: 一共八行
-```sh
+```shell
 fill latency     0.92    1.68    1.70    1.67    1.69    1.69    0.92    1.67    1.65
 copy latency     2.12    2.11    2.12    2.27    2.25    2.23    2.22    2.27    2.11
 daxpy latency     3.24    3.24    3.24    3.24    3.11    3.24    3.24    3.24    3.25
@@ -2644,12 +2644,12 @@ sum bandwidth     71472.48    71506.36    72182.22    71490.27    71900.50    71
 # shell处理命令行选项
 注意shell变量的删除 插入操作
 比如
-```sh
+```shell
      var=${arg/#--no-}
     # remove all dashes for variable names:
     eval ${var//-}=0
 ```
-```sh
+```shell
 while (($#))
 do
     arg=$1
@@ -2701,7 +2701,7 @@ done
 
 # shell也可以递归调用函数
 下面这个例子的作用是深度清除git库下面的未被跟踪的文件, 包括其下面的子git库
-```sh
+```shell
 #!/bin/sh
 
 gitpurge_r()
@@ -2723,7 +2723,7 @@ gitpurge_r .
 ```
 
 ## 改进版本
-```sh
+```shell
 #!/bin/bash
 B="\033[1;37;40m"
 N="\033[0m"
@@ -2793,11 +2793,11 @@ done
 ```
 
 # local system monitor
-```sh
+```shell
 ./sysmonitor.sh -f test.f -t "just want to test it"
 ```
 
-```sh
+```shell
 #! /bin/bash
 
 B="\033[1;37;40m"
@@ -2857,7 +2857,7 @@ do_syscollect | ts
 ```
 
 # system monitor for pangu
-```sh
+```shell
 $ cat statistics.sh 
 #! /bin/bash
 
@@ -2883,7 +2883,7 @@ do
         sleep $((60*1))
 done
 ```
-```sh
+```shell
 $ cat logstat.sh 
 #! /bin/bash
 
@@ -2940,7 +2940,7 @@ done
 
 # 增加fedora分区的脚本
 这里面有shrink原分区(ubuntu), 增加fedora分区并拷贝fedora的fs
-```sh
+```shell
 work_dir=`pwd`
 dev=${1:-/dev/sdc}
 ubuntu_size=${2:-500G}

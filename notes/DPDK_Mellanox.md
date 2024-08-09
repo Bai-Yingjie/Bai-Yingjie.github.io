@@ -544,7 +544,7 @@ port config mtu X value
 * 因为不经过kernel网络栈, 用ip或ifconfig命令看不到收发包统计; 用`ethtool -S`可以看到物理层收发包统计.
 * 最简单的一条流(stream)的基本的逻辑是: 一个CPU从一个rxq里收包, 做处理, 再发包到txq
 * rxq/txq的数目和cpu的数目(nbcore)要匹配, testpmd会自动安排多流, 比如配了2个core, 4个q
-```sh
+```shell
 testpmd> show config fwd                                                                                
 flowgen packet forwarding - ports=1 - cores=2 - streams=4 - NUMA support enabled, MP over anonymous pages disabled  
 Logical Core 38 (socket 0) forwards packets on 2 streams:  
@@ -680,16 +680,16 @@ tcpdump -vvXX -r pktgen-20181113-160020-0.pcap
 ![](img/DPDK_Mellanox_20220930092259.png)  
 
 ### 测试结果
-A对B打流, A:pktgen, 1core tx, 1core rx; B:testpmd, fwd=io, nbcore=1, rxtx配置如下  | pps | L1 Dcache miss | note
------- | ------ | ------ | -----
-rxq= 1 txq=1 rxd=128 txd=512 | Rx~=Tx=16.1M |  | rx_out_of_buffer不断增长
-rxq= 1 txq=1 rxd=256 txd=256 | Rx:17.9M Tx:14.9M | | rx_out_of_buffer不断增长
-rxq= 1 txq=1 rxd=512 txd=512 | Rx~=Tx=16.3M | 2.80% | rx_out_of_buffer不断增长
-rxq= 1 txq=1 rxd=1024 txd=1024 | Rx~=Tx=13.6M | 3.08% | rx_out_of_buffer不断增长
-rxq= 1 txq=1 rxd=2048 txd=2048 | Rx~=Tx=12.6M | 3.19% | rx_out_of_buffer不断增长
-rxq= 1 txq=1 rxd=4096 txd=4096 | Rx~=Tx=12.6M |  | rx_out_of_buffer不断增长
-rxq= 2 txq=2 rxd=128 txd=512 | Rx~=Tx=15.5M |  | rx_out_of_buffer不断增长
-rxq= 2 txq=2 rxd=2048 txd=2048 | Rx~=Tx=12.3M |  | rx_out_of_buffer不断增长
+| A对B打流, A:pktgen, 1core tx, 1core rx; B:testpmd, fwd=io, nbcore=1, rxtx配置如下 | pps               | L1 Dcache miss | note                     |
+| --------------------------------------------------------------------------------- | ----------------- | -------------- | ------------------------ |
+| rxq= 1 txq=1 rxd=128 txd=512                                                      | Rx~=Tx=16.1M      |                | rx_out_of_buffer不断增长 |
+| rxq= 1 txq=1 rxd=256 txd=256                                                      | Rx:17.9M Tx:14.9M |                | rx_out_of_buffer不断增长 |
+| rxq= 1 txq=1 rxd=512 txd=512                                                      | Rx~=Tx=16.3M      | 2.80%          | rx_out_of_buffer不断增长 |
+| rxq= 1 txq=1 rxd=1024 txd=1024                                                    | Rx~=Tx=13.6M      | 3.08%          | rx_out_of_buffer不断增长 |
+| rxq= 1 txq=1 rxd=2048 txd=2048                                                    | Rx~=Tx=12.6M      | 3.19%          | rx_out_of_buffer不断增长 |
+| rxq= 1 txq=1 rxd=4096 txd=4096                                                    | Rx~=Tx=12.6M      |                | rx_out_of_buffer不断增长 |
+| rxq= 2 txq=2 rxd=128 txd=512                                                      | Rx~=Tx=15.5M      |                | rx_out_of_buffer不断增长 |
+| rxq= 2 txq=2 rxd=2048 txd=2048                                                    | Rx~=Tx=12.3M      |                | rx_out_of_buffer不断增长 |
 
 
 ## Mellanox DPDK性能优化
@@ -970,7 +970,7 @@ ip link set dev <PF device> vf <UM> state [enable| disable| auto]
 cat /sys/class/infiniband/mlx5_2/device/sriov/2/stats
 ```
 ### VF和port的关系
-```sh
+```shell
 ip link
 61: p1p1: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
 link/ether 00:02:c9:f1:72:e0 brd ff:ff:ff:ff:ff:ff

@@ -33,7 +33,7 @@ tap设备在eoe_filter.c里创建成功, 但写失败.
 
 ### 问题现象
 正常应该是用eth0, 我这里用lo代替. 因为我的eth0没有连接
-```sh
+```shell
 ~ # eoe_filter -n lo -t tap0 -E
 Starting forwarder application: eoe_filter
 Enable EOE header handle.
@@ -60,7 +60,7 @@ net to service error while forwarding data: 5: Input/output error
 
 ### 通过ip tuntap命令创建的tap不会消失, 即使exit掉shell进程也不会
 strace看到, 它调用了特殊的ioctl
-```sh
+```shell
 sudo strace -o s.log ip tuntap add mod tap name tap1
 
 openat(AT_FDCWD, "/dev/net/tun", O_RDWR) = 4
@@ -71,12 +71,12 @@ ioctl(4, TUNSETPERSIST, 0x1) = 0
 
 ### gdb跟踪
 板子上:
-```sh
+```shell
 #直接带好参数
 ~ # gdbserver :9123 eoe_filter -n eth0 -t tap-fwd -E
 ```
 host上:
-```sh
+```shell
 export PATH=$PATH:~/work/share/buildroot73/output/host/opt/ext-toolchain/bin
 #cd到被调试的app目录下
 yingjieb@yingjieb-VirtualBox ~/work/share/buildroot73/output/build/linux-target-apps-22ef847b216e5d579c016ed9dd9795d393b56001
@@ -108,7 +108,7 @@ write tap设备错误导致进程退出.
 
 那为什么错误呢?
 ### 先用strace看看write系统调用
-```sh
+```shell
 #strace -o e.log eoe_filter -n lo -t tap0 -E
 #cat e.log
 ...
@@ -121,7 +121,7 @@ exit_group(1) = ?
 log里面, write返回EIO错误
 
 ### 复现命令
-```sh
+```shell
 #先让lo up, 否则read会失败
 ifconfig lo up
 #使用lo接口ping, 这样eoe程序里的read才能收到包
@@ -154,7 +154,7 @@ eoe_filter -n lo -t tap0 -E
 但问题是, 所有的write都走vfs_write, 我们怎么找到这个tap设备相关的write呢?
 
 先试一下再说:
-```sh
+```shell
 #开始trace
 # -p选择function_graph, -g的意思是查看函数具体干了什么; -F是说只trace它后面的命令
 trace-cmd record -p function_graph -o eoe.dat -g vfs_write -F eoe_filter -n lo -t tap0 -E
@@ -241,13 +241,13 @@ err_linkops:
 
 
 现在知道tun驱动的写函数了, 以后可以直接找`tun_chr_write_iter`
-```sh
+```shell
 trace-cmd record -p function_graph -o eoe2.dat -g tun_chr_write_iter -F ./eoe_filter -n lo -t tap0 -E
 trace-cmd report -IS eoe2.dat
 ```
 
 #### 一次正常的tap设备write
-```sh
+```shell
 tun_chr_write_iter()
     #从user的buffer里取data发送
     tun_get_user()

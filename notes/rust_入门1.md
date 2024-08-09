@@ -88,11 +88,11 @@
 
 # 安装
 使用rustup安装:
-```sh
+```shell
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 安装了如下的文件:
-```sh
+```shell
 $ ls /home/yingjieb/.rustup
 downloads  settings.toml  tmp  toolchains  update-hashes
 
@@ -105,12 +105,12 @@ cargo-clippy  cargo-miri  rls            rustdoc  rust-gdb  rustup
 ```
 
 在`/home/yingjieb/.profile`增加了
-```sh
+```shell
 . "$HOME/.cargo/env"
 ```
 
 在`/home/yingjieb/.bashrc`增加了
-```sh
+```shell
 . "$HOME/.cargo/env"
 ```
 这个env主要就是干了一件事:
@@ -140,7 +140,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --pr
 
 ## rustup
 rustup是管理rust工具链的工具:
-```sh
+```shell
 $ rustup -V
 rustup 1.24.3 (ce5817a94 2021-05-31)
 info: This is the version for the rustup toolchain manager, not the rustc compiler.
@@ -148,7 +148,7 @@ info: The currently active `rustc` version is `rustc 1.59.0 (9d1b2106e 2022-02-2
 ```
 
 # hello world
-```sh
+```shell
 $ cat hello.rs
 fn main() {
     println!("hello world!");
@@ -187,7 +187,7 @@ total 300K
 ```
 可以看到编译出来的hello可执行程序达到3.5M, 而且还动态链接了c库.
 strip后是295K. 这个大小正常
-```sh
+```shell
 $ size -A hello
 hello  :
 section                 size      addr

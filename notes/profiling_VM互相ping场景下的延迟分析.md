@@ -108,7 +108,7 @@ sudo trace-cmd report
 
 这里整个是说: core1运行的kworker线程, 因为irqfd_inject的触发, 去唤醒(sched_waking)qemu的vcpu线程(CPU 0/KVM), 目标是core26;  
 46us后, core26上发生sched_switch事件, 从idle进程(swapper)切换到CPU 0/KVM进程.
-```sh
+```shell
      kworker/1:0-31764 [001] 1212277.097055: function:             irqfd_inject
      kworker/1:0-31764 [001] 1212277.097059: sched_waking:         comm=CPU 0/KVM pid=38610 prio=120 target_cpu=026
      kworker/1:0-31764 [001] 1212277.097062: sched_wakeup:         CPU 0/KVM:38610 [120] success=1 CPU:026
@@ -121,7 +121,7 @@ sudo trace-cmd report
 
 record命令加`-e sched -T`命令可以得到调用栈:  
 调用栈也显示, irqfd_inject里, 在kvm_vcpu_kick时, 会swake_up某进程, 结合上面, 应该是KVM VCPU进程.
-```sh
+```shell
 => swake_up_locked (ffff000008129bd8)
 => swake_up (ffff000008129c40)
 => kvm_vcpu_kick (ffff0000080a9f24)
@@ -225,7 +225,7 @@ VM的4个核, 其实是qemu的四个线程. 在本例中, 它们是38610 38612 3
 
 ![](img/profiling_VM互相ping场景下的延迟分析_20221018152937.png)  
 
-```sh
+```shell
 #38610 38612 38614这几个线程类似, strace都停在KVM_RUN不动 
 $ sudo strace -tt -p 38610 
 strace: Process 38610 attached 
@@ -296,7 +296,7 @@ sudo perf script | grep -n1 netdev_send | awk '{print $5}' | awk -F"[.:]" 'NR%4=
 
 ### 抓调度事件
 #### 用systemtap脚本对系统有影响, 导致高延迟现象消失
-```sh
+```shell
 sudo stap ~/repo/save/debug/see_kfunc_run.stp -d /usr/local/sbin/ovs-vswitchd irqfd_wakeup irqfd_inject -o stap-cpu13.log -x 6965
 ```
 `see_kfunc_run.stp`是我写的systemtap脚本, 基本功能是记录内核函数的执行情况和相关任务的调度情况.

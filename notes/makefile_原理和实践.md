@@ -130,7 +130,7 @@ You have several options to set up variables from outside your makefile:
     *   `SHELL` is either set within a makefile, or defaults to `/bin/sh` (rationale: commands are specified within the makefile, and they're shell-specific).
 *   **From command line** - `make` can take variable assignments as part of his command line, mingled with targets:
 
-    ```sh
+    ```shell
     make target FOO=bar
     ```
 
@@ -163,7 +163,7 @@ format: ## Check coding style
     @DIFF=`gofmt -d .`; echo "$$DIFF"; test -z "$$DIFF"
 ```
 比如格式不对:
-```sh
+```shell
 $ make format
 diff -u log/log.go.orig log/log.go
 --- log/log.go.orig     2020-09-22 12:53:25.561731789 +0000
@@ -379,7 +379,7 @@ all:
 ## 原因
 因为在调用这个makefile的时候, 从命令行传递过来很多变量, 其中就有JOBS=33  
 类似这样
-```sh
+```shell
 PATH="..." /usr/bin/make -j1 HOSTCC="gcc -O2 -I ... -I ...等选项" ARCH=mips CROSS_COMPILE="..." LD="... -m elf32btsmipn32" NO_LIBNUMA=1 JOBS=33 -C tools/perf/
 ```
 根据解释:

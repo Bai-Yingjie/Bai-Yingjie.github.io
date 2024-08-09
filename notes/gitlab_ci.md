@@ -137,7 +137,7 @@ group的admin可以创建group runner. 到gitlab Settings页面 CI/CD下面的Ru
 
 ### 安装runner
 增加gitlab源
-```sh
+```shell
 # For Debian/Ubuntu/Mint
 curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
 
@@ -146,7 +146,7 @@ curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/sc
 ```
 
 安装
-```sh
+```shell
 # For Debian/Ubuntu/Mint
 export GITLAB_RUNNER_DISABLE_SKEL=true; sudo -E apt-get install gitlab-runner
 
@@ -156,7 +156,7 @@ export GITLAB_RUNNER_DISABLE_SKEL=true; sudo -E yum install gitlab-runner
 
 ### 注册runner
 根据上面工程的信息, 注册runner
-```sh
+```shell
 sudo gitlab-runner register \
   --url "https://gitlabe1.ext.net.nokia.com/" \
   --description "docker-godevsig" \
@@ -166,7 +166,7 @@ sudo gitlab-runner register \
   --docker-image alpine:latest
 ```
 New:
-```sh
+```shell
 sudo gitlab-runner register \
   --url "https://gitlabe1.ext.net.nokia.com/" \
   --description "docker-rebornlinux" \
@@ -186,7 +186,7 @@ sudo gitlab-runner register \
 ```
 
 在ubuntu上, 看runner服务的状态
-```sh
+```shell
 yingjieb@cloud-server-1:~$ systemctl status gitlab-runner
 ● gitlab-runner.service - GitLab Runner
    Loaded: loaded (/etc/systemd/system/gitlab-runner.service; enabled; vendor preset: enabled)
@@ -202,7 +202,7 @@ yingjieb@cloud-server-1:~$ systemctl status gitlab-runner
 
 # runner使用和`.gitlab-ci.yml`
 ## runner管理
-```sh
+```shell
 yingjieb@cloud-server-1:~$ gitlab-runner -h
 支持很多命令
 start

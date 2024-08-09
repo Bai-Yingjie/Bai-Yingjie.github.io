@@ -131,7 +131,7 @@ func incnAssertion(any Inccer, n int) {
 ```
 
 ## 结果
-```sh
+```shell
 yingjieb@3a9f377eee5d /repo/yingjieb/godev/practice/src/benchmarks/typeassertion
 $ go test -bench .
 goos: linux
@@ -228,7 +228,7 @@ func fakeServer() {
 }
 ```
 注意`decoder.Decode(&msg)`, 要求msg必须是messageIn, decoder会自动分配concrete类型实例并赋值给msg. 如果对端发过来的消息concrete类型不是messageIn, Decode会返回错误, 类似这样:
-```sh
+```shell
 gob: local interface type *main.messageIn can only be decoded from remote interface type; received concrete type string
 ```
 意思是对端发过来的是`string`类型, 我已经收好了; 但是你不是messageIn, 所以不符合用户要求.
@@ -349,7 +349,7 @@ encoded: string
 
 ### 如果不Register会怎样?
 不管encode还是decode, 都会打印提示:
-```sh
+```shell
 gob: type not registered for interface: []main.processInfo
 ```
 
@@ -376,7 +376,7 @@ var msg interface{}
 dec.Decode(&msg)
 ```
 报错误:
-```sh
+```shell
 gob: local interface type *interface {} can only be decoded from remote interface type; received concrete type sessionReq = struct { SessionTag string; SysInfo sysInfo = struct { BoardName string; CPUInfo string; KernelInfo string; PackageInfo packageInfo = struct { BuildVersion string; SwID string; BuildServer string; BuildDate string; Repo string; Branch string; }; }; }
 ```
 这个错误说明两点:

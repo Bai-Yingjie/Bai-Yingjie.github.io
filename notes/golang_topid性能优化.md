@@ -51,7 +51,7 @@ topid是纯go写的类似top的进程性能统计工具, 和topidchart联用可�
 ## 单核运行时
 分别将新老两个版本绑定到15 16核运行
 注: `taskset`和`GOMAXPROCS=1`都能够限制单核, 实测效果一样. 但后者支持跨核调度, 更好点.
-```sh
+```shell
 GOMAXPROCS=1 ./topid.dd0301e -p 1 -tree -thread
 taskset -c 15 ./topid.dd0301e -p 1 -tree -thread
 ```
@@ -210,7 +210,7 @@ PS: 网上说runtime的
 * 目测htop的CPU占用在3%左右. 偶尔能到7%
 * htop的系统调用
 
-```sh
+```shell
 perf stat --log-fd 1 -e 'syscalls:sys_enter_*' -p 17470 -- sleep 10 | egrep -v "[[:space:]]+0"
 
  Performance counter stats for process id '17470':
@@ -230,7 +230,7 @@ perf stat --log-fd 1 -e 'syscalls:sys_enter_*' -p 17470 -- sleep 10 | egrep -v "
 * topid, e86db98(opt1)的CPU占用总体较高, 跳跃幅度大, 最小3%, 最大有11%.
 * topid的系统调用
 
-```sh
+```shell
 #连续3次执行
 perf stat --log-fd 1 -e 'syscalls:sys_enter_*' -p 28187 -- sleep 10 | egrep -v "[[:space:]]+0"
 
@@ -311,7 +311,7 @@ for i := 0; i < b.N; i++ {
         }
     }
 ```
-```sh
+```shell
 #结果
 yingjieb@3a9f377eee5d /repo/yingjieb/godev/practice/src/pidinfo
 $ go test -run xxxxxx -bench BenchmarkP1InfoUpdate
@@ -324,7 +324,7 @@ ok      pidinfo 1.293s
 ```
 
 ### 分析热点调用链
-```sh
+```shell
 #先利用go test记录cpu的profile文件
 go test -run xxxxxx -bench BenchmarkP1InfoUpdate -cpuprofile cpu.out
 #打开pprof工具分析
@@ -365,7 +365,7 @@ benchmarking的结果是:
 同一个环境, 老版本和新版本都run三次
 
 新版本(并发版本)大概在2ms左右
-```sh
+```shell
 $ go test -run xxxxxx -bench BenchmarkP1InfoUpdate
 goos: linux
 goarch: amd64
@@ -376,7 +376,7 @@ ok      pidinfo 4.919s
 ```
 
 老版本(递归版本)大概4ms
-```sh
+```shell
 $ go test -run xxxxxx -bench BenchmarkP1InfoUpdate
 goos: linux
 goarch: amd64
@@ -391,7 +391,7 @@ ok      pidinfo 1.557s
 ### 在host上运行
 #### 系统调用次数
 系统调用次数统计中, epoll_ctl, open和close次数减小的非常明显, 符合预期.
-```sh
+```shell
 root@godev-server:/repo/yingjieb/godev/practice/src/tools# perf stat --log-fd 1 -e 'syscalls:sys_enter_*' -p 3632 -- sleep 10 | egrep -v "[[:space:]]+0"
 
  Performance counter stats for process id '3632':
@@ -417,7 +417,7 @@ root@godev-server:/repo/yingjieb/godev/practice/src/tools# perf stat --log-fd 1 
 #### open的fd数
 大概在2K数量级, 超过了默认的1024.
 要先`ulimit -n 10240`扩大打开文件的上限.
-```sh
+```shell
 yingjieb@godev-server /proc/3632/fd
 $ ll | wc -l
 1972

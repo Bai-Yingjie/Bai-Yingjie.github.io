@@ -14,7 +14,7 @@ ovs-vswitchd是由systemd启动的一组线程
 下面我想查看这个线程在干什么，导致cpu占用100%
 
 ## pmap 查看地址空间
-```sh
+```shell
 $ sudo pmap -p 41246 -x
 Address           Kbytes     RSS   Dirty Mode  Mapping
 0000000000400000    1856    1856       0 r-x-- /usr/local/sbin/ovs-vswitchd
@@ -71,7 +71,7 @@ Address           Kbytes     RSS   Dirty Mode  Mapping
 这个文件，而这个写入的动作可能又经历了文件系统 -> page caching -> IO驱动 -> 物理硬件的复杂过程。
 
 ## lsof 查看打开的文件
-```sh
+```shell
 $ sudo lsof -p 41246
 ovs-vswit 41246 root  txt       REG                8,5  14113280 3527027728 /usr/local/sbin/ovs-vswitchd
 ovs-vswit 41246 root  mem-R     REG               0,40 536870912     968169 /dev/hugepages/rtemap_0
@@ -178,7 +178,7 @@ Overhead  Shared Object            Symbol
    1.65%  libc-2.17.so             [.] __clock_gettime
    1.15%  [vdso]                   [.] __kernel_clock_gettime
 ```
-```sh
+```shell
 #9382是这个线程的pid
 #进程可能重启了，变成了9382
 $ sudo perf top -p 9382
@@ -209,7 +209,7 @@ Overhead  Shared Object        Symbol
 ```
 注：以上两个，函数dp_netdev_process_rxq_port都出现在第一位
 看一下汇编如下：
-```sh
+```shell
 Percent│       sub    x2, x2, x3   
        │       add    x2, x2, x1    
        │       str    x2, [x0]  
@@ -265,7 +265,7 @@ mrs    x2, cntvct_el0
 b.eq   e8
 根据ARM手册， cntvct_el0是个64bit的Virtual Timer Count register，只读的  
 可参考https://patchwork.kernel.org/patch/9290801/
-```sh
+```shell
 $ sudo perf stat -e cycles,stalled-cycles-frontend,stalled-cycles-backend,branch-misses,cache-references,cache-misses -p 9382
 ^C
  Performance counter stats for process id '9382':

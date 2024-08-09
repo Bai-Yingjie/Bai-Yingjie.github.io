@@ -32,24 +32,24 @@
 
 # docker加proxy
 在docker run命令行加:
-```sh
+```shell
 --env http_proxy="http://10.158.100.6:8080/"
 ```
 
 # docker限制CPU和内存
 限制只有2个CPU, 2G内存
-```sh
+```shell
 docker run --cpus=2 -m 2g --rm --runtime=runsc -it --name=test centos:7 bash
 ```
 参考: https://docs.docker.com/config/containers/resource_constraints/
 
 举例:
 If you have 1 CPU, each of the following commands guarantees the container at most 50% of the CPU every second.
-```sh
+```shell
 $ docker run -it --cpus=".5" ubuntu /bin/bash
 ```
 Which is the equivalent to manually specifying `--cpu-period` and `--cpu-quota`;
-```sh
+```shell
 $ docker run -it --cpu-period=100000 --cpu-quota=50000 ubuntu /bin/bash
 ```
 
@@ -65,13 +65,13 @@ $ docker run -it --cpu-period=100000 --cpu-quota=50000 ubuntu /bin/bash
 用`-t`选项可以理解为attach到target pid的name space.
 
 # 全部清除
-```sh
+```shell
 docker system prune -a --volumes --force
 ```
 
 # 清除不用的image
 The `docker image prune` command allows you to clean up unused images. By default, `docker image prune` only cleans up _dangling_ images. A dangling image is one that is not tagged and is not referenced by any container. To remove dangling images:
-```sh
+```shell
 docker image prune
 ```
 
@@ -83,11 +83,11 @@ $ docker container prune
 
 # 重载entrypoint启动
 有的docker image起不来, 是因为默认的entrypoint启动失败. 此时重载entrypoint到bash一般可启动
-```sh
+```shell
 docker run -itd --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v /home/$(whoami):/home/$(whoami) -v /repo/$(whoami):/repo/$(whoami) -w /repo/$(whoami) --entrypoint=/bin/bash docker-registry-remote.artifactory-blr1.int.net.nokia.com/codercom/code-server
 ```
 对于entrypoint为空的docker
-```sh
+```shell
 docker run --rm -itd --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v /home/$(whoami):/home/$(whoami) -v /repo/$(whoami):/repo/$(whoami) -w /repo/$(whoami) godevsig/godev-tool /bin/bash
 fef7fdacb79a78c2e8467e1ff6cfdd38ac0e7072eebfa30df33b8f2805faa020
 docker attach fef7fdacb79a78c2e8467e1ff6cfdd38ac0e7072eebfa30df33b8f2805faa020
@@ -95,7 +95,7 @@ docker attach fef7fdacb79a78c2e8467e1ff6cfdd38ac0e7072eebfa30df33b8f2805faa020
 
 # 解决连接`/var/run/docker.sock`权限问题
 将用户加入到docker 组
-```sh
+```shell
 sudo usermod -a -G docker $USER
 ```
 # docker用root登陆
@@ -107,7 +107,7 @@ docker exec -it -u root cf13ed39f0d9 bash
 # docker国内代理
 ## 20210123更新
 似乎我后来改用了aliyun的镜像...
-```sh
+```shell
 cat /etc/docker/deamon.json
 {
     "registry-mirrors": [ "https://ryh6l7pc.mirror.aliyuncs.com" ]
@@ -123,7 +123,7 @@ Docker客户端版本大于 1.10.0 的用户
 }
 ```
 重启docker和deamon
-```sh
+```shell
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
@@ -149,11 +149,11 @@ http://f1361db2.m.daocloud.io
 ## 2020 7月
 我用微软的Azure的代理(dockerhub.azk8s.cn)不错:
 详见: https://github.com/Azure/container-service-for-azure-china/blob/master/aks/README.md#22-container-registry-proxy
-```sh
+```shell
 docker pull dockerhub.azk8s.cn/yingjieb/godev-vscode:latest
 ```
 有人总结的国内列表:https://www.jianshu.com/p/5a911f20d93e
-```sh
+```shell
 镜像加速器    镜像加速器地址    专属加速器？    其它加速？
 Docker 中国官方镜像    https://registry.docker-cn.com        Docker Hub
 DaoCloud 镜像站    http://f1361db2.m.daocloud.io    可登录，系统分配    Docker Hub
@@ -167,7 +167,7 @@ Azure 中国镜像    https://dockerhub.azk8s.cn        Docker Hub、GCR、Quay
 
 # docker ubuntu for golang
 godev 
-```sh
+```shell
 docker run --rm -itd --privileged -h yubuntu --name yubuntu -v /repo/yingjieb:/repo/$(whoami) -w /repo/$(whoami) yingjieb/godev/ubuntu
 docker attach yubuntu
 docker run --rm -itd -h yubuntu -v /repo/yingjieb:/repo/$(whoami) -w /repo/$(whoami) yingjieb/ubuntu-godev
@@ -183,7 +183,7 @@ gentoo的docker image也是基于stage3的包, 不同的是, 它修改了/etc/rc
 
 详见
 https://github.com/gentoo/gentoo-docker-images/blob/master/stage3.Dockerfile
-```sh
+```shell
 # This is the subsystem type.
 # It is used to match against keywords set by the keyword call in the
 # depend function of service scripts.
@@ -212,7 +212,7 @@ rc_sys="docker"
 ```
 
 # 清理空间
-```sh
+```shell
 sudo systemctl stop docker
 #删除前先备份
 rm -rf /var/lib/docker
@@ -220,14 +220,14 @@ rm -rf /var/lib/docker
 
 # docker保存镜像
 * 对image
-```sh
+```shell
 docker save 66389e4e65c5 -o centos-aarch64:7.4.tar
 docker load -i arm64-gentoo.1.0.tar
 docker tag f43a088c78f5 arm64-gentoo:1.0
 ```
 
 * 对container
-```sh
+```shell
 docker export 239fc2b54d18 -o arm64-gentoo.2.0.tar
 docker import -c 'CMD ["/bin/bash"]' arm64-gentoo.1.2.0.tar
 ```
@@ -235,7 +235,7 @@ docker import -c 'CMD ["/bin/bash"]' arm64-gentoo.1.2.0.tar
 * 二者区别是export只导出rootfs, 丢失元数据层
 
 # history
-```sh
+```shell
 # 执行docker instance里面的一个命令
 sudo docker exec 080443f42a7d ip -s addr
 docker pull docker-registry.qualcomm.com/yingjieb/centos-aarch64:7.4
@@ -255,19 +255,19 @@ docker cp linux-4.14.tar.xz agitated_wright:/root
 ```
 
 # 进入shell
-```sh
+```shell
 docker exec -it ceph-mon2 /bin/bash
 ```
 
 # 获取每个container的ip
-```sh
+```shell
 docker inspect -f '{ {.Name} } - { {.NetworkSettings.IPAddress} }' $(docker ps -aq)
 ```
 
 # docker run
 docker run有限制资源使用的N多选项
 比较有用的选项
-```sh
+```shell
 --cpuset-cpus=""
           CPUs in which to allow execution (0-3, 0,1)
 --cpuset-mems=""
@@ -355,7 +355,7 @@ https://docs.docker.com/engine/reference/commandline/commit/
 可以用container生成一个image  
 举例:
 普通的commit, 名字随便起?
-```sh
+```shell
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS              NAMES
 c3f279d17e0a        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            desperate_dubinsky
@@ -367,7 +367,7 @@ REPOSITORY                        TAG                 ID                  CREATE
 svendowideit/testimage            version3            f5283438590d        16 seconds ago      335.7 MB
 ```
 commit的时候还能顺便更改配置
-```sh
+```shell
 $ docker ps
 CONTAINER ID       IMAGE               COMMAND             CREATED             STATUS              PORTS              NAMES
 c3f279d17e0a        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            desperate_dubinsky
@@ -380,7 +380,7 @@ $ docker inspect -f "{ { .Config.Env } }" f5283438590d
 [HOME=/ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin DEBUG=true]
 ```
 更改CMD和EXPOSE
-```sh
+```shell
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS              NAMES
 c3f279d17e0a        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            desperate_dubinsky
@@ -402,7 +402,7 @@ http://blog.thoward37.me/articles/where-are-docker-images-stored/
 # docker tag可以push到私有库?
 Tagging an image for a private repository
 To push an image to a private registry and not the central Docker registry you must tag it with the registry hostname and port (if needed).
-```sh
+```shell
 docker tag 0e5574283393 myregistryhost:5000/fedora/httpd:version1.0
 ```
 
@@ -423,7 +423,7 @@ Set /sbin/init as the default process to start when the container runs
 In this example, we build a container by creating a Dockerfile that installs and configures a Web server (httpd) to start automatically by the systemd service (/sbin/init) when the container is run on a host system.
 1 Create Dockerfile: In a separate directory, create a file named Dockerfile with the following contents:
 
-```sh
+```shell
 FROM rhel7
 RUN yum -y install httpd; yum clean all; systemctl enable httpd;
 RUN echo "Successful Web Server Test" > /var/www/html/index.html
@@ -438,7 +438,7 @@ CMD [ "/sbin/init" ]
 `# docker run -d --name=mysysd_run -p 80:80 mysysd`
 From this command, the mysysd image runs as the mysysd_run container as a daemon process, with port 80 from the container exposed to port 80 on the host system.
 4 Check that the container is running: To make sure that the container is running and that the service is working, type the following commands:
-```sh
+```shell
 # docker ps | grep mysysd_run
 de7bb15fc4d1   mysysd   "/sbin/init"   3 minutes ago   Up 2 minutes   0.0.0.0:80->80/tcp   mysysd_run
 # curl localhost/index.html

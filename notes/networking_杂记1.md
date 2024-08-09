@@ -130,7 +130,7 @@ http://docs.ocselected.org/openstack-manuals/kilo/networking-guide/content/under
 
 # 远程mount nfs超时错误
 在bj的机器上, 想mount我的nfs server:
-```sh
+```shell
 $ sudo mount -v 10.64.17.45:/home/bai/share /home/bai/share 
 mount.nfs: timeout set for Thu Dec  6 18:03:08 2018 
 mount.nfs: trying text-based options 'vers=4.1,addr=10.64.17.45,clientaddr=10.5.21.125' 
@@ -140,7 +140,7 @@ mount.nfs: Connection timed out
 总是显示超时, 但ping 10.64.17.45是能通的, 稳定在30ms左右的延迟.
 
 ## 试了网上的命令
-```sh
+```shell
 $ showmount -e 10.64.17.45 
 clnt_create: RPC: Port mapper failure - Timed out 
 #这个也超时 
@@ -177,7 +177,7 @@ Linux Mint 19 Tara $ rpcinfo -p
 ```
 
 ## 使用nmap扫描端口情况
-```sh
+```shell
 # -A:打开额外的激进扫描选项 
 # -T: 时间策略, 有-T paranoid|sneaky|polite|normal|aggressive|insane, 可用数字表示(0-5) 
 # 下面显示 111和2049都被防火墙filter掉了, 所以连不上 
@@ -253,7 +253,7 @@ watch -d -n1 'ethtool -S enP5p1s0 | grep packet | grep -v ": 0"'
 ```
 
 # tcpdump查看完整包
-```sh
+```shell
 #抓ping包 
 $ sudo tcpdump -i enP5p1s0 -vvnnXXSs 1514 
 tcpdump: listening on enP5p1s0, link-type EN10MB (Ethernet), capture size 1514 bytes 
@@ -309,7 +309,7 @@ TUN用于路由，而TAP用于创建网桥。
 https://blog.csdn.net/dengjin20104042056/article/details/52357122
 
 # 修改网卡速率
-```sh
+```shell
 #一定要加上autoneg off 关闭自协商 
 ethtool -s ens817 speed 10000 autoneg off 
 ```

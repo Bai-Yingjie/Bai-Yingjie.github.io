@@ -23,7 +23,7 @@ Building gccgo is just like building GCC with one or two additional options. See
 
 ## build gcc toolchain natively on X86
 gccgo is another branch of gcc, called branches/gccgo:
-```sh
+```shell
 svn checkout svn://gcc.gnu.org/svn/gcc/branches/gccgo gccgo
 mkdir objdir
 cd objdir
@@ -33,7 +33,7 @@ make install
 ```
 
 ## use gccgo
-```sh
+```shell
 gccgo -c file.go
 gccgo -o file file.o
 ```

@@ -21,7 +21,7 @@
   - [结论](#结论)
 - [锁性能分析实战](#锁性能分析实战)
   - [预备知识strace](#预备知识strace)
-  - [理解pthread_create](#理解pthread_create)
+  - [理解pthread\_create](#理解pthread_create)
   - [mutex竞争](#mutex竞争)
   - [用perf分析](#用perf分析)
 
@@ -29,7 +29,7 @@
 ## 背景
 升级gcc7.3后, s6报告dmscontroller_app非正常退出.
 串口的相关打印只说了是dmscontroller_app被终止.
-```sh
+```shell
 cat /tmp/messages | grep dmscontroller_app
 
 Jan 1 16:00:07.000000 APP_NAME:app_finish,APP_VERSION:62.993,MSG: dmscontroller_app terminated (rc=1)
@@ -38,7 +38,7 @@ Jan 1 16:00:07.000000 APP_NAME:escalate,APP_VERSION:62.993,MSG: dmscontroller_ap
 ```  
 ### 复现命令
 不用重启
-```sh
+```shell
 s6-rc -v2 -d change isam-apps
 s6-rc -v2 -u change isam-apps
 ```
@@ -47,14 +47,14 @@ s6-rc -v2 -u change isam-apps
 
 ## 调查log
 先从调查这个app的log开始入手:
-```sh
+```shell
 cd /isam/slot_default/dmscontroller_app
 # log为空
 cat log/traces.log
 ```
 在run目录下有应用自己的log
 
-```sh
+```shell
 /isam/slot_default/dmscontroller_app/run # cat dmsc.log
 DMS-C is now launching!
 ydbg_link_modeule 0
@@ -111,7 +111,7 @@ $ nm dmscontroller_app_isam-reborn-cavium-sdmva.nostrip | grep onFail | grep Loc
 
 ### 准备工作2: 拷贝nostrip文件到板子
 默认的bin是strip过的, 没有debug信息. 所以要先考一个nostrip的版本
-```sh
+```shell
 /isam/slot_default/dmscontroller_app/run # scp yingjieb@172.24.213.190:/repo/yingjieb/ms/swms/y/build/dmscontroller/dmscontroller_app_isam-reborn-cavium-sdmva.nostrip .
 #修改链接就可以了
 /isam/slot_default/dmscontroller_app/run # ln -snf dmscontroller_app_isam-reborn-cavium-sdmva.nostrip dmscontroller_app
@@ -120,7 +120,7 @@ $ nm dmscontroller_app_isam-reborn-cavium-sdmva.nostrip | grep onFail | grep Loc
 ### 动态probe
 都在`/isam/slot_default/dmscontroller_app/run`下面操作.
 前面我们拷贝了这个app的nostrip版本, 这个是有debug信息的.
-```sh
+```shell
 # 先把app都停掉
 s6-rc -v2 -d change isam-apps
 
@@ -183,9 +183,10 @@ s6-rc -v2 -u change isam-apps
 * 这个是个串口打印, 最终是要内核打印到串口上的, 那对app来说, 最后都是走write系统调用
 * write系统调用有很多, 对这个打印来讲, 它的fd不是1(stdout)就是2(stderr)
 * 用perf可以看write系统调用, 但要结合fd来过滤, 否则会有海量的信息.
+
 ## 准备知识
 perf record支持filter功能, 比如
-```sh
+```shell
 # Trace read() syscalls, when requested bytes is less than 10:
 perf record -e 'syscalls:sys_enter_read' --filter 'count < 10' -a
 
@@ -274,7 +275,7 @@ perf probe libc的函数, 放在`/sys/kernel/debug/tracing/events/probe_libc`下
 比如在一个窗口sleep 666  
 在另外一个窗口strace这个pid  
 然后在sleep窗口ctrl+c, 此时strace能捕捉到这个signal
-```sh
+```shell
 # strace -p32611 
 Process 32611 attached
 restart_syscall(<... resuming interrupted call ...> 
@@ -284,14 +285,14 @@ restart_syscall(<... resuming interrupted call ...>
 ```
 
 当一个系统调用正在执行, 比如select, 当其他进程也调用了系统调用, strace会记录select被打断又恢复的过程
-```sh
+```shell
        [pid 28772] select(4, [3], NULL, NULL, NULL <unfinished ...>
        [pid 28779] clock_gettime(CLOCK_REALTIME, {1130322148, 939977000}) = 0
        [pid 28772] <... select resumed> )      = 1 (in [3])
 ```
 
 当一个正在执行的syscall被signal打断时, 当signal处理完毕后, 这个被打断的syscall会重新执行. strace也会记录这个过程
-```sh
+```shell
        read(0, 0x7ffff72cf5cf, 1)              = ? ERESTARTSYS (To be restarted)
        --- SIGALRM (Alarm clock) @ 0 (0) ---
        rt_sigreturn(0xe)                       = 0
@@ -309,14 +310,14 @@ restart_syscall(<... resuming interrupted call ...>
 * pthread_create实际是调用的clone  
 这里的主进程/线程是9229, 这里的clone传的参数很多, 比如CLONE_THREAD, 一共要clone4个线程, 在这里是:9230 9231 9232 9233  
 算上主进程, 这里一共有5个进程  
-```sh
+```shell
 9229  clone(child_stack=0x7f78c9e39ff0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tidptr=0x7f78c9e3a9d0, tls=0x7f78c9e3a700, child_tidptr=0x7f78c9e3a9d0) = 9230 <0.000063>
 9229  clone(child_stack=0x7f78c9638ff0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tidptr=0x7f78c96399d0, tls=0x7f78c9639700, child_tidptr=0x7f78c96399d0) = 9231 <0.000070>
 ```
 * 获取线程调用的是`gettid()`
 * 用`sched_getaffinity()`绑定线程
 * 有很多系统调用被打断, 又恢复运行
-```sh
+```shell
 9231  <... set_robust_list resumed> )   = 0 <0.000082>
 9230  <... gettid resumed> )            = 9230 <0.000082>
 9229  <... mprotect resumed> )          = 0 <0.000060>
@@ -375,7 +376,7 @@ int futex(int *uaddr, int op, int val, const struct timespec *timeout, int *uadd
 注意A并没有停止, 而是一直运行的, 因为我这个是4核的CPU.  
 如果是单核的CPU, 在多线程情况下, 因为进程抢占的关系, kernel在执行一个syscall, 也可能被其他线程抢占;  
 这时候其实strace的打印和多核CPU是差不多的, 不同的是, 被抢占的syscall真的就被暂停了.
-```sh
+```shell
    114 9270  futex(0x6020c0, FUTEX_WAIT_PRIVATE, 2, NULL <unfinished ...>
    115 9269  futex(0x6020c0, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
    116 9270  <... futex resumed> )             = -1 EAGAIN (Resource temporarily unavailable) <0.000038>

@@ -9,7 +9,7 @@
     - [stp命令的结束](#stp命令的结束)
     - [基本语法](#基本语法)
     - [probepoints `man stapprobes`](#probepoints-man-stapprobes)
-      - [syscall.*系列aliases, 出自tapset库, 每个系统调用都有一对probe点](#syscall系列aliases-出自tapset库-每个系统调用都有一对probe点)
+      - [syscall.\*系列aliases, 出自tapset库, 每个系统调用都有一对probe点](#syscall系列aliases-出自tapset库-每个系统调用都有一对probe点)
       - [timer aliases](#timer-aliases)
       - [DWARF类的probe](#dwarf类的probe)
       - [其他probe举例](#其他probe举例)
@@ -93,7 +93,7 @@ systemtap提供stap命令行和一套脚本语言来完成对系统运行时活�
 stap命令接受systemtap语言的脚本`*.stp`, 编译成C语言的内核模块, 然后由staprun把该内核模块插入内核运行, 并与之通信, 把trace数据从内核考出来, 保存到临时文件里, 在probe结束的时候, staprun会unload这个内核模块. systemtap脚本能完成数据收集, 过滤, 整理的功能, 比较灵活.
 
 stap编译后的`*.c`和`*.ko`在`~/.systemtap`路径下, 比如
-```sh
+```shell
 $ sudo ls /root/.systemtap/cache/37
 stap_3789144b44a61fc185145ac98a2b5446_1298.c stap_3789144b44a61fc185145ac98a2b5446_1298_hash.log stap_3789144b44a61fc185145ac98a2b5446_1298.ko
 ```
@@ -102,7 +102,7 @@ stap_3789144b44a61fc185145ac98a2b5446_1298.c stap_3789144b44a61fc185145ac98a2b54
 
 # systemtap基础
 ## 基本安装
-```sh
+```shell
 #安装
 sudo apt install systemtap
 #systemtap需要kernel的debug信息, 在ubuntu上依赖于kernel的dbg包, 比如linux-image-*-dbg linux-header-*
@@ -134,7 +134,7 @@ https://sourceware.org/systemtap/SystemTap_Beginners_Guide/index.html
 
 访问不存在的参数会产生错误.  
 比如:
-```sh
+```shell
 probe begin { printf("%d, %s\n", $1, @2) } 
 #用下面命令调用
 stap example.stp '5+5' mystring
@@ -156,7 +156,7 @@ hello 3
 * 用-c CMD选项运行的command结束; 或-x PID的进程结束
 
 ### 基本语法
-```sh
+```shell
 #整型变量
 var1 = 5
 #global变量在一个systeamtap session里面被所有probe和function共享, 并发访问会自动被lock保护.
@@ -300,8 +300,8 @@ strtol:long(str:string,base:long)
 ### probepoints `man stapprobes`
 * 以?结尾的probe表示optional, 没有也不会报错
 * 以!结尾的probe表示both optional and sufficient, 意思是如果找到了对应的probe点, 那以逗号隔开的probe list里后面的probe都不会生效了.
-* probe展开
-```sh
+* probe展开  
+```shell
 syscall.{write,read}
 # Expands to
 syscall.write, syscall.read
@@ -312,14 +312,14 @@ kernel.function("nfs*")!, module("nfs").function("nfs*")!
 ```
 
 #### syscall.*系列aliases, 出自tapset库, 每个系统调用都有一对probe点
-```sh
+```shell
 syscall.NAME
 syscall.NAME.return
 ```
 一般的, 系统调用的参数都会被导出到system脚本里, 可直接使用, 比如`syscall.open`的`filename, flags, and mode`可以直接作为变量使用.
 
 此外, 通常tapset还对aliases添加了以下几个变量:
-```sh
+```shell
 argstr 参数str
 name syscall名字
 retstr 返回值str
@@ -329,22 +329,22 @@ retstr 返回值str
 timer aliases是异步的probe, 意思是它不像syscall proble一样, 是匹配精确指令地址的, CPU执行到这个地址就会触发这个probe事件.
 
 异步的probe没有精确地址, 比如下面, N表示N个jiffies后, probe的handler被调用
-```sh
+```shell
 timer.jiffies(N)
 timer.jiffies(N).randomize(M)
 ```
 或者可以毫秒为单位:
-```sh
+```shell
 timer.ms(N)
 timer.ms(N).randomize(M)
 ```
 或者以CPU tick为单位
-```sh
+```shell
 timer.profile
 ```
 
 #### DWARF类的probe
-```sh
+```shell
 kernel.function(PATTERN)
 kernel.function(PATTERN).call
 kernel.function(PATTERN).return
@@ -368,7 +368,7 @@ process(PID).plt("NAME")
 process(PID).statement(ADDRESS).absolute
 ```
 probe可以是`.function .return .inline .call .exported .statement .statement.nearest .callee .callees `
-```sh
+```shell
 .function
        Places a probe near the beginning of the named function, so that parameters are available as context variables.
 
@@ -418,7 +418,7 @@ probe可以是`.function .return .inline .call .exported .statement .statement.n
 ```
 
 #### 其他probe举例
-```sh
+```shell
 java("PNAME").class("CLASSNAME").method("PATTERN")
 java(PID).class("CLASSNAME").method("PATTERN")
 python2.module("MODULENAME").function("PATTERN").return
@@ -426,7 +426,7 @@ python3.module("MODULENAME").function("PATTERN")
 ```
 
 #### 上下文变量
-```sh
+```shell
 $var 整型的话, 会被cast为64bit int, 字符串指针的话, 可能被kernel_string或user_string方法拷贝为string类型的systemtap脚本变量.
 #var的另外的形式
 @var("varname")
@@ -453,7 +453,7 @@ $EXPR$$ 扩展为$EXPR的所有成员及其子成员的字符串
 
 #### 非DWARF类的probe
 没有DWARF调试信息的, 可以用kprobe开头的probe, 比如
-```sh
+```shell
 kprobe.function(FUNCTION)
 kprobe.function(FUNCTION).call
 kprobe.function(FUNCTION).return
@@ -462,7 +462,7 @@ kprobe.statement(ADDRESS).absolute
 ```
 
 #### kernel静态probe点
-```sh
+```shell
 stap -l 'kernel.trace("*")'
 stap -l 'kernel.trace("sched*")'
 stap -l 'kernel.trace("bcache*")'
@@ -481,7 +481,7 @@ stap -l 'kernel.trace("net*")'
 用户态probe需要内核配置支持utrace或者内核版本3.5以上支持uprobe
 
 查看系统是否支持uprobe
-```sh
+```shell
 #在kernel3.5以后
 $ cat /boot/config-4.14.62-5.hxt.aarch64 | grep -i uprobe
 CONFIG_ARCH_SUPPORTS_UPROBES=y
@@ -491,7 +491,7 @@ CONFIG_UPROBE_EVENTS=y
 看CONFIG_UTRACE=y
 ```
 ##### 非符号类的probe
-```sh
+```shell
 #使用虚拟地址作为probe
 process(PID).statement(ADDRESS).absolute
 #一般的用户态probe需要指定pid或者fullpath, 比如
@@ -519,7 +519,7 @@ process("PATH").mark("LABEL")
 process("PATH").provider("PROVIDER").mark("LABEL")
 ```
 ##### 符号类的probe, 可以probe用户态程序, 共享库
-```sh
+```shell
 process("PATH").function("NAME")
 process("PATH").statement("*@FILE.c:123")
 process("PATH").plt("NAME")
@@ -538,20 +538,20 @@ process(PID).plt("NAME")
 
 #### java probe
 systemtap使用JBoss里面的Byteman调试工具来做后端
-```sh
+```shell
 java("PNAME").class("CLASSNAME").method("PATTERN")
 java("PNAME").class("CLASSNAME").method("PATTERN").return
 ```
 
 #### input probe
-```sh
+```shell
 input.char
 input.line
 #其底层是用procfs("__stdin").write实现的,后者是procfs类型的probe
 ```
 
 #### netfilter probe
-```sh
+```shell
 netfilter.hook("HOOKNAME").pf("PROTOCOL_F")
 netfilter.pf("PROTOCOL_F").hook("HOOKNAME")
 ```
@@ -560,7 +560,7 @@ netfilter.pf("PROTOCOL_F").hook("HOOKNAME")
 使用PMU event做probe, 这些event用"type"和"config"描述, 详见`perf_event_attr`结构体, 采样频率用"sample_period"和"sample_freq"控制
 
 具体定义见`linux/perf_event.h`
-```sh
+```shell
 probe perf.type(NN).config(MM).sample(XX)
 probe perf.type(NN).config(MM).hz(XX)
 probe perf.type(NN).config(MM)
@@ -573,7 +573,7 @@ process("PROC").statement("func@file") {stat <<< @perf("NAME")}
 ```
 
 #### python probe
-```sh
+```shell
 #pythone probe需要HelperSDT的支持, 在支持pythone脚本时加上:
 stap foo.stp -c "python -m HelperSDT foo.py"
 #probe举例:
@@ -586,7 +586,7 @@ python3.module("MPATTERN").function("PATTERN").return
 ```
 
 #### 硬件watchpoint类型probe
-```sh
+```shell
 probe kernel.data(ADDRESS).write
 probe kernel.data(ADDRESS).rw
 probe kernel.data(ADDRESS).length(LEN).write
@@ -596,7 +596,7 @@ probe kernel.data("SYMBOL_NAME").rw
 ```
 
 #### 一些例子
-```sh
+```shell
        begin, end, end
               refers to the startup and normal shutdown of the session. In this case, the handler would run once during startup and twice during shutdown.
 
@@ -647,7 +647,7 @@ probe kernel.data("SYMBOL_NAME").rw
 
 
 ### 基本probe语法
-```sh
+```shell
 #PROBEPOINT是编译器定义的probe point, 以及tapset库也用alias定义了进一步的探测点
 probe PROBEPOINT [, PROBEPOINT] { [STMT ...] }
 #这里的if是arming condition,意思是条件真时probe在被装载生效, 在其失效期间, 可能会丢失部分probe event
@@ -672,7 +672,7 @@ probe syscall.read {
 ```
 ### 函数定义
 函数的返回值只能是一个整型或字符串
-```sh
+```shell
 #函数定义可以不要类型声明, 由编译器推断
 function thisfn (arg1, arg2) {
     return arg1 + arg2
@@ -690,7 +690,7 @@ systemtap还提供了一些标准库的`.stp`脚本, 提供了一些常用的方
 tapset库提供了非常多的方法和预定义的probe, 详见https://sourceware.org/systemtap/tapsets/
 
 ### 上下文方法
-```sh
+```shell
 #返回目标进程pid, 目标进程是用-x PID 或-c CMD的进程
 target:long()
 #返回当前pid
@@ -751,7 +751,7 @@ symname:string(addr:long)
 ```
 
 ### 时间相关
-```sh
+```shell
 #返回当前的HZ
 HZ:long()
 #cpu clock时间, ms ns s us
@@ -768,7 +768,7 @@ ctime:string()
 
 ### 字符串和数据获取
 这部分tapset提供了从kernel空间和从user空间读取数据的方法
-```sh
+```shell
 #string的首个char是否为digit
 isdigit:long(str:string)
 #返回1如果s2在s1里, 否则返回0
@@ -794,14 +794,14 @@ set_user_int(addr:long,val:long)
 ```
 
 ### 调用shell命令
-```sh
+```shell
 #在probe handler执行完以后, 再执行cmd
 system(cmd:string)
 ```
 
 ### 内存相关
 #### 方法
-```sh
+```shell
 #返回内存地址在哪个NUMA上
 addr_to_node:long(addr:long)
 #返回比如5M 6G之类的
@@ -814,7 +814,7 @@ proc_mem_data:long(pid:long)
 ```
 
 #### probe
-```sh
+```shell
 probe::vm.brk — Fires when a brk is requested (i.e. the heap will be resized)
 probe::vm.kfree — Fires when kfree is requested
 probe::vm.kmalloc — Fires when kmalloc is requested
@@ -832,7 +832,7 @@ probe::vm.write_shared_copy — Page copy for shared page write
 ```
 
 ### 进程运行时间相关
-```sh
+```shell
 function::cputime_to_msecs — Translates the given cputime into milliseconds
 function::cputime_to_string — Human readable string for given cputime
 function::cputime_to_usecs — Translates the given cputime into microseconds
@@ -847,7 +847,7 @@ function::usecs_to_string — Human readable string for given microseconds
 ```
 
 ### 调度器相关
-```sh
+```shell
 probe::scheduler.balance — A cpu attempting to find more work.
 probe::scheduler.cpu_off — Process is about to stop running on a cpu
 probe::scheduler.cpu_on — Process is beginning execution on a cpu
@@ -867,7 +867,7 @@ probe::scheduler.wakeup_new — Newly created task is woken up for the first tim
 ```
 
 ### IO子系统相关
-```sh
+```shell
 probe::ioblock.end — Fires whenever a block I/O transfer is complete.
 probe::ioblock.request — Fires whenever making a generic block I/O request.
 probe::ioblock_trace.bounce — Fires whenever a buffer bounce is needed for at least one page of a block IO request.
@@ -889,7 +889,7 @@ probe::ioscheduler_trace.unplug_timer — Fires when unplug timer associated
 ```
 
 ### irq 相关
-```sh
+```shell
 probe::irq_handler.entry — Execution of interrupt handler starting
 probe::irq_handler.exit — Execution of interrupt handler completed
 probe::softirq.entry — Execution of handler for a pending softirq starting
@@ -901,7 +901,7 @@ probe::workqueue.insert — Queuing work on a workqueue
 ```
 
 ### 网络相关
-```sh
+```shell
 function::format_ipaddr — Returns a string representation for an IP address
 function::htonl — Convert 32-bit long from host to network order
 function::htonll — Convert 64-bit long long from host to network order
@@ -973,7 +973,7 @@ probe::udp.sendmsg.return — Fires whenever an attempt to send a UDP message is
 ```
 
 ### socket相关
-```sh
+```shell
 function::inet_get_ip_source — Provide IP source address string for a kernel socket
 function::inet_get_local_port — Provide local port number for a kernel socket
 function::sock_fam_num2str — Given a protocol family number, return a string representation
@@ -1007,7 +1007,7 @@ probe::socket.writev.return — Conclusion of message sent via socket_writev
 ```
 
 ### 内核进程相关
-```sh
+```shell
 function::get_loadavg_index — Get the load average for a specified interval
 function::sprint_loadavg — Report a pretty-printed load average
 function::target_set_pid — Does pid descend from target process?
@@ -1021,7 +1021,7 @@ probe::kprocess.start — Starting new process
 ```
 
 ### signal相关
-```sh
+```shell
 function::get_sa_flags — Returns the numeric value of sa_flags
 function::get_sa_handler — Returns the numeric value of sa_handler
 function::is_sig_blocked — Returns 1 if the signal is currently blocked, or 0 if it is not
@@ -1058,7 +1058,7 @@ probe::signal.wakeup — Sleeping process being wakened for signal
 ```
 
 ### errno相关
-```sh
+```shell
 function::errno_str — Symbolic string associated with error code
 function::return_str — Formats the return value as a string
 function::returnstr — Formats the return value as a string
@@ -1066,7 +1066,7 @@ function::returnval — Possible return value of probed function
 ```
 
 ### 目录项相关
-```sh
+```shell
 function::d_name — get the dirent name
 function::d_path — get the full nameidata path
 function::fullpath_struct_file — get the full path
@@ -1080,7 +1080,7 @@ function::task_dentry_path — get the full dentry path
 ```
 
 ### exit和printk
-```sh
+```shell
 function::abort — Immediately shutting down probing script.
 function::assert — evaluate assertion
 function::error — Send an error message
@@ -1092,7 +1092,7 @@ function::warn — Send a line to the warning stream
 ```
 
 ### 杂项
-```sh
+```shell
 #随机数
 randint:long(n:long)
 #延迟

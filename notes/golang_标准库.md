@@ -762,7 +762,7 @@ _, err = conn.Read(msg[0:])
 名字解析有两个方式: 纯go方式和cgo方式
 默认是纯go. 使能了cgo就会用cgo. 
 环境变量可以选择用哪种方式:
-```sh
+```shell
 export GODEBUG=netdns=go # force pure Go resolver
 export GODEBUG=netdns=cgo # force cgo resolver    
 ```

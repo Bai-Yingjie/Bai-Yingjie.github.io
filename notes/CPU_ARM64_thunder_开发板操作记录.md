@@ -34,7 +34,7 @@
 
 # new
 ## 如何export git的内容, 不带库
-```sh
+```shell
 #! /bin/sh
 sdk_dir=`pwd`
 target_dir=~/tmp/SDK
@@ -68,7 +68,7 @@ svn export . $target_dir/firmware/bdk
 ```
 
 ## doxygen生成pdf
-```sh
+```shell
 cd ~/repo/git/thunder/new/bdk/thunder/docs
 sudo apt-get install asciidoc
 sudo apt-get install xsltproc
@@ -79,7 +79,7 @@ make
 ```
 ## 在fedora上编perf
 需要安装
-```sh
+```shell
 yum install libdwarf-devel
 yum install audit-libs-devel
 yum install elfutils-libelf-devel
@@ -100,14 +100,14 @@ yum install numactl-devel
 yum install python
 yum install python-devel
 ```
-```sh
+```shell
 cd /usr/src/linux-4.1.12-gentoo/tools/perf
 make
 make install
 ```
 
 ## 在板子上直接编kernel
-```sh
+```shell
 cd linux
 make mrproper
 # cp ../native-config-no-ilp32 .config
@@ -129,7 +129,7 @@ cp Image /boot/Image.native
 ```
 
 ## 禁用transparent_hugepage
-```sh
+```shell
 root@Tfedora /sys/kernel/mm/transparent_hugepage
 # cat enabled 
 [always] madvise never
@@ -157,7 +157,7 @@ res=success'
 有人提到了改/etc/audit/audit.rules, 把里面的-D改成-e 0
 
 ## 分区resize
-```sh
+```shell
 e2fsck -f /dev/sdc2
 resize2fs /dev/sdc2 100G
 gdisk /dev/sdc
@@ -167,18 +167,18 @@ n
 
 ## new库
 现在又改了
-```sh
+```shell
 byj@mint ~/repo/git/cavium/thunder/new/sdk-master
 $ source env-setup
 ```
-```sh
+```shell
 git clone git://cagit1.caveonetworks.com/thunder/sdk/sdk-new.git
 cd sdk-new 
 wget http://toolchain-releases.caveonetworks.com/releases/thunder/gcc47/thunderx-tools-693.tar.bz2 
 tar -xjf thunderx-tools-693.tar.bz2 
 ln -s thunderx-tools-693 tools 
 ```
-```sh
+```shell
 . env-setup BOARD_TYPE=ebb8800
 . env-setup BOARD_TYPE=crb-2s
 ./get_sources.sh -v --prep --gitdepth=10
@@ -186,12 +186,12 @@ ln -s thunderx-tools-693 tools
 ./get_sources.sh -v --stable --prep --gitdepth=10
 ./get_sources.sh -v --stable --update
 ```
-```sh
+```shell
 make uefi-build
 make linux-kernel
 ```
 ## 编好以后
-```sh
+```shell
 cd ~/tmp/image
 $ scp yingjie@192.168.1.5:~/repo/git/thunder/thunder-* .
 $ sudo dd if=thunder-uefi.img of=/dev/mmcblk0 bs=4M
@@ -257,7 +257,7 @@ grub rescue> normal
 * 设时间
 `date -s "2015-02-28 15:15:00"`
 * 配网络
-```sh
+```shell
 $ cat /etc/network/interfaces
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
@@ -279,7 +279,7 @@ Grub.
 ```
 
 ## CRB更新UEFI
-```sh
+```shell
 $ scp thunder-uefi.img yingjie@192.168.1.99:/tftpboot
 $ ssh sysadmin@192.168.1.20     superuser
 # cd /tmp/
@@ -306,7 +306,7 @@ cd bdk
 make
 ```
 ### sdk
-```sh
+```shell
 $ cd scripts
 $ ./build-wrapper.sh sdk help
 *. ebb8800 uboot

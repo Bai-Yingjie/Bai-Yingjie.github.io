@@ -44,7 +44,7 @@ vconfig add bond0 $vlan
 ### 打开stacktrace选项
 要用到`trace_options`的stacktrace功能, 默认是关掉的.  
 带前缀no的是关闭的选项.
-```sh
+```shell
 /sys/kernel/debug/tracing # cat trace_options 
 print-parent
 nosym-offset
@@ -86,7 +86,7 @@ notest_nop_refuse
 本文这里, bond0在系统启动时就生成了, 如果用debugfs来调试就太完了. 所以我用cmdline来使能ftrace调试.
 
 在kernel cmdline里,
-```sh
+```shell
 ftrace=function ftrace_filter=register_netdevice trace_options=stacktrace
 ```
 * ftrace= 效果和debugfs里面的`current_tracer`一样
@@ -107,7 +107,7 @@ function tracer默认打印一级的调用关系
 但这个方法对boot time的函数跟踪很不友好, 要反复重启N多次.
 
 ### 使用笨方法
-```sh
+```shell
 #增加ftrace=function ftrace_filter=register_netdevice,bond_create,bonding_init,register_netdev
 bootoctlinux $(loadaddr) 'coremask=0x0f mem=0 ctxt=OSW isamversion=ZAM8AA62.990, prozone=0x4000000,0x80000000 logbuffer=uboot,0x20000,0x7be00000 bpsflag=0x4,0x7be20000 bpcommit=0,0x140000,0x160000 mtdparts=octeon_nand0:0x8000000@0x0(recovery),-@0x8000000(nand);octeon_nand1:0x40000000@0x0(nand1);bootflash:0x20000@0x140000(statusA),0x20000@0x160000(statusB),0x140000@0x180000(bootA),0x140000@0x2c0000(bootB),0x1900000@0x400000(linuxA),0x1900000@0x1d00000(linuxB),0x20000@0x120000(preferred_oswp),0x80000@0x3600000(management_a),0x80000@0x3680000(management_b),0x120000@0x0(bps) linux_fit_image=0x1e00000,0x7a000000 unpreferred_oswp=0 console=ttyS1,115200 ftrace=function ftrace_filter=register_netdevice,bond_create,bonding_init,register_netdev config_overlay=linux_shell_only=1,reboot=0'
 ```
@@ -134,7 +134,7 @@ ftrace的options有两个形式:
 ![](img/debugging_ftrace_谁创建了bond0设备_20221019104022.png)  
 
 function tracer使用func_stack_trace来打开调用栈
-```sh
+```shell
 /sys/kernel/debug/tracing # cat options/func_stack_trace 
 0
 ```
@@ -150,7 +150,7 @@ function tracer使用func_stack_trace来打开调用栈
 
 ### 补充网上成功的例子
 使用function tracer提供的`options/func_stack_trace`
-```sh
+```shell
    [tracing]# echo kfree > set_ftrace_filter
    [tracing]# cat set_ftrace_filter
    kfree
@@ -228,7 +228,7 @@ dwarf是一种标准的debugging信息的格式, 包括了CFI (Call Frame Inform
 
 ### 例子
 比如我想看是谁调用了`register_netdevice`函数, 这是内核函数, 调用后会创建个netdev.
-```sh
+```shell
 #添加内核probe点
 perf probe register_netdevice
 #记录20秒
@@ -268,7 +268,7 @@ Huawei的wang nan在2015年提交了一组patch: 没被接受?
 主要是用uprobe接口和callstack调试用户态perf probe找不到call frame问题
 
 ## ftrace方法 -- 不成功
-```sh
+```shell
 ~ # cp remote/root/tmp/a.out .
 ~ # perf probe -x a.out -V p -v
 Open Debuginfo file: /root/a.out
@@ -287,7 +287,7 @@ perf是在kernel目录树tools下面编译的, 是个用户态程序.
 
 ### 先回顾以下kprobe用法
 详见`linux/Documentation/trace/kprobetrace.rst`
-```sh
+```shell
 #用到的文件
 /sys/kernel/debug/tracing/kprobe_events
 /sys/kernel/debug/tracing/events/kprobes/<EVENT>/enable
@@ -296,7 +296,7 @@ p[:[GRP/]EVENT] [MOD:]SYM[+offs]|MEMADDR [FETCHARGS] : Set a probe
 r[MAXACTIVE][:[GRP/]EVENT] [MOD:]SYM[+0] [FETCHARGS] : Set a return probe
 -:[GRP/]EVENT : Clear a probe
 ```
-```sh
+```shell
 #增加一个kprobe event, 会在events/kprobes生成一个目录 
 echo "p:myprobe do_sys_open" > kprobe_events 
 #这个目录下有类似的format, trigger等文件 
@@ -327,19 +327,19 @@ echo 1 > tracing_on
 filter和trigger等控制文件使用说明: `linux/Documentation/trace/events.rst`  
 文档上说要打开`CONFIG_UPROBE_EVENTS`  
 实际上, 新版本的kernel使用
-```sh
+```shell
 ~ # zcat /proc/config.gz | grep -i UPROBE
 CONFIG_ARCH_SUPPORTS_UPROBES=y
 CONFIG_UPROBES=y
 CONFIG_UPROBE_EVENT=y
 ```
 控制文件:
-```sh
+```shell
 /sys/kernel/debug/tracing/uprobe_events
 /sys/kernel/debug/tracing/events/uprobes/<EVENT>/enable
 ```
 格式
-```sh
+```shell
 p[:[GRP/]EVENT] PATH:OFFSET [FETCHARGS] : Set a uprobe
 r[:[GRP/]EVENT] PATH:OFFSET [FETCHARGS] : Set a return uprobe (uretprobe)
 -:[GRP/]EVENT
@@ -364,7 +364,7 @@ r[:[GRP/]EVENT] PATH:OFFSET [FETCHARGS] : Set a return uprobe (uretprobe)
 ```
 
 ### 实际操作 -- 最后enable没成功
-```sh
+```shell
 mount -t debugfs none /sys/kernel/debug
 cd /sys/kernel/debug/tracing/
 #Failed to get call frame on是在call_probe_finder函数里打印的
@@ -398,7 +398,7 @@ sh: write error: Invalid argument
 说明`perf probe -x`对用户态probe, 底层也是调用uprobe接口?
 * 注: 同时看看`/sys/kernel/tracing`和`/sys/kernel/debug/tracing`
 
-```sh
+```shell
 # 用perf probe定义probe点
 ~ # perf probe -x /root/perf call_probe_finder
 Failed to get call frame on 0x10114b48

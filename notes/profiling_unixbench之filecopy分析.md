@@ -41,7 +41,7 @@ Unixbench编译省略, 运行只有一个Run脚本, 直接运行会按默认的�
 `./Run fstime -i 1 -c 1`  
 运行fstime 1次(默认是10次), 1个copy, unixbench默认先跑1 copy, 再跑全copy(和核数相等)  
 脚本里提到了fstime的传入参数
-```sh
+```shell
 File Copy 1024 bufsize 2000 maxblocks
 -c -t 30 -d tmp -b 1024 -m 2000
 
@@ -53,7 +53,7 @@ File Copy 4096 bufsize 8000 maxblocks
 ```
 那么可以直接调用:
 
-```sh
+```shell
 $ pgms/fstime -c -t 30 -d tmp -b 1024 -m 2000
 Write done: 2448000 in 2.0006, score 305906
 COUNT|305906|0|KBps
@@ -78,7 +78,7 @@ htop显示CPU8打满100%, 大部分在内核态(红色)
 `$ sudo mount -o size=2G -t tmpfs none tmp`
 
 还真不是, 换成tmpfs以后, 性能达到2倍以上.
-```sh
+```shell
 $ pgms/fstime -c -t 30 -d tmp -b 1024 -m 2000
 Write done: 8056000 in 2.0012, score 1006395
 COUNT|1006395|0|KBps
@@ -100,7 +100,7 @@ TIME|30.0
 
 ### 生成cscope.files
 gdb可以根据elf文件的debug信息(编译时加-g), 列出源文件列表. 这个列表里面的源文件是真正参与编译的, 对大工程推荐用这招, 减少冗余文件的干扰.
-```sh
+```shell
 mkcselffiles() {
     ${CROSS_COMPILE}gdb -ex="info sources" -ex="quit" $1 | sed -e '1,15d' -e 's/,/\n/g' | sed -e '/^ *$/d' -e 's/^ *//g' > cscope.files.tmp1
     #find -L `cat cscope.files.tmp1 | egrep "/flat/" | sed 's!\(.*/flat/[^/]*\).*!\1!g' | sort -u` -iname "*.h" -o -iname "*.hh" -o -iname "*.hpp" > cscope.files.tmp2
@@ -110,7 +110,7 @@ mkcselffiles() {
 }
 ```
 或者简单点, 生成所有源文件列表
-```sh
+```shell
 mkcsfiles() {
     #find -L $* -iname '*.[ch]' -o -iname '*.[ch]pp' -o -iname '*.cc' -o -iname '*.hh' -o -iname '*.s' | sort -u > cscope.files
     find -L $* -type f | sed -n '/\.\([chs]\)\1\{0,1\}\(pp\)\?$/Ip' | sort -u > cscope.files
@@ -132,7 +132,7 @@ mkcsfiles() {
 
 ## 用gdb tui模式看代码
 边看边调, 参考[GDB tui教程](wiz://open_document?guid=81c5dd73-0e98-4201-9def-5cd28bc5c1bd&kbguid=&private_kbguid=206cfc40-42e2-11e2-a9b7-907ab51b66ae)
-```sh
+```shell
 gdb -tui pgms/fstime
 b main
 run -c -t 30 -d tmp -b 1024 -m 2000
@@ -150,7 +150,7 @@ run -c -t 30 -d tmp -b 1024 -m 2000
 * 这是个单进程的测试程序
 
 ## perf
-```sh
+```shell
 perf record pgms/fstime -c -t 30 -d tmp -b 1024 -m 2000
 perf report
 ```
@@ -161,7 +161,7 @@ perf report
 ![](img/profiling_unixbench之filecopy分析_20221019163849.png)  
 注: 以上命令是在用户权限下看到的统计, 注意event标记是'cycles:u'
 
-```sh
+```shell
 sudo perf record pgms/fstime -c -t 30 -d tmp -b 1024 -m 2000
 sudo perf report
 ```
@@ -198,7 +198,7 @@ sudo perf report
 是不是因为有实际的磁盘读写, 相对慢的磁盘开销导致的?
 
 ## 加长运行时间, 运行时观察
-```sh
+```shell
 pgms/fstime -c -t 300 -d tmp -b 1024 -m 2000
 
 sudo perf top -p `pidof fstime`
@@ -216,7 +216,7 @@ perf top里面有很多关于xfs的调用.
 `sudo mount -o size=2G -t tmpfs none mytmp`
 
 2. 在这个tmpfs里面dd一个文件, 并格式化成xfs  
-```sh
+```shell
 dd if=/dev/zero of=mytmp/testdisk bs=1M count=1000
 mkfs.xfs mytmp/testdisk
 ```
@@ -269,7 +269,7 @@ SDP1:
 
 ## flamegraph
 生成flamegraph
-```sh
+```shell
 sudo perf record -g pgms/fstime -c -t 30 -d tmp -b 1024 -m 2000
 sudo perf script | ~/yingjieb/FlameGraph/stackcollapse-perf.pl | ~/yingjieb/FlameGraph/flamegraph.pl > fstime.svg
 ```

@@ -14,7 +14,7 @@
 各种fd是系统调用
 用perf看所有带fd的系统调用
 `perf list | grep syscalls | grep fd | grep enter`
-```sh
+```shell
 root@godev-server:/home/yingjieb# perf list | grep syscalls | grep fd | grep enter
   syscalls:sys_enter_eventfd                         [Tracepoint event]
   syscalls:sys_enter_eventfd2                        [Tracepoint event]

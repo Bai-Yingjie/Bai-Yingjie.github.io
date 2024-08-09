@@ -9,17 +9,17 @@
 * HP380: 2699v4, 3.10.0-514.el7.x86_64(4K), firewall off, audit off
 
 command:
-```sh
+```shell
 ./lat_tcp -s
 ./lat_tcp -N 10 localhost
 ```
 结果:
 
-|machine|lat_tcp|ratio|
-|----|----|----|
-|sdp1|18.0197 us|0.71|
-|sdp2|17.8150 us|0.72|
-|hp380|12.9473 us|1|
+| machine | lat_tcp    | ratio |
+| ------- | ---------- | ----- |
+| sdp1    | 18.0197 us | 0.71  |
+| sdp2    | 17.8150 us | 0.72  |
+| hp380   | 12.9473 us | 1     |
 
 # 分析
 ## 误入歧途?
@@ -100,19 +100,19 @@ on hp380:
 ```
 
 on sdp2: server on CPU #7
-|client on CPU #|#7(same CPU)|#6(same duplex)|other CPU #|
-|----|----|----|----|
-lat_tcp|17.1367 us|19.7576 us|25.4529 us
-ratio to 2699|0.47|0.57|0.50
+| client on CPU # | #7(same CPU) | #6(same duplex) | other CPU # |
+| --------------- | ------------ | --------------- | ----------- |
+| lat_tcp         | 17.1367 us   | 19.7576 us      | 25.4529 us  |
+| ratio to 2699   | 0.47         | 0.57            | 0.50        |
 
 on hp380: server on CPU #4
 
-client on CPU #|#4(same CPU)|#48(same core)|other CPU #|
-|----|----|----|----|
-lat_tcp|8.2153 us|11.3579 us|12.8296 us|
+| client on CPU # | #4(same CPU) | #48(same core) | other CPU # |
+| --------------- | ------------ | -------------- | ----------- |
+| lat_tcp         | 8.2153 us    | 11.3579 us     | 12.8296 us  |
 
 上面结果用到的命令:
-```sh
+```shell
 taskset -c 4 ./lat_tcp -s localhost
 taskset -c 48 ./lat_tcp -N 10 localhost
 ```
@@ -126,7 +126,7 @@ taskset -c 48 ./lat_tcp -N 10 localhost
 先开服务端  
 SDP2, 客户端:  
 注意到结果被perf拖慢了.
-```sh
+```shell
 $ sudo perf record -g ./lat_tcp localhost
 Lowering default frequency rate to 2700.
 Please consider tweaking /proc/sys/kernel/perf_event_max_sample_rate.

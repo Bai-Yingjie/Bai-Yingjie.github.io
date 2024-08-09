@@ -128,7 +128,7 @@ cargo install --git https://github.com/rust-lang/mdBook.git mdbook
 book由chapter组成, 每个chapter是一个独立的page, chapter可以有子chapter.
 
 # mdbook使用
-```sh
+```shell
 # 新建一个book
 mdbook init my-first-book
 cd my-first-book

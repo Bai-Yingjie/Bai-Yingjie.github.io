@@ -14,7 +14,7 @@
 一般的, 可以用perf工具来查看运行时变量, 思路是先用`perf probe -V`利用debuginfo等信息, 查看可以probe的变量, 再`perf record`
 
 但在MIPS上, 第一步就有问题:
-```sh
+```shell
 ~ # perf probe -V cvmx_nand_page_write
 Failed to find the path for kernel: Invalid ELF file
   Error: Failed to show vars.
@@ -30,7 +30,7 @@ Failed to find the path for kernel: Invalid ELF file
 ![](img/profiling_用kprobe和perf_记录函数参数_20221023225435.png)  
 
 注: 同时看看`/sys/kernel/tracing`和`/sys/kernel/debug/tracing`
-```sh
+```shell
 # 根据函数, buffer_address是寄存器号6, 这里填%r6, %是ftrace格式规定, r6是MIPS规定的寄存器名(有时候也叫$6)
 #echo 'p:cvmx_nand_page_write cvmx_nand_page_write buffer_address=%r6' > /sys/kernel/tracing/kprobe_events
 #perf probe -l
@@ -44,7 +44,7 @@ Failed to find the path for kernel: Invalid ELF file
 ![](img/profiling_用kprobe和perf_记录函数参数_20221023225506.png)  
 
 ## 进阶版, 打印所有参数:
-```sh
+```shell
 #u64是类型后缀
 echo 'p:cvmx_nand_page_write cvmx_nand_page_write chip=%r4:u64 nand_address=%r5:u64 buffer_address=%r6:u64' > /sys/kernel/tracing/kprobe_events
 ```

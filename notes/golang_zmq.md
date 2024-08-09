@@ -751,7 +751,7 @@ func main() {
 ```
 
 用shell起10个订阅者进程, 然后再起发布者进程.
-```sh
+```shell
 echo "Starting subscribers..."
 for ((a=0; a<10; a++)); do
     syncsub &

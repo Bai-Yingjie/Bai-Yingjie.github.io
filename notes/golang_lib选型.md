@@ -95,79 +95,79 @@ https://golangrepo.com/repo/alecthomas-go_serialization_benchmarks-go-benchmarks
 ## 排名
 https://kokizzu.blogspot.com/2020/12/golang-serialization-benchmark-2020.html
 
-| Format | type | ns/op | bytes/op | allocs/op | ns/alloc |
-|----| ---- | ---- | ---- | ---- | ---- |
-| Mum | ser | 97 | 48 | 0 | 0.00 |
-| GencodeUnsafe | ser | 98 | 46 | 48 | 2.05 |
-| Gotiny | ser | 130 | 48 | 0 | 0.00 |
-| GotinyNoTime | ser | 136 | 48 | 0 | 0.00 |
-| Gogoprotobuf | ser | 147 | 53 | 64 | 2.30 |
-| Msgp | ser | 174 | 97 | 128 | 1.36 |
-| Gencode | ser | 186 | 53 | 80 | 2.33 |
-| FlatBuffers | ser | 298 | 95 | 0 | 0.00 |
-| Goprotobuf | ser | 317 | 53 | 64 | 4.95 |
-| Protobuf | ser | 801 | 52 | 152 | 5.27 |
-| ShamatonMapMsgpack | ser | 819 | 92 | 208 | 3.94 |
-| Gob | ser | 834 | 63 | 48 | 17.38 |
+| Format             | type | ns/op | bytes/op | allocs/op | ns/alloc |
+| ------------------ | ---- | ----- | -------- | --------- | -------- |
+| Mum                | ser  | 97    | 48       | 0         | 0.00     |
+| GencodeUnsafe      | ser  | 98    | 46       | 48        | 2.05     |
+| Gotiny             | ser  | 130   | 48       | 0         | 0.00     |
+| GotinyNoTime       | ser  | 136   | 48       | 0         | 0.00     |
+| Gogoprotobuf       | ser  | 147   | 53       | 64        | 2.30     |
+| Msgp               | ser  | 174   | 97       | 128       | 1.36     |
+| Gencode            | ser  | 186   | 53       | 80        | 2.33     |
+| FlatBuffers        | ser  | 298   | 95       | 0         | 0.00     |
+| Goprotobuf         | ser  | 317   | 53       | 64        | 4.95     |
+| Protobuf           | ser  | 801   | 52       | 152       | 5.27     |
+| ShamatonMapMsgpack | ser  | 819   | 92       | 208       | 3.94     |
+| Gob                | ser  | 834   | 63       | 48        | 17.38    |
 
-| Format | type | ns/op | bytes/op | allocs/op | ns/alloc |
-|----| ---- | ---- | ---- | ---- | ---- |
-| Gencode | des | 222 | 53 | 112 | 1.98 |
-| Gogoprotobuf | des | 230 | 53 | 96 | 2.40 |
-| GotinyNoTime | des | 241 | 48 | 96 | 2.51 |
-| FlatBuffers | des | 265 | 95 | 112 | 2.37 |
-| Gotiny | des | 267 | 48 | 112 | 2.38 |
-| Msgp | des | 314 | 97 | 112 | 2.80 |
-| CapNProto | des | 443 | 96 | 200 | 2.21 |
-| Goprotobuf | des | 481 | 53 | 168 | 2.86 |
-| Protobuf | des | 790 | 52 | 192 | 4.11 |
-| Ikea | des | 871 | 55 | 160 | 5.44 |
-| Gob | des | 900 | 63 | 112 | 8.04 |
-| GoAvro2Binary | des | 1092 | 47 | 560 | 1.95 |
-| Hprose | des | 1195 | 85 | 319 | 3.75 |
-| UgorjiCodecMsgpack | des | 1398 | 91 | 496 | 2.82 |
-| Binary | des | 1511 | 61 | 320 | 4.72 |
-| UgorjiCodecBinc | des | 1587 | 95 | 656 | 2.42 |
-| Bson | des | 1694 | 110 | 232 | 7.30 |
+| Format             | type | ns/op | bytes/op | allocs/op | ns/alloc |
+| ------------------ | ---- | ----- | -------- | --------- | -------- |
+| Gencode            | des  | 222   | 53       | 112       | 1.98     |
+| Gogoprotobuf       | des  | 230   | 53       | 96        | 2.40     |
+| GotinyNoTime       | des  | 241   | 48       | 96        | 2.51     |
+| FlatBuffers        | des  | 265   | 95       | 112       | 2.37     |
+| Gotiny             | des  | 267   | 48       | 112       | 2.38     |
+| Msgp               | des  | 314   | 97       | 112       | 2.80     |
+| CapNProto          | des  | 443   | 96       | 200       | 2.21     |
+| Goprotobuf         | des  | 481   | 53       | 168       | 2.86     |
+| Protobuf           | des  | 790   | 52       | 192       | 4.11     |
+| Ikea               | des  | 871   | 55       | 160       | 5.44     |
+| Gob                | des  | 900   | 63       | 112       | 8.04     |
+| GoAvro2Binary      | des  | 1092  | 47       | 560       | 1.95     |
+| Hprose             | des  | 1195  | 85       | 319       | 3.75     |
+| UgorjiCodecMsgpack | des  | 1398  | 91       | 496       | 2.82     |
+| Binary             | des  | 1511  | 61       | 320       | 4.72     |
+| UgorjiCodecBinc    | des  | 1587  | 95       | 656       | 2.42     |
+| Bson               | des  | 1694  | 110      | 232       | 7.30     |
 
 
-| Format | ns/op | bytes |
-|-- | -- | -- |
-| Bebop | 228 | 110 |
-| GencodeUnsafe | 259 | 92 |
-| XDR2 | 290 | 120 |
-| Mum | 313 | 96 |
-| Colfer | 321 | 101 |
-| GotinyNoTime | 377 | 96 |
-| Gogoprotobuf | 377 | 106 |
-| Gotiny | 397 | 96 |
-| Gencode | 408 | 106 |
-| Msgp | 488 | 194 |
-| FlatBuffers | 563 | 190 |
-| Goprotobuf | 798 | 106 |
-| CapNProto | 829 | 192 |
-| Hprose2 | 1,213 | 170 |
-| ShamatonArrayMsgpack | 1,241 | 100 |
-| CapNProto2 | 1,364 | 192 |
-| Ikea | 1,541 | 110 |
-| ShamatonMapMsgpack | 1,557 | 184 |
-| Protobuf | 1,591 | 104 |
-| Gob | 1,734 | 126 |
-| GoAvro2Binary | 2,042 | 94 |
-| Hprose | 2,110 | 170 |
-| UgorjiCodecMsgpack | 2,820 | 182 |
-| VmihailencoMsgpack | 2,838 | 200 |
-| Bson | 2,865 | 220 |
-| Binary | 2,875 | 122 |
-| UgorjiCodecBinc | 3,055 | 190 |
-| EasyJson | 3,513 | 299 |
-| XDR | 4,091 | 182 |
-| JsonIter | 4,266 | 278 |
-| GoAvro2Text | 5,801 | 268 |
-| Sereal | 6,313 | 264 |
-| Json | 6,786 | 299 |
-| GoAvro | 9,790 | 94 |
-| SSZNoTimeNoStringNoFloatA | 12,616 | 110 |
+| Format                    | ns/op  | bytes |
+| ------------------------- | ------ | ----- |
+| Bebop                     | 228    | 110   |
+| GencodeUnsafe             | 259    | 92    |
+| XDR2                      | 290    | 120   |
+| Mum                       | 313    | 96    |
+| Colfer                    | 321    | 101   |
+| GotinyNoTime              | 377    | 96    |
+| Gogoprotobuf              | 377    | 106   |
+| Gotiny                    | 397    | 96    |
+| Gencode                   | 408    | 106   |
+| Msgp                      | 488    | 194   |
+| FlatBuffers               | 563    | 190   |
+| Goprotobuf                | 798    | 106   |
+| CapNProto                 | 829    | 192   |
+| Hprose2                   | 1,213  | 170   |
+| ShamatonArrayMsgpack      | 1,241  | 100   |
+| CapNProto2                | 1,364  | 192   |
+| Ikea                      | 1,541  | 110   |
+| ShamatonMapMsgpack        | 1,557  | 184   |
+| Protobuf                  | 1,591  | 104   |
+| Gob                       | 1,734  | 126   |
+| GoAvro2Binary             | 2,042  | 94    |
+| Hprose                    | 2,110  | 170   |
+| UgorjiCodecMsgpack        | 2,820  | 182   |
+| VmihailencoMsgpack        | 2,838  | 200   |
+| Bson                      | 2,865  | 220   |
+| Binary                    | 2,875  | 122   |
+| UgorjiCodecBinc           | 3,055  | 190   |
+| EasyJson                  | 3,513  | 299   |
+| XDR                       | 4,091  | 182   |
+| JsonIter                  | 4,266  | 278   |
+| GoAvro2Text               | 5,801  | 268   |
+| Sereal                    | 6,313  | 264   |
+| Json                      | 6,786  | 299   |
+| GoAvro                    | 9,790  | 94    |
+| SSZNoTimeNoStringNoFloatA | 12,616 | 110   |
 
 
 ## bson
@@ -311,7 +311,7 @@ func repl() {
 ### ishell
 https://github.com/abiosoft/ishell
 看着有点简陋...
-```sh
+```shell
 Sample Interactive Shell
 >>> help
 

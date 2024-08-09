@@ -40,7 +40,7 @@
 `/proc/interrupts`里能显示中断的信息, 但不能很方便的对应到是哪个设备的中断.
 
 比如在我的VM里, 有:
-```sh
+```shell
 $ cat /proc/interrupts
            CPU0       CPU1       CPU2       CPU3
   2:    1020348     924296     763104     823621     GICv3  27 Level     arch_timer
@@ -553,7 +553,7 @@ $7 = 0x40007ff99220
 
 
 # 快速找到一个进程的log
-```sh
+```shell
 sudo lsof -p `pgrep ovs-vswitchd` | grep log
 ```
 
@@ -679,13 +679,13 @@ $ sudo perf stat -a -d -d -d -C 5 -r 6 -- sleep 10
 
 那么是谁调用了它, 又是干什么事情呢?  
 用perf probe抓一下调用栈
-```sh
+```shell
 sudo perf probe --add irq_work_queue
 sudo perf record -e probe:irq_work_queue -a -C5 -g -- sleep 10
 sudo perf report -n
 ```
 得到
-```sh
+```shell
             + 68.32% pkt_burst_io_forward          
             - 21.45% el0_irq                       
                  gic_handle_irq                    
@@ -760,7 +760,7 @@ sudo gdb ./build/app/testpmd /tmp/core-lcore-slave-38-31988-1539675229
 但是gdb却告诉我们: 数组大小65535, 在访问1915个元素时出现问题, 似乎没有问题
 
 考虑到65535个元素的数组还是比较大, 是不是栈不够了呢?
-```sh
+```shell
 (gdb) p elts_n
 $23 = 65535
 (gdb) p blk_n
@@ -790,7 +790,7 @@ $5 = (struct rte_mbuf **) 0xffffb3420000
 根据gdb的输出, 算一算每个section的大小  
 看到出问题的地址0xffffb3420000是一个64K的只读页上, 这个不是栈的页, 它上面的16384K的页(们)才是栈  
 说明栈溢出
-```sh
+```shell
 cat << EOF | awk -F"->| *" '{printf "%s %s %dK\n",$2,$3,(strtonum($3)-strtonum($2))/1024}'
     0xffffb1410000->0xffffb2410000 at 0x07650000: load103 ALLOC LOAD HAS_CONTENTS
     0xffffb2410000->0xffffb2420000 at 0x08650000: load104 ALLOC LOAD READONLY HAS_CONTENTS

@@ -14,7 +14,7 @@ In the end of that article, I proposed to try MIPS N64 ABI. However, in buildroo
 The possible options to support N64 ABI:
 * change the whole world from N32 ABI completely to N64 ABI: a fundamental change, big impact, think about Android or ios switching from 32 bit to 64 bit.
 * in buildroot, implement "multilib" which supports both N32 and N64, let go packages use n64, everything else use n32: smaller impact, but consuming considerablelly more rootfs size since lib64 will also need to be copied to target rootfs.
-```sh
+```shell
 #toolchain-external-custom/mips64-octeon-linux-gnu/sys-root
 $ du -sh lib32 lib32-fp lib64 lib64-fp
 50M lib32
@@ -61,7 +61,7 @@ The reason we need 4 steps is go toolchain is written in go, so in order to buil
 
 # hello.go and cgotest.go
 OK, now we have native go toolchain, let's compile and run some go programs:
-```sh
+```shell
 root@yingjieb-VirtualBox ~/work/nfsroot/mipsroot.go.ok/root
 Linux Mint 19.1 Tessa # cat hello.go
 package main

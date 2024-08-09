@@ -26,8 +26,8 @@
 
 原文: https://blog.csdn.net/gatieme/article/details/68948080
 
-| CSDN | GitHub |
-| :-: |  :-: |
+|                                          CSDN                                          |                                                      GitHub                                                       |
+| :------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: |
 | [Linux内核调试的方式以及工具集](http://blog.csdn.net/gatieme/article/details/68948080) | [`LDD-LinuxDeviceDrivers/study/debug`](https://github.com/gatieme/LDD-LinuxDeviceDrivers/tree/master/study/debug) |
 
 ```
@@ -40,25 +40,25 @@
 
 内核的调试, 其本质是内核空间与用户空间的数据交换, 内核开发者们提供了多样的形式来完成这一功能.
 
-| 工具 | 描述 |
-| :-: |  :-: |
-| debugfs等文件系统 | 提供了 `procfs`, `sysfs`, `debugfs`以及 `relayfs` 来与用户空间进行数据交互, 尤其是 **`debugfs`**, 这是内核开发者们实现的专门用来调试的文件系统接口. 其他的工具或者接口, 多数都依赖于 `debugfs`. |
-| printk | 强大的输出系统, 没有什么逻辑上的`bug`是用`PRINT`解决不了的 |
-| ftrace以及其前端工具trace-cmd等 | **内核**提供了 **`ftrace`** 工具来实现检查点, 事件等的检测, 这一框架依赖于 `debugfs`, 他在 `debugfs` 中的 `tracing` 子系统中为用户提供了丰富的操作接口, 我们可以通过该系统对内核实现检测和分析. 功能虽然强大, 但是其操作并不是很简单, 因此**使用者们**为实现了 **`trace-cmd`** 等前端工具, 简化了 `ftrace` 的使用. |
+|              工具               |                                                                                                                                                                                    描述                                                                                                                                                                                    |
+| :-----------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|        debugfs等文件系统        |                                                                                      提供了 `procfs`, `sysfs`, `debugfs`以及 `relayfs` 来与用户空间进行数据交互, 尤其是 **`debugfs`**, 这是内核开发者们实现的专门用来调试的文件系统接口. 其他的工具或者接口, 多数都依赖于 `debugfs`.                                                                                       |
+|             printk              |                                                                                                                                                         强大的输出系统, 没有什么逻辑上的`bug`是用`PRINT`解决不了的                                                                                                                                                         |
+| ftrace以及其前端工具trace-cmd等 |                             **内核**提供了 **`ftrace`** 工具来实现检查点, 事件等的检测, 这一框架依赖于 `debugfs`, 他在 `debugfs` 中的 `tracing` 子系统中为用户提供了丰富的操作接口, 我们可以通过该系统对内核实现检测和分析. 功能虽然强大, 但是其操作并不是很简单, 因此**使用者们**为实现了 **`trace-cmd`** 等前端工具, 简化了 `ftrace` 的使用.                             |
 | `kprobe`以及更强大的`systemtap` | 内核中实现的 `krpobe` 通过类似与代码劫持一样的技巧, 在内核的代码或者函数执行前后, 强制加上某些调试信息, 可以很巧妙的完成调试工作, 这是一项先进的调试技术, 但是仍然有觉得它不够好, 劫持代码需要用驱动的方式编译并加载, 能不能通过脚本的方式自动生成劫持代码并自动加载和收集数据, 于是`systemtap` 出现了. 通过 `systemtap` 用户只需要编写脚本, 就可以完成调试并动态分析内核. |
-| kgdb && kgtp | `KGDB` 是大名鼎鼎的内核调试工具, `KGTP`则通过驱动的方式强化了 `gdb`的功能, 诸如tracepoint, 打印内核变量等. |
-| perf | `erf Event`是一款随 `inux`内核代码一同发布和维护的性能诊断工具, 核社区维护和发展. `Perf` 不仅可以用于应用程序的性能统计分析, 也可以应用于内核代码的性能统计和分析. 得益于其优秀的体系结构设计, 越来越多的新功能被加入 `Perf`, 使其已经成为一个多功能的性能统计工具集 |
-| LTTng | `LTTng` 是一个 `Linux` 平台开源的跟踪工具, 是一套软件组件, 可允许跟踪 `Linux` 内核和用户程序, 并控制跟踪会话(开始/停止跟踪、启动/停止事件 等等). |
+|          kgdb && kgtp           |                                                                                                                                 `KGDB` 是大名鼎鼎的内核调试工具, `KGTP`则通过驱动的方式强化了 `gdb`的功能, 诸如tracepoint, 打印内核变量等.                                                                                                                                 |
+|              perf               |                                                    `erf Event`是一款随 `inux`内核代码一同发布和维护的性能诊断工具, 核社区维护和发展. `Perf` 不仅可以用于应用程序的性能统计分析, 也可以应用于内核代码的性能统计和分析. 得益于其优秀的体系结构设计, 越来越多的新功能被加入 `Perf`, 使其已经成为一个多功能的性能统计工具集                                                    |
+|              LTTng              |                                                                                                              `LTTng` 是一个 `Linux` 平台开源的跟踪工具, 是一套软件组件, 可允许跟踪 `Linux` 内核和用户程序, 并控制跟踪会话(开始/停止跟踪、启动/停止事件 等等).                                                                                                              |
 
 # 用户空间与内核空间数据交换的文件系统
 内核中有三个常用的伪文件系统: procfs, debugfs和sysfs.
 
-| 文件系统 | 描述 |
-| :-: |  :-: |
-| procfs | The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures. |
-| sysfs | The filesystem for exporting kernel objects. |
-| debugfs | Debugfs exists as a simple way for kernel developers to make information available to user space. |
-| relayfs | A significantly streamlined version of relayfs was recently accepted into the -mm kernel tree. |
+| 文件系统 |                                               描述                                                |
+| :------: | :-----------------------------------------------------------------------------------------------: |
+|  procfs  | The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures. |
+|  sysfs   |                           The filesystem for exporting kernel objects.                            |
+| debugfs  | Debugfs exists as a simple way for kernel developers to make information available to user space. |
+| relayfs  |  A significantly streamlined version of relayfs was recently accepted into the -mm kernel tree.   |
 
 它们都用于Linux内核和用户空间的数据交换, 但是适用的场景有所差异：
 
@@ -131,13 +131,13 @@ mount -t sysfs sysfs /sysfs
 
 `relayfs` 实现了四个标准的文件 `I/O` 函数, `open`、`mmap`、`poll`和`close`
 
-| 函数 | 描述 |
-| :-: |  :-: |
-| `open` | 打开一个 `channel` 在某一个 CPU 上的缓存对应的文件. |
-| `mmap` | 把打开的 `channel` 缓存映射到调用者进程的内存空间. |
-| `read` | 读取 `channel` 缓存, 随后的读操作将看不到被该函数消耗的字节, 如果 `channel` 的操作模式为非覆盖写, 那么用户空间应用在有内核模块写时仍可以读取, 但是如 `channel` 的操作模式为覆盖式, 那么在读操作期间如果有内核模块进行写，结果将无法预知, 因此对于覆盖式写的 `channel`, 用户应当在确认在 `channel` 的写完全结束后再进行读. |
-| `poll` | 用于通知用户空间应用转发数据跨越了子缓存的边界, 支持的轮询标志有 `POLLIN`、`POLLRDNORM` 和 `POLLERR` |
-| `close` | 关闭 `open` 函数返回的文件描述符, 如果没有进程或内核模块打开该 `channel` 缓存, `close` 函数将释放该 `channel` 缓存 |
+|  函数   |                                                                                                                                                           描述                                                                                                                                                            |
+| :-----: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| `open`  |                                                                                                                                    打开一个 `channel` 在某一个 CPU 上的缓存对应的文件.                                                                                                                                    |
+| `mmap`  |                                                                                                                                    把打开的 `channel` 缓存映射到调用者进程的内存空间.                                                                                                                                     |
+| `read`  | 读取 `channel` 缓存, 随后的读操作将看不到被该函数消耗的字节, 如果 `channel` 的操作模式为非覆盖写, 那么用户空间应用在有内核模块写时仍可以读取, 但是如 `channel` 的操作模式为覆盖式, 那么在读操作期间如果有内核模块进行写，结果将无法预知, 因此对于覆盖式写的 `channel`, 用户应当在确认在 `channel` 的写完全结束后再进行读. |
+| `poll`  |                                                                                                           用于通知用户空间应用转发数据跨越了子缓存的边界, 支持的轮询标志有 `POLLIN`、`POLLRDNORM` 和 `POLLERR`                                                                                                            |
+| `close` |                                                                                                    关闭 `open` 函数返回的文件描述符, 如果没有进程或内核模块打开该 `channel` 缓存, `close` 函数将释放该 `channel` 缓存                                                                                                     |
 
 注意 : 用户态应用在使用上述 `API` 时必须保证已经挂载了 `relayfs` 文件系统, 但内核在创建和使用 `channel` 时不需要 `relayfs` 已经挂载. 下面命令将把 `relayfs` 文件系统挂载到 `/mnt/relay`.
 
@@ -183,23 +183,23 @@ Linux当前版本中, 功能最强大的调试、跟踪手段. 其最基本的�
 
 `Ftrace` 由 `RedHat` 的 `Steve Rostedt` 负责维护. 到 `2.6.30` 为止, 已经支持的 `tracer` 包括 :
 
-| Tracer | 描述 |
-| :-: |  :-: |
-| Function tracer 和 Function graph tracer | 跟踪函数调用 |
-| Schedule switch tracer | 跟踪进程调度情况 |
-| Wakeup tracer | 跟踪进程的调度延迟, 即高优先级进程从进入 `ready` 状态到获得 `CPU` 的延迟时间. 该 `tracer` 只针对实时进程 |
-| Irqsoff tracer | 当中断被禁止时, 系统无法相应外部事件, 比如键盘和鼠标, 时钟也无法产生 `tick` 中断. 这意味着系统响应延迟, `irqsoff` 这个 `tracer` 能够跟踪并记录内核中哪些函数禁止了中断, 对于其中中断禁止时间最长的, `irqsoff` 将在 `log` 文件的第一行标示出来, 从而使开发人员可以迅速定位造成响应延迟的罪魁祸首. |
-| Preemptoff tracer | 和前一个 `tracer` 类似, `preemptoff tracer` 跟踪并记录禁止内核抢占的函数, 并清晰地显示出禁止抢占时间最长的内核函数. |
-| Preemptirqsoff tracer | 同上, 跟踪和记录禁止中断或者禁止抢占的内核函数, 以及禁止时间最长的函数. |
-| Branch tracer | 跟踪内核程序中的 `likely/unlikely` 分支预测命中率情况. `Branch tracer` 能够记录这些分支语句有多少次预测成功. 从而为优化程序提供线索. |
-| Hardware branch tracer | 利用处理器的分支跟踪能力, 实现硬件级别的指令跳转记录. 在 `x86` 上, 主要利用了 `BTS` 这个特性. |
-| Initcall tracer | 记录系统在 `boot` 阶段所调用的 `init call`. |
-| Mmiotrace tracer | 记录 `memory map IO` 的相关信息. |
-| Power tracer | 记录系统电源管理相关的信息 |
-| Sysprof tracer | 缺省情况下, `sysprof tracer` 每隔 `1 msec` 对内核进行一次采样，记录函数调用和堆栈信息. |
-| Kernel memory tracer | 内存 `tracer` 主要用来跟踪 `slab allocator` 的分配情况. 包括 `kfree`, `kmem_cache_alloc` 等 API 的调用情况, 用户程序可以根据 `tracer` 收集到的信息分析内部碎片情况, 找出内存分配最频繁的代码片断, 等等. |
-| Workqueue statistical tracer | 这是一个 `statistic tracer`, 统计系统中所有的 `workqueue` 的工作情况, 比如有多少个 `work` 被插入 `workqueue`, 多少个已经被执行等. 开发人员可以以此来决定具体的 `workqueue` 实现, 比如是使用 `single threaded workqueue` 还是 `per cpu workqueue`. |
-| Event tracer | 跟踪系统事件, 比如 `timer`, 系统调用, 中断等. |
+|                  Tracer                  |                                                                                                                                               描述                                                                                                                                               |
+| :--------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| Function tracer 和 Function graph tracer |                                                                                                                                           跟踪函数调用                                                                                                                                           |
+|          Schedule switch tracer          |                                                                                                                                         跟踪进程调度情况                                                                                                                                         |
+|              Wakeup tracer               |                                                                                             跟踪进程的调度延迟, 即高优先级进程从进入 `ready` 状态到获得 `CPU` 的延迟时间. 该 `tracer` 只针对实时进程                                                                                             |
+|              Irqsoff tracer              | 当中断被禁止时, 系统无法相应外部事件, 比如键盘和鼠标, 时钟也无法产生 `tick` 中断. 这意味着系统响应延迟, `irqsoff` 这个 `tracer` 能够跟踪并记录内核中哪些函数禁止了中断, 对于其中中断禁止时间最长的, `irqsoff` 将在 `log` 文件的第一行标示出来, 从而使开发人员可以迅速定位造成响应延迟的罪魁祸首. |
+|            Preemptoff tracer             |                                                                                       和前一个 `tracer` 类似, `preemptoff tracer` 跟踪并记录禁止内核抢占的函数, 并清晰地显示出禁止抢占时间最长的内核函数.                                                                                        |
+|          Preemptirqsoff tracer           |                                                                                                             同上, 跟踪和记录禁止中断或者禁止抢占的内核函数, 以及禁止时间最长的函数.                                                                                                              |
+|              Branch tracer               |                                                                               跟踪内核程序中的 `likely/unlikely` 分支预测命中率情况. `Branch tracer` 能够记录这些分支语句有多少次预测成功. 从而为优化程序提供线索.                                                                               |
+|          Hardware branch tracer          |                                                                                                  利用处理器的分支跟踪能力, 实现硬件级别的指令跳转记录. 在 `x86` 上, 主要利用了 `BTS` 这个特性.                                                                                                   |
+|             Initcall tracer              |                                                                                                                           记录系统在 `boot` 阶段所调用的 `init call`.                                                                                                                            |
+|             Mmiotrace tracer             |                                                                                                                                 记录 `memory map IO` 的相关信息.                                                                                                                                 |
+|               Power tracer               |                                                                                                                                    记录系统电源管理相关的信息                                                                                                                                    |
+|              Sysprof tracer              |                                                                                                      缺省情况下, `sysprof tracer` 每隔 `1 msec` 对内核进行一次采样，记录函数调用和堆栈信息.                                                                                                      |
+|           Kernel memory tracer           |                                             内存 `tracer` 主要用来跟踪 `slab allocator` 的分配情况. 包括 `kfree`, `kmem_cache_alloc` 等 API 的调用情况, 用户程序可以根据 `tracer` 收集到的信息分析内部碎片情况, 找出内存分配最频繁的代码片断, 等等.                                              |
+|       Workqueue statistical tracer       |                        这是一个 `statistic tracer`, 统计系统中所有的 `workqueue` 的工作情况, 比如有多少个 `work` 被插入 `workqueue`, 多少个已经被执行等. 开发人员可以以此来决定具体的 `workqueue` 实现, 比如是使用 `single threaded workqueue` 还是 `per cpu workqueue`.                         |
+|               Event tracer               |                                                                                                                          跟踪系统事件, 比如 `timer`, 系统调用, 中断等.                                                                                                                           |
 
 这里还没有列出所有的 `tracer`, `ftrace` 是目前非常活跃的开发领域, 新的 `tracer` 将不断被加入内核。
 
@@ -222,7 +222,7 @@ Linux当前版本中, 功能最强大的调试、跟踪手段. 其最基本的�
 
 他们相当于是一个 `/sys/kernel/debug/tracing` 中文件系统接口的封装, 为用户提供了更加直接和方便的操作.
 
-```sh
+```shell
 #  收集信息
 sudo trace-cmd reord subsystem:tracing 
 #  解析结果
@@ -358,11 +358,11 @@ KGTP在Linux内核 2.6.18到upstream 上都被测试过。
 ## LTTng
 `LTTng` 是一个 `Linux` 平台开源的跟踪工具, 是一套软件组件, 可允许跟踪 `Linux` 内核和用户程序, 并控制跟踪会话(开始/停止跟踪、启动/停止事件 等等). 这些组件被绑定如下三个包 :
 
-| 包 | 描述 |
-| :-: |  :-: |
-| LTTng-tools | 库和用于跟踪会话的命令行接口 |
+|      包       |                   描述                    |
+| :-----------: | :---------------------------------------: |
+|  LTTng-tools  |       库和用于跟踪会话的命令行接口        |
 | LTTng-modules | 允许用 LTTng 跟踪 Linux 的 Linux 内核模块 |
-| LTTng-UST | 用户空间跟踪库 |
+|   LTTng-UST   |              用户空间跟踪库               |
 
 [Linux 平台开源的跟踪工具：LTTng](http://www.open-open.com/lib/view/open1413946397247.html)
 

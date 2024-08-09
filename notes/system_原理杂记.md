@@ -169,7 +169,7 @@ linux权限有很多类, 可以单独打开和关闭
 
 # smaps解析性能
 我要解析`/proc/1/smaps`, 它的格式如下:
-```sh
+```shell
 ~ # cat /proc/1/smaps
 00010000-00013000 r-xp 00000000 00:02 8237                               /usr/bin/s6-svscan
 Size:                 12 kB
@@ -251,7 +251,7 @@ perf发现大部分时间在内核的`smaps_account()`函数, 这个函数在for
 
 ## 改变文件的owner为nobody:nogroup, 设置setuid属性
 这步需要sudo权限
-```sh
+```shell
 # nobody和nogroup一般的linux系统都有
 sudo chown nobody:nogroup gshell
 # user和group都要设置setuid属性
@@ -343,7 +343,7 @@ yingjieb 27910  1003  1003  1003 grep gshell
 
 # 什么是defunct进程?
 gshell起了一个自己的new version的进程, 但显示:
-```sh
+```shell
 $ ps -ef | grep gshell
 yingjieb  6762  9291  2 12:18 pts/9    00:00:02 bin/gshell -wd .working -loglevel debug daemon -registry 10.182.105.138:11985 -bcast 9923 -root -repo gitlabe1.ext.net.nokia.com/godevsig/grepo/master -update http://10.182.105.179:8088/gshell/release/latest/%s
 yingjieb  6777  6762  0 12:18 pts/9    00:00:00 bin/gshell -wd .working -loglevel debug __start -e master.v1.1.3
@@ -506,7 +506,7 @@ cpu io memory
 参考文章: 
 * https://www.cnblogs.com/arnoldlu/p/8568330.html
 * http://linuxperf.com/?p=142
-```sh
+```shell
 cat /proc/meminfo
 MemTotal:        8054880 kB---------------------物理内存总容量，对应totalram_pages大小。
 MemFree:         4004312 kB---------------------空闲内存容量，对应vm_stat[NR_FREE_PAGES]大小。
@@ -560,15 +560,15 @@ DirectMap1G:     3145728 kB
 
 `/proc/meminfo`和`free`的对应关系如下：
 
-| free | /proc/meminfo |
-| -- | -- |
-| total | =MemTotal |
-| used | =MemTotal - MemFree - (Cached + SReclaimable) - Buffers |
-| free | =MemFree |
-| shared | =Shmem |
-| buffers | =Buffers |
-| cache | =Cached + SReclaimable |
-| available | =MemAvailable |
+| free      | /proc/meminfo                                           |
+| --------- | ------------------------------------------------------- |
+| total     | =MemTotal                                               |
+| used      | =MemTotal - MemFree - (Cached + SReclaimable) - Buffers |
+| free      | =MemFree                                                |
+| shared    | =Shmem                                                  |
+| buffers   | =Buffers                                                |
+| cache     | =Cached + SReclaimable                                  |
+| available | =MemAvailable                                           |
 
 ## 其他统计
 ```
@@ -658,11 +658,11 @@ The kernel, however, must know when to call schedule(). If it only called schedu
 
 Functions for Accessing and Manipulating need_resched
 
-|Function|Purpose
-|--|--|
-|set_tsk_need_resched(task)| Set the need_resched flag in the given process
-|clear_tsk_need_resched(task)| Clear the need_resched flag in the given process
-|need_resched()| Test the value of the need_resched flag; return true if set and false otherwise
+| Function                     | Purpose                                                                         |
+| ---------------------------- | ------------------------------------------------------------------------------- |
+| set_tsk_need_resched(task)   | Set the need_resched flag in the given process                                  |
+| clear_tsk_need_resched(task) | Clear the need_resched flag in the given process                                |
+| need_resched()               | Test the value of the need_resched flag; return true if set and false otherwise |
 
 
 Upon returning to user-space or returning from an interrupt, the need_resched flag is checked. If it is set, the kernel invokes the scheduler before continuing.
@@ -850,7 +850,7 @@ softirq和tasklet和workqueue就是用来跑下半部的.
 mpstat可以看软中断统计, 实际上也是从`/proc/softirqs`得到的数据
 下面是个4核A53的ARM板子上的统计
 
-```sh
+```shell
 ~ # mpstat -I SCPU
 Linux 4.9.199-Arm-Cortex_a53 (fglt-b)   03/08/70        _aarch64_       (4 CPU)
 
@@ -1089,7 +1089,7 @@ SO_SNDBUF
 ```
 
 我这里显示, 默认的发送buf是229K
-```sh
+```shell
 ~ # cat /proc/sys/net/core/wmem_default
 229376
 ~ # cat /proc/sys/net/core/wmem_max
@@ -1139,7 +1139,7 @@ proc下面有些全局的配置: `/proc/sys/net/ipv4/`
        tcp_socket = socket(AF_INET, SOCK_STREAM, 0);
 ```
 * 一些全局的配置
-```sh
+```shell
 ~ # cat /proc/sys/net/ipv4/tcp_wmem
 4096    16384   4194304
 ~ # cat /proc/sys/net/ipv4/tcp_rmem
@@ -1223,7 +1223,7 @@ stream流, 接收方并不知道发送放分多少次发送的. 接收方只看�
 ```
 
 ## 一些命令
-```sh
+```shell
 # 查看cgBase组里的进程
 cat /mnt/cgroups/cpu/cgBase/cgroup.procs | xargs -i cat /proc/{}/comm
 # 查看cgBase组里的线程
@@ -1258,7 +1258,7 @@ SCHED_RR: 有时间片, 按时间片轮转.
 * sched_rt_period_us : 实时优先级和普通优先级的总时间. 默认1秒. 对应100% CPU. 
 * sched_rt_runtime_us : 可以认为是所有实时优先级占比. 默认0.95秒. 即95% CPU 
 
-```sh
+```shell
 ~ # cat /proc/sys/kernel/sched_rr_timeslice_ms
 10
 ~ # cat /proc/sys/kernel/sched_rt_period_us
@@ -1469,7 +1469,7 @@ if (sig_fatal(p, sig) &&
 ```
 从shell执行`kill -SIGQUIT`命令发送SIGQUIT信号给目标进程, 目标进程的call stack能精确定位到for循环里的`i++`那一行
 
-```sh
+```shell
 $ ./signal 
 hello
 ^\SIGQUIT: quit
@@ -1496,7 +1496,7 @@ runtime.goexit()
 调用栈显示两个goroutine(实际上, 如果有环境变量GOTRACEBACK=system, 能显示更多goroutine), sleep的调用栈就是main程序当前的代码.
 
 结合代码和现象来看, 这个进程在收到SIGQUIT时, 大概率是在sleep, 没有在运行. 这时操作系统发现有人发送SIGQUIT给该进程, 就执行该进程的sighandler. 在本例中, 这个sighandler就是golang默认的处理.
-```sh
+```shell
 $ ./signal 
 hello
 ^\SIGQUIT: quit
@@ -1770,7 +1770,7 @@ rm实际上是unlink调用, 实际上是减小文件的link计数.
 实验中, 我用vim打开一个文件, 在另外一个窗口rm这个文件, rm没有返回任何错误, 文件已经从文件系统不可见. 但实际上, 这个文件还存在, vim依旧可以访问它.
 ## 普通用户可以rm root用户的文件
 在一次实验中, 我在test文件夹中, 用root账户创建了文件aaa, 但退出root后, 用普通账户就能删除aaa文件.
-```sh
+```shell
 yingjieb@yingjieb-VirtualBox ~/test
 Linux Mint 19.1 Tessa $ ll
 total 0
@@ -1804,7 +1804,7 @@ total 0
 升级的过程, 是先删除旧文件, 再写入新文件, 虽然文件名相同, 但inode不同. 已经打开的旧文件, 在其句柄里保存的inode, 指向的文件"看起来"不存在了, 但实际还在文件系统里.
 
 所有对这个老的inode的引用结束后, 文件系统把这部分在磁盘上的实体空间标记为空闲.
-```sh
+```shell
 #打开vim, 进程是28919
 
 #pmap发现其mmap的文件
@@ -2049,7 +2049,7 @@ int main(void)
 
 运行结果
 
-```sh
+```shell
 $ gcc test_fork_malloc.c
 ASBLX28:/home/yingjieb/tmp
 $ ./a.out             

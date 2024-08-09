@@ -195,7 +195,7 @@ sudo qemu-img commit /guests/F21server.qcow2.snap
 ### 问题
 **导入disk image失败, 现象是UEFI不能启动os image**, 经验证和shrink无关, 直接`cp`的image也不行, 似乎virt-manager新建VM时导入disk image功能**不正常**?
 UEFI打印的错误信息:
-```sh
+```shell
 !!!!!!!!  ProtectUefiImageCommon - Section Alignment(0x20) is incorrect  !!!!!!!!
 FSOpen: Open '\EFI\BOOT\fbaa64.efi' Success
 FSOpen: Open '\EFI\BOOT\fbaa64.efi' Success

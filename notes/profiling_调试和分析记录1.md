@@ -24,7 +24,7 @@
 
 
 # 调试usb错误
-```sh
+```shell
 echo -n 'module xhci_hcd =p' > /sys/kernel/debug/dynamic_debug/control
 echo xhci-hcd >> /sys/kernel/debug/tracing/set_event
 ```
@@ -101,7 +101,7 @@ void main.stopContainer(struct string);
 void main.waitForAndroidToBoot(struct string);
 ```
 我们重点关注`main.lxcCmd`, 用来发真正的命令给container, 用abs的stop命令试一下, 我们的基本判断是这个stop命令底层会向每个container实例发送`lxc stop`命令, 看看是不是:
-```sh
+```shell
 (gdb) b main.lxcCmd
 (gdb) r stop
 (gdb) bt
@@ -126,13 +126,13 @@ bt
 info args
 ```
 可以看到完整的指令序列, 机器上只起了一个实例
-```sh
+```shell
 "list", "--format=json"
 "info", "abs-anbox-0"
 "stop", "-f", "abs-anbox-0"
 ```
 `./abs -num-containers=1 setup`的命令序列:
-```sh
+```shell
 "list", "--format=json"
 "delete", "-f", "abs-anbox-base"
 "init", "anbox", "abs-anbox-base", "-s", "default", "-c", "security.nesting=true"
@@ -164,13 +164,13 @@ info args
 "config", "device", "add", "abs-anbox-0", "binder", "unix-char", "source=/dev/binder1", "path=/dev/binder", "mode=0666"
 ```
 `./abs start`的命令序列:
-```sh
+```shell
 "list", "--format=json"
 "start", "abs-anbox-0"
 "exec", "abs-anbox-0", "--", "pidof", "com.android.systemui"
 ```
 `./abs start-demo1`指令序列:
-```sh
+```shell
 "list", "--format=json"
 "exec", "abs-anbox-0", "--", "adb", "shell", "am", "force-stop", "ws.openarena.sdl"
 "exec", "abs-anbox-0", "--", "adb", "shell", "am", "start", "ws.openarena.sdl/.MainActivity"
@@ -205,12 +205,12 @@ sudo make install
 
 ## 使用
 被调试的程序需要用-pg选项来编译, 更多信息可搜索`mcount`
-```sh
+```shell
 -pg
 Generate extra code to write profile information suitable for the analysis program gprof. You must use this option when compiling the source files you want data about, and you must also use it when linking. 
 ```
 Makefile加-pg之后, 就可以调试了:
-```sh
+```shell
 sudo /usr/local/bin/uftrace -F main record src/redis-server redis.conf
 按时间线replay
 sudo /usr/local/bin/uftrace replay
@@ -226,12 +226,12 @@ sudo /usr/local/bin/uftrace graph
 * 每个函数都会被记录, 比如一个for循环里面调用memcpy函数, 时间是累加的.
 
 ## 和flamegraph配合生成svg
-```sh
+```shell
 sudo /usr/local/bin/uftrace dump --flame-graph | ~/yingjieb/git/FlameGraph/flamegraph.pl > redis.svg
 ```
 
 ## chrome tracing模式, "代码界的示波器"
-```sh
+```shell
 sudo /usr/local/bin/uftrace dump --chrome > redis.json
 ```
 用chrome:tracing模式打开这个json文件  
@@ -242,11 +242,11 @@ sudo /usr/local/bin/uftrace dump --chrome > redis.json
 
 ## 实例, 分析redis
 起redis server, 然后用redis benchmark来做客户端压力测试
-```sh
+```shell
 sudo /usr/local/bin/uftrace -d redis-server.data record src/redis-server redis.conf
 sudo /usr/local/bin/uftrace -d redis-benchmark.data record src/redis-benchmark -t set -n 10000 -r 100000000
 ```
-```sh
+```shell
 sudo /usr/local/bin/uftrace dump --chrome -d redis-benchmark.data > redis-benchmark.json
 sudo /usr/local/bin/uftrace dump --chrome -d redis-server.data > redis-server.json
 只关注23秒到25秒
@@ -288,7 +288,7 @@ tcpnodelay keepalive setsockopt aeCreateFileEvent zmalloc listcreate dictcreate
 ## pstack
 当一个程序卡住不动, 用pstack来看他当前的调用栈
 比如:
-```sh
+```shell
 $ pstack 33451
 #0  0x0000ffff8a694f34 in __accept_nocancel () from /lib64/libc.so.6
 #1  0x0000000000401d94 in tcp_accept ()
@@ -296,7 +296,7 @@ $ pstack 33451
 #3  0x0000000000401adc in main ()
 ```
 其实pstack只是个脚本, 它用的是gdb, 就是下面的效果
-```sh
+```shell
 /usr/bin/gdb --quiet -nx /proc/33451/exe 33451
 在gdb里执行
 bt
@@ -308,7 +308,7 @@ bt
 
 ## proc
 `/proc/PID/stack`里面有kenel的栈
-```sh
+```shell
 $ cat /proc/33451/stack
 [<ffff000008086020>] __switch_to+0x6c/0x78
 [<ffff000008770358>] inet_csk_accept+0x24c/0x2b0
@@ -335,7 +335,7 @@ perf record -c 1000, 是指这个event每1000次记录一次, 因为全记录开
 ## perf top
 perf top -g可以带调用栈, 但默认是按children累加模式排序, 用下面的命令可以按self排序  
 我一般习惯是加`--no-children`
-```sh
+```shell
 sudo perf top -g --no-children
 sudo perf top -g --no-children -p `pidof redis-server`
 ```
@@ -351,7 +351,7 @@ The link talks about use of glibc but I’m more interested in the hacking of th
 
 ## perf可以重复run一个程序, 并给出差异
 注意下面, -a表示统计整个系统, 不加默认的是统计后面command
-```sh
+```shell
 $ sudo perf stat -r 5 -a sleep 1
 Performance counter stats for 'system wide' (5 runs):
       48055.429090      cpu-clock (msec)          #   47.417 CPUs utilized            ( +-  0.01% )
@@ -364,7 +364,7 @@ Performance counter stats for 'system wide' (5 runs):
            398,150      branch-misses             # 13271653.33% of all branches      ( +- 13.29% )
        1.013468517 seconds time elapsed                                          ( +-  0.08% )
 ```
-```sh
+```shell
 $ sudo perf stat -r 5 sleep 1
  Performance counter stats for 'sleep 1' (5 runs):
           0.605980      task-clock (msec)         #    0.001 CPUs utilized            ( +-  2.47% )

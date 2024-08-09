@@ -53,7 +53,7 @@
 
 # 使用overlay文件系统
 很简单, linux支持overlay文件系统, 它是个uinon多的文件系统, 底层(lower)文件系统可以是只读的, 上层(upper)文件系统可以是tmpfs. 在mount的时候指定
-```sh
+```shell
 godevtmp=/tmp/godev/$user
 tmphome=/tmp/godev/home/$user
 mkdir -p $godevtmp/{upper,work}
@@ -65,7 +65,7 @@ sudo mount -t overlay overlay -o lowerdir=/home/$user,upperdir=$godevtmp/upper,w
 * 最后的挂载点: 任意已存在目录
 
 # 查看是否用了proxy
-```sh
+```shell
 #出现Proxy-Agent字样说明用了proxy
 $ curl --head https://www.google.com/
 HTTP/1.1 200 Connection Established
@@ -73,7 +73,7 @@ Proxy-Agent: Fortinet-Proxy/1.0
 ```
 
 # 记录tty输出并回放
-```sh
+```shell
 #记录, htop的输出也能记录
 script --timing=time.log poc.log
 #回放, ctrl+s暂停, ctrl+q恢复
@@ -81,7 +81,7 @@ scriptreplay --timing=time.log poc.log
 ```
 
 # 编译安装openssh
-```sh
+```shell
 wget https://ftp.yzu.edu.tw/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz
 cd openssh-8.0p1
 ./configure --prefix=$HOME
@@ -110,7 +110,7 @@ sudo /etc/init.d/ssh resart
 ```
 
 # ubuntu apt用代理
-```sh
+```shell
 Linux Mint 19.1 Tessa $ cat /etc/apt/apt.conf.d/proxy.conf
 Acquire::http::Proxy "http://135.245.48.34:8000";
 ```
@@ -128,7 +128,7 @@ body code, body .xiaoshujiang_code
 ```
 
 # 使用sshfs实现远程目录mount
-```sh
+```shell
 #在client上
 sudo yum install fuse-sshfs
 #mount远程目录, -C打开压缩, 性能高点
@@ -149,7 +149,7 @@ sshfs -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 server:/path/to/
 `export PKG_CONFIG_PATH=/opt/gtk/lib/pkgconfig:$PKG_CONFIG_PATH`
 
 比如lua的.pc文件如下:
-```sh
+```shell
 $ cat /usr/lib64/pkgconfig/lua.pc
 V= 5.1
 R= 5.1.4
@@ -167,7 +167,7 @@ Cflags: -I${includedir}
 在`/usr/local/lib/pkgconfig/`下面新建lua.pc
 
 # pandoc生成简历
-```sh
+```shell
 git clone https://github.com/mszep/pandoc_resume
 #有两种方式, 一是本地运行, 而是起一个docker实例
 #本地运行
@@ -204,7 +204,7 @@ sudo update-grub2
 
 # 简单的文件服务器
 在需要share的文件夹下面执行
-```sh
+```shell
 nohup python -m SimpleHTTPServer &
 或
 nohup python -m SimpleHTTPServer 8088 &
@@ -214,7 +214,7 @@ nohup python -m SimpleHTTPServer 8088 &
 http://serverip:port
 
 ## 或者用http-server
-```sh
+```shell
 apt install npm
 sudo npm install http-server -g
 sudo apt install nodejs-legacy
@@ -224,13 +224,13 @@ http-server -p 8000
 # ubuntu 打开nfs服务
 ## nfs v3 和v4的mount区别
 在server上
-```sh
+```shell
 /etc/export
 #注意nfsv4要加fsid=0
 /home/yingjieb/work 192.168.2.0/24(rw,sync,insecure,no_subtree_check,no_root_squash,fsid=0)
 ```
 在client上
-```sh
+```shell
 #v3的mount, 带路径
 mount 192.168.2.11:/home/yingjieb/work/nfsroot/mipsroot /root/remote -o nolock
 #v4的mount, 不带路径
@@ -240,19 +240,19 @@ mount -t nfs4 192.168.2.11:nfsroot/mipsroot /root/remote -o nolock
 ## 补充, mount fuse文件系统
 nfsv4才支持mount用户态的文件系统, 此时需要用"fsid="来显式指定  
 没研究这个选项, 但似乎就是提供一个id号, 数字的, 好像任意填.
-```sh
+```shell
 cat /etc/exports
 /home/yingjieb/work/share/output 192.168.2.0/24(rw,sync,insecure,no_subtree_check,no_root_squash,all_squash,anonuid=1000,anongid=1000,fsid=0)
 ```
 在板子上mount: 
-```sh
+```shell
 mkdir -p /root/remote
 #一定要加nolock选项, 否则会timeout
 mount 192.168.2.11:/home/yingjieb/work/share/output /root/remote -o nolock
 ```
 这里解释一下: 我的连接是这样的:
 `board(192.168.2.12) --(nfs)--> (192.168.2.11)nfs server on PC Linux on virtual box(NAT via host) --(sshfs)--> work station(135.251.206.190)`
-```sh
+```shell
 yingjieb@yingjieb-VirtualBox ~/work
 Linux Mint 19.1 Tessa $ ls
 share tftpd
@@ -261,7 +261,7 @@ yingjieb@135.251.206.190:/repo/yingjieb/ms/buildroot on /home/yingjieb/work/shar
 ```
 
 ## nfs服务端
-```sh
+```shell
 sudo apt install nfs-kernel-server
 cat /etc/exports
 /home/qdt yingjieb-gv(rw,sync,no_subtree_check,no_root_squash,all_squash,anonuid=1000,anongid=1000)
@@ -284,17 +284,17 @@ drwxrwxrwx 3 bai bai 4096 Aug 14 16:55 share
 * 修改`/etc/exports`要执行`sudo exportfs -rav`
 
 ## 在客户端mount
-```sh
+```shell
 sudo yum install nfs-utils
 sudo mount qdt-shlab-pc.ap.qualcomm.com:/home/qdt /local/qdt-shlab-pc/
 ```
 ### 如果这个nfs mount点挂了, 用这个命令umount
-```sh
+```shell
 sudo umount -f -l /local/qdt-shlab-pc
 ```
 
 # 编译kernel
-```sh
+```shell
 make mrproper
 make oldconfig
 make defoldconfig
@@ -308,14 +308,14 @@ make install -j32
 在mini主机上, 外网是`wlp1s0: 10.75.61.131`, 内网是`enp0s31f6: 10.239.120.104`
 
 原理见笔记 iptables详解
-```sh
+```shell
 #打开转发
 sudo sysctl -w net.ipv4.ip_forward=1
 #用nat table, 路由后, 限定awsdp1的ip(10.239.120.133)可以nat方式从wlp1s0转发出去
 sudo iptables -t nat -A POSTROUTING -j MASQUERADE -s 10.239.120.133/32 -o wlp1s0
 ```
 在awsdp1上, 自己的IP是eth0 10.239.120.133
-```sh
+```shell
 #因为内网防火墙原因, 默认路由无法上外网, 所以先添加所有10.0.0.0网段走内网路由
 sudo ip route add 10.0.0.0/8 via 10.239.120.1
 #这时可以安全的删除默认路由了(之前的默认路由也是走10.239.120.1), 因为有了上面那句, 所有目的地址是10.0.0.0网段的报文都走10.239.120.1.
@@ -325,7 +325,7 @@ sudo ip route add default via 10.239.120.104
 #如果没有配域名服务器, 还要修改/etc/resolv.conf, 比如
 echo "nameserver 10.65.0.1" > /etc/resolv.conf
 ```
-```sh
+```shell
 qdt-shlab-pc: mini pc
 登录: ssh qdt@qdt-shlab-pc
 上外网之前要先查看一下ifconfig wlp1s0, 有ip说明已经up了
@@ -350,7 +350,7 @@ sudo iptables -t nat -A POSTROUTING -j MASQUERADE -s 10.239.120.133/32 -o wlp1s0
 
 ## mini主机双网卡同时上内网和外网
 ### 最最新的配置文件
-```sh
+```shell
 $ cat interfaces
 # interfaces(5) file used by ifup(8) and ifdown(8)
 auto lo
@@ -369,7 +369,7 @@ iface wlp1s0 inet dhcp
 ```
 
 ### 最新的配置文件
-```sh
+```shell
 $ cat /etc/network/interfaces
 # interfaces(5) file used by ifup(8) and ifdown(8)
 auto lo
@@ -384,7 +384,7 @@ iface wlp1s0 inet dhcp
         post-up iptables -t nat -A POSTROUTING -j MASQUERADE -s 10.239.120.0/22 -o wlp1s0
         post-down pkill wpa_supplicant
 ```
-```sh
+```shell
 qdt@qdt-shlab-pc /etc/iproute2 $ cat /etc/resolv.conf 
 # Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)
 #     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN
@@ -392,7 +392,7 @@ nameserver 10.253.157.26
 nameserver 10.253.157.27
 search wlan.qualcomm.com
 ```
-```sh
+```shell
 Hydra: K5x48Vz3
 sudo systemctl stop network-manager.service
 sudo systemctl disable network-manager.service
@@ -520,7 +520,7 @@ search ap.qualcomm.com wlan.qualcomm.com
 ```
 
 # 新机器pci错误
-```sh
+```shell
 1) edit /etc/default/grub and and add pci=noaer to the line starting with GRUB_CMDLINE_LINUX_DEFAULT. It will look like this:
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash pci=noaer"
 2) run "sudo update-grub"
@@ -532,7 +532,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash pci=noaer"
 * arp -a用来查本机arp表
 * 网络debug用`cat /var/log/messages | egrep "dhclient|NetworkManager"`
 * 用NetworkManager的话, nmcli也很有用
-```sh
+```shell
 $ host 10.239.120.175
 175.120.239.10.in-addr.arpa domain name pointer qdt-shlab-awsdp3-010239120175.qualcomm.com.
 qdt@qdt-shlab-awsdp2 ~
@@ -554,7 +554,7 @@ nmcli con modify eth0 ipv4.dhcp-hostname `hostname`
 ```
 
 # 文本比较工具
-```sh
+```shell
 apt install meld
 ```
 # dhclient
@@ -564,13 +564,13 @@ dhclient会获取一个ip, 并持续保持在后台
 
 # 无线网卡命令
 基本命令
-```sh
+```shell
 iw dev
 iw wlp1s0 link
 iw wlp1s0 scan
 ```
 参考How to connect to a WPA/WPA2 WiFi network using Linux command line
-```sh
+```shell
 sudo wpa_passphrase Hydra >> /etc/wpa_supplicant/wpa.conf
 qdt@qdt-shlab-pc ~/Desktop $ cat /etc/wpa_supplicant/wpa.conf
 # reading passphrase from stdin
@@ -580,7 +580,7 @@ network={
     psk=529cd7878309812d395fb8bd999c203f35a83da1ca0a86fe83c0f7c5cd08efc4
 }
 ```
-```sh
+```shell
 rfkill unblock all
 sudo ip link set wlp1s0 up
 sudo wpa_supplicant -B -D wext -i wlp1s0 -c /etc/wpa_supplicant/wpa.conf
@@ -589,18 +589,18 @@ sudo dhclient wlp1s0
 注: wpa_supplicant和dhclient都会在后台一直运行
 
 # hostname
-```sh
+```shell
 sudo nano /etc/hostname
 sudo nano /etc/hosts
 ```
 
 # sudo 免密码
-```sh
+```shell
 sudo -s
 visudo
 ```
 在`%sudo`那行加 `NOPASSWD`:
-```sh
+```shell
 # User privilege specification
 root    ALL=(ALL:ALL) ALL
  
@@ -620,7 +620,7 @@ sudo systemctl enable mdm
 
 # wiz的搜索功能
 一般为"或"搜索
-```sh
+```shell
 linux版可以这样搜:"struct*file"
 windows版: s:struct AND file
 ```
@@ -628,7 +628,7 @@ windows版: s:struct AND file
 # 修改grub2默认启动项
 修改/etc/default/grub
 saved是说让grub记录上次的启动项
-```sh
+```shell
 $ cat /etc/default/grub
 # If you change this file, run 'update-grub' afterwards to update
 # /boot/grub/grub.cfg.
@@ -648,7 +648,7 @@ iconv -f gbk -t utf8 readme.txt > out.txt
 ```
 
 # 使用tmux
-```sh
+```shell
 $tmux ls 查看有几个session
 $tmux attach -t 1 进入第一个session
 c-b c 新建一个window
@@ -713,7 +713,7 @@ clear history
 ```
 
 # vim支持系统clipboard
-```sh
+```shell
 $apt install vim-gtk
 在.vimrc里面加
 set clipboard=unnamedplus
@@ -746,7 +746,7 @@ sudo apt-get install libncurses5-dev
 ```
 
 # vim插件
-```sh
+```shell
 sudo apt- install vim-addon-manager vim-scripts
 vim-addons install taglist
 apt install astyle cscope ctags global
@@ -763,14 +763,14 @@ autoformat.vim  defaults.vim  gtags.vim  mru.vim  taglist.vim
 
 # SSD优化
 修改/etc/rc.local
-```sh
+```shell
 echo 50 > /proc/sys/vm/dirty_ratio
 echo 10 > /proc/sys/vm/dirty_background_ratio
 echo 6000 > /proc/sys/vm/dirty_expire_centisecs
 echo 1000 > /proc/sys/vm/dirty_writeback_centisecs
 ```
 修改/etc/fstab
-```sh
+```shell
 UUID=d039c104-49d4-464a-b3df-a962574fd46f /               ext4    noatime,nodiratime,errors=remount-ro 0       1
 ```
 
@@ -786,7 +786,7 @@ linux-image-3.16.2-031602-generic_3.16.2-031602.201409052035_amd64.deb
 ```
 3. `mkdir linux-kernel-3.16.2 && mv ~/Downloads/linux-*.deb linux-kernel-3.16.2`
 4. 安装
-```sh
+```shell
 cd linux-kernel-3.16.2
 su
 dpkg -i *.deb
@@ -795,7 +795,7 @@ update-grub(可以省略, 上面的命令已包含)
 5. 重启
 
 # 调节笔记本亮度
-```sh
+```shell
 su
 echo 80 > /sys/class/backlight/intel_backlight/brightness
 ```

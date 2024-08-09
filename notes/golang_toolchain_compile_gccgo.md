@@ -84,17 +84,17 @@ https://solarianprogrammer.com/2018/05/06/building-gcc-cross-compiler-raspberry-
 # 编译过程for x86_64
 
 ## 下载gcc9.2源码, release版本就可以
-```sh
+```shell
 axel http://www.netgull.com/gcc/releases/gcc-9.2.0/gcc-9.2.0.tar.xz
 ```
 
 ## 安装依赖
-```sh
+```shell
 apt install build-essential libgmp-dev libmpfr-dev libmpc-dev
 ```
 
 ## 解压gcc 编译
-```sh
+```shell
 cd gcc-9.2.0
 
 mkdir objdir && cd objdir
@@ -106,7 +106,7 @@ make -j
 ```
 
 ## 编译完成后
-```sh
+```shell
 make install
 ```
 
@@ -132,7 +132,7 @@ go build hello.go
 
 压缩后5M
 
-```sh
+```shell
 $ ldd hello
 	linux-vdso.so.1 =>  (0x00007ffe35580000)
 	libgo.so.14 => /home/byj/repo/gorepo/gcc/lib64/libgo.so.14 (0x00007f5fae036000)

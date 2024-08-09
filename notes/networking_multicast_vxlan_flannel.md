@@ -72,7 +72,7 @@ The **SSDP** (Simple Service Discovery Protocol) uses multicast address **239.25
 
 # vxlan介绍
 vxlan是一种overlay的网络技术, 在udp之上封装了vxlan的报文, 通过ip层传输, 组成一个跨网络的L2子网.
-```sh
+```shell
 #在eth0接口(我这里是192.168.0.14)的udp port上建立vxlan0
 #上层来的到vxlan0的报文会被加上外层L2, src ip是192.168.0.14, dst port是4789
 #kernel接收到dst port是4789的udp报文, 会被kernel"发送到"这个vxlan0接口
@@ -199,7 +199,7 @@ spec:
         - containerPort: 80
 ```
 开启两个nginx的pod, 每个pod都有独立IP, 而且都使用相同的80端口
-```sh
+```shell
 kubectl apply -f ./run-my-nginx.yaml
 kubectl get pods -l run=my-nginx -o wide
 
@@ -233,14 +233,14 @@ spec:
     run: my-nginx
 ```
 查看svc
-```sh
+```shell
 # kubectl get svc my-nginx
 NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 ```
 
 详细信息:
-```sh
+```shell
 # kubectl describe svc my-nginx
 Name:                my-nginx
 Namespace:           default

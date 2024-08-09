@@ -43,13 +43,13 @@
 
 # GOPROXY=direct
 有时候github的库更新了, 但go get或者go mod等命令不能及时的更新版本号, 比如:
-```sh
+```shell
 go get github.com/godevsig/adaptiveservice@master
 ```
 总是取到master的次新版本, 即使等了一段时间也不行.
 
 估计是proxy cache还没有更新, 用下面的命令可以及时更新:
-```sh
+```shell
 GOPROXY=direct go get github.com/godevsig/adaptiveservice@master
 ```
 

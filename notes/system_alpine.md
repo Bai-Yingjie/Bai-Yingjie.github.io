@@ -77,7 +77,7 @@ mirror: https://git.alpinelinux.org/
 
 # 组织清爽, 源代码干净
 比如`alpine-gitlab-ci/-/blob/master/overlay/usr/local/bin/build.sh`里面的shell 输出代码:
-```sh
+```shell
 : "${CI_ALPINE_BUILD_OFFSET:=0}"
 : "${CI_ALPINE_BUILD_LIMIT:=9999}"
 
@@ -231,7 +231,7 @@ arch_to_hostspec() {
 * 因为arch和hostspec可以通过函数`arch_to_hostspec`/`hostspec_to_arch`互相转换, 而且二者虽然形式不同但意义相同且唯一, 所以`CHOST` `CTARGET`也可以传入arch名.
   比如命令行传入`CHOST=ppc`, abuild会在内部把`CHOST`转换成`powerpc-alpine-linux-musl`
 
-```sh
+```shell
 [ -z "$CBUILD" ] && CBUILD="$(${APK:-apk} --print-arch 2>/dev/null || :)"
 [ -z "$CHOST" ] && CHOST="$CBUILD"
 [ -z "$CTARGET" ] && CTARGET="$CHOST"
@@ -291,7 +291,7 @@ alpine-sdk是最基础的编译系统, 包括基础库, musl c库, gcc, make等�
 
 ### 准备普通用户
 alpine默认是root登陆的, 但后面的abuild必须用普通用户来执行. 这里我使用`doas`来替代`sudo`, 因为`doas`包更小, 更符合alpine的理念.
-```sh
+```shell
 apk add alpine-sdk
 apk add doas
 ln -s /usr/bin/doas /usr/bin/sudo	
@@ -304,7 +304,7 @@ addgroup reborn abuild
 ```
 
 切换到普通用户
-```sh
+```shell
 su reborn
 cd ~
 abuild-keygen -a -i
@@ -313,7 +313,7 @@ cat ~/.abuild/abuild.conf
 ```
 
 ## 命令汇总
-```sh
+```shell
 docker run -it alpine:edge
 #使用稳定版本
 docker run -it alpine:3.17
@@ -359,7 +359,7 @@ abuild checksum && abuild -r
 这里我使用`--depth=1`只取最后一个commit, 可以减小clone库需要的时间.
 
 编译需要在package目录下进行, 只需要两个命令就好了:
-```sh
+```shell
 cd aports/main/htop
 abuild checksum && abuild -r
 ```
@@ -368,7 +368,7 @@ abuild checksum && abuild -r
 
 ### `abuild checksum`
 先下载了源码, 源码路径在`APKBUILD`文件里指定的:
-```sh
+```shell
 pkgname=htop
 pkgver=3.2.1
 pkgrel=1
@@ -386,7 +386,7 @@ options="!check" # no upstream/available test-suite
 
 ### `abuild -r`
 这个命令先是是递归的处理依赖, 然后编译.
-```sh
+```shell
 >>> htop: Analyzing dependencies...
 >>> htop: Installing for build: build-base ncurses-dev python3 linux-headers lm-sensors-dev
 ```
@@ -517,7 +517,7 @@ g-prototypes -Wpointer-arith -Wshadow -Wstrict-prototypes -Wundef -Wunused -Wwri
 ## build-base
 build-base是个元package, 方法就是列出依赖.  
 APKBUILD如下:
-```sh
+```shell
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=build-base
 pkgver=0.5
@@ -551,7 +551,7 @@ package() {
 https://gitlab.alpinelinux.org/alpine/abuild/-/blob/master/abuild.in
 
 abuild其实是个ash脚本, 一般流程是:
-```sh
+```shell
 all()
 build_abuildrepo() {
 	local part _check=check
@@ -588,7 +588,7 @@ build_abuildrepo() {
 关键变量
 * BOOTSTRAP
 
-```sh
+```shell
 want_check() {
 	[ -n "$ABUILD_BOOTSTRAP" ] && return 1
 	cross_compiling && return 1
@@ -613,7 +613,7 @@ builddeps() {
 * CROSS_COMPILE
 * CHOST CTARGET
 
-```sh
+```shell
 # creating说的是正在build交叉工具链
 # 比如此时BUILD=x86_64, HOST=x86_64, TARGET=ppc
 cross_creating() {
@@ -638,7 +638,7 @@ cross_compiling() {
 
 ## 支持交叉编译
 functions.sh中, 直接支持交叉编译:
-```sh
+```shell
 	if [ "$CHOST" != "$CTARGET" ]; then
 		# setup environment for creating cross compiler
 		[ -z "$CBUILDROOT" ] && export CBUILDROOT="$HOME/sysroot-$CTARGET_ARCH/"
@@ -677,7 +677,7 @@ functions.sh中, 直接支持交叉编译:
 
 ## 交叉编译实例
 用我自己做的docker image, 交叉编译很简单:
-```sh
+```shell
 # 用EXTRADEPENDS_TARGET增加依赖, 空格做列表
 EXTRADEPENDS_TARGET="ncurses-dev" CHOST=ppc64 abuild -r
 EXTRADEPENDS_TARGET="linux-headers musl musl-dev libucontext libucontext-dev" CTARGET=ppc64 abuild -r
@@ -688,7 +688,7 @@ native编译时, `build-base`是必选的依赖.
 交叉编译时, `build-base-$CTARGET_ARCH`是必选的依赖.
 
 依赖又分build依赖和host依赖
-```sh
+```shell
 calcdeps() {
 	builddeps=
 	hostdeps=
@@ -725,7 +725,7 @@ abuild本来就是编译用的, 编译过程中的依赖统统都是makedeps
 
 deps函数就是用来安装依赖的. 先安装build依赖, 如果有`$CBUILDROOT`存在, 则安装host依赖.  
 host依赖会被安装到`--root "$CBUILDROOT"`下面
-```sh
+```shell
 deps() {
 	[ -z "$hostdeps" -a -z "$builddeps" ] && calcdeps
 
@@ -763,7 +763,7 @@ chown 4000:4000 acpica-unix-20221020.tar.gz
 
 # apk使用
 前面说过, 在`/etc/apk/repositories`中可以配置apk使用本地包, 比如
-```sh
+```shell
 cat /etc/apk/repositories
 /home/reborn/packages/main
 /home/reborn/packages/community
@@ -777,7 +777,7 @@ https://dl-cdn.alpinelinux.org/alpine/edge/community
 `--root`会使用目标root下的`etc/apk/repositories`和`etc/apk/arch`
 
 比如
-```sh
+```shell
 echo /home/reborn/packages/main > /home/reborn/sysroot-ppc/etc/apk/repositories
 
 ~ $ cat /home/reborn/sysroot-ppc/etc/apk/repositories
@@ -790,13 +790,13 @@ sudo apk --root /home/reborn/sysroot-ppc/ add libedit
 ```
 
 ## bootstrap
-```sh
+```shell
 aports/scripts/bootstrap.sh ppc64 gccgo,norust,nokernel
 aports/scripts/bootstrap.sh ppc gccgo,norust,nokernel
 ```
 
 ## 编译gccgo for ppc
-```sh
+```shell
 #需要卸载冲突包
 # apk del gcc-ppc gcc-go-ppc gcc-ppc64 gcc-go-ppc64 gcc-mips64 gcc-aarch64
 # rm -rf /home/reborn/sysroot*
@@ -808,7 +808,7 @@ APKBUILD=aports/main/gcc/APKBUILD EXTRADEPENDS_TARGET="linux-headers musl musl-d
 
 ### 调试过程
 因为要在x86上使用交叉编译器gccgo, 所以先要在x86上安装
-```sh
+```shell
 sudo apk add gcc-ppc64 gcc-go-ppc64
 # gcc-go-ppc64和gcc-go-ppc有冲突, 会提示
 (1/1) Installing gcc-go-ppc64 (12.2.1_git20220924-r4)
@@ -832,7 +832,7 @@ tar xvf gcc-go-ppc64-12.2.1_git20220924-r4.apk -C /home/reborn/sysroot-ppc64 --e
 `powerpc64-alpine-linux-musl-gccgo -static -Wl,--whole-archive -lucontext -Wl,--no-whole-archive webhello.go`
 
 再用`--root`安装ppc64的包
-```sh
+```shell
 echo /home/reborn/packages/main > /home/reborn/sysroot-ppc64/etc/apk/repositories
 
 #会自动安装musl libgcc libucontext, 因为libgo依赖如上包
@@ -842,14 +842,14 @@ sudo apk --root /home/reborn/sysroot-ppc64 add libgo libucontext-dev musl-dev
 
 ### context相关符号找不到的问题
 gccgo默认是动态链接, 能够成功编译:  
-```sh
+```shell
 # 动态链接
 powerpc64-alpine-linux-musl-gccgo webhello.go
 # 生成a.out, 大小100k
 ```
 
 但静态链接的时候, 会报错, 提示很多`getcontext`相关的符号找不到:  
-```sh
+```shell
 # 静态链接
 powerpc64-alpine-linux-musl-gccgo -static webhello.go
 ```
@@ -872,7 +872,7 @@ powerpc64-alpine-linux-musl-gccgo -static -Wl,--whole-archive -lucontext -Wl,--n
 `-Wl,--whole-archive -lucontext -Wl,--no-whole-archive`
 
 ### 最终操作
-```sh
+```shell
 # ppc64
 apk add gcc-ppc64 gcc-go-ppc64
 
@@ -893,7 +893,7 @@ powerpc-alpine-linux-musl-gccgo -static -Wl,--whole-archive -lucontext -Wl,--no-
 ```
 
 ### gccgo工具链里有什么
-```sh
+```shell
 # 交叉go编译器bin
 usr/bin/powerpc64-alpine-linux-musl-gccgo
 
@@ -917,7 +917,7 @@ usr/libexec/gcc/powerpc64-alpine-linux-musl/12.2.1/go1
 按理说交叉工具链的gccgo的安装包不应该把`libgo.a`等静态链接文件安装到`/usr/lib`下面. 我在自己的开发分钟修复了这个问题.
 
 ## 编译gcgo前端
-```sh
+```shell
 apk add bash
 git clone https://gitlabe1.ext.net.nokia.com/godevsig/golang-go.git -b godevsig --depth 10
 
@@ -999,7 +999,7 @@ abuild-sign APKINDEX.tar.gz
 
 ## 更新apk index命令完整版(增量方式)
 思路是下载`APKINDEX.tar.gz`, 并增量更新
-```sh
+```shell
 su reborn
 
 update_apk_index() {

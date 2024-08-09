@@ -33,6 +33,10 @@ vpp# create host-interface ?
       - [第一次实验](#第一次实验)
     - [第二次实验](#第二次实验)
       - [分析](#分析-1)
+      - [结论](#结论)
+    - [深入分析时间消耗](#深入分析时间消耗)
+      - [结论](#结论-1)
+      - [为什么epoll要这么久?](#为什么epoll要这么久)
   - [drop杂包](#drop杂包)
 
 
@@ -90,8 +94,9 @@ af_packet_create_if
                     //set packet tx ring options
                     setsockopt (*fd, SOL_PACKET, PACKET_TX_RING, tx_req, req_sz)
                     //mmap fd 到tx/rx queue, 这些queue是vpp维护的
-                    ring->ring_start_addr = mmap (NULL, ring_sz, PROT_READ | PROT_WRITE,
-				MAP_SHARED | MAP_LOCKED, *fd, 0)
+                    ring->ring_start_addr = mmap (NULL, ring_sz, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_LOCKED, *fd, 0)
+                vec_add1 (apif->fds, fd);
+                vec_add1 (apif->rings, ring);
 ```
 
 # 发送packet到host-eth0
@@ -811,7 +816,11 @@ Statistics: 5 sent, 5 received, 0% packet loss
 ## 为什么tcpdump抓不到outgoing的报文
 最后的packet肯定是从eth0发出的, 也就是必须走kernel, 那么tcpdump不能抓到就非常少见.
 
-注意到
+根据[这篇文章](https://chnhaoran.github.io/blog/how-is-tcpdump-working/)的介绍:
+* RX side: XDP -> Tcpdump -> TC -> network stack
+* TX side: network stack -> TC -> Tcpdump
+
+注意到`host-interface qdisc-bypass`有TC相关的配置. 试试看:
 
 在vpp2和vpp3上, 用vppctl执行:
 ```shell
@@ -1177,7 +1186,8 @@ tcpdump:
 #### 分析
 `perf script`显示的时间, 是相对machine的boot time的时间.
 
-```sequence
+在 https://sequencediagram.org 粘贴下面的code
+```shell
 participant "vppctl process on container2" as vppctl2
 participant "vpp process on container2" as vpp2
 participant "eth0 on container2" as eth02
@@ -1213,11 +1223,562 @@ vpp2->vppctl2: output result
 note over vppctl2: display ping result
 end
 ```
+得到下面的时序图:  
+![](img/vpp2_ping_vpp3_latency_analysis.svg)
+
+同样的, 我们分析一下第二个ICMP ping request的时序:  
+![](img/vpp2_ping_vpp3_latency_analysis_p2.svg)
+
+第三个:  
+![](img/vpp2_ping_vpp3_latency_analysis_p3.svg)
+
+第四个:
+![](img/vpp2_ping_vpp3_latency_analysis_p4.svg)
+
+
+在vpp2 container里面再增加两个probe point, 主要考察从`send_ip46_ping`到`print_ip46_icmp_reply`的时间和vpp ping的打印时间的关系:
+```shell
+# ping的主体代码在ping_plugin.so, 阅读代码, 每个icmp的ping request都是从send_ip46_ping开始的
+perf probe -x /lib/vpp_plugins/ping_plugin.so --add send_ip46_ping
+# 这里应该probe print_ip46_icmp_reply, 但这个函数不能probe, 以vlib_cli_output代替.
+perf probe -x /lib/libvlib.so --add vlib_cli_output
+
+# 在vpp2上执行
+perf record -e probe_af_packet_plugin:af_packet_input_node_fn* -e probe_af_packet_plugin:af_packet_device_class_tx_fn* -e probe_ping_plugin:send_ip46_ping -e probe_libvlib:vlib_cli_output -R -p $(pidof vpp) -- sleep 30
+```
+
+结果如下:
+```
+vpp# ping 10.10.10.12                                        
+116 bytes from 10.10.10.12: icmp_seq=1 ttl=64 time=20.1997 ms
+116 bytes from 10.10.10.12: icmp_seq=2 ttl=64 time=16.4867 ms
+116 bytes from 10.10.10.12: icmp_seq=3 ttl=64 time=20.4609 ms
+116 bytes from 10.10.10.12: icmp_seq=4 ttl=64 time=8.4621 ms 
+116 bytes from 10.10.10.12: icmp_seq=5 ttl=64 time=12.4755 ms
+
+
+20.65ms
+        vpp_main    63 [007] 20810116.579668:                                             probe_ping_plugin:send_ip46_ping: (7f11117c28d0)
+	0.63ms
+        vpp_main    63 [007] 20810116.580296:                    probe_af_packet_plugin:af_packet_device_class_tx_fn_hsw_1: (7f1112908a10)
+        vpp_main    63 [007] 20810116.600069:                         probe_af_packet_plugin:af_packet_input_node_fn_hsw_1: (7f11128ffe20)
+        vpp_main    63 [007] 20810116.600318:                                                probe_libvlib:vlib_cli_output: (7f1152d57fc0)
+
+16.51ms
+        vpp_main    63 [007] 20810117.579663:                                             probe_ping_plugin:send_ip46_ping: (7f11117c28d0)
+	3.17ms
+        vpp_main    63 [007] 20810117.582837:                    probe_af_packet_plugin:af_packet_device_class_tx_fn_hsw_1: (7f1112908a10)
+        vpp_main    63 [010] 20810117.596145:                         probe_af_packet_plugin:af_packet_input_node_fn_hsw_1: (7f11128ffe20)
+        vpp_main    63 [010] 20810117.596179:                                                probe_libvlib:vlib_cli_output: (7f1152d57fc0)
+
+20.49ms
+        vpp_main    63 [000] 20810118.579666:                                             probe_ping_plugin:send_ip46_ping: (7f11117c28d0)
+	7.18ms
+        vpp_main    63 [000] 20810118.586850:                    probe_af_packet_plugin:af_packet_device_class_tx_fn_hsw_1: (7f1112908a10)
+        vpp_main    63 [010] 20810118.600124:                         probe_af_packet_plugin:af_packet_input_node_fn_hsw_1: (7f11128ffe20)
+        vpp_main    63 [010] 20810118.600158:                                                probe_libvlib:vlib_cli_output: (7f1152d57fc0)
+
+8.49ms
+        vpp_main    63 [000] 20810119.579671:                                             probe_ping_plugin:send_ip46_ping: (7f11117c28d0)
+	0.03ms
+        vpp_main    63 [000] 20810119.579708:                    probe_af_packet_plugin:af_packet_device_class_tx_fn_hsw_1: (7f1112908a10)
+        vpp_main    63 [010] 20810119.588114:                         probe_af_packet_plugin:af_packet_input_node_fn_hsw_1: (7f11128ffe20)
+        vpp_main    63 [010] 20810119.588164:                                                probe_libvlib:vlib_cli_output: (7f1152d57fc0)
+
+12.51ms
+        vpp_main    63 [011] 20810120.579670:                                             probe_ping_plugin:send_ip46_ping: (7f11117c28d0)
+	4.16ms
+        vpp_main    63 [011] 20810120.583834:                    probe_af_packet_plugin:af_packet_device_class_tx_fn_hsw_1: (7f1112908a10)
+        vpp_main    63 [010] 20810120.592139:                         probe_af_packet_plugin:af_packet_input_node_fn_hsw_1: (7f11128ffe20)
+        vpp_main    63 [010] 20810120.592180:                                                probe_libvlib:vlib_cli_output: (7f1152d57fc0)
+```
+
+#### 结论
+* `vpp-dbg`安装了分离式的debug符号, 也好用的.
+* vpp的ping的延迟远远大于kernel的ping
+  * 纯处理ICMP的报文的时间很小
+  * 似乎大头都花在kenel收包后, 通知vpp的时间太长
+  * 或者vpp框架收到kernel的通知后, 再调用`af_packet_input_node_fn_hsw`的时间太长
+  * notify的时间很不稳定, 从0.4ms到8ms不等
+* 另外一个大头是vpp自己显示的时间似乎更长.
+  * vpp ping的时间显示是正确的
+  * 从`send_ip46_ping`到`af_packet_device_class_tx_fn_hsw`的时间间隔很不稳定, 从0.03ms到7.18ms甚至更长
+* 似乎8ms是vpp内部的某种event的阈值?
+
+尝试performance tuning
+* 多worker -- 不管用, 每个worker都占4%的CPU, 导致整体CPU在16%上下.
+* chrt 50 -- 有点作用, 但还是10+ms
+
+### 深入分析时间消耗
+结合上面的分析, 我重点怀疑这个方向: **vpp框架收到kernel的通知后, 再调用`af_packet_input_node_fn_hsw`的时间太长**
+
+那么就需要了解, 在vpp调用`af_packet_input_node_fn_hsw`之前, 都做了什么. 这就用到了perf的调用栈解析:
+```shell
+# 首先删除所有的probe
+perf probe --del "*"
+# 增加tx函数
+perf probe -x /lib/vpp_plugins/af_packet_plugin.so --add af_packet_device_class_tx_fn_hsw
+# 增加rx函数
+perf probe -x /lib/vpp_plugins/af_packet_plugin.so --add af_packet_input_node_fn_hsw
+# 带调用栈record, 加--call-graph dwarf有利于调用栈解析
+perf record -e probe_af_packet_plugin:af_packet_input_node_fn* -e probe_af_packet_plugin:af_packet_device_class_tx_fn* -R -p $(pidof vpp) -g --call-graph dwarf -- sleep 30
+```
+
+结果:
+```
+vpp_main   360 [001] 20847215.566923: probe_af_packet_plugin:af_packet_device_class_tx_fn_hsw: (7f6f34744a10)
+                    ca10 af_packet_device_class_tx_fn_hsw+0x0 (/lib/vpp_plugins/af_packet_plugin.so)
+                   2caea dispatch_node+0x13a (inlined)
+                   2caea dispatch_pending_node+0x13a (/lib/libvlib.so.24.06)
+                   32094 vlib_main_or_worker_loop+0x1194 (inlined)
+                   32094 vlib_main_loop+0x1194 (inlined)
+                   32094 vlib_main+0x1194 (/lib/libvlib.so.24.06)
+                   8a569 thread0+0x29 (/lib/libvlib.so.24.06)
+                   94feb clib_calljmp+0x17 (/lib/libvppinfra.so.24.06)
+
+vpp_main   360 [000] 20847215.576155:      probe_af_packet_plugin:af_packet_input_node_fn_hsw: (7f6f3473be20)
+                    3e20 af_packet_input_node_fn_hsw+0x0 (/lib/vpp_plugins/af_packet_plugin.so)
+                   32c58 dispatch_node+0x1d58 (inlined)
+                   32c58 vlib_main_or_worker_loop+0x1d58 (inlined)
+                   32c58 vlib_main_loop+0x1d58 (inlined)
+                   32c58 vlib_main+0x1d58 (/lib/libvlib.so.24.06)
+                   8a569 thread0+0x29 (/lib/libvlib.so.24.06)
+                   94feb clib_calljmp+0x17 (/lib/libvppinfra.so.24.06)
+```
+
+到这里就一定要看代码了. 结合代码增加probe点:
+```shell
+# 结合源码, dispatch_pending_node是tx方向的
+perf probe -x /lib/libvlib.so.24.06 --add dispatch_pending_node
+# dispatch_node是主循环的核心check点, 这是个inline函数
+perf probe -x /lib/libvlib.so.24.06 --add dispatch_node
+
+# 从这里可以看出来, inline的dispatch_node函数也可以probe, 但存在多个.
+# 结合代码, 这个函数在vlib_main_or_worker_loop里面的多个地方被调用
+# perf的代码解析probe点的行号很准, 以函数的起始行为0起始
+perf probe --list
+  probe_af_packet_plugin:af_packet_device_class_tx_fn_hsw (on af_packet_device_class_tx_fn_hsw@plugins/af_packet/device.c in /lib/vpp_plugins/af_packet_plugin.so)
+  probe_af_packet_plugin:af_packet_input_node_fn_hsw (on af_packet_input_node_fn_hsw@src/plugins/af_packet/node.c in /lib/vpp_plugins/af_packet_plugin.so)
+  probe_libvlib:dispatch_node (on vlib_main_or_worker_loop:98@src/vpp-24.06/src/vlib/main.c in /lib/libvlib.so.24.06)
+  probe_libvlib:dispatch_node_1 (on vlib_main_or_worker_loop:122@src/vpp-24.06/src/vlib/main.c in /lib/libvlib.so.24.06)
+  probe_libvlib:dispatch_node_2 (on vlib_main_or_worker_loop:114@src/vpp-24.06/src/vlib/main.c in /lib/libvlib.so.24.06)
+  probe_libvlib:dispatch_node_3 (on vlib_main_or_worker_loop:141@src/vpp-24.06/src/vlib/main.c in /lib/libvlib.so.24.06)
+  probe_libvlib:dispatch_node_4 (on vlib_main_or_worker_loop:98@src/vpp-24.06/src/vlib/main.c in /lib/libvlib.so.24.06)
+  probe_libvlib:dispatch_node_5 (on vlib_main_or_worker_loop:114@src/vpp-24.06/src/vlib/main.c in /lib/libvlib.so.24.06)
+  probe_libvlib:dispatch_node_6 (on vlib_main_or_worker_loop:122@src/vpp-24.06/src/vlib/main.c in /lib/libvlib.so.24.06)
+  probe_libvlib:dispatch_node_7 (on vlib_main_or_worker_loop:141@src/vpp-24.06/src/vlib/main.c in /lib/libvlib.so.24.06)
+  probe_libvlib:dispatch_node_8 (on dispatch_pending_node:51@src/vpp-24.06/src/vlib/main.c in /lib/libvlib.so.24.06)
+
+perf record -e probe_af_packet_plugin:af_packet_input_node_fn* -e probe_af_packet_plugin:af_packet_device_class_tx_fn* -e probe_libvlib:dispatch_node* -R -p $(pidof vpp) -- sleep 30
+```
+
+观察结果, 以下部分总是重复
+```
+        vpp_main   360 [020] 20922246.032891:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.032898:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.032905:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.032913:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.042159:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042175:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042184:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042191:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042198:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042206:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042214:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042221:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042228:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042236:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042243:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042251:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042258:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042266:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042274:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042281:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042288:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042296:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042303:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042310:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042317:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042327:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042334:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042342:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042349:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042356:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042363:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042370:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042377:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042385:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [020] 20922246.042392:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+...
+当有packet来时:
+        vpp_main   360 [000] 20922248.528638:                           probe_libvlib:dispatch_node_3: (7f6f74bacbda)
+        vpp_main   360 [000] 20922248.528648:      probe_af_packet_plugin:af_packet_input_node_fn_hsw: (7f6f3473be20)
+        vpp_main   360 [000] 20922248.529029:                           probe_libvlib:dispatch_node_8: (7f6f74ba6a49)
+        vpp_main   360 [000] 20922248.529566:                           probe_libvlib:dispatch_node_8: (7f6f74ba6a49)
+        vpp_main   360 [000] 20922248.529731:                           probe_libvlib:dispatch_node_8: (7f6f74ba6a49)
+        vpp_main   360 [000] 20922248.529744:                           probe_libvlib:dispatch_node_8: (7f6f74ba6a49)
+        vpp_main   360 [000] 20922248.529750:                           probe_libvlib:dispatch_node_8: (7f6f74ba6a49)
+        vpp_main   360 [000] 20922248.529857:                           probe_libvlib:dispatch_node_8: (7f6f74ba6a49)
+        vpp_main   360 [000] 20922248.530092:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [000] 20922248.530110:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [000] 20922248.530120:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [000] 20922248.530128:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+```
+
+整理代码流程如下:
+```c
+// src/vlib/main.c
+vlib_main_or_worker_loop
+  /* Process pre-input nodes. */
+  vec_foreach (n, nm->nodes_by_type[VLIB_NODE_TYPE_PRE_INPUT])
+    //对应dispatch_node
+    dispatch_node(vm, n, VLIB_NODE_TYPE_PRE_INPUT, VLIB_NODE_STATE_POLLING)
+  if (clib_interrupt_is_any_pending (nm->pre_input_node_interrupts))
+    while (clib_interrupt_get_next_and_clear(nm->pre_input_node_interrupts))
+      n = vec_elt_at_index(nm->nodes_by_type[VLIB_NODE_TYPE_PRE_INPUT])
+      dispatch_node (vm, n, VLIB_NODE_TYPE_PRE_INPUT, VLIB_NODE_STATE_INTERRUPT)
+  
+  /* Next process input nodes. */
+  vec_foreach (n, nm->nodes_by_type[VLIB_NODE_TYPE_INPUT])
+    //对应dispatch_node_1
+    dispatch_node (vm, n, VLIB_NODE_TYPE_INPUT, VLIB_NODE_STATE_POLLING)
+  if (clib_interrupt_is_any_pending (nm->input_node_interrupts))
+    while (clib_interrupt_get_next_and_clear(nm->input_node_interrupts))
+      n = vec_elt_at_index(nm->nodes_by_type[VLIB_NODE_TYPE_INPUT])
+      //对应dispatch_node_3
+      dispatch_node (vm, n, VLIB_NODE_TYPE_INPUT,VLIB_NODE_STATE_INTERRUPT)
+  
+  //至此input node处理完毕
+  //在处理链的最后, 通常都有发送, 这些发送的packet会被放到pending node里
+  for (全部的pending node)
+    dispatch_pending_node (vm, i, cpu_time_now)
+
+  //更新统计
+```
+通过代码梳理, 发现vpp的main loop是polling和event结合的处理方式:
+* 先处理所有pre_input node
+  * 优先处理polling模式的
+  * 再处理interrupt模式的
+  * 一共4个这样的node
+* 再处理所有input node
+  * 优先处理polling模式的
+  * 再处理interrupt模式的
+  * 一共31个这样的node
+
+结合我们上面观察到的规律: 在处理polling的VLIB_NODE_TYPE_PRE_INPUT和polling的VLIB_NODE_TYPE_INPUT之间, 经常会有长时间的间隔, 比如这里的10ms:
+```
+vpp_main   360 [020] 20922246.032913:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+vpp_main   360 [020] 20922246.042159:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+```
+很可能在处理某个VLIB_NODE_TYPE_PRE_INPUT类型的node的时间太长导致到下个环节
+
+代码搜索`VLIB_NODE_TYPE_PRE_INPUT`, 正好是4个相关代码:  
+![](img/vpp2_ping_vpp3_code_VLIB_NODE_TYPE_PRE_INPUT.png)
+
+这里我们重点关注`src/vlib/unix`
+```
+static uword
+linux_epoll_input (vlib_main_t * vm,
+		   vlib_node_runtime_t * node, vlib_frame_t * frame)
+{
+  u32 thread_index = vlib_get_thread_index ();
+
+  if (thread_index == 0)
+    return linux_epoll_input_inline (vm, node, frame, 0);
+  else
+    return linux_epoll_input_inline (vm, node, frame, thread_index);
+}
+
+VLIB_REGISTER_NODE (linux_epoll_input_node,static) = {
+  .function = linux_epoll_input,
+  .type = VLIB_NODE_TYPE_PRE_INPUT,
+  .name = "unix-epoll-input",
+};
+```
+
+增加probe点:
+```shell
+perf probe -x /lib/libvlib.so --add linux_epoll_input
+# 得到 -e probe_libvlib:linux_epoll_input
+perf probe -x /lib/libvlib.so --add linux_epoll_input%return
+# 得到-e probe_libvlib:linux_epoll_input__return
+
+perf record -e probe_af_packet_plugin:af_packet_input_node_fn* -e probe_af_packet_plugin:af_packet_device_class_tx_fn* -e probe_libvlib:dispatch_node* -e probe_libvlib:linux_epoll_input
+-e probe_libvlib:linux_epoll_input__return -R -p $(pidof vpp) -- sleep 10
+```
+
+结果可以看到, linux_epoll_input处理时间不稳定, 从0.2ms到10ms都有.
+```
+        vpp_main   360 [020] 20922246.032891:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.032898:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.032905:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.032913:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.032921:                         probe_libvlib:linux_epoll_input: (7f6f74c03150)
+        vpp_main   360 [020] 20922246.042147:                 probe_libvlib:linux_epoll_input__return: (7f6f74c03150 <- 7f6f74bab7a0)
+        vpp_main   360 [020] 20922246.042159:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+
+        vpp_main   360 [020] 20922246.042417:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.042425:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.042432:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.042441:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.042448:                         probe_libvlib:linux_epoll_input: (7f6f74c03150)
+        vpp_main   360 [020] 20922246.042463:                 probe_libvlib:linux_epoll_input__return: (7f6f74c03150 <- 7f6f74bab7a0)
+        vpp_main   360 [020] 20922246.042465:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+
+        vpp_main   360 [020] 20922246.042694:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.042702:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.042713:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.042720:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [020] 20922246.042729:                         probe_libvlib:linux_epoll_input: (7f6f74c03150)
+        vpp_main   360 [020] 20922246.052133:                 probe_libvlib:linux_epoll_input__return: (7f6f74c03150 <- 7f6f74bab7a0)
+        vpp_main   360 [020] 20922246.052152:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+```
+
+结合vppctl里面的`show runtime`统计, 也能看到其统计值非常大, 远远大于其他node:  
+![](img/vpp_host_interace_20240807105459.png)
+这个统计值大概的增长速率是每秒10000次.
+
+这个`src/vlib/unix/`对应的是`/etc/vpp/startup.conf`里面的unix小节:
+```shell
+unix {
+  nodaemon
+  log /var/log/vpp/vpp.log
+  full-coredump
+  cli-listen /run/vpp/cli.sock
+  # gid vpp
+
+  ## run vpp in the interactive mode
+  # interactive
+
+  ## do not use colors in terminal output
+  # nocolor
+
+  ## do not display banner
+  # nobanner
+}
+```
+
+`linux_epoll_input`代码流程如下:
+```c
+linux_epoll_input
+  thread_index = vlib_get_thread_index ()
+  linux_epoll_input_inline (vm, node, frame, thread_index)
+    if main_thread
+      //如果配置了poll_sleep_usec, 则sleep poll_sleep_usec
+      //根据当前情况, 比如ticks_until_expiration, 计算epoll的time_out时间, 保证在0ms和10ms之间
+      //调用epoll_pwait等待. epoll_pwait比epoll_wait多了signal相关的配置
+      n_fds_ready = epoll_pwait (em->epoll_fd,em->epoll_events,vec_len (em->epoll_events),timeout_ms, &unblock_all_signals);
+    else //worker线程
+      //worker线程不负责epoll
+      Sleep for 100us at a time
+    //到这里epoll_pwait返回了, 要么是超时了, 要么有fd ready了
+    //调用相应的read/write函数.
+    for (e = em->epoll_events; e < em->epoll_events + n_fds_ready; e++)
+      if (e->events & EPOLLIN)
+        f->read_events++;
+        errors[n_errors] = f->read_function (f);
+      if (e->events & EPOLLOUT)
+        f->write_events++;
+        errors[n_errors] = f->write_function (f);
+```
+这里的关键在于`epoll_pwait`的超时时间. 
+
+用`show unix files`可以看到所有的fd
+```shell
+vpp# show unix files
+ FD Thread         Read        Write        Error File Name                        Description
+  7      0            0            0            0 socket:[1925382243]              stats segment listener /run/vpp/stats.sock
+  9      0            0            0            0 socket:[1925382247]              snort listener /run/vpp/snort.sock
+ 10      0            3            0            0 socket:[1925382250]              cli listener /run/vpp/cli.sock
+ 11      0            0            0            0 socket:[1925382253]              socksvr /run/vpp/api.sock
+ 13      0         2558            0            0 socket:[1925383353]              host-eth0 queue 0
+ 14      0          495            1            0 socket:[1946134394]              local:2
+```
+
+看起来`src/vlib/unix/`不仅负责cli的socket, 还负责所有其他的unix socket, 比如`host-eth0`
+
+继续增加probe epoll_pwait
+```shell
+# 增加syscalls:sys_enter_epoll_pwait
+# 增加syscalls:sys_exit_epoll_pwait
+# 这些是默认的probe点, 能显示入参和返回值
+perf record -e probe_af_packet_plugin:af_packet_input_node_fn* -e probe_af_packet_plugin:af_packet_device_class_tx_fn* -e probe_libvlib:dispatch_node* -e probe_libvlib:linux_epoll_input
+-e probe_libvlib:linux_epoll_input__return -e syscalls:sys_enter_epoll_pwait -e syscalls:sys_exit_epoll_pwait -R -p $(pidof vpp) -- sleep 10
+```
+得到结果:
+* 通常情况下, 即没有fd ready, 是下面这个样子的: epoll_pwait的入参timeout是8ms, 那么一定要等超时8ms后返回(21006166.827978 -> 21006166.836295), 这个超时时间是vpp根据ticks_until_expiration动态算出来的, 每次都不一样, 但基本在0到10ms之间:
+```shell
+        vpp_main   360 [003] 21006166.827892:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [003] 21006166.827909:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [003] 21006166.827925:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [003] 21006166.827939:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [003] 21006166.827960:                         probe_libvlib:linux_epoll_input: (7f6f74c03150)
+        vpp_main   360 [003] 21006166.827978:                          syscalls:sys_enter_epoll_pwait: epfd: 0x00000006, events: 0x7f6f3568f7d8, maxevents: 0x00000100, timeout: 0x00000008,>
+        vpp_main   360 [003] 21006166.836295:                           syscalls:sys_exit_epoll_pwait: 0x0
+        vpp_main   360 [003] 21006166.836332:                 probe_libvlib:linux_epoll_input__return: (7f6f74c03150 <- 7f6f74bab7a0)
+        vpp_main   360 [003] 21006166.836384:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+```
+* 当host-eth0这个socket有packet到来时, 是这样的: 发现`epoll_pwait`的设定的超时时间是6ms, 但只过了3.2ms就提前返回了, 返回值为1, 说明有一个fd已经ready了:
+```shell
+        vpp_main   360 [009] 21006170.532938:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [009] 21006170.532984:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [009] 21006170.532995:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [009] 21006170.533005:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [009] 21006170.533018:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [009] 21006170.533032:                         probe_libvlib:linux_epoll_input: (7f6f74c03150)
+        vpp_main   360 [009] 21006170.533047:                          syscalls:sys_enter_epoll_pwait: epfd: 0x00000006, events: 0x7f6f3568f7d8, maxevents: 0x00000100, timeout: 0x00000009,>
+        vpp_main   360 [000] 21006170.536231:                           syscalls:sys_exit_epoll_pwait: 0x1
+        vpp_main   360 [000] 21006170.536379:                 probe_libvlib:linux_epoll_input__return: (7f6f74c03150 <- 7f6f74bab7a0)
+        vpp_main   360 [000] 21006170.536390:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+...
+        vpp_main   360 [000] 21006170.536589:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [000] 21006170.536595:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+        vpp_main   360 [000] 21006170.536607:                           probe_libvlib:dispatch_node_3: (7f6f74bacbda)
+        vpp_main   360 [000] 21006170.536615:      probe_af_packet_plugin:af_packet_input_node_fn_hsw: (7f6f3473be20)
+        vpp_main   360 [000] 21006170.536795:                           probe_libvlib:dispatch_node_8: (7f6f74ba6a49)
+        vpp_main   360 [000] 21006170.537165:                           probe_libvlib:dispatch_node_8: (7f6f74ba6a49)
+```
+
+有时候在timeout是10ms的情况下, 真的在`epoll_pwait`里面等了9ms, 说明这9ms就是没有packet通知到用户态.
+```shell
+# 这里timeout是10ms, 但9ms返回
+        vpp_main   360 [002] 21006171.515827:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
+        vpp_main   360 [002] 21006171.515841:                         probe_libvlib:linux_epoll_input: (7f6f74c03150)
+        vpp_main   360 [002] 21006171.515854:                          syscalls:sys_enter_epoll_pwait: epfd: 0x00000006, events: 0x7f6f3568f7d8, maxevents: 0x00000100, timeout: 0x0000000a,>
+        vpp_main   360 [000] 21006171.524303:                           syscalls:sys_exit_epoll_pwait: 0x1
+        vpp_main   360 [000] 21006171.524346:                 probe_libvlib:linux_epoll_input__return: (7f6f74c03150 <- 7f6f74bab7a0)
+        vpp_main   360 [000] 21006171.524358:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
+...
+#随后af_packet_input_node_fn_hsw收报
+        vpp_main   360 [000] 21006171.524575:      probe_af_packet_plugin:af_packet_input_node_fn_hsw: (7f6f3473be20)
+```
+
+#### 结论
+* vpp的主loop, 被设计成了polling和event driven结合的方式
+  * 先处理所有`pre_input node`, 再处理所有`input node`
+  * 优先处理polling模式的, 再处理interrupt模式的
+* `unix_epoll_input`是vpp比较核心的组件, 属于`pre_input node`
+  * 主要负责cli/api等unix socket的polling
+  * 还负责其他socket的polling, 比如`host-eth0`
+  * `unix_epoll_input`只工作在main thread
+* 不打开多thread的情况下, 主loop会被`unix_epoll_input`影响
+  * `unix_epoll_input`会调用`epoll_pwait`并等待0到10ms, 在此期间主loop就是blocking的
+  * 因为`unix_epoll_input`在`pre_input node`阶段处理, 它会影响所有后面的`input node`
+  * `af-packet-input`在`input node`的interrupt阶段处理, 但它依赖`unix_epoll_input`的event触发这个"interrupt"
+* 综上
+  * 为了避免`unix_epoll_input`带来的超时等待的latency, 必须开启多thread模式. 配置在`/etc/vpp/startup.conf`的`cpu{main-core 1; workers 4}`小节
+  * 对于`host interface`来说, `unix_epoll_input`的超时等待影响不大. 因为当packet到达时, 会在超时前唤醒`unix_epoll_input`的`epoll_pwait`, 随后触发"中断"给`af-packet-input`
+
+看起来vpp处理`af-packet-input`的机制没有明显的缺陷, 那么为什么报文还是很久才能收到呢?
+
+#### 为什么epoll要这么久?
+上面我们分析到, `epoll_pwait`系统调用很久才返回, 结合`tcpdump`的时间戳, 明显发现`tcpdump`要远远早于`vpp`被通知. 那么同样的报文, 难道`tcpdump`要收的更及时一些吗?
+
+根据[这篇文章](https://mp.weixin.qq.com/s/LPLZoIr0cNTiA2-yRIhIUw)
+
+首先看error的统计, 果然有`af-packet-input` timed out error
+```shell
+# vppctl show error
+   Count                  Node                              Reason               Severity
+       138          af-packet-input                    timed out block             error
+       138          af-packet-input                  total received block          error
+         1             arp-reply             ARP request IP4 source address lear   info
+         1             ip4-glean                      ARP requests sent            info
+        76           ip4-icmp-input                      unknown type              error
+```
+
+在`af_packet`情况下, app用mmap和内核建立ring buffer, 或者叫queue
+* 这个buffer有多个block, 而一个block可以hold多个packet
+* app可以通过`/usr/include/linux/if_packet.h`的`tpacket_req3.tp_retire_blk_tov`去配置每个queue的超时时间, 单位为ms. vpp配置了1ms
+  * 只有TPACKET_V3有这个超时配置
+* 这个block size的大小为
+  * TPACKET_V3: 2048 * 32 = 64K
+  * TPACKET_V2:  2048 * 33 * 1024 大概64M
+
+```c
+#define AF_PACKET_DEFAULT_TX_FRAMES_PER_BLOCK 1024
+#define AF_PACKET_DEFAULT_TX_FRAME_SIZE	      (2048 * 33) // GSO packet of 64KB
+#define AF_PACKET_TX_BLOCK_NR		1
+
+#define AF_PACKET_DEFAULT_RX_FRAMES_PER_BLOCK_V2 1024
+#define AF_PACKET_DEFAULT_RX_FRAME_SIZE_V2	 (2048 * 33) // GSO packet of 64KB
+#define AF_PACKET_RX_BLOCK_NR_V2		 1
+
+#define AF_PACKET_DEFAULT_RX_FRAMES_PER_BLOCK 32
+#define AF_PACKET_DEFAULT_RX_FRAME_SIZE	      2048
+#define AF_PACKET_RX_BLOCK_NR		      160
+
+rx_queue->rx_req->req.tp_block_size = rx_frame_size * rx_frames_per_block;
+if (apif->version == TPACKET_V3)
+  rx_queue->rx_req->req3.tp_retire_blk_tov = 1; // 1 ms block timout
+```
+
+app使用epoll等待socket可用, 当报文到达时kernel时, 被拷贝进ring buffer
+v3版本使用block满触发通知, 而v2使用frame到达来触发通知.
+
+根据[内核文档packet_mmap](https://www.kernel.org/doc/Documentation/networking/packet_mmap.txt)的说法:
+
+```
+TPACKET_V2 --> TPACKET_V3:
+	- Flexible buffer implementation for RX_RING:
+		1. Blocks can be configured with non-static frame-size
+		2. Read/poll is at a block-level (as opposed to packet-level)
+		3. Added poll timeout to avoid indefinite user-space wait
+		   on idle links
+		4. Added user-configurable knobs:
+			4.1 block::timeout
+			4.2 tpkt_hdr::sk_rxhash
+	- RX Hash data available in user space
+	- TX_RING semantics are conceptually similar to TPACKET_V2;
+	  use tpacket3_hdr instead of tpacket2_hdr, and TPACKET3_HDRLEN
+	  instead of TPACKET2_HDRLEN. In the current implementation,
+	  the tp_next_offset field in the tpacket3_hdr MUST be set to
+	  zero, indicating that the ring does not hold variable sized frames.
+	  Packets with non-zero values of tp_next_offset will be dropped.
+```
+
+如果按照这个说法, 即使每个packet都等待默认1ms的block超时时间, 那ping的延迟也不该这么高呀?
+
+libpcap社区也有类似的[讨论](https://github.com/the-tcpdump-group/libpcap/issues/335)
+
+vpp上的[这个讨论](https://lists.fd.io/g/vpp-dev/topic/high_latency_while_pinging/101937209)说让试一下v2
+
+```
+vppctl create host-interface v2 name eth0
+vppctl set interface state host-eth0 up
+vppctl set interface ip address host-eth0 10.10.10.11/24
+
+vppctl create host-interface v2 name eth0
+vppctl set interface state host-eth0 up
+vppctl set interface ip address host-eth0 10.10.10.12/24
+
+vppctl ping 10.10.10.12
+```
+
+果然ping延迟小了很多!  
+![](img/vpp_host_interace_20240808112802.png)
+
+如果再加上`interval`, 延迟会更小!
+```shell
+# vppctl ping 10.10.10.12 interval 0.0005                  
+116 bytes from 10.10.10.12: icmp_seq=1 ttl=64 time=.6489 ms
+116 bytes from 10.10.10.12: icmp_seq=2 ttl=64 time=.1924 ms
+116 bytes from 10.10.10.12: icmp_seq=3 ttl=64 time=.1426 ms
+116 bytes from 10.10.10.12: icmp_seq=4 ttl=64 time=.0398 ms
+116 bytes from 10.10.10.12: icmp_seq=5 ttl=64 time=.1296 ms
+                                                           
+Statistics: 5 sent, 5 received, 0% packet loss
+```
+
+最后的结论:
+* 我更倾向于认为TPACKET_V3还是可以很及时的触发用户态收报的, libpcap也用它
+* vpp的ping延迟高的问题, 可能是vpp代码对TPACKET_V3的优化不够好?
 
 ## drop杂包
 多抓一会, 还会有drop的报文. 原因是作为`AF_PACKET`的raw socket, 这个socket可以接收任何从eth0来的报文.
 * packet 6和packet 7在步骤ip4-lookup被丢弃, 因为`172.17.255.255`是vpp所在的container的网段, 这个网段在vpp内部没有任何信息.
 * packet 8在ip6-input阶段被drop, 因为ip6-not-enabled
+
 ```shell
 Packet 6
 

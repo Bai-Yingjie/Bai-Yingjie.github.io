@@ -44,18 +44,18 @@ Most real world workloads are a mix type of the above 3 types, typically a serve
 The real job part is often compute and memory intensive, depends on how fast the requests come and wait in queues to be served.
 Therefor we will further focus on the "real job" part. It is usually about how fast the CPU processes the instructions and how fast the data can be retrieved from the cache and memory system. Below is the comparison of the CPU architecture that to be evaluated for json performance:
 
-Machine | X86-laptop | X86-workstation | MIPS
----- | ---- | ---- | ----| 
-CPU | Intel(R) Core(TM) i5-8350U | Intel(R) Xeon(R) E7- 8837 | Cavium Octeon III
-Freq | 1.70GHz base/ turbo to 3.58GHz | 2.67 GHz/ no turbo | 1.2GHz/ no turbo
-Issue width | 4 way | 4 way | 2 way
-Execution mode | Out of Order | Out of Order | In Order
-SIMD | AVX SSE | SSE | NONE
-Core # | 4 | 32 | 4
-L1 cache | dcache 32K, icache 32K | dcache 32K, icache 32K | dcache 32K, icache 78K
-L2 cache | 256K | 256K | 512k
-L3 cache | 6M | 24M | NA
-DDR Channel # | 1 uesd/ 2max | ? Typical 4 | 1
+| Machine        | X86-laptop                     | X86-workstation           | MIPS                   |
+| -------------- | ------------------------------ | ------------------------- | ---------------------- |
+| CPU            | Intel(R) Core(TM) i5-8350U     | Intel(R) Xeon(R) E7- 8837 | Cavium Octeon III      |
+| Freq           | 1.70GHz base/ turbo to 3.58GHz | 2.67 GHz/ no turbo        | 1.2GHz/ no turbo       |
+| Issue width    | 4 way                          | 4 way                     | 2 way                  |
+| Execution mode | Out of Order                   | Out of Order              | In Order               |
+| SIMD           | AVX SSE                        | SSE                       | NONE                   |
+| Core #         | 4                              | 32                        | 4                      |
+| L1 cache       | dcache 32K, icache 32K         | dcache 32K, icache 32K    | dcache 32K, icache 78K |
+| L2 cache       | 256K                           | 256K                      | 512k                   |
+| L3 cache       | 6M                             | 24M                       | NA                     |
+| DDR Channel #  | 1 uesd/ 2max                   | ? Typical 4               | 1                      |
 
 ## Take goroutine into account
 We want to focus on single thread single core app, then expands a bit more to multi-thread, however it is fairly hard in Golang to do so, because Go has goroutines.
@@ -115,7 +115,7 @@ When benchmarking, run the program enough times and count the time spent as the 
 
 ### compile and run the benchmark on MIPS board
 For C implementation, we need libjansson
-```sh
+```shell
 #install libjansson, we are on Gentoo linux, we use emerge
 #for X86, it is 'apt install libjansson-dev'
 emerge -av dev-libs/jansson
@@ -125,7 +125,7 @@ gcc -O2 json_load.c -ljansson
 time ./a.out test.json 100 > /dev/null
 ```
 For Go implementation, no other package needed.
-```sh
+```shell
 #compile
 go build json_load.go
 #run, Go run time will automatically starts several threads

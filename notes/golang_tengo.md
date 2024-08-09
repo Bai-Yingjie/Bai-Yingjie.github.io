@@ -3222,21 +3222,21 @@ https://github.com/d5/tengo
 * tengo似乎是个VM模式的解释语言.
 * 语法和go非常相近, 性能似乎不错:
 
-|| fib(35) | fibt(35) | Language (Type) |
-| ---- | ---- | ---- | ---- |
-| [**Tengo**](https://github.com/d5/tengo) | `2,931ms` | `4ms` | Tengo (VM) |
-| [go-lua](https://github.com/Shopify/go-lua) | `4,824ms` | `4ms` | Lua (VM) |
-| [GopherLua](https://github.com/yuin/gopher-lua) | `5,365ms` | `4ms` | Lua (VM) |
-| [goja](https://github.com/dop251/goja) | `5,533ms` | `5ms` | JavaScript (VM) |
-| [starlark-go](https://github.com/google/starlark-go) | `11,495ms` | `5ms` | Starlark (Interpreter) |
-| [Yaegi](https://github.com/containous/yaegi) | `15,645ms` | `12ms` | Yaegi (Interpreter) |
-| [gpython](https://github.com/go-python/gpython) | `16,322ms` | `5ms` | Python (Interpreter) |
-| [otto](https://github.com/robertkrimen/otto) | `73,093ms` | `10ms` | JavaScript (Interpreter) |
-| [Anko](https://github.com/mattn/anko) | `79,809ms` | `8ms` | Anko (Interpreter) |
-| - | - | - | - |
-| Go | `53ms` | `3ms` | Go (Native) |
-| Lua | `1,612ms` | `3ms` | Lua (Native) |
-| Python | `2,632ms` | `23ms` | Python 2 (Native) |
+|                                                      | fib(35)    | fibt(35) | Language (Type)          |
+| ---------------------------------------------------- | ---------- | -------- | ------------------------ |
+| [**Tengo**](https://github.com/d5/tengo)             | `2,931ms`  | `4ms`    | Tengo (VM)               |
+| [go-lua](https://github.com/Shopify/go-lua)          | `4,824ms`  | `4ms`    | Lua (VM)                 |
+| [GopherLua](https://github.com/yuin/gopher-lua)      | `5,365ms`  | `4ms`    | Lua (VM)                 |
+| [goja](https://github.com/dop251/goja)               | `5,533ms`  | `5ms`    | JavaScript (VM)          |
+| [starlark-go](https://github.com/google/starlark-go) | `11,495ms` | `5ms`    | Starlark (Interpreter)   |
+| [Yaegi](https://github.com/containous/yaegi)         | `15,645ms` | `12ms`   | Yaegi (Interpreter)      |
+| [gpython](https://github.com/go-python/gpython)      | `16,322ms` | `5ms`    | Python (Interpreter)     |
+| [otto](https://github.com/robertkrimen/otto)         | `73,093ms` | `10ms`   | JavaScript (Interpreter) |
+| [Anko](https://github.com/mattn/anko)                | `79,809ms` | `8ms`    | Anko (Interpreter)       |
+| -                                                    | -          | -        | -                        |
+| Go                                                   | `53ms`     | `3ms`    | Go (Native)              |
+| Lua                                                  | `1,612ms`  | `3ms`    | Lua (Native)             |
+| Python                                               | `2,632ms`  | `23ms`   | Python 2 (Native)        |
 
 * 编译出来size也很小, 4.8M.
 * 没有外部package引用, 没有cgo
@@ -3370,23 +3370,23 @@ func() { /*...*/ }    // function value
 
 ### tengo值类型和go类型
 
-| Tengo Type | Description | Equivalent Type in Go |
-| :-: | :-: | :-: |
-| int | signed 64-bit integer value | `int64` |
-| float | 64-bit floating point value | `float64` |
-| bool | boolean value | `bool` |
-| char | unicode character | `rune` |
-| string  | unicode string | `string` |
-| bytes  | byte array | `[]byte` |
-| error | [error](https://github.com/d5/tengo/blob/master/docs/tutorial.md#error-values) value | - |
-| time | time value | `time.Time` |
-| array | value array _(mutable)_ | `[]interface{}` |
-| immutable array | [immutable](https://github.com/d5/tengo/blob/master/docs/tutorial.md#immutable-values) array | - |
-| map | value map with string keys _(mutable)_ | `map[string]interface{}` |
-| immutable map | [immutable](https://github.com/d5/tengo/blob/master/docs/tutorial.md#immutable-values) map | - |
-| undefined | [undefined](https://github.com/d5/tengo/blob/master/docs/tutorial.md#undefined-values) value | - |
-| function | [function](https://github.com/d5/tengo/blob/master/docs/tutorial.md#function-values) value | - |
-| _user-defined_ | value of [user-defined types](https://github.com/d5/tengo/blob/master/docs/objects.md) | - |
+|   Tengo Type    |                                         Description                                          |  Equivalent Type in Go   |
+| :-------------: | :------------------------------------------------------------------------------------------: | :----------------------: |
+|       int       |                                 signed 64-bit integer value                                  |         `int64`          |
+|      float      |                                 64-bit floating point value                                  |        `float64`         |
+|      bool       |                                        boolean value                                         |          `bool`          |
+|      char       |                                      unicode character                                       |          `rune`          |
+|     string      |                                        unicode string                                        |         `string`         |
+|      bytes      |                                          byte array                                          |         `[]byte`         |
+|      error      |     [error](https://github.com/d5/tengo/blob/master/docs/tutorial.md#error-values) value     |            -             |
+|      time       |                                          time value                                          |       `time.Time`        |
+|      array      |                                   value array _(mutable)_                                    |     `[]interface{}`      |
+| immutable array | [immutable](https://github.com/d5/tengo/blob/master/docs/tutorial.md#immutable-values) array |            -             |
+|       map       |                            value map with string keys _(mutable)_                            | `map[string]interface{}` |
+|  immutable map  |  [immutable](https://github.com/d5/tengo/blob/master/docs/tutorial.md#immutable-values) map  |            -             |
+|    undefined    | [undefined](https://github.com/d5/tengo/blob/master/docs/tutorial.md#undefined-values) value |            -             |
+|    function     |  [function](https://github.com/d5/tengo/blob/master/docs/tutorial.md#function-values) value  |            -             |
+| _user-defined_  |    value of [user-defined types](https://github.com/d5/tengo/blob/master/docs/objects.md)    |            -             |
 
 ### error升级为一等类型
 ```go
@@ -4090,7 +4090,7 @@ for i := 0; i < concurrency; i++ {
 > Although it's not recommended, you can directly create and run the Tengo Compiler, and VM for yourself instead of using Scripts and Script Variables. It's a bit more involved as you have to manage the symbol tables and global variables between them, but, basically that's what Script and Script Variable is doing internally.
 
 用tengo默认的cli命令, 可以看到:
-```sh
+```shell
 $ cat test.tengo
 fmt := import("fmt")
 fmt.println("hello")
@@ -4116,13 +4116,13 @@ hello
 
 ### 官方例子
 编译成字节码后执行
-```sh
+```shell
 tengo -o myapp myapp.tengo   # compile 'myapp.tengo' into binary file 'myapp'
 tengo myapp                  # execute the compiled binary `myapp`
 ```
 加`#!/usr/local/bin/tengo`后脚本方式执行
 脚本必须以`.tengo`结尾. 似乎是这个cli程序的限制
-```sh
+```shell
 # copy tengo executable to a dir where PATH environment variable includes
 cp tengo /usr/local/bin/
 

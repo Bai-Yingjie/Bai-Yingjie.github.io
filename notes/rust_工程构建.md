@@ -20,7 +20,7 @@ https://www.cs.brandeis.edu/~cs146a/rust/doc-02-21-2015/book/crates-and-modules.
 
 cargo build会根据约定俗成的规则来编译bin或者lib, 大体上是通过分析目录结构, 和特殊的文件名, 比如`main.rs`, `lib.rs`, `mod.rs`等.
 
-```sh
+```shell
 $ tree .
 .
 ├── Cargo.lock

@@ -32,7 +32,7 @@
 
 # 用冒号初始化变量
 比如:  
-```sh
+```shell
 : "${LANG_CXX:=true}"
 : "${LANG_D:=true}"
 : "${LANG_OBJC:=true}"

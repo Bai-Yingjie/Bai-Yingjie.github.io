@@ -93,7 +93,7 @@ sudo perf ftrace -t function -a -T do_notify_resume  -- sleep 10
 trace-cmd也能完成上面两项任务, 比如`sudo trace-cmd stream -p function -l irqfd_inject sleep 10`和`sudo trace-cmd stream -p function_graph -g do_notify_resume sleep 1`
 
 perf ftrace目前只支持function和function_graph, 而trace-cmd还支持其他event联用, 比如:
-```sh
+```shell
 sudo trace-cmd record -p function -l irqfd_inject -e sched -T sleep 10 
 sudo trace-cmd record -p function_graph -g do_notify_resume -e sched -T sleep 1 
 sudo trace-cmd report --cpu 0 
@@ -144,7 +144,7 @@ sudo perf script | less
 
 为什么说`perf probe -L`准呢?  
 因为一般同一个源文件的符号相近, 如果看kernel所有符号`/proc/kallsyms`的话, 会发现它附近的符号都是在`entry.S`里面的.
-```sh
+```shell
 $ sudo cat /proc/kallsyms | grep -n3 work_pending
 58-ffff0000080834b4 t el0_error_naked            
 59-ffff0000080834d0 t ret_fast_syscall           

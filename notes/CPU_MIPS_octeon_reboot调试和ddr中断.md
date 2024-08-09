@@ -1,7 +1,7 @@
 reboot会概率卡死, 怀疑和cpld拉住复位有关.
 
 和pcie有关
-```sh
+```shell
 CIU_CIB_RST_RAW(0):0x107000000E400
 CIU_CIB_RST_EN(0):0x107000000E500
 /user # devmem 0x107000000E400 64
@@ -295,7 +295,7 @@ static irqreturn_t irq_default_primary_handler(int irq, void *dev_id)
 # ddr ecc中断寄存器
 ![](img/CPU_MIPS_octeon_reboot调试和ddr中断_20220924130452.png)  
 ![](img/CPU_MIPS_octeon_reboot调试和ddr中断_20220924130505.png)  
-```sh
+```shell
 # devmem 0x00011800880001E8 64
 0x0000000000000000
 # devmem 0x00011800880001F0 64

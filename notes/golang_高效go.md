@@ -127,7 +127,7 @@ const templateStr = `
 [具体的template用法在此](https://golang.org/pkg/html/template/)
 
 ## 运行
-```sh
+```shell
 #把上面的代码保存为goweb.go
 
 #代码格式化

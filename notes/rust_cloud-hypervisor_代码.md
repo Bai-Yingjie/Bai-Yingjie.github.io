@@ -55,7 +55,7 @@ cloud hypervisor是一种基于rust-vmm的VMM实现. 它和其他VMM的对比在
 ![](img/rust_cloud-hypervisor_code_walk.svg)  
 
 # 编译
-```sh
+```shell
 git clone https://github.com/cloud-hypervisor/cloud-hypervisor.git
 cd cloud-hypervisor/
 
@@ -89,7 +89,7 @@ cloud hypervisor以cli方式启动, 并启动http服务, 提供REST接口.
 如果cli传入vmm的参数, 则http服务会根据后面的REST api来创建VM
 
 ## 先用cli创建一个empty的实例, 默认1vCPU, 512M内存.
-```sh
+```shell
 $ ./target/debug/cloud-hypervisor --api-socket /tmp/cloud-hypervisor.sock
 Cloud Hypervisor Guest
     API server: /tmp/cloud-hypervisor.sock
@@ -101,7 +101,7 @@ Cloud Hypervisor Guest
 ```
 
 ## 随后用REST API来创建vm
-```sh
+```shell
 curl --unix-socket /tmp/cloud-hypervisor.sock -i \
      -X PUT 'http://localhost/api/v1/vm.create'  \
      -H 'Accept: application/json'               \
@@ -119,12 +119,12 @@ curl --unix-socket /tmp/cloud-hypervisor.sock -i \
 `struct VmConfig`用了rust的序列化框架`serde`, 把结构体直接映射成
 
 ## 然后boot这个实例
-```sh
+```shell
 curl --unix-socket /tmp/cloud-hypervisor.sock -i -X PUT 'http://localhost/api/v1/vm.boot'
 ```
 
 ## 其他命令
-```sh
+```shell
 # dump vm的config
 curl --unix-socket /tmp/cloud-hypervisor.sock -i \
      -X GET 'http://localhost/api/v1/vm.info' \
@@ -604,7 +604,7 @@ pub fn vm_create(
 # REST API流程实例
 ## 用户发REST API
 A user or operator sends an HTTP request to the Cloud Hypervisor [REST API](https://github.com/cloud-hypervisor/cloud-hypervisor/blob/main/docs/api.md#rest-api) in order to creates a virtual machine:
-```sh
+```shell
 #!/bin/bash
 
  curl --unix-socket /tmp/cloud-hypervisor.sock -i \

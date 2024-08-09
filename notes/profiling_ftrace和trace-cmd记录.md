@@ -540,7 +540,7 @@ sudo trace-cmd record -e all ls > /dev/null
 ```
 
 ### function tracer也能反映调用关系, 甚至更直观
-```sh
+```shell
 #使用function tracer, 也能反映调用关系, 甚至比function_graph还直观些.
 #加-F是指只trace "ls", 否则所有的调用都有.
 sudo trace-cmd record -F -p function -e sched_switch ls > /dev/null
@@ -893,7 +893,7 @@ else
 fi
 ```
 用trace-cmd更简单:
-```sh
+```shell
 sudo trace-cmd record -F -p function ls > /dev/null
 sudo trace-cmd report | less
 ```
@@ -974,7 +974,7 @@ echo 1 > tracing_on
 如果仅仅用动态probe来probe函数地址, 就太大材小用了. 动态probe的真正意义在于可以probe任何程序地址(函数名+偏移量), 这也是它比function trace更灵活的地方, 比如:
 
 ![](img/profiling_ftrace和trace-cmd记录_20221017191635.png)  
-```sh
+```shell
 echo "p:my_e1 update_min_vruntime+0x1c %x2:u64" > kprobe_events
 echo 1 > events/kprobes/my_e1/enable
 ```
@@ -1002,7 +1002,7 @@ kernel选项配了CONFIG_PROFILE_ANNOTATED_BRANCHES CONFIG_PROFILE_ALL_BRANCHES�
 `echo Hello World > trace_marker`
 * option目录下面可以用来配置功能
 
-```sh
+```shell
 [root@rep2-130 tracing]# for f in options/*; do printf "$f: "; cat $f; done | grep -v ": 0"
 options/annotate: 1
 options/context-info: 1

@@ -57,7 +57,7 @@ build:
         go build -a -installsuffix cgo -ldflags "-s -w ${LDFLAGS}" -o $(NAME)
 ```
 会展开成
-```sh
+```shell
 $ make build
 go build -a -installsuffix cgo -ldflags "-s -w -X github.com/micro/micro/v3/cmd.BuildDate=1624082635 -X github.com/micro/micro/v3/cmd.GitCommit=870f80e7 -X github.com/micro/micro/v3/cmd.GitTag=v3.3.0" -o micro
 ```
@@ -203,7 +203,7 @@ var (
 )
 ```
 比如我的实际例子:
-```sh
+```shell
 $ ls /tmp/micro/logs/
 api.log  auth.log  broker.log  config.log  events.log  network.log  proxy.log  registry.log  runtime.log  store.log
 ```
@@ -332,7 +332,7 @@ func Run(ctx *cli.Context) error {
 micro server
 ```
 看看当前环境
-```sh
+```shell
 $ micro env
 * local      127.0.0.1:8081         Local running micro server
   dev        proxy.m3o.dev          Cloud hosted development environment
@@ -341,7 +341,7 @@ $ micro env
 可能需要先运行`micro env set local`来建立local的环境
 
 ## 新建posts 服务
-```sh
+```shell
 $ micro new posts
 $ ls posts
 Dockerfile    Makefile    README.md    generate.go    go.mod        handler        main.go        proto
@@ -467,7 +467,7 @@ func NewPosts() *Posts {
 }
 ```
 现在run这个服务`micro run .`, 能得到初步的输出
-```sh
+```shell
 $ micro logs posts
 Starting [service] posts
 Server [grpc] Listening on [::]:53031
@@ -502,7 +502,7 @@ micro posts save --id=2 --title="Post two" --content="Second saved post"
 # 新版micro
 ## 依赖
 依赖protobuf go版本
-```sh
+```shell
 # Download latest proto releaes
 # https://github.com/protocolbuffers/protobuf/releases
 go get github.com/golang/protobuf/protoc-gen-go
@@ -510,7 +510,7 @@ go get github.com/micro/micro/v3/cmd/protoc-gen-micro
 ```
 ## 要先启动server, 再login上去
 用户名密码是admin和micro
-```sh
+```shell
 micro server
 
 $ micro login
@@ -520,7 +520,7 @@ Successfully logged in.
 ```
 
 ## micro server会默认启动一些服务
-```sh
+```shell
 $ micro services
 api
 auth
@@ -538,17 +538,17 @@ store
 ## run hello world service
 在`github.com/micro/services`库中, 有很多"官方"写好的服务
 比如我们要run个hello world
-```sh
+```shell
 micro run github.com/micro/services/helloworld
 ```
 现在可以看看状态
-```sh
+```shell
 $ micro status
 NAME        VERSION    SOURCE                    STATUS    BUILD    UPDATED    METADATA
 helloworld    latest    github.com/micro/services/helloworld    running    n/a    4s ago    owner=admin, group=micro
 ```
 看看log
-```sh
+```shell
 $ micro logs helloworld
 2020-10-06 17:52:21  file=service/service.go:195 level=info Starting [service] helloworld
 2020-10-06 17:52:21  file=grpc/grpc.go:902 level=info Server [grpc] Listening on [::]:33975
@@ -558,14 +558,14 @@ $ micro logs helloworld
 ## 调用hello world服务
 ### cli方式
 还是使用micro命令来调用, 格式是`micro [service] [method]`, 默认的method是`call`, 参数可以直接命令行传入
-```sh
+```shell
 $ micro helloworld --name=Jane
 {
     "msg": "Hello Jane"
 }
 ```
 查询这个服务能提供什么服务:
-```sh
+```shell
 $ micro helloworld --help
 NAME:
     micro helloworld
@@ -580,7 +580,7 @@ COMMANDS:
     call
 ```
 要看call命令的子命令call的使用
-```sh
+```shell
 $ micro helloworld call --help
 NAME:
     micro helloworld call
@@ -634,19 +634,19 @@ func main() {
 }
 ```
 run这个client:
-```sh
+```shell
 cd example && go mod init example
 micro run .
 ```
 run的时候不打印, 用status命令能看到
-```sh
+```shell
 $ micro status
 NAME        VERSION    SOURCE                                    STATUS    BUILD    UPDATED        METADATA
 example        latest    example.tar.gz                            running    n/a     2s ago        owner=admin, group=micro
 helloworld    latest    github.com/micro/services/helloworld    running    n/a        5m59s ago    owner=admin, group=micro
 ```
 看log能够得到其output
-```sh
+```shell
 $ micro logs example
 # some go build output here
 Response:  Hello John
@@ -659,7 +659,7 @@ Response:  Hello John
 ## 新建service
 ### 使用`micro new`新建个工程
 配套目录, proto定义, Makefile自动生成
-```sh
+```shell
 $ micro new helloworld
 Creating service helloworld
 
@@ -697,11 +697,11 @@ make proto
 ## storage服务
 没错, 永久存储被内置成了服务, 并配套了专有命令
 * 写key value对
-```sh
+```shell
 $ micro store write key1 value1
 ```
 * 读key
-```sh
+```shell
 $ micro store read key1
 val1
 $ micro store read -v key1
@@ -709,7 +709,7 @@ KEY    VALUE   EXPIRY
 key1   val1    None
 ```
 * pattern读, -p选项
-```sh
+```shell
 $ micro store read --prefix --verbose key
 KEY    VALUE   EXPIRY
 key1   val1    None
@@ -755,14 +755,14 @@ func main() {
 比如之前已经在run的example服务(实际是hello world的client), 改了代码要重新run, 用
 `micro update .` 使用最近代码重run
 也可以先kill, 再run
-```sh
+```shell
 micro kill example
 micro run .
 ```
 
 ## 内置config命令
 支持类似map式的set
-```sh
+```shell
 $ micro config set key val
 $ micro config get key
 val
@@ -984,7 +984,7 @@ protoc --proto_path=.:$GOPATH/src --go_out=. --micro_out=. proto/hello/hello.pro
 
 ## 安装依赖
 主要是安装protobuf
-```sh
+```shell
 # install protobuf
 brew install protobuf
 # install protoc-gen-go

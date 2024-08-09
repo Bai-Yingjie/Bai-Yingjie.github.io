@@ -674,7 +674,7 @@ func main() {
 ```
 
 # 减小go可执行文件的size
-```sh
+```shell
 #之前是15M, 带符号表
 go build -ldflags "-s -w" main.go
 #之后是7.3M, 不带符号表
@@ -685,7 +685,7 @@ go tool link -h
 ```
 不影响panic的打印信息
 比如, 在hello.go加入一行panic()
-```sh
+```shell
 # 不要符号表, 不要DWARF
 go build -ldflags "-s -w" hello.go
 
@@ -701,7 +701,7 @@ main.main()
 注: 如果是gccgo, strip符号表会导致panic的打印没有调用栈信息.
 
 # go doc看说明
-```sh
+```shell
 #格式化输出的
 go doc fmt
 #命令行解析的
@@ -711,7 +711,7 @@ go doc expvar
 ```
 # go内置pacakge
 go的内置package在toolchain的src目录下, 都是go文件.
-```sh
+```shell
 yingjieb@yingjieb-VirtualBox ~/repo/gorepo/go/src
 Linux Mint 19.1 Tessa $ ls
 all.bash archive builtin clean.rc container debug flag html io make.bat mime os race.bat run.bat strconv testdata unicode
@@ -789,7 +789,7 @@ func TestReverse(t *testing.T) {
 ```
 
 测试时, 
-```sh
+```shell
 #从任意地方运行
 go test github.com/user/stringutil
 #如果从这个package下面运行
@@ -798,7 +798,7 @@ go test
 
 # 远程包
 有的包在github上, 用`go get`命令可以从远程repo下载 编译 安装指定包.
-```sh
+```shell
 $ go get github.com/golang/example/hello
 $ $GOPATH/bin/hello
 Hello, Go examples!
@@ -842,7 +842,7 @@ src/
     ... (many more repositories and packages omitted) ...
 ```
 * `$GOPATH`就是这个workspace
-```sh
+```shell
 export PATH=$PATH:$(go env GOPATH)/bin
 export GOPATH=$(go env GOPATH)
 ```
@@ -889,7 +889,7 @@ func main() {
    fmt.Println("Hello, World!")
 }
 ```
-```sh
+```shell
 #运行
 go run hello.go 
 #只编译

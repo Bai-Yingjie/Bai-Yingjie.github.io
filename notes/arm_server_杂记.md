@@ -41,12 +41,12 @@
   - [rtc时间](#rtc时间)
   - [SATA slow sync问题](#sata-slow-sync问题)
   - [使用native gcc的变量设置](#使用native-gcc的变量设置)
-  - [smp_affinity和rps_cpus](#smp_affinity和rps_cpus)
+  - [smp\_affinity和rps\_cpus](#smp_affinity和rps_cpus)
   - [mysql调试方法论之各种调试和检测命令](#mysql调试方法论之各种调试和检测命令)
   - [mysql性能提升之网口中断](#mysql性能提升之网口中断)
   - [解决sync flood问题](#解决sync-flood问题)
   - [mysql调优之瓶颈在哪? 理论](#mysql调优之瓶颈在哪-理论)
-  - [mysql调优之innodb_spin_wait_delay = 30](#mysql调优之innodb_spin_wait_delay--30)
+  - [mysql调优之innodb\_spin\_wait\_delay = 30](#mysql调优之innodb_spin_wait_delay--30)
   - [memcpy和strcpy](#memcpy和strcpy)
   - [perf调试单进程, 调用栈?](#perf调试单进程-调用栈)
   - [numactl](#numactl)
@@ -67,8 +67,8 @@
   - [写mac地址](#写mac地址)
   - [编译gcc](#编译gcc)
   - [96个核的异常问题](#96个核的异常问题)
-  - [关于rps_cpus](#关于rps_cpus)
-  - [xps_cpu](#xps_cpu)
+  - [关于rps\_cpus](#关于rps_cpus)
+  - [xps\_cpu](#xps_cpu)
   - [网络时间](#网络时间)
   - [irq绑定](#irq绑定)
   - [tubo错误分析](#tubo错误分析)
@@ -129,7 +129,7 @@ unsigned long long get_ticks(void)
 
 
 ##  io优化
-```sh
+```shell
 echo 150 > /sys/block/sda/device/timeout
 echo deadline > /sys/block/sdb/queue/scheduler
 echo deadline > /sys/block/sda/queue/scheduler

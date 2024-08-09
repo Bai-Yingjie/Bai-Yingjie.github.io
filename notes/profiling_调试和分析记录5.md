@@ -51,7 +51,7 @@ rootfs是其他系统编译出来的, 32bit模式, 基于busybox.
 ## 问题现象
 kernel启动后进入rootfs的`/init`->`/sbin/init`, 启动失败, 进入sh循环.
 `date`命令显示系统时间不对, `strace date`发现如下错误:
-```sh
+```shell
 clock_gettime(CLOCK_REALTIME, 0xffaf59ec) = -1 ENOSYS (Function not implemented)
 ```
 
@@ -77,7 +77,7 @@ vdso的知识详见下面的补充知识小节.
 * 用`/proc/kallsyms`
 
 我们这里使用后者, 通常的kernel都会打开kallsyms选项:
-```sh
+```shell
 # cat /proc/kallsyms | grep clock_gettime
 ffffffff811823f0 W __x64_sys_clock_gettime32
 ffffffff81182410 W __ia32_sys_clock_gettime32
@@ -88,7 +88,7 @@ ffffffff81883370 t ptp_clock_gettime
 ffffffff81885ca0 t ptp_vclock_gettime
 ```
 再看看`utimensat`
-```sh
+```shell
 # cat /proc/kallsyms | grep utimensat
 ffffffff81182630 W __x64_sys_utimensat_time32
 ffffffff81182650 W __ia32_sys_utimensat_time32
@@ -101,7 +101,7 @@ ffffffff813b5b00 T __ia32_sys_utimensat
 现在我们知道了要观察的函数, 下面就用ftrace回答这两个问题:
 #### 谁调用了目标函数?
 具体用法这里就不详细解释了, 直接给出命令:
-```sh
+```shell
 # 因为我是在init非常初始阶段, 需要手动mount proc和sysfs
 /bin/busybox mount -t proc none /proc
 /bin/busybox mount -t sysfs none /sys
@@ -122,7 +122,7 @@ echo 0 > tracing_on
 ```
 
 为了比较, 我执行了64位的date程序(`/bin/busybox.alpine date`时间是正确的), 结果如下:
-```sh
+```shell
          busybox-250     [000] ..... 21201.311547: __ia32_sys_clock_gettime32 <-__do_fast_syscall_32
          busybox-250     [000] ..... 21201.311619: <stack trace>
  => __ia32_sys_clock_gettime32
@@ -139,7 +139,7 @@ echo 0 > tracing_on
 ```
 
 #### 目标函数又调用了什么其他函数?
-```sh
+```shell
 cd /sys/kernel/debug/tracing
 echo 0 > tracing_on
 echo *clock_gettime* > set_graph_function
@@ -151,7 +151,7 @@ echo 0 > tracing_on
 cat trace
 ```
 结果:
-```sh
+```shell
 /sys/kernel/debug/tracing # cat trace
 # tracer: function_graph
 #
@@ -186,7 +186,7 @@ cat trace
 
 #### 还有哪些函数可能有问题
 以`__ia32`开头, 以`32`结尾的Weak函数:
-```sh
+```shell
 /sys/kernel/debug/tracing # cat /proc/kallsyms | grep __ia32 | grep "32$"
 ffffffff8117ee90 W __ia32_sys_io_getevents_time32
 ffffffff8117ef10 W __ia32_sys_io_pgetevents_time32

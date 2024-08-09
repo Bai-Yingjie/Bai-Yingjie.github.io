@@ -7,7 +7,7 @@
 
 # uboot调试
 ## setenv
-```sh
+```shell
 #增加reboot=0
 setenv kernel_extra_args config_overlay=reboot=0
 
@@ -125,7 +125,7 @@ Device  Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id T
 (0x400000 + 63) * 512 = 2147515904
 
 在pc上mount这个分区
-```sh
+```shell
 #按照计算好的分区offset来mount
 sudo mount -o offset=2147515904 /dev/sdb mnt
 #能看到文件

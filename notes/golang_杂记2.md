@@ -476,28 +476,28 @@ readelf -a
 
 注: 
 
-|内存\场景 | 单daemon KB | daemon + master gre|
-|----|----|----|
-|.text RSS | 2388 | 2388 + 2516
-|.text **PSS** | 2388 | 1194 + 1322
-|.rodata RSS | 2024 | 2088 + 2152
-|.rodata **PSS** | 2024 | 1044 + 1108
-|.go.buildinfo RSS | 144 | 144 + 144
-|.go.buildinfo PSS | 144 | 96 + 96
-|.bss RSS | 84 | 84 + 72
-|.bss PSS | 84 | 84 + 72
-|栈? RSS | 2244 | 2352 + 2772
-|栈? PSS | 2244 | 2352 + 2772
-|堆? RSS | 1504 | 1576 + 320
-|堆? PSS | 1504 | 1576 + 320
-|n个routine栈 RSS | 0/4 | 0/4 + 0/4
-|n个routine栈 PSS | 0/4 | 0/4 + 0/4
-|系统栈1? RSS | 68 | 68 + 68
-|系统栈1? PSS | 68 | 68 + 68
-|系统栈2? RSS | 12 | 12 + 12
-|系统栈2? PSS | 12 | 12 + 12
-|vdso RSS | 4 | 4 + 4
-|vdso **PSS** | 0 | 0 + 0
+| 内存\场景         | 单daemon KB | daemon + master gre |
+| ----------------- | ----------- | ------------------- |
+| .text RSS         | 2388        | 2388 + 2516         |
+| .text **PSS**     | 2388        | 1194 + 1322         |
+| .rodata RSS       | 2024        | 2088 + 2152         |
+| .rodata **PSS**   | 2024        | 1044 + 1108         |
+| .go.buildinfo RSS | 144         | 144 + 144           |
+| .go.buildinfo PSS | 144         | 96 + 96             |
+| .bss RSS          | 84          | 84 + 72             |
+| .bss PSS          | 84          | 84 + 72             |
+| 栈? RSS           | 2244        | 2352 + 2772         |
+| 栈? PSS           | 2244        | 2352 + 2772         |
+| 堆? RSS           | 1504        | 1576 + 320          |
+| 堆? PSS           | 1504        | 1576 + 320          |
+| n个routine栈 RSS  | 0/4         | 0/4 + 0/4           |
+| n个routine栈 PSS  | 0/4         | 0/4 + 0/4           |
+| 系统栈1? RSS      | 68          | 68 + 68             |
+| 系统栈1? PSS      | 68          | 68 + 68             |
+| 系统栈2? RSS      | 12          | 12 + 12             |
+| 系统栈2? PSS      | 12          | 12 + 12             |
+| vdso RSS          | 4           | 4 + 4               |
+| vdso **PSS**      | 0           | 0 + 0               |
 
 结论: 同一个go的binary, 多次单独启动的情况下: 
 * 代码段.text是共享的
@@ -2168,7 +2168,7 @@ func main() {
 
 执行“go generate”后，输出如下：
 
-```sh
+```shell
 $ go generate
 hello
 main func
