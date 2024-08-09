@@ -12,7 +12,7 @@
 - [安装rpm](#安装rpm)
 
 # 安装新版本GCC
-```sh
+```shell
 sudo yum install centos-release-scl-rh 
 sudo yum-config-manager --enable centos-sclo-rh-testing 
 #把centos-sclo-rh disable, 把centos-sclo-rh-testing enable 
@@ -60,7 +60,7 @@ rpm -qa | grep kernel
 
 # 查看rpm包含的文件
 libfdt包括了操作device tree的库函数, 以rpm包的方式被centos收录发行.
-```sh
+```shell
 $ rpm -ql libfdt-devel
 /usr/include/fdt.h
 /usr/include/libfdt.h
@@ -94,7 +94,7 @@ sudo yum groupinstall "Virtualization*"
 
 # 修改yum源
 把everything iso mount到/mnt/centos
-```sh
+```shell
 sudo mv CentOS-Base.repo CentOS-Base.repo.bak
 [qdt@qdt-shlab-awsdp1 yum.repos.d]$ cat CentOS-Local.repo
 [local]

@@ -169,7 +169,7 @@ if log_enabled!(Level::Info) {
 }
 ```
 使用时:
-```sh
+```shell
 $ RUST_LOG=debug ./main
 [2017-11-09T02:12:24Z DEBUG main] this is a debug message
 [2017-11-09T02:12:24Z ERROR main] this is printed by default
@@ -177,7 +177,7 @@ $ RUST_LOG=debug ./main
 ```
 
 可以按module来指定level
-```sh
+```shell
 $ RUST_LOG=main=info ./main
 [2017-11-09T02:12:24Z ERROR main] this is printed by default
 [2017-11-09T02:12:24Z INFO main] the answer was: 12

@@ -54,7 +54,7 @@ make linux-rebuild
 ```
 
 # 重编linux
-```sh
+```shell
 cd buildroot/output/build/linux-custom
 rm -f .stamp_*
 
@@ -67,7 +67,7 @@ make linux-rebuild
 ```
 
 # OCTEON SDK的kernelconfig
-```sh
+```shell
 cd /repo/yingjieb/dl/caviumsdk5.1/usr/local/Cavium_Networks/OCTEON-SDK/linux/kernel
 #用SDK自带的defconfig
 cp kernel.config linux/.config

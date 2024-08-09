@@ -38,7 +38,7 @@ Go语言版本:
 ## 编译和运行
 在x86环境下
 ### C
-```sh
+```shell
 #先安装libjansson库
 #x86 ubuntu
 apt install libjansson-dev
@@ -51,7 +51,7 @@ gcc -O2 json_load.c -ljansson
 time ./a.out test.json 100 > /dev/null
 ```
 ### Go
-```sh
+```shell
 #编译
 go build json_load.go
 #运行, 默认多进程
@@ -112,7 +112,7 @@ taskset -c 1 sh -c "time ./json_load -fileName test.json -loopNum 100 > /dev/nul
 
 # go工具链test代码
 ## encoding/json
-```sh
+```shell
 go tool dist test -list | grep -i json
 cd ~/repo/gorepo/go/src/encoding/json
 go test -c -o jsontest

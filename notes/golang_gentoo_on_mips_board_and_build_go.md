@@ -14,7 +14,7 @@ http://distfiles.gentoo.org/experimental/mips/stages/mips64/2014
 * git clone portage库
 https://anongit.gentoo.org/git/repo/gentoo.git
 
-```sh
+```shell
 #在mint虚拟机上, 打开相关服务和转发
 sudo sysctl -w net.ipv4.ip_forward=1
 sudo iptables -t nat -A POSTROUTING -j MASQUERADE -s 192.168.2.12/32 -o enp0s10
@@ -34,7 +34,7 @@ cp -a gentoo.git mipsroot/usr/portage
 cd mipsroot
 ```
 板子起到linux, 配好网络
-```sh
+```shell
 #板子上操作, 192.168.2.11是mint的ip, 直连的
 ifconfig agl0 192.168.2.12 up
 ifconfig eth-mgnt 192.168.2.12 up
@@ -74,7 +74,7 @@ umount remote
 
 
 # chroot
-```sh
+```shell
 #最好ssh到板子操作
 ssh root@192.168.2.12
 chroot remote /bin/bash
@@ -106,7 +106,7 @@ taskset -c 1,2,3 emerge -avtuDN @world
 
 
 ## 更新Gentoo
-```sh
+```shell
 #etc/portage/make.conf
 GENTOO_MIRRORS="http://distfiles.gentoo.org/ http://bbgentoo.ilb.ru/"
 ```
@@ -124,21 +124,21 @@ go的toolchain编译包括两步:
 
 ## 先在x86上build bootstrap for mips
 在mint机器上, 先编译go1.4
-```sh
+```shell
 git clone https://go.googlesource.com/go $HOME/go1.4
 cd $HOME/go1.4/src
 git checkout release-branch.go1.4
 ./make.bash
 ```
 再编译go1.12, 这个版本支持生成cross toolchain
-```sh
+```shell
 git clone https://go.googlesource.com/go $HOME/go
 cd $HOME/go/src
 git checkout release-branch.go1.12
 env GOROOT_BOOTSTRAP=$HOME/go1.4 ./make.bash
 ```
 用go1.12编译target上的boot strap toolchain
-```sh
+```shell
 #还是go1.12目录
 cd $HOME/go/src
 
@@ -150,7 +150,7 @@ go-linux-mips64-bootstrap.tbz
 ## 后在板子上编译go toolchain
 拷贝`go-linux-mips64-bootstrap.tbz`到板子上, 并解压
 注意: cgo默认开启, 但需要板子上有gcc工具链, 以支持cgo
-```sh
+```shell
 #正常应该git clone https://go.googlesource.com/go
 #但我是在板子上, 没有git; 所以直接用nfs共享的
 #cd到go 1.12源码go-mips64
@@ -204,7 +204,7 @@ func main() {
 }
 ```
 # go env
-```sh
+```shell
 Linux Mint 19.1 Tessa # ls
 bin go-linux-mips64 go-linux-mips64-bootstrap go-linux-mips64-bootstrap.tbz src
 

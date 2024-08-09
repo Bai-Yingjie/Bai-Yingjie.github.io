@@ -159,7 +159,7 @@ echo after comment
 # 带超时的重试命令
 用timeout和until的组合:  
 比如下面的dockerfile里面的RUN语句, code-server可能会在装extension的时候卡住, 用timeout来强制2m退出, 并用until循环来重试.
-```sh
+```shell
 RUN until timeout 2m code-server \
     --user-data-dir /usr/local/share/code-server \
     --install-extension golang.go \
@@ -175,7 +175,7 @@ RUN until timeout 2m code-server \
 
 # Here Document的用法: 一行输入
 用`<<< 输入`可以达到`bash -c`一样的效果
-```sh
+```shell
 $ bash -c "echo hello"
 hello
 
@@ -183,7 +183,7 @@ $ bash <<< "echo hello"
 hello
 ```
 令一个例子是
-```sh
+```shell
 $ ./gshell <<< 'fmt:=import("fmt"); fmt.println("hello")'
 hello
 ```
@@ -192,7 +192,7 @@ hello
 # if判断和&&的区别
 返回值不同  
 比如
-```sh
+```shell
 if true; then echo 111; fi
 #结果为 111
 echo $?
@@ -205,7 +205,7 @@ echo $?
 ```
 
 而`&&`就不一样
-```sh
+```shell
 false
 echo $?
 #直接返回 1
@@ -228,7 +228,7 @@ echo $?
 
 # bash的双中括号
 help里面说的很清楚, `[[ expression ]]`的语义更明确, 
-```sh
+```shell
 help [[
 [[ ... ]]: [[ expression ]]
 是test的扩展语法, 支持
@@ -241,7 +241,7 @@ EXPR1 || EXPR2
 当使用`=~`时, 右侧的string是正则表达式.
 
 ## 举例
-```sh
+```shell
 #!/bin/bash
 
 # Only continue for 'develop' or 'release/*' branches
@@ -254,14 +254,14 @@ else
     echo "BRANCH '$BRANCH' DOES NOT MATCH BRANCH_REGEX '$BRANCH_REGEX'"
 fi
 ```
-```sh
+```shell
 [[ $TEST =~ ^[[:alnum:][:blank:][:punct:]]+$ ]]
 ```
 
 参考: https://stackoverflow.com/questions/18709962/regex-matching-in-a-bash-if-statement/18710850
 
 # date举例
-```sh
+```shell
 #给文件名用
 $ date +"%Y%m%d%H%M%S"
 20201020115510
@@ -271,7 +271,7 @@ date +"%F %H:%M:%S.%N"
 ```
 
 # 网络脚本直接执行
-```sh
+```shell
 curl -s http://10.182.105.179:8088/godevtools/godevtool | bash -s -h
 curl -s http://10.182.105.179:8088/godevtools/godevtool | bash -s vscode start
 ```
@@ -280,18 +280,18 @@ curl -s http://10.182.105.179:8088/godevtools/godevtool | bash -s vscode start
     * 如果加-O就是保存同名文件到本地
 * bash -s可以加参数 [如何通过pipe给bash传参数](https://stackoverflow.com/questions/4642915/passing-parameters-to-bash-when-executing-a-script-fetched-by-curl)
 
-```sh
+```shell
 -s        If the -s option is present, or if no arguments remain after option processing, then commands are read from the standard input.  This option  allows  the  positional parameters to be set when invoking an interactive shell.
 ```
 
 # ulimit和prlimit
 ulimit可以配置当前shell的资源限制, 一般用:
-```sh
+```shell
 ulimit -n 限制打开文件的个数
 ```
 
 prlimit是个命令, 对应同名的系统调用, 可以动态配置一个pid的资源
-```sh
+```shell
 prlimit --pid 13134 --rss --nofile=1024:4095
     Display the limits of the RSS, and set the soft and hard limits for the number of open files to 1024 and 4095, respectively.
     
@@ -302,7 +302,7 @@ prlimit --cpu=10 sort -u hugefile
     Set both the soft and hard CPU time limit to ten seconds and run 'sort'.
 ```
 显示当前进程(即执行prlimit进程的进程)的limit
-```sh
+```shell
 $ prlimit --pid $$
 RESOURCE   DESCRIPTION                             SOFT      HARD UNITS
 AS         address space limit                unlimited unlimited bytes
@@ -324,7 +324,7 @@ STACK      max stack size                       8388608 unlimited bytes
 ```
 
 # curl下载
-```sh
+```shell
 curl -o go.tar.gz -L https://dl.google.com/go/go$GOLANG_VERSION.linux-amd64.tar.gz
 
 # -L的意思是让curl follow redirection
@@ -332,7 +332,7 @@ curl -o go.tar.gz -L https://dl.google.com/go/go$GOLANG_VERSION.linux-amd64.tar.
 
 # 暂停和继续一个进程的执行, 不用gdb
 我在前台跑了topid程序
-```sh
+```shell
 #前台运行
 ./topid
 
@@ -351,7 +351,7 @@ kill -SIGCONT `pidof topid`
 
 
 ## 补充发送其他信号的行为
-```sh
+```shell
 kill -SIGTRAP `pidof topid` : go程序退出, 打印调用栈
 kill -SIGQUIT `pidof topid` : 同上
 kill -SIGSEGV `pidof topid` : 同上, 就像程序本身segment fault一样
@@ -359,12 +359,12 @@ kill -SIGTERM `pidof topid` : 没有打印, 直接退出
 ```
 
 # 查看一个进程的子进程
-```sh
+```shell
 cat /proc/pid/task/tid/children
 ```
 
 # 跳过前几行
-```sh
+```shell
 #这里的tail -n +2就是跳过n-1行, 也就是跳过1行
 (echo time Goroutine Thread numGC heapSys heapIdle heapInuse heapReleased && tail -n +2 vonuerr.log | awk '{printf("%s %s %s %s %s %s %s %s\n", $3,$5,$7,$9,$13,$17,$19,$21)}') > go.csv
 ```
@@ -380,7 +380,7 @@ cat /proc/pid/task/tid/children
 
 # shell单引号和双引号的重要区别
 双引号展开, 单引号不展开
-```sh
+```shell
 #单引号
 cmd='echo date: $(date +%s%6N)'
 #执行有变化
@@ -423,7 +423,7 @@ musl        musl-dbg:v123 musl-dev
 ```
 
 # 保存多行输出到shell变量
-```sh
+```shell
 #多行的输出可以保存到变量
 v1=$(ethtool -S enP5p1s0 | grep packets | grep -v ": 0" && echo date: $(date +%s%6N))
 #但在使用的时候, 要加""来保存换行
@@ -433,14 +433,14 @@ echo $v1
 ```
 
 # pstree pgrep and ps
-```sh
+```shell
 $ pstree `pgrep qemu`
 qemu-system-aar───9*[{qemu-system-aar}]
 $ ps -eLo tid,pid,ppid,psr,stat,%cpu,rss,cmd --sort=-%cpu
 ```
 
 # rsync 实例
-```sh
+```shell
 #第一个是用ssh传输
 rsync -av --progress -e ssh DATA white@192.168.2.3:/var/services/homes/white/shl
 rsync -av --progress  white@192.168.2.3:/var/services/homes/white/shl
@@ -448,7 +448,7 @@ rsync -av --progress  white@192.168.2.3:/var/services/homes/white/shl
 
 # sar 汇总
 `watch -dn1 'sar -Bwqr -dp -n DEV -u ALL 1 1 | grep Average'`
-```sh
+```shell
 sar -Bwqr -dp -n DEV -u ALL 1
 
 sar -qr -dp -n DEV --human -u ALL -P ALL 1 1
@@ -464,35 +464,35 @@ sar -qr -dp -n DEV --human -u ALL -P ALL 1 1
 后面是interval和count
 
 # 从变量read
-```sh
+```shell
 # Split the TARGET variable into three elements separated by hyphens
 IFS=- read -r NAME ARCH SUFFIX <<< "${TARGET}"
 ```
 # out put htop
-```sh
+```shell
 yingjieb@yingjieb-gv ~/tmp
 $ echo q | htop | aha --black --line-fix >> htop.html
 ```
 
 # 为什么&后面加分号不行?
-```sh
+```shell
 $ for i in {1..10};do echo $i &; done
 -bash: syntax error near unexpected token `;'
 ```
 不加分号是可以的
-```sh
+```shell
 $ for i in {1..10};do echo $i & done
 ```
 因为&符号表示前面的命令后台执行, 本身就隐含了分隔符的作用. 而此时再加一个分隔符, 但shell认为前面并没有命令, 所以报错.
 
 # sort按多列排序
-```sh
+```shell
 #先按第三列排序, 相同再按第二列排序, 最后按第一列
 sort -k3,3 -k2,2 -k1
 ```
 
 # shell注释一块代码
-```sh
+```shell
 #!/bin/bash
 echo before comment
 : <<'END'
@@ -507,14 +507,14 @@ echo after comment
 
 # 默认变量值
 关键是:-
-```sh
+```shell
 interface="$1"
 interrupt_name=${interface:-"eth3"}"-TxRx-"
 ```
 如果interface不为空, 就用interface, 否则用默认的eth3
 
 也可以从位置参数获取变量值, 如果用户没有传入位置参数, 则使用默认值.比如:
-```sh
+```shell
 work_dir=`pwd`
 dev=${1:-/dev/sdc}
 ubuntu_size=${2:-500G}
@@ -522,12 +522,12 @@ tar_fedora=${3:-fedora-with-native-kernel-repo-gcc-update-to-20150423.tar.bz2}
 ```
 
 # mtr 一个更好用的traceroute
-```sh
+```shell
 mtr -n baidu.com
 ```
 
 # ssh config 快捷登录
-```sh
+```shell
 man ssh_config
 
 cat ~/.ssh/config
@@ -549,7 +549,7 @@ Host aliserver
 
 # 给log文件加时间戳
 用ts命令
-```sh
+```shell
 apt install moreutils
 $ ping www.baidu.com | ts
 Dec 24 12:59:04 PING www.a.shifen.com (111.13.100.91) 56(84) bytes of data.
@@ -567,27 +567,27 @@ Dec 24 12:59:13 64 bytes from 111.13.100.91: icmp_seq=10 ttl=54 time=54.2 ms
 # cp最好加-a
 比如当前目录下, *.lua都是链接文件
 普通cp会follow这个链接, 拷真正的文件
-```sh
+```shell
 cp *.lua /tmp/tmp/
 ```
 
 -a选项会保留软链接
-```sh
+```shell
 cp -a *.lua /tmp/tmp/
 ```
 
 # 如何查丢包
 接口侧
-```sh
+```shell
 $ sudo ethtool -S wlan0
 ```
 网络测
-```sh
+```shell
 $ netstat -i
 ```
 
 # sar 查看block io的使用情况
-```sh
+```shell
 $ sar -dp 1
 Linux 3.16.2-031602-generic (mint) 11/03/2015 _x86_64_    (4 CPU)
 
@@ -602,12 +602,12 @@ Linux 3.16.2-031602-generic (mint) 11/03/2015 _x86_64_    (4 CPU)
 -d: 查看block dev, 一般-dp一起用, 可以看到具体的sda/sdb名称
 
 # telnet记录log
-```sh
+```shell
 telnet 192.168.1.31 10001 | tee crb2s_reboot_at_os.log
 ```
 
 # kill某用户所有进程
-```sh
+```shell
 [root@cavium tmp]# killall -9 -u james
 [root@cavium tmp]# killall -9 -u guest
 ```
@@ -617,13 +617,13 @@ GUID是微软对UUID的一种实现
 如何查看UUID
 
 注意, 用dd命令clone的盘有着一样的UUID, 由此可见, UUID是保存在分区的某个地方--据说是超级块里.
-```sh
+```shell
 ls -l /dev/disk/by-uuid/ 
 $ sudo blkid /dev/sdb1
 /dev/sdb1: UUID="d039c104-49d4-464a-b3df-a962574fd46f" TYPE="ext4"
 ```
 在Grub中的应用
-```sh
+```shell
 title Ubuntu hardy (development branch), kernel 2.6.24-16-generic
 root (hd2,0)
 kernel /boot/vmlinuz-2.6.24-16-generic root=UUID=c73a37c8-ef7f-40e4-b9de-8b2f81038441 ro quiet splash
@@ -632,7 +632,7 @@ quiet
 ```
 
 # 关于grub
-```sh
+```shell
 设dtb
 devicetree
 设kernel
@@ -642,17 +642,17 @@ linux
 # 使用netcat导出打印
 前提是两台机器的ip能连上
 服务端:
-```sh
+```shell
 dmesg | nc -l 1234
 ```
 客户端:
-```sh
+```shell
 nc 127.0.0.1 1234
 ```
 缺点是在客户端输入的东西好像在服务端解析的不好.
 
 # 查看CPU运行队列情况
-```sh
+```shell
 sar -q 1
 07:12:09 PM   runq-sz  plist-sz   ldavg-1   ldavg-5  ldavg-15   blocked
 07:12:10 PM         0       557      0.02      0.04      0.05         0
@@ -665,13 +665,13 @@ sar -q 1
 07:12:17 PM         0       557      0.01      0.04      0.05         0
 ```
 其中runq-sz就是等待队列的长度
-```sh
+```shell
 mpstat -A
 ```
 可以报告更多详细的CPU使用率等信息
 
 # 网络流量监控
-```sh
+```shell
 sar -n DEV 1
 ```
 
@@ -679,7 +679,7 @@ sar -n DEV 1
 DEV, EDEV, NFS, NFSD, SOCK, IP, EIP, ICMP, EICMP, TCP, ETCP, UDP, SOCK6, IP6, EIP6, ICMP6, EICMP6 and UDP6
 
 # 查看uuid
-```sh
+```shell
 blkid
 lsblk -f
 ```
@@ -741,7 +741,7 @@ iotop
 `apt install samba-client`
 这里有个问题, 就是主机名字没法解析, 此时需要先在window上ping主机名  
 win7:
-```sh
+```shell
 ping socrates
 得到Ping cafp01.caveonetworks.com [10.17.5.53]
 ping mafp01
@@ -750,29 +750,29 @@ ping mafp01
 
 linux:
 查看共享
-```sh
+```shell
 $ smbclient -L //10.17.5.53 -N
 mount
 $ sudo mount -t cifs //10.17.5.53/ftproot /mnt -o user=,password=
 ```
 拷贝--断点续传
-```sh
+```shell
 $ rsync -v --progress --append  "/mnt/FAE/Users/VarunS/ThunderX/Ubuntu FS/ThunderX-ubuntu-8G-v3-FAE.tar.bz2" ThunderX-ubuntu-8G-v3-FAE.tar.bz2
 ```
 
 # ubuntu杀进程和服务
-```sh
+```shell
 ps aux | grep -v "\[.*\]" | grep -E "cron|dhclient|38400|rsyslogd" | awk '{print $2}' | xargs kill -9
 ```
 一般上面的命令杀了进程以后, 那些进程又会自动生成.
 下面的方法杀的彻底
-```sh
+```shell
 services="cron resolvconf rsyslog udev dbus upstart-file-bridge upstart-socket-bridge upstart-udev-bridge tty1 tty2 tty3 tty4 tty5 tty6 tty7 tty8 tty9"
 for s in $services;do service $s stop;done
 ```
 
 # 去掉最后几个字符
-```sh
+```shell
 byj@byj-Aspire-1830T ~
 $echo abcd | sed s'/.$//'
 abc
@@ -797,7 +797,7 @@ LWP那一列就是线程号, 如果是单独的线程, 应该和进程号一样.
 [byj]注: `ps -eLf`更实用一点
 
 # linux启动脚本顺序
-```sh
+```shell
 init
   rc-->/etc/rc.d/rc3.d/*-->rc.local
   getty-->login-->/bin/bash
@@ -819,7 +819,7 @@ chmod g+w repo/ -R
 ```
 
 # SELinux的文件权限扩展
-```sh
+```shell
 [root@cavium cavium]# ll
 total 313568
 drwxr-xr-x  2 root    root        4096 Jan 19 13:14 nfs
@@ -833,7 +833,7 @@ drwxrwxrwx. 2 root    cavium      4096 Dec 23 17:29 share
 比如明明有写权限的文件不能访问, git库不能push等等
 
 `ls -Z`可以查看这个权限
-```sh
+```shell
 [root@cavium cavium]# ls -Z
 drwxr-xr-x  root    root   ?                                nfs
 drwxrwxr-x  root    cavium ?                                repo
@@ -849,7 +849,7 @@ drwxrwxrwx. root    cavium unconfined_u:object_r:home_root_t:s0 share
 `[root@cavium /]# find cavium/ -exec setfattr -x security.selinux {} ;`
 
 # shell for
-```sh
+```shell
 $ for i in {1..5};do echo next $i;done
 next 1
 next 2
@@ -857,7 +857,7 @@ next 3
 next 4
 next 5
 ```
-```sh
+```shell
 repos='"." "bootloader/edk2/" "bootloader/grub2/grub/" "bootloader/trusted-firmware/atf/" "bootloader/u-boot/" "linux/kernel/linux-aarch64/"'
 $ for i in $repos;do echo 1111111 $i;done
 1111111 "."
@@ -882,7 +882,7 @@ $ for i in $repos;do echo 1111111 $i;done
 注意：在手动绑定 IRQ 到 CPU 之前需要先停掉 irqbalance 这个服务，irqbalance 是个服务进程、是用来自动绑定和平衡 IRQ 的：
 `$ /etc/init.d/irqbalance stop`
 使用的脚本
-```sh
+```shell
 #!/bin/sh -e
 interrupt_name="eth3-TxRx-"
 core_num=`cat /proc/cpuinfo  | grep "processor.*:" -c`
@@ -926,7 +926,7 @@ $ firefox
 上面的方法在功能上已经没什么问题了, 但使用下来感觉很卡, 延时太高. 这里面的原因, 网上说法是ssh的加密算法问题, 而不是firefox本身的问题--有待确认, 但感觉加了压缩选项就好很多, 似乎和加密算法关系不大.
 默认的ssh由于使用比较强力的加解密算法, 比如AES, 可能会比较卡;
 改成下面的加密算法会好很多
-```sh
+```shell
 ssh -X -C -c blowfish-cbc,arcfour baiyingjie@caviumsh.f3322.net
 
 -X: 使能x11 forwarding
@@ -1009,7 +1009,7 @@ eth5是10G口, 和thunder的10G口eth3相连
 所有配置OK
 但这里我记两个问题:
 1. 为什么看不到POSTROUTING链? 也看不到刚才设的规则. 在mint上也一样, 但可以工作
-```sh
+```shell
 [root@cavium yingjie]# iptables -L
 Chain INPUT (policy ACCEPT)
 target     prot opt source               destination         
@@ -1049,7 +1049,7 @@ iptables -L这个命令没有指定table, 默认是filter, 那只显示filter涉
 `ping www.baidu.com`
 
 # linux路由参考
-```sh
+```shell
 在linux主机中开启iptables,做SNAT(源地址转换)；下面我就以RHEL为例了，，
 1.eth0(网卡1----外网)，设置公网IP，开启路由转发（#vim /etc/sysctl.conf   修改net.ipv4.ip_forward = 1），
 2.eth1(网卡2----内网)，设置内网IP，
@@ -1060,14 +1060,14 @@ iptables -t nat -A POSTROUTING -o eth1 -s 192.168.100.0/24 -j SNAT --to-source �
 ```
 
 # brctl就是个交换机
-```sh
+```shell
 brctl addbr testbridge
 brctl addif testbridge eth5
 brctl addif testbridge eth6
 ```
 这里需要解释一下, br下面的port应该是没有ip的, 从逻辑上, 几个port合并成一个聚合的interface, 就是br, 对外只有一个ip
 这也是为什么要给br设一个ip
-```sh
+```shell
 ifconfig eth5 0.0.0.0
 ifconfig eth6 0.0.0.0
 ifconfig testbridge up
@@ -1080,7 +1080,7 @@ linux版可以这样搜: `"struct*file"`
 windows版: `s:struct AND file`
 
 # 批量修改jpg图片大小--xarg位置指代
-```sh
+```shell
 find . -iname "*.jpg" | xargs -l -i convert -resize 50% {} /tmp/{}
 mkdir tmp && find . -iname "*.jpg" | xargs -l -i convert -resize 40% -rotate 180 {} tmp/{}
 ```
@@ -1119,12 +1119,12 @@ dpkg -L qemu-system-mips
 `echo 0 > /sys/devices/system/cpu/cpuX/online`
 
 # grub reserve 内存
-```sh
+```shell
 改/boot/grub/grub.conf, 在kernel 一行加
 memmap=10M$1024M
 memmap=7G$1G
 ```
-```sh
+```shell
 memmap=nn[KMG]@ss[KMG]
 [KNL] Force usage of a specific region of memory
 Region of memory to be used, from ss to ss+nn.
@@ -1147,13 +1147,13 @@ Example: Exclude memory from 0x18690000-0x1869ffff
 `chown byj.byj Makefile`
 
 # 增加共享库路经
-```sh
+```shell
 LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH
 ```
 
 # 查看端口占用
-```sh
+```shell
 netstat -apn | grep 500
 -a: all
 -p: 显示进程名
@@ -1174,13 +1174,13 @@ udp6       0      0 :::500                  :::*                                
 `$ wget --no-check-certificate https://www.kernel.org/pub/software/scm/git/git-2.1.0.tar.gz`
  
 # 通过gcc查找libc路径 -- -print-file-name=xxx
-```sh
+```shell
 $ mips64-octeon-linux-gnu-gcc -march=octeon3 -mabi=n32 -EB -pipe -msoft-float -print-file-name=libc.a
 /repo/yingjieb/fgltb/sw/vobs/esam/build/reborn/buildroot-isam-reborn-cavium-fgltb/output/host/opt/ext-toolchain/bin/../mips64-octeon-linux-gnu/sys-root/usr/lib/../lib32-fp/libc.a
 ```
 
 # 各种进制转十进制
-```sh
+```shell
 $ echo $((2#111111))
 63
 $ echo $((16#4f))
@@ -1189,7 +1189,7 @@ $ echo $((0x4f))
 79
 ```
 附: 十进制转十六进制, 以下几种都行
-```sh
+```shell
 printf "%x\n" 34
 echo "obase=16; 34" | bc
 ( echo "obase=16" ; cat file_of_integers ) | bc
@@ -1200,14 +1200,14 @@ echo "obase=16; 34" | bc
 ibase是输入的进制
 obase是输出的进制
 bc其实是个语言, 语法类似C
-```sh
+```shell
 $ echo "i=10; i++;i++" | bc
 10
 11
 ```
 
 # CPU热插拔
-```sh
+```shell
 # echo 0 > /sys/devices/system/cpu/cpu2/online
      Reset core 2. Available Coremask = 3fc
 # grep "processor" /proc/cpuinfo
@@ -1224,7 +1224,7 @@ $ echo "i=10; i++;i++" | bc
 ```
 
 # hexdump查ascii码 -v选项
-```sh
+```shell
 //-v表示接受输入, -n8表示有8个字节的数据, 缺点是只能输入键盘字符
 /isam/user # hexdump -v -n8
 01abAB%^
@@ -1253,7 +1253,7 @@ cat /sys/class/hwmon/hwmon1/device/temp3_input
 
 # trap命令 --指定shell中处理signal
 用kill -l查看所有的signal号
-```sh
+```shell
 # Ignore SIGPIPE
 # When a script is run from an ssh session that is closed before the script is
 # finished, and the script writes to stdout (which no longer is connected to
@@ -1273,7 +1273,7 @@ trap log_sigpipe SIGPIPE
 `mount -o size=16G -t tmpfs none /mnt/tmpfs`
 
 # heredoc格式代码
-```sh
+```shell
 astyle --mode=c --style=linux -spfUcH <<CODE
 any code
 ...
@@ -1282,7 +1282,7 @@ CODE
 
 # install命令
 在做共享库的Makefile中, 用到了install命令, 这个命令和cp功能差不多.
-```sh
+```shell
 mkdir -p $(DESTDIR)/usr/lib
 install $(LIB) $(DESTDIR)/usr/lib
 ln -sf $(LIB) $(DESTDIR)/usr/lib/$(NAME)
@@ -1291,7 +1291,7 @@ ln -sf $(LIB) $(DESTDIR)/usr/lib/$(SONAME)
 
 # readlink --读取链接文件
 比如build是个链接
-```sh
+```shell
 $ readlink -f build
 /repo/yingjieb/fdt063/sw/vobs/esam/build
 ```
@@ -1299,7 +1299,7 @@ $ readlink -f build
 # 重新修改tmpfs的大小
 `mount -o remount,size=XXX /tmp`
 或者
-```sh
+```shell
 $ hg diff -c7639b7191348
 diff --git a/board/Alcatel-Lucent/isam-reborn/common/post_build.sh b/board/Alcatel-Lucent/isam-reborn/common/post_build.sh
 --- a/board/Alcatel-Lucent/isam-reborn/common/post_build.sh
@@ -1318,7 +1318,7 @@ cat $commondir/mdev-base.conf > $targetdir/etc/mdev.conf
 ```
 
 # fg bg --前台运行 后台运行
-```sh
+```shell
 fg %1
 bg后台运行的好处是程序还在跑, 而ctrl+z程序不跑了
 hello: 
@@ -1329,7 +1329,7 @@ hello:
 `printf "$string\0" > $tmpfile`
 
 # 写十六进制数据到文件, 关键在于引号
-```sh
+```shell
 /isam/user # printf '\xde\xad\xbe\xef' > file
 /isam/user # hexdump -C file
 00000000  de ad be ef                                       |....|
@@ -1340,7 +1340,7 @@ hello:
 00000004
 ```
 没有引号就不行
-```sh
+```shell
 /isam/user # echo -e \xde\xad\xbe\xef > file
 /isam/user # hexdump -C file
 00000000  78 64 65 78 61 64 78 62  65 78 65 66 0a           |xdexadxbexef.|
@@ -1365,7 +1365,7 @@ hello:
 `cat cscope.files | egrep "isam|fpxt|fglt|nvps|vipr|rant" | xargs astyle --mode=c --style=linux -tpfUcH`
 
 # 带时间的平均负载
-```sh
+```shell
 $ echo "$(date +%H:%M:%S) # $(cat /proc/loadavg)"
 10:07:14 # 0.98 1.00 1.15 2/723 26465
 ```
@@ -1374,7 +1374,7 @@ $ echo "$(date +%H:%M:%S) # $(cat /proc/loadavg)"
 `rpm2cpio OCTEON-LINUX-2.3.0-427.i386.rpm | cpio -div`
 
 # 大小写转换
-```sh
+```shell
 tr '[:upper:]' '[:lower:]' < input.txt > output.txt
 sed -e 's/\(.*\)/\L\1/' input.txt > output.txt
 sed -e 's/\(.*\)/\U\1/' input.txt > output.txt
@@ -1384,19 +1384,19 @@ sed -e 's/\(.*\)/\U\1/' input.txt > output.txt
 `cat src/board_cpld.c | egrep "(void|unsigned char|u_int8)[[:blank:]]+[0-9a-zA-Z_]+\(.*\)" | sed -e 's/\(.*\)/\1;/g'`
 
 # strace 重定向
-```sh
+```shell
 strace echo "groad" &> myfile.txt
 strace echo "groad" > myfile.txt 2>&1
 ```
 
 # 通过elf生成工程文件列表 --利用gdb
-```sh
+```shell
 mips64-octeon-linux-gnu-gdb -ex="info sources" -ex="quit" isam_app.nostrip | sed -e '1,15d' -e 's/,/\n/g' | sed -e '/^ *$/d' -e 's/^ *//g' > temp.list
 find -L `cat cscope.files| egrep "/flat/" | sed 's!\(.*/flat/[^/]*\).*!\1!g' | sort -u` -iname "*.h" -o -iname "*.hh" -o -iname "*.hpp"
 ```
 
 # sync命令使用, 把file buffer 刷进物理器件
-```sh
+```shell
 / # time dd if=/dev/zero of=/bigfile bs=65536 count=2048
 2048+0 records in
 2048+0 records out
@@ -1414,7 +1414,7 @@ sys     0m 0.15s
 ```
 
 # 查找src下面的代码目录, find可以限制搜索深度
-```sh
+```shell
 output=`find -maxdepth 1 -type d | grep -i socket`
 echo $output
 echo $output >> src_dirs.byj
@@ -1460,7 +1460,7 @@ mkcsfiles `cat src_dirs.byj.sort`
 `cat /proc/filesystems`
 
 # 替换字符串
-```sh
+```shell
 $ sst=abcdefcd
 只替换第一个位置
 $ echo ${sst/cd/55}
@@ -1488,7 +1488,7 @@ tee指令会从标准输入设备读取数据，将其内容输出到标准输�
 `echo 1 1 1 1>/proc/sys/kernel/printk`
 
 # usb串口 --lsusb --minicom
-```sh
+```shell
 插入usb串口以后，lsusb可以查看usb总线下面的设备。动态的。
 $lsusb
 此时查看
@@ -1500,7 +1500,7 @@ apt install minicom
 ```
 
 # locate--linux下面的everything
-```sh
+```shell
 byj@byj-mint ~/repo/hg/OCTEON-SDK-3.1-tools
 $locate OCTEON-SDK-3.1-p2-tools.tar.xz
 /home/byj/repo/alu/buildroot-isam-reborn-cavium-fgltb/dl/OCTEON-SDK-3.1-p2-tools.tar.xz

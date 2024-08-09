@@ -953,7 +953,7 @@ Two very useful files for getting UDP protocol statistics are:
 
 Monitor detailed UDP protocol statistics by reading `/proc/net/snmp`.
 
-```sh
+```shell
 $ cat /proc/net/snmp | grep Udp\:
 Udp: InDatagrams NoPorts InErrors OutDatagrams RcvbufErrors SndbufErrors
 Udp: 16314 0 0 17161 0 0
@@ -975,7 +975,7 @@ Note that some errors discovered by the UDP protocol layer are reported in the s
 
 Monitor UDP socket statistics by reading `/proc/net/udp`
 
-```sh
+```shell
 $ cat /proc/net/udp
   sl  local_address rem_address   st tx_queue rx_queue tr tm->when retrnsmt   uid  timeout inode ref pointer drops
   515: 00000000:B346 00000000:0000 07 00000000:00000000 00:00000000 00000000   104        0 7518 2 0000000000000000 0
@@ -1423,7 +1423,7 @@ Before we proceed into the Linux network device subsystem, let’s take a look a
 
 Monitor detailed IP protocol statistics by reading `/proc/net/snmp`.
 
-```sh
+```shell
 $ cat /proc/net/snmp
 Ip: Forwarding DefaultTTL InReceives InHdrErrors InAddrErrors ForwDatagrams InUnknownProtos InDiscards InDelivers OutRequests OutDiscards OutNoRoutes ReasmTimeout ReasmReqds ReasmOKs ReasmFails FragOKs FragFails FragCreates
 Ip: 1 64 25922988125 0 0 15771700 0 0 25898327616 22789396404 12987882 51 1 10129840 2196520 1 0 0 0
@@ -1464,7 +1464,7 @@ Other statistics are documented in [the receive side blog post](https://blog.pac
 
 Monitor extended IP protocol statistics by reading `/proc/net/netstat`.
 
-```sh
+```shell
 $ cat /proc/net/netstat | grep IpExt
 IpExt: InNoRoutes InTruncatedPkts InMcastPkts OutMcastPkts InBcastPkts OutBcastPkts InOctets OutOctets InMcastOctets OutMcastOctets InBcastOctets OutBcastOctets InCsumErrors InNoECTPkts InECT0Pktsu InCEPkts
 IpExt: 0 0 0 0 277959 0 14568040307695 32991309088496 0 0 58649349 0 0 0 0 0
@@ -2630,7 +2630,7 @@ Before continuing into the device driver, let’s take a look at some monitoring
 
 Monitor your qdisc statistics by using `tc`
 
-```sh
+```shell
 $ tc -s qdisc show dev eth1
 qdisc mq 0: root
  Sent 31973946891907 bytes 2298757402 pkt (dropped 0, overlimits 0 requeues 1776429)
@@ -3431,7 +3431,7 @@ You can install `ethtool` on an Ubuntu system by running: `sudo apt-get install 
 Once it is installed, you can access the statistics by passing the `-S` flag along with the name of the network device you want statistics about.
 
 Monitor detailed NIC device statistics (e.g., transmit errors) with `ethtool -S`.
-```sh
+```shell
 $ sudo ethtool -S eth0
 NIC statistics:
      rx_packets: 597028087
@@ -3456,7 +3456,7 @@ You can find the number of dropped incoming network data frames for, e.g. eth0 b
 
 Monitor higher level NIC statistics with sysfs.
 
-```sh
+```shell
 $ cat /sys/class/net/eth0/statistics/tx_aborted_errors
 2
 ```
@@ -3472,7 +3472,7 @@ If these values are critical to you, you will need to read your driver source an
 An even higher level file is `/proc/net/dev` which provides high-level summary-esque information for each network adapter on the system.
 
 Monitor high level NIC statistics by reading `/proc/net/dev`.
-```sh
+```shell
 $ cat /proc/net/dev
 Inter-|   Receive                                                |  Transmit
  face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed
@@ -3502,7 +3502,7 @@ Before modifying any of these values, it is strongly recommended to [read these 
 
 Monitor packet transmits in flight by reading `/sys/class/net/eth0/queues/tx-0/byte_queue_limits/inflight`.
 
-```sh
+```shell
 $ cat /sys/class/net/eth0/queues/tx-0/byte_queue_limits/inflight
 350
 ```
@@ -3515,7 +3515,7 @@ If your NIC and the device driver loaded on your system support multiple transmi
 
 Check the number of NIC transmit queues with `ethtool`
 
-```sh
+```shell
 $ sudo ethtool -l eth0
 Channel parameters for eth0:
 Pre-set maximums:
@@ -3536,7 +3536,7 @@ This output is displaying the pre-set maximums (enforced by the driver and the h
 
 Error seen if your NIC doesn't support this operation.
 
-```sh
+```shell
 $ sudo ethtool -l eth0
 Channel parameters for eth0:
 Cannot get device channel parameters
@@ -3568,7 +3568,7 @@ Some NICs and their drivers also support adjusting the size of the TX queue. Exa
 
 Check current NIC queue sizes with `ethtool -g`
 
-```sh
+```shell
 $ sudo ethtool -g eth0
 Ring parameters for eth0:
 Pre-set maximums:
@@ -3617,7 +3617,7 @@ The [kernel documentation about timestamping](https://github.com/torvalds/linux/
 
 Determine which timestamp modes your driver and device support with `ethtool -T`.
 
-```sh
+```shell
 $ sudo ethtool -T eth0
 Time stamping parameters for eth0:
 Capabilities:

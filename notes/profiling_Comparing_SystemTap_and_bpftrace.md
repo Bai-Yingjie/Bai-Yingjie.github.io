@@ -40,7 +40,7 @@ Both SystemTap and bpftrace are packaged by all major Linux distributions and ca
 
 On systems with elfutils 0.178 or later, SystemTap makes the process of finding and installing the right debug symbols fully automatic by using a [remote debuginfod server](https://lwn.net/Articles/847256/). For example, on Debian systems:
 
-```sh
+```shell
     # export DEBUGINFOD_URLS=https://debuginfod.debian.net
     # export DEBUGINFOD_PROGRESS=1
     # stap -ve 'probe process("/bin/ls").function("format_user_or_group") { println(pp()) }'
@@ -56,7 +56,7 @@ For kernel instrumentation, SystemTap requires the kernel debugging symbols to b
 
 Both systems provide an [AWK](https://lwn.net/Articles/820829/)-like language, inspired by DTrace's [D](https://docs.oracle.com/cd/E18752_01/html/819-5488/gcfqr.html), to describe predicates and actions. The bpftrace language is pretty much the same as D, and follows this general structure:
 
-```sh
+```shell
     probe-descriptions
     /predicate/
     {
@@ -68,7 +68,7 @@ That is to say: when the probes fire, if the given (optional) predicate matches,
 
 The structure of SystemTap programs is slightly different:
 
-```sh
+```shell
     probe PROBEPOINT [, PROBEPOINT] {
         [STMT ...]
     }
@@ -78,7 +78,7 @@ In SystemTap there is no support for specifying a predicate built into the langu
 
 For example, the following bpftrace program prints all [`mmap()`](https://man7.org/linux/man-pages/man2/mmap.2.html) calls issued by the process with PID 31316:
 
-```sh
+```shell
     uprobe:/lib/x86_64-linux-gnu/libc.so.6:mmap
     /pid == 31316/
     {
@@ -88,7 +88,7 @@ For example, the following bpftrace program prints all [`mmap()`](https://man7.
 
 The SystemTap equivalent is:
 
-```sh
+```shell
     probe process("/lib/x86_64-linux-gnu/libc.so.6").function("mmap") {
         if (pid() == 31316) {
             println("mmap by 31316")
@@ -98,7 +98,7 @@ The SystemTap equivalent is:
 
 Data aggregation and reporting in bpftrace is done exactly the same way as it is done in DTrace. For example, the following program does a by-PID sum and aggregation of the number of bytes sent with the `tcp_sendmsg()` kernel function:
 
-```sh
+```shell
     $ sudo bpftrace -e 'kprobe:tcp_sendmsg { @bytes[pid] = sum(arg2); }'
     Attaching 1 probe...
     ^C
@@ -110,7 +110,7 @@ Data aggregation and reporting in bpftrace is done exactly the same way as it is
 
 Like DTrace, bpftrace defaults to automatically printing aggregation results when the program exits: no code had to be written to print the breakdown by PID above. The downside of this implicit behavior is that, to avoid automatic printing of all data structures, users have to explicitly `clear()` those that should not be printed. For instance, to change the script above and only print the top 5 processes, the `bytes` map must be cleared upon program termination.
 
-```sh
+```shell
     kprobe:tcp_sendmsg {
         @bytes[pid] = sum(arg2);
     }
@@ -123,7 +123,7 @@ Like DTrace, bpftrace defaults to automatically printing aggregation results whe
 
 Some powerful facilities for [generating histograms](https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md#8-hist-log2-histogram) are available too, allowing for terse scripts such as the following, which operates on the number of bytes read in calls to `vfs_read()`:
 
-```sh
+```shell
     $ sudo bpftrace -e 'kretprobe:vfs_read { @bytes = hist(retval); }'
     Attaching 1 probe...
     ^C
@@ -155,7 +155,7 @@ Some powerful facilities for [generating histograms](https://github.com/iovisor
 
 Statistical aggregates are [also available in SystemTap](https://sourceware.org/systemtap/SystemTap_Beginners_Guide/arrayops-aggregates.html). The `<<<` operator allows adding values to a statistical aggregate. SystemTap does not automatically print aggregation results when the program exits, so it needs to be done explicitly.
 
-```sh
+```shell
     global bytes
     probe kernel.function("vfs_read").return {
         bytes <<< $return
@@ -170,7 +170,7 @@ Statistical aggregates are [also available in SystemTap](https://sourceware.org
 
 A very useful feature of DTrace-like systems is the ability to obtain a stack trace to see which sequence of function calls lead to a given probe point. Kernel stack traces can be obtained in bpftrace as follows:
 
-```sh
+```shell
     kprobe:icmp_echo {
         print(kstack);
         exit()
@@ -179,7 +179,7 @@ A very useful feature of DTrace-like systems is the ability to obtain a stack tr
 
 Equivalently, with SystemTap:
 
-```sh
+```shell
     probe kernel.function("icmp_echo") {
         print_backtrace();
         exit()
@@ -190,7 +190,7 @@ An important problem affecting bpftrace is that it cannot generate user-space st
 
 SystemTap's [user-space stack backtrace mechanism](https://sourceware.org/systemtap/SystemTap_Beginners_Guide/ustack.html), instead, provides a full stack trace by making use of debug information to walk the stack. This means that no recompilation is needed.
 
-```sh
+```shell
     probe process("/bin/ls").function("format_user_or_group") {
         print_ubacktrace();
         exit()
@@ -199,7 +199,7 @@ SystemTap's [user-space stack backtrace mechanism](https://sourceware.org/syste
 
 The script above produces a full backtrace, here shortened for readability:
 
-```sh
+```shell
      0x55767a467f60 : format_user_or_group+0x0/0xc0 [/bin/ls]
      0x55767a46d26a : print_long_format+0x58a/0x9f0 [/bin/ls]
      0x55767a46d840 : print_current_files+0x170/0x3e0 [/bin/ls]
@@ -212,7 +212,7 @@ The same feature is [unlikely to be added to bpftrace](https://github.com/iovis
 
 Consider the following example of a practical production investigation that could not proceed further with bpftrace due to the backtrace limitation, so SystemTap needed to be used to track it down. At Wikimedia we ran into [an interesting problem](https://github.com/apache/trafficserver/issues/7423) with [LuaJIT](https://luajit.org/) after observing high system CPU usage on behalf of [Apache Traffic Server](https://trafficserver.apache.org/), we could confirm that it was due to `mmap()` being called unusually often:
 
-```sh
+```shell
     $ sudo bpftrace -e 'kprobe:do_mmap /pid == 31316/ { @[arg2]=count(); } interval:s:1 { exit(); }'
     Attaching 2 probes...
     @[65536]: 64988
@@ -224,13 +224,13 @@ Another important advantage of SystemTap over bpftrace is that it allows accessi
 
 SystemTap is also able to list available probe points by source file, and to match by filename in the definition of probes too. The feature can be used to focus the analysis only on specific areas of the code base. For instance, the following command can be used to list (`-L`) all of the functions defined in Apache Traffic Server's `iocore/cache/Cache.cc`:
 
-```sh
+```shell
     $ stap -L 'process("/usr/bin/traffic_server").function("*@./iocore/cache/Cache.cc")
 ```
 
 It is often necessary to probe a specific point somewhere in the body of a function, rather than limiting the analysis to the function entry point or to the return statement. This can be done in SystemTap using [statement probes](https://sourceware.org/systemtap/langref/langrefse4.html#x6-370004.2); the following will list the probe points available along with the variables available at each point:
 
-```sh
+```shell
     $ stap -L 'process("/bin/ls").statement("format_user_or_group@src/ls.c:*")'
     process("/bin/ls").statement("format_user_or_group@src/ls.c:4110")\
         $name:char const* $id:long unsigned int $width:int

@@ -17,7 +17,7 @@
 
 
 ## 复现命令
-```sh
+```shell
 #在启动kernel的cmdline加:
 ftrace=function ftrace_filter=register_netdevice trace_options=func_stack_trace
 #启动成功后
@@ -61,7 +61,7 @@ cat trace
 没错, 听起来像是说自己调查自己, 但这里具体是指使用perf probe和perf record的调用栈解析, 来分析ftrace的调用栈全0问题.
 
 ## 先试一下perf probe
-```sh
+```shell
 perf probe save_stack_trace_tsk
 perf probe register_netdevice
 #开两个perf record, 分别在两个目录下
@@ -75,7 +75,7 @@ perf record -e probe:register_netdevice -aR -g --call-graph dwarf -- sleep 20 &
 ```
 
 ----
-```sh
+```shell
 # 结果
 ~ # [ perf record: Woken up 1 times to write data ]
 [ perf record: Captured and wrote 0.144 MB perf.data (5 samples) ]
@@ -98,7 +98,7 @@ perf record -e probe:register_netdevice -aR -g --call-graph dwarf -- sleep 20 &
 
 
 ## 用perf probe来调试ftrace
-```sh
+```shell
 #还是probe save_stack_trace_tsk
 perf probe save_stack_trace_tsk
 
@@ -143,7 +143,7 @@ __trace_stack调用下面的:
 
 
 ## 打印调试
-```sh
+```shell
 if [ ! -e /sys/kernel/debug/tracing ]; then mount -t debugfs none /sys/kernel/debug; fi 
 cd /sys/kernel/debug/tracing 
 echo register_netdevice > set_ftrace_filter

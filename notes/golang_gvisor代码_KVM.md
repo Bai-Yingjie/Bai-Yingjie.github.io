@@ -624,7 +624,7 @@ type context64 struct {
 比如如下命令:
 `docker run --cpus=2 -m 2g --rm --runtime=runsc -it --name=test centos:7 bash`
 会导致`containerd-shim`调用`runsc boot`命令
-```sh
+```shell
 runsc --root=/var/run/docker/runtime-runsc/moby --debug=true  --log=/run/containerd/io.containerd.runtime.v1.linux/moby/8142acd62c66b0847eddee55c7c247a05a04e91b0e4a0db2c6942075ceb75f2e/log.json --log-format=json --debug-log=/tmp/runsc/ --platform=kvm --strace=true --log-fd=3 --debug-log-fd=4 boot --bundle=/run/containerd/io.containerd.runtime.v1.linux/moby/8142acd62c66b0847eddee55c7c247a05a04e91b0e4a0db2c6942075ceb75f2e --controller-fd=5 --mounts-fd=6 --spec-fd=7 --start-sync-fd=8 --io-fds=9 --io-fds=10 --io-fds=11 --io-fds=12 --device-fd=13 --pidns=true --setup-root --stdio-fds=14 --stdio-fds=15 --stdio-fds=16 --cpu-num 24 --total-memory76005576704 8142acd62c66b0847eddee55c7c247a05a04e91b0e4a0db2c6942075ceb75f2e]
 ```
 
@@ -2553,10 +2553,10 @@ https://developer.arm.com/documentation/100933/0100/AArch64-exception-vector-tab
 解释一下, arm64的sp寄存器每个EL都有, 但不一定都用:
 `SPSel`选择寄存器的0位, 来决定用哪个SP
 
-| SP | Meaning |
-|-- |-- |
-| 0b0 | Use SP_EL0 at all Exception levels.
-| 0b1 | Use SP_ELx for Exception level ELx.
+| SP  | Meaning                             |
+| --- | ----------------------------------- |
+| 0b0 | Use SP_EL0 at all Exception levels. |
+| 0b1 | Use SP_ELx for Exception level ELx. |
 
 默认是1, 就是说默认每个EL都用自己的SP寄存器.
 

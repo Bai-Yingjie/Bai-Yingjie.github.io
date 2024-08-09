@@ -27,7 +27,7 @@ default_hugepagesz=1G hugepagesz=1G hugepages=4
 ```
 注意: 如果系统有两个CPU node, 好像是平分
 * 或者在系统起来以后
-```sh
+```shell
 echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
 #如果有2个CPU
 echo 1024 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages
@@ -36,7 +36,7 @@ echo 1024 > /sys/devices/system/node/node1/hugepages/hugepages-2048kB/nr_hugepag
 注意: 1G的页只能在启动时reserve
 
 step2:
-```sh
+```shell
 mkdir /mnt/huge
 mount -t hugetlbfs nodev /mnt/huge
 #或者在/etc/fstab里加
@@ -46,7 +46,7 @@ nodev /mnt/huge_1GB hugetlbfs pagesize=1GB 0 0
 ```
 
 # 编译
-```sh
+```shell
 make install T=x86_64*gcc
 #只配置
 make config T=x86_64-native-linuxapp-gcc

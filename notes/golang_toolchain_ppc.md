@@ -58,7 +58,7 @@
 使用gccgo编译MF14Temp时，由于import了fsnotify这个包，而这个包会使用`golang.org/x/sys/`这个包 这个包里`unix/gccgo.go`这个go文件里需要调用`gccgoRealSyscall`和`gccgoRealSyscallNoError`这两个函数，而这两个函数的实现在unix/gccgo_c.c这个c文件中。
 
 产生下述链接错误的原因是gccgo_c.c这个c文件没有被gccgo编译，因此需要在编译MF14Temp时，加上“CGO_ENABLED=1”这个选项，使能CGO，让GO能够调用C
-```sh
+```shell
 GOARCH=ppc64 go build -o MF14Temp_ppc64
 # gitlabe1.ext.net.nokia.com/godevsig/MF14Temp
 /opt/crosstool/powerpc64-e6500-linux-gnu/bin/../lib/gcc/powerpc64-e6500-linux-gnu/10.2.0/../../../../powerpc64-e6500-linux-gnu/bin/ld: /home/xming/.cache/go-build/16/16ae8d3fbaffd001bb92ecdbfd968c9b2f078bb1bfd38396335cd0a145ce241c-d(_go_.o): in function `golang.x2eorg..z2fx..z2fsys..z2funix.SyscallNoError':
@@ -74,7 +74,7 @@ https://gcc.gnu.org/onlinedocs/gcc-10.2.0/gccgo/
 到`https://artifactory-blr1.int.net.nokia.com/artifactory/godevsig-generic-local/toolchain/gccgo/` 查最新的文件夹
 找到commit号, 比如 059da3dd98ab7be871a0556dd53fa4057f7dcf09
 下载:
-```sh
+```shell
 #编译
 cd golang-go
 git checkout release-branch.go1.16
@@ -93,13 +93,13 @@ Steps to prepare gccgo toolchain
 
 ## build toolchain
 * checkout godev branch
-```sh
+```shell
 cd crosstool-ng
 git checkout godev
 ```
 
 * make crosstool-ng
-```sh
+```shell
 # install dependencies
 apt install flex help2man texinfo libtool-bin libncurses-dev gawk bison rsync
 # build
@@ -110,13 +110,13 @@ make
 
 * build gccgo toolchain
 e.g. to build ppc64 gccgo
-```sh
+```shell
 ./ct-ng defconfig DEFCONFIG=samples/Nokia/isam-reborn_godev-ppc64-e6500
 ./ct-ng build
 ```
 
 * find the toolchain in targets after successfully build
-```sh
+```shell
 cd targets
 ls
 # powerpc64-e6500-linux-gnu
@@ -124,16 +124,16 @@ ls
 
 ## upload the toolchain to artifactory
 * compress the toolchain folder
-```sh
+```shell
 tar cJf godev-gccgo-ppc64.tar.xz powerpc64-e6500-linux-gnu
 ```
 * upload to artifactory
-```sh
+```shell
 curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5okRj8rnFkVvcZWnTVc" -X PUT "https://artifactory-blr1.int.net.nokia.com:443/artifactory/godevsig-generic-local/toolchain/gccgo/`git rev-parse HEAD`/"  -T godev-gccgo-ppc64.tar.xz
 ```
 
 同时上传ppc和ppc64
-```sh
+```shell
 proxyoff
 
 cd crosstool-ng/targets
@@ -145,7 +145,7 @@ curl -H "X-JFrog-Art-Api:AKCp8hyinctVijrdqGaFc1YAT7e7KDHWJEaackjuv6oCheipkYU9jU5
 ```
 
 # 命令cache
-```sh
+```shell
 # hello
 yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
 $ rm -f hello; rm -rf /home/yingjieb/.cache/go-build/; rm -f gccgo.log; PATH=$PATH:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin GOARCH=ppc64 /repo/yingjieb/godev/golang-go/bin/go build -compiler gccgo -gccgoflags '-static -Os' hello.go
@@ -177,7 +177,7 @@ scp yingjieb@10.182.105.138:/repo/yingjieb/godev/practice/src/tools/topid .
 `go build`源码在`src/cmd/go/internal/work/build.go`
 
 第一次编译需要全部编译.
-```sh
+```shell
 cd golang-go/src
 ./make.bash -a
 ```
@@ -185,7 +185,7 @@ cd golang-go/src
 
 编译好的go程序在当前工程的bin目录下
 
-```sh
+```shell
 cd golang-go/
 export GOPATH="$GOPATH:`pwd`"
 #编译go主程序, 会在当前目录下生成go的可执行程序
@@ -194,7 +194,7 @@ go build
 ```
 
 注: go tools是指`GOTOOLDIR`下面的一些可执行文件:
-```sh
+```shell
 $ ls "/usr/local/go/pkg/tool/linux_amd64"
 addr2line  asm  buildid  cgo  compile  cover  dist  doc  fix  link  nm  objdump  pack  pprof  test2json  trace  vet
 ```
@@ -203,7 +203,7 @@ addr2line  asm  buildid  cgo  compile  cover  dist  doc  fix  link  nm  objdump 
 我在godevsig分支修改了源码, 支持ppc的gccgo
 现在我想基于go1.13 release分支自己编译一套工具链出来
 在godev-tool docker里面操作:
-```sh
+```shell
 git checkout release-branch.go1.13
 # e164f53422是godevsig分支上我的commit
 git cherry-pick e164f53422
@@ -226,7 +226,7 @@ GOOS=linux GOARCH=amd64 ./bootstrap.bash
 
 # 不改变go tools的尝试
 通常来讲, 用go tools需要传入`GOARCH=`, 而ppc32是不在列表里面的:
-```sh
+```shell
 $ go tool dist list | grep linux
 linux/386
 linux/amd64
@@ -247,7 +247,7 @@ linux/s390x
 在`/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/bin`下面
 建一个gccgo的可执行脚本, 内容如下:
 这会把所有调用到gccgo的参数打印出来
-```sh
+```shell
 #!/bin/bash
 
 (
@@ -261,7 +261,7 @@ exec powerpc-e500mc-linux-gnu-gccgo $@
 注意, `go build`会使用cache, 要得到完整过程, 需要删掉cache
 
 ### 传入`GOARCH=ppc64`
-```sh
+```shell
 yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
 $ rm -f hello; rm -rf /home/yingjieb/.cache/go-build/; rm -f gccgo.log; PATH=$PATH:/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/bin GOARCH=ppc64 go build -compiler gccgo hello.go
 yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
@@ -284,14 +284,14 @@ $ cat gccgo.log
 -o /tmp/go-build836929485/b001/exe/a.out -Wl,-( -Wl,--whole-archive /tmp/go-build836929485/b001/_pkg_.a -Wl,--no-whole-archive -Wl,-) -Wl,--build-id=0x66534c46775162664f44395036684634392d76552f6f79586f4a615778706b5f78586c7852795069492f476e3059334754737349613869696f4b524356432f66534c46775162664f44395036684634392d7655
 ```
 虽然传入的是`GOARCH=ppc64`, 但依然成功生成了hello程序:
-```sh
+```shell
 yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
 $ file hello
 hello: ELF 32-bit MSB executable, PowerPC or cisco 4500, version 1 (SYSV), dynamically linked, interpreter /lib/ld.so.1, for GNU/Linux 4.9.156, with debug_info, not stripped
 ```
 
 生成的hello和libgo.so.13考到板子上(FANT-F), 可以正常执行:
-```sh
+```shell
 scp yingjieb@10.182.105.138:/repo/yingjieb/godev/practice/src/examples/hello .
 scp yingjieb@10.182.105.138:/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/powerpc-e500mc-linux-gnu/lib/libgo.so.13 .
 
@@ -304,7 +304,7 @@ hello world!
 ```
 
 ### 传入`GOARCH=amd64`
-```sh
+```shell
 yingjieb@9102a93a554e /repo/yingjieb/godev/practice/src/examples
 $ rm -f hello; rm -rf /home/yingjieb/.cache/go-build/; rm -f gccgo.log; PATH=$PATH:/repo/yingjieb/godev/gccgoppc32/powerpc-e500mc-linux-gnu/bin GOARCH=amd64 go build -compiler gccgo hello.go
 # command-line-arguments
@@ -329,7 +329,7 @@ $ cat gccgo.log
 使用gccgo ppc32的交叉toolchain的时候, 后端编译器`powerpc-e500mc-linux-gnu-gccgo`就默认使用ppc32.
 当`go build`传入`GOARCH=ppc64`时, 并没有传入"默认"的ABI, 所以没有给编译器造成困扰. 
 但这里有个隐患: 
-```sh
+```shell
 -xassembler-with-cpp -I /tmp/go-build836929485/b001/  -c -o /tmp/go-build836929485/b001/_buildid.o -D GOOS_linux -D GOARCH_ppc64 /tmp/go-build836929485/b001/_buildid.s
 ```
 这里的`-D GOARCH_ppc64`是不对的.
@@ -341,7 +341,7 @@ $ cat gccgo.log
 前面已经证明, 使用`GOARCH=ppc64`是可以编译成功的, 并且运行也没发现什么问题.
 但注意到ppc64会定义`-D GOARCH_ppc64`, 这个宏是给C和汇编看的, 有什么影响呢?
 搜索一下, 下面的文件使用了`GOARCH_ppc64`
-```sh
+```shell
 src/internal/bytealg/compare_ppc64x.s
 src/internal/bytealg/indexbyte_ppc64x.s
 src/crypto/md5/md5block_ppc64x.s
@@ -365,22 +365,22 @@ src/runtime/cgo/asm_ppc64x.s
 gcc源码里面包含了go的源码, 在`gcc/libgo`下面. 不同版本的gcc的go源码版本如下:
 `cat gcc/libgo/VERSION`
 
-|gcc version|go version
-|----|----
-|gcc-8.3.0|go1.10.3
-|gcc-9.3.0|go1.12
-|gcc-10.1.0|go1.14.2
+| gcc version | go version |
+| ----------- | ---------- |
+| gcc-8.3.0   | go1.10.3   |
+| gcc-9.3.0   | go1.12     |
+| gcc-10.1.0  | go1.14.2   |
 
 ### crosstool-ng编译gccgo
 这里我用官方crosstool-ng
 `git clone https://github.com/crosstool-ng/crosstool-ng`
 需要先安装些依赖:
-```sh
+```shell
 apt install flex help2man texinfo libtool-bin libncurses-dev gawk bison
 ```
 
 要生成ct-ng
-```sh
+```shell
 cd crosstool-ng
 ./bootstrap
 ./configure --enable-local
@@ -388,7 +388,7 @@ make
 ```
 
 使用cg-ng
-```sh
+```shell
 ./ct-ng help
 ./ct-ng list-samples
 ./ct-ng powerpc-e300c3-linux-gnu
@@ -407,7 +407,7 @@ make
 gcc-10.2.0, 里面的go版本是go1.14;
 go源码使用`release-branch.go1.14`, 编译go tools.
 使用新生成的go tools, 指定gccgo编译hello.go
-```sh
+```shell
 PATH=$PATH:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin GOARCH=ppc64 /repo/yingjieb/godev/golang-go/bin/go build -compiler gccgo -gccgoflags '-static -Os' hello.go
 ```
 
@@ -537,7 +537,7 @@ func (b *Builder) gccArchArgs() []string {
 ```
 
 ### 要修改的文件
-```sh
+```shell
 modified:   src/cmd/dist/build.go
 modified:   src/cmd/dist/buildruntime.go
 modified:   src/cmd/go/internal/cfg/cfg.go
@@ -549,7 +549,7 @@ modified:   src/internal/cfg/cfg.go
 用gccgo编出来的32位程序可以执行.
 用gccgo编ppc64时, 编译出错, 报link错误:
 
-```sh
+```shell
 lib/gcc/powerpc-e6500-linux-gnu/10.2.0/libgcc.a(morestack.o): in function `__morestack':
 src/gcc/libgcc/config/rs6000/morestack.S:159: undefined reference to `__morestack_block_signals'
 
@@ -564,7 +564,7 @@ undefined reference to `__morestack_load_mmap'
 ```
 
 对hello.go来说, 加选项`-fno-split-stack`可以成功编译ppc64, 成功运行
-```sh
+```shell
 /repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e6500-linux-gnu/bin/powerpc-e6500-linux-gnu-gccgo  -fno-split-stack -static hello.go
 
 PATH=$PATH:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e6500-linux-gnu/bin GOARCH=ppc64 /repo/yingjieb/godev/golang-go/bin/go build -compiler gccgo -gccgoflags '-static -Os -fno-split-stack' hello.go
@@ -574,7 +574,7 @@ PATH=$PATH:/repo/yingjieb/crosstoolng/github/crosstool-ng/targets/powerpc-e6500-
 
 ## 这些缺失的符号应该在哪里?
 看起来是libgcc.a的`__morestack`函数需要调用`__morestack_block_signals`等函数, 但没有定义.
-```sh
+```shell
 $ nm /repo/yingjieb/crosstoolng/github/powerpc-e6500-linux-gnu/lib/gcc/powerpc-e6500-linux-gnu/10.2.0/libgcc.a  | grep more
 morestack.o:
                  U __generic_morestack
@@ -598,7 +598,7 @@ morestack.o:
 根据下面的参考文章, split stack功能是`Ian Lance Taylor`在x86上实现的; ppc64上的实现的作者是`Alan Modra`, [[Patch 0/4] PowerPC64 Linux split stack support](https://gcc.gnu.org/legacy-ml/gcc-patches/2015-05/msg01519.html)
 
 对照X86机器上:
-```sh
+```shell
 # 先找到gcc的lib目录, 是/usr/lib/gcc/x86_64-linux-gnu/7
 gcc -print-search-dirs
 
@@ -659,7 +659,7 @@ LIB2ADD_ST += $(srcdir)/generic-morestack.c $(srcdir)/generic-morestack-thread.c
 endif
 ```
 在[gcc安装手册](https://gcc.gnu.org/install/configure.html)中, 有使用方法:
-```sh
+```shell
 --enable-threads
 Specify that the target supports threads. This affects the Objective-C compiler and runtime library, and exception handling for other languages like C++. On some systems, this is the default.
 
@@ -703,7 +703,7 @@ Microsoft Win32 API thread support.
 ```
 
 在`gcc/config.gcc`中, 每个arch和os都会检查
-```sh
+```shell
 case ${target} in
 *-*-linux* | frv-*-*linux* | *-*-kfreebsd*-gnu | *-*-gnu* | *-*-kopensolaris*-gnu | *-*-uclinuxfdpiceabi)
     case ${enable_threads} in
@@ -715,7 +715,7 @@ esac
 
 ### crosstool-ng的bug
 经进一步检查, 原版的gcc没有问题. 问题在于crosstool-ng的一个patch:
-```sh
+```shell
 yingjieb@godev-server /repo/yingjieb/crosstoolng/github/crosstool-ng/packages/gcc/10.2.0
 $ cat 0008-libgcc-disable-split-stack-nothreads.patch
 disable split-stack for non-thread builds
@@ -738,7 +738,7 @@ Signed-off-by: Waldemar Brodkorb <wbx@openadk.org>
 ```
 
 尝试在crosstool-ng的config里面加:
-```sh
+```shell
 CT_CC_GCC_EXTRA_CONFIG_ARRAY="--enable-threads=yes"
 ```
 但不起作用, 删除掉这个文件`0008-libgcc-disable-split-stack-nothreads.patch`就好了.
@@ -762,7 +762,7 @@ https://gcc.gnu.org/legacy-ml/gcc-patches/2015-05/msg01522.html
 https://groups.google.com/g/golang-codereviews/c/4T_KQys3XM0/m/VWNk2c6JCgAJ
 
 # 上传gccgo工具链到artifactory
-```sh
+```shell
 proxyoff
 
 cd crosstool-ng/targets
@@ -791,7 +791,7 @@ go需要debug info来查找file line信息.
 [GCC的debug选项](https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html)
 
 gcc的选项中, `-g1`和`-gz`看起来比较有用:
-```sh
+```shell
 -glevel
     Request debugging information and also use level to specify how much information. The default level is 2.
 
@@ -812,14 +812,14 @@ gcc的选项中, `-g1`和`-gz`看起来比较有用:
 `-gz`能让hello从17M减小到8.7M
 
 ## 相关命令
-```sh
+```shell
 #看具体那个section的size
 size -A hello
 ```
 
 [这篇文章](https://help.backtrace.io/en/articles/1716990-dwarf)非常详细的介绍了debug节的方方面面的信息.
 特别的, objcopy能够去掉任意指定section
-```sh
+```shell
 /repo/yingjieb/godevsig/crosstool-ng/targets/powerpc-e500mc-linux-gnu/bin/powerpc-e500mc-linux-gnu-objcopy -R .debug_info -R .debug_abbrev -R .debug_aranges -R .debug_ranges -R .debug_loc -R .debug_str hello
 ```
 
@@ -858,13 +858,13 @@ index efed15117..3c0d2e5e2 100644
 
 经过测试, 各个选项组合的size如下:
 
-|GOCFLAGS_FOR_TARGET | webhello size
-|--|--
-|-O2 -g(default) | 17M
-|-Os -g1 -gz | 13M
-|-Os -g1 -gz -fdata-sections -ffunction-sections -Wl,--gc-sections | 12M
-|-Os -g1 -gz -fdata-sections -ffunction-sections -Wl,--gc-sections -flto | 12M
-|-Os -g1 -gz -fdata-sections -ffunction-sections | 12M
+| GOCFLAGS_FOR_TARGET                                                     | webhello size |
+| ----------------------------------------------------------------------- | ------------- |
+| -O2 -g(default)                                                         | 17M           |
+| -Os -g1 -gz                                                             | 13M           |
+| -Os -g1 -gz -fdata-sections -ffunction-sections -Wl,--gc-sections       | 12M           |
+| -Os -g1 -gz -fdata-sections -ffunction-sections -Wl,--gc-sections -flto | 12M           |
+| -Os -g1 -gz -fdata-sections -ffunction-sections                         | 12M           |
 
 ### 使能lto
 crosstool-ng默认在static gcc模式下(STATIC_TOOLCHAIN=y), 不使能lto.
@@ -874,7 +874,7 @@ crosstool-ng默认在static gcc模式下(STATIC_TOOLCHAIN=y), 不使能lto.
 
 ## 改动提交到crosstool-ng
 在gcc库上commit这个改动, 生成patch
-```sh
+```shell
 # -1表示最新的1个改动
 git format-patch -1
 ```
@@ -887,7 +887,7 @@ git format-patch -1
 
 那可以在最后手动用`objcopy -R .go_export file`来删除这个小节.
 
-```sh
+```shell
 /opt/crosstool/powerpc64-e6500-linux-gnu/bin/powerpc64-e6500-linux-gnu-objcopy --remove-section=.go_export hello
 ```
 
@@ -959,7 +959,7 @@ platform), and only step 15 is done on the target architecture.
 * 高版本
 
 # 补充: fant-f运行topid
-```sh
+```shell
 ~ # LD_LIBRARY_PATH=`pwd` ./topid -record -tag fantf -p 1 -child -chartserver 10.182.105.138:9887 -i 3
 Hello 你好 Hola Hallo Bonjour Ciao Χαίρετε こんにちは 여보세요
 Version: 0.1.3
@@ -978,7 +978,7 @@ FANT-F  ~ #
 ```
 
 # 补充: ppc64
-```sh
+```shell
 yingjieb@godev-server /repo/yingjieb/godevsig/crosstool-ng/samples/Nokia
 $ git show 0a81bc37
 commit 0a81bc37a9e8d44c9d3f13c0b557854425b018db
@@ -1021,7 +1021,7 @@ index df91a9ff..00000000
 [zte有人支持了e6500](https://github.com/golang/go/issues/19074) 用法是传入GOPPC
 但我试了, 官方源码树里还没有.
 
-```sh
+```shell
 GOPPC64=e6500 GOARCH=ppc64 _go build hello.g
 2020/11/03 01:21:57 Invalid GOPPC64 value. Must be power8 or power9.
 ```

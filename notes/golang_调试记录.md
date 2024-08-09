@@ -98,7 +98,7 @@
   - [如果只有两个goroutine, 但为什么要起6个线程呢?](#如果只有两个goroutine-但为什么要起6个线程呢)
 
 # 命令记录
-```sh
+```shell
 # 手动访问随机debug端口
 http://10.182.105.138:41259/debug/pprof
 # pprof生成内存视图服务
@@ -129,7 +129,7 @@ go tool pprof -http=0.0.0.0:8000 --base cpuiter1.out cpuiter10.out
 
 ## dlv headless模式
 启动dlv调试server
-```sh
+```shell
 dlv --headless exec bin/runsc -- -h
 #成功后会打印
 API server listening at: 127.0.0.1:37619
@@ -140,7 +140,7 @@ dlv --headless -l 127.0.0.1:37619 exec bin/runsc -- -h
 ```
 
 在client侧:
-```sh
+```shell
 dlv connect 127.0.0.1:37619
 (dlv) 
 # 像正常使用dlv一样
@@ -224,7 +224,7 @@ b pkg/sentry/kernel.(*Task).executeSyscall
 ## gvisor syscall调试
 
 先用runsc启动一个docker container
-```sh
+```shell
 docker run --cpus=2 -m 2g --rm --runtime=runsc -it --name=test centos:7 bash
 ```
 
@@ -341,7 +341,7 @@ func ClockSettime(*kernel.Task, arch.SyscallArguments) (uintptr, *kernel.Syscall
 
 
 # 记录debug adaptiveservice
-```sh
+```shell
 # 注意要用./binary的形式
 # 给binary传参数用--
 dlv exec ./echo -- -c -cmd timeout -d
@@ -352,7 +352,7 @@ b (*timeouter).SetTimeout
 ```
 
 # 记录tengo debug
-```sh
+```shell
 # dlv exec执行一个程序, 可以带参数
 dlv exec bin/gshell example/govm_test.gsh
 # 程序停在最开始阶段
@@ -500,7 +500,7 @@ GOGC默认是100, 即新分配的内存和上次gc完成时剩下的内存的比
 某次版本后, topid启动马上出错:
 每次栈还不一样, 但最后都是`runtime.mallocgc`的栈
 ### 错误1
-```sh
+```shell
 ~ # ./topid -tag ZAPPING_MCASTV4_v2 -p 1 -tree
 Hello 你好 Hola Hallo Bonjour Ciao Χαίρετε こんにちは 여보세요
 Version: 0.1.4
@@ -535,7 +535,7 @@ pidinfo.newPidInfo(0x28e, 0x40000bee10, 0x28e, 0x2f4f20, 0x0)
 ```
 
 ### 错误2
-```sh
+```shell
 ~ # Hello 你好 Hola Hallo Bonjour Ciao Χαίρετε こんにちは 여보세요
 Version: 0.1.4
 Visit below URL to get the chart:
@@ -567,7 +567,7 @@ pidinfo.(*PidInfo).init(0x40001a84b0, 0xa, 0x1d6860)
 ```
 
 ### 错误3
-```sh
+```shell
 ./topid -tag ZAPPING_MCASTV4_v2 -p 1 -chartserver 10.182.105.138:9887 -i 3 -c 3600 -record -sys -child &
 ~ # Hello \xe4\xbd\xa0\xe5\xa5\xbd Hola Hallo Bonjour Ciao \xce\xa7\xce\xb1\xce\xaf\xcf\x81\xce\xb5\xcf\x84\xce\xb5 \xe3\x81\x93\xe3\x82\x93\xe3\x81\xab\xe3\x81\xa1\xe3\x81\xaf \xec\x97\xac\xeb\xb3\xb4\xec\x84\xb8\xec\x9a\x94
 Version: 0.1.4
@@ -608,18 +608,18 @@ pidinfo.(*PidInfo).init(0x400020d1d0, 0xa, 0x1d6860)
 ## 调查
 ### 释放内存后运行 重启后运行 -- nok
 看起来是内存申请失败, 那么先系统内存的情况:
-```sh
+```shell
 ~ # free -m
               total        used        free      shared  buff/cache   available
 Mem:            853         533           8         115         312         179
 Swap:             0           0           0
 ```
 强制释放内存试一下:
-```sh
+```shell
 echo 3 > /proc/sys/vm/drop_caches
 ```
 再看一下内存:
-```sh
+```shell
 ~ # free -m
               total        used        free      shared  buff/cache   available
 Mem:            853         537         103         115         212         175
@@ -632,7 +632,7 @@ Swap:             0           0           0
 
 ### golang版本1.13换到1.16问题依旧
 注意1.16默认使用go mod, 需要手动off掉
-```sh
+```shell
 export GOPATH=`pwd`
 GOARCH=arm64 GO111MODULE=off go build topid.go
 ```
@@ -668,7 +668,7 @@ htop显示内存46M
 ### 操做2: 50个govm_test同时restart
 现象是同时restart后, 系统24核CPU占用100%持续大概1分钟, 每个govm_test的结束时间长至50秒左右.  
 htop显示物理内存上升到129M, 多做几次restart会升到200多M. 200多M的时候, 有的时候就不会100%CPU了.
-```sh
+```shell
 perf record -g -p `pidof gshell` -- sleep 60
 perf script | /repo/yingjieb/FlameGraph/stackcollapse-perf.pl | /repo/yingjieb/FlameGraph/flamegraph.pl > gshell.svg
 ```
@@ -1317,11 +1317,11 @@ func (pi *PidInfo) Threads() []*TidInfo {
 ```
 
 ## 最终版结果
-|slice初始化方式| 性能|
-|----|----|
-|`threads := make([]*TidInfo, pi.threads.Len())` + `threads[i] = thrdi.(*TidInfo)` |726 ns/op|
-|`threads := make([]*TidInfo, 0, pi.threads.Len())` + append |729 ns/op|
-|`var threads []*TidInfo` + append | 1114 ns/op|
+| slice初始化方式                                                                   | 性能       |
+| --------------------------------------------------------------------------------- | ---------- |
+| `threads := make([]*TidInfo, pi.threads.Len())` + `threads[i] = thrdi.(*TidInfo)` | 726 ns/op  |
+| `threads := make([]*TidInfo, 0, pi.threads.Len())` + append                       | 729 ns/op  |
+| `var threads []*TidInfo` + append                                                 | 1114 ns/op |
 
 
 
@@ -1361,7 +1361,7 @@ func BenchmarkP1InfoUpdate(b *testing.B) {
 
 ### in docker
 可以直接在开发目录下执行
-```sh
+```shell
 yingjieb@3a9f377eee5d /repo/yingjieb/godev/practice/src/pidinfo
 $ go test -run xxxxxx -bench . -benchtime 10s 
 goos: linux
@@ -1379,13 +1379,13 @@ docker里面的pid1进程树, 大概0.2ms运行一轮
 
 ### out docker
 先docker里面编译
-```sh
+```shell
 yingjieb@3a9f377eee5d /repo/yingjieb/godev/practice/src/pidinfo
 $ go test -c -o pidinfotest
 ```
 然后在host上运行
 用testing框架编译出来的测试程序, 都带了testing框架的选项, 选项比普通的go test命令要多test.前缀, 其他都一样
-```sh
+```shell
 $ ./pidinfotest -h
 Usage of ./pidinfotest:
   -test.bench regexp
@@ -1405,7 +1405,7 @@ Usage of ./pidinfotest:
 ./pidinfotest -test.run xxxxxx -test.bench . -test.benchtime 10s 
 ```
 结果: 大概1ms
-```sh
+```shell
 $ ./pidinfotest -test.run xxxxxx -test.bench . -test.benchtime 30s
 goos: linux
 goarch: amd64
@@ -1417,7 +1417,7 @@ PASS
 
 
 ## 打开cpu分析
-```sh
+```shell
 go test -run xxxxxx -bench . -benchtime 10s -cpuprofile cpu.out
 go tool pprof -http=0.0.0.0:8000 cpu.out
 ```
@@ -1430,7 +1430,7 @@ runtime.mapiternext这个map迭代器的占比:
 `0.58%  pidinfotest       [.] runtime.mapiternext`
 
 ### host上profile CPU
-```sh
+```shell
 yingjieb@godev-server /repo/yingjieb/godev/practice/src/pidinfo
 $ ./pidinfotest -test.run xxxxxx -test.bench . -test.benchtime 30s -test.cpuprofile cpuhost.o
 ut
@@ -1492,7 +1492,7 @@ go tool trace -http=0.0.0.0:8000 testtrace
 go test框架已经把trace功能集成进去了.  
 引入`import _ "net/http/pprof"`也是很方便的触发trace的手段.  
 下面是用pprof包触发并分析trace的记录:
-```sh
+```shell
 #先触发并下载30秒的trace
 wget http://10.182.105.138:9999/debug/pprof/trace?seconds=10 -O testtrace
 #用trace tool来分析, 不加http就默认使用随机端口起http
@@ -1514,13 +1514,13 @@ go tool trace -http=0.0.0.0:8000 testtrace
 引入“runtime/trace”包，调用方法trace.Start()/trace.Stop()
 
 ### 不同的profile文件对比
-```sh
+```shell
 #对比1和2的差异
 go tool pprof -http=:8080 --base dumps/heap-profile-cmp-001.pb.gz dumps/heap-profile-cmp-002.pb.gz
 ```
 
 ## 传统火焰图方式
-```sh
+```shell
 perf record -g -p `pidof tooManyTimer` -- sleep 60
 perf script | /repo/yingjieb/FlameGraph/stackcollapse-perf.pl | /repo/yingjieb/FlameGraph/flamegraph.pl > tooManyTimer60s.svg
 
@@ -1612,7 +1612,7 @@ url后加`?debug=1`能产生文本格式的输出, 这样用curl就能查看, �
 source是网页产生的profile文件. 一般就直接写URL地址  
 `go tool pprof http://10.182.105.138:9999/debug/pprof/profile`  
 默认的取样时间是30s ，可以通过-seconds 命令来指定取样时间 ，取样完成后会进入命令行状态
-```sh
+```shell
 $ go tool pprof http://10.182.105.138:9999/debug/pprof/profile
 Fetching profile over HTTP from http://10.182.105.138:9999/debug/pprof/profile
 Saved profile in /home/yingjieb/pprof/pprof.tooManyTimer.samples.cpu.002.pb.gz
@@ -1778,7 +1778,7 @@ sysmon在`<<go原理>>`中有所说明
 ## 以json_load为例
 ![](img/golang_调试记录_20220914083706.png)  
 
-```sh
+```shell
 #运行后, 有6个线程
 ./json_load -fileName test.json -loopNum 10000 > /dev/null
 cat /proc/17212/status

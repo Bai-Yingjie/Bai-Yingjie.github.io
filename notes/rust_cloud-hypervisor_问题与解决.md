@@ -32,7 +32,7 @@
 参考:https://docs.fedoraproject.org/en-US/quick-docs/using-nested-virtualization-in-kvm/
 
 ### 检查kvm是否nested
-```sh
+```shell
 cat /sys/module/kvm_intel/parameters/nested
 ```
 果然这个机器显示`N`
@@ -103,7 +103,7 @@ sudo apt install libseccomp-dev libcap-ng-dev
 ## 如何静态链接virtiofsd
 virtiofsd的官方repo就可以编译出完全静态的二进制, 它是如何做到的?
 见`https://gitlab.com/virtio-fs/virtiofsd/-/blob/main/.gitlab-ci.yml`
-```sh
+```shell
 apk add libcap-ng-static libseccomp-static musl-dev
 RUSTFLAGS='-C target-feature=+crt-static -C link-self-contained=yes' LIBSECCOMP_LINK_TYPE=static LIBSECCOMP_LIB_PATH=/usr/lib LIBCAPNG_LINK_TYPE=static LIBCAPNG_LIB_PATH=/usr/lib cargo build --release --target x86_64-unknown-linux-musl
 ```

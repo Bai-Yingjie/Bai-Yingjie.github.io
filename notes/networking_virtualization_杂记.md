@@ -173,7 +173,7 @@ ip: 192.168.0.14/24
 
 ### 过程第二步
 现在报文来到host的docker0网桥上, 但依然没有找到138的路由. 在通过默认路由前, 需要做NAT转换: 把内网ip(172.17.0.2)换成host ip(192.168.0.14)
-```sh
+```shell
 #这里很有意思的出现了2次icmp request
 #第一次是host ip发给138
 fa:16:3e:cf:b4:34 > fa:16:3e:36:da:c0
@@ -213,7 +213,7 @@ fa:16:3e:36:da:c0 > fa:16:3e:cf:b4:34
 
 # linux网桥 veth 等等
 ## ip netns 网络名字空间
-```sh
+```shell
 创建网络空间：
 # ip netns add ns1
 查看网络空间：
@@ -230,7 +230,7 @@ netns是一个新的网络栈的拷贝, 有独立的路由, 规则, 和网络设
 `man ip netns`里面说, 一个有名子的netns对应`/var/run/netns/NAME`目录下的NAME文件, 打开这个文件并传入`setns`系统调用, task就关联到这个netns了.
 `ip netns exec`自动完成上述netns文件关联到进程的动作, 所以执行的命令是在指定的netns里面执行的.
 
-```sh
+```shell
 ip netns set NAME NETNSID - assign an id to a peer network namespace
 #看目标PID对应的netns
 ip netns identify [PID] - Report network namespaces names for process
@@ -289,7 +289,7 @@ docker网络文档写的很好: https://docs.docker.com/network/
     ```
 * ipvlan: 感觉是一个轻量的网络虚拟化实现: 不用网桥, 而是绑定到host的物理口eth, 或eth的vlan比如eth.10. 可以是l2模式也可以是l3模式.  
 ![](img/networking_virtualization_杂记_20220920112417.png)  
-```sh
+```shell
 # IPvlan  (-o ipvlan_mode= Defaults to L2 mode if not specified)
 $ docker network  create -d ipvlan \
     --subnet=192.168.1.0/24 \ 

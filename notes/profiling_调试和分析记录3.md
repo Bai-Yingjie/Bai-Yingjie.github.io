@@ -59,7 +59,7 @@ copy_process()
 ## 相关panic
 在板子重启过程中, 出了kernel panic
 
-```sh
+```shell
 ...
 CPU 1 Unable to handle kernel paging request at virtual address 0000000000000008
 [ 4172.962012] (c01 22036 app_finis) CPU: 1 PID: 22036 Comm: app_finish Tainted: G           O    4.9.79-Cavium-Octeon #5
@@ -306,7 +306,7 @@ SYSCALL_DEFINE3(execve,
 内核在`fs/binfmt_elf.c`解析要被执行的elf文件  
 有个INTERP, 指的是动态链接器, 其路径是写死的:  
 比如`/lib64/ld-linux-x86-64.so.2`
-```sh
+```shell
 $ readelf -l /usr/bin/sleep
  
 Elf file type is DYN (Shared object file)
@@ -353,7 +353,7 @@ static int load_elf_binary(struct linux_binprm *bprm)
 }
 ```
 用ldd能看出来.
-```sh
+```shell
 $ ldd /usr/bin/sleep
         linux-vdso.so.1 (0x00007ffc9dbfe000)
         libc.so.6 => /usr/lib/libc.so.6 (0x00007f71d401d000)
@@ -391,7 +391,7 @@ int search_binary_handler(struct linux_binprm *bprm)
 ## 任意类型文件
 上面说到, 内核可以执行任意文件, 只要有对应的handler
 内核提供`binfmt_misc`接口来注册handler.
-```sh
+```shell
 #比如注册.jpg用feh打开
 echo ':fehjpg:E::jpg::/usr/bin/feh:' > /proc/sys/fs/binfmt_misc/register
 ```
@@ -411,7 +411,7 @@ https://www.kernel.org/doc/html/v5.2/trace/kprobetrace.html
 /repo/yingjieb/ms/buildroot73/output/host/opt/ext-toolchain/bin/../mips64-octeon-linux-gnu/sys-root/lib64/../lib32/libc.so.6
 ```
 # 用size命令查看elf文件各个section的大小
-```sh
+```shell
 /repo/yingjieb/ms/buildrootmlt/output/build/linux-custom/fs/ubifs
 # -A更详细点
 size -A ubifs.o ubifs.o.73
@@ -423,7 +423,7 @@ size -B ubifs.o ubifs.o.73
 
 # 查看一个进程运行时的状态
 相关文档: `linux/Documentation/filesystems/proc.txt`
-```sh
+```shell
 #很详细, 包括各种id, 线程数, vm状态, 
 cat /proc/14338/status
 ```
@@ -458,7 +458,7 @@ https://stackoverflow.com/questions/8738951/printk-inside-an-interrupt-handler-i
 * 因为同一时刻真正往串口打印的只能有一个进程, 这个进程在调用printk的时候, printk会把其他进程或中断上下文的log也一起打出来. 这会带来时间上的不确定性.
 
 # 动态debug打印, pr_debug要打开CONFIG_DYNAMIC_DEBUG
-```sh
+```shell
 #不打开这个选项, pr_debug根本就不会编译
 CONFIG_DYNAMIC_DEBUG=y
 #打开以后, 用下面的语法
@@ -489,7 +489,7 @@ bootoctlinux $(loadaddr) 'coremask=0x0f ctxt=OSW isamversion=ZAM8AA62.990, prozo
 ```
 
 # cmd line传kernel module的参数
-```sh
+```shell
 #insmod
 insmod my_module param=value
 #cmdline
@@ -504,7 +504,7 @@ setenv kernel_extra_args config_overlay=reboot=0 loglevel=8 debug ignore_logleve
 模块可以用kernel或者其他模块export出来的符号  
 在引用其他模块的符号时, 要先加载被依赖的ko  
 比如mymodule2.ko用了mymodule1.ko的print_hello()函数, 如果单独加载mymodule2.ko时
-```sh
+```shell
 $ sudo insmod mymodule2.ko
 insmod: ERROR: could not insert module mymodule2.ko: Unknown symbol in module
 
@@ -521,7 +521,7 @@ rishi@rishi-VirtualBox:~/mydev/publications/lkw/doc/code/04_exporting_symbols/ex
 
 # 关于kallsyms
 /proc/kallsyms包括内核所有符号, 包括没有被`EXPORT_SYMBOL()`的符号
-```sh
+```shell
 #没有sudo的话, kallsyms也能看到符号名, 但地址都是0
 less /proc/kallsyms
 

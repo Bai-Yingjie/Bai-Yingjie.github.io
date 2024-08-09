@@ -44,7 +44,7 @@ sf update $(fileaddr) 0x100000 $(filesize)
 ```
 
 # 编译kernel+debian并运行
-```sh
+```shell
 #编译内核
 #到linux下面
 make kernel-deb
@@ -90,7 +90,7 @@ make run
 再`bootloaderupdate`
 
 # rootfs over nfs
-```sh
+```shell
 #安装nfs, server端和client端都要装
 yum install nfs-utils nfs-utils-lib
 apt-get install nfs-utils nfs-utils-lib
@@ -120,7 +120,7 @@ Export list for 192.168.1.99:
 ```
 
 # 78xx uboot nfs
-```sh
+```shell
 #需要内核支持NFS和DNS
 Octeon ebb7800# setenv ipaddr 192.168.1.113
 Octeon ebb7800# setenv serverip 192.168.1.99
@@ -135,7 +135,7 @@ Octeon ebb7800# run nfsboot
 ```
 
 # 关闭nmi wdt
-```sh
+```shell
 #78
 devmem 0x1010000020000 64 0
 for i in `seq 0 47`;do busybox devmem $((i*8+0x1010000020000)) 64;done
@@ -147,7 +147,7 @@ for i in `seq 2 31`;do busybox devmem $((i*8+0x0001070100100000)) 64 0;done
 ```
 
 # 使用SD卡编译debian
-```sh
+```shell
 . env-setup OCTEON_CN70XX
 cd linux/
 make kernel-deb
@@ -161,7 +161,7 @@ mem=2G
 ```
 
 # evb7000-sff sd
-```sh
+```shell
 Octeon evb7000_sff# fatls mmc 1
 Octeon evb7000_sff# fatload mmc 1 0 octboot2.bin
 [root@dev-lnx1 OCTEON-SDK]# . env-setup OCTEON_CN71XX
@@ -220,7 +220,7 @@ make run
 ```
 
 # uboot运行SE
-```sh
+```shell
 #运行SE, tftp方式下载:
 Octeon evb7000_sff# tftp 0 passthrough
 Octeon evb7000_sff# bootoct 0 numcores=4
@@ -239,7 +239,7 @@ saveenv
 ```
 
 # uboot自动起linux
-```sh
+```shell
 Octeon evb7000_sff# setenv bootcmd run linux_mmc
 Octeon evb7000_sff# printenv
 autoload=n
@@ -287,14 +287,14 @@ Environment size: 1246/65532 bytes
 ```
 
 # strip vmlinux
-```sh
+```shell
 /home/byj/repo/hg/xrepo/buildroot/output/host/usr/bin/mips64-octeon-linux-gnu-strip -o vmlinux.strip vmlinux
 yingjie@aircraft ~/xrepo/buildroot/output/images
 ../host/usr/bin/mips64-octeon-linux-gnu-strip -o vmlinux.strip vmlinux
 ```
 
 # oct-sim
-```sh
+```shell
 #terminal1:
 byj@byj-mint ~/repo/hg/OCTEON-SDK-3.1-pristine/linux/kernel
 $oct-sim /home/byj/repo/hg/xrepo/buildroot/output/images/vmlinux.strip -envfile=u-boot-env -memsize=2048 -uart0=2020 -noperf -numcores=1 -quiet
@@ -303,7 +303,7 @@ $telnet localhost 2020
 ```
 
 # tftp vmlinux
-```sh
+```shell
 Octeon evb7000_sff# dhcp
 Octeon evb7000_sff# tftp 192.168.1.99:vmlinux.strip
 Octeon evb7000_sff# bootoctlinux $(loadaddr) numcores=$(numcores) mem=2G
@@ -311,7 +311,7 @@ Octeon evb7000_sff# bootoctlinux $(loadaddr) numcores=$(numcores) mem=2G
 
 
 # tftpboot
-```sh
+```shell
 #安装和配置atftpd
 $apt install atftpd
 $mkdir -p /home/byj/tmp/tftpboot
@@ -338,7 +338,7 @@ Octeon evb7000_sff# tftp 0 192.168.1.16:filename
 
 
 # 运行iperf测试
-```sh
+```shell
 #服务器上
 [yingjie@aircraft temp]$ iperf3 -s -p 12345 -i 1
 
@@ -348,7 +348,7 @@ root@octeon:~# iperf3 -c 192.168.1.99 -p 12345 -i 1 -t 10 -f M
 
 # debian 打开dhcp client动态获取ip
 https://wiki.debian.org/NetworkConfiguration
-```sh
+```shell
 root@octeon:~# dhclient
 #查看路由是否正确
 root@octeon:~# route
@@ -356,13 +356,13 @@ root@octeon:~# ip route
 ```
 
 # 查kernel版本（编译时）
-```sh
+```shell
 #内核源码树下
 make kernelrelease ARCH=mips CROSS_COMPILE=mips64-octeon-linux-gnu-
 ```
 
 ## linux编译
-```sh
+```shell
 cd linux
 byj@byj-mint ~/repo/hg/OCTEON-SDK-3.1/linux
 $make help
@@ -383,7 +383,7 @@ make menuconfig ARCH=mips
 ```
 
 # 只编译debian目录
-```sh
+```shell
 #需要进入root模式
 #之前编译过kernel-deb（或者在内核源码树里面make vmlinux.64 modules ARCH=mips CROSS_COMPILE=mips64-octeon-linux-gnu-）
 cd linux/debian/
@@ -423,7 +423,7 @@ bootoctlinux 0 root=/dev/sda2 3 console=ttyS0,115200
 ```
 
 # 使用分离的cpio做initramfs
-```sh
+```shell
 $ cd linux
 $ make kernel-deb
 $ cp kernel/linux/vmlinux.64 /var/lib/tftpboot/

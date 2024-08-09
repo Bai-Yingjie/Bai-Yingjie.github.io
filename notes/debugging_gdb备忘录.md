@@ -23,7 +23,7 @@
 
 # gdb tui模式
 tui模式下更像个ide调试界面, 信息更丰富.
-```sh
+```shell
 #可以先gdb program core来启动, 在gdb里面用layout命令来显示源码 asm和reg窗口
 #Ctrl + x，再按a：回到传统模式，即退出layout，回到执行layout之前的调试窗口
 #Ctrl + x, o: 切换激活窗口, 切换到命令窗口可以上下翻历史命令
@@ -49,12 +49,12 @@ refresh 或Ctrl + L
 # 远程调试app, 用gdbserver和gdb远程调试板子
 
 板子上配好ip: 192.168.2.12
-```sh
+```shell
 #直接带好参数
 ~ # gdbserver :9123 /isam/user/eoe_filter -n eth0 -t tap-fwd -E
 ```
 我在mint上, 用sshfs mount了服务器的buildroot目录; 所以我在mint上就能操作:
-```sh
+```shell
 export PATH=$PATH:~/work/share/buildroot73/output/host/opt/ext-toolchain/bin
 #cd到被调试的app目录下
 yingjieb@yingjieb-VirtualBox ~/work/share/buildroot73/output/build/isam-linux-target-apps-22ef847b216e5d579c016ed9dd9795d393b56001
@@ -78,7 +78,7 @@ Linux Mint 19.1 Tessa $ mips64-octeon-linux-gnu-gdb eoe_filter
 ```
 
 # 远程调试uboot, 用jtag做gdb server
-```sh
+```shell
 cd /repo2/yingjieb/cavium/sdk31_508/usr/local/Cavium_Networks/OCTEON-SDK/tools/bin
 //gdb调试elf文件
 mipsisa64-octeon-elf-gdb /repo2/yingjieb/u-boot-octeon-sdk3.1/u-boot-octeon_fpxtb
@@ -101,7 +101,7 @@ b init_octeon3_ddr3_interface
 
 # 远程调试, over串口
 在板子上:
-```sh
+```shell
 board:
 stty -F /dev/ttyS0 115200
 stty -F /dev/ttyS0 460800
@@ -109,7 +109,7 @@ stty -F /dev/ttyS0 -a
 ( taskset 1 gdbserver /dev/ttyS0 ./isam_app useSTDIO) &
 ```
 在服务器上:
-```sh
+```shell
 ASBLX28:/repo/yingjieb/fdt063/sw/vobs/esam/build/reborn/buildroot-isam-reborn-cavium-fgltb/output/host/usr/bin
 $ mips64-octeon-linux-gnu-gdb /repo/yingjieb/fdt063/sw/vobs/esam/build/fglt-b/OS/application/isam_app.nostrip
 #这个135.251.199.198:2009是串口服务器地址
@@ -123,7 +123,7 @@ $ mips64-octeon-linux-gnu-gdb /repo/yingjieb/fdt063/sw/vobs/esam/build/fglt-b/OS
 
 # gdb调试nand
 target:
-```sh
+```shell
 devmem 0x1070000000500 64 0
 devmem 0x1070000000508 64 0
 devmem 0x1070000000510 64 0
@@ -134,7 +134,7 @@ echo g > /proc/sysrq-trigger
 ```
 
 host:
-```sh
+```shell
 mips64-octeon-linux-gnu-gdb vmlinux
 target remote 135.251.199.198:2114
 set print pretty on
@@ -147,7 +147,7 @@ c
 
 # gdb基本
 ## 查看当前要执行的行
-```sh
+```shell
 frame, 简写f
 ```
 
@@ -163,13 +163,13 @@ display 变量名
 
 ## 按结构体方式查看内存地址
 
-```sh
+```shell
 p *(struct mtd_info *)0x80000000885dc018
 (gdb) p ((struct txq *)0xffff8119f800)->elts_n
 ```
 
 ## 显示内存内容
-```sh
+```shell
 #从priv->data这个地址开始, 显示2048个单位(2048), 每个单位一个字节(b), 按16进制显示(x)
 x/2048xb priv->data
 ```
@@ -181,7 +181,7 @@ $7 = 0xffff90c90000
 ```
 
 ## 指定显示格式
-```sh
+```shell
 #有时候, gdb不能准确显示一个uint16_t类型的变量的值, 比如
 (gdb) p nb_pkt_per_burst
 $19 = 65568
@@ -194,25 +194,25 @@ $19 = 65568
 ```
 
 ## 执行任意函数
-```sh
+```shell
 (gdb) p system("nandtest -k -o0x0 -l0x20000 /dev/mtd6")
 $1 = 1
 ```
 
 ## 查看结构体定义
-```sh
+```shell
 (gdb) ptype trx_sys_t
 ```
 
 ## 汇编和C混合显示
-```sh
+```shell
 (gdb) disassemble /m function
 (gdb) disassemble /m lj_meta_lookup
 (gdb) disassemble /m dp_netdev_input__
 ```
 
 ## info命令族
-```sh
+```shell
 #源码信息
 info source
 #当前局部变量
@@ -232,7 +232,7 @@ help info
 ```
 
 ## 加入libc符号表
-```sh
+```shell
 #必须使/repo/yingjieb/glibc-2.16.0能够被板子访问到
 gdb oflt.nostrip
 set args useSTDIO
@@ -251,7 +251,7 @@ b do_system
 ```
 
 ## 调试模块, 加载符号表
-```sh
+```shell
 #加载ko符号表
 /sys/module/spi_oak_island/sections # cat .text
 0xffffffffc0002000
@@ -262,7 +262,7 @@ b do_system
 ```
 
 ## 查看地址处的代码
-```sh
+```shell
 # source file and line number for an instruction address
 info line *0x<target_addr>
 # source lines around an instruction address
@@ -273,7 +273,7 @@ x/20i 0x<target_addr>
 ```
 
 ## 显示内存布局
-```sh
+```shell
 #显示所有内存section
 info files
 #比上面命令显示更全

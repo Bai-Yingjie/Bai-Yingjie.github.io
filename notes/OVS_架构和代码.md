@@ -412,7 +412,7 @@ sudo perf top -g -a -C 33 --no-children
 ```
 
 结合代码, 调用路径如下:
-```sh
+```shell
 start_thread 
 ovsthread_wrapper 
 pmd_thread_main 
@@ -460,7 +460,7 @@ pmd_thread_main
 sudo perf top -g -a -C 36 --no-children 
 ```
 结合代码, 调用路径如下:
-```sh
+```shell
 start_thread 
 ovsthread_wrapper 
 pmd_thread_main 
@@ -508,7 +508,7 @@ pmd_thread_main
 
 同一个numa上的ports可以共享mem pool, 但受多方面因素影响, 例如两个物理dpdk port, 同在一个numa上, MTU都是1500, 那很有可能是在一个mem pool里.  
 mem pool一般是预先分好的, 比如
-```sh
+```shell
 #MTU是1500时: 
 Total size per buffer = 3008 Bytes 
 #MTU是9000时: 
@@ -516,7 +516,7 @@ Total size per buffer = 10176 Bytes
 ```
 
 开始的时候, OVS预先申请256k个buffer, 那么
-```sh
+```shell
 #MTU是1500时: 
 Size of requested mempool = 3008 Bytes * 256K 
 Size of requested mempool = 788 MBytes 
@@ -607,7 +607,7 @@ sudo ovs-vsctl del-port ovsbr0 enP5p1s0
 
 ## 使用perf抓关键路径
 重点关注`lib/netdev-linux.c`里面的`netdev_linux_send()`函数, 在Host B上面抓ovs-vswitchd的调用路径.
-```sh
+```shell
 #回顾一下perf probe用法: 解析符号表 
 perf probe -x /lib64/libibverbs.so.1 -F 
 perf probe -x `which ovs-vswitchd` -F | grep ibv 
@@ -628,7 +628,7 @@ sudo perf report -i perf-no-ping.data -n
 结果:  
 netdev_linux_send和wrap_sendmmsg都有99K次数被采样到:  
 结合代码, 调用路径如下:  
-```sh
+```shell
 start_thread 
 ovsthread_wrapper 
 pmd_thread_main 

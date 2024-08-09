@@ -658,7 +658,7 @@ Once it is installed, you can access the statistics by passing the `-S` flag alo
 
 Monitor detailed NIC device statistics (e.g., packet drops) with `ethtool -S`.
 
-```sh
+```shell
 $ sudo ethtool -S eth0
 NIC statistics:
      rx_packets: 597028087
@@ -683,7 +683,7 @@ You can find the number of dropped incoming network data frames for, e.g. eth0 b
 
 Monitor higher level NIC statistics with sysfs.
 
-```sh
+```shell
 $ cat /sys/class/net/eth0/statistics/rx_dropped
 2
 ```
@@ -700,7 +700,7 @@ An even higher level file is `/proc/net/dev` which provides high-level summary-e
 
 Monitor high level NIC statistics by reading `/proc/net/dev`.
 
-```sh
+```shell
 $ cat /proc/net/dev
 Inter-|   Receive                                                |  Transmit
  face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed
@@ -720,7 +720,7 @@ If your NIC and the device driver loaded on your system support RSS / multiqueue
 
 Check the number of NIC receive queues with `ethtool`
 
-```sh
+```shell
 $ sudo ethtool -l eth0
 Channel parameters for eth0:
 Pre-set maximums:
@@ -741,7 +741,7 @@ This output is displaying the pre-set maximums (enforced by the driver and the h
 
 Error seen if your NIC doesn't support this operation.
 
-```sh
+```shell
 $ sudo ethtool -l eth0
 Channel parameters for eth0:
 Cannot get device channel parameters
@@ -774,7 +774,7 @@ Some NICs and their drivers also support adjusting the size of the RX queue. Exa
 
 Check current NIC queue sizes with `ethtool -g`
 
-```sh
+```shell
 $ sudo ethtool -g eth0
 Ring parameters for eth0:
 Pre-set maximums:
@@ -809,7 +809,7 @@ You can configure this if:
 
 Check the RX flow indirection table with `ethtool -x`
 
-```sh
+```shell
 $ sudo ethtool -x eth0
 RX flow hash indirection table for eth3 with 2 RX ring(s):
 0: 0 1 0 1 0 1 0 1
@@ -840,7 +840,7 @@ You can use `ethtool` to adjust the fields that will be used when computing a ha
 
 Check which fields are used for UDP RX flow hash with `ethtool -n`.
 
-```sh
+```shell
 $ sudo ethtool -n eth0 rx-flow-hash udp4
 UDP over IPV4 flows use these fields for computing Hash flow key:
 IP SA
@@ -877,7 +877,7 @@ As mentioned, ntuple filtering can be configured with `ethtool`, but first, you�
 
 Check if ntuple filters are enabled with `ethtool -k`
 
-```sh
+```shell
 $ sudo ethtool -k eth0
 Offload parameters for eth0:
 ...
@@ -895,7 +895,7 @@ Once you’ve enabled ntuple filters, or verified that it is enabled, you can ch
 
 Check existing ntuple filters with `ethtool -u`
 
-```sh
+```shell
 $ sudo ethtool -u eth0
 40 RX rings available
 Total 0 rules
@@ -975,7 +975,7 @@ The `softirq` system increments statistic counters which can be read from `/proc
 
 Check softIRQ stats by reading `/proc/softirqs`.
 
-```sh
+```shell
 $ cat /proc/softirqs
                     CPU0       CPU1       CPU2       CPU3
           HI:          0          0          0          0
@@ -1140,7 +1140,7 @@ As we’ll see later, things like [Receive Packet Steering](https://lwn.net/Arti
 
 Check hardware interrupt stats by reading `/proc/interrupts`.
 
-```sh
+```shell
 $ cat /proc/interrupts
             CPU0       CPU1       CPU2       CPU3
    0:         46          0          0          0 IR-IO-APIC-edge      timer
@@ -1172,7 +1172,7 @@ Historically, earlier versions of the `igb`, `e1000`, and other drivers included
 
 Get the current IRQ coalescing settings with `ethtool -c`.
 
-```sh
+```shell
 $ sudo ethtool -c eth0
 Coalesce parameters for eth0:
 Adaptive RX: off  TX: off
@@ -1488,7 +1488,7 @@ Many of these statistics have confusing names and are incremented in places wher
 
 Monitor network data processing statistics by reading `/proc/net/softnet_stat`.
 
-```sh
+```shell
 $ cat /proc/net/softnet_stat
 6dcad223 00000000 00000001 00000000 00000000 00000000 00000000 00000000 00000000 00000000
 6f0e1565 00000000 00000002 00000000 00000000 00000000 00000000 00000000 00000000 00000000
@@ -1544,7 +1544,7 @@ You can use `ethtool` to check if GRO is enabled and also to adjust the setting.
 
 Use `ethtool -k` to check your GRO settings.
 
-```sh
+```shell
 $ ethtool -k eth0 | grep generic-receive-offload
 generic-receive-offload: on
 ```
@@ -2058,7 +2058,7 @@ This hands the packet up to the higher level protocol layer.
 
 Monitor detailed IP protocol statistics by reading `/proc/net/snmp`.
 
-```sh
+```shell
 $ cat /proc/net/snmp
 Ip: Forwarding DefaultTTL InReceives InHdrErrors InAddrErrors ForwDatagrams InUnknownProtos InDiscards InDelivers OutRequests OutDiscards OutNoRoutes ReasmTimeout ReasmReqds ReasmOKs ReasmFails FragOKs FragFails FragCreates
 Ip: 1 64 25922988125 0 0 15771700 0 0 25898327616 22789396404 12987882 51 1 10129840 2196520 1 0 0 0
@@ -2086,7 +2086,7 @@ enum
 
 Monitor extended IP protocol statistics by reading `/proc/net/netstat`.
 
-```sh
+```shell
 $ cat /proc/net/netstat | grep IpExt
 IpExt: InNoRoutes InTruncatedPkts InMcastPkts OutMcastPkts InBcastPkts OutBcastPkts InOctets OutOctets InMcastOctets OutMcastOctets InBcastOctets OutBcastOctets InCsumErrors InNoECTPkts InECT0Pktsu InCEPkts
 IpExt: 0 0 0 0 277959 0 14568040307695 32991309088496 0 0 58649349 0 0 0 0 0
@@ -2332,7 +2332,7 @@ Two very useful files for getting UDP protocol statistics are:
 
 Monitor detailed UDP protocol statistics by reading `/proc/net/snmp`.
 
-```sh
+```shell
 $ cat /proc/net/snmp | grep Udp\:
 Udp: InDatagrams NoPorts InErrors OutDatagrams RcvbufErrors SndbufErrors
 Udp: 16314 0 0 17161 0 0
@@ -2352,7 +2352,7 @@ Much like the detailed statistics found in this file for the IP protocol, you wi
 
 Monitor UDP socket statistics by reading `/proc/net/udp`
 
-```sh
+```shell
 $ cat /proc/net/udp
   sl  local_address rem_address   st tx_queue rx_queue tr tm->when retrnsmt   uid  timeout inode ref pointer drops
   515: 00000000:B346 00000000:0000 07 00000000:00000000 00:00000000 00000000   104        0 7518 2 0000000000000000 0
@@ -2407,7 +2407,7 @@ The [kernel documentation about timestamping](https://github.com/torvalds/linux/
 
 Determine which timestamp modes your driver and device support with `ethtool -T`.
 
-```sh
+```shell
 $ sudo ethtool -T eth0
 Time stamping parameters for eth0:
 Capabilities:
@@ -2507,7 +2507,7 @@ If you are using the `ioatdma` module despite the risk of data corruption mentio
 
 Monitor the total number of offloaded `memcpy` operations for a DMA channel.
 
-```sh
+```shell
 $ cat /sys/class/dma/dma0chan0/memcpy_count
 123205655
 ```
@@ -2516,7 +2516,7 @@ Similarly, to get the number of bytes offloaded by this DMA channel, you’d run
 
 Monitor total number of bytes transferred for a DMA channel.
 
-```sh
+```shell
 $ cat /sys/class/dma/dma0chan0/bytes_transferred
 131791916307
 ```

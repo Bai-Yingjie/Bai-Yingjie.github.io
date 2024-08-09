@@ -103,7 +103,7 @@ firecracker启动的时候要指定一个API socket, 每个VM一个. 使用这�
 devctr是开发中使用的镜像, 所有的操作都通过这个镜像完成.
 * 基于ubuntu18
 * 安装了常用的开发工具
-```sh
+```shell
 binutils-dev
 clang
 cmake
@@ -111,7 +111,7 @@ gcc
 等等
 ```
 * 安装了rust
-```sh
+```shell
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 rustup target add x86_64-unknown-linux-musl
 rustup component add rustfmt
@@ -148,13 +148,13 @@ kvm-bindings = { git = "https://github.com/firecracker-microvm/kvm-bindings", ta
 cargo的build系统会自动维护cargo.lock来描述版本信息.
 下面的命令可以更新依赖的版本信息:
 
-```sh
+```shell
 $ cargo update            # updates all dependencies
 $ cargo update -p regex   # updates just “regex”
 ```
 
 # firecracker/tools/devtool脚本
-```sh
+```shell
 # By default, all devtool commands run the container transparently, removing
 # it after the command completes. Any persisting files will be stored under
 # build/.
@@ -182,7 +182,7 @@ $ cargo update -p regex   # updates just “regex”
 ```
 
 run_devctr函数写的很好. docker -v的z参数表示可以共享, 参考https://docs.docker.com/storage/bind-mounts/#configure-the-selinux-label
-```sh
+```shell
 # Helper function to run the dev container.
 # Usage: run_devctr <docker args> -- <container args>
 # Example: run_devctr --privileged -- bash -c "echo 'hello world'"
@@ -232,7 +232,7 @@ target是`x86_64-unknown-linux-musl`
 
 ### 先build seccompiler
 seccompiler是个单独的binary, 把json转成BPF程序保存到文件中.
-```sh
+```shell
     # Build seccompiler-bin.
     run_devctr \
         --user "$(id -u):$(id -g)" \
@@ -250,7 +250,7 @@ seccompiler是个单独的binary, 把json转成BPF程序保存到文件中.
 ### 再build rebase-snap
 > Tool that copies all the non-sparse sections from a diff file onto a base file
 
-```sh
+```shell
     # Build rebase-snap.
     run_devctr \
         --user "$(id -u):$(id -g)" \
@@ -264,7 +264,7 @@ seccompiler是个单独的binary, 把json转成BPF程序保存到文件中.
 ```
 
 ### build firecracker
-```sh
+```shell
     # Build Firecracker.
     run_devctr \
         --user "$(id -u):$(id -g)" \
@@ -278,7 +278,7 @@ seccompiler是个单独的binary, 把json转成BPF程序保存到文件中.
 ```
 
 ### build jailer
-```sh
+```shell
     # Build jailer only in case of musl for compatibility reasons.
     if [ "$libc" == "musl" ];then
         run_devctr \
@@ -294,7 +294,7 @@ seccompiler是个单独的binary, 把json转成BPF程序保存到文件中.
 
 ## build_kernel
 比如:`./tools/devtool build_kernel -c resources/guest_configs/microvm-kernel-arm64-4.14.config`
-```sh
+```shell
     # arch不同, vmlinux的format也不同
     arch=$(uname -m)
     if [ "$arch" = "x86_64" ]; then
@@ -326,7 +326,7 @@ seccompiler是个单独的binary, 把json转成BPF程序保存到文件中.
 ## build_rootfs
 default rootfs size是300M, 用ubuntu18.04, 目标是$flavour.rootfs.ext4
 先编译几个c文件, 用作测试?
-```sh
+```shell
         run_devctr \
         --workdir "$CTR_FC_ROOT_DIR" \
         -- /bin/bash -c "gcc -o  $rootfs_dir_ctr/init $resources_dir_ctr/init.c && \
@@ -383,7 +383,7 @@ Usage: ./readmem mb_count value
 
 ### 做镜像
 用ubuntu18.04 container的
-```sh
+```shell
 truncate -s "$SIZE" "$img_file"
 mkfs.ext4 -F "$img_file"
 docker run -v "$FC_ROOT_DIR:/firecracker" ubuntu:18.04 bash -s <<`EOF`

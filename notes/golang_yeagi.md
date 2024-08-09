@@ -186,7 +186,7 @@ $ cmd/yaegi/yaegi run cmd/yaegi/test/figure.go
 * 二者大概差两倍, 也就是说对这个case, 解释会增加100%的成本
 
 ## perf采样
-```sh
+```shell
 perf record -g -p 18149 -- sleep 60
 perf script | /repo/yingjieb/FlameGraph/stackcollapse-perf.pl | /repo/yingjieb/FlameGraph/flamegraph.pl > topid.svg
 ```
@@ -462,7 +462,7 @@ func main() {
 }
 ```
 
-```sh
+```shell
 $ go run hello.go
 Hello, world!
 aaaa
@@ -470,7 +470,7 @@ aaaa
 
 But gshell output:
 
-```sh
+```shell
 $ gsh exec hello.go
 Hello, world!
 {1 nihao}
@@ -859,12 +859,12 @@ context canceled
 因为这里的例子是http的file server, 我发现以下事实:
 * chrome浏览器打开了`http://10.182.105.179:8088`连接, 来访问我这里的http服务. 这是个长连接, 即使页面关闭了, 还会一直存在.
 * 所以表面看起来, 脚本stop了还是可以访问http文件, 是因为这个长连接并没有关闭: 下面是stop后的连接
-```sh
+```shell
 netstat -an | grep 8088
 tcp6       0      0 192.168.0.18:8088       10.243.141.21:58826     ESTABLISHED
 ```
 * 对比stop前的连接, 明显看到listen的socket没有了, 被关闭了
-```sh
+```shell
 netstat -an | grep 8088
 tcp6       0      0 :::8088                 :::*                    LISTEN
 tcp6       0      0 192.168.0.18:8088       10.243.141.21:58826     ESTABLISHED
@@ -962,7 +962,7 @@ type Options struct {
 
 ## 编译运行
 目前只在go1.14以上才能编
-```sh
+```shell
 cd yaegi
 make generate
 cd cmd/yaegi
@@ -971,7 +971,7 @@ go build
 //编译出来yaegi又22M
 ```
 运行
-```sh
+```shell
 yingjieb@godev-server /repo/yingjieb/3rdparty/yaegi/cmd/yaegi
 $ ./yaegi -h
 Yaegi is a Go interpreter.
@@ -997,13 +997,13 @@ the run command is assumed.
 ### debug
 打印ast和cfg图: `YAEGI_AST_DOT=1 YAEGI_CFG_DOT=1 ./yaegi`
 输入的每一行都会在当前目录下生成, 覆盖前一个;
-```sh
+```shell
 yaegi-cfg-_.dot
 yaegi-ast-_.dot
 ```
 这里的小bug是, 会生成一堆的dot进程. 注, dot是linux命令, 用来绘图.
 dot文件转成svg后用firefox打开
-```sh
+```shell
 watch -n1 "dot -Tsvg yaegi-ast-_.dot -o ast.svg; dot -Tsvg yaegi-cfg-_.dot -o cfg.svg"
 
 firefox "file:///repo/yingjieb/3rdparty/yaegi/cmd/yaegi/ast.svg"

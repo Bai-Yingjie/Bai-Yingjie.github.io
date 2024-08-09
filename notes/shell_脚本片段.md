@@ -16,7 +16,7 @@
 - [解析命令参数](#解析命令参数)
 
 # mkimage
-```sh
+```shell
 #!/bin/sh
   
 get_value_by_key()
@@ -162,7 +162,7 @@ fi
 
 
 # shell devmem脚本
-```sh
+```shell
 #!/bin/sh
  
 while true;
@@ -193,7 +193,7 @@ done
 * 双方括号不能少
 * 通配符*不能在引号内
 * 含通配符的字符串不能是左操作符
-```sh
+```shell
 common_path_2line() { #(line1, line2)
     local line1=$1
     local line2=$2
@@ -206,7 +206,7 @@ common_path_2line() { #(line1, line2)
 
 # awk处理表格, 以mkimage为例
 fpxt-b_image.conf:
-```sh
+```shell
 #----------------------------------------------------------------------------------
 # start : type : source : descption
 #----------------------------------------------------------------------------------
@@ -222,7 +222,7 @@ fpxt-b_image.conf:
 
 
 处理上面文件的脚本:
-```sh
+```shell
 create_blank_image() #(size)
 {
     dd if=/dev/zero bs=$1 count=1 | tr '\000' '\377' > $image_file
@@ -284,7 +284,7 @@ cat "$image_conf" | sed '/^#/d'| sed '/^$/d' | awk -F: '{
 ```
 
 # 记录日志
-```sh
+```shell
 SYSLOG_NAME=`basename $0`                                       
  
 log()                                                           
@@ -329,7 +329,7 @@ error()
 
 
 # 等待一个文件
-```sh
+```shell
 wait_for_file()                                                
 {                                                              
     local retval=0                                             
@@ -357,7 +357,7 @@ wait_for_file()
 ```
 
 # 发送SIGHUP到pid并等待进程终止
-```sh
+```shell
 wait_app_done_pid()
 {
     local pid=$1
@@ -396,7 +396,7 @@ wait_app_done_pid()
 
 
 # pid到进程名
-```sh
+```shell
 pid_to_procname()
 {
     local pid=$1
@@ -408,7 +408,7 @@ pid_to_procname()
 ```
 
 # mac地址转换到字符串
-```sh
+```shell
 mac_hex_to_string()
 {
     local hex=$1
@@ -417,7 +417,7 @@ mac_hex_to_string()
 ```
 
 # 大小写转换
-```sh
+```shell
 tolower()
 {
     local str=$1
@@ -432,7 +432,7 @@ toupper()
 ```
 
 # 去掉前后空格
-```sh
+```shell
 trim()
 {
     local str=$1
@@ -441,7 +441,7 @@ trim()
 ```
 
 # 加0x前缀, 负数时加-0x
-```sh
+```shell
 hex_prefix()
 {
     # add 0x as prefix if not yet present (but take into account negative numbers)
@@ -450,7 +450,7 @@ hex_prefix()
 ```
 
 # 两个16进制数相加
-```sh
+```shell
 addhex()
 {
     # sum two hex numbers
@@ -462,7 +462,7 @@ addhex()
 ```
 
 # 查看进程是否还在
-```sh
+```shell
 isalive()
 {
     # Simply return the return code of pidof (0=alive, 1=dead)
@@ -471,7 +471,7 @@ isalive()
 ```
 
 # 网络接口是否存在
-```sh
+```shell
 interface_exists()
 {
     local iface=$1
@@ -481,7 +481,7 @@ interface_exists()
 
 # 解析命令参数
 支持key=value格式转换key为变量, 注意until和shift的用法
-```sh
+```shell
 # Alternative getopt that accepts input of the form
 # "key1=value1 key2=value2" and exposes key1 and key2
 # as shell variables.

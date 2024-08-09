@@ -49,12 +49,12 @@
 # abs代码细看
 ## 为什么stdin能被迭代?
 官方文档中, `stdin()`是个函数, 可以用来从标准输入读取输入
-```sh
+```shell
 echo("What do you like?")
 echo("Oh, you like %s!", stdin()) # This line will block until user enters some text
 ```
 但stdin又能用于for
-```sh
+```shell
 # Will read all input to the
 # stdin and output it back
 for input in stdin {
@@ -819,7 +819,7 @@ func lenFn(tok token.Token, env *object.Environment, args ...object.Object) obje
 
 ### 内置函数如何被调用 -- Eval()的魔法
 内置函数的基本调用形式有2种
-```sh
+```shell
 #函数式
 len("nihaoma")
 7
@@ -1759,7 +1759,7 @@ abs是个自定义语法的完整解释器实现. 下面我们来一探究竟.
 * 兼备shell的灵活性和通用语言的准确性
 
 first look
-```sh
+```shell
 # Simple program that fetches your IP and sums it up
 res = `curl -s 'https://api.ipify.org?format=json'`
 
@@ -1777,16 +1777,16 @@ if total > 100 {
 
 ## 字符串
 字符串是用引号括起来的:
-```sh
+```shell
 "hello world"
 'hello world'
 ```
 用转义可以转义引号:
-```sh
+```shell
 "I said: \"hello world\""
 ```
 字符串支持切片操作, 也支持python一样的-index; 也支持+操作
-```sh
+```shell
 "hello world"[1] # e
 "string"[-2] # "n"
 "string"[0:3] // "str"
@@ -1796,19 +1796,19 @@ if total > 100 {
 "hello" + " " + "world" # "hello world"
 ```
 支持in操作
-```sh
+```shell
 "str" in "string"   # true
 "xyz" in "string"   # false
 ```
 
 在字符串中引用变量要加`$`前缀, 比如
-```sh
+```shell
 file = "/etc/hosts"
 x = "File name is: $file"
 echo(x) # "File name is: /etc/hosts"
 ```
 或者在命令里面引用变量也要加`$`
-```sh
+```shell
 var = "/etc"
 out = `ls -la $var`
 echo(out)
@@ -1816,7 +1816,7 @@ echo(out)
 
 ## 内置通用array结构
 array是个万能容器
-```sh
+```shell
 # array
 [1, 2, "hello", [1, f(x){ x + 1 }]]
 # array提供很多fancy的内置函数
@@ -1906,7 +1906,7 @@ hash.greeter("Sally") # "Hello Sally!"
 
 ## 函数
 
-```sh
+```shell
 #有名字
 f greet(name) {
     echo("Hello $name!")
@@ -1959,7 +1959,7 @@ echo_wrapper("hello %s %s", "sir") # "hello sir root"
 
 ## 内置函数
 
-```sh
+```shell
 type(1) # NUMBER
 arg(n)
 args()
@@ -1996,7 +1996,7 @@ unix_ms()
 
 ## 装饰器
 竟然支持装饰器!
-```sh
+```shell
 f uppercase(fn) {
     return f() {
         return fn(...).upper()
@@ -2014,7 +2014,7 @@ stringer("hello") # "HELLO"
 ```
 
 如果函数执行太久就打印
-```sh
+```shell
 f log_if_slow(treshold_ms) {
     return f(original_fn) {
         return f() {
@@ -2040,7 +2040,7 @@ f return_random_number_after_sleeping(seconds) {
 
 ## 自带的标准库
 abs自带标准库, 也是用require来引用
-```sh
+```shell
 mod = require('@module')  # Loads "module" from the standard library
 mod = require('./module') # Loads "module" from the current directory
 mod = require('module')   # Loads "module" that was installed through the ABS package manager
@@ -2049,7 +2049,7 @@ mod = require('module')   # Loads "module" that was installed through the ABS pa
 
 ### cli
 cli库本身只有100行!
-```sh
+```shell
 cli = require('@cli')
 #注册一个cmd
 @cli.cmd("date", "prints the current date", {format: ''})
@@ -2081,7 +2081,7 @@ f date(arguments, flags) {
 cli.run()
 ```
 把上面脚本保存为`./cli`, 调用这个脚本
-```sh
+```shell
 $ ./cli 
 Available commands:
 
@@ -2107,7 +2107,7 @@ $ ./cli date --format +%s
 ```
 
 #### repl cli 举例
-```sh
+```shell
 #!/usr/bin/env abs
 cli = require('@cli')
 
@@ -2135,7 +2135,7 @@ f incr_by(arguments, flags) {
 cli.repl()
 ```
 使用
-```sh
+```shell
 $ ./cli 
 help
 Available commands:
@@ -2162,7 +2162,7 @@ count
 
 ### 函数cache
 比如一个函数要算个东西, 很久. 第一次执行的时候算, 后面如果入参都一样, 就直接用cache里面保存的. 这里的cache是指`util.memoize`这个装饰器
-```sh
+```shell
 util = require('@util')
 @util.memoize(60)
 f expensive_task(x, y, z) {

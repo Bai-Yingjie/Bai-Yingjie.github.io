@@ -10,7 +10,7 @@
 
 * 使用方法
 
-```sh
+```shell
 BENCH_SERIES=thunder_optimized_xfs MYSQL_TEMPLATES_NAME=optimized SYSBENCH_MAX_TIME=180 bash ./start_benchmarks.sh
 
 SYSBENCH_MAX_TIME=180 CHART_SERIES=results/{thx_optimized_60s,thx_network_60s,x86_baseline_60s} CHART_NAME="_optimized_vs_network_vs_x86" sh ./process_data.sh
@@ -23,7 +23,7 @@ SYSBENCH_MAX_TIME=180 CHART_SERIES=results/{thx_optimized_60s,thx_network_60s,x8
 
 * `for series in $(eval echo $CHART_SERIES)`里面`eval echo $CHART_SERIES`的作用是**展开变量**
 
-```sh
+```shell
 $ CHART_SERIES=results/{thx_optimized_60s,thx_network_60s,x86_baseline_60s}
 
 $ echo $CHART_SERIES
@@ -52,7 +52,7 @@ EOF
 
 * 要把一段脚本的输出重定向到文件, 可以这样
 
-```sh
+```shell
 (
 some commands
 ) > output-filename
@@ -81,7 +81,7 @@ BEGIN {OFS=","}
 /approx./ {sub("ms","",$4); print '\"$s\",\"$conf\",\"$threads\",\"lat\",'$4}' $f
 ```
 
-```sh
+```shell
 awk '/search pattern1/ {Actions}
      /search pattern2/ {Actions}' file
 

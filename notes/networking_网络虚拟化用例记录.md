@@ -69,20 +69,20 @@
 ## 服务器配置
 文中使用的HXT ARM服务器2台, 简称`Host A, Host B`信息如下:
 
-服务器 | Host A | Host B | Note
------|-----|-----|-----|
-Socket| 1 | 1 | 单socket
-CPU | 46core@2.6G AW2542 v2.1 | 46core@2.6G AW2542 v2.1 | `sudo dmidecode -t processor`
-MEM | 96G | 96G | `free -h`
-NIC | 2 * Mellanox ConnectX-4 | 2 * Mellanox ConnectX-4 | `lspci`
-OS | CentOS 7.5.1804 | CentOS 7.5.1804 | `cat /etc/redhat-release`
-kernel | 4.14.36-4.hxt.aarch64 | 4.14.36-4.hxt.aarch64 | `uname -r`
-Mellanox OFED version | 4.3-3.0.2 | 4.3-3.0.2 | `ethtool -i enP4p1s0`
-QEMU version | NA | 2.12 | `qemu-system-aarch64 --version` 源码编译
-DPDK version | hxt-dev-v17.08 | hxt-dev-v17.08 | 源码编译
-OVS(with DPDK) version | NA | 2.8.4 | `sudo ovs-vsctl show` 源码编译
-libvirt version | NA | 4.6.0 | 源码编译
-virt-manager version | NA | 1.5.1 | 源码安装
+| 服务器                 | Host A                  | Host B                  | Note                                     |
+| ---------------------- | ----------------------- | ----------------------- | ---------------------------------------- |
+| Socket                 | 1                       | 1                       | 单socket                                 |
+| CPU                    | 46core@2.6G AW2542 v2.1 | 46core@2.6G AW2542 v2.1 | `sudo dmidecode -t processor`            |
+| MEM                    | 96G                     | 96G                     | `free -h`                                |
+| NIC                    | 2 * Mellanox ConnectX-4 | 2 * Mellanox ConnectX-4 | `lspci`                                  |
+| OS                     | CentOS 7.5.1804         | CentOS 7.5.1804         | `cat /etc/redhat-release`                |
+| kernel                 | 4.14.36-4.hxt.aarch64   | 4.14.36-4.hxt.aarch64   | `uname -r`                               |
+| Mellanox OFED version  | 4.3-3.0.2               | 4.3-3.0.2               | `ethtool -i enP4p1s0`                    |
+| QEMU version           | NA                      | 2.12                    | `qemu-system-aarch64 --version` 源码编译 |
+| DPDK version           | hxt-dev-v17.08          | hxt-dev-v17.08          | 源码编译                                 |
+| OVS(with DPDK) version | NA                      | 2.8.4                   | `sudo ovs-vsctl show` 源码编译           |
+| libvirt version        | NA                      | 4.6.0                   | 源码编译                                 |
+| virt-manager version   | NA                      | 1.5.1                   | 源码安装                                 |
 
 > 对应测试编号`5.1.1 Hypervisor版本要求`
 要求如下:
@@ -99,14 +99,14 @@ virt-manager version | NA | 1.5.1 | 源码安装
 ## 测试前准备
 预置条件: DPDK, OVS, Qemu, libvirt, virt-manager已经成功编译安装
 ### 启动并配置OVS
-OVS选项 | 值 | 说明
-----|----|-----|
-dpdk-init | true |
-bridge | ovsbr0 |
-pmd-cpu-mask | FF00000000 | 8个core 32 33 34 35 36 37 38 39
-dpdk-socket-mem | 4096 | 单socket 4G
-vhost-user port 0 |  dpdkvhostuser0 | n_rxq=2
-vhost-user port 1 |  dpdkvhostuser1 | n_rxq=2
+| OVS选项           | 值             | 说明                            |
+| ----------------- | -------------- | ------------------------------- |
+| dpdk-init         | true           |
+| bridge            | ovsbr0         |
+| pmd-cpu-mask      | FF00000000     | 8个core 32 33 34 35 36 37 38 39 |
+| dpdk-socket-mem   | 4096           | 单socket 4G                     |
+| vhost-user port 0 | dpdkvhostuser0 | n_rxq=2                         |
+| vhost-user port 1 | dpdkvhostuser1 | n_rxq=2                         |
 ```bash
 export PATH=$PATH:/usr/local/share/openvswitch/scripts
 sudo ovs-ctl start
@@ -129,12 +129,12 @@ sudo ovs-vsctl set Interface dpdkvhostuser1 options:n_rxq=2
 ### 创建并配置VM
 预置条件: libvirtd已经成功启动
 先用virt-manager创建2个VM, 配置如下:
-VM | VM01 | VM02
----|---|---|
-CPUs | 4 | 4
-Memory | 8192M | 8192M
-Disk | hxt-centos7.5-01.qcow2 32G | hxt-centos7.5-02.qcow2 32G
-NIC1(optional) | virtio(NAT to eth0) | virtio(NAT to eth0) 
+| VM             | VM01                       | VM02                       |
+| -------------- | -------------------------- | -------------------------- |
+| CPUs           | 4                          | 4                          |
+| Memory         | 8192M                      | 8192M                      |
+| Disk           | hxt-centos7.5-01.qcow2 32G | hxt-centos7.5-02.qcow2 32G |
+| NIC1(optional) | virtio(NAT to eth0)        | virtio(NAT to eth0)        |
 
 NIC1是用来连接外网的, 还需要增加NIC2用来连接OVS的dpdkvhostuser port:
 手工修改xml文件`virsh edit <VM>`, 适当增加如下修改:
@@ -317,12 +317,12 @@ f81a1c52-91c1-40a2-b993-6dfeea09317e
 ![](img/networking_网络虚拟化用例记录_20221003131928.png)  
 
 连通性:
-ping to | 5.5.5.11(peer) | 5.5.5.22(host) | 5.5.5.33(VM02) | 5.5.5.44(VM01)
-----| ----| ----| ----|----|
-5.5.5.11(peer) | self | Y | Y | Y
-5.5.5.22(host) | Y | self | Y | N
-5.5.5.33(VM02) | Y | Y | self | N
-5.5.5.44(VM01) | Y | N | N | self
+| ping to        | 5.5.5.11(peer) | 5.5.5.22(host) | 5.5.5.33(VM02) | 5.5.5.44(VM01) |
+| -------------- | -------------- | -------------- | -------------- | -------------- |
+| 5.5.5.11(peer) | self           | Y              | Y              | Y              |
+| 5.5.5.22(host) | Y              | self           | Y              | N              |
+| 5.5.5.33(VM02) | Y              | Y              | self           | N              |
+| 5.5.5.44(VM01) | Y              | N              | N              | self           |
 
 即从外部(5.5.5.11)ping vm01(5.5.5.44)和vm02(5.5.5.33)能ping通.
 #### issue讨论
@@ -361,12 +361,12 @@ f81a1c52-91c1-40a2-b993-6dfeea09317e
 ![](img/networking_网络虚拟化用例记录_20221003133233.png)  
 
 连通性: 和之前相比, 到5.5.5.22的报文都不通. 说明OVS-DPDK的PMD完全把enP5p1s0接管了.
-ping to | 5.5.5.11 | 5.5.5.22 | 5.5.5.33 | 5.5.5.44
-----| ----| ----| ----|----|
-5.5.5.11 | self | **N** | Y | Y
-5.5.5.22 | **N** | self | **N** | **N**
-5.5.5.33 | Y | **N** | self | N
-5.5.5.44 | Y | N | N | self
+| ping to  | 5.5.5.11 | 5.5.5.22 | 5.5.5.33 | 5.5.5.44 |
+| -------- | -------- | -------- | -------- | -------- |
+| 5.5.5.11 | self     | **N**    | Y        | Y        |
+| 5.5.5.22 | **N**    | self     | **N**    | **N**    |
+| 5.5.5.33 | Y        | **N**    | self     | N        |
+| 5.5.5.44 | Y        | N        | N        | self     |
 
 ### 5.4.2.3	 SR-IOV与虚拟交换机互通
 ![](img/networking_网络虚拟化用例记录_20221003133314.png)  
@@ -664,13 +664,13 @@ $ sudo ovs-vsctl set interface dpdkp1 ingress_policing_burst=500000
 #### 问题: netperf over OVS-DPDK性能差
 netperf是单进程应用, traffic通过OVS-DPDK后, 相比两个物理机直连, 性能下降很多;
 下面是各种场景下的性能数据:
-测试类型 | Throughput(min) GBytes  /s | Throughput(max) GBytes  /s
--- | -- | -- |
-两个物理网卡直连 | 1.27 | 3.23
-物理网卡到VM | 0.37 | 0.71
-VM02到VM01过OVS-DPDK | 0.26 | 0.33
-VM02到VM01过OVS-DPDK with flow | 0.25 | 0.26
-VM02到VM01过linux bridge | 2.17 | 2.84
+| 测试类型                       | Throughput(min) GBytes  /s | Throughput(max) GBytes  /s |
+| ------------------------------ | -------------------------- | -------------------------- |
+| 两个物理网卡直连               | 1.27                       | 3.23                       |
+| 物理网卡到VM                   | 0.37                       | 0.71                       |
+| VM02到VM01过OVS-DPDK           | 0.26                       | 0.33                       |
+| VM02到VM01过OVS-DPDK with flow | 0.25                       | 0.26                       |
+| VM02到VM01过linux bridge       | 2.17                       | 2.84                       |
 
 初步结论: **OVS-DPDK是瓶颈**, rxq个数不够? descriptor个数不够? critical path代码问题?
 --配flow, 配mac学习 --貌似不行
@@ -879,12 +879,12 @@ $ ip link show dev enP4p1s0; ip link show dev enP5p1s0
     vf 0 MAC 00:00:00:00:00:00, tx rate 30000 (Mbps), max_tx_rate 30000Mbps, min_tx_rate 25000Mbps, spoof checking off, link-state auto, trust off, query_rss off
     vf 1 MAC 00:00:00:00:00:00, tx rate 40000 (Mbps), max_tx_rate 40000Mbps, min_tx_rate 35000Mbps, spoof checking off, link-state auto, trust off, query_rss off
 ```
-VM | interface | VF@设定tx_rate | PF@实际rate
---| -- | -- | -- |
-VM01 | enp4s0 | 0@tx30G | enP5p1s0@56G
-VM01 | enp5s0 | 0@tx30G | enP4p1s0@56G
-VM02 | enp4s0 | 1@tx40G | enP5p1s0@56G
-VM02 | enp5s0 | 1@tx40G | enP4p1s0@56G
+| VM   | interface | VF@设定tx_rate | PF@实际rate  |
+| ---- | --------- | -------------- | ------------ |
+| VM01 | enp4s0    | 0@tx30G        | enP5p1s0@56G |
+| VM01 | enp5s0    | 0@tx30G        | enP4p1s0@56G |
+| VM02 | enp4s0    | 1@tx40G        | enP5p1s0@56G |
+| VM02 | enp5s0    | 1@tx40G        | enP4p1s0@56G |
 
 配置VM如下: 分别添加Host PCI设备到VM  
 ![](img/networking_网络虚拟化用例记录_20221003134002.png)  
@@ -902,10 +902,10 @@ iperf -s
 #client端, 用4个线程打满带宽
 iperf -c 2.2.2.1 -i 1 -t 360 -l 128K -P 4
 ```
-Server | Client | 理论带宽(VF tx_rate) | 实际带宽 | 所属PF
---- | --- | --- | --- | --- |
-VM01 | VM02 | 40 G | 39.4 G | enp5s0
-VM02 | VM01 | 30 G | 29.7 G | enp5s0
+| Server | Client | 理论带宽(VF tx_rate) | 实际带宽 | 所属PF |
+| ------ | ------ | -------------------- | -------- | ------ |
+| VM01   | VM02   | 40 G                 | 39.4 G   | enp5s0 |
+| VM02   | VM01   | 30 G                 | 29.7 G   | enp5s0 |
 
 #### 如何实现调整带宽比例到150%或50%?
 
@@ -967,10 +967,10 @@ Pktgen:/> stop all
 ```
 
 #### 测试结果 -- PASS
-多播dst IP / MAC | VM01 是否收到 | VM02 是否收到
-----| ---- | ---- |
-224.0.0.1 / 01:00:5e:00:00:01 | 是 | 是
-225.0.0.2 / 01:00:5e:00:00:02 | 是 | 是
+| 多播dst IP / MAC              | VM01 是否收到 | VM02 是否收到 |
+| ----------------------------- | ------------- | ------------- |
+| 224.0.0.1 / 01:00:5e:00:00:01 | 是            | 是            |
+| 225.0.0.2 / 01:00:5e:00:00:02 | 是            | 是            |
 
 ### 5.4.9.2	SR-IOV支持正确转发组播包
 ![](img/networking_网络虚拟化用例记录_20221003134106.png)  
@@ -1024,10 +1024,10 @@ $ sudo ethtool -S enP5p1s0 | grep multicast_packets
      tx_vport_rdma_multicast_packets: 0
 ```
 #### 测试结果 -- PASS
-多播dst IP / MAC | Host B 是否收到 | VM01 是否收到 | VM02 是否收到
-----| ---- | ----| ---- |
-224.0.0.1 / 01:00:5e:00:00:01 | 是 | 是 | 是
-225.0.0.2 / 01:00:5e:00:00:02 | 是 | 是 | 是
+| 多播dst IP / MAC              | Host B 是否收到 | VM01 是否收到 | VM02 是否收到 |
+| ----------------------------- | --------------- | ------------- | ------------- |
+| 224.0.0.1 / 01:00:5e:00:00:01 | 是              | 是            | 是            |
+| 225.0.0.2 / 01:00:5e:00:00:02 | 是              | 是            | 是            |
 
 # 7.3	虚拟层性能
 ## 7.3.5	网络转发性能
@@ -1047,7 +1047,7 @@ vhostuser是c-s模式, ovs是server, qemu是client. 当OVS由于某种异常自�
 ## VM同时添加sriov和vhost-user导致OVS崩溃重启
 现象是单独添加sriov或vhost-user正常, 同时添加则ovs-vswitchd会马上崩溃重启
 error log
-```sh
+```shell
 2018-09-07T05:20:01.091Z|00074|dpdk|INFO|VHOST_CONFIG: read message VHOST_USER_SET_VRING_KICK
 2018-09-07T05:20:01.091Z|00075|dpdk|INFO|VHOST_CONFIG: vring kick idx:3 file:110
 2018-09-07T05:20:01.091Z|00076|dpdk|INFO|VHOST_CONFIG: virtio is now ready for processing.

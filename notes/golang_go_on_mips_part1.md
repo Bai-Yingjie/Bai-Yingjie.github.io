@@ -26,7 +26,7 @@ func main() {
 ```
 
 For go is a modern programing language, it is pretty straightforward to do this in the cloud/server x86 environment:
-```sh
+```shell
 $ sudo apt install golang-go
 $ go build hello.go 
 $ ls
@@ -85,7 +85,7 @@ See: https://github.com/karalabe/xgo/issues/46
 The consequence is any go app that depends on BR2_PACKAGE_HOST_GO_CGO_LINKING_SUPPORTS is unable to compile, even not selectable by buildroot menuconfig.
 Nearly all go packages depend on BR2_PACKAGE_HOST_GO_CGO_LINKING_SUPPORTS, they are: docker-proxy, docker-containerd, docker-engine, docker-cli, flannel, mender, runc.
 For MIPS octeon family specifically, which is used widely by LTs, the error message is:
-```sh
+```shell
 # runtime/cgo
 /repo/yingjieb/ms/buildroot/output/host/opt/ext-toolchain/bin/../lib/gcc/mips64-octeon-linux-gnu/4.7.0/../../../../mips64-octeon-linux-gnu/bin/ld: skipping incompatible /repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libpthread.so when searching for -lpthread
 /repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libgcc_s.so: could not read symbols: File in wrong format
@@ -105,7 +105,7 @@ In fact, this toolchain is a wrapper executable, which wraps external gcc toolch
 Basically, N32 uses 64 bit registers in a 32 bit address space, meaning that pointers are 32 bit.
 
 However, for some unknown reason, the actual output objects are N64 ABI:
-```sh
+```shell
 #cgo puts its generated C files to /tmp dir:
 yingjieb@FNSHA190 /tmp/go-build164444988/b032
 $ ls
@@ -134,7 +134,7 @@ We can direct cgo to generate N32 ABI object.
 
 Let's compile it again...
 This time the previous errors are gone, but we have new errors now:
-```sh
+```shell
 # runtime/cgo
 In file included from _cgo_export.c:4:0:
 cgo-gcc-export-header-prolog:25:14: error: size of array '_check_for_64_bit_pointer_matching_GoInt' is negative
@@ -159,7 +159,7 @@ typedef char _check_for_GOINTBITS_bit_pointer_matching_GoInt[1];
 
 Let's rebuild it...
 cgo build seems to pass, but after it we have more errors:
-```sh
+```shell
 # plugin
 /repo/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr/lib/libdl.so: could not read symbols:File in wrong format 
 # os/signal/internal/pty
@@ -179,7 +179,7 @@ Same issue, apply our changes to these files:
 * src/net/cgo_linux.go
 
 Rebuild, OK, then the error message leads to:
-```sh
+```shell
 /tmp/go-link-436592583/go.o: In function `runtime.save_g':                                                           
 /repo/yingjieb/ms/buildroot/output/host/lib/go/src/runtime/tls_mips64x.s:20:(.text+0x6d24c): relocation truncated to fit: R_MIPS_TLS_TPREL_LO16 against `runtime.tls_g'
 ```
@@ -208,7 +208,7 @@ GLOBL runtime_tls_g(SB), TLSBSS, $8
 ```
 There are high possibilities that other .s files need to be adapted.
 A rough estimation is: there are 505 .s files, with 446 line containing "cgo" key word together.
-```sh
+```shell
 yingjieb@FNSHA190 /repo/yingjieb/ms/buildroot/output/build/host-go-1.11.6/src
 $ find -name "*.s" | wc -l
 505
@@ -258,7 +258,7 @@ Be noted that our hello.go doesn't need cgo, since it does not `import "C"`
 Then on our board, I am using cfnt-b, which has the same CPU with fglt-b:
 
 Type
-```sh
+```shell
 /isam/slot_default/run # hello
 Hello, World!
 First go program on cfnt-b!

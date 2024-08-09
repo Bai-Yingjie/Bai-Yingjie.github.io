@@ -284,7 +284,7 @@ drivers/mtd/ubi/eba.c
 
 ## nand buserror
 操作命令记录:
-```sh
+```shell
 #典型错误打印
 PAGEPROG failed with -4
 #相关打印

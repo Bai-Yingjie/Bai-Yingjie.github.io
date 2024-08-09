@@ -26,12 +26,12 @@
   - [block B错误](#block-b错误)
 
 # gcc选择
-```sh
+```shell
 gcc-config -l
 gcc-config mips64-unknown-linux-gnu-4.9.3
 ```
 # 常用目录
-```sh
+```shell
 # protage
 /usr/portage
 #下载目录
@@ -46,7 +46,7 @@ https://anongit.gentoo.org/git/repo/gentoo.git
 拷贝到/usr/portage就好了
 
 # history
-```sh
+```shell
 emerge --info
 emerge-webrsync
 cat /etc/portage/make.conf
@@ -76,7 +76,7 @@ genkernel --menuconfig --no-strip all
 
 # arm64
 /etc/portage/make.conf
-```sh
+```shell
 # These settings were set by the catalyst build script that automatically
 # built this stage.
 # Please consult /usr/share/portage/config/make.conf.example for a more
@@ -97,13 +97,13 @@ LC_MESSAGES=C
 ```
 
 # 整个系统重新build
-```sh
+```shell
 emerge -ev @world
 -e: emptytree
 ```
 
 # 修改make.conf
-```sh
+```shell
 root@localhost /etc/portage
 #cat make.conf
 # These settings were set by the catalyst build script that automatically
@@ -125,7 +125,7 @@ MAKEOPTS="-j48"
 
 # 修改源码编译
 ## 注意使用全路径ebuild
-```sh
+```shell
 #ebuild /usr/portage/dev-db/mysql/mysql-5.6.21.ebuild clean
 #ebuild /usr/portage/dev-db/mysql/mysql-5.6.21.ebuild fetch
 #ebuild /usr/portage/dev-db/mysql/mysql-5.6.21.ebuild unpack
@@ -143,14 +143,14 @@ MAKEOPTS="-j48"
 `cd /var/tmp/portage/dev-db/mysql-5.6.21/work/`
 
 # 启动项相关
-```sh
+```shell
 rc-update del keymaps boot
 octeon-host proc # rc-update del udev sysinit
 * service udev removed from runlevel sysinit
 octeon-host proc # rc-update del urandom boot 
 * service urandom removed from runlevel boot
 ```
-```sh
+```shell
 #rc-config list
 #rc-update show
 #rc-update add
@@ -169,7 +169,7 @@ octeon-host proc # rc-update del urandom boot
 `euse -i alsa`
 
 # 更新整个系统系统 --非常慢
-```sh
+```shell
 #emerge -avtuDN @world
 -a --ask
 -v --verbose
@@ -179,12 +179,12 @@ octeon-host proc # rc-update del urandom boot
 -N --newuse
 ```
 常用选项
-```sh
+```shell
 --pretend
 --autounmask-write
 ```
 关于删除的选项
-```sh
+```shell
 -C --unmerge 不检查依赖关系
 -c --depclean 检查依赖关系
 ```
@@ -195,21 +195,21 @@ octeon-host proc # rc-update del urandom boot
 `#dispatch-conf`
 
 # 指定版本安装
-```sh
+```shell
 emerge --search mysql
 emerge -av --pretend =dev-db/mysql-5.6.16
 emerge -av --pretend =mysql-5.6.16
 ```
 
 # 添加udev支持
-```sh
+```shell
 加USE="... udev ..."
 更新use
 emerge --ask --changed-use --deep @world
 ```
 
 # 自动起ssh服务
-```sh
+```shell
 rc-update add sshd default
 #/etc/init.d/sshd start
 ```
@@ -221,7 +221,7 @@ rc-update add sshd default
 `equery f mysql`
 
 # 安装常用软件
-```sh
+```shell
 安装lspci
 #emerge pciutils
 安装vim
@@ -242,20 +242,20 @@ rc-update add sshd default
 #emerge strace
 ```
 新增
-```sh
+```shell
 #emerge eix
 #emerge lshw
 ```
 
 # eix用法
-```sh
+```shell
 eix key_word
 eix-sync
 ```
 
 # 调试手段更新
 https://wiki.gentoo.org/wiki/Debugging
-```sh
+```shell
 dgentoo ~ # cat /etc/portage/env/*
 CFLAGS="${CFLAGS} -ggdb"
 CXXFLAGS="${CXXFLAGS} -ggdb"
@@ -270,7 +270,7 @@ category/some-library debugsyms installsources
 # gentoo的调试手段
 https://wiki.gentoo.org/wiki//etc/portage/env  
 增加包单独的编译选项, 比如这里分别对libtool和mysql增加链接选项
-```sh
+```shell
 /etc/portage/package.env
 dev-db/mysql            ld.conf debug.conf
 sys-devel/libtool      ld.conf
@@ -278,23 +278,23 @@ sys-devel/libtool      ld.conf
 ld.conf 和 debug.conf是自己创建的文件  
 `/etc/portage/env`目录下  
 ld.conf
-```sh
+```shell
 LDFLAGS="${LDFLAGS} -Wl,-lpthread,-ldl"
 CFLAGS="${CFLAGS} -Wl,-lpthread,-ldl"
 CXXFLAGS="${CXXFLAGS} -Wl,-lpthread,-ldl"
 ```
 debug.conf
-```sh
+```shell
 CFLAGS="${CFLAGS} -ggdb"
 CXXFLAGS="${CXXFLAGS} -ggdb"
 FEATURES="splitdebug"
 ```
 [注]: -Wl是gcc传递给ld的格式, -Wl, aaa,bbb 相当于传递给ld aaa bbb
-```sh
+```shell
 gentoo-host / # cat /etc/portage/package.env
 dev-db/mysql            make.conf
 ```
-```sh
+```shell
 gentoo-host / # cat /etc/portage/env/make.conf
 CFLAGS="-O2 -march=octeon2 -mabi=64 -pipe"
 CXXFLAGS="${CFLAGS}"
@@ -308,7 +308,7 @@ CXXFLAGS="${CFLAGS}"
 ## block B错误
 解决:  
 先卸载阻挡的包, 再更新
-```sh
+```shell
 #emerge --unmerge procps
 #emerge --unmerge sysvinit
 ```

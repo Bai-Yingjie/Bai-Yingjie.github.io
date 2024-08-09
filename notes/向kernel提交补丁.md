@@ -50,7 +50,7 @@ git clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 
 ## patch从hg到git
 hg export可以生成hg的patch, 但我没找到直接可以给git用的patch. 所以我们用半手工的方式生成patch
-```sh
+```shell
 #先生成纯内容的patch
 hg diff --git -c 327 | nc 11985
 #在kernel的git库, 这里我用虚拟机clone的
@@ -60,14 +60,14 @@ git apply 85xx.patch
 ```
 
 ## 写git commit
-```sh
+```shell
 #写commit
 git add arch/powerpc/platforms/85xx/smp.c
 #用-s生成Signed-off-by:字段. 内核commit惯例
 git commit -s
 ```
 commit之后, 这个patch是这样的:
-```sh
+```shell
 f3f83cac875a 2019-11-25 Bai Yingjie powerpc/mpc85xx: also write addr_h to spin table for 64bit boot entry
 219d54332a09 2019-11-24 Linus Torvalds Linux 5.4
 b8387f6f3495 2019-11-24 Linus Torvalds Merge branch 'fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs
@@ -108,7 +108,7 @@ outgoing/0003-powerpc-io-use-phys_addr_t-in-virt_to_phys-phys_to_v.patch
 `Subject: [PATCH] powerpc/mpc85xx: also write addr_h to spin table for 64bit`
 
 发送邮箱就是我gitconfig的邮箱:
-```sh
+```shell
 Linux Mint 19.1 Tessa $ cat ~/.gitconfig
 [user]
         name = Bai Yingjie
@@ -139,7 +139,7 @@ Linux Mint 19.1 Tessa $ cat ~/.gitconfig
 如果有问题, 用`git commit --amend <files updated>`来做相应修改.
 
 这里我的patch格式没问题:
-```sh
+```shell
 Linux Mint 19.1 Tessa $ ./scripts/checkpatch.pl outgoing/*
 total: 0 errors, 0 warnings, 14 lines checked
 
@@ -154,7 +154,7 @@ git send-email --to byj8389@qq.com outgoing/*
 ## 找到maintainer
 kernel提供了找到相关maintainer的脚本:`scripts/get_maintainer.pl`
 
-```sh
+```shell
 Linux Mint 19.1 Tessa $ ./scripts/get_maintainer.pl outgoing/0001-powerpc-mpc85xx-also-write-addr_h-to-spin-table-for-.patch
 Scott Wood <oss@buserror.net> (maintainer:LINUX FOR POWERPC EMBEDDED PPC83XX AND PPC85XX)
 Kumar Gala <galak@kernel.crashing.org> (maintainer:LINUX FOR POWERPC EMBEDDED PPC83XX AND PPC85XX)
@@ -175,7 +175,7 @@ linux-kernel@vger.kernel.org (open list)
 
 
 ## 正式发送
-```sh
+```shell
 git send-email outgoing/* --cc-cmd './scripts/get_maintainer.pl --norolestats --git outgoing/*' --to 'Scott Wood <oss@buserror.net>' --to 'Kumar Gala <galak@kernel.crashing.org>'
 ```
 
@@ -191,15 +191,15 @@ git send-email outgoing/* --cc-cmd './scripts/get_maintainer.pl --norolestats --
 然后用如下命令提交patch, 就是说让126邮箱来发这个patch, 但内容还是我之前生成的, 在patch里用的是gmail邮箱.
 
 先试一试:
-```sh
+```shell
 git send-email 0001-powerpc-mpc85xx-also-write-addr_h-to-sp.patch --smtp-debug=1 --to yingjie.bai@nokia-sbell.com --smtp-encryption=ssl --smtp-server=smtp.126.com --smtp-server-port=994 --smtp-user=yingjie_bai@126.com --from=yingjie_bai@126.com
 ```
 
 正式提交版本:
-```sh
+```shell
 git send-email 0001-powerpc-mpc85xx-also-write-addr_h-to-sp.patch --smtp-debug=1 --to 'Scott Wood <oss@buserror.net>' --to 'Kumar Gala <galak@kernel.crashing.org>' --cc 'Benjamin Herrenschmidt <benh@kernel.crashing.org>' --cc 'Paul Mackerras <paulus@samba.org>' --cc 'Michael Ellerman <mpe@ellerman.id.au>' --cc 'linuxppc-dev@lists.ozlabs.org' --cc 'linux-kernel@vger.kernel.org' --smtp-encryption=ssl --smtp-server=smtp.126.com --smtp-server-port=994 --smtp-user=yingjie_bai@126.com --from=yingjie_bai@126.com
 ```
-```sh
+```shell
 git send-email outgoing/* --cc-cmd './scripts/get_maintainer.pl --norolestats --git outgoing/*' --to 'Scott Wood <oss@buserror.net>' --to 'Kumar Gala <galak@kernel.crashing.org>' --smtp-encryption=ssl --smtp-server=smtp.126.com --smtp-server-port=994 --smtp-user=yingjie_bai@126.com --from=yingjie_bai@126.com
 ```
 
@@ -216,7 +216,7 @@ git send-email outgoing/* --cc-cmd './scripts/get_maintainer.pl --norolestats --
 ### 再用`git send-email`发送
 多试几次, 有的时候卡住, 有的时候可以输入密码.
 第一次会有下面的提示, 按照提示的URL地址打开浏览器, google提示新设备access, 要发手机验证码验证
-```sh
+```shell
 Password for 'smtp://byj.tea@gmail.com@smtp.gmail.com:587':
 5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbt
 5.7.14 TO77buewAb-9v-7bMFJtKvsLnToTRilFUvqtOzNwXu81Miu3opYz1tKgLMN7mgmKe5Xxy

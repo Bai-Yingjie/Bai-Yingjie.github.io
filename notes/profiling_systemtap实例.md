@@ -42,11 +42,11 @@ $ sudo perf record -e probe_ovs:netdev_rxq_recv -e probe_ovs:netdev_send -R -t 3
 
 ### systemtap不能probe ovs-vswitchd的用户态函数?
 奇怪的是, 下面的stap能编译成KO, 也加载了, 但一直就没输出; 难道是stap在arm64上还不支持probe用户态进程?
-```sh
+```shell
 sudo stap -e 'probe process(38726).function("netdev_rxq_recv"), process(38726).function("netdev_send").return {printf("%-16s %6d [%03d] %s %24s\n",execname(),tid(),cpu(),usecs_to_string(gettimeofday_us()),probefunc())}' -vv
 ```
 对ovs-vswitchd的非pmd线程probe也不行. 是systemtap的bug吗?
-```sh
+```shell
 $ sudo /usr/bin/stap -e 'probe process(1989).function("ovs_mutex_lock_at") {printf("hhhhhh\n")}' -vv
 没输出
 ```

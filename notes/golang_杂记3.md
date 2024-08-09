@@ -1210,7 +1210,7 @@ MemoryAccounting = &MemoryLocked{
 
 # 用正则表达式 遍历`/proc/self/maps`
 比如一个程序想解析当前进程的进程空间:
-```sh
+```shell
 $ cat /proc/self/maps
 55cb9cb6b000-55cb9cb73000 r-xp 00000000 fc:02 396                        /bin/cat
 55cb9cd72000-55cb9cd73000 r--p 00007000 fc:02 396                        /bin/cat

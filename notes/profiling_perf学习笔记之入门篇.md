@@ -50,19 +50,19 @@ perf是内核提供的, 在tools/perf下面, 需要ftrace支持.
 perf支持多种event类型, 用perf list可以列出来.
 
 比如列出所有调度相关的事件
-```sh
+```shell
 perf list 'sched:*'
 ```
 
 # perf top
-```sh
+```shell
 # Show system calls by process, refreshing every 2 seconds:
 # 实时显示perf top, 显示次数-n, 按comm排序-s
 perf top -e raw_syscalls:sys_enter -ns comm
 ```
 
 # 事件计数 perf stat
-```sh
+```shell
 # CPU counter statistics for the specified command:
 统计一个命令的执行情况, 不带-a, 带-a表示要统计整个系统
 perf stat command
@@ -108,7 +108,7 @@ perf stat -e 'block:*' -a sleep 10
 ```
 
 # 系统剖析 perf record
-```sh
+```shell
 # Sample on-CPU functions for the specified command, at 99 Hertz:
 99hz记录一个命令
 perf record -F 99 command
@@ -151,7 +151,7 @@ perf record -b -a sleep 1
 ```
 
 # 静态剖析 perf record -e
-```sh
+```shell
 # Trace new processes, until Ctrl-C:
 采样新的进程, 整个系统
 perf record -e sched:sched_process_exec -a
@@ -203,7 +203,7 @@ perf record -e vmscan:mm_vmscan_wakeup_kswapd -ag
 ```
 
 # 动态剖析 perf probe
-```sh
+```shell
 # Add a tracepoint for the kernel tcp_sendmsg() function entry ("--add" is optional):
 添加内核tcp_sendmsg()函数到跟踪点
 perf probe --add tcp_sendmsg
@@ -267,7 +267,7 @@ perf probe -l
 ```
 
 # 剖析结果
-```sh
+```shell
 # Show perf.data in an ncurses browser (TUI) if possible:
 perf report
 # Show perf.data with a column for sample count:
@@ -308,7 +308,7 @@ Tracers里面的东东也打开一些
 关于用户态的调用栈, 如果没有编帧指针, 可以加-g dwarf, 这个东东利用了libunwind来解析用户态调用栈.
 
 # 使用举例
-```sh
+```shell
 Performance counter summaries, including IPC, for the gzip command:
 统计摘要
 # perf stat gzip largefile
@@ -350,7 +350,7 @@ Dynamically instrument the kernel tcp_sendmsg() function, and trace it for 5 sec
 
 # 举例
 用gzip压缩一个110M的vmlinux
-```sh
+```shell
 GG bin # cp /usr/src/linux/vmlinux .
 GG bin # ./perf stat -d gzip vmlinux
 Performance counter stats for 'gzip vmlinux':
@@ -372,7 +372,7 @@ Performance counter stats for 'gzip vmlinux':
 ```
 
 # CPU剖析
-```sh
+```shell
 # perf record -F 99 -a -g -- sleep 30
 # perf report --stdio
 ```
@@ -383,7 +383,7 @@ Performance counter stats for 'gzip vmlinux':
 # 静态perf
 统计gzip的系统调用, 注意这里的重定向2>&1, 否则awk抓不到东西.  
 默认perf的输出应该是stderr, 而awk的输入是stdout
-```sh
+```shell
 GG bin # ./perf stat -e 'syscalls:sys_enter_*' gzip vmlinux -fk 2>&1 | awk '$1 != 0'
 Performance counter stats for 'gzip vmlinux -fk':
                  1      syscalls:sys_enter_utimensat
@@ -410,7 +410,7 @@ Performance counter stats for 'gzip vmlinux -fk':
 
 strace是用ptrace attach到被跟踪的线程上的, 类似于debugger, 代价很高.
 下面是性能的对比:可以看到, perf是原来的2.5X, 而strace是62X.
-```sh
+```shell
 # dd if=/dev/zero of=/dev/null bs=512 count=10000k
 5242880000 bytes (5.2 GB) copied, 3.53031 s, 1.5 GB/s
 # perf stat -e 'syscalls:sys_enter_*' dd if=/dev/zero of=/dev/null bs=512 count=10000k
@@ -420,7 +420,7 @@ strace是用ptrace attach到被跟踪的线程上的, 类似于debugger, 代价�
 ```
 
 # 统计新进程的创建
-```sh
+```shell
 GG bin # ./perf record -e sched:sched_process_exec -a
 Lowering default frequency rate to 3200.
 Please consider tweaking /proc/sys/kernel/perf_event_max_sample_rate.
@@ -434,7 +434,7 @@ Please consider tweaking /proc/sys/kernel/perf_event_max_sample_rate.
 ```
 然后, 显示报告, -n是把sample计数也打出来.  
 可以看到, 一共调用了15次, 而bzip2调了5次
-```sh
+```shell
 GG bin # ./perf report -n --sort comm --stdio
 # Samples: 15  of event 'sched:sched_process_exec'
 # Event count (approx.): 15
@@ -489,7 +489,7 @@ GG bin # ./perf report -n --sort comm --stdio
 然后看结果  
 一共138次, sshd用了79.71%, 一个叫swapper的东东占了12.32%, ping占了7.97%  
 我这里省略了其他的间接调用
-```sh
+```shell
 Samples: 138  of event 'skb:consume_skb', Event count (approx.): 138
 +   79.71%    79.71%           110  sshd     [kernel.kallsyms]            [k] consume_skb
 -   12.32%    12.32%            17  swapper  [kernel.kallsyms]            [k] consume_skb
@@ -591,7 +591,7 @@ record
 
 ## 带size的Kernel: tcp_sendmsg()
 先看看这个函数有哪些参数
-```sh
+```shell
 GG bin # ./perf probe -V tcp_sendmsg
 Available variables at tcp_sendmsg
         @<tcp_sendmsg+0>
@@ -601,7 +601,7 @@ Available variables at tcp_sendmsg
                 struct sock*    sk
 ```
 带size
-```sh
+```shell
 GG bin # ./perf probe --add 'tcp_sendmsg size'
 Added new event:
   probe:tcp_sendmsg    (on tcp_sendmsg with size)
@@ -609,13 +609,13 @@ You can now use it in all perf tools, such as:
         perf record -e probe:tcp_sendmsg -aR sleep 1
 ```
 记录
-```sh
+```shell
 GG bin # ./perf record -e probe:tcp_sendmsg -a
 ^C[ perf record: Woken up 1 times to write data ]
 [ perf record: Captured and wrote 0.063 MB perf.data (~2738 samples) ]
 ```
 用perf script分析, 可以看到每次传的size
-```sh
+```shell
 GG bin # ./perf script
             sshd   954 [000] 17352.267210: probe:tcp_sendmsg: (ffffffff814b4790) size=0x108
             sshd   954 [003] 17353.576942: probe:tcp_sendmsg: (ffffffff814b4790) size=0x1028
@@ -629,12 +629,12 @@ GG bin # ./perf script
 ```
 列出源码, 一起如何捕捉变量?  
 `GG bin # ./perf probe -L tcp_sendmsg`
-```sh
+```shell
 # perf probe -L tcp_sendmsg
 <tcp_sendmsg@/mnt/src/linux-3.14.5/net/ipv4/tcp.c:0>
 ```
 比如要看第81行有哪些变量
-```sh
+```shell
 GG bin # ./perf probe -V tcp_sendmsg:81
 Available variables at tcp_sendmsg:81
         @<tcp_sendmsg+634>
@@ -654,13 +654,13 @@ Available variables at tcp_sendmsg:81
                 struct sock*    sk
 ```
 先把前面的东东删掉
-```sh
+```shell
 GG bin # ./perf probe --list
 GG bin # ./perf probe --del tcp_sendmsg
 Removed event: probe:tcp_sendmsg
 ```
 现在我们要跟踪第81行的seglen变量
-```sh
+```shell
 GG bin # ./perf probe --add 'tcp_sendmsg:81 seglen'
 Added new events:
   probe:tcp_sendmsg    (on tcp_sendmsg:81 with seglen)
@@ -688,7 +688,7 @@ GG bin # ./perf script
             sshd   954 [002] 18322.736773: probe:tcp_sendmsg: (ffffffff814b4a0a) seglen=0x98
 ```
 更高端的用法是perf probe的filter功能
-```sh
+```shell
        --filter=FILTER
            (Only for --vars and --funcs) Set filter. FILTER is a combination of glob pattern, see FILTER PATTERN for detail. Default FILTER is "!k???tab_* & !crc_*" for
            --vars, and "!_*" for --funcs. If several filters are specified, only the last filter is used.
@@ -697,7 +697,7 @@ GG bin # ./perf script
 ## 用户态的malloc
 比如我想跟踪malloc  
 先检查以下比如ls命令的共享库
-```sh
+```shell
 GG bin # ldd /bin/ls
         linux-vdso.so.1 (0x00007ffccce4e000)
         libacl.so.1 => /lib64/libacl.so.1 (0x00007fc9c8901000)
@@ -707,7 +707,7 @@ GG bin # ldd /bin/ls
 ```
 然后列出来libc到底有哪些函数  
 这就用到了perf probe的-x 执行路径和-F参数来列出来一个可执行文件的所有函数
-```sh
+```shell
 GG bin # ./perf probe -x /lib64/libc.so.6 -F | grep malloc
 malloc
 malloc@plt
@@ -730,7 +730,7 @@ tr_mallochook
 
 但是这里我遇到点问题  
 虽然-F能够列出malloc, 但不能add
-```sh
+```shell
 GG bin # ./perf probe -x /lib64/libc-2.20.so --add malloc
 Probe point 'malloc' not found.
   Error: Failed to add events.
@@ -739,7 +739,7 @@ Probe point 'malloc' not found.
 https://lkml.org/lkml/2015/3/2/269
 
 下面是我的方法:
-```sh
+```shell
 GG bin # readelf /lib64/libc.so.6 -a | grep malloc
   5514: 000000000007d960   385 FUNC    GLOBAL DEFAULT   11 malloc
   5524: 000000000007fba0  1368 FUNC    GLOBAL DEFAULT   11 malloc_info
@@ -752,7 +752,7 @@ GG bin # readelf /lib64/libc.so.6 -a | grep malloc
 ```
 可以看到malloc和__libc_malloc的地址是一样的  
 现在加__libc_malloc试试, OK了.
-```sh
+```shell
 GG bin # ./perf probe -x /lib64/libc.so.6 --add __libc_malloc                                                                                                                
 Added new event:
   probe_libc:__libc_malloc (on __libc_malloc in /lib64/libc-2.20.so)
@@ -760,11 +760,11 @@ You can now use it in all perf tools, such as:
         perf record -e probe_libc:__libc_malloc -aR sleep 1
 ```
 perf一下:
-```sh
+```shell
 GG bin # ./perf record -e probe_libc:__libc_malloc -a -- sleep 3
 ```
 结果:
-```sh
+```shell
 GG bin # ./perf report -n
 Samples: 5K of event 'probe_libc:__libc_malloc', Event count (approx.): 5098                                                                                                 
 Overhead       Samples  Command  Shared Object  Symbol                                                                                                                       
@@ -774,7 +774,7 @@ Overhead       Samples  Command  Shared Object  Symbol
 证明效果是一样的, 相当于跟踪malloc, 因为libc会把`malloc` alias到`__libc_malloc`
 
 这里把网上例子抄过来
-```sh
+```shell
 # perf probe -x /lib/x86_64-linux-gnu/libc-2.15.so --add malloc
 Added new event:
   probe_libc:malloc    (on 0x82f20)
@@ -806,7 +806,7 @@ You can now use it in all perf tools, such as:
 
 ## ping的usage跟踪
 我对ping的`usage()`函数做跟踪, 在另外一个窗口执行ping --help
-```sh
+```shell
 GG bin # ./perf probe -x /bin/ping -F
 GG bin # ./perf probe -x /bin/ping --add usage
 Added new event:
@@ -819,7 +819,7 @@ GG bin # ./perf record -e probe_ping:usage -ag
 GG bin # ./perf report
 ```
 ### 带变量的ping
-```sh
+```shell
 GG bin # ./perf probe -x /bin/ping -V pr_addr
 GG bin # ./perf probe -x /bin/ping --add 'pr_addr addr'
 Added new event:
@@ -852,7 +852,7 @@ ping  2482 [003] 21672.347853: probe_ping:pr_addr: (402b40) addr=0x4af85070
 
 ## 查看系统调用次数
 一次ls有58次系统调用
-```sh
+```shell
 GG bin # ./perf stat -e raw_syscalls:sys_enter ls
 index.html  index.html.1  index.html.2  index.html.3  index.html.4  index.html.5  perf  perf.data  perf.data.old  src  trace  vmlinux  vmlinux.gz
  Performance counter stats for 'ls':
@@ -860,7 +860,7 @@ index.html  index.html.1  index.html.2  index.html.3  index.html.4  index.html.5
        0.001785210 seconds time elapsed
 ```
 而sleep 1秒和2秒都是33次系统调用
-```sh
+```shell
 GG bin # ./perf stat -e raw_syscalls:sys_enter sleep 1
  Performance counter stats for 'sleep 1':
                 33      raw_syscalls:sys_enter
@@ -873,7 +873,7 @@ GG bin # ./perf stat -e raw_syscalls:sys_enter sleep 2
 这里要说明以下, perf的参数里面, 如果带-a, 是说要对整个系统做perf. 不带-a只针对后面的command; 以上两个实验都是不带-a的.
 
 如果带-a, 则统计的结果多很多
-```sh
+```shell
 GG bin # ./perf stat -e raw_syscalls:sys_enter -a ls
 index.html  index.html.1  index.html.2  index.html.3  index.html.4  index.html.5  perf  perf.data  perf.data.old  src  trace  vmlinux  vmlinux.gz
  Performance counter stats for 'system wide':
@@ -886,7 +886,7 @@ GG bin # ./perf stat -e raw_syscalls:sys_enter -a -- sleep 1
 ```
 
 好了, 现在我们来看看详细的ls的系统调用情况
-```sh
+```shell
 GG bin # ./perf record -e raw_syscalls:sys_enter -g ls 
 Lowering default frequency rate to 800.
 Please consider tweaking /proc/sys/kernel/perf_event_max_sample_rate.
@@ -901,7 +901,7 @@ GG bin # ./perf report -n
 ## misc
 比如在动态probe里面, 可以对某个函数的某行来做一个trace点
 添加probe点的语法格式为:
-```sh
+```shell
 1) Define event based on function name
 [EVENT=]FUNC[@SRC][:RLN|+OFFS|%return|;PTN] [ARG ...]
 2) Define event based on source file with line number
@@ -910,7 +910,7 @@ GG bin # ./perf report -n
 [EVENT=]SRC;PTN [ARG ...]
 ```
 举例:
-```sh
+```shell
 EXAMPLES
        Display which lines in schedule() can be probed:
            ./perf probe --line schedule
@@ -932,7 +932,7 @@ EXAMPLES
 ```
 
 ## perf wiki里的例子
-```sh
+```shell
 $ ./perf record -e sched:sched_stat_sleep -e sched:sched_switch  -e sched:sched_process_exit -g -o ~/perf.data.raw ~/foo
 $ ./perf inject -v -s -i ~/perf.data.raw -o ~/perf.data
 $ ./perf report --stdio --show-total-period -i ~/perf.data

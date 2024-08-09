@@ -378,7 +378,7 @@ strace -o ld47.log /repo/yingjieb/ms/buildrootmlt/output/host/bin/mips64-octeon-
 strace -o ld73.log /repo1/yingjieb/ms/buildroot/output/host/bin/mips64-octeon-linux-gnu-gcc -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -Os -g2 -fPIC -I libfdt -I . -o convert-dtsv0 srcpos.o util.o convert-dtsv0-lexer.lex.o
 ```
 对比如下:
-```sh
+```shell
 #前面几个路径类似, 在toolchain目录下找
 host/opt/ext-toolchain/bin/../lib/gcc/mips64-octeon-linux-gnu/4.7.0/n32/octeon3/crt1.o
 host/opt/ext-toolchain/bin/../lib/gcc/n32/octeon3/crt1.o
@@ -402,7 +402,7 @@ host/mips64-buildroot-linux-gnu/sysroot/usr/lib64/../lib32-fp/crt1.o
 buildroot拷贝sysroot的时候, 做了裁剪, 导致gcc7.3找不到crt1.o
 
 ## 解决
-```sh
+```shell
 /repo1/yingjieb/ms/buildroot/output/host/mips64-buildroot-linux-gnu/sysroot/usr
 #加lib64软链接
 ln -s lib lib64

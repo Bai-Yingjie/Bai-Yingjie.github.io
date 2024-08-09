@@ -40,7 +40,7 @@
 # hw-ddr2
 mipsisa64-octeon-elf-readelf -e hw-ddr2 找到入口地址Entry point address:               0x10000d68  
 这个地址是__start, 是个是编译器里面的东西, 编译器里面还有libc的库
-```sh
+```shell
 $ mipsisa64-octeon-elf-nm -Al hw-ddr2 | grep 10000d68 
 hw-ddr2:10000d68 T __start      /usr/local/Cavium_Networks/octsw/toolchain/scripts/../src/newlib/libc/sys/octeon/crt0.S:31
 ```

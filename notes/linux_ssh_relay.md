@@ -14,19 +14,19 @@ you must have a **public server(relay server)** 122.235.139.194(sh_cvmx shanghai
 10022 is an unused port on relay server
 
 ## login to relay server
-```sh
+```shell
 ssh sh_cvmx@122.235.139.194
 shanghaicavm!
 ```
 check 10022 port, shoud be like this:
-```sh
+```shell
 relayserver~$ sudo netstat -nap | grep 10022
 tcp      0    0 127.0.0.1:10022          0.0.0.0:*               LISTEN      8493/sshd    
 ```
 
 ## from any PC
 login to relay server
-```sh
+```shell
 ssh sh_cvmx@122.235.139.194
 shanghaicavm!
 ```
@@ -37,7 +37,7 @@ cvmx@sh
 ```
 
 ## ssh keep alive
-```sh
+```shell
 # vim /etc/ssh/ssh_config
 Host *
     ServerAliveInterval 60
@@ -47,7 +47,7 @@ Host *
 
 ## make it persistent
 1. passwordless ssh login, on home server
-```sh
+```shell
 ssh-keygen -t rsa -P ''
 cat ~/.ssh/id_rsa.pub | ssh root@112.74.210.173 "cat >> ~/.ssh/authorized_keys"
 ```

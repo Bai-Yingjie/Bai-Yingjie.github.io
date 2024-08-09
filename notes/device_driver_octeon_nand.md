@@ -148,7 +148,7 @@ octeon_nand_probe(struct platform_device *pdev)
 
 ## 调试
 ### 初始化脚本化简
-```sh
+```shell
 ~ # cat /etc/ubi_devices.config
 # See mount_ubi for details.
 ubidevnr=0 mtddev=/dev/mtd_nand
@@ -162,7 +162,7 @@ ubidevnr=0 volname=data mountpoint=/mnt/nand size=
 # See mount_ubi for details.
 linkdst=/mnt/nand linksrc=/mnt/persistent
 ```
-```sh
+```shell
 #attach MTD device 6 (mtd6) to UBI and create UBI device number 0 (ubi0)
 ubiattach -p /dev/mtd6 -d 0
 #leb:logical eraseblocks, 这里nand的擦写单位是block, 128k
@@ -178,7 +178,7 @@ ubiformat -yq /dev/mtd6
 ```
 
 ### attach结果
-```sh
+```shell
 /user # ubiattach -p /dev/mtd6 -d 0
 [ 222.657944] UBI: attaching mtd6 to ubi0
 [ 223.012711] UBI: scanning is finished
@@ -195,7 +195,7 @@ UBI device number 0, total 1024 LEBs (132120576 bytes, 126.0 MiB), available 100
 ```
 
 ### 错误1
-```sh
+```shell
 /user # ubiattach -p /dev/mtd6 -d 0
 [ 246.687282] UBI: attaching mtd6 to ubi0
 [ 247.041904] UBI: scanning is finished
@@ -226,7 +226,7 @@ UBI device number 0, total 1024 LEBs (132120576 bytes, 126.0 MiB), available 100
 [ 248.072612] [<ffffffff80159c34>] handle_sys+0x134/0x160
 ```
 ### 错误2
-```sh
+```shell
 /user # ubiattach -p /dev/mtd6 -d 0
 [ 246.687282] UBI: attaching mtd6 to ubi0
 [ 247.041904] UBI: scanning is finished
@@ -464,7 +464,7 @@ Code: (Bad address in epc)
 ```
 
 ### 错误3
-```sh
+```shell
 [40.39] [ 2451.230273] octeon-nand 1070001000000.nand-flash-interface: octeon_nand_hw_bch_read_page octeon_nand_hw_bch_read_page(800000008c580018, 800000008c580300, c00000000020c000, 0, 65)
 [40.39] [ 2451.258910] octeon-nand 1070001000000.nand-flash-interface: octeon_nand_read_buf len=2048
 [40.39] [ 2451.279788] octeon-nand 1070001000000.nand-flash-interface: octeon_nand_read_buf len=64

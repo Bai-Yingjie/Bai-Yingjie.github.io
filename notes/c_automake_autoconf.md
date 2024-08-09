@@ -4,7 +4,7 @@
 - [Autotools运行流程](#autotools运行流程)
 
 # configure
-```sh
+```shell
 # 参考README和INSTALL
 # 对于大多数用automake系统的开源组件, 一般的操作如下:
 ./configure
@@ -24,7 +24,7 @@ make install
 `./autogen.sh && ./configure && make`
 那么autogen里面是什么呢? 自动生成configure和Makefile又是什么原理呢?
 `autogen.sh`只有短短几行
-```sh
+```shell
 $ cat autogen.sh 
 #!/bin/sh
 mkdir -p m4

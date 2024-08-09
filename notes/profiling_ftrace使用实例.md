@@ -14,7 +14,7 @@ ftrace说明文件
 `/sys/kernel/debug/tracing/README`
 
 ftrace已经打开, 但需要手动mount
-```sh
+```shell
 mount -t debugfs none /sys/kernel/debug
 cd /sys/kernel/debug/tracing/
 #默认就是tracing on的, 执行下面的语句就开始tracing了
@@ -30,7 +30,7 @@ echo 0 > tracing_on
 cat trace
 ```
 在另外窗口
-```sh
+```shell
 /mnt/nand-persistent # dd if=/dev/zero of=test bs=4M count=1
 1+0 records in
 1+0 records out
@@ -41,7 +41,7 @@ test testnand
 
 ## cmdline使用ftrace: 看open系统调用都干了什么
 调试open系统调用, 用function_graph看open都干了什么
-```sh
+```shell
 loglevel=8 ftrace=function_graph ftrace_graph_filter=do_sys_open ftrace_dump_on_oops tp_printk=1 octeon-wdt.disable=1
 #这个不是很好用, printk是没有了, 但其子函数还有; 而且右括号还在
 ftrace_graph_notrace=*printk*,_raw_spin*
@@ -59,7 +59,7 @@ max_graph_depth
 * `octeon-wdt.disable=1` : 关闭nmi wdt
 * trace里面夹杂着很多中断函数的调用, 很讨厌. 在debugfs里可以关掉
 
-```sh
+```shell
 # funcgraph-irqs - When disabled, functions that happen inside an interrupt will not be traced.
 root@yingjieb-VirtualBox /sys/kernel/debug/tracing/options
 Linux Mint 19.1 Tessa # cat funcgraph-irqs
@@ -72,7 +72,7 @@ Linux Mint 19.1 Tessa # cat funcgraph-irqs
 ```
 
 ## function_graph最大的作用是看一个函数的子函数调用
-```sh
+```shell
 #打开function_graph, 看一个函数都调用了哪些函数
 /sys/kernel/debug/tracing # cat current_tracer 
 function_graph
@@ -96,7 +96,7 @@ do_sys_open
 
 # 调试libc.so.6找不到问题
 使用新的GCC7.3编译版本运行, 在kernel启动到init的时候, 提示:
-```sh
+```shell
 [ 39.572368] (c01 1 swapper/0) This architecture does not have kernel memory protection.
 /bin/sh: error while loading shared libraries: libc.so.6: cannot open shared object file: No such file or directory
 [ 39.713984] (c00 1 init) Kernel panic - not syncing: Attempted to kill init! exitcode=0x00007f00
@@ -108,7 +108,7 @@ do_sys_open
 ![](img/profiling_ftrace使用实例_20221017230824.png)  
 
 直接用printk会有如下调试信息: 
-```sh
+```shell
 Open : /etc/ld.so.cache
 Open return: -2
 Open : /lib32-fp/tls/octeon3/libc.so.6

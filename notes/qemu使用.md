@@ -27,17 +27,17 @@ http://doc.opensuse.org/products/draft/SLES/SLES-kvm_sd_draft/cha.qemu.running.h
 
 # qemu使用
 ## kvm只是个qemu的封装
-```sh
+```shell
 /usr/bin/kvm -nographic -monitor stdio -hda windowsC.img -m 2048 -smp 2 -cdrom Win2003.iso -boot c -soundhw es1370 -no-acpi -localtime -usb -usbdevice tablet -net nic,vlan=0,model=rtl8139 -net tap,vlan=0,ifname=tap0
 ```
-```sh
+```shell
 $ cat /usr/bin/kvm
 #! /bin/shexec
 qemu-system-x86_64 -enable-kvm "$@"
 ```
 
 ## 安装
-```sh
+```shell
 #检查cpu是否支持虚拟化
 egrep -c ‘(svm|vmx)’ /proc/cpuinfo
 #安装

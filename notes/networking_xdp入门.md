@@ -36,7 +36,7 @@ Prerequisites
 
 To prepare the developing environment, install the following packages:
 
-```sh
+```shell
 $ sudo dnf install clang llvm gcc libbpf libbpf-devel libxdp libxdp-devel xdp-tools bpftool kernel-headers
 ```
 
@@ -74,7 +74,7 @@ Finally, the last line formally specifies the license associated with this progr
 
 Let's build the program in the previous section with `clang`:
 
-```sh
+```shell
 **$ clang -O2 -g -Wall -target bpf -c xdp_drop.c -o xdp_drop.o**
 ```
 
@@ -82,7 +82,7 @@ The `-O` option specified which optimization level to use,  and`-g` generate
 
 You can use `llvm-objdump` to show the ELF format after the build. `llvm-objdump` is very useful if you want to know what a program does and you don't have the source code. The `-h` option displays the sections in the object, and the `-S` option displays the source interleaved with the disassembled object code. We'll show each of those options in turn.
 
-```sh
+```shell
 **$ llvm-objdump -h xdp_drop.o**
 xdp_drop:       file format ELF64-BPF
 
@@ -128,7 +128,7 @@ After you build the object, there are multiple ways to load it.
 
 The easiest way to load the program is using the `ip` command, like this:
 
-```sh
+```shell
 **$ sudo ip link set veth1 xdpgeneric obj xdp_drop.o sec xdp_drop**
 ```
 
@@ -140,7 +140,7 @@ To get Red Hat support for XDP, use `libxdp`, as explained in the article [XDP
 
 Now let's load the object on interface `veth1` with `xdp-loader`. We specify `-m sbk` to use skb mode. Other possible modes include native and offload. But because these modes are not supported on all NIC drivers, we will just use skb mode in this article. The`-s xdp_drop` option specifies the use of the section we created, `xdp_drop`:
 
-```sh
+```shell
 **$ sudo xdp-loader load -m skb -s xdp_drop veth1 xdp_drop.o**
 ```
 
@@ -148,7 +148,7 @@ Now let's load the object on interface `veth1` with `xdp-loader`. We specify�
 
 There are also multiple ways to show information about a loaded XDP program:
 
-```sh
+```shell
 **$ sudo xdp-loader status** CURRENT XDP PROGRAM STATUS:
 
 Interface        Prio  Program name     Mode     ID   Tag               Chain actions
@@ -181,7 +181,7 @@ If you load your program with `ip` cmd, only one XDP program can be loaded sim
 
 If you use `ip cmd` to load the program, you can unload the program through:
 
-```sh
+```shell
 **$ sudo ip link set veth1 xdpgeneric off**
 ```
 
@@ -189,7 +189,7 @@ Use the `xdp` flag that corresponds to the way you loaded the file. In this ex
 
 To unload all XDP programs on an interface, issue `xdp-loader` with the `-a` option:
 
-```sh
+```shell
 **$ sudo xdp-loader unload -a veth1**
 ```
 
@@ -318,7 +318,7 @@ char _license[] SEC("license") = "GPL";
 
 Let's name the new program `xdp_drop_ipv6_count.c` and build it to create the object file `xdp_drop_ipv6_count.o`. After loading the object, send some IPv6 packets to this interface. Using the `bpftool map show` command, we can see that the `rxcnt` ID in our map is 13\. Then we can use `bpftool map dump id 13` to show that 13 packets were processed on CPU 0 and 7 packets were processed on CPU 1:
 
-```sh
+```shell
 **$ sudo xdp-loader load -m skb -s xdp_drop_ipv6 veth1 xdp_drop_ipv6_count.o**
 ...*receive some IPv6 packets*
 
@@ -471,7 +471,7 @@ int main(int argc, char *argv[])
 
 Set the `ulimit` to unlimited and build the program with the `-lbpf -lxdp` flags. Then run the program, which shows the packet count output:
 
-```sh
+```shell
 **$ sudo ulimit -l unlimited
 $ gcc xdp_drop_ipv6_count_user.c -o xdp_drop_ipv6_count -lbpf -lxdp
 $ sudo ./xdp_drop_ipv6_count veth1**

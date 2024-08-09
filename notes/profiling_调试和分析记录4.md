@@ -25,7 +25,7 @@
 # 分离符号表
 用`objcopy --add-gnu-debuglink`的连接功能, 可以把strip后的可执行文件, 和只带debug信息的符号文件链接起来
 
-```sh
+```shell
 #先做出只带debug符号的文件
 objcopy --only-keep-debug "${tostripfile}" "${debugdir}/${debugfile}"
 #把原始可执行文件strip
@@ -38,7 +38,7 @@ objcopy --add-gnu-debuglink="${debugdir}/${debugfile}" "${tostripfile}"
 
 这里说的strip的符号指.debug相关的小节和.symtab .strtab
 用`strip --strip-unneeded`命令后, 这些小节都会被strip掉. 而`--only-keep-debug`则只保留这些小节.
-```sh
+```shell
   [27] .debug_aranges    PROGBITS        00000000 3ed510 004f99 00   C  0   0  8   
   [28] .debug_info       PROGBITS        00000000 3f24a9 03b36a 00   C  0   0  1   
   [29] .debug_abbrev     PROGBITS        00000000 42d813 00324a 00   C  0   0  1   
@@ -53,7 +53,7 @@ objcopy --add-gnu-debuglink="${debugdir}/${debugfile}" "${tostripfile}"
 
 # 使用strace分析eoe_filter占用高的问题
 ## 统计
-```sh
+```shell
 / # timeout 10 strace -c -p `pidof eoe_filter`
 strace: Process 27238 attached
 strace: Process 27238 detached
@@ -75,7 +75,7 @@ strace: Process 27238 detached
 但是我几个月之前编译过完整版本的`netstat`, 想拷到板子上直接运行
 
 ## 直接使用是报错的
-```sh
+```shell
 wget http://172.24.213.190:8088/bin/netstat
 ~ # ./netstat
 ./netstat: relocation error: ./netstat: symbol h_errno version GLIBC_PRIVATE not defined in file libc.so.6 with link time reference
@@ -86,7 +86,7 @@ wget http://172.24.213.190:8088/bin/netstat
 ## LD_LIBRARY_PATH
 首先想到拷贝原libc.so版本, 全在/root目录下执行
 报一样的错误
-```sh
+```shell
 wget http://172.24.213.190:8088/lib/libc.so.6
 
 ~ # LD_LIBRARY_PATH=`pwd` ./netstat
@@ -94,7 +94,7 @@ wget http://172.24.213.190:8088/lib/libc.so.6
 ```
 ## LD_PRELOAD
 使用LD_PRELOAD报错不一样, 但还是不行
-```sh
+```shell
 ~ # LD_PRELOAD='/root/libc.so.6' ./netstat
 ERROR: ld.so: object '/root/libc.so.6' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
 ./netstat: relocation error: ./netstat: symbol h_errno version GLIBC_PRIVATE not defined in file libc.so.6 with link time reference
@@ -103,7 +103,7 @@ ERROR: ld.so: object '/root/libc.so.6' from LD_PRELOAD cannot be preloaded (cann
 ## 最终解决
 使用ld.so来执行.
 背景知识是: 所有可执行的文件实际上都是ld.so来执行的
-```sh
+```shell
 wget http://172.24.213.190:8088/lib/ld-2.16.so
 
 //注意使用--library-path执行so路径, 本文这里就包括了老版本的libc.so
@@ -111,7 +111,7 @@ wget http://172.24.213.190:8088/lib/ld-2.16.so
 ```
 
 # 没有ldd看共享库
-```sh
+```shell
 ~ # LD_TRACE_LOADED_OBJECTS=1 ./htop
     linux-vdso.so.1 (0x773c9000)
     libncurses.so.6 => /usr/lib/libncurses.so.6 (0x77338000)
@@ -138,12 +138,12 @@ wget http://172.24.213.190:8088/lib/ld-2.16.so
 用`man ld.so`来看详细的ld程序信息.
 我们知道linux启动一个elf程序, 实际上是先启动ld程序, 然后ld来启动elf.
 ld.so也可以直接启动:
-```sh
+```shell
 /lib/ld-linux.so.* [OPTIONS] [PROGRAM [ARGUMENTS]]
 The programs ld.so and ld-linux.so* find and load the shared objects (shared libraries) needed by a program, prepare the program to run, and then run it.
 ```
 ld会看一些环境变量:
-```sh
+```shell
 LD_ASSUME_KERNEL
 LD_BIND_NOW: ld在加载app的时候就解决所有的符号引用, 而不是当符号被引用的时候才解析.
 LD_LIBRARY_PATH: 动态库搜索路径. 常用
@@ -156,7 +156,7 @@ LD_DEBUG_OUTPUT: LD_DEBUG的输出到指定位置
 # strace查看一个进程的open文件过程
 strace支持filter. 比如我想trace htop 16122的所有open文件的过程, 来看看它到底怎么得到进程树的.
 
-```sh
+```shell
 strace -p 16122 -e trace=openat -o s.log
 
 #其他举例
@@ -191,7 +191,7 @@ strace -p 16122 -e trace=openat -o s.log
 # 计算CPU load
 参考: linux/Documentation/filesystems/proc.txt
 参考: `man proc`搜索stat
-```sh
+```shell
 (14) utime %lu
                         Amount of time that this process has been scheduled in user mode, measured in clock ticks (divide by sysconf(_SC_CLK_TCK)). This includes guest time,
                         guest_time (time spent running a virtual CPU, see below), so that applications that are not aware of the guest time field do not lose that time from their
@@ -219,7 +219,7 @@ strace -p 16122 -e trace=openat -o s.log
 
 ## /proc/stat
 同样的`man proc`的`/proc/stat`小节有讲
-```sh
+```shell
 /proc/stat
     kernel/system statistics. Varies with architecture. Common entries include:
 
@@ -252,7 +252,7 @@ strace -p 16122 -e trace=openat -o s.log
 > The amount of time, measured in units of **USER_HZ** (1/100ths of a second on most architectures, use `sysconf(_SC_CLK_TCK)` to obtain the right value)
 
 一般这个USER_HZ是100, 就是说每个CPU, 每秒有100个tick.
-```sh
+```shell
 while true; do t0=`cat /proc/stat | grep cpu0 | awk '{print $2+$3+$4+$5+$6+$7+$8+$9+$10}'`;sleep 1;t1=`cat /proc/stat | grep cpu0 | awk '{print $2+$3+$4+$5+$6+$7+$8+$9+$10}'`;echo $(($t1 - $t0));done
 101
 104
@@ -260,7 +260,7 @@ while true; do t0=`cat /proc/stat | grep cpu0 | awk '{print $2+$3+$4+$5+$6+$7+$8
 101
 ```
 一个系统上的所有核(每行)的和是差不多的.
-```sh
+```shell
 $ cat /proc/stat | grep cpu
 cpu 9669309 24418 17471207 10263522262 224627 0 828332 14242740 0 0
 cpu0 533764 573 734456 427550594 11586 0 98187 615793 0 0
@@ -285,7 +285,7 @@ $ cat /proc/stat | grep cpu | awk '{print $2+$3+$4+$5+$6+$7+$8+$9+$10}'
 
 # strace看系统调用时间
 `strace -ttT`选项可以显示每个系统调用花费的时间:
-```sh
+```shell
 man strace
 -tt If given twice, the time printed will include the microseconds.
 -T Show the time spent in system calls. This records the time difference between the beginning and the end of each system call.
@@ -312,7 +312,7 @@ Linux Mint 19.1 Tessa $ strace -ttT ls
 `09:14:41.979375 ioctl(38, _IOC(0, 0x7, 0x7, 0), 0x7ffbe168) = -1 EIO (Input/output error) <0.115278>`
 这里的0.115278秒(115ms)实在是太长了.
 
-```sh
+```shell
 09:14:41.857370 readv(37, [{iov_base="\0\0\1\0\0\0\0\0\0\0\0000\0\0\0\1\0\0\0\4\0\3\251\"\0\0\0\2\0\0\0\4"..., iov_len=72}], 1) = 72 <0.000103>
 09:14:41.857861 stat("/etc/localtime", {st_mode=S_IFREG|0644, st_size=127, ...}) = 0 <0.000069>
 09:14:41.858430 clock_gettime(CLOCK_MONOTONIC, {tv_sec=240055, tv_nsec=913917513}) = 0 <0.000071>
@@ -344,7 +344,7 @@ Linux Mint 19.1 Tessa $ strace -ttT ls
 
 ## 用perf record生成原始数据
 注意, 在mips上, 必须用`-g --call-graph dwarf`才能生成火焰图
-```sh
+```shell
 #对整个系统做profiling
 perf record -F 500 -e cycles -g --call-graph dwarf -a -- sleep 30
 #对某个进程做profiling
@@ -357,7 +357,7 @@ perf record -F 1000 -e cycles:u -g --call-graph dwarf -p 18852 -- sleep 60
 ```
 
 ## 用perf script解析调用栈
-```sh
+```shell
 #先准备好目录, 用sshfs存放script后的文件
 sshfs bsfs yingjieb@172.24.213.190:/repo/yingjieb/ms/gopoc/poclog-ver20200101/profiling
 #准备符号表目录, 一般板子上的二进制是strip过的, 要解析调用栈, 必须有符号表
@@ -376,12 +376,12 @@ perf script | grep unknown | sort -u
 perf script --symfs wsfs --kallsyms /proc/kallsyms | grep unknown | sort -u
 ```
 准备工作完成后, 开始解析perf data
-```sh
+```shell
 #用symfs指定root目录, 用kallsyms指定kernel符号表
 perf script --symfs wsfs --kallsyms /proc/kallsyms > bsfs/sysidle-switch_hwa_app/perf.script
 ```
 ## 在mint虚拟机上, 生成火焰图 
-```sh
+```shell
 yingjieb@yingjieb-VirtualBox ~/work/share/gopoc/perflogpoc-ver20191227/profiling/sysidle-switch_hwa_app
 Linux Mint 19.1 Tessa $ cat perf.script | ~/repo/FlameGraph/stackcollapse-perf.pl | ~/repo/FlameGraph/flamegraph.pl > ~/sf_work/tmp/poc.svg
 ```
