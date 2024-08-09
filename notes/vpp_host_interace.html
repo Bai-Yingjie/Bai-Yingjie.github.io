@@ -4657,7 +4657,7 @@ vrrp-periodic-process          event wait                0               0      
 vxlan-gpe-ioam-export-process   any wait                 0               0               1          2.52e5            0.00
 wg-timer-manager               event wait                0               0               1          1.48e5            0.00
 </code></pre></li>
-<li><code>/bin/vpp</code>&#x672C;&#x8EAB;&#x5E76;&#x4E0D;&#x5927;, &#x6838;&#x5FC3;&#x5E93;&#x5982;&#x4E0B;, &#x6700;&#x5173;&#x952E;&#x7684;&#x5E94;&#x8BE5;&#x5C31;&#x662F;&#x6700;&#x5927;&#x7684;&#x90A3;&#x4E2A;<code>libvnet.so</code><pre class="language-"><code class="lang-shell"><span class="token comment"># ls -lh /lib/lib*.24.06</span>
+<li><code>/bin/vpp</code>&#x672C;&#x8EAB;&#x5E76;&#x4E0D;&#x5927;, &#x6838;&#x5FC3;&#x5E93;&#x5982;&#x4E0B;, &#x6700;&#x5173;&#x952E;&#x7684;&#x5E94;&#x8BE5;&#x5C31;&#x662F;&#x6700;&#x5927;&#x7684;&#x90A3;&#x4E2A;<code>libvnet.so</code>  <pre class="language-"><code class="lang-shell"><span class="token comment"># ls -lh /lib/lib*.24.06</span>
 -rwxr-xr-x    <span class="token number">1</span> root     root       <span class="token number">49</span>.9K Jul <span class="token number">24</span> 06:22 /lib/libnat.so.24.06
 -rwxr-xr-x    <span class="token number">1</span> root     root      <span class="token number">133</span>.8K Jul <span class="token number">24</span> 06:22 /lib/libsvm.so.24.06
 -rwxr-xr-x    <span class="token number">1</span> root     root       <span class="token number">29</span>.7K Jul <span class="token number">24</span> 06:22 /lib/libsvmdb.so.24.06
@@ -4676,7 +4676,7 @@ wg-timer-manager               event wait                0               0      
 -rwxr-xr-x    <span class="token number">1</span> root     root       <span class="token number">13</span>.8K Jul <span class="token number">24</span> 06:22 /lib/libvppmem_preload.so.24.06
 </code></pre>
 </li>
-<li>vpp&#x4F7F;&#x7528;&#x4E86;plugin&#x673A;&#x5236;, &#x7528;<code>vppctl show plugins</code>&#x53EF;&#x4EE5;&#x770B;&#x5230;load&#x7684;plugin, &#x57FA;&#x672C;&#x4E0A;&#x4E3B;&#x6D41;&#x7684;&#x534F;&#x8BAE;&#x90FD;&#x652F;&#x6301;:<pre class="language-"><code class="lang-shell"><span class="token comment"># ls /lib/vpp_plugins</span>
+<li>vpp&#x4F7F;&#x7528;&#x4E86;plugin&#x673A;&#x5236;, &#x7528;<code>vppctl show plugins</code>&#x53EF;&#x4EE5;&#x770B;&#x5230;load&#x7684;plugin, &#x57FA;&#x672C;&#x4E0A;&#x4E3B;&#x6D41;&#x7684;&#x534F;&#x8BAE;&#x90FD;&#x652F;&#x6301;:  <pre class="language-"><code class="lang-shell"><span class="token comment"># ls /lib/vpp_plugins</span>
 abf_plugin.so                  det44_plugin.so                hsi_plugin.so                  lisp_unittest_plugin.so        oddbuf_plugin.so               svs_plugin.so
 acl_plugin.so                  dev_ena_plugin.so              http_plugin.so                 lldp_plugin.so                 perfmon_plugin.so              tlsopenssl_plugin.so
 adl_plugin.so                  dev_iavf_plugin.so             http_static_plugin.so          mactime_plugin.so              ping_plugin.so                 tracedump_plugin.so
@@ -4693,8 +4693,7 @@ crypto_sw_scheduler_plugin.so  gtpu_plugin.so                 lb_plugin.so      
 ct6_plugin.so                  hs_apps_plugin.so              lisp_plugin.so                 nsim_plugin.so                 stn_plugin.so
 </code></pre>
 </li>
-<li><code>pmap $(pidof vpp)</code>&#x53EF;&#x4EE5;&#x770B;&#x5230;vpp&#x5DF2;&#x7ECF;map&#x7684;so, &#x5176;&#x4E2D;&#x5C31;&#x6709;<code>af_packet_plugin.so</code>
-```shell<h1 id="pmap-pidof-vpp"><a name="pmap-pidof-vpp" class="anchor-navigation-ex-anchor" href="#pmap-pidof-vpp"><i class="fa fa-link" aria-hidden="true"></i></a>7. pmap $(pidof vpp)</h1>
+<li><code>pmap $(pidof vpp)</code>&#x53EF;&#x4EE5;&#x770B;&#x5230;vpp&#x5DF2;&#x7ECF;map&#x7684;so, &#x5176;&#x4E2D;&#x5C31;&#x6709;<code>af_packet_plugin.so</code><br>```shell<h1 id="pmap-pidof-vpp"><a name="pmap-pidof-vpp" class="anchor-navigation-ex-anchor" href="#pmap-pidof-vpp"><i class="fa fa-link" aria-hidden="true"></i></a>7. pmap $(pidof vpp)</h1>
 61: vpp -c /etc/vpp/startup.conf
 000000013000f000     132K rw-s  /dev/shm/global_vm
 0000000130030000   16516K rw-s  /dev/shm/vpe-api
@@ -4779,7 +4778,7 @@ mapped: 18057172K</p>
 
 &#x5728;&#x6CA1;&#x6709;&#x5B89;&#x88C5;`vpp-dbg`&#x65F6;, &#x662F;&#x770B;&#x4E0D;&#x5230;&#x591A;&#x5C11;&#x51FD;&#x6570;&#x7B26;&#x53F7;&#x7684;:
 * 
-* af_packet_plugin.so
+* af_packet_plugin.so  
 ```shell
 # perf probe -x /lib/vpp_plugins/af_packet_plugin.so -F
 .plt
@@ -4799,8 +4798,7 @@ readelf /lib/vpp_plugins/af_packet_plugin.so -a
 nm: /lib/vpp_plugins/af_packet_plugin.so: no symbols
 </code></pre><p>&#x5B89;&#x88C5;<code>vpp-dbg</code>&#x540E;, &#x7B26;&#x53F7;&#x8868;&#x6587;&#x4EF6;&#x88AB;&#x5B89;&#x88C5;&#x5230;<code>/usr/lib/debug</code>&#x76EE;&#x5F55;&#x4E0B;. &#x8FD9;&#x4E9B;&#x7B26;&#x53F7;&#x8868;&#x662F;&#x7528;<code>objcopy --add-gnu-debuglink</code>&#x5236;&#x4F5C;&#x7684;, &#x6240;&#x4EE5;&#x548C;&#x539F;&#x59CB;elf&#x662F;&#x6709;&#x5173;&#x8054;&#x7684;</p>
 <ul>
-<li>af_packet_plugin.so
-```shell<h1 id="nm&#x548C;readelf-&#x539F;&#x59CB;&#x7684;bin&#x6216;&#x8005;so-&#x663E;&#x793A;&#x548C;&#x6CA1;&#x5B89;&#x88C5;debug&#x7B26;&#x53F7;&#x8868;&#x4E00;&#x6837;"><a name="nm&#x548C;readelf-&#x539F;&#x59CB;&#x7684;bin&#x6216;&#x8005;so-&#x663E;&#x793A;&#x548C;&#x6CA1;&#x5B89;&#x88C5;debug&#x7B26;&#x53F7;&#x8868;&#x4E00;&#x6837;" class="anchor-navigation-ex-anchor" href="#nm&#x548C;readelf-&#x539F;&#x59CB;&#x7684;bin&#x6216;&#x8005;so-&#x663E;&#x793A;&#x548C;&#x6CA1;&#x5B89;&#x88C5;debug&#x7B26;&#x53F7;&#x8868;&#x4E00;&#x6837;"><i class="fa fa-link" aria-hidden="true"></i></a>9. nm&#x548C;readelf &#x539F;&#x59CB;&#x7684;bin&#x6216;&#x8005;so &#x663E;&#x793A;&#x548C;&#x6CA1;&#x5B89;&#x88C5;debug&#x7B26;&#x53F7;&#x8868;&#x4E00;&#x6837;</h1>
+<li>af_packet_plugin.so<br>```shell<h1 id="nm&#x548C;readelf-&#x539F;&#x59CB;&#x7684;bin&#x6216;&#x8005;so-&#x663E;&#x793A;&#x548C;&#x6CA1;&#x5B89;&#x88C5;debug&#x7B26;&#x53F7;&#x8868;&#x4E00;&#x6837;"><a name="nm&#x548C;readelf-&#x539F;&#x59CB;&#x7684;bin&#x6216;&#x8005;so-&#x663E;&#x793A;&#x548C;&#x6CA1;&#x5B89;&#x88C5;debug&#x7B26;&#x53F7;&#x8868;&#x4E00;&#x6837;" class="anchor-navigation-ex-anchor" href="#nm&#x548C;readelf-&#x539F;&#x59CB;&#x7684;bin&#x6216;&#x8005;so-&#x663E;&#x793A;&#x548C;&#x6CA1;&#x5B89;&#x88C5;debug&#x7B26;&#x53F7;&#x8868;&#x4E00;&#x6837;"><i class="fa fa-link" aria-hidden="true"></i></a>9. nm&#x548C;readelf &#x539F;&#x59CB;&#x7684;bin&#x6216;&#x8005;so &#x663E;&#x793A;&#x548C;&#x6CA1;&#x5B89;&#x88C5;debug&#x7B26;&#x53F7;&#x8868;&#x4E00;&#x6837;</h1>
 <h1 id="&#x4F46;&#x5BF9;debug&#x6587;&#x4EF6;-&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x66F4;&#x591A;&#x7684;&#x7B26;&#x53F7;"><a name="&#x4F46;&#x5BF9;debug&#x6587;&#x4EF6;-&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x66F4;&#x591A;&#x7684;&#x7B26;&#x53F7;" class="anchor-navigation-ex-anchor" href="#&#x4F46;&#x5BF9;debug&#x6587;&#x4EF6;-&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x66F4;&#x591A;&#x7684;&#x7B26;&#x53F7;"><i class="fa fa-link" aria-hidden="true"></i></a>10. &#x4F46;&#x5BF9;.debug&#x6587;&#x4EF6;, &#x53EF;&#x4EE5;&#x770B;&#x5230;&#x66F4;&#x591A;&#x7684;&#x7B26;&#x53F7;</h1>
 nm /usr/lib/debug/lib/vpp_plugins/af_packet_plugin.so.debug
 readelf /usr/lib/debug/lib/vpp_plugins/af_packet_plugin.so.debug -a</li>
@@ -5246,7 +5244,7 @@ perf record <span class="token parameter variable">-e</span> probe_af_packet_plu
 </code></pre>
 <p>&#x5F97;&#x5230;&#x7ED3;&#x679C;:</p>
 <ul>
-<li>&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;, &#x5373;&#x6CA1;&#x6709;fd ready, &#x662F;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x6837;&#x5B50;&#x7684;: epoll_pwait&#x7684;&#x5165;&#x53C2;timeout&#x662F;8ms, &#x90A3;&#x4E48;&#x4E00;&#x5B9A;&#x8981;&#x7B49;&#x8D85;&#x65F6;8ms&#x540E;&#x8FD4;&#x56DE;(21006166.827978 -&gt; 21006166.836295), &#x8FD9;&#x4E2A;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x662F;vpp&#x6839;&#x636E;ticks_until_expiration&#x52A8;&#x6001;&#x7B97;&#x51FA;&#x6765;&#x7684;, &#x6BCF;&#x6B21;&#x90FD;&#x4E0D;&#x4E00;&#x6837;, &#x4F46;&#x57FA;&#x672C;&#x5728;0&#x5230;10ms&#x4E4B;&#x95F4;:<pre class="language-"><code class="lang-shell">      vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>003<span class="token punctuation">]</span> <span class="token number">21006166.827892</span>:                             probe_libvlib:dispatch_node: <span class="token punctuation">(</span>7f6f74bab70e<span class="token punctuation">)</span>
+<li>&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;, &#x5373;&#x6CA1;&#x6709;fd ready, &#x662F;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x6837;&#x5B50;&#x7684;: epoll_pwait&#x7684;&#x5165;&#x53C2;timeout&#x662F;8ms, &#x90A3;&#x4E48;&#x4E00;&#x5B9A;&#x8981;&#x7B49;&#x8D85;&#x65F6;8ms&#x540E;&#x8FD4;&#x56DE;(21006166.827978 -&gt; 21006166.836295), &#x8FD9;&#x4E2A;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x662F;vpp&#x6839;&#x636E;ticks_until_expiration&#x52A8;&#x6001;&#x7B97;&#x51FA;&#x6765;&#x7684;, &#x6BCF;&#x6B21;&#x90FD;&#x4E0D;&#x4E00;&#x6837;, &#x4F46;&#x57FA;&#x672C;&#x5728;0&#x5230;10ms&#x4E4B;&#x95F4;:  <pre class="language-"><code class="lang-shell">      vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>003<span class="token punctuation">]</span> <span class="token number">21006166.827892</span>:                             probe_libvlib:dispatch_node: <span class="token punctuation">(</span>7f6f74bab70e<span class="token punctuation">)</span>
       vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>003<span class="token punctuation">]</span> <span class="token number">21006166.827909</span>:                             probe_libvlib:dispatch_node: <span class="token punctuation">(</span>7f6f74bab70e<span class="token punctuation">)</span>
       vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>003<span class="token punctuation">]</span> <span class="token number">21006166.827925</span>:                             probe_libvlib:dispatch_node: <span class="token punctuation">(</span>7f6f74bab70e<span class="token punctuation">)</span>
       vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>003<span class="token punctuation">]</span> <span class="token number">21006166.827939</span>:                             probe_libvlib:dispatch_node: <span class="token punctuation">(</span>7f6f74bab70e<span class="token punctuation">)</span>
@@ -5257,7 +5255,7 @@ perf record <span class="token parameter variable">-e</span> probe_af_packet_plu
       vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>003<span class="token punctuation">]</span> <span class="token number">21006166.836384</span>:                           probe_libvlib:dispatch_node_1: <span class="token punctuation">(</span>7f6f74babdff<span class="token punctuation">)</span>
 </code></pre>
 </li>
-<li>&#x5F53;host-eth0&#x8FD9;&#x4E2A;socket&#x6709;packet&#x5230;&#x6765;&#x65F6;, &#x662F;&#x8FD9;&#x6837;&#x7684;: &#x53D1;&#x73B0;<code>epoll_pwait</code>&#x7684;&#x8BBE;&#x5B9A;&#x7684;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x662F;6ms, &#x4F46;&#x53EA;&#x8FC7;&#x4E86;3.2ms&#x5C31;&#x63D0;&#x524D;&#x8FD4;&#x56DE;&#x4E86;, &#x8FD4;&#x56DE;&#x503C;&#x4E3A;1, &#x8BF4;&#x660E;&#x6709;&#x4E00;&#x4E2A;fd&#x5DF2;&#x7ECF;ready&#x4E86;:<pre class="language-"><code class="lang-shell">      vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>009<span class="token punctuation">]</span> <span class="token number">21006170.532938</span>:                           probe_libvlib:dispatch_node_1: <span class="token punctuation">(</span>7f6f74babdff<span class="token punctuation">)</span>
+<li>&#x5F53;host-eth0&#x8FD9;&#x4E2A;socket&#x6709;packet&#x5230;&#x6765;&#x65F6;, &#x662F;&#x8FD9;&#x6837;&#x7684;: &#x53D1;&#x73B0;<code>epoll_pwait</code>&#x7684;&#x8BBE;&#x5B9A;&#x7684;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x662F;6ms, &#x4F46;&#x53EA;&#x8FC7;&#x4E86;3.2ms&#x5C31;&#x63D0;&#x524D;&#x8FD4;&#x56DE;&#x4E86;, &#x8FD4;&#x56DE;&#x503C;&#x4E3A;1, &#x8BF4;&#x660E;&#x6709;&#x4E00;&#x4E2A;fd&#x5DF2;&#x7ECF;ready&#x4E86;:  <pre class="language-"><code class="lang-shell">      vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>009<span class="token punctuation">]</span> <span class="token number">21006170.532938</span>:                           probe_libvlib:dispatch_node_1: <span class="token punctuation">(</span>7f6f74babdff<span class="token punctuation">)</span>
       vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>009<span class="token punctuation">]</span> <span class="token number">21006170.532984</span>:                             probe_libvlib:dispatch_node: <span class="token punctuation">(</span>7f6f74bab70e<span class="token punctuation">)</span>
       vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>009<span class="token punctuation">]</span> <span class="token number">21006170.532995</span>:                             probe_libvlib:dispatch_node: <span class="token punctuation">(</span>7f6f74bab70e<span class="token punctuation">)</span>
       vpp_main   <span class="token number">360</span> <span class="token punctuation">[</span>009<span class="token punctuation">]</span> <span class="token number">21006170.533005</span>:                             probe_libvlib:dispatch_node: <span class="token punctuation">(</span>7f6f74bab70e<span class="token punctuation">)</span>
@@ -5407,112 +5405,107 @@ Statistics: <span class="token number">5</span> sent, <span class="token number"
 <p>&#x591A;&#x6293;&#x4E00;&#x4F1A;, &#x8FD8;&#x4F1A;&#x6709;drop&#x7684;&#x62A5;&#x6587;. &#x539F;&#x56E0;&#x662F;&#x4F5C;&#x4E3A;<code>AF_PACKET</code>&#x7684;raw socket, &#x8FD9;&#x4E2A;socket&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x4EFB;&#x4F55;&#x4ECE;eth0&#x6765;&#x7684;&#x62A5;&#x6587;.</p>
 <ul>
 <li>packet 6&#x548C;packet 7&#x5728;&#x6B65;&#x9AA4;ip4-lookup&#x88AB;&#x4E22;&#x5F03;, &#x56E0;&#x4E3A;<code>172.17.255.255</code>&#x662F;vpp&#x6240;&#x5728;&#x7684;container&#x7684;&#x7F51;&#x6BB5;, &#x8FD9;&#x4E2A;&#x7F51;&#x6BB5;&#x5728;vpp&#x5185;&#x90E8;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x4FE1;&#x606F;.</li>
-<li>packet 8&#x5728;ip6-input&#x9636;&#x6BB5;&#x88AB;drop, &#x56E0;&#x4E3A;ip6-not-enabled</li>
+<li>packet 8&#x5728;ip6-input&#x9636;&#x6BB5;&#x88AB;drop, &#x56E0;&#x4E3A;ip6-not-enabled<br>```shell
+Packet 6</li>
 </ul>
-<pre class="language-"><code class="lang-shell">Packet <span class="token number">6</span>
-
-<span class="token number">23</span>:31:24:325006: af-packet-input
-  af_packet: hw_if_index <span class="token number">1</span> rx-queue <span class="token number">0</span> next-index <span class="token number">4</span>
-    block <span class="token number">61</span>:
-      address 0x7fb9850cb000 version <span class="token number">2</span> seq_num <span class="token number">6782</span> pkt_num <span class="token number">0</span>
+<p>23:31:24:325006: af-packet-input
+  af_packet: hw_if_index 1 rx-queue 0 next-index 4
+    block 61:
+      address 0x7fb9850cb000 version 2 seq_num 6782 pkt_num 0
     tpacket3_hdr:
-      status 0x9 len <span class="token number">278</span> snaplen <span class="token number">278</span> mac <span class="token number">92</span> net <span class="token number">106</span>
-      sec 0x66a8a219 nsec 0x7208f8a vlan <span class="token number">0</span> vlan_tpid <span class="token number">0</span>
+      status 0x9 len 278 snaplen 278 mac 92 net 106
+      sec 0x66a8a219 nsec 0x7208f8a vlan 0 vlan_tpid 0
     vnet-hdr:
-      flags 0x01 gso_type 0x00 hdr_len <span class="token number">0</span>
-      gso_size <span class="token number">0</span> csum_start <span class="token number">34</span> csum_offset <span class="token number">6</span>
-<span class="token number">23</span>:31:24:325017: ethernet-input
-  IP4: 02:42:1e:a6:fa:68 -<span class="token operator">&gt;</span> ff:ff:ff:ff:ff:ff
-<span class="token number">23</span>:31:24:325403: ip4-input
-  UDP: <span class="token number">172.17</span>.0.1 -<span class="token operator">&gt;</span> <span class="token number">172.17</span>.255.255
-    tos 0x00, ttl <span class="token number">64</span>, length <span class="token number">264</span>, checksum 0x4b46 dscp CS0 ecn NON_ECN
-    fragment <span class="token function">id</span> 0x967b, flags DONT_FRAGMENT
-  UDP: <span class="token number">138</span> -<span class="token operator">&gt;</span> <span class="token number">138</span>
-    length <span class="token number">244</span>, checksum 0x5929
-<span class="token number">23</span>:31:24:325729: ip4-lookup
-  fib <span class="token number">0</span> dpo-idx <span class="token number">0</span> flow hash: 0x00000000
-  UDP: <span class="token number">172.17</span>.0.1 -<span class="token operator">&gt;</span> <span class="token number">172.17</span>.255.255
-    tos 0x00, ttl <span class="token number">64</span>, length <span class="token number">264</span>, checksum 0x4b46 dscp CS0 ecn NON_ECN
-    fragment <span class="token function">id</span> 0x967b, flags DONT_FRAGMENT
-  UDP: <span class="token number">138</span> -<span class="token operator">&gt;</span> <span class="token number">138</span>
-    length <span class="token number">244</span>, checksum 0x5929
-<span class="token number">23</span>:31:24:325989: ip4-drop
+      flags 0x01 gso_type 0x00 hdr_len 0
+      gso_size 0 csum_start 34 csum_offset 6
+23:31:24:325017: ethernet-input
+  IP4: 02:42:1e:a6:fa:68 -&gt; ff:ff:ff:ff:ff:ff
+23:31:24:325403: ip4-input
+  UDP: 172.17.0.1 -&gt; 172.17.255.255
+    tos 0x00, ttl 64, length 264, checksum 0x4b46 dscp CS0 ecn NON_ECN
+    fragment id 0x967b, flags DONT_FRAGMENT
+  UDP: 138 -&gt; 138
+    length 244, checksum 0x5929
+23:31:24:325729: ip4-lookup
+  fib 0 dpo-idx 0 flow hash: 0x00000000
+  UDP: 172.17.0.1 -&gt; 172.17.255.255
+    tos 0x00, ttl 64, length 264, checksum 0x4b46 dscp CS0 ecn NON_ECN
+    fragment id 0x967b, flags DONT_FRAGMENT
+  UDP: 138 -&gt; 138
+    length 244, checksum 0x5929
+23:31:24:325989: ip4-drop
     fib:0 adj:0 flow:0x00000000
-  UDP: <span class="token number">172.17</span>.0.1 -<span class="token operator">&gt;</span> <span class="token number">172.17</span>.255.255
-    tos 0x00, ttl <span class="token number">64</span>, length <span class="token number">264</span>, checksum 0x4b46 dscp CS0 ecn NON_ECN
-    fragment <span class="token function">id</span> 0x967b, flags DONT_FRAGMENT
-  UDP: <span class="token number">138</span> -<span class="token operator">&gt;</span> <span class="token number">138</span>
-    length <span class="token number">244</span>, checksum 0x5929
-<span class="token number">23</span>:31:24:326130: error-drop
+  UDP: 172.17.0.1 -&gt; 172.17.255.255
+    tos 0x00, ttl 64, length 264, checksum 0x4b46 dscp CS0 ecn NON_ECN
+    fragment id 0x967b, flags DONT_FRAGMENT
+  UDP: 138 -&gt; 138
+    length 244, checksum 0x5929
+23:31:24:326130: error-drop
   rx:host-eth0
-<span class="token number">23</span>:31:24:338325: drop
-  ethernet-input: no error
-
-Packet <span class="token number">7</span>
-
-<span class="token number">23</span>:31:24:325006: af-packet-input
-  af_packet: hw_if_index <span class="token number">1</span> rx-queue <span class="token number">0</span> next-index <span class="token number">4</span>
-    block <span class="token number">61</span>:
-      address 0x7fb9850cb000 version <span class="token number">2</span> seq_num <span class="token number">6782</span> pkt_num <span class="token number">1</span>
+23:31:24:338325: drop
+  ethernet-input: no error</p>
+<p>Packet 7</p>
+<p>23:31:24:325006: af-packet-input
+  af_packet: hw_if_index 1 rx-queue 0 next-index 4
+    block 61:
+      address 0x7fb9850cb000 version 2 seq_num 6782 pkt_num 1
     tpacket3_hdr:
-      status 0x9 len <span class="token number">255</span> snaplen <span class="token number">255</span> mac <span class="token number">92</span> net <span class="token number">106</span>
-      sec 0x66a8a219 nsec 0x7518f61 vlan <span class="token number">0</span> vlan_tpid <span class="token number">0</span>
+      status 0x9 len 255 snaplen 255 mac 92 net 106
+      sec 0x66a8a219 nsec 0x7518f61 vlan 0 vlan_tpid 0
     vnet-hdr:
-      flags 0x01 gso_type 0x00 hdr_len <span class="token number">0</span>
-      gso_size <span class="token number">0</span> csum_start <span class="token number">34</span> csum_offset <span class="token number">6</span>
-<span class="token number">23</span>:31:24:325017: ethernet-input
-  IP4: 02:42:1e:a6:fa:68 -<span class="token operator">&gt;</span> ff:ff:ff:ff:ff:ff
-<span class="token number">23</span>:31:24:325403: ip4-input
-  UDP: <span class="token number">172.17</span>.0.1 -<span class="token operator">&gt;</span> <span class="token number">172.17</span>.255.255
-    tos 0x00, ttl <span class="token number">64</span>, length <span class="token number">241</span>, checksum 0x4b5c dscp CS0 ecn NON_ECN
-    fragment <span class="token function">id</span> 0x967c, flags DONT_FRAGMENT
-  UDP: <span class="token number">138</span> -<span class="token operator">&gt;</span> <span class="token number">138</span>
-    length <span class="token number">221</span>, checksum 0x5912
-<span class="token number">23</span>:31:24:325729: ip4-lookup
-  fib <span class="token number">0</span> dpo-idx <span class="token number">0</span> flow hash: 0x00000000
-  UDP: <span class="token number">172.17</span>.0.1 -<span class="token operator">&gt;</span> <span class="token number">172.17</span>.255.255
-    tos 0x00, ttl <span class="token number">64</span>, length <span class="token number">241</span>, checksum 0x4b5c dscp CS0 ecn NON_ECN
-    fragment <span class="token function">id</span> 0x967c, flags DONT_FRAGMENT
-  UDP: <span class="token number">138</span> -<span class="token operator">&gt;</span> <span class="token number">138</span>
-    length <span class="token number">221</span>, checksum 0x5912
-<span class="token number">23</span>:31:24:325989: ip4-drop
+      flags 0x01 gso_type 0x00 hdr_len 0
+      gso_size 0 csum_start 34 csum_offset 6
+23:31:24:325017: ethernet-input
+  IP4: 02:42:1e:a6:fa:68 -&gt; ff:ff:ff:ff:ff:ff
+23:31:24:325403: ip4-input
+  UDP: 172.17.0.1 -&gt; 172.17.255.255
+    tos 0x00, ttl 64, length 241, checksum 0x4b5c dscp CS0 ecn NON_ECN
+    fragment id 0x967c, flags DONT_FRAGMENT
+  UDP: 138 -&gt; 138
+    length 221, checksum 0x5912
+23:31:24:325729: ip4-lookup
+  fib 0 dpo-idx 0 flow hash: 0x00000000
+  UDP: 172.17.0.1 -&gt; 172.17.255.255
+    tos 0x00, ttl 64, length 241, checksum 0x4b5c dscp CS0 ecn NON_ECN
+    fragment id 0x967c, flags DONT_FRAGMENT
+  UDP: 138 -&gt; 138
+    length 221, checksum 0x5912
+23:31:24:325989: ip4-drop
     fib:0 adj:0 flow:0x00000000
-  UDP: <span class="token number">172.17</span>.0.1 -<span class="token operator">&gt;</span> <span class="token number">172.17</span>.255.255
-    tos 0x00, ttl <span class="token number">64</span>, length <span class="token number">241</span>, checksum 0x4b5c dscp CS0 ecn NON_ECN
-    fragment <span class="token function">id</span> 0x967c, flags DONT_FRAGMENT
-  UDP: <span class="token number">138</span> -<span class="token operator">&gt;</span> <span class="token number">138</span>
-    length <span class="token number">221</span>, checksum 0x5912
-<span class="token number">23</span>:31:24:326130: error-drop
+  UDP: 172.17.0.1 -&gt; 172.17.255.255
+    tos 0x00, ttl 64, length 241, checksum 0x4b5c dscp CS0 ecn NON_ECN
+    fragment id 0x967c, flags DONT_FRAGMENT
+  UDP: 138 -&gt; 138
+    length 221, checksum 0x5912
+23:31:24:326130: error-drop
   rx:host-eth0
-<span class="token number">23</span>:31:24:338325: drop
-  ethernet-input: no error
-
-Packet <span class="token number">8</span>
-
-<span class="token number">23</span>:35:05:284106: af-packet-input
-  af_packet: hw_if_index <span class="token number">1</span> rx-queue <span class="token number">0</span> next-index <span class="token number">4</span>
-    block <span class="token number">62</span>:
-      address 0x7fb9850db000 version <span class="token number">2</span> seq_num <span class="token number">6783</span> pkt_num <span class="token number">0</span>
+23:31:24:338325: drop
+  ethernet-input: no error</p>
+<p>Packet 8</p>
+<p>23:35:05:284106: af-packet-input
+  af_packet: hw_if_index 1 rx-queue 0 next-index 4
+    block 62:
+      address 0x7fb9850db000 version 2 seq_num 6783 pkt_num 0
     tpacket3_hdr:
-      status 0x1 len <span class="token number">70</span> snaplen <span class="token number">70</span> mac <span class="token number">92</span> net <span class="token number">106</span>
-      sec 0x66a8a2f6 nsec 0x2aa72fe vlan <span class="token number">0</span> vlan_tpid <span class="token number">0</span>
+      status 0x1 len 70 snaplen 70 mac 92 net 106
+      sec 0x66a8a2f6 nsec 0x2aa72fe vlan 0 vlan_tpid 0
     vnet-hdr:
-      flags 0x00 gso_type 0x00 hdr_len <span class="token number">0</span>
-      gso_size <span class="token number">0</span> csum_start <span class="token number">0</span> csum_offset <span class="token number">0</span>
-<span class="token number">23</span>:35:05:284403: ethernet-input
-  IP6: f6:4e:1a:65:f3:14 -<span class="token operator">&gt;</span> <span class="token number">33</span>:33:00:00:00:02
-<span class="token number">23</span>:35:05:284440: ip6-input
-  ICMP6: fe80::f44e:1aff:fe65:f314 -<span class="token operator">&gt;</span> ff02::2
-    tos 0x00, flow label 0x0, hop limit <span class="token number">255</span>, payload length <span class="token number">16</span>
-<span class="token number">23</span>:35:05:284567: ip6-not-enabled
+      flags 0x00 gso_type 0x00 hdr_len 0
+      gso_size 0 csum_start 0 csum_offset 0
+23:35:05:284403: ethernet-input
+  IP6: f6:4e:1a:65:f3:14 -&gt; 33:33:00:00:00:02
+23:35:05:284440: ip6-input
+  ICMP6: fe80::f44e:1aff:fe65:f314 -&gt; ff02::2
+    tos 0x00, flow label 0x0, hop limit 255, payload length 16
+23:35:05:284567: ip6-not-enabled
     fib:0 adj:0 flow:0x00000000
-  ICMP6: fe80::f44e:1aff:fe65:f314 -<span class="token operator">&gt;</span> ff02::2
-    tos 0x00, flow label 0x0, hop limit <span class="token number">255</span>, payload length <span class="token number">16</span>
-<span class="token number">23</span>:35:05:304612: error-drop
+  ICMP6: fe80::f44e:1aff:fe65:f314 -&gt; ff02::2
+    tos 0x00, flow label 0x0, hop limit 255, payload length 16
+23:35:05:304612: error-drop
   rx:host-eth0
-<span class="token number">23</span>:35:05:304616: drop
+23:35:05:304616: drop
   ethernet-input: no error
-</code></pre>
+```</p>
 
                                 
                                 </section>
@@ -5556,7 +5549,7 @@ Packet <span class="token number">8</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"vpp的host-interface","level":"1.6.8.1","depth":3,"next":{"title":"Qemu OVS和DPDK","level":"1.6.9","depth":2,"path":"notes/as_title_qemu_ovs.md","ref":"notes/as_title_qemu_ovs.md","articles":[{"title":"OVS-DPDK编译运行","level":"1.6.9.1","depth":3,"path":"notes/OVS_DPDK_编译运行.md","ref":"notes/OVS_DPDK_编译运行.md","articles":[]},{"title":"OVS架构和代码","level":"1.6.9.2","depth":3,"path":"notes/OVS_架构和代码.md","ref":"notes/OVS_架构和代码.md","articles":[]},{"title":"OVS-DPDK for ARM server 性能测试环境","level":"1.6.9.3","depth":3,"path":"notes/OVS_DPDK_performance_HXT_ARM_server.md","ref":"notes/OVS_DPDK_performance_HXT_ARM_server.md","articles":[]},{"title":"DPDK Mellanox","level":"1.6.9.4","depth":3,"path":"notes/DPDK_Mellanox.md","ref":"notes/DPDK_Mellanox.md","articles":[]},{"title":"OVS PHY-VM-PHY","level":"1.6.9.5","depth":3,"path":"notes/OVS_phy-vm-phy.md","ref":"notes/OVS_phy-vm-phy.md","articles":[]},{"title":"网络虚拟化用例记录","level":"1.6.9.6","depth":3,"path":"notes/networking_网络虚拟化用例记录.md","ref":"notes/networking_网络虚拟化用例记录.md","articles":[]},{"title":"网络虚拟化操作记录","level":"1.6.9.7","depth":3,"path":"notes/networking_网络虚拟化操作记录.md","ref":"notes/networking_网络虚拟化操作记录.md","articles":[]}]},"previous":{"title":"alpine编译vpp","level":"1.6.8","depth":2,"path":"notes/vpp_compiling_on_alpine.md","ref":"notes/vpp_compiling_on_alpine.md","articles":[{"title":"vpp的host-interface","level":"1.6.8.1","depth":3,"path":"notes/vpp_host_interace.md","ref":"notes/vpp_host_interace.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/vpp_host_interace.md","mtime":"2024-08-09T01:32:43.514Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-08-09T01:33:36.325Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"vpp的host-interface","level":"1.6.8.1","depth":3,"next":{"title":"Qemu OVS和DPDK","level":"1.6.9","depth":2,"path":"notes/as_title_qemu_ovs.md","ref":"notes/as_title_qemu_ovs.md","articles":[{"title":"OVS-DPDK编译运行","level":"1.6.9.1","depth":3,"path":"notes/OVS_DPDK_编译运行.md","ref":"notes/OVS_DPDK_编译运行.md","articles":[]},{"title":"OVS架构和代码","level":"1.6.9.2","depth":3,"path":"notes/OVS_架构和代码.md","ref":"notes/OVS_架构和代码.md","articles":[]},{"title":"OVS-DPDK for ARM server 性能测试环境","level":"1.6.9.3","depth":3,"path":"notes/OVS_DPDK_performance_HXT_ARM_server.md","ref":"notes/OVS_DPDK_performance_HXT_ARM_server.md","articles":[]},{"title":"DPDK Mellanox","level":"1.6.9.4","depth":3,"path":"notes/DPDK_Mellanox.md","ref":"notes/DPDK_Mellanox.md","articles":[]},{"title":"OVS PHY-VM-PHY","level":"1.6.9.5","depth":3,"path":"notes/OVS_phy-vm-phy.md","ref":"notes/OVS_phy-vm-phy.md","articles":[]},{"title":"网络虚拟化用例记录","level":"1.6.9.6","depth":3,"path":"notes/networking_网络虚拟化用例记录.md","ref":"notes/networking_网络虚拟化用例记录.md","articles":[]},{"title":"网络虚拟化操作记录","level":"1.6.9.7","depth":3,"path":"notes/networking_网络虚拟化操作记录.md","ref":"notes/networking_网络虚拟化操作记录.md","articles":[]}]},"previous":{"title":"alpine编译vpp","level":"1.6.8","depth":2,"path":"notes/vpp_compiling_on_alpine.md","ref":"notes/vpp_compiling_on_alpine.md","articles":[{"title":"vpp的host-interface","level":"1.6.8.1","depth":3,"path":"notes/vpp_host_interace.md","ref":"notes/vpp_host_interace.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-livereload","-sharing","-lunr","-search","search-plus","-highlight","theme-comscore","prism","code","chapter-fold","github","splitter","wide-page","hide-navigation-buttons","anchor-navigation-ex","sequence@0.1.1","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism.css"],"ignore":["mermaid","sequence"]},"sequence":{"theme":"simple"},"github":{"url":"https://github.com/Bai-Yingjie/Bai-Yingjie.github.io"},"splitter":{},"wide-page":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"hide-navigation-buttons":{},"mermaid-gb3":{},"anchor-navigation-ex":{"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"isRewritePageTitle":true,"showLevel":true,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"isShowTocTitleIcon":true,"printLog":false,"multipleH1":true,"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false}},"theme-comscore":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"search-plus":{}},"theme":"default","author":"Bai Yingjie","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"My Notes","language":"zh-hans","gitbook":"*"},"file":{"path":"notes/vpp_host_interace.md","mtime":"2024-08-09T01:44:23.316Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2024-08-09T01:45:15.886Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

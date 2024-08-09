@@ -950,7 +950,7 @@ vrrp-periodic-process          event wait                0               0      
 vxlan-gpe-ioam-export-process   any wait                 0               0               1          2.52e5            0.00
 wg-timer-manager               event wait                0               0               1          1.48e5            0.00
 ```
-* `/bin/vpp`本身并不大, 核心库如下, 最关键的应该就是最大的那个`libvnet.so`
+* `/bin/vpp`本身并不大, 核心库如下, 最关键的应该就是最大的那个`libvnet.so`  
 ```shell
 # ls -lh /lib/lib*.24.06
 -rwxr-xr-x    1 root     root       49.9K Jul 24 06:22 /lib/libnat.so.24.06
@@ -970,7 +970,7 @@ wg-timer-manager               event wait                0               0      
 -rwxr-xr-x    1 root     root      670.3K Jul 24 06:22 /lib/libvppinfra.so.24.06
 -rwxr-xr-x    1 root     root       13.8K Jul 24 06:22 /lib/libvppmem_preload.so.24.06
 ```
-* vpp使用了plugin机制, 用`vppctl show plugins`可以看到load的plugin, 基本上主流的协议都支持:
+* vpp使用了plugin机制, 用`vppctl show plugins`可以看到load的plugin, 基本上主流的协议都支持:  
 ```shell
 # ls /lib/vpp_plugins
 abf_plugin.so                  det44_plugin.so                hsi_plugin.so                  lisp_unittest_plugin.so        oddbuf_plugin.so               svs_plugin.so
@@ -988,7 +988,7 @@ crypto_openssl_plugin.so       gre_plugin.so                  lacp_plugin.so    
 crypto_sw_scheduler_plugin.so  gtpu_plugin.so                 lb_plugin.so                   nsh_plugin.so                  srv6mobile_plugin.so
 ct6_plugin.so                  hs_apps_plugin.so              lisp_plugin.so                 nsim_plugin.so                 stn_plugin.so
 ```
-* `pmap $(pidof vpp)`可以看到vpp已经map的so, 其中就有`af_packet_plugin.so`
+* `pmap $(pidof vpp)`可以看到vpp已经map的so, 其中就有`af_packet_plugin.so`  
 ```shell
 # pmap $(pidof vpp)
 61: vpp -c /etc/vpp/startup.conf
@@ -1076,7 +1076,7 @@ mapped: 18057172K
 
 在没有安装`vpp-dbg`时, 是看不到多少函数符号的:
 * 
-* af_packet_plugin.so
+* af_packet_plugin.so  
 ```shell
 # perf probe -x /lib/vpp_plugins/af_packet_plugin.so -F
 .plt
@@ -1097,7 +1097,7 @@ nm: /lib/vpp_plugins/af_packet_plugin.so: no symbols
 ```
 
 安装`vpp-dbg`后, 符号表文件被安装到`/usr/lib/debug`目录下. 这些符号表是用`objcopy --add-gnu-debuglink`制作的, 所以和原始elf是有关联的
-* af_packet_plugin.so
+* af_packet_plugin.so  
 ```shell
 # nm和readelf 原始的bin或者so 显示和没安装debug符号表一样
 # 但对.debug文件, 可以看到更多的符号
@@ -1606,7 +1606,7 @@ perf record -e probe_af_packet_plugin:af_packet_input_node_fn* -e probe_af_packe
 -e probe_libvlib:linux_epoll_input__return -e syscalls:sys_enter_epoll_pwait -e syscalls:sys_exit_epoll_pwait -R -p $(pidof vpp) -- sleep 10
 ```
 得到结果:
-* 通常情况下, 即没有fd ready, 是下面这个样子的: epoll_pwait的入参timeout是8ms, 那么一定要等超时8ms后返回(21006166.827978 -> 21006166.836295), 这个超时时间是vpp根据ticks_until_expiration动态算出来的, 每次都不一样, 但基本在0到10ms之间:
+* 通常情况下, 即没有fd ready, 是下面这个样子的: epoll_pwait的入参timeout是8ms, 那么一定要等超时8ms后返回(21006166.827978 -> 21006166.836295), 这个超时时间是vpp根据ticks_until_expiration动态算出来的, 每次都不一样, 但基本在0到10ms之间:  
 ```shell
         vpp_main   360 [003] 21006166.827892:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
         vpp_main   360 [003] 21006166.827909:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
@@ -1618,7 +1618,7 @@ perf record -e probe_af_packet_plugin:af_packet_input_node_fn* -e probe_af_packe
         vpp_main   360 [003] 21006166.836332:                 probe_libvlib:linux_epoll_input__return: (7f6f74c03150 <- 7f6f74bab7a0)
         vpp_main   360 [003] 21006166.836384:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
 ```
-* 当host-eth0这个socket有packet到来时, 是这样的: 发现`epoll_pwait`的设定的超时时间是6ms, 但只过了3.2ms就提前返回了, 返回值为1, 说明有一个fd已经ready了:
+* 当host-eth0这个socket有packet到来时, 是这样的: 发现`epoll_pwait`的设定的超时时间是6ms, 但只过了3.2ms就提前返回了, 返回值为1, 说明有一个fd已经ready了:  
 ```shell
         vpp_main   360 [009] 21006170.532938:                           probe_libvlib:dispatch_node_1: (7f6f74babdff)
         vpp_main   360 [009] 21006170.532984:                             probe_libvlib:dispatch_node: (7f6f74bab70e)
@@ -1777,8 +1777,7 @@ Statistics: 5 sent, 5 received, 0% packet loss
 ## drop杂包
 多抓一会, 还会有drop的报文. 原因是作为`AF_PACKET`的raw socket, 这个socket可以接收任何从eth0来的报文.
 * packet 6和packet 7在步骤ip4-lookup被丢弃, 因为`172.17.255.255`是vpp所在的container的网段, 这个网段在vpp内部没有任何信息.
-* packet 8在ip6-input阶段被drop, 因为ip6-not-enabled
-
+* packet 8在ip6-input阶段被drop, 因为ip6-not-enabled  
 ```shell
 Packet 6
 
