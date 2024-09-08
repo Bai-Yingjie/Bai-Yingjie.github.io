@@ -1,3 +1,7 @@
+- [gdb 调试ld](#gdb-调试ld)
+  - [`/lib/ld-musl-x86_64.so.1` load .so的过程](#libld-musl-x86_64so1-load-so的过程)
+  - [loader支持的选项](#loader支持的选项)
+  - [一些命令记录](#一些命令记录)
 - [gdb tui模式](#gdb-tui模式)
 - [gdb看所有线程的调用栈](#gdb看所有线程的调用栈)
 - [远程调试app, 用gdbserver和gdb远程调试板子](#远程调试app-用gdbserver和gdb远程调试板子)
@@ -20,6 +24,60 @@
   - [调试模块, 加载符号表](#调试模块-加载符号表)
   - [查看地址处的代码](#查看地址处的代码)
   - [显示内存布局](#显示内存布局)
+
+# gdb 调试ld
+* 先准备代码, 我放在`/root/musl/1.2.4`下面
+* 启动gdb
+  * 指定源码位置`-d /root/musl/1.2.4`
+  * 这里我想调试`/lib/ld-musl-x86_64.so.1`, 而它的参数是`/rl/sbin/apk -h`
+
+```
+/lib/ld-musl-x86_64.so.1 --library-path /rebornlinux/lib:/rebornlinux/usr/lib /rl/usr/bin/gdb -d /root/musl/1.2.4 --args /lib/ld-musl-x86_64.so.1 /rl/sbin/apk -h
+b load_library
+r
+n
+p env_path
+$6 = 0x7ffe10651e5a "/lib:/usr/lib:/isam/slot_default/lib"
+```
+
+musl libc的load是`/lib/ld-musl-x86_64.so.1`, 它同时也是c库.
+```shell
+~ # ls -lh /rl/lib
+...
+-rwxr-xr-x    1 root     root      602.6K Oct  6  2023 ld-musl-x86_64.so.1
+lrwxrwxrwx    1 root     root          19 Aug 13 01:05 libc.musl-x86_64.so.1 -> ld-musl-x86_64.so.1
+...
+```
+`/lib/ld-musl-x86_64.so.1`是一个动态链接的bin的interpreter:
+```
+~ # rl /rl/usr/bin/patchelf --print-interpreter /rl/sbin/apk
+/lib/ld-musl-x86_64.so.1
+```
+直接启动`/rl/sbin/apk`的效果和用interpreter启动是一样的:
+```
+rl /rl/sbin/apk -h
+rl /lib/ld-musl-x86_64.so.1 /rl/sbin/apk -h
+```
+
+## `/lib/ld-musl-x86_64.so.1` load .so的过程
+* 优先搜索环境变量LD_LIBRARY_PATH指定的路径
+* 如果有rpath, 搜索rpath路径
+* 如果没找到, 搜索`/etc/ld-musl-x86_64.path`指定的路径
+* 如果没有`/etc/ld-musl-x86_64.path`, 则默认从`/lib:/usr/lib`下面找
+
+## loader支持的选项
+```
+--list: ldd就是调用它
+--library-path: 覆盖LD_LIBRARY_PATH
+--preload: 覆盖LD_PRELOAD
+--argv0: 设置arg0
+```
+
+## 一些命令记录
+```
+LD_LIBRARY_PATH=/rebornlinux/lib:/rebornlinux/usr/lib /rebornlinux/usr/bin/patchelf --set-rpath /rebornlinux/lib:/rebornlinux/usr/lib /rebornlinux/sbin/apk
+/rebornlinux/lib/ld-musl-x86_64.so.1 --library-path /rebornlinux/lib:/rebornlinux/usr/lib /rebornlinux/sbin/apk -h
+```
 
 # gdb tui模式
 tui模式下更像个ide调试界面, 信息更丰富.

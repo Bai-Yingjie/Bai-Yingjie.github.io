@@ -1,3 +1,4 @@
+- [apk add 流程梳理](#apk-add-流程梳理)
 - [现代化的工程系统](#现代化的工程系统)
 - [使用subgroup来组织repo](#使用subgroup来组织repo)
 - [组织清爽, 源代码干净](#组织清爽-源代码干净)
@@ -62,6 +63,109 @@
 			- [e6500](#e6500)
 			- [powerpc](#powerpc)
 	- [引入新CPU架构参考](#引入新cpu架构参考)
+
+# apk add 流程梳理
+```c
+main
+  apk_db_init(&db) // /lib/apk/db
+    apk_dependency_array_init(&db->world);
+    apk_protected_path_array_init(&db->protected_paths);
+    apk_string_array_init(&db->filename_array);
+    apk_name_array_init(&db->available.sorted_names);
+    apk_package_array_init(&db->installed.sorted_packages);
+  apk_db_open(&db, &ctx)
+    apk_db_setup_repositories(db, ac->cache_dir);
+    add_repos_from_file(db, db->root_fd, "etc/apk/repositories");
+      apk_blob_for_each_segment()
+        apk_db_add_repository()
+          load_index()
+            apk_tar_parse()
+              load_apkindex()
+    apk_hash_foreach(&db->available.names, apk_db_name_rdepends, db);
+  applet->main(applet_ctx, &ctx, args)
+  //即 add_main()
+    apk_dependency_array_copy(&world, db->world);
+    foreach_array_item(parg, args)
+      //add 本地.apk文件
+        apk_pkg_read(db, *parg, &pkg, TRUE);
+        apk_dep_from_pkg(&dep, db, pkg);
+      //add remote apk
+        apk_blob_pull_dep(&b, db, &dep);
+      apk_deps_add(&world, &dep);  // world是全部包的依赖, dep是本package的依赖
+      apk_solver_set_name_flags()
+    apk_solver_commit(db, 0, world); //前面都是分析, 这里是真正干活
+      apk_solver_solve(db, solver_flags, world, &changeset)
+        foreach_array_item(d, world)
+          discover_name(ss, d->name);
+        foreach_array_item(d, world)
+          apply_constraint(ss, NULL, d);
+        loop: // 应该是去重
+          reconsider_name(ss, name);
+          compare_name_dequeue(name0, name)
+          select_package(ss, name);
+        generate_changeset(ss, world);
+      apk_solver_commit_changeset(db, &changeset, world) // 真正干活
+        apk_db_check_world(db, world)
+		foreach_array_item(change, changeset->changes)
+		  apk_db_install_pkg()
+		    apk_pkg_install(db, newpkg);
+			apk_db_unpack_pkg()
+			  is = apk_istream_from_fd_url(filefd, file);  //下载apk
+			  //拷贝到cache
+			  apk_tar_parse()
+			    //循环从is读, 识别文件类型
+				//如果文件有类型mask S_IFMT, 则调用回调:
+			    apk_db_install_archive_entry()
+				  /* Package metainfo and script processing */
+				  if (strcmp(ae->name, ".PKGINFO")
+				    read_info_line(ctx, l);
+				  apk_db_run_pending_script(ctx); //这是个回调函数, 对每个文件来操作
+					struct apk_file_info {
+						char *name;
+						char *link_target;
+						char *uname;
+						char *gname;
+						off_t size;
+						uid_t uid;
+						gid_t gid;
+						mode_t mode;
+						time_t mtime;
+						dev_t device;
+						struct apk_checksum csum;
+						struct apk_checksum xattr_csum;
+						struct apk_xattr_array *xattrs;
+					};
+				  //下面就是data portion
+				  //检查文件名, 必须不能以/开头, 或有control字符, 或./ 或../
+				  if (!S_ISDIR(ae->mode))
+				    apk_blob_rsplit(name, '/', &bdir, &bfile) //切分dir和file
+				    diri = ctx->diri = find_diri(ipkg, bdir, diri, &ctx->file_diri_node);
+				    如果dir没安装 diri = apk_db_install_directory_entry(ctx, bdir);
+					//处理hard link
+					//到这里目录就准备好了, 先看看是否文件存在
+					file = apk_db_file_query(db, bdir, bfile);
+					if (file != NULL) //存在
+					  根据package的优先级判断是否覆盖. 不覆盖就退出
+					if (opkg != pkg) //不是同一个package
+					  /* Create the file entry without adding it to hash */
+					  file = apk_db_file_new(diri, bfile, &ctx->file_diri_node);
+					//到这里开始真正解压安装archive entry, 每个entry对应一个文件
+					/* Extract the file with temporary name */
+					//db->root_fd是apk --root指定的root dir
+					//可以看到, apk在安装文件的时候不是简单的解压缩覆盖, 而是会处理hard link
+					apk_archive_entry_extract(db->root_fd, ...)
+				  else // 是dir
+				    diri = ctx->diri = find_diri(ipkg, name, NULL, &ctx->file_diri_node);
+					if (!diri) diri = apk_db_install_directory_entry(ctx, name);
+					apk_db_dir_prepare(db, diri->dir, ae->mode);
+					apk_db_diri_set(diri, ...)
+
+			apk_db_migrate_files(db, ipkg);
+			apk_ipkg_run_script()
+		run_triggers()
+		apk_db_write_config(db)
+		run_commit_hooks(db, POST_COMMIT_HOOK); // etc/apk/commit_hooks.d
+```
 
 # 现代化的工程系统
 alpine linux的全部开发都在  

@@ -245,7 +245,8 @@ CARGO_TARGET_POWERPC_UNKNOWN_LINUX_GNU_LINKER=powerpc-alpine-linux-musl-gcc carg
 ```
 注:
 * 不需要安装target的toolchain
-* target库是安装在当前默认toolchain(stable-x86_64-unknown-linux-musl)下面的, 是预编译的库.  
+* target库是安装在当前默认toolchain(stable-x86_64-unknown-linux-musl)下面的, 是预编译的库.
+
 这些库有:  
 ![](img/rust_入门1_20231211145934.png)  
 ![](img/rust_入门1_20231211150107.png)  
