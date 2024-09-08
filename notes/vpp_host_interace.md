@@ -38,6 +38,11 @@ vpp# create host-interface ?
       - [结论](#结论-1)
       - [为什么epoll要这么久?](#为什么epoll要这么久)
   - [drop杂包](#drop杂包)
+- [宝藏公众号](#宝藏公众号)
+- [简读kernel文档packet\_mmap](#简读kernel文档packet_mmap)
+  - [如何建立ring buffer with kernel](#如何建立ring-buffer-with-kernel)
+  - [TPACKET\_V2和TPACKET\_V3的区别](#tpacket_v2和tpacket_v3的区别)
+- [为什么tcpdump抓不到outgoing的packet?](#为什么tcpdump抓不到outgoing的packet)
 
 
 # 创建host interface
@@ -1891,3 +1896,133 @@ Packet 8
 23:35:05:304616: drop
   ethernet-input: no error
 ```
+
+# 宝藏公众号
+公众号`DPDK VPP源码解析`里面的文章写的深入, 严谨, 非常值得参考:
+* [Vpp --node节点调度总结](https://mp.weixin.qq.com/s/l_yABwR95_rpLuKzEKr4Yw)
+* [vpp 软件架构介绍](https://mp.weixin.qq.com/s/SwjbPNyp5C1n7GMVtXy2UQ)
+* [利用vpp和内核协议栈通信机制实现虚拟机上网](https://mp.weixin.qq.com/s/qj7lpsmZ0h6CxRL3BJPvmQ)
+* [vpp dhcp配置](https://mp.weixin.qq.com/s/f653vx2xBHpxHm9DMYpj6A)
+* [Learning VPP: Two instances in different namespaces](https://mp.weixin.qq.com/s/62WSFhtgTKORyRNaOeqiNg)
+* [learning：vpp bonding lacp](https://mp.weixin.qq.com/s/d3a1NlDxVSWmAZoUZCFHlw)
+* [vxlan基础学习总结](https://mp.weixin.qq.com/s/JOmnvz1xS6ByBpbsCRUVsw)
+* [**Learning VPP: VXLAN tunnel**](https://mp.weixin.qq.com/s/rs8EsZx0iE77VMAH4YmW5w)
+* [learning:af_packet plugin （1）](https://mp.weixin.qq.com/s/XDGRdOqQ9fLQR5j6p_7QDg)
+* [learning:af_packet plugin （2）](https://mp.weixin.qq.com/s/LPLZoIr0cNTiA2-yRIhIUw)
+
+# 简读kernel文档[packet_mmap](https://www.kernel.org/doc/Documentation/networking/packet_mmap.txt)
+一般的capture流程:
+```
+From the system calls stand point, the use of PACKET_MMAP involves
+the following process:
+
+
+[setup]     socket() -------> creation of the capture socket
+            setsockopt() ---> allocation of the circular buffer (ring)
+                              option: PACKET_RX_RING
+            mmap() ---------> mapping of the allocated buffer to the
+                              user process
+
+[capture]   poll() ---------> to wait for incoming packets
+
+[shutdown]  close() --------> destruction of the capture socket and
+                              deallocation of all associated 
+                              resources.
+```
+
+一般的tracmit流程:
+```
+Transmission process is similar to capture as shown below.
+
+[setup]          socket() -------> creation of the transmission socket
+                 setsockopt() ---> allocation of the circular buffer (ring)
+                                   option: PACKET_TX_RING
+                 bind() ---------> bind transmission socket with a network interface
+                 mmap() ---------> mapping of the allocated buffer to the
+                                   user process
+
+[transmission]   poll() ---------> wait for free packets (optional)
+                 send() ---------> send all packets that are set as ready in
+                                   the ring
+                                   The flag MSG_DONTWAIT can be used to return
+                                   before end of transfer.
+
+[shutdown]  close() --------> destruction of the transmission socket and
+                              deallocation of all associated resources.
+```
+
+## 如何建立ring buffer with kernel
+To setup PACKET_MMAP from user level code is done with a call like
+
+ - Capture process
+     setsockopt(fd, SOL_PACKET, PACKET_RX_RING, (void *) &req, sizeof(req))
+ - Transmission process
+     setsockopt(fd, SOL_PACKET, PACKET_TX_RING, (void *) &req, sizeof(req))
+
+用下面这个结构体来配置ring buffer的参数:
+```
+The most significant argument in the previous call is the req parameter, 
+this parameter must to have the following structure:
+
+    struct tpacket_req
+    {
+        unsigned int    tp_block_size;  /* Minimal size of contiguous block */
+        unsigned int    tp_block_nr;    /* Number of blocks */
+        unsigned int    tp_frame_size;  /* Size of frame */
+        unsigned int    tp_frame_nr;    /* Total number of frames */
+    };
+
+This structure is defined in /usr/include/linux/if_packet.h and establishes a 
+circular buffer (ring) of unswappable memory.
+```
+
+* ring buffer包括多个block
+* 一个block包括多个frame. 一个frame不能跨block
+* block是物理地址连续的
+
+用`setsockopt()`配置好ring buffer的参数后, 一个mmap调用就可以把kernel的ring buffer来map到用户态地址
+* kernel的地址只保证block是物理地址连续, 而多个block地址不连续
+* 用户态的地址都是连续的
+
+## TPACKET_V2和TPACKET_V3的区别
+```
+TPACKET_V2 --> TPACKET_V3:
+	- Flexible buffer implementation for RX_RING:
+		1. Blocks can be configured with non-static frame-size
+		2. Read/poll is at a block-level (as opposed to packet-level)
+		3. Added poll timeout to avoid indefinite user-space wait
+		   on idle links
+		4. Added user-configurable knobs:
+			4.1 block::timeout
+			4.2 tpkt_hdr::sk_rxhash
+	- RX Hash data available in user space
+	- TX_RING semantics are conceptually similar to TPACKET_V2;
+	  use tpacket3_hdr instead of tpacket2_hdr, and TPACKET3_HDRLEN
+	  instead of TPACKET2_HDRLEN. In the current implementation,
+	  the tp_next_offset field in the tpacket3_hdr MUST be set to
+	  zero, indicating that the ring does not hold variable sized frames.
+	  Packets with non-zero values of tp_next_offset will be dropped.
+```
+
+# 为什么tcpdump抓不到outgoing的packet?
+因为vpp默认使能了`PACKET_QDISC_BYPASS`, 
+```
+If there is a requirement to load the network with many packets in a similar
+fashion as pktgen does, you might set the following option after socket
+creation:
+
+    int one = 1;
+    setsockopt(fd, SOL_PACKET, PACKET_QDISC_BYPASS, &one, sizeof(one));
+
+This has the side-effect, that packets sent through PF_PACKET will bypass the
+kernel's qdisc layer and are forcedly pushed to the driver directly. Meaning,
+packet are not buffered, tc disciplines are ignored, increased loss can occur
+and such packets are also not visible to other PF_PACKET sockets anymore. So,
+you have been warned; generally, this can be useful for stress testing various
+components of a system.
+```
+注意这句:
+> that packets sent through PF_PACKET will bypass the
+kernel's qdisc layer and are forcedly pushed to the driver directly. Meaning,
+packet are not buffered, tc disciplines are ignored, increased loss can occur
+and such packets are also **not visible to other PF_PACKET sockets anymore**.
