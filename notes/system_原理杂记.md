@@ -1,9 +1,14 @@
+- [kill和sighandler](#kill和sighandler)
+  - [`kill -2 28142; kill -15 28142`](#kill--2-28142-kill--15-28142)
+  - [`/usr/bin/kill -2 28142; /usr/bin/kill -15 28142`](#usrbinkill--2-28142-usrbinkill--15-28142)
+  - [`kill -2 28142; sleep 0.01; kill -15 28142`](#kill--2-28142-sleep-001-kill--15-28142)
+  - [结论](#结论)
 - [seccomp系统调用](#seccomp系统调用)
 - [系统权限](#系统权限)
 - [smaps解析性能](#smaps解析性能)
   - [打开smaps文件本身](#打开smaps文件本身)
   - [加上字符串操做](#加上字符串操做)
-  - [结论](#结论)
+  - [结论](#结论-1)
 - [使用其他用户启动进程](#使用其他用户启动进程)
   - [改变文件的owner为nobody:nogroup, 设置setuid属性](#改变文件的owner为nobodynogroup-设置setuid属性)
 - [ruid euid](#ruid-euid)
@@ -36,7 +41,7 @@
 - [CPU占用率分析](#cpu占用率分析)
   - [per CPU统计 user + sys + softirq + idle + iowait = 100](#per-cpu统计-user--sys--softirq--idle--iowait--100)
   - [softirq现象](#softirq现象)
-  - [结论](#结论-1)
+  - [结论](#结论-2)
   - [补充](#补充-1)
 - [系统调用都会触发调度吗?](#系统调用都会触发调度吗)
   - [Preemption and Context Switching](#preemption-and-context-switching)
@@ -61,9 +66,9 @@
 - [socket通信的时候, 要在应用侧做字节序转换吗?](#socket通信的时候-要在应用侧做字节序转换吗)
 - [socket的stream模式和datagram模式有什么不同?](#socket的stream模式和datagram模式有什么不同)
   - [socket基础](#socket基础)
-  - [SOCK_STREAM](#sock_stream)
-  - [SOCK_SEQPACKET](#sock_seqpacket)
-  - [SOCK_DGRAM](#sock_dgram)
+  - [SOCK\_STREAM](#sock_stream)
+  - [SOCK\_SEQPACKET](#sock_seqpacket)
+  - [SOCK\_DGRAM](#sock_dgram)
   - [man 7 ip](#man-7-ip)
   - [man 7 tcp](#man-7-tcp)
   - [man 7 udp](#man-7-udp)
@@ -105,7 +110,7 @@
 - [再议rm](#再议rm)
   - [普通用户可以rm root用户的文件](#普通用户可以rm-root用户的文件)
 - [关于热升级, 正在使用的文件可以被rm](#关于热升级-正在使用的文件可以被rm)
-- [__user有什么用?](#__user有什么用)
+- [\_\_user有什么用?](#__user有什么用)
 - [用户态通过系统调用陷入到内核态, 内存映射会变吗?](#用户态通过系统调用陷入到内核态-内存映射会变吗)
 - [What happens to the cache contents on a context switch?](#what-happens-to-the-cache-contents-on-a-context-switch)
 - [int的写是原子的吗?](#int的写是原子的吗)
@@ -113,6 +118,57 @@
 - [uboot传mtdpart的时候，名字从哪来的？](#uboot传mtdpart的时候名字从哪来的)
 - [为什么直接考过来的ls不能用？](#为什么直接考过来的ls不能用)
 - [fork与malloc](#fork与malloc)
+
+# kill和sighandler
+我有个python的测试程序: testsig.py
+```python
+import signal
+import time
+import os
+
+def cleanup(signum, frame):
+    print(f"Signal {signum} received, starting cleanup...")
+    time.sleep(5)  # Simulate a long cleanup process
+    print(f"Signal {signum} handler finished")
+
+# Register the handler for both SIGINT and SIGTERM
+signal.signal(signal.SIGINT, cleanup)
+signal.signal(signal.SIGTERM, cleanup)
+
+print(f"Process running with PID: {os.getpid()}")
+while True:
+    time.sleep(1)  # Keep the process alive
+```
+
+用`python3 testsig.py`执行后, 得到pid为`28142`
+
+我想模拟某个应用的"两次"kill的行为, 以下三种方式, 表面看做的事情一样, 但有意思的是, 结果不尽相同:
+* `kill -2 28142; kill -15 28142`
+* `/usr/bin/kill -2 28142; /usr/bin/kill -15 28142`
+* `kill -2 28142; sleep 0.01; kill -15 28142`
+
+## `kill -2 28142; kill -15 28142`
+结果是  
+![](img/system_原理杂记_20241224200111.png)
+
+现象是the first sighandler(-2) runs to its completion and then the second sighandler(-15) starts to run.
+
+按理说shell会快速执行两次kill, 中间没有等待. why?
+
+## `/usr/bin/kill -2 28142; /usr/bin/kill -15 28142`
+发现`kill`是shell内置命令, 用`/usr/bin/kill`试试:  
+![](img/system_原理杂记_20241224200632.png)
+
+我连续运行了两次`/usr/bin/kill -2 28142; /usr/bin/kill -15 28142`, 第二次的结果最有趣: 两个signal的handler"同时"运行了.
+
+## `kill -2 28142; sleep 0.01; kill -15 28142`
+这个版本能稳定的复现两个signal的handler"同时"运行的现象.
+
+## 结论
+过程就不细说了, 结论是和两次kill的timing有关:
+* shell的kill是内置命令, 两次kill执行的很快, 所以两次kill的signal被"同时"deliver到`28142`; 我依稀记得signal是一个int, 每个bit表示不同的signal, 要不怎么有mask signal的说法. 那么好了, `28142`一看, 好家伙是两个signal一起来了, 那就一个一个处理吧, 于是就有了两个sighandler好像是顺序执行的一样.
+* shell执行`/usr/bin/kill`是要先创建新的进程的, 稍慢一点, 所以两次kill之间的timing是更大的.
+* `kill -2 28142; sleep 0.01; kill -15 28142` 这两次kill中间加了延迟, 保证kernel在deliver这个两个signal的时候一定是先后送达到`28142`. `28142`已经在执行`sig -2`的handler了, 一看, 好家伙又来了一个, 那就一起执行吧. 于是就有了两个sighandler并发执行的现象.
 
 # seccomp系统调用
 很多sandbox机制都使用了这个系统调用, 它是个系统调用的filter机制.

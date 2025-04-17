@@ -1,16 +1,76 @@
+- [docker 和podman对名字空间的管理](#docker-和podman对名字空间的管理)
+	- [必须使用`--privileged`](#必须使用--privileged)
+	- [检查`/sys/fs/cgroup`目录](#检查sysfscgroup目录)
+	- [用`--cgroupns=private`启动container](#用--cgroupnsprivate启动container)
 - [使用unshare](#使用unshare)
-  - [名字空间种类](#名字空间种类)
-  - [mount名字空间](#mount名字空间)
-  - [相关的syscall](#相关的syscall)
+	- [名字空间种类](#名字空间种类)
+	- [mount名字空间](#mount名字空间)
+	- [相关的syscall](#相关的syscall)
 - [go运行新的名字空间](#go运行新的名字空间)
-  - [更加完整的的名字空间](#更加完整的的名字空间)
-  - [USER名字空间](#user名字空间)
-  - [创建全新的mount名字空间](#创建全新的mount名字空间)
-  - [Network名字空间](#network名字空间)
-    - [使能外网](#使能外网)
-  - [reexec](#reexec)
+	- [更加完整的的名字空间](#更加完整的的名字空间)
+	- [USER名字空间](#user名字空间)
+	- [创建全新的mount名字空间](#创建全新的mount名字空间)
+	- [Network名字空间](#network名字空间)
+		- [使能外网](#使能外网)
+	- [reexec](#reexec)
 
 笔记参考来源: https://github.com/teddyking/ns-process
+
+# docker 和podman对名字空间的管理
+我最近在尝试用基于alpine制作一个pind(podman in docker) image. 发现他们对名字空间管理的一些规律
+
+Dockerfile很简单:
+```dockerfile
+RUN apk add fuse-overlayfs podman-docker && \
+    mkdir -p /usr/etc/containers && \
+    touch /usr/etc/containers/nodocker
+
+RUN sed -i 's|^#mount_program = .*|mount_program = "/usr/bin/fuse-overlayfs"|' /etc/containers/storage.conf
+```
+
+## 必须使用`--privileged`
+用`docker run`来运行这个image的时候, 必须加`--privileged`权限. `--privileged`会给container传入"系统级"的一些能力, 比如`/dev`下面的设备, 比如cgroup相关mount点(in `/sys/fs/cgroup`)的rw能力等.
+
+直接启动一个container, 名字为`testpind`:  
+`docker run --privileged -it --rm --name testpind rebornlinux/pind:alpine`
+
+在`testpind`这个container内部, 可以正常使用`docker run`命令, 但这个`docker`命令是`podman-docker`提供的兼容cli:  
+`docker run -it --rm alpine:latest`
+
+用`docker ps`命令也正常
+
+但`docker stats`命令不工作, 提示`cgroup deleted`:  
+```shell
+# docker stats
+Error: unable to load cgroup at /docker/35d1bbb58766bfd6d8d3b83efdcd9eb5f56535b98e638dd0b6244deef9152059/libpod_parent/libpod-b8266af4600e58744d633f2d1e8e8f3f7ee40608ac0dffb04408ddcb7b4fd7f5: cgroup deleted
+```
+
+## 检查`/sys/fs/cgroup`目录
+首先, 这个目录及其下面的子目录都是mount点:  
+* 在host上  
+![在host上的cgroup mount](img/container_linux_namespaces_20241017104251.png)
+* 在container里  
+![在container里的cgroup mount](img/container_linux_namespaces_20241017104418.png)
+
+可以看到host上有cgroup v2和v1的mount. 而container里面只有cgroup v1的. 基本上, container会有一个"cloned" cgroup名字空间. 在container内部对cgroup的操作不会影响host.
+
+但为什么`podman stats`会报错呢?
+
+因为host上有`/sys/fs/cgroup/cpu/docker`目录, 而container里面没有. 左边是host, 右边是container:  
+![](img/container_linux_namespaces_20241017104940.png)
+
+在container里面用`docker inspect b8266af4600e | grep -i cgroup`来检查, 发现"CgroupPath"是`"/docker/xxxx/libpod_parent/libpod-xxxx`样式的目录, 引用了container里面看不到的`/docker`目录. 这个目录实际上是`/sys/fs/cgroup/xxx/docker`目录, 这里的`xxx`是各种cgroup controller
+
+## 用`--cgroupns=private`启动container
+用下面的命令启动`docker run`可以解决这个问题:  
+`docker run -it --rm --name testpind3 --cgroupns=private rebornlinux/pind:alpine`
+
+在启动后的container内部可以看到`CgroupPath`变成了`/libpod_parent/`开头的路径, 而这个路径应该是`podman`创建的, 在container内部visible.
+```shell
+# docker inspect c9ecf936e8bd | grep -i cgroup
+               "CgroupPath": "/libpod_parent/libpod-c9ecf936e8bd31172554afa06fce05f45242605ee197b6a648709c8b17a329c0",
+...
+```
 
 # 使用unshare
 unshare用来在新的名字空间里面run另外一个program

@@ -70,7 +70,13 @@
   * [vpp连接VM](https://s3-docs.fd.io/vpp/23.10/usecases/vhost/index.html)
   * [vpp add new plugin](https://fd.io/docs/vpp/v2101/gettingstarted/developers/add_plugin.html)
   * [vpp vxlan](https://wiki.fd.io/view/VPP/Using_VPP_as_a_VXLAN_Tunnel_Terminator)
+  * [vpp VXLAN tunnel](https://haryachyy.wordpress.com/2019/09/26/learning-vpp-vxlan-tunnel/)
+  * [vpp vxlan tunnel 中文](https://cloud.tencent.com/developer/article/2235397)
   * [vpp testbench](https://s3-docs.fd.io/vpp/22.10/usecases/vpp_testbench/index.html)
+  * [Leveraging a userspace Hoststack](https://www.tigera.io/blog/deep-dive/calico-vpp-empowering-high-performance-kubernetes-networking-with-userspace-packet-processing/)
+  * [vpp vcl(VPP Comms Library) 支持用户态TCP, UDP, TLS, QUIC...](https://github.com/projectcalico/vpp-dataplane/blob/master/docs/vcl.md)
+  * [vpp用户态L3](https://wiki.fd.io/view/VPP/Pure_L3_Container_Networking)
+  * [用rust写vpp的client](https://dev.to/felixfaisal/rust-vpp-api-bindings-lfx-mentorship-project-2g8p)
 * [Ligato/VPP Agent: vpp control plane management](https://github.com/ligato/vpp-agent)
 * [Ligato/vpp-probe: debug vpp in distributed systems](https://github.com/ligato/vpp-probe)
 * [OVS vxlan 准确, 详细](https://blog.oddbit.com/post/2021-04-17-vm-ovs-vxlan/)
@@ -78,6 +84,7 @@
 * [eBPF和OVS](https://lpc.events/event/2/contributions/107/attachments/105/130/ovs-ebpf-afxdp-presentation.pdf)
   * 目的是用eBPF代码完全替代kernel的OVS DP
   * 效果一般, 实施难度大
+* [MACVLAN](https://github.com/moby/libnetwork/blob/master/docs/macvlan.md)
 
 # profiling相关
 * [lwn: systemtap vs bpftrace](https://lwn.net/Articles/852112/)
